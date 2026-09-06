@@ -30,7 +30,7 @@ export default function Navbar() {
                 PostgreSQL + MiniLM RAG
               </span>
             </h1>
-            <p className="text-xs text-slate-500">Multi-Tenant Document Parser & Dynamic Gemma 3 4B Scorecard</p>
+            <p className="text-xs text-slate-500">Multi-Tenant Document Parser & Dynamic LLM Scorecard</p>
           </div>
         </div>
 

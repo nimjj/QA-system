@@ -30,7 +30,7 @@ export default function App() {
 
           {/* Footer */}
           <footer className="text-center py-6 text-slate-400 text-xs border-t border-slate-200 bg-white">
-            Automated Multi-Tenant QA Service · Powered by PostgreSQL, MiniLM RAG & Gemma 3 4B
+            Automated Multi-Tenant QA Service · Powered by PostgreSQL, Local LLM Inference
           </footer>
         </div>
       </Router>

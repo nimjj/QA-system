@@ -207,7 +207,7 @@ export default function LiveQAPage() {
         />
         <div className="flex flex-wrap justify-between items-center gap-4 mt-4">
           <span className="text-xs text-slate-500">
-            Target Company: <strong className="text-slate-800">{selectedTenant}</strong> · Model: <strong className="text-slate-800">Gemma 3 4B</strong>
+            Target Company: <strong className="text-slate-800">{selectedTenant}</strong> · Model: <strong className="text-slate-800">Local LLM</strong>
           </span>
 
           <div className="flex items-center gap-2.5">

@@ -30,7 +30,7 @@ export default function PromptPreviewModal({
                 <Cpu size={18} className="text-blue-600" /> LLM Prompt Builder & Inspection
               </h3>
               <span className="px-2 py-0.5 rounded-full font-bold text-[10px] bg-blue-50 text-blue-700 border border-blue-200">
-                Gemma 3 4B Ingestion
+                LLM Ingestion
               </span>
             </div>
             <p className="text-xs text-slate-500 mt-0.5">
@@ -94,7 +94,7 @@ export default function PromptPreviewModal({
             className="flex items-center gap-2 px-5 py-2.5 rounded-lg bg-blue-600 hover:bg-blue-700 text-white font-semibold text-xs shadow-md transition cursor-pointer disabled:opacity-50"
           >
             {evalLoading ? (
-              <>Running Analysis with Gemma...</>
+              <>Running Analysis with LLM...</>
             ) : (
               <>
                 <CheckCircle size={15} /> Approve & Run Analysis
