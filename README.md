@@ -75,7 +75,7 @@ QA-system/
    +-- api/
       +-- web_app.py               # REST API stateless endpoints
    +-- core/
-      +-- llm_client.py            # Ollama Model integration wrapper
+      +-- llm_client.py            # Embedded llama.cpp integration wrapper
    +-- services/
        +-- dynamic_evaluator.py     # Evaluation orchestrator & scorecard calculator
        +-- rule_engine.py           # Deterministic Python SLA and Branding engine
