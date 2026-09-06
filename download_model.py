@@ -1,8 +1,8 @@
 import os
 from huggingface_hub import hf_hub_download
 
-MODEL_REPO = "IFM/K2-Horizon-3.7B-GGUF"
-MODEL_FILE = "K2-Horizon-4B-BF16.gguf"
+MODEL_REPO = "Qwen/Qwen2.5-1.5B-Instruct-GGUF"
+MODEL_FILE = "qwen2.5-1.5b-instruct-q4_k_m.gguf"
 DOWNLOAD_DIR = os.path.join(os.path.dirname(__file__), "models")
 
 os.makedirs(DOWNLOAD_DIR, exist_ok=True)

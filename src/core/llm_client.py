@@ -12,7 +12,7 @@ _LLM_INSTANCE = None
 def get_llm():
     global _LLM_INSTANCE
     if _LLM_INSTANCE is None:
-        model_path = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(__file__))), "models", "K2-Horizon-4B-BF16.gguf")
+        model_path = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(__file__))), "models", "qwen2.5-1.5b-instruct-q4_k_m.gguf")
         
         # Ensure the model exists before loading
         if not os.path.exists(model_path):
