@@ -1,15 +1,10 @@
-transformers
-torch
 fastapi
 uvicorn
 pydantic
-sentence-transformers
 reportlab
 pypdf
 pymupdf
 sqlalchemy
-
 python-multipart
 python-dotenv
-chromadb
 openpyxl

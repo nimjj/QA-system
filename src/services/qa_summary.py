@@ -30,7 +30,7 @@ def generate_scalable_summary(transcript_text: str, evaluation_context: str = "N
     """Extract a fast comma-separated list of topics using a lightweight model for RAG.
     
     We use a small, fast model (LLM3:1b or LLM2:2b) to quickly grab the core topics 
-    to pass into ChromaDB.
+    for quick categorization.
     """
     prompt = f"""TRANSCRIPT:
 {transcript_text}

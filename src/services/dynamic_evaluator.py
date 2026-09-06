@@ -1,6 +1,6 @@
 """Dynamic Multi-Tenant QA Evaluator Module.
 
-Combines ChromaDB policy RAG retrieval and LLM 3 4B reasoning 
+Combines Python rule engines and LLM reasoning 
 against dynamic company criteria schemas.
 """
 
