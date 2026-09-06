@@ -25,7 +25,7 @@ def clean_suggestions(text):
         lines.pop(0)
     if lines:
         first = lines[0].strip().lower()
-        is_bullet = first.startswith(("-", "*", "•"))
+        is_bullet = first.startswith(("-", "*", "â€¢"))
         filler = first.endswith(":") or first.startswith(
             ("here", "sure", "based on", "okay", "certainly", "of course")
         )
