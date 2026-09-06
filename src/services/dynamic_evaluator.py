@@ -44,7 +44,7 @@ def preview_evaluation_prompt(
 
     # 2. Vector RAG Policy Search via LLM Summary
     summary = generate_scalable_summary(clean_transcript)
-    matched_policies = search_policies(tenant_id, summary, top_k=3)
+    matched_policies = []
 
     # 3. Extract Criteria Line Items and Weights
     categories = criteria_data.get("categories", [])
@@ -120,8 +120,6 @@ def evaluate_interaction(
     from src.services.qa_summary import generate_scalable_summary
     topic_keywords = generate_scalable_summary(clean_transcript)
 
-    # 3. Vector RAG Policy Search (Removed as per new architecture)
-    # The evaluation now purely relies on explicitly provided definitions in the payload
     matched_policies = []
     
     # 4. Deterministic Python Rule Engine (Branding & SLA Checks)

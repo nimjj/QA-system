@@ -1,10 +1,4 @@
 fastapi
 uvicorn
 pydantic
-reportlab
-pypdf
-pymupdf
-sqlalchemy
-python-multipart
 python-dotenv
-openpyxl

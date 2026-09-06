@@ -62,8 +62,6 @@ The system follows a modular microservice architecture separating document proce
 | **Backend API** | FastAPI, Uvicorn, Pydantic |
 | **Frontend UI** | React, Vite, TailwindCSS, Lucide Icons |
 | **LLM Inference** | Ollama (Modular `<LLM>` support) |
-| **Relational Database** | PostgreSQL 17, SQLAlchemy, Psycopg2 |
-| **Document Processing** | PyMuPDF (fitz), PyPDF, ReportLab |
 
 ---
 
@@ -81,22 +79,22 @@ QA-system/
 +-- resources/                       # Architectural diagrams & prompt templates
 +-- frontend/                        # React + Vite frontend application
 +-- src/                             # Core Python backend package
-¦   +-- api/
-¦   ¦   +-- web_app.py               # REST API routers & multi-tenant endpoints
-¦   +-- core/
-¦   ¦   +-- llm_client.py            # Ollama Model integration wrapper
-¦   +-- db/
-¦   ¦   +-- database.py              # PostgreSQL connection & session manager
-¦   ¦   +-- models.py                # SQLAlchemy ORM models
-¦   +-- rag/
-¦   ¦   +-- pdf_parser.py            # PDF to Markdown parser
-¦   ¦   +-- llm_separator.py         # Dynamic criteria & policy extractor
-¦   +-- services/
-¦       +-- dynamic_evaluator.py     # Evaluation orchestrator & scorecard calculator
-¦       +-- rule_engine.py           # Deterministic Python SLA and Branding engine
-¦       +-- qa_summary.py            # Interaction executive summarization
-¦       +-- qa_suggestions.py        # Coaching recommendations generator
-¦       +-- response_time.py         # Transcript timestamp and latency analyzer
+   +-- api/
+      +-- web_app.py               # REST API routers & multi-tenant endpoints
+   +-- core/
+      +-- llm_client.py            # Ollama Model integration wrapper
+   +-- db/
+      +-- database.py              # PostgreSQL connection & session manager
+      +-- models.py                # SQLAlchemy ORM models
+   +-- rag/
+      +-- pdf_parser.py            # PDF to Markdown parser
+      +-- llm_separator.py         # Dynamic criteria & policy extractor
+   +-- services/
+       +-- dynamic_evaluator.py     # Evaluation orchestrator & scorecard calculator
+       +-- rule_engine.py           # Deterministic Python SLA and Branding engine
+       +-- qa_summary.py            # Interaction executive summarization
+       +-- qa_suggestions.py        # Coaching recommendations generator
+       +-- response_time.py         # Transcript timestamp and latency analyzer
 +-- tests/                           # Integration and demo test scripts
 ```
 

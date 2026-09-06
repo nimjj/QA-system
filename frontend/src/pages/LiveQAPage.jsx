@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { useTenant } from '../context/TenantContext';
+
 import { Sparkles, FileCode, Upload, Play, RefreshCw, Database, Eye, Cpu, CheckCircle } from 'lucide-react';
 import PromptPreviewModal from '../components/PromptPreviewModal';
 
 export default function LiveQAPage() {
-  const { selectedTenant, API_BASE } = useTenant();
+  const API_BASE = 'http://localhost:8000';
   const [sampleFiles, setSampleFiles] = useState([]);
   const [selectedSampleFile, setSelectedSampleFile] = useState('');
   const [selectedSampleMeta, setSelectedSampleMeta] = useState(null);
@@ -72,7 +72,7 @@ export default function LiveQAPage() {
     }
     setPreviewLoading(true);
     try {
-      const res = await fetch(`${API_BASE}/api/tenants/${selectedTenant}/preview-prompt`, {
+      const res = await fetch(`${API_BASE}/api/preview-prompt`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -97,7 +97,7 @@ export default function LiveQAPage() {
     setEvalResult(null);
 
     try {
-      const res = await fetch(`${API_BASE}/api/tenants/${selectedTenant}/evaluate`, {
+      const res = await fetch(`${API_BASE}/api/evaluate`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -207,7 +207,7 @@ export default function LiveQAPage() {
         />
         <div className="flex flex-wrap justify-between items-center gap-4 mt-4">
           <span className="text-xs text-slate-500">
-            Target Company: <strong className="text-slate-800">{selectedTenant}</strong> · Model: <strong className="text-slate-800">Local LLM</strong>
+            Target Company: <strong className="text-slate-800">Default</strong> · Model: <strong className="text-slate-800">Local LLM</strong>
           </span>
 
           <div className="flex items-center gap-2.5">
