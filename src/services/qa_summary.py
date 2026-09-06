@@ -44,8 +44,4 @@ Example: router red light, power cycle, internet connectivity, account verificat
     
     # We use a very low num_predict because we only want a short list of keywords
     # Fallback to the main model if FAST_TOPIC_MODEL isn't explicitly set
-    import os
-    from src.core.llm_client import MODEL
-    small_model = os.getenv("FAST_TOPIC_MODEL", MODEL)
-    
-    return query_llm(prompt, model=small_model, label="topic_extraction", num_predict=50)
+    return query_llm(prompt, label="topic_extraction")
