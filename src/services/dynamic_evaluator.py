@@ -6,7 +6,7 @@ against dynamic company criteria schemas.
 
 import re
 from typing import Dict, Any, List, Optional
-from src.core.llm_client import query_llm
+from src.core.llm_client import query_llm, cache_prompt_prefix, query_llm_with_state
 from src.services.qa_summary import SUMMARY_PROMPT, generate_scalable_summary
 from src.services.qa_suggestions import SUGGESTIONS_PROMPT, clean_suggestions
 from src.services.response_time import (
@@ -66,13 +66,14 @@ def preview_evaluation_prompt(
         category_weights = {"General Handling": 1.0}
 
     # 4. Build Dynamic Scorecard Prompt
-    scorecard_prompt = build_dynamic_prompt(
+    prefix, suffix = build_dynamic_prompt(
         transcript_text=clean_transcript,
         categories=categories,
         auto_fail_rules=auto_fail_rules,
         matched_policies=matched_policies,
         channel=channel
     )
+    scorecard_prompt = prefix + suffix
 
     return {
         "prompt": scorecard_prompt,
@@ -180,9 +181,23 @@ def evaluate_interaction(
         # We now chunk dynamically: one category per prompt for maximum focus and accuracy.
         chunks = [[c] for c in categories]
         
+        # Build the exact same prefix for all chunks (includes the massive transcript)
+        # We pass an empty criteria list just to get the prefix text
+        base_prefix, _ = build_dynamic_prompt(
+            transcript_text=clean_transcript,
+            categories=[],
+            auto_fail_rules=auto_fail_rules,
+            matched_policies=matched_policies,
+            channel=channel,
+            harsh_lines=harsh_lines
+        )
+        
+        # INGEST KV CACHE ONLY ONCE
+        transcript_kv_state = cache_prompt_prefix(base_prefix)
+
         for chunk in chunks:
             if not chunk: continue
-            cat_prompt = build_dynamic_prompt(
+            _, chunk_suffix = build_dynamic_prompt(
                 transcript_text=clean_transcript,
                 categories=chunk,
                 auto_fail_rules=auto_fail_rules,
@@ -190,8 +205,10 @@ def evaluate_interaction(
                 channel=channel,
                 harsh_lines=harsh_lines
             )
-            # label based on first category in chunk
-            reply = query_llm(cat_prompt, label=f"scorecard_{chunk[0].get('name', 'cat')[:10]}")
+            
+            # REUSE KV CACHE FOR EACH CHUNK
+            label = f"scorecard_{chunk[0].get('name', 'cat')[:10]}"
+            reply = query_llm_with_state(transcript_kv_state, chunk_suffix, label=label)
             llm_reply_parts.append(reply)
             
         llm_reply = "\n\n".join(llm_reply_parts)
@@ -321,7 +338,7 @@ def build_dynamic_prompt(
     with open(full_path, "r", encoding="utf-8") as f:
         template = f.read()
         
-    return template.format(
+    full_prompt = template.format(
         channel=channel,
         auto_fail_str=auto_fail_str,
         policies_str=policies_str,
@@ -329,6 +346,15 @@ def build_dynamic_prompt(
         harsh_lines_str=harsh_lines_str,
         transcript_text=transcript_text
     )
+    
+    # Split prompt into prefix (transcript) and suffix (criteria)
+    # This allows us to load the massive transcript KV Cache only once
+    split_str = "EVALUATION LINE ITEMS TO RATE (Evaluate ONLY these items):"
+    parts = full_prompt.split(split_str)
+    prefix = parts[0]
+    suffix = split_str + parts[1]
+    
+    return prefix, suffix
 
 
 def parse_dynamic_ratings(reply: str, categories: List[Dict[str, Any]]) -> List[Dict[str, Any]]:

@@ -45,3 +45,41 @@ def query_llm(prompt: str, label: str = None) -> str:
     
     return output["choices"][0]["text"].strip()
 
+
+def cache_prompt_prefix(prefix_text: str):
+    """
+    Ingest a massive prompt (like a transcript) once and return the KV Cache state.
+    This prevents us from having to pass and re-tokenize the transcript for every map-reduce chunk.
+    """
+    llm = get_llm()
+    tokens = llm.tokenize(prefix_text.encode("utf-8"))
+    
+    # Reset context and explicitly evaluate the prefix to fill the KV Cache
+    llm.reset()
+    llm.eval(tokens)
+    
+    # Save the internal C++ state (KV cache) to RAM
+    return llm.save_state()
+
+
+def query_llm_with_state(state, suffix_text: str, label: str = None) -> str:
+    """
+    Restore a previously saved KV Cache state (the transcript), 
+    append the new chunk (the criteria), and generate the result.
+    """
+    llm = get_llm()
+    
+    # Restore the massive transcript KV Cache instantly
+    llm.load_state(state)
+    
+    # Run the generation ONLY on the small suffix chunk
+    output = llm(
+        suffix_text,
+        max_tokens=500,
+        temperature=0.1,
+        stop=["<|user|>"],
+        echo=False
+    )
+    
+    return output["choices"][0]["text"].strip()
+
