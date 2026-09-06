@@ -1,6 +1,6 @@
-﻿"""PART (3rd output): Simple suggestions from the call.
+"""PART (3rd output): Simple suggestions from the call.
 
-One small Gemma request: what the client wanted, and a few follow-up
+One small LLM request: what the client wanted, and a few follow-up
 suggestions. Kept short on purpose.
 """
 
@@ -14,7 +14,7 @@ for _path in [_ROOT, _SRC, _TESTS]:
     if _path not in sys.path:
         sys.path.insert(0, _path)
 
-from src.core.gemma_client import gemma
+from src.core.llm_client import query_llm
 
 def format_transcript(transcript):
     return "\n".join(f"{speaker}: {text}" for speaker, text in transcript)
@@ -25,7 +25,7 @@ def clean_suggestions(text):
         lines.pop(0)
     if lines:
         first = lines[0].strip().lower()
-        is_bullet = first.startswith(("-", "*", "•"))
+        is_bullet = first.startswith(("-", "*", "�"))
         filler = first.endswith(":") or first.startswith(
             ("here", "sure", "based on", "okay", "certainly", "of course")
         )

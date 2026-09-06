@@ -1,4 +1,11 @@
-You are a call quality analyst. Read this customer service call transcript and write a summary of what happened. {length_instruction} Ensure nothing is missed, covering every issue raised by the client and the agent's resolution. Do not add opinions or scores.
-
-Transcript:
+TRANSCRIPT:
 {transcript}
+
+INSTRUCTIONS:
+You are a QA analyst. Write a highly detailed, semantic summary of the interaction above.
+{length_instruction}
+
+IMPORTANT CONTEXT FROM THE QA AUDIT:
+{evaluation_context}
+
+Make sure to explicitly mention and highlight any significant failures or auto-fails from the audit context above inside your summary. Ensure all issues raised by the client and the agent's resolution are covered.

@@ -1,4 +1,4 @@
-"""Root launcher for the Gemma QA Analysis application."""
+"""Root launcher for the LLM QA Analysis application."""
 
 import os
 import sys
@@ -20,6 +20,6 @@ if __name__ == "__main__":
     host = os.getenv("SERVER_HOST", "0.0.0.0")
     port = int(os.getenv("SERVER_PORT", 8000))
     
-    print(f"Starting Gemma QA Analysis Web Server on http://{host}:{port}...")
+    print(f"Starting LLM QA Analysis Web Server on http://{host}:{port}...")
     from api.web_app import app
     uvicorn.run(app, host=host, port=port)

@@ -1,4 +1,4 @@
-"""Small helper to talk to Gemma via the Ollama HTTP API.
+"""Small helper to talk to LLM via the Ollama HTTP API.
 
 Using the API (instead of the `ollama run` command) returns clean plain text
 with no terminal/streaming junk. Used by all the QA analysis parts.
@@ -8,9 +8,9 @@ Token cost tracking
 Ollama returns exact token counts on every response: `prompt_eval_count` (the
 input tokens it read) and `eval_count` (the output tokens it generated). We
 accumulate those here so a caller can measure how many tokens a whole QA report
-used. `gemma()` still returns a plain string, so nothing else has to change:
+used. `LLM()` still returns a plain string, so nothing else has to change:
     reset_token_usage()          # before a report
-    ... run the Gemma calls ...
+    ... run the LLM calls ...
     usage = get_token_usage()    # {'input':..., 'output':..., 'total':..., 'calls':[...]}
 """
 
@@ -23,8 +23,8 @@ from dotenv import load_dotenv
 load_dotenv()
 
 OLLAMA_HOST = os.getenv("OLLAMA_HOST", "http://localhost:11434")
-OLLAMA_URL = os.getenv("OLLAMA_URL", f"{OLLAMA_HOST.rstrip('/')}/api/generate")
-MODEL = os.getenv("GEMMA_MODEL", "gemma3:4b")
+OLLAMA_URL = os.getenv("OLLAMA_URL", f"{OLLAMA_HOST.rstrip('/')}/api/chat")
+MODEL = os.getenv("LLM_MODEL", "llama3.1")
 
 # Running tally of tokens used since the last reset.
 _usage = {"input": 0, "output": 0, "calls": []}
@@ -47,16 +47,19 @@ def get_token_usage():
     }
 
 
-def gemma(prompt, model=MODEL, timeout=180, temperature=0.0, num_predict=320,
+def LLM(prompt, model=MODEL, timeout=180, temperature=0.1, num_predict=320,
           label=None):
-    # num_predict caps how many tokens Gemma may generate, so it can't ramble
+    # num_predict caps how many tokens LLM may generate, so it can't ramble
     # on and waste tokens. Our outputs (summary, scorecard, suggestions) all fit
     # comfortably under this. Lower it to save more; raise it if output is cut.
     # `label` is an optional name for this call (e.g. "summary") so the token
     # tally can show which step used what.
+    
     payload = json.dumps({
         "model": model,
-        "prompt": prompt,
+        "messages": [
+            {"role": "user", "content": prompt}
+        ],
         "stream": False,
         "options": {"temperature": temperature, "num_predict": num_predict},
     }).encode("utf-8")
@@ -80,9 +83,10 @@ def gemma(prompt, model=MODEL, timeout=180, temperature=0.0, num_predict=320,
     _usage["input"] += in_tokens
     _usage["output"] += out_tokens
     _usage["calls"].append({
-        "label": label or "gemma",
+        "label": label or "LLM",
         "input": in_tokens,
         "output": out_tokens,
     })
 
-    return data.get("response", "").strip()
+    raw_response = data.get("message", {}).get("content", "").strip()
+    return raw_response

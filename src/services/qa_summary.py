@@ -1,6 +1,6 @@
-"""PART 2: Gemma writes a plain summary of the whole call.
+"""PART 2: LLM writes a plain summary of the whole call.
 
-One small Gemma request -- just the summary, nothing else (keeps tokens low).
+One small LLM request -- just the summary, nothing else (keeps tokens low).
 """
 
 import os
@@ -13,7 +13,7 @@ for _path in [_ROOT, _SRC, _TESTS]:
     if _path not in sys.path:
         sys.path.insert(0, _path)
 
-from src.core.gemma_client import gemma
+from src.core.llm_client import query_llm
 
 def load_summary_prompt():
     prompt_path = os.getenv("PROMPT_SUMMARY_PATH", "resources/prompts/summary_prompt.txt")
@@ -26,23 +26,26 @@ def format_transcript(transcript):
 
 SUMMARY_PROMPT = load_summary_prompt()
 
-def generate_scalable_summary(transcript_text: str) -> str:
-    """Generate a summary whose length scales with the transcript size."""
-    word_count = len(transcript_text.split())
+def generate_scalable_summary(transcript_text: str, evaluation_context: str = "No critical failures identified.") -> str:
+    """Extract a fast comma-separated list of topics using a lightweight model for RAG.
     
-    if word_count < 300:
-        length_instruction = "Keep it to 2-3 sentences."
-        num_predict = 150
-    elif word_count < 1000:
-        length_instruction = "Provide a detailed paragraph covering all points."
-        num_predict = 300
-    else:
-        length_instruction = "Provide a comprehensive summary with multiple paragraphs, covering all topics discussed in detail."
-        num_predict = 600
+    We use a small, fast model (LLM3:1b or LLM2:2b) to quickly grab the core topics 
+    to pass into ChromaDB.
+    """
+    prompt = f"""TRANSCRIPT:
+{transcript_text}
 
-    prompt = SUMMARY_PROMPT.format(
-        transcript=transcript_text, 
-        length_instruction=length_instruction
-    )
+INSTRUCTIONS:
+You are a highly efficient topic extractor.
+Read the transcript above and return ONLY a comma-separated list of the 5 to 10 most important technical issues, topics, or policies discussed.
+Do not write sentences. Just output the keywords.
+Example: router red light, power cycle, internet connectivity, account verification
+"""
     
-    return gemma(prompt, label="summary", num_predict=num_predict)
+    # We use a very low num_predict because we only want a short list of keywords
+    # Fallback to the main model if FAST_TOPIC_MODEL isn't explicitly set
+    import os
+    from src.core.llm_client import MODEL
+    small_model = os.getenv("FAST_TOPIC_MODEL", MODEL)
+    
+    return query_llm(prompt, model=small_model, label="topic_extraction", num_predict=50)

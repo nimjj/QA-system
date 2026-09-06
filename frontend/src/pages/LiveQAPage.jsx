@@ -304,27 +304,23 @@ export default function LiveQAPage() {
                     <th className="p-3.5">Audit Findings & Reasoning</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-slate-100">
-                  {(evalResult.scorecard || []).map((line, idx) => (
-                    <tr key={idx} className="hover:bg-slate-50/40">
-                      <td className="p-3.5 font-semibold text-slate-900">{line.name}</td>
-                      <td className="p-3.5 text-slate-500">{line.category}</td>
-                      <td className="p-3.5">
-                        <span className={`px-2 py-0.5 rounded-full font-bold text-[10px] ${
-                          line.rating === 'PASS' 
-                            ? 'bg-emerald-50 text-emerald-700 border border-emerald-200' 
-                            : line.rating === 'PARTIAL' 
-                            ? 'bg-amber-50 text-amber-700 border border-amber-200' 
-                            : 'bg-rose-50 text-rose-700 border border-rose-200'
-                        }`}>
-                          {line.rating}
-                        </span>
-                      </td>
-                      <td className="p-3.5 font-bold text-slate-900">{line.score}</td>
-                      <td className="p-3.5 text-slate-700 leading-relaxed">{line.reason}</td>
-                    </tr>
-                  ))}
-                </tbody>
+                    <tbody>
+                      {evalResult.scorecard.map((item, idx) => (
+                        <tr key={idx} className="border-b border-slate-100 hover:bg-slate-50 transition">
+                          <td className="py-2.5 px-3 font-semibold text-slate-800 break-words w-1/4">{item.name}</td>
+                          <td className="py-2.5 px-3 text-slate-500 w-1/6">{item.category}</td>
+                          <td className="py-2.5 px-3 w-1/12">
+                            <span className={`px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider ${
+                              item.rating === 'PASS' || item.rating === 'YES' ? 'bg-emerald-100 text-emerald-700 border border-emerald-200' : 'bg-rose-100 text-rose-700 border border-rose-200'
+                            }`}>
+                              {item.rating}
+                            </span>
+                          </td>
+                          <td className="py-2.5 px-3 font-bold text-slate-900 w-1/12">{item.score}</td>
+                          <td className="py-2.5 px-3 text-slate-600 break-words whitespace-normal text-xs">{item.reason}</td>
+                        </tr>
+                      ))}
+                    </tbody>
               </table>
             </div>
           </div>

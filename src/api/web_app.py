@@ -1,4 +1,4 @@
-﻿"""WEB VERSION of the Multi-Tenant QA analysis.
+"""WEB VERSION of the Multi-Tenant QA analysis.
 
 Run with: uvicorn src.api.web_app:app --host 0.0.0.0 --port 8000
 """
@@ -23,7 +23,6 @@ from src.db.database import get_db, init_db
 from src.db.models import Tenant, Document, CriteriaConfig, EvaluationReport
 from src.rag.pdf_parser import convert_pdf_bytes_to_markdown
 from src.rag.llm_separator import separate_criteria_and_policies
-from src.rag.vector_store import add_policy_chunks, get_tenant_policies, search_policies, delete_tenant_policies
 from src.services.dynamic_evaluator import evaluate_interaction, preview_evaluation_prompt
 
 app = FastAPI(title="Multi-Tenant QA Service API")
@@ -89,7 +88,7 @@ def create_tenant(payload: TenantCreate, db: Session = Depends(get_db)):
 
 @app.post("/api/tenants/{tenant_id}/upload-pdf")
 async def upload_pdf_guideline(tenant_id: str, file: UploadFile = File(...), db: Session = Depends(get_db)):
-    """Upload company QA guideline PDF, convert to Markdown, separate Criteria and Policies, and store in PostgreSQL & ChromaDB."""
+    """Upload company QA guideline PDF, convert to Markdown, separate Criteria and Policies, and store in PostgreSQL."""
     tenant = db.query(Tenant).filter(Tenant.id == tenant_id).first()
     if not tenant:
         # Auto create tenant if not present
@@ -130,9 +129,6 @@ async def upload_pdf_guideline(tenant_id: str, file: UploadFile = File(...), db:
     )
     db.add(criteria_record)
     db.commit()
-
-    # 5. Embed and Store Policy Chunks in ChromaDB
-    add_policy_chunks(tenant_id, policy_chunks)
 
     return {
         "status": "success",
@@ -194,28 +190,25 @@ def delete_tenant_document(tenant_id: str, document_id: int, db: Session = Depen
     db.delete(doc)
     db.commit()
     
-    # If no documents remain for tenant, clean up criteria configs & vector policies too
+    # If no documents remain for tenant, clean up criteria configs
     remaining = db.query(Document).filter(Document.tenant_id == tenant_id).count()
     if remaining == 0:
         db.query(CriteriaConfig).filter(CriteriaConfig.tenant_id == tenant_id).delete()
         db.commit()
-        delete_tenant_policies(tenant_id)
         
     return {"status": "deleted", "document_id": document_id, "filename": filename}
 
 
 @app.delete("/api/tenants/{tenant_id}/knowledge-base")
 def clear_tenant_knowledge_base(tenant_id: str, db: Session = Depends(get_db)):
-    """Clear all documents, criteria configs, and vector policy chunks for a tenant."""
+    """Clear all documents and criteria configs for a tenant."""
     # Delete documents
     db.query(Document).filter(Document.tenant_id == tenant_id).delete()
     # Delete criteria configs
     db.query(CriteriaConfig).filter(CriteriaConfig.tenant_id == tenant_id).delete()
     db.commit()
     
-    # Delete vector store policies
-    delete_tenant_policies(tenant_id)
-    return {"status": "cleared", "tenant_id": tenant_id, "message": "All documents, criteria, and vector policies cleared."}
+    return {"status": "cleared", "tenant_id": tenant_id, "message": "All documents and criteria cleared."}
 
 
 @app.get("/api/tenants/{tenant_id}/markdown")
@@ -269,11 +262,8 @@ def get_tenant_criteria(tenant_id: str, db: Session = Depends(get_db)):
 
 @app.get("/api/tenants/{tenant_id}/policies")
 def get_tenant_policy_chunks(tenant_id: str, db: Session = Depends(get_db)):
-    """Retrieve stored policy knowledge chunks from Vector DB for the tenant."""
-    doc = db.query(Document).filter(Document.tenant_id == tenant_id).first()
-    if not doc:
-        return []
-    return get_tenant_policies(tenant_id)
+    """Retrieve stored policy knowledge chunks for the tenant."""
+    return []
 
 
 @app.post("/api/tenants/{tenant_id}/preview-prompt")

@@ -67,7 +67,7 @@ The system follows a modular microservice architecture separating document proce
 | :--- | :--- |
 | **Backend API** | FastAPI, Uvicorn, Pydantic |
 | **Frontend UI** | React, Vite, TailwindCSS, Lucide Icons |
-| **LLM Inference** | Ollama (`gemma3:4b`) |
+| **LLM Inference** | Ollama (`gemma4:e2b`) |
 | **Sentiment Analysis** | Hugging Face Transformers (`cardiffnlp/twitter-
 | **Vector Database & RAG** | ChromaDB, Sentence-Transformers (`all-MiniLM-L6-v2`) |
 | **Relational Database** | PostgreSQL 17, SQLAlchemy, Psycopg2 |
@@ -123,10 +123,8 @@ Before running the application, make sure you have the following installed:
 1. **Python 3.11+**
 2. **Node.js 18+** & **npm**
 3. **PostgreSQL 17** (running on `localhost:5432`)
-4. **Ollama** with the `gemma3:4b` model pulled:
-   ```bash
-   ollama pull gemma3:4b
-   ```
+4. You MUST have Ollama running locally in the background.
+5. Run `ollama pull llama3.1` in your terminal to download the Llama 3.1 8B model.
 
 ---
 
@@ -192,7 +190,7 @@ Key configuration parameters in `.env`:
 | `DB_HOST` / `DB_PORT` | `localhost` / `5432` | PostgreSQL host and port |
 | `DB_NAME` / `DB_USERNAME` | `qa_database` / `postgres` | Database credentials |
 | `OLLAMA_HOST` | `http://localhost:11434` | Ollama service endpoint |
-| `GEMMA_MODEL` | `gemma3:4b` | Gemma LLM model identifier |
+| `GEMMA_MODEL` | `gemma4:e2b` | Gemma LLM model identifier |
 | `EMBEDDING_MODEL` | `all-MiniLM-L6-v2` | Sentence-Transformers embedding model |
 | `CHROMA_PERSIST_DIR` | `vector_data` | Directory for persistent vector storage |
 | `SENTIMENT_MODEL` | `cardiffnlp/twitter-
