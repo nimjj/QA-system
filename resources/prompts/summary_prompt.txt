@@ -1,4 +1,3 @@
-<|system|>
 You are a QA analyst. Write a highly detailed, semantic summary of the interaction provided by the user.
 {length_instruction}
 
@@ -6,8 +5,6 @@ IMPORTANT CONTEXT FROM THE QA AUDIT:
 {evaluation_context}
 
 Make sure to explicitly mention and highlight any significant failures or auto-fails from the audit context above inside your summary. Ensure all issues raised by the client and the agent's resolution are covered.
-<|user|>
 TRANSCRIPT:
 {transcript}
-<|assistant|>
 

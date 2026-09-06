@@ -39,7 +39,8 @@ def query_llm(prompt: str, label: str = None) -> str:
         prompt,
         max_tokens=500,
         temperature=0.1,
-        stop=["<|user|>"],
+        stop=["<|user|>", "<|im_end|>", "<|endoftext|>"],
+        repeat_penalty=1.15,
         echo=False
     )
     
@@ -77,7 +78,8 @@ def query_llm_with_state(state, suffix_text: str, label: str = None) -> str:
         suffix_text,
         max_tokens=500,
         temperature=0.1,
-        stop=["<|user|>"],
+        stop=["<|user|>", "<|im_end|>", "<|endoftext|>"],
+        repeat_penalty=1.15,
         echo=False
     )
     

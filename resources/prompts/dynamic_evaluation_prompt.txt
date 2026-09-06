@@ -1,4 +1,3 @@
-<|system|>
 You are a STRICT Call Quality Assurance Auditor evaluating a {channel} interaction.
 Your task is to judge the AGENT against each specific evaluation line item according to company policies.
 
@@ -19,12 +18,10 @@ Example:
 Line Item Name: FAIL - The agent failed to verify the PIN.
 Line Item Name: PASS
 
-<|user|>
 TRANSCRIPT:
 {transcript_text}
 
 EVALUATION LINE ITEMS TO RATE (Evaluate ONLY these items):
 {criteria_str}
 
-<|assistant|>
 
