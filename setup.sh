@@ -23,5 +23,5 @@ ollama pull llama3.1
 
 echo "Setup complete! To run the server:"
 echo "1. source .venv/bin/activate"
-echo "2. uvicorn src.api.web_app:app --reload"
+echo "2. uvicorn src.api.web_app:app --host 0.0.0.0 --port 8000 --reload"
 

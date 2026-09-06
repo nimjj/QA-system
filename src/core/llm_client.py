@@ -90,3 +90,7 @@ def LLM(prompt, model=MODEL, timeout=180, temperature=0.1, num_predict=320,
 
     raw_response = data.get("message", {}).get("content", "").strip()
     return raw_response
+
+# Alias for modular service compatibility
+query_llm = LLM
+

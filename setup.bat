@@ -24,5 +24,5 @@ ollama pull llama3.1
 
 echo Setup complete! To run the server, type:
 echo .venv\Scripts\activate
-echo uvicorn src.api.web_app:app --reload
+echo uvicorn src.api.web_app:app --host 0.0.0.0 --port 8000 --reload
 pause
