@@ -332,6 +332,9 @@ def build_dynamic_prompt(
 
 
 def parse_dynamic_ratings(reply: str, categories: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
+    # Safely strip out internal monologue for reasoning models
+    reply = re.sub(r'<thinking>.*?</thinking>', '', reply, flags=re.DOTALL)
+
     """Parse YES/NO (or PASS/FAIL) ratings from LLM output (Lenient for small models)."""
     ratings = []
     

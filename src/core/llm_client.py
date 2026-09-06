@@ -1,92 +1,47 @@
-"""Small helper to talk to LLM via the Ollama HTTP API.
+"""In-process LLM inference using llama-cpp-python.
 
-Using the API (instead of the `ollama run` command) returns clean plain text
-with no terminal/streaming junk. Used by all the QA analysis parts.
-
-Token cost tracking
--------------------
-Ollama returns exact token counts on every response: `prompt_eval_count` (the
-input tokens it read) and `eval_count` (the output tokens it generated). We
-accumulate those here so a caller can measure how many tokens a whole QA report
-used. `LLM()` still returns a plain string, so nothing else has to change:
-    reset_token_usage()          # before a report
-    ... run the LLM calls ...
-    usage = get_token_usage()    # {'input':..., 'output':..., 'total':..., 'calls':[...]}
+Loads the K2 Horizon GGUF model directly into RAM to prevent network latency
+and manage memory (KV cache) safely.
 """
 
-import json
 import os
-import urllib.error
-import urllib.request
-from dotenv import load_dotenv
+from llama_cpp import Llama
 
-load_dotenv()
+_LLM_INSTANCE = None
 
-OLLAMA_HOST = os.getenv("OLLAMA_HOST", "http://localhost:11434")
-OLLAMA_URL = os.getenv("OLLAMA_URL", f"{OLLAMA_HOST.rstrip('/')}/api/chat")
-MODEL = os.getenv("LLM_MODEL", "llama3.1")
+def get_llm():
+    global _LLM_INSTANCE
+    if _LLM_INSTANCE is None:
+        model_path = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(__file__))), "models", "k2-horizon-3.7b-Q4_K_M.gguf")
+        
+        # Ensure the model exists before loading
+        if not os.path.exists(model_path):
+            raise FileNotFoundError(f"Model not found at {model_path}. Run setup.bat or setup.sh to download it.")
 
-# Running tally of tokens used since the last reset.
-_usage = {"input": 0, "output": 0, "calls": []}
-
-
-def reset_token_usage():
-    """Clear the token tally (call this before analysing a call)."""
-    _usage["input"] = 0
-    _usage["output"] = 0
-    _usage["calls"] = []
-
-
-def get_token_usage():
-    """Return tokens used since the last reset, with a per-call breakdown."""
-    return {
-        "input": _usage["input"],
-        "output": _usage["output"],
-        "total": _usage["input"] + _usage["output"],
-        "calls": list(_usage["calls"]),
-    }
-
-
-def LLM(prompt, model=MODEL, timeout=180, temperature=0.1, num_predict=320,
-          label=None):
-    # num_predict caps how many tokens LLM may generate, so it can't ramble
-    # on and waste tokens. Our outputs (summary, scorecard, suggestions) all fit
-    # comfortably under this. Lower it to save more; raise it if output is cut.
-    # `label` is an optional name for this call (e.g. "summary") so the token
-    # tally can show which step used what.
-    
-    payload = json.dumps({
-        "model": model,
-        "messages": [
-            {"role": "user", "content": prompt}
-        ],
-        "stream": False,
-        "options": {"temperature": temperature, "num_predict": num_predict},
-    }).encode("utf-8")
-
-    req = urllib.request.Request(
-        OLLAMA_URL, data=payload, headers={"Content-Type": "application/json"}
-    )
-    try:
-        with urllib.request.urlopen(req, timeout=timeout) as resp:
-            data = json.loads(resp.read())
-    except urllib.error.URLError as exc:
-        raise SystemExit(
-            "Could not reach Ollama. Make sure it's running "
-            "('brew services start ollama').\n"
-            f"Details: {exc}"
+        print(f"--- LOADING LOCAL MODEL INTO RAM ---")
+        _LLM_INSTANCE = Llama(
+            model_path=model_path,
+            n_ctx=16384,      # ~30 minute transcript capacity (adjust to 8192 if running low on RAM)
+            n_threads=8,      # Utilize vCPUs
+            n_batch=512,
+            verbose=False     # Set to True for memory allocation logs
         )
+        print(f"--- MODEL SUCCESSFULLY LOADED ---")
+    return _LLM_INSTANCE
 
-    # Record the exact token counts Ollama reports for this call.
-    in_tokens = data.get("prompt_eval_count", 0) or 0
-    out_tokens = data.get("eval_count", 0) or 0
-    _usage["input"] += in_tokens
-    _usage["output"] += out_tokens
-    _usage["calls"].append({
-        "label": label or "LLM",
-        "input": in_tokens,
-        "output": out_tokens,
-    })
 
-    raw_response = data.get("message", {}).get("content", "").strip()
-    return raw_response
+def query_llm(prompt: str, label: str = None) -> str:
+    """Execute inference directly in-process using llama-cpp-python."""
+    llm = get_llm()
+    
+    # We use a lower max_tokens for scorecard parts, but keep it enough to not cut off
+    output = llm(
+        prompt,
+        max_tokens=500,
+        temperature=0.1,
+        stop=["<|user|>"],
+        echo=False
+    )
+    
+    return output["choices"][0]["text"].strip()
+

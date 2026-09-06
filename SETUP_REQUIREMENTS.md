@@ -2,7 +2,6 @@
 
 ## Prerequisites
 - **Python 3.10+** installed
-- **Ollama** installed (https://ollama.com)
 
 ## Plug & Play Setup
 The easiest way to get started is to use the provided setup scripts. These scripts will automatically create a virtual environment, install Python dependencies, configure your environment variables, and pull the required default LLM (`llama3.1`) from Ollama.
@@ -47,7 +46,7 @@ This codebase is completely model-agnostic. You can hot-swap the underlying LLM 
    ollama pull qwen2.5:1.5b
    ```
 
-## Note on Llama-Specific Optimizations
+## Note on K2-Horizon / llama.cpp-Specific Optimizations
 While the system is modular and supports any model, you should be aware of a few internal optimizations heavily tuned for **Llama 3.x**:
 
 1. **Parser Resilience (`src/services/dynamic_evaluator.py`)**: The `parse_dynamic_ratings` function uses strict regex matching designed for Llama 3.1's highly structured output format (e.g., `PASS` or `FAIL` at the start of a line). Extremely small models (like 1b or 2b parameters) may fail to follow this strict output schema and trigger the fallback parser mechanism.

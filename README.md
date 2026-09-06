@@ -93,7 +93,6 @@ Before running the application, make sure you have the following installed:
 
 1. **Python 3.10+**
 2. **Node.js 18+** & **npm**
-3. You MUST have Ollama running locally in the background.
 
 ---
 
@@ -138,7 +137,7 @@ python main.py
 ```
 > Backend API will be available at **`http://localhost:8000`**.
 
-#### Terminal 3: Vite Frontend UI
+#### Terminal 2: Vite Frontend UI
 ```bash
 cd frontend
 npm run dev
