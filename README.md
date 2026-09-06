@@ -152,7 +152,6 @@ Key configuration parameters in `.env`:
 
 | Variable | Default Value | Description |
 | :--- | :--- | :--- |
-| `OLLAMA_HOST` | `http://localhost:11434` | Ollama service endpoint |
-| `LLM_MODEL` | `llama3.1` | Default LLM model identifier |
+| `SERVER_HOST` | `0.0.0.0` | FastAPI server host interface (0.0.0.0 allows remote/Tailscale access) |
 | `SERVER_PORT` | `8000` | FastAPI server port |
 

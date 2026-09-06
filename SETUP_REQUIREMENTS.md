@@ -24,13 +24,13 @@ Once setup is complete, you can start the FastAPI backend:
 **Windows:**
 ```bat
 .venv\Scripts\activate
-uvicorn src.api.web_app:app --reload
+uvicorn src.api.web_app:app --host 0.0.0.0 --port 8000 --reload
 ```
 
 **macOS/Linux:**
 ```bash
 source .venv/bin/activate
-uvicorn src.api.web_app:app --reload
+uvicorn src.api.web_app:app --host 0.0.0.0 --port 8000 --reload
 ```
 
 ## How to Change the LLM (Modular Model Support)
