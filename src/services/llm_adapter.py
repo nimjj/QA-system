@@ -1,0 +1,41 @@
+import os
+import json
+import urllib.request
+import urllib.error
+
+class BaseLLMAdapter:
+    def generate(self, prompt: str, **kwargs) -> str:
+        raise NotImplementedError
+
+class OllamaAdapter(BaseLLMAdapter):
+    def __init__(self):
+        self.host = os.getenv("OLLAMA_HOST", "http://localhost:11434")
+        self.url = f"{self.host.rstrip('/')}/api/chat"
+        self.model = os.getenv("LLM_MODEL", "llama3.1")
+
+    def generate(self, prompt: str, **kwargs) -> str:
+        temperature = kwargs.get('temperature', 0.1)
+        num_predict = kwargs.get('num_predict', 320)
+        timeout = kwargs.get('timeout', 180)
+
+        payload = json.dumps({
+            "model": self.model,
+            "messages": [{"role": "user", "content": prompt}],
+            "stream": False,
+            "options": {"temperature": temperature, "num_predict": num_predict}
+        }).encode("utf-8")
+
+        req = urllib.request.Request(
+            self.url, data=payload, headers={"Content-Type": "application/json"}
+        )
+        try:
+            with urllib.request.urlopen(req, timeout=timeout) as resp:
+                data = json.loads(resp.read())
+                return data.get("message", {}).get("content", "").strip()
+        except urllib.error.URLError as exc:
+            return f"Error reaching Ollama: {exc}"
+
+def get_llm() -> BaseLLMAdapter:
+    # We could check env vars here to return different adapters (e.g., vLLMAdapter)
+    return OllamaAdapter()
+

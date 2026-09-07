@@ -4,3 +4,5 @@ pydantic
 python-dotenv
 llama-cpp-python
 huggingface-hub
+celery
+redis
