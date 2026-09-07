@@ -5,6 +5,13 @@ services:
     ports:
       - "6379:6379"
 
+  ollama:
+    image: ollama/ollama:latest
+    ports:
+      - "11434:11434"
+    volumes:
+      - ollama_data:/root/.ollama
+
   gateway:
     build:
       context: .
@@ -22,9 +29,10 @@ services:
       dockerfile: Dockerfile.llm
     depends_on:
       - redis
+      - ollama
     environment:
       - REDIS_URL=redis://redis:6379/0
-      - OLLAMA_HOST=http://host.docker.internal:11434
+      - OLLAMA_HOST=http://ollama:11434
 
   logic-worker:
     build:
@@ -43,4 +51,7 @@ services:
       - redis
     environment:
       - REDIS_URL=redis://redis:6379/0
+
+volumes:
+  ollama_data:
 
