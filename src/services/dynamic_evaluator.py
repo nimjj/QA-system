@@ -218,7 +218,11 @@ def evaluate_interaction(
     
     evaluation_context_str = "\n".join(audit_context_lines) if audit_context_lines else "No critical failures identified. The agent passed all checks."
     
-    summary = generate_short_story_summary(clean_transcript, evaluation_context=evaluation_context_str)
+    # Slice the transcript to get the middle section (remove first 3 and last 3 turns)
+    middle_lines = clean_lines[3:-3] if len(clean_lines) > 8 else clean_lines
+    middle_transcript = "\n".join(middle_lines)
+    
+    summary = generate_short_story_summary(middle_transcript, evaluation_context=evaluation_context_str)
 
     # 9. Suggestions
     suggestions = ""
@@ -234,12 +238,6 @@ def evaluate_interaction(
         "auto_fail_reason": auto_fail_reason,
         "category_scores": category_scores,
         "scorecard": ratings,
-        "sentiment_analysis": {
-            "rows": [],
-            "intense_moments": intense_moments,
-            "harsh_agent_lines": harsh_agent_lines
-        },
-        "matched_policies": matched_policies,
         "summary": summary,
         "suggestions": suggestions
     }

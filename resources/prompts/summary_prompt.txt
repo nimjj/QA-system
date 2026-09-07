@@ -1,11 +1,11 @@
-TRANSCRIPT:
+TRANSCRIPT (Middle Section):
 {transcript}
 
 INSTRUCTIONS:
-You are a QA analyst. Write a highly concise summary of the interaction above that reads like a short story. 
-Maximum length: 75 to 100 characters total. Do not exceed this limit.
+You are a QA analyst. Write a highly concise summary of the core troubleshooting interaction above that reads like a short story. 
+Length requirement: Exactly 50 to 60 words total. Do not output less than 50 words.
 
 IMPORTANT CONTEXT FROM THE QA AUDIT:
 {evaluation_context}
 
-Briefly weave the main issue, the resolution, and any critical QA failures from the context into the story, keeping it under 100 characters.
+Briefly weave the main issue, the resolution steps, and any critical QA failures from the context into the story.
