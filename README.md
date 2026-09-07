@@ -1,157 +1,84 @@
-# Multi-Tenant Automated QA Intelligence Platform
+# Enterprise QA System
 
-> **Production-grade AI-powered Quality Assurance platform for enterprise contact centers.**  
-> Audits omni-channel customer interactions (Calls, Emails, Chats) using **Local LLM Inference** and **Deterministic Python Rule Engines** without relying on complex external databases or heavy cloud resources.
+An asynchronous, multi-tier microservices architecture designed to perform automated Quality Assurance (QA) on customer service transcripts using Large Language Models (LLMs) and deterministic Python rules.
 
----
+## ?? Architecture Overview
 
-## Table of Contents
+The application is completely decoupled into 6 distinct Docker containers. This ensures that slow LLM inferences do not block fast deterministic rules, and that the API remains responsive under heavy load.
 
-- [Overview](#overview)
-- [Architecture](#architecture)
-- [Key Features](#key-features)
-- [Tech Stack](#tech-stack)
-- [Project Structure](#project-structure)
-- [Prerequisites](#prerequisites)
-- [Getting Started](#getting-started)
-- [Environment Configuration](#environment-configuration)
+### The 6 Containers:
+1. **API Gateway (gateway)**: A FastAPI server. It acts as the bouncer. It takes incoming HTTP requests, assigns a unique Job ID, drops the task into a message broker, and immediately responds to the client.
+2. **Redis Message Broker (edis)**: The central nervous system. It holds the queues of pending tasks and temporarily stores the final results.
+3. **LLM Worker (llm-worker)**: A Celery worker dedicated solely to talking to the AI models. It runs the heavy, probabilistic analysis.
+4. **Logic Worker (logic-worker)**: A Celery worker dedicated to lightning-fast deterministic Python rules (e.g., checking if the agent said "Thank you for calling" or if there was >20s of dead air).
+5. **Amalgamation Worker (malgamation-worker)**: The orchestrator. It waits for both the LLM and the Logic workers to finish, merges their findings, checks for auto-fail conditions, and calculates the final scorecard.
+6. **Ollama Engine (ollama)**: The actual inference server holding the weights of our local open-source LLMs.
 
----
+## ?? Request Workflow
 
-## Overview
-
-The **Automated QA Intelligence Platform** transforms contact center evaluations into a lightning-fast, stateless audit. 
-
-Auditors and managers can audit interactions across channels with transparent mathematical scoring, SLA gap tracking, and full prompt preview capabilities.
+1. **Submit**: A user submits a transcript via POST /api/evaluate.
+2. **Acknowledge**: The Gateway immediately returns {\"job_id\": \"xyz-123\", \"status\": \"processing\"}.
+3. **Process**: Behind the scenes, the workers pull the job from Redis. The Logic Worker parses the text for timestamps and keywords, while the LLM Worker reads it for soft skills and technical knowledge.
+4. **Amalgamate**: The Amalgamation Worker merges the outputs and saves the final JSON to Redis.
+5. **Retrieve**: The user polls GET /api/status/xyz-123 to get the final QA Scorecard.
 
 ---
 
-## Architecture
+## ?? Local Setup Guide (From Scratch)
 
-The system follows a modular, stateless microservice architecture separating dynamic prompt engineering and deterministic SLA/rule scoring.
+Follow these instructions to spin up the entire distributed system on your local machine.
 
-### End-to-End Workflow:
-1. **Interaction Analysis**:
-   - **Python Rule Engine** deterministically parses exact timestamps for SLA/Hold violations and fuzzy-matches exact Verbatim Branding scripts.
-   - **LLM Evaluator** uses Prompt Caching (KV Cache Bottom-Anchoring) and Map-Reduce chunking to evaluate agent compliance against extracted criteria flawlessly.
-2. **Deterministic Scorecard**: Final scores are calculated via strict weighted formulas with instant zero-tolerance auto-fail enforcement.
+### Prerequisites
+* **Git** installed.
+* **Docker** & **Docker Compose** installed (Docker Desktop is recommended for Windows/Mac).
 
----
-
-## Key Features
-
-- **Stateless Execution**: Incredibly fast evaluations requiring no external relational databases or document parsers.
-- **Python SLA Engine**: Tracks exact timestamp delays to catch "Dead Air" and "Hold Time" violations deterministically.
-- **Dynamic Prompt Builder & UI Preview**: Allows QA auditors to inspect, edit, or copy the generated LLM prompt before triggering evaluation.
-- **Deterministic Mathematical Scorecard**:
-  $$\text{Final Score} = \sum (\text{Category Score} \times \text{Weight})$$
-  *(Automatically resets to 0/100 if any auto-fail condition is met)*.
-- **Model Agnostic**: Simply pass any LLM name into the `.env` configuration file to immediately route all logic to the new model.
-
----
-
-## Tech Stack
-
-| Layer | Technology |
-| :--- | :--- |
-| **Backend API** | FastAPI, Uvicorn, Pydantic |
-| **Frontend UI** | React, Vite, TailwindCSS, Lucide Icons |
-| **LLM Inference** | Ollama (Modular `<LLM>` support) |
-
----
-
-## Project Structure
-
-```text
-QA-system/
-+-- main.py                          # Server entry point for FastAPI backend
-+-- requirements.txt                 # Python dependencies
-+-- .env.example                     # Sample environment configuration
-+-- SETUP_REQUIREMENTS.md            # Setup guide and instructions
-+-- setup.bat                        # Automated setup script for Windows
-+-- setup.sh                         # Automated setup script for macOS/Linux
-+-- frontend/                        # React + Vite frontend application
-+-- src/                             # Core Python backend package
-   +-- api/
-      +-- web_app.py               # REST API stateless endpoints
-   +-- core/
-      +-- llm_client.py            # Embedded llama.cpp integration wrapper
-   +-- services/
-       +-- dynamic_evaluator.py     # Evaluation orchestrator & scorecard calculator
-       +-- rule_engine.py           # Deterministic Python SLA and Branding engine
-       +-- qa_summary.py            # Interaction executive summarization
-       +-- qa_suggestions.py        # Coaching recommendations generator
-       +-- response_time.py         # Transcript timestamp and latency analyzer
-+-- tests/                           # Integration and demo test scripts
-```
-
----
-
-## Prerequisites
-
-Before running the application, make sure you have the following installed:
-
-1. **Python 3.10+**
-2. **Node.js 18+** & **npm**
-
----
-
-## Getting Started
-
-### 1. Clone & Configure Environment
-
-```bash
-# Clone the repository
+### 1. Clone the Repository
+\\\ash
 git clone https://github.com/nimjj/QA-system.git
 cd QA-system
-```
+git checkout version-3
+\\\`n
+### 2. Boot the Infrastructure
+We use Docker Compose to build the images and network the containers automatically.
 
-### 2. Run Automated Setup
+\\\ash
+# This will build the Python environments and start all 6 containers in the background
+docker-compose up --build -d
+\\\`n
+### 3. Install the LLM Model Weights (One-Time Setup)
+Because model weights are massive (several gigabytes), they are **not** stored in GitHub. We must tell our running Ollama container to download them from the cloud registry.
 
-**Windows:**
-```cmd
-setup.bat
-```
+Run this command to pull the standard model:
+\\\ash
+docker exec -it qa-system-ollama-1 ollama pull llama3.1
+\\\`n*(Note: Depending on your docker version, the container name might be slightly different. You can run docker ps to find the exact name of the ollama container).*
 
-**macOS / Linux:**
-```bash
-chmod +x setup.sh
-./setup.sh
-```
-
-### 3. Run the Application
-
-Start the services across 3 terminal windows:
-
-#### Terminal 1: Ollama LLM Server
-```bash
-ollama serve
-```
-
-#### Terminal 2: FastAPI Backend Server
-```bash
-# Activate your virtual environment first!
-# Windows: .\.venv\Scripts\activate
-# Mac/Linux: source .venv/bin/activate
-python main.py
-```
-> Backend API will be available at **`http://localhost:8000`**.
-
-#### Terminal 2: Vite Frontend UI
-```bash
-cd frontend
-npm run dev
-```
-> Frontend Web UI will be available at **`http://localhost:5173`**.
+Wait for the download to hit 100%. The weights are saved to a persistent Docker Volume, so you only ever have to do this once!
 
 ---
 
-## Environment Configuration
+## ?? Testing the API
 
-Key configuration parameters in `.env`:
+Once the model is downloaded and the containers are running, you can test the async workflow.
 
-| Variable | Default Value | Description |
-| :--- | :--- | :--- |
-| `SERVER_HOST` | `0.0.0.0` | FastAPI server host interface (0.0.0.0 allows remote/Tailscale access) |
-| `SERVER_PORT` | `8000` | FastAPI server port |
+### Step 1: Submit a Transcript
+\\\ash
+curl -X POST http://localhost:8000/api/evaluate \
+     -H "Content-Type: application/json" \
+     -d '{\"transcript\": \"Agent: Thank you for calling S-Net. How can I help?\\\nCustomer: My internet is down.\\\nAgent: Let me fix that. Okay, try now.\\\nCustomer: It works!\\\nAgent: Thank you for choosing S-Net.\"}'
+\\\`n
+**Response:**
+\\\json
+{
+  "job_id": "53fa97a1-cc0a-4299-8473-bdf52a0a38b1",
+  "status": "processing",
+  "created_at": "2026-09-07T12:00:00.000Z"
+}
+\\\`n
+### Step 2: Poll for Results
+Take the job_id from Step 1 and check its status:
+\\\ash
+curl http://localhost:8000/api/status/53fa97a1-cc0a-4299-8473-bdf52a0a38b1
+\\\`n
+Keep polling until "status\": \"completed\", at which point the full JSON scorecard will be returned.
 
