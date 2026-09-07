@@ -7,7 +7,7 @@ against dynamic company criteria schemas.
 import re
 from typing import Dict, Any, List, Optional
 from src.core.llm_client import query_llm
-from src.services.qa_summary import SUMMARY_PROMPT, generate_scalable_summary
+from src.services.qa_summary import extract_topic_keywords, generate_short_story_summary
 from src.services.qa_suggestions import SUGGESTIONS_PROMPT, clean_suggestions
 from src.services.response_time import (
     leading_time_seconds, response_delays, response_time_score,
@@ -43,7 +43,7 @@ def preview_evaluation_prompt(
         clean_transcript = transcript_text
 
     # 2. Vector RAG Policy Search via LLM Summary
-    summary = generate_scalable_summary(clean_transcript)
+    summary = extract_topic_keywords(clean_transcript)
     matched_policies = []
 
     # 3. Extract Criteria Line Items and Weights
@@ -117,8 +117,8 @@ def evaluate_interaction(
         clean_transcript = transcript_text
 
     # 2. Extract Topics using Lightweight LLM (LLM3:1b)
-    from src.services.qa_summary import generate_scalable_summary
-    topic_keywords = generate_scalable_summary(clean_transcript)
+    from src.services.qa_summary import extract_topic_keywords
+    topic_keywords = extract_topic_keywords(clean_transcript)
 
     matched_policies = []
     
@@ -218,10 +218,15 @@ def evaluate_interaction(
     
     evaluation_context_str = "\n".join(audit_context_lines) if audit_context_lines else "No critical failures identified. The agent passed all checks."
     
-    summary = generate_scalable_summary(clean_transcript, evaluation_context=evaluation_context_str)
+    summary = generate_short_story_summary(clean_transcript, evaluation_context=evaluation_context_str)
 
     # 9. Suggestions
-    suggestions = clean_suggestions(query_llm(SUGGESTIONS_PROMPT.format(transcript=clean_transcript), label="suggestions"))
+    suggestions = ""
+    failed_items = [r for r in ratings if r["rating"] in ["NO", "FAIL"]]
+    if blended_score < 85.0 and failed_items:
+        fail_context = "\n".join([f"- {r['name']}: {r['reason']}" for r in failed_items])
+        prompt = SUGGESTIONS_PROMPT.format(transcript=clean_transcript, fail_context=fail_context)
+        suggestions = clean_suggestions(query_llm(prompt, label="suggestions"))
 
     return {
         "final_score": blended_score,

@@ -26,12 +26,7 @@ def format_transcript(transcript):
 
 SUMMARY_PROMPT = load_summary_prompt()
 
-def generate_scalable_summary(transcript_text: str, evaluation_context: str = "No critical failures identified.") -> str:
-    """Extract a fast comma-separated list of topics using a lightweight model for RAG.
-    
-    We use a small, fast model (LLM3:1b or LLM2:2b) to quickly grab the core topics 
-    for quick categorization.
-    """
+def extract_topic_keywords(transcript_text: str) -> str:
     prompt = f"""TRANSCRIPT:
 {transcript_text}
 
@@ -39,13 +34,12 @@ INSTRUCTIONS:
 You are a highly efficient topic extractor.
 Read the transcript above and return ONLY a comma-separated list of the 5 to 10 most important technical issues, topics, or policies discussed.
 Do not write sentences. Just output the keywords.
-Example: router red light, power cycle, internet connectivity, account verification
 """
-    
-    # We use a very low num_predict because we only want a short list of keywords
-    # Fallback to the main model if FAST_TOPIC_MODEL isn't explicitly set
-    import os
-    from src.core.llm_client import MODEL
-    small_model = os.getenv("FAST_TOPIC_MODEL", MODEL)
-    
-    return query_llm(prompt, model=small_model, label="topic_extraction", num_predict=50)
+    return query_llm(prompt, label="topic_extraction")
+
+def generate_short_story_summary(transcript_text: str, evaluation_context: str = "No critical failures identified.") -> str:
+    prompt = load_summary_prompt().format(
+        transcript=transcript_text,
+        evaluation_context=evaluation_context
+    )
+    return query_llm(prompt, label="story_summary")
