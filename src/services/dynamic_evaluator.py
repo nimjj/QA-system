@@ -237,8 +237,11 @@ def evaluate_interaction(
     
     summary = generate_scalable_summary(clean_transcript, evaluation_context=evaluation_context_str)
 
-    # 9. Suggestions
-    suggestions = clean_suggestions(query_llm(SUGGESTIONS_PROMPT.format(transcript=clean_transcript), label="suggestions"))
+    # 9. Suggestions (Conditional)
+    if blended_score < 85.0:
+        suggestions = clean_suggestions(query_llm(SUGGESTIONS_PROMPT.format(transcript=clean_transcript), label="suggestions"))
+    else:
+        suggestions = "Suggestions omitted (score >= 85%)."
 
     return {
         "final_score": blended_score,
@@ -246,12 +249,6 @@ def evaluate_interaction(
         "auto_fail_reason": auto_fail_reason,
         "category_scores": category_scores,
         "scorecard": ratings,
-        "sentiment_analysis": {
-            "rows": [],
-            "intense_moments": intense_moments,
-            "harsh_agent_lines": harsh_agent_lines
-        },
-        "matched_policies": matched_policies,
         "summary": summary,
         "suggestions": suggestions
     }

@@ -27,21 +27,22 @@ def format_transcript(transcript):
 SUMMARY_PROMPT = load_summary_prompt()
 
 def generate_scalable_summary(transcript_text: str, evaluation_context: str = "No critical failures identified.") -> str:
-    """Extract a fast comma-separated list of topics using a lightweight model for RAG.
+    lines = transcript_text.strip().splitlines()
     
-    We use a small, fast model (LLM3:1b or LLM2:2b) to quickly grab the core topics 
-    for quick categorization.
-    """
+    if len(lines) > 5:
+        # 4th line from the start (index 3) to before the 2nd line from the end (index -2)
+        sliced_lines = lines[3:-2]
+        processed_transcript = "\n".join(sliced_lines)
+    else:
+        processed_transcript = transcript_text
+
     prompt = f"""TRANSCRIPT:
-{transcript_text}
+{processed_transcript}
 
 INSTRUCTIONS:
-You are a highly efficient topic extractor.
-Read the transcript above and return ONLY a comma-separated list of the 5 to 10 most important technical issues, topics, or policies discussed.
-Do not write sentences. Just output the keywords.
-Example: router red light, power cycle, internet connectivity, account verification
+You are a highly efficient summarizer.
+Read the transcript above and return ONLY a brief summary of the conversation.
+CRITICAL: The summary MUST be exactly between 60 to 70 characters long.
+Do not include any intro or outro text, just the summary itself.
 """
-    
-    # We use a very low num_predict because we only want a short list of keywords
-    # Fallback to the main model if FAST_TOPIC_MODEL isn't explicitly set
-    return query_llm(prompt, label="topic_extraction")
+    return query_llm(prompt, label="topic_extraction", num_predict=50)
