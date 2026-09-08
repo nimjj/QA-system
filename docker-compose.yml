@@ -52,6 +52,17 @@ services:
     environment:
       - REDIS_URL=redis://redis:6379/0
 
+  orchestrator-worker:
+    build:
+      context: .
+      dockerfile: Dockerfile.orchestrator
+    depends_on:
+      - redis
+      - ollama
+    environment:
+      - REDIS_URL=redis://redis:6379/0
+      - OLLAMA_HOST=http://ollama:11434
+
 volumes:
   ollama_data:
 
