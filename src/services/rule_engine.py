@@ -48,40 +48,37 @@ def evaluate_branding(turns: List[Tuple[str, str]]) -> Dict[str, Any]:
             "reason": f"Agent missed verbatim scripts for: {', '.join(missed)}"
         }
 
-def evaluate_hold_and_dead_air(turns: List[Tuple[str, str]], parsed_times: List[Optional[int]]) -> Dict[str, Any]:
-    if not parsed_times or len(parsed_times) != len(turns) or all(t is None for t in parsed_times):
+def evaluate_hold_and_dead_air(turns: List[Tuple[str, str]], parsed_times: List[Tuple[int, int]]) -> Dict[str, Any]:
+    if not parsed_times or len(parsed_times) != len(turns) or all(not isinstance(t, tuple) for t in parsed_times):
         return {
             "category": "Soft Skills",
             "name": "Hold time and Dead Air",
             "rating": "PASS",
             "score": 100,
-            "reason": "Standard compliant response (No timestamps to check)"
+            "reason": "Standard compliant response (No structured timestamps provided)"
         }
         
+    dead_air_count = 0
     max_gap = 0
+    
     for i in range(1, len(parsed_times)):
-        t1 = parsed_times[i-1]
-        t2 = parsed_times[i]
-        if t1 is not None and t2 is not None:
-            gap = t2 - t1
+        prev_end = parsed_times[i-1][1]
+        curr_start = parsed_times[i][0]
+        
+        if prev_end is not None and curr_start is not None:
+            gap = curr_start - prev_end
             if gap > max_gap:
                 max_gap = gap
+            if gap > 20:
+                dead_air_count += 1
                 
-    if max_gap > 180:
+    if dead_air_count >= 3:
         return {
             "category": "Soft Skills",
             "name": "Hold time and Dead Air",
             "rating": "FAIL",
             "score": 0,
-            "reason": f"SLA Breach: Maximum delay between turns was {max_gap} seconds, exceeding 3 minutes."
-        }
-    elif max_gap > 20:
-        return {
-            "category": "Soft Skills",
-            "name": "Hold time and Dead Air",
-            "rating": "FAIL",
-            "score": 0,
-            "reason": f"Dead Air Breach: Maximum delay between turns was {max_gap} seconds, exceeding 20 seconds."
+            "reason": f"Dead Air Breach: Agent had {dead_air_count} occurrences of >20s dead air (max gap {max_gap}s). Exceeds 2 exceptions limit."
         }
         
     return {
@@ -89,5 +86,5 @@ def evaluate_hold_and_dead_air(turns: List[Tuple[str, str]], parsed_times: List[
         "name": "Hold time and Dead Air",
         "rating": "PASS",
         "score": 100,
-        "reason": "Standard compliant response"
+        "reason": f"Passed: Detected {dead_air_count} occurrences of dead air (within 2 exception limit)."
     }

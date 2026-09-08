@@ -32,8 +32,14 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+class Turn(BaseModel):
+    speaker: str
+    text: str
+    start_time_sec: int
+    end_time_sec: int
+
 class EvaluateRequest(BaseModel):
-    transcript: str
+    transcript: Union[List[Turn], str]
     channel: Optional[str] = "Call"
     agent_name: Optional[str] = "Agent"
     custom_prompt: Optional[str] = None
@@ -59,10 +65,12 @@ def list_sample_inputs():
 def evaluate_tenant_transcript(req: EvaluateRequest):
     criteria_data = {}
 
+    transcript_payload = [t.dict() for t in req.transcript] if isinstance(req.transcript, list) else req.transcript
+
     # Dispatch async task
     task = celery_app.send_task(
         'orchestrate_evaluation',
-        args=[req.transcript, criteria_data, "default", req.channel or "Call"],
+        args=[transcript_payload, criteria_data, "default", req.channel or "Call"],
         kwargs={"custom_prompt": req.custom_prompt}
     )
 

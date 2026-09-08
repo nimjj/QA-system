@@ -85,8 +85,10 @@ def preview_evaluation_prompt(
     }
 
 
+from typing import Union
+
 def evaluate_interaction(
-    transcript_text: str,
+    transcript_data: Union[str, List[Dict[str, Any]]],
     criteria_data: Dict[str, Any],
     tenant_id: str,
     channel: str = "Call",
@@ -98,24 +100,36 @@ def evaluate_interaction(
     turns = []
     parsed_times = []
     clean_lines = []
-    for line in transcript_text.strip().splitlines():
-        line = line.strip()
-        if not line:
-            continue
-        t = leading_time_seconds(line)
-        line = re.sub(r"^[\[\(]\s*\d{1,2}:\d{2}(?::\d{2})?\s*[\]\)]\s*", "", line)
-        clean_lines.append(line)
-        if ":" in line:
-            spk, txt = line.split(":", 1)
-            turns.append((spk.strip(), txt.strip()))
-            parsed_times.append(t)
+    
+    if isinstance(transcript_data, list):
+        for turn in transcript_data:
+            spk = turn.get("speaker", "Unknown")
+            txt = turn.get("text", "")
+            start_t = turn.get("start_time_sec", 0)
+            end_t = turn.get("end_time_sec", 0)
+            turns.append((spk, txt))
+            parsed_times.append((start_t, end_t))
+            clean_lines.append(f"{spk}: {txt}")
+        clean_transcript = "\n".join(clean_lines)
+    else:
+        for line in transcript_data.strip().splitlines():
+            line = line.strip()
+            if not line:
+                continue
+            t = leading_time_seconds(line)
+            line = re.sub(r"^[\[\(]\s*\d{1,2}:\d{2}(?::\d{2})?\s*[\]\)]\s*", "", line)
+            clean_lines.append(line)
+            if ":" in line:
+                spk, txt = line.split(":", 1)
+                turns.append((spk.strip(), txt.strip()))
+                parsed_times.append((t or 0, (t or 0) + 10))
 
-    clean_transcript = "\n".join(clean_lines)
+        clean_transcript = "\n".join(clean_lines)
 
-    if not turns:
-        turns = [("Agent", transcript_text)]
-        parsed_times = [None]
-        clean_transcript = transcript_text
+        if not turns:
+            turns = [("Agent", transcript_data)]
+            parsed_times = [(0, 10)]
+            clean_transcript = transcript_data
 
     # 2. Extract Topics using Lightweight LLM (LLM3:1b)
     from src.services.qa_summary import generate_scalable_summary
@@ -220,7 +234,7 @@ def evaluate_interaction(
     harsh_agent_lines = harsh_lines
 
     # 6. Check Auto-Fail Triggers
-    is_auto_fail, auto_fail_reason = check_auto_fail(transcript_text, harsh_agent_lines, auto_fail_rules, ratings)
+    is_auto_fail, auto_fail_reason = check_auto_fail(clean_transcript, harsh_agent_lines, auto_fail_rules, ratings)
 
     # 7. Mathematical Scoring Engine
     category_scores, blended_score = calculate_category_scores(ratings, category_weights, is_auto_fail)
