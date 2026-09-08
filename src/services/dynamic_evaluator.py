@@ -6,7 +6,7 @@ against dynamic company criteria schemas.
 
 import re
 from typing import Dict, Any, List, Optional
-from src.core.llm_client import query_llm, cache_prompt_prefix, query_llm_with_state
+from src.services.llm_adapter import query_llm, cache_prompt_prefix, query_llm_with_state
 from src.services.qa_summary import SUMMARY_PROMPT, generate_scalable_summary
 from src.services.qa_suggestions import SUGGESTIONS_PROMPT, clean_suggestions
 from src.services.response_time import (
@@ -322,8 +322,10 @@ def build_dynamic_prompt(
         auto_fail_list.append(f"• {r_name}: {r_desc}")
     auto_fail_str = "\n".join(auto_fail_list) if auto_fail_list else "• Discourtesy / Rudeness: Immediate 0 score on profanity or policy abandonment."
 
+    clean_title = lambda p: re.sub(r'<\s*br\s*/?\s*>', ' ', p['title'], flags=re.IGNORECASE)
+    clean_content = lambda p: re.sub(r'<\s*br\s*/?\s*>', ' ', p['content'][:300], flags=re.IGNORECASE)
     policies_str = "\n".join(
-        f"• {re.sub(r'<\s*br\s*/?\s*>', ' ', p['title'], flags=re.IGNORECASE)}: {re.sub(r'<\s*br\s*/?\s*>', ' ', p['content'][:300], flags=re.IGNORECASE)}" 
+        f"• {clean_title(p)}: {clean_content(p)}" 
         for p in matched_policies
     ) or "• No specific policy override found."
     

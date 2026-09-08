@@ -13,7 +13,7 @@ for _path in [_ROOT, _SRC, _TESTS]:
     if _path not in sys.path:
         sys.path.insert(0, _path)
 
-from src.core.llm_client import query_llm
+from src.services.llm_adapter import query_llm
 
 def load_summary_prompt():
     prompt_path = os.getenv("PROMPT_SUMMARY_PATH", "resources/prompts/summary_prompt.txt")

@@ -14,7 +14,7 @@ for _path in [_ROOT, _SRC, _TESTS]:
     if _path not in sys.path:
         sys.path.insert(0, _path)
 
-from src.core.llm_client import query_llm
+from src.services.llm_adapter import query_llm
 
 def format_transcript(transcript):
     return "\n".join(f"{speaker}: {text}" for speaker, text in transcript)

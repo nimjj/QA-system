@@ -39,3 +39,14 @@ def get_llm() -> BaseLLMAdapter:
     # We could check env vars here to return different adapters (e.g., vLLMAdapter)
     return OllamaAdapter()
 
+
+def query_llm(prompt, **kwargs):
+    return get_llm().generate(prompt, **kwargs)
+
+def cache_prompt_prefix(prefix, **kwargs):
+    return prefix
+
+def query_llm_with_state(state, suffix, **kwargs):
+    prompt = state + suffix
+    return get_llm().generate(prompt, **kwargs)
+
