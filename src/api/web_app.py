@@ -13,7 +13,7 @@ for _path in [_ROOT, _SRC]:
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
-from typing import Optional
+from typing import Optional, List, Union, Dict, Any
 from celery import Celery
 from celery.result import AsyncResult
 
