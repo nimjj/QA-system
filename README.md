@@ -1,84 +1,105 @@
-# Enterprise QA System
+# Gemma QA Analysis System
 
-An asynchronous, multi-tier microservices architecture designed to perform automated Quality Assurance (QA) on customer service transcripts using Large Language Models (LLMs) and deterministic Python rules.
+A 100% locally-hosted, microservices-based QA evaluation engine for customer support transcripts. This system uses Llama 3.1 (8B) via Ollama to evaluate soft skills and technical knowledge, combined with a strict Python rule engine to evaluate mathematical SLAs like Dead Air and Hold Time.
 
-## ?? Architecture Overview
-
-The application is completely decoupled into 6 distinct Docker containers. This ensures that slow LLM inferences do not block fast deterministic rules, and that the API remains responsive under heavy load.
-
-### The 6 Containers:
-1. **API Gateway (gateway)**: A FastAPI server. It acts as the bouncer. It takes incoming HTTP requests, assigns a unique Job ID, drops the task into a message broker, and immediately responds to the client.
-2. **Redis Message Broker (edis)**: The central nervous system. It holds the queues of pending tasks and temporarily stores the final results.
-3. **LLM Worker (llm-worker)**: A Celery worker dedicated solely to talking to the AI models. It runs the heavy, probabilistic analysis.
-4. **Logic Worker (logic-worker)**: A Celery worker dedicated to lightning-fast deterministic Python rules (e.g., checking if the agent said "Thank you for calling" or if there was >20s of dead air).
-5. **Amalgamation Worker (malgamation-worker)**: The orchestrator. It waits for both the LLM and the Logic workers to finish, merges their findings, checks for auto-fail conditions, and calculates the final scorecard.
-6. **Ollama Engine (ollama)**: The actual inference server holding the weights of our local open-source LLMs.
-
-## ?? Request Workflow
-
-1. **Submit**: A user submits a transcript via POST /api/evaluate.
-2. **Acknowledge**: The Gateway immediately returns {\"job_id\": \"xyz-123\", \"status\": \"processing\"}.
-3. **Process**: Behind the scenes, the workers pull the job from Redis. The Logic Worker parses the text for timestamps and keywords, while the LLM Worker reads it for soft skills and technical knowledge.
-4. **Amalgamate**: The Amalgamation Worker merges the outputs and saves the final JSON to Redis.
-5. **Retrieve**: The user polls GET /api/status/xyz-123 to get the final QA Scorecard.
+## Prerequisites
+* **Docker Desktop:** Installed and running (Linux containers mode on Windows).
+* **Git:** For cloning the repository.
+* **Hardware:** Minimum 16GB RAM recommended for smooth local LLM inference.
 
 ---
 
-## ?? Local Setup Guide (From Scratch)
+## 1. Local Setup & Booting
 
-Follow these instructions to spin up the entire distributed system on your local machine.
+This architecture uses 7 fully decoupled Docker containers (API Gateway, Redis, Ollama, and 4 Celery Workers) to process tasks asynchronously without blocking the user.
 
-### Prerequisites
-* **Git** installed.
-* **Docker** & **Docker Compose** installed (Docker Desktop is recommended for Windows/Mac).
+1. **Clone the repository and switch to version-3:**
+   ``bash
+   git clone https://github.com/nimjj/QA-system.git
+   cd QA-system
+   git checkout version-3
+   ``
 
-### 1. Clone the Repository
-\\\ash
-git clone https://github.com/nimjj/QA-system.git
-cd QA-system
-git checkout version-3
-\\\`n
-### 2. Boot the Infrastructure
-We use Docker Compose to build the images and network the containers automatically.
-
-\\\ash
-# This will build the Python environments and start all 6 containers in the background
-docker-compose up --build -d
-\\\`n
-### 3. Install the LLM Model Weights (One-Time Setup)
-Because model weights are massive (several gigabytes), they are **not** stored in GitHub. We must tell our running Ollama container to download them from the cloud registry.
-
-Run this command to pull the standard model:
-\\\ash
-docker exec -it qa-system-ollama-1 ollama pull llama3.1
-\\\`n*(Note: Depending on your docker version, the container name might be slightly different. You can run docker ps to find the exact name of the ollama container).*
-
-Wait for the download to hit 100%. The weights are saved to a persistent Docker Volume, so you only ever have to do this once!
+2. **Boot the environment:**
+   We use Docker Compose to build and network all microservices at once. Run this in the root directory:
+   ``bash
+   docker-compose up --build -d
+   ``
+   *Note: The -d flag runs the containers in the background.*
 
 ---
 
-## ?? Testing the API
+## 2. LLM Model Setup (One-Time)
 
-Once the model is downloaded and the containers are running, you can test the async workflow.
+Because we removed cloud dependencies, the system relies on an open-source model running on your local machine via the ollama container. 
 
-### Step 1: Submit a Transcript
-\\\ash
-curl -X POST http://localhost:8000/api/evaluate \
-     -H "Content-Type: application/json" \
-     -d '{\"transcript\": \"Agent: Thank you for calling S-Net. How can I help?\\\nCustomer: My internet is down.\\\nAgent: Let me fix that. Okay, try now.\\\nCustomer: It works!\\\nAgent: Thank you for choosing S-Net.\"}'
-\\\`n
-**Response:**
-\\\json
+We use **Llama 3.1 (8B Parameters)**. The model weights are approximately **4.7 GB**. 
+
+**To download and install the model:**
+1. Open your local terminal (while the Docker containers are running).
+2. Execute the pull command directly inside the running Ollama container:
+   ``bash
+   docker exec -it gemma-qa-analysis-ollama-1 ollama run llama3.1
+   ``
+3. **Download Time:** Depending on your internet connection, a 4.7GB file will take anywhere from **5 to 15 minutes** on a standard broadband connection. You will see a progress bar in your terminal.
+4. Once it says "success", you can type /bye to exit. The model is now permanently saved inside your Docker volume!
+
+---
+
+## 3. API Documentation & Testing
+
+The Docker containers are configured to bind the FastAPI Gateway to your local **Port 8000**. 
+
+**Localhost API Endpoint:** http://localhost:8000/api/evaluate
+
+### Test it in Postman
+You can immediately test the system by sending a properly formatted JSON Array to the API. 
+
+1. Open Postman.
+2. Create a new **POST** request to http://localhost:8000/api/evaluate
+3. Go to the **Body** tab, select **raw**, and choose **JSON**.
+4. Paste the following structured transcript (which includes intentional >20s Dead Air gaps to trigger the rule engine!):
+
+``json
 {
-  "job_id": "53fa97a1-cc0a-4299-8473-bdf52a0a38b1",
-  "status": "processing",
-  "created_at": "2026-09-07T12:00:00.000Z"
+  "channel": "Call",
+  "transcript": [
+    {
+      "speaker": "Agent",
+      "text": "Thank you for calling S-NET Communications. My name is Alex.",
+      "start_time_sec": 0,
+      "end_time_sec": 6
+    },
+    {
+      "speaker": "Caller",
+      "text": "Hi Alex, I've been trying to connect to my Wi-Fi all morning.",
+      "start_time_sec": 8,
+      "end_time_sec": 16
+    },
+    {
+      "speaker": "Agent",
+      "text": "Let's start with a power cycle. Unplug the router for 30 seconds.",
+      "start_time_sec": 18,
+      "end_time_sec": 24
+    },
+    {
+      "speaker": "Caller",
+      "text": "Okay. It's been about 30 seconds now.",
+      "start_time_sec": 55,
+      "end_time_sec": 58
+    }
+  ]
 }
-\\\`n
-### Step 2: Poll for Results
-Take the job_id from Step 1 and check its status:
-\\\ash
-curl http://localhost:8000/api/status/53fa97a1-cc0a-4299-8473-bdf52a0a38b1
-\\\`n
-Keep polling until "status\": \"completed\", at which point the full JSON scorecard will be returned.
+``
 
+5. Hit **Send**. You will instantly receive a job_id:
+``json
+{
+    "job_id": "50f45a5d-c53c-43b1-bb6e-7ecf4794caf1",
+    "status": "processing",
+    "created_at": "2026-09-08T12:00:00"
+}
+``
+
+6. Create a new **GET** request to http://localhost:8000/api/status/{PASTE_YOUR_JOB_ID_HERE}.
+7. Hit **Send** periodically until the status changes from "processing" to "completed" (usually takes 4-6 minutes for a local LLM). You will receive your fully structured JSON scorecard!
