@@ -35,8 +35,10 @@ app.add_middleware(
 class Turn(BaseModel):
     speaker: str
     text: str
-    start_time_sec: int
-    end_time_sec: int
+    start_time: Optional[str] = None
+    end_time: Optional[str] = None
+    start_time_sec: Optional[int] = 0
+    end_time_sec: Optional[int] = 0
 
 class EvaluateRequest(BaseModel):
     transcript: Union[List[Turn], str]

@@ -1,3 +1,6 @@
+import os
+import json
+import ast
 """Dynamic Multi-Tenant QA Evaluator Module.
 
 Combines Python rule engines and LLM reasoning 
@@ -8,7 +11,6 @@ import re
 from typing import Dict, Any, List, Optional
 from src.services.llm_adapter import query_llm, cache_prompt_prefix, query_llm_with_state
 from src.services.qa_summary import SUMMARY_PROMPT, generate_scalable_summary
-from src.services.qa_suggestions import SUGGESTIONS_PROMPT, clean_suggestions
 from src.services.response_time import (
     leading_time_seconds, response_delays, response_time_score,
 )
@@ -105,8 +107,15 @@ def evaluate_interaction(
         for turn in transcript_data:
             spk = turn.get("speaker", "Unknown")
             txt = turn.get("text", "")
-            start_t = turn.get("start_time_sec", 0)
-            end_t = turn.get("end_time_sec", 0)
+            
+            st_str = turn.get("start_time")
+            en_str = turn.get("end_time")
+            st_sec = turn.get("start_time_sec")
+            en_sec = turn.get("end_time_sec")
+            
+            start_t = leading_time_seconds(st_str) if st_str else (st_sec or 0)
+            end_t = leading_time_seconds(en_str) if en_str else (en_sec or 0)
+            
             turns.append((spk, txt))
             parsed_times.append((start_t, end_t))
             clean_lines.append(f"{spk}: {txt}")
@@ -156,7 +165,7 @@ def evaluate_interaction(
                 "name": "Soft Skills",
                 "weight_percentage": 33.3,
                 "line_items": [
-                    {"name": "Personalized the call/ticket appropriately", "description": "Evaluate if the agent used the correct name in the greeting or at least once throughout the conversation."},
+                    {"name": "Personalized the call/ticket appropriately", "description": "Rate PASS ONLY if the agent explicitly used the customer's specific name (e.g., 'John') during the conversation. Rate FAIL if the agent never referred to the customer by their name."},
                     {"name": "Empathy & Acknowledgment Statement", "description": "Evaluate if the agent provided empathy statements when appropriate and acknowledged the customer's questions or statements (e.g., through paraphrasing). The agent must not be blunt."},
                     {"name": "Build rapport and observed professionalism", "description": "Evaluate if the agent was courteous, respectful, adjusted to the customer's technical pacing, did not interrupt, and avoided jargon or unprofessional sounds."}
                 ]
@@ -166,12 +175,12 @@ def evaluate_interaction(
                 "weight_percentage": 66.7,
                 "line_items": [
                     {"name": "Paraphrasing", "description": "Evaluate if the agent paraphrased the issue at the onset of the call or as soon as the customer stated their request to reconfirm understanding."},
-                    {"name": "Verified customer", "description": "Evaluate if the agent validated the caller's correct name, company name, email address, and contact number."},
+                    {"name": "Verified customer", "description": "Rate PASS ONLY if the agent explicitly verified secure account details (e.g. a PIN, full address, or security question). Rate FAIL if they only asked for an account number or failed to verify identity."},
                     {"name": "Probing", "description": "Evaluate if the agent used proper and effective probing questions to identify the concern, especially if the customer was unable to express the issue clearly."},
                     {"name": "Set proper expectations", "description": "Evaluate if the agent provided accurate expectations about the resolution, addressed possible related issues that might arise, and provided updates as soon as available."},
-                    {"name": "Provided the appropriate solution", "description": "Evaluate if the agent performed logical troubleshooting steps, followed internal processes, resolved all issues, and provided initial instructions rather than just asking the customer to contact back."},
-                    {"name": "Took ownership of the problem", "description": "Evaluate if the agent exhausted all resources to provide a resolution, offered meaningful troubleshooting (not just transferring without attempting to assist), and took ownership of the ticket."},
-                    {"name": "Active listening", "description": "Evaluate if the agent avoided asking the customer for information that the customer had already provided earlier in the call (e.g., name, company, error message). If they ask for repeated info two or more times, rate as NO."},
+                    {"name": "Provided the appropriate solution", "description": "Rate PASS if the agent's actions eventually solved the core issue (e.g., the customer confirmed the service is working). ONLY rate FAIL if the agent gave completely wrong instructions that left the issue unresolved at the end of the call."},
+                    {"name": "Took ownership of the problem", "description": "Evaluate if the agent exhausted all resources to provide a resolution, offered meaningful troubleshooting (not just transferring without attempting to assist), and took ownership of the ticket without blaming other departments."},
+                    {"name": "Active listening", "description": "Evaluate if the agent avoided asking the customer for information that the customer had already provided earlier in the call (e.g., name, company, error message). If they ask for repeated info two or more times, rate as FAIL."},
                     {"name": "Confirmed the issue is resolved", "description": "Evaluate if the agent gained verbal confirmation that the issue is resolved, asked the customer to test, provided a wrap-up summary of the resolution, and offered further assistance."}
                 ]
             },
@@ -179,8 +188,8 @@ def evaluate_interaction(
                 "name": "Auto Fail Category",
                 "weight_percentage": 0.0,
                 "line_items": [
-                    {"name": "Escalation", "description": "Evaluate if the agent refused to escalate to a Supervisor at the customer's request, or failed to escalate for customers threatening to cancel their service. (Rate NO if they failed to escalate when required)."},
-                    {"name": "Non-First Call Resolution", "description": "Evaluate if the agent provided incomplete troubleshooting steps, gave an incorrect resolution, or failed to apply accurate changes to the account. (Rate NO if resolution was incorrect or incomplete)."}
+                    {"name": "Escalation", "description": "ONLY rate FAIL if the customer explicitly asked for a supervisor/manager OR threatened to cancel AND the agent refused or failed to transfer them. Do NOT fail this simply because the customer was frustrated or the call was long. Otherwise, rate PASS."},
+                    {"name": "Non-First Call Resolution", "description": "Rate PASS if the customer's technical issue was fully resolved by the end of this call. ONLY rate FAIL if the customer had to hang up with the issue still broken, was incorrectly resolved, or was told to call back later."}
                 ]
             }
         ]
@@ -237,6 +246,36 @@ def evaluate_interaction(
     is_auto_fail, auto_fail_reason = check_auto_fail(clean_transcript, harsh_agent_lines, auto_fail_rules, ratings)
 
     # 7. Mathematical Scoring Engine
+    # Phase 2: Generate Coaching for FAILs
+    failed_items = [r for r in ratings if r["rating"] in ["FAIL", "NO"] and "dead air" not in r["name"].lower()]
+    if failed_items:
+        batch_size = 1
+        for i in range(0, len(failed_items), batch_size):
+            chunk = failed_items[i:i + batch_size]
+            r = chunk[0]
+            try:
+                c_prompt = f"""<TRANSCRIPT>\n{clean_transcript}\n</TRANSCRIPT>\n\n<INSTRUCTIONS>\nYou are an expert QA Coach evaluating a {channel} interaction.\nThe agent FAILED the following QA criteria: '{r['name']}'\n\nWrite a brief coaching tip (EXPLICITLY 1 to 2 sentences MAX) on how the agent can improve.\nCRITICAL: Output ONLY a valid JSON object. Do not output reasons, arrays, or conversational text.\n\nJSON FORMAT:\n{{\n  "coaching": "..."\n}}\n</INSTRUCTIONS>"""
+                c_reply = query_llm(c_prompt, label="coaching", timeout=300, format="json")
+                print(f"==== COACHING REPLY ({r['name']}) ====\n", c_reply, "\n========================")
+                
+                cj = {}
+                try:
+                    c_reply = c_reply.strip()
+                    parsed = json.loads(c_reply)
+                    if isinstance(parsed, list) and len(parsed) > 0:
+                        cj = parsed[0]
+                    elif isinstance(parsed, dict):
+                        cj = parsed
+                except Exception as e:
+                    print("JSON parse error:", e)
+                
+                r["reason"] = "See coaching for details."
+                r["coaching"] = cj.get("coaching", "Review transcript.")
+            except Exception as e:
+                print(f"Coaching generation failed for {r['name']}:", e)
+                r["reason"] = "Evaluated as FAIL"
+                r["coaching"] = "Review transcript."
+                
     category_scores, blended_score = calculate_category_scores(ratings, category_weights, is_auto_fail)
 
     # 8. Dynamic Summary (Aware of failures)
@@ -251,11 +290,7 @@ def evaluate_interaction(
     
     summary = generate_scalable_summary(clean_transcript, evaluation_context=evaluation_context_str)
 
-    # 9. Suggestions (Conditional)
-    if blended_score < 85.0:
-        suggestions = clean_suggestions(query_llm(SUGGESTIONS_PROMPT.format(transcript=clean_transcript), label="suggestions"))
-    else:
-        suggestions = "Suggestions omitted (score >= 85%)."
+
 
     return {
         "final_score": blended_score,
@@ -263,8 +298,7 @@ def evaluate_interaction(
         "auto_fail_reason": auto_fail_reason,
         "category_scores": category_scores,
         "scorecard": ratings,
-        "summary": summary,
-        "suggestions": suggestions
+        "summary": summary
     }
 
 def parse_llm_intensity(reply: str) -> (List[Dict[str, Any]], List[Dict[str, Any]]):
@@ -373,49 +407,34 @@ def build_dynamic_prompt(
 def parse_dynamic_ratings(reply: str, categories: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
     # Safely strip out internal monologue for reasoning models
     reply = re.sub(r'<thinking>.*?</thinking>', '', reply, flags=re.DOTALL)
-
-    """Parse YES/NO (or PASS/FAIL) ratings from LLM output (Lenient for small models)."""
-    ratings = []
     
-    # 1. Pre-parse all findings from the LLM reply
     extracted_ratings = []
     for line in reply.splitlines():
-        # Match YES/NO/PASS/FAIL only if it's at the start of the line, or immediately following the item name (e.g., "Item Name: YES - reason")
-        match = re.search(r"^(?:[^:]*:\s*)?\**\b(PASS|FAIL|PASSED|FAILED|YES|NO)\b", line, re.IGNORECASE)
+        match = re.search(r"\b(PASS|FAIL|PASSED|FAILED|YES|NO)\b\s*[^a-zA-Z0-9]*$", line, re.IGNORECASE)
         if match:
             rating = match.group(1).upper()
             if rating == "PASSED": rating = "PASS"
             if rating == "FAILED": rating = "FAIL"
-            # Extract everything after the match as the reason
-            reason_parts = line.split(match.group(0), 1)
-            reason = reason_parts[-1].strip(" -:*") if len(reason_parts) > 1 else ""
-            if not reason:
-                reason = line.strip(" -:*")
-            extracted_ratings.append({"raw_line": line.lower(), "rating": rating, "reason": reason})
+            extracted_ratings.append({"raw_line": line.lower(), "rating": rating})
 
+    ratings = []
     for cat in categories:
         cat_name = cat.get("name", "Category")
         for item in cat.get("line_items", []):
             name = item.get("name", "Item")
             rating = "PASS"
-            reason = "Standard compliant response"
-
-            # 2. Try to find a line matching the item name
+            
             matched = False
             for ext in extracted_ratings:
                 if name.lower() in ext["raw_line"] or name.split()[0].lower() in ext["raw_line"]:
                     rating = ext["rating"]
-                    reason = ext["reason"] if ext["reason"] else f"Evaluated as {rating}"
                     matched = True
                     extracted_ratings.remove(ext)
                     break
             
-            # 3. Lenient fallback: If no exact name match, pop the first available rating 
-            # (Works perfectly for map-reduce where there's usually 1 item per category)
             if not matched and len(extracted_ratings) > 0:
                  ext = extracted_ratings.pop(0)
                  rating = ext["rating"]
-                 reason = ext["reason"] if ext["reason"] else f"Evaluated as {rating}"
 
             score = RATING_SCORES.get(rating, 0)
             ratings.append({
@@ -423,7 +442,8 @@ def parse_dynamic_ratings(reply: str, categories: List[Dict[str, Any]]) -> List[
                 "name": name,
                 "rating": rating,
                 "score": score,
-                "reason": reason or f"Evaluated as {rating}"
+                "reason": "Standard compliant response",
+                "coaching": ""
             })
     return ratings
 

@@ -16,14 +16,19 @@ class OllamaAdapter(BaseLLMAdapter):
     def generate(self, prompt: str, **kwargs) -> str:
         temperature = kwargs.get('temperature', 0.1)
         num_predict = kwargs.get('num_predict', 320)
-        timeout = kwargs.get('timeout', 180)
-
-        payload = json.dumps({
+        timeout = kwargs.get('timeout', 1800)
+        
+        payload_dict = {
             "model": self.model,
             "messages": [{"role": "user", "content": prompt}],
             "stream": False,
             "options": {"temperature": temperature, "num_predict": num_predict}
-        }).encode("utf-8")
+        }
+        
+        if kwargs.get('format') == 'json':
+            payload_dict["format"] = "json"
+
+        payload = json.dumps(payload_dict).encode("utf-8")
 
         req = urllib.request.Request(
             self.url, data=payload, headers={"Content-Type": "application/json"}
@@ -32,7 +37,7 @@ class OllamaAdapter(BaseLLMAdapter):
             with urllib.request.urlopen(req, timeout=timeout) as resp:
                 data = json.loads(resp.read())
                 return data.get("message", {}).get("content", "").strip()
-        except urllib.error.URLError as exc:
+        except (urllib.error.URLError, TimeoutError) as exc:
             return f"Error reaching Ollama: {exc}"
 
 def get_llm() -> BaseLLMAdapter:
@@ -49,4 +54,3 @@ def cache_prompt_prefix(prefix, **kwargs):
 def query_llm_with_state(state, suffix, **kwargs):
     prompt = state + suffix
     return get_llm().generate(prompt, **kwargs)
-

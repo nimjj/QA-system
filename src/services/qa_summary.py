@@ -27,22 +27,15 @@ def format_transcript(transcript):
 SUMMARY_PROMPT = load_summary_prompt()
 
 def generate_scalable_summary(transcript_text: str, evaluation_context: str = "No critical failures identified.") -> str:
-    lines = transcript_text.strip().splitlines()
-    
-    if len(lines) > 5:
-        # 4th line from the start (index 3) to before the 2nd line from the end (index -2)
-        sliced_lines = lines[3:-2]
-        processed_transcript = "\n".join(sliced_lines)
-    else:
-        processed_transcript = transcript_text
+    prompt = f"""<TRANSCRIPT>
+{transcript_text}
+</TRANSCRIPT>
 
-    prompt = f"""TRANSCRIPT:
-{processed_transcript}
-
-INSTRUCTIONS:
+<INSTRUCTIONS>
 You are a highly efficient summarizer.
 Read the transcript above and return ONLY a brief summary of the conversation.
 CRITICAL: The summary MUST be exactly between 60 to 70 characters long.
 Do not include any intro or outro text, just the summary itself.
+</INSTRUCTIONS>
 """
     return query_llm(prompt, label="topic_extraction", num_predict=50)
