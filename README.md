@@ -1,105 +1,331 @@
 # Gemma QA Analysis System
 
-A 100% locally-hosted, microservices-based QA evaluation engine for customer support transcripts. This system uses Llama 3.1 (8B) via Ollama to evaluate soft skills and technical knowledge, combined with a strict Python rule engine to evaluate mathematical SLAs like Dead Air and Hold Time.
+An enterprise-grade, 100% locally-hosted, microservices-driven Quality Assurance (QA) evaluation engine for customer support transcripts. 
 
-## Prerequisites
-* **Docker Desktop:** Installed and running (Linux containers mode on Windows).
-* **Git:** For cloning the repository.
-* **Hardware:** Minimum 16GB RAM recommended for smooth local LLM inference.
+The system leverages **Llama 3.1 (8B)** via **Ollama** for semantic reasoning, soft-skills evaluation, technical assessment, and dynamic coaching generation, coupled with a deterministic **Python Rule Engine** for exact mathematical Service Level Agreement (SLA) calculations (Dead Air, Hold Times, and Verbatim Branding scripts).
 
 ---
 
-## 1. Local Setup & Booting
-
-This architecture uses 7 fully decoupled Docker containers (API Gateway, Redis, Ollama, and 4 Celery Workers) to process tasks asynchronously without blocking the user.
-
-1. **Clone the repository and switch to version-3:**
-   ``bash
-   git clone https://github.com/nimjj/QA-system.git
-   cd QA-system
-   git checkout version-3
-   ``
-
-2. **Boot the environment:**
-   We use Docker Compose to build and network all microservices at once. Run this in the root directory:
-   ``bash
-   docker-compose up --build -d
-   ``
-   *Note: The -d flag runs the containers in the background.*
+## Table of Contents
+1. [System Architecture Overview](#1-system-architecture-overview)
+2. [Prerequisites & Requirements](#2-prerequisites--requirements)
+3. [Quickstart Setup Guide](#3-quickstart-setup-guide)
+4. [Ollama LLM Model Setup](#4-ollama-llm-model-setup)
+5. [API Specification & Data Contracts](#5-api-specification--data-contracts)
+6. [The 15 QA Evaluation Criteria](#6-the-15-qa-evaluation-criteria)
+7. [Mathematical Scoring & Circuit Breakers](#7-mathematical-scoring--circuit-breakers)
+8. [Test Payloads & Postman Guide](#8-test-payloads--postman-guide)
+9. [Development & Codebase Synchronization](#9-development--codebase-synchronization)
 
 ---
 
-## 2. LLM Model Setup (One-Time)
+## 1. System Architecture Overview
 
-Because we removed cloud dependencies, the system relies on an open-source model running on your local machine via the ollama container. 
+The system runs completely detached from third-party cloud APIs to guarantee privacy and security. It is built as a set of decoupled containers orchestrated via Docker Compose and Celery:
 
-We use **Llama 3.1 (8B Parameters)**. The model weights are approximately **4.7 GB**. 
+```
+                  ┌─────────────────────────────────────────┐
+                  │          Client / Postman               │
+                  └───────┬─────────────────────────▲───────┘
+                          │ 1. POST /api/evaluate   │ 6. GET /api/status/{job_id}
+                          ▼                         │
+                  ┌─────────────────────────────────┴───────┐
+                  │      API Gateway (FastAPI :8000)        │
+                  └───────┬─────────────────────────────────┘
+                          │ 2. Enqueue Job ('orchestrate_evaluation')
+                          ▼
+                  ┌─────────────────────────────────────────┐
+                  │            Redis Broker (:6379)         │
+                  └───────┬─────────────────────────────────┘
+                          │ 3. Dequeue Job
+                          ▼
+                  ┌─────────────────────────────────────────┐
+                  │    Orchestrator Worker (Celery Brain)   │
+                  └───────┬─────────────────────────┬───────┘
+                          │                         │
+     4a. Timestamp Gaps & │                         │ 4b. Clean Transcript &
+         Verbatim Checks  │                         │     Targeted Criteria
+                          ▼                         ▼
+            ┌──────────────────────────┐     ┌──────────────────────────┐
+            │   Python Rule Engine     │     │    Ollama LLM Service    │
+            │  (Branding & Dead Air)   │     │  (:11434 / llama3.1:8b)  │
+            └─────────────┬────────────┘     └──────────────┬───────────┘
+                          │                                 │
+                          │   5. Blended Scoring, Auto-Fail │
+                          │      Checks & Coaching Feedback │
+                          └────────────────►◄───────────────┘
+```
 
-**To download and install the model:**
-1. Open your local terminal (while the Docker containers are running).
-2. Execute the pull command directly inside the running Ollama container:
-   ``bash
-   docker exec -it gemma-qa-analysis-ollama-1 ollama run llama3.1
-   ``
-3. **Download Time:** Depending on your internet connection, a 4.7GB file will take anywhere from **5 to 15 minutes** on a standard broadband connection. You will see a progress bar in your terminal.
-4. Once it says "success", you can type /bye to exit. The model is now permanently saved inside your Docker volume!
+### Microservices Breakdown
+* **`gateway` (FastAPI, Port 8000):** Non-blocking HTTP entry point. Validates requests via Pydantic, dispatches asynchronous tasks to Redis, and queries task completion statuses.
+* **`redis` (Redis Alpine, Port 6379):** High-throughput message broker and Celery result backend.
+* **`ollama` (Ollama Engine, Port 11434):** Hosts and executes local quantized models (`llama3.1:latest`).
+* **`orchestrator-worker` (Celery Worker):** Coordinates the end-to-end evaluation pipeline: splits timing data, calls the rule engine, chunks LLM evaluation categories, triggers coaching inference on failures, and computes blended scores.
+* **`llm-worker` / `logic-worker` / `amalgamation-worker`:** Dedicated Celery workers prepped for horizontal scaling across separate queues.
 
 ---
 
-## 3. API Documentation & Testing
+## 2. Prerequisites & Requirements
 
-The Docker containers are configured to bind the FastAPI Gateway to your local **Port 8000**. 
+* **Operating System:** Windows 10/11 (with WSL2 enabled), macOS, or Linux.
+* **Docker Engine & Docker Compose:** Docker Desktop with Linux containers enabled.
+* **Hardware Allocation:**
+  * **RAM:** Minimum 16 GB system memory (at least 8 GB allocated to Docker).
+  * **Disk Space:** At least 15 GB free disk space (to store the base Docker images and the 4.7 GB Llama 3.1 model weights).
+  * **CPU/GPU:** Multi-core modern processor (AVX2 support). NVIDIA GPU with CUDA passthrough is optional but significantly accelerates inference.
 
-**Localhost API Endpoint:** http://localhost:8000/api/evaluate
+---
 
-### Test it in Postman
-You can immediately test the system by sending a properly formatted JSON Array to the API. 
+## 3. Quickstart Setup Guide
 
-1. Open Postman.
-2. Create a new **POST** request to http://localhost:8000/api/evaluate
-3. Go to the **Body** tab, select **raw**, and choose **JSON**.
-4. Paste the following structured transcript (which includes intentional >20s Dead Air gaps to trigger the rule engine!):
+### 1. Clone the repository and checkout `version-3`:
+```bash
+git clone https://github.com/nimjj/QA-system.git
+cd QA-system
+git checkout version-3
+```
 
-``json
+### 2. Launch the container cluster:
+```bash
+docker-compose up --build -d
+```
+Verify that all services are healthy and running:
+```bash
+docker ps
+```
+You should see 6 active containers:
+* `gemma-qa-analysis-gateway-1`
+* `gemma-qa-analysis-orchestrator-worker-1`
+* `gemma-qa-analysis-logic-worker-1`
+* `gemma-qa-analysis-llm-worker-1`
+* `gemma-qa-analysis-redis-1`
+* `gemma-qa-analysis-ollama-1`
+
+---
+
+## 4. Ollama LLM Model Setup
+
+Because the LLM runs locally, model weights must be pulled once into the persistent `ollama_data` Docker volume.
+
+### Pull Llama 3.1:
+Run the following command directly inside the container:
+```bash
+docker exec -it gemma-qa-analysis-ollama-1 ollama run llama3.1
+```
+* **Download Size:** ~4.7 GB.
+* **Download Duration:** Approximately 5–15 minutes depending on connection speed.
+* Once the prompt appears (`>>>`), type `/bye` and hit **Enter** to exit. The model weights are permanently cached.
+
+---
+
+## 5. API Specification & Data Contracts
+
+### 1. Ingest Transcript for Evaluation
+* **Endpoint:** `POST /api/evaluate`
+* **Content-Type:** `application/json`
+
+#### Request Payload Model (`EvaluateRequest`):
+```json
 {
   "channel": "Call",
+  "agent_name": "Alex",
+  "custom_prompt": null,
   "transcript": [
     {
-      "speaker": "Agent",
-      "text": "Thank you for calling S-NET Communications. My name is Alex.",
-      "start_time_sec": 0,
-      "end_time_sec": 6
+      "speaker": "agent",
+      "start_time": "[00:00]",
+      "end_time": "[00:05]",
+      "text": "Thank you for calling S-Net. My name is Alex. May I have your account number and PIN to verify your account?"
     },
     {
-      "speaker": "Caller",
-      "text": "Hi Alex, I've been trying to connect to my Wi-Fi all morning.",
-      "start_time_sec": 8,
-      "end_time_sec": 16
-    },
-    {
-      "speaker": "Agent",
-      "text": "Let's start with a power cycle. Unplug the router for 30 seconds.",
-      "start_time_sec": 18,
-      "end_time_sec": 24
-    },
-    {
-      "speaker": "Caller",
-      "text": "Okay. It's been about 30 seconds now.",
-      "start_time_sec": 55,
-      "end_time_sec": 58
+      "speaker": "customer",
+      "start_time": "[00:06]",
+      "end_time": "[00:15]",
+      "text": "Hi, my name is John Smith. My account number is 883-992-110 and my PIN is 1234. My internet is completely down."
     }
   ]
 }
-``
+```
 
-5. Hit **Send**. You will instantly receive a job_id:
-``json
+#### Turn Object Schema:
+| Field | Type | Default | Description |
+|---|---|---|---|
+| `speaker` | `string` | **Required** | The entity speaking (`"agent"` or `"customer"`). |
+| `text` | `string` | **Required** | The verbatim dialog utterance. |
+| `start_time` | `string` | `null` | String timestamp (e.g., `"[00:00]"`, `"[15:30]"`, `"01:05:20"`). |
+| `end_time` | `string` | `null` | String timestamp matching start format. |
+| `start_time_sec` | `integer` | `0` | Optional integer offset in seconds (used if string timestamp is absent). |
+| `end_time_sec` | `integer` | `0` | Optional integer offset in seconds. |
+
+#### Synchronous Response:
+```json
 {
-    "job_id": "50f45a5d-c53c-43b1-bb6e-7ecf4794caf1",
-    "status": "processing",
-    "created_at": "2026-09-08T12:00:00"
+  "job_id": "c52b4b99-30c7-40fd-b41b-37f60b3c9919",
+  "status": "processing",
+  "created_at": "2026-09-10T15:00:50.006123"
 }
-``
+```
 
-6. Create a new **GET** request to http://localhost:8000/api/status/{PASTE_YOUR_JOB_ID_HERE}.
-7. Hit **Send** periodically until the status changes from "processing" to "completed" (usually takes 4-6 minutes for a local LLM). You will receive your fully structured JSON scorecard!
+---
+
+### 2. Poll Evaluation Status & Results
+* **Endpoint:** `GET /api/status/{job_id}`
+
+#### Response (While Processing):
+```json
+{
+  "status": "processing"
+}
+```
+
+#### Response (Upon Completion):
+```json
+{
+  "status": "completed",
+  "result": {
+    "final_score": 100.0,
+    "is_auto_fail": false,
+    "auto_fail_reason": null,
+    "category_scores": {
+      "Soft Skills": 100.0,
+      "Technical Knowledge": 100.0,
+      "Auto Fail Category": 100.0
+    },
+    "scorecard": [
+      {
+        "category": "Soft Skills",
+        "name": "Branding and Survey Check",
+        "rating": "PASS",
+        "score": 100,
+        "reason": "Standard compliant response"
+      },
+      {
+        "category": "Soft Skills",
+        "name": "Hold time and Dead Air",
+        "rating": "PASS",
+        "score": 100,
+        "reason": "Passed: Detected 2 occurrences of dead air (within 2 exception limit)."
+      },
+      {
+        "category": "Soft Skills",
+        "name": "Personalized the call/ticket appropriately",
+        "rating": "PASS",
+        "score": 100,
+        "reason": "Standard compliant response",
+        "coaching": ""
+      },
+      {
+        "category": "Technical Knowledge",
+        "name": "Verified customer",
+        "rating": "FAIL",
+        "score": 0,
+        "reason": "See coaching for details.",
+        "coaching": "Verify the customer's account information and confirm their identity using two points of ID before proceeding."
+      }
+    ],
+    "summary": "Customer internet restored following profile reconfiguration.",
+    "evaluation_id": "c52b4b99-30c7-40fd-b41b-37f60b3c9919"
+  }
+}
+```
+
+---
+
+## 6. The 15 QA Evaluation Criteria
+
+The system evaluates agents across 15 rigorous criteria categorized into three operational sections:
+
+### Category 1: Soft Skills (Weight: 33.3%)
+1. **Branding and Survey Check (Rule Engine):**
+   * *Rule:* Must contain `"thank you for calling s-net"` in the first 4 agent utterances AND `"thank you for choosing s-net"` in the last 4 agent utterances.
+2. **Hold time and Dead Air (Rule Engine):**
+   * *Rule:* Any turn transition gap exceeding **20 seconds** is flagged as Dead Air. Up to **2 exceptions** are tolerated (e.g., communicated holds). If **3 or more** gaps occur, the item receives a strict FAIL.
+3. **Personalized the call/ticket appropriately (LLM):**
+   * *Rule:* Rate PASS ONLY if the agent explicitly addresses the customer by their verified name (e.g., "John") during the conversation. Rate FAIL if the agent never refers to the customer by name.
+4. **Empathy & Acknowledgment Statement (LLM):**
+   * *Rule:* Must provide empathy statements acknowledging frustration or stress (e.g., "I understand how frustrating this is") without being blunt or dismissive.
+5. **Build rapport and observed professionalism (LLM):**
+   * *Rule:* Agent must remain courteous, adapt to technical pacing, avoid interrupting, and avoid unprofessional sounds or slang.
+
+### Category 2: Technical Knowledge (Weight: 66.7%)
+6. **Paraphrasing (LLM):**
+   * *Rule:* Must paraphrase and reconfirm the core issue at the onset of the call to align expectations.
+7. **Verified customer (LLM):**
+   * *Rule:* Rate PASS ONLY if the agent explicitly validates secure account credentials (e.g., account PIN, billing address, security questions). Requesting an account number alone triggers an automatic FAIL.
+8. **Probing (LLM):**
+   * *Rule:* Uses effective, open-ended probing questions to identify the root cause before prescribing steps.
+9. **Set proper expectations (LLM):**
+   * *Rule:* Explicitly communicates expected wait times, troubleshooting duration, and updates before taking actions or initiating holds.
+10. **Provided the appropriate solution (LLM):**
+    * *Rule:* Rate PASS if the agent's actions eventually solved the customer's technical issue (verified by customer confirmation). Rate FAIL only if instructions were invalid or left the customer broken.
+11. **Took ownership of the problem (LLM):**
+    * *Rule:* Takes personal responsibility for the resolution without deflecting blame onto other departments (e.g., sales, IT, or field techs).
+12. **Active listening (LLM):**
+    * *Rule:* Avoids asking the caller for information already provided. Asking for repeated information 2 or more times triggers a FAIL.
+13. **Confirmed the issue is resolved (LLM):**
+    * *Rule:* Secures explicit verbal confirmation that the service is functional, invites the user to test, and summarizes the fix.
+
+### Category 3: Auto-Fail Circuit Breakers (Weight: 0.0% / Instant Override)
+14. **Escalation (LLM):**
+    * *Rule:* ONLY rate FAIL if the customer explicitly demands a supervisor/manager OR threatens cancellation, and the agent refuses or neglects to transfer. Frustration alone must NOT trigger a failure.
+15. **Non-First Call Resolution (LLM):**
+    * *Rule:* Rate PASS if the issue was resolved on this call. Rate FAIL if the customer was instructed to call back later, was hung up on, or ended the call unresolved.
+
+---
+
+## 7. Mathematical Scoring & Circuit Breakers
+
+### 1. Item Scoring
+* `PASS` = 100 points
+* `FAIL` / `NO` = 0 points
+
+### 2. Category Scoring Formula
+Each category score is the arithmetic mean of its constituent line items:
+$$\text{Category Score} = \frac{\sum \text{Item Scores}}{\text{Total Items in Category}}$$
+
+*Example:* If **Soft Skills** has 5 line items and 1 item fails:
+$$\text{Soft Skills Score} = \frac{100 + 100 + 100 + 100 + 0}{5} = 80.0\%$$
+
+### 3. Weighted Final Blended Score
+$$\text{Final Score} = (\text{Soft Skills} \times 0.333) + (\text{Technical Knowledge} \times 0.667) + (\text{Auto Fail} \times 0.000)$$
+
+### 4. Circuit Breakers (Zero-Tolerance Overrides)
+The `final_score` and all category scores are immediately overwritten to **`0.0`** if any of the following occur:
+1. **Profanity or Hostility:** Detects forbidden derogatory language in the transcript text.
+2. **Extreme Hostility:** 3 or more hostile agent statements detected.
+3. **Auto-Fail Category Breach:** Either **Escalation** or **Non-First Call Resolution** receives a `FAIL`.
+
+---
+
+## 8. Test Payloads & Postman Guide
+
+Three pre-calibrated test payloads spanning **30 minutes of call duration** are checked into the repository under `tests/payloads/`:
+
+| Payload File | Target Score | Auto-Fail | Key Scenarios Tested |
+|---|---|---|---|
+| **`perfect_call_payload.json`** | **`100.0`** | `false` | 45 turns. Flawless verification with PIN, two communicated diagnostic holds (2 gaps within the 2-exception dead air limit), verbatim branding greetings/closings, full ownership. |
+| **`mediocre_call_payload.json`** | **`25.0`** | `false` | Solves internet outage but fails soft skills and customer verification. Triggers **23 occurrences of Dead Air** (>20s). Avoids auto-fails. |
+| **`catastrophic_call_payload.json`** | **`0.0`** | `true` | Agent refuses supervisor requests, ignores cancellation threats, leaves 4 uncommunicated gaps (>5 min each), misses branding, and tells customer to "call back tomorrow." |
+
+### Executing Tests in Postman:
+1. Create a `POST` request to `http://localhost:8000/api/evaluate`.
+2. Select **Body** > **binary**.
+3. Click **Select file** and choose `tests/payloads/perfect_call_payload.json` (or paste raw JSON under **Body** > **raw**).
+4. Send request and note the returned `job_id`.
+5. Create a `GET` request to `http://localhost:8000/api/status/{job_id}` and poll until `"status": "completed"`.
+
+---
+
+## 9. Development & Codebase Synchronization
+
+Because the Celery workers and FastAPI run inside isolated Docker containers without live volume mount overrides on production containers, **any code or prompt modifications requires a container rebuild**:
+
+```bash
+docker-compose up -d --build gateway orchestrator-worker logic-worker llm-worker
+```
+
+### Checking Worker Logs:
+To observe real-time evaluation logs and coaching generation:
+```bash
+docker logs -f gemma-qa-analysis-orchestrator-worker-1
+```
