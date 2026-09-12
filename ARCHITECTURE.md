@@ -365,7 +365,6 @@ Celery stores execution states and serialized scorecard payloads in Redis using 
 | `Dockerfile.orchestrator`| Container recipe for primary Celery evaluation coordinator. |
 | `Dockerfile.logic` | Container recipe for deterministic rule worker. |
 | `Dockerfile.llm` | Container recipe for isolated LLM worker. |
-| `Dockerfile.amalgamation` | Container recipe for report aggregation worker. |
 | `src/api/web_app.py` | FastAPI application, endpoints (`/api/evaluate`, `/api/status`, `/api/preview-prompt`), Pydantic models. |
 | `src/services/dynamic_evaluator.py` | Core evaluation orchestrator: sanitization, category looping, scoring aggregation, circuit breakers, dynamic coaching. |
 | `src/services/rule_engine.py` | Pure Python deterministic algorithms for verbatim branding and mathematical Dead Air SLA checks. |

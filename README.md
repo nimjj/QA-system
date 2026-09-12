@@ -61,7 +61,7 @@ The system runs completely detached from third-party cloud APIs to guarantee pri
 * **`redis` (Redis Alpine, Port 6379):** High-throughput message broker and Celery result backend.
 * **`ollama` (Ollama Engine, Port 11434):** Hosts and executes local quantized models (`llama3.1:latest`).
 * **`orchestrator-worker` (Celery Worker):** Coordinates the end-to-end evaluation pipeline: splits timing data, calls the rule engine, chunks LLM evaluation categories, triggers coaching inference on failures, and computes blended scores.
-* **`llm-worker` / `logic-worker` / `amalgamation-worker`:** Dedicated Celery workers prepped for horizontal scaling across separate queues.
+* **`llm-worker` / `logic-worker`:** Dedicated Celery workers prepped for horizontal scaling across separate queues.
 
 ---
 

@@ -43,15 +43,6 @@ services:
     environment:
       - REDIS_URL=redis://redis:6379/0
 
-  amalgamation-worker:
-    build:
-      context: .
-      dockerfile: Dockerfile.amalgamation
-    depends_on:
-      - redis
-    environment:
-      - REDIS_URL=redis://redis:6379/0
-
   orchestrator-worker:
     build:
       context: .
