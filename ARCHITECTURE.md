@@ -67,7 +67,7 @@ The evaluation pipeline is built as a non-blocking, asynchronous pipeline. Below
        ▼
 [Ollama Service (Port 11434 / JSON Mode)]
        │ • Prompt LLM per failed item: 1-2 sentence coaching tip
-       │ • Inject coaching into scorecard reason/coaching fields
+       │ • Inject coaching into scorecard coaching field
        ▼
 [Step G: Mathematical Scoring Engine]
        │ • Compute Category Means: sum(scores) / count
@@ -282,8 +282,7 @@ When an agent fails any LLM-evaluated criteria line item, the system automatical
    </INSTRUCTIONS>
    ```
 3. **Strict JSON Enforcement:** Queries Ollama with `format="json"` and `timeout=300`.
-4. **Scorecard Augmentation:** Replaces default placeholders with actionable feedback:
-   * `item["reason"] = "See coaching for details."`
+4. **Scorecard Augmentation:** Injects actionable feedback directly into the failed item:
    * `item["coaching"] = parsed_json["coaching"]`
 
 ---

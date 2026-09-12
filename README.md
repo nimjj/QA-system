@@ -196,30 +196,24 @@ docker exec -it gemma-qa-analysis-ollama-1 ollama run llama3.1
         "category": "Soft Skills",
         "name": "Branding and Survey Check",
         "rating": "PASS",
-        "score": 100,
-        "reason": "Standard compliant response"
+        "coaching": ""
       },
       {
         "category": "Soft Skills",
         "name": "Hold time and Dead Air",
         "rating": "PASS",
-        "score": 100,
-        "reason": "Passed: Detected 2 occurrences of dead air (within 2 exception limit)."
+        "coaching": ""
       },
       {
         "category": "Soft Skills",
         "name": "Personalized the call/ticket appropriately",
         "rating": "PASS",
-        "score": 100,
-        "reason": "Standard compliant response",
         "coaching": ""
       },
       {
         "category": "Technical Knowledge",
         "name": "Verified customer",
         "rating": "FAIL",
-        "score": 0,
-        "reason": "See coaching for details.",
         "coaching": "Verify the customer's account information and confirm their identity using two points of ID before proceeding."
       }
     ],

@@ -13,7 +13,7 @@ def evaluate_branding(turns: List[Tuple[str, str]]) -> Dict[str, Any]:
             "name": "Branding and Survey Check",
             "rating": "FAIL",
             "score": 0,
-            "reason": "No agent lines found in the transcript."
+            "coaching": "No agent lines found in the transcript."
         }
         
     first_4 = " ".join(agent_lines[:4]).lower()
@@ -34,7 +34,7 @@ def evaluate_branding(turns: List[Tuple[str, str]]) -> Dict[str, Any]:
             "name": "Branding and Survey Check",
             "rating": "PASS",
             "score": 100,
-            "reason": "Standard compliant response"
+            "coaching": ""
         }
     else:
         missed = []
@@ -45,7 +45,7 @@ def evaluate_branding(turns: List[Tuple[str, str]]) -> Dict[str, Any]:
             "name": "Branding and Survey Check",
             "rating": "FAIL",
             "score": 0,
-            "reason": f"Agent missed verbatim scripts for: {', '.join(missed)}"
+            "coaching": f"Agent missed verbatim scripts for: {', '.join(missed)}"
         }
 
 def evaluate_hold_and_dead_air(turns: List[Tuple[str, str]], parsed_times: List[Tuple[int, int]]) -> Dict[str, Any]:
@@ -55,7 +55,7 @@ def evaluate_hold_and_dead_air(turns: List[Tuple[str, str]], parsed_times: List[
             "name": "Hold time and Dead Air",
             "rating": "PASS",
             "score": 100,
-            "reason": "Standard compliant response (No structured timestamps provided)"
+            "coaching": ""
         }
         
     dead_air_count = 0
@@ -78,7 +78,7 @@ def evaluate_hold_and_dead_air(turns: List[Tuple[str, str]], parsed_times: List[
             "name": "Hold time and Dead Air",
             "rating": "FAIL",
             "score": 0,
-            "reason": f"Dead Air Breach: Agent had {dead_air_count} occurrences of >20s dead air (max gap {max_gap}s). Exceeds 2 exceptions limit."
+            "coaching": f"Dead Air Breach: Agent had {dead_air_count} occurrences of >20s dead air (max gap {max_gap}s). Exceeds 2 exceptions limit."
         }
         
     return {
@@ -86,5 +86,5 @@ def evaluate_hold_and_dead_air(turns: List[Tuple[str, str]], parsed_times: List[
         "name": "Hold time and Dead Air",
         "rating": "PASS",
         "score": 100,
-        "reason": f"Passed: Detected {dead_air_count} occurrences of dead air (within 2 exception limit)."
+        "coaching": ""
     }

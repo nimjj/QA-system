@@ -269,11 +269,9 @@ def evaluate_interaction(
                 except Exception as e:
                     print("JSON parse error:", e)
                 
-                r["reason"] = "See coaching for details."
                 r["coaching"] = cj.get("coaching", "Review transcript.")
             except Exception as e:
                 print(f"Coaching generation failed for {r['name']}:", e)
-                r["reason"] = "Evaluated as FAIL"
                 r["coaching"] = "Review transcript."
                 
     category_scores, blended_score = calculate_category_scores(ratings, category_weights, is_auto_fail)
@@ -284,20 +282,30 @@ def evaluate_interaction(
         audit_context_lines.append(f"CRITICAL AUTO-FAIL TRIGGERED: {auto_fail_reason}")
     for r in ratings:
         if r["rating"] in ["NO", "FAIL"]:
-            audit_context_lines.append(f"FAILED CHECK - {r['name']}: {r['reason']}")
+            tip = r.get("coaching") or "Failed criteria check."
+            audit_context_lines.append(f"FAILED CHECK - {r['name']}: {tip}")
     
     evaluation_context_str = "\n".join(audit_context_lines) if audit_context_lines else "No critical failures identified. The agent passed all checks."
     
     summary = generate_scalable_summary(clean_transcript, evaluation_context=evaluation_context_str)
 
-
+    # Clean scorecard for client (remove internal score calculation field and reason)
+    clean_scorecard = [
+        {
+            "category": r["category"],
+            "name": r["name"],
+            "rating": r["rating"],
+            "coaching": r.get("coaching", "")
+        }
+        for r in ratings
+    ]
 
     return {
         "final_score": blended_score,
         "is_auto_fail": is_auto_fail,
         "auto_fail_reason": auto_fail_reason,
         "category_scores": category_scores,
-        "scorecard": ratings,
+        "scorecard": clean_scorecard,
         "summary": summary
     }
 
@@ -442,7 +450,6 @@ def parse_dynamic_ratings(reply: str, categories: List[Dict[str, Any]]) -> List[
                 "name": name,
                 "rating": rating,
                 "score": score,
-                "reason": "Standard compliant response",
                 "coaching": ""
             })
     return ratings
@@ -470,7 +477,7 @@ def check_auto_fail(
     # Check LLM scorecard for Auto Fail category failures
     for r in ratings:
         if "AUTO FAIL" in r["category"].upper() and r["rating"] in ["NO", "FAIL"]:
-            return True, f"Auto-Fail Triggered by Scorecard: {r['name']} - {r['reason']}"
+            return True, f"Auto-Fail Triggered by Scorecard: {r['name']}"
 
     return False, None
 
