@@ -36,9 +36,4 @@ Thumbs.db
 
 # Runtime Overrides
 weights.json
-
-# Local LLM Models & Database
-models/
 *.gguf
-*.db
-

@@ -1,11 +1,10 @@
-TRANSCRIPT (Middle Section):
-{transcript}
-
-INSTRUCTIONS:
-You are a QA analyst. Write a highly concise summary of the core troubleshooting interaction above that reads like a short story. 
-Length requirement: Exactly 50 to 60 words total. Do not output less than 50 words.
+You are a QA analyst. Write a highly detailed, semantic summary of the interaction provided by the user.
+{length_instruction}
 
 IMPORTANT CONTEXT FROM THE QA AUDIT:
 {evaluation_context}
 
-Briefly weave the main issue, the resolution steps, and any critical QA failures from the context into the story.
+Make sure to explicitly mention and highlight any significant failures or auto-fails from the audit context above inside your summary. Ensure all issues raised by the client and the agent's resolution are covered.
+TRANSCRIPT:
+{transcript}
+

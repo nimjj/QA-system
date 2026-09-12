@@ -1,11 +1,8 @@
-"""Stateless WEB VERSION of the QA analysis API.
-
-Run with: uvicorn src.api.web_app:app --host 0.0.0.0 --port 8000
-"""
-
 import os
 import sys
 import json
+import uuid
+import datetime
 
 _ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
 _SRC = os.path.join(_ROOT, "src")
@@ -13,12 +10,17 @@ for _path in [_ROOT, _SRC]:
     if _path not in sys.path:
         sys.path.insert(0, _path)
 
-from fastapi import FastAPI
+from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
-from typing import Optional
+from typing import Optional, List, Union, Dict, Any
+from celery import Celery
+from celery.result import AsyncResult
 
-from src.services.dynamic_evaluator import evaluate_interaction, preview_evaluation_prompt
+from src.services.dynamic_evaluator import preview_evaluation_prompt
+
+REDIS_URL = os.getenv("REDIS_URL", "redis://localhost:6379/0")
+celery_app = Celery('orchestrator', broker=REDIS_URL, backend=REDIS_URL)
 
 app = FastAPI(title="Stateless QA Service API")
 
@@ -30,15 +32,22 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+class Turn(BaseModel):
+    speaker: str
+    text: str
+    start_time: Optional[str] = None
+    end_time: Optional[str] = None
+    start_time_sec: Optional[int] = 0
+    end_time_sec: Optional[int] = 0
+
 class EvaluateRequest(BaseModel):
-    transcript: str
+    transcript: Union[List[Turn], str]
     channel: Optional[str] = "Call"
     agent_name: Optional[str] = "Agent"
     custom_prompt: Optional[str] = None
 
 @app.get("/api/samples")
 def list_sample_inputs():
-    """List and return all sample conversation JSON files from the inputs/ folder."""
     inputs_dir = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(__file__))), "inputs")
     samples = []
     if os.path.exists(inputs_dir):
@@ -56,27 +65,39 @@ def list_sample_inputs():
 
 @app.post("/api/evaluate")
 def evaluate_tenant_transcript(req: EvaluateRequest):
-    """Run dynamic QA analysis on a transcript using stateless criteria."""
-    # Criteria is now fully encapsulated within dynamic_evaluator.py ruleset
     criteria_data = {}
 
-    result = evaluate_interaction(
-        transcript_text=req.transcript,
-        criteria_data=criteria_data,
-        tenant_id="default",
-        channel=req.channel or "Call",
-        custom_prompt=req.custom_prompt
+    transcript_payload = [t.dict() for t in req.transcript] if isinstance(req.transcript, list) else req.transcript
+
+    # Dispatch async task
+    task = celery_app.send_task(
+        'orchestrate_evaluation',
+        args=[transcript_payload, criteria_data, "default", req.channel or "Call"],
+        kwargs={"custom_prompt": req.custom_prompt}
     )
 
-    import uuid
-    import datetime
-    result["evaluation_id"] = str(uuid.uuid4())
-    result["created_at"] = datetime.datetime.utcnow().isoformat()
-    return result
+    return {
+        "job_id": task.id,
+        "status": "processing",
+        "created_at": datetime.datetime.utcnow().isoformat()
+    }
+
+@app.get("/api/status/{job_id}")
+def get_job_status(job_id: str):
+    task_result = AsyncResult(job_id, app=celery_app)
+    if task_result.state == 'PENDING':
+        return {"status": "processing"}
+    elif task_result.state == 'SUCCESS':
+        result = task_result.result
+        result["evaluation_id"] = job_id
+        return {"status": "completed", "result": result}
+    elif task_result.state == 'FAILURE':
+        return {"status": "failed", "error": str(task_result.info)}
+    else:
+        return {"status": task_result.state}
 
 @app.post("/api/preview-prompt")
 def preview_tenant_prompt(req: EvaluateRequest):
-    """Build and preview the exact LLM prompt without executing evaluation."""
     criteria_data = {}
     preview = preview_evaluation_prompt(
         transcript_text=req.transcript,

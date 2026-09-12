@@ -18,10 +18,10 @@ if [ ! -f ".env" ]; then
     cp .env.example .env
 fi
 
-echo "Pulling the default LLM (llama3.1) from Ollama..."
-ollama pull llama3.1
+echo "Downloading K2 Horizon GGUF model via huggingface-hub..."
+python download_model.py
 
-echo "Setup complete! To run the server:"
-echo "1. source .venv/bin/activate"
-echo "2. uvicorn src.api.web_app:app --host 0.0.0.0 --port 8000 --reload"
+echo "Setup complete! To run the server, type:"
+echo "source .venv/bin/activate"
+echo "uvicorn src.api.web_app:app --host 0.0.0.0 --port 8000 --reload"
 

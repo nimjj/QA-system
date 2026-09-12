@@ -18,11 +18,11 @@ IF NOT EXIST ".env" (
     copy .env.example .env
 )
 
-echo Pulling the default LLM (llama3.1) from Ollama...
-echo Ensure Ollama desktop is running in your system tray!
-ollama pull llama3.1
+echo Downloading K2 Horizon GGUF model via huggingface-hub...
+python download_model.py
 
 echo Setup complete! To run the server, type:
 echo .venv\Scripts\activate
 echo uvicorn src.api.web_app:app --host 0.0.0.0 --port 8000 --reload
 pause
+

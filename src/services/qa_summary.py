@@ -13,7 +13,7 @@ for _path in [_ROOT, _SRC, _TESTS]:
     if _path not in sys.path:
         sys.path.insert(0, _path)
 
-from src.core.llm_client import query_llm
+from src.services.llm_adapter import query_llm
 
 def load_summary_prompt():
     prompt_path = os.getenv("PROMPT_SUMMARY_PATH", "resources/prompts/summary_prompt.txt")
@@ -26,20 +26,16 @@ def format_transcript(transcript):
 
 SUMMARY_PROMPT = load_summary_prompt()
 
-def extract_topic_keywords(transcript_text: str) -> str:
-    prompt = f"""TRANSCRIPT:
+def generate_scalable_summary(transcript_text: str, evaluation_context: str = "No critical failures identified.") -> str:
+    prompt = f"""<TRANSCRIPT>
 {transcript_text}
+</TRANSCRIPT>
 
-INSTRUCTIONS:
-You are a highly efficient topic extractor.
-Read the transcript above and return ONLY a comma-separated list of the 5 to 10 most important technical issues, topics, or policies discussed.
-Do not write sentences. Just output the keywords.
+<INSTRUCTIONS>
+You are a highly efficient summarizer.
+Read the transcript above and return ONLY a brief summary of the conversation.
+CRITICAL: The summary MUST be exactly between 60 to 70 characters long.
+Do not include any intro or outro text, just the summary itself.
+</INSTRUCTIONS>
 """
-    return query_llm(prompt, label="topic_extraction")
-
-def generate_short_story_summary(transcript_text: str, evaluation_context: str = "No critical failures identified.") -> str:
-    prompt = load_summary_prompt().format(
-        transcript=transcript_text,
-        evaluation_context=evaluation_context
-    )
-    return query_llm(prompt, label="story_summary")
+    return query_llm(prompt, label="topic_extraction", num_predict=50)
