@@ -32,6 +32,8 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+import requests
+
 class Turn(BaseModel):
     speaker: str
     text: str
@@ -42,6 +44,8 @@ class Turn(BaseModel):
 
 class EvaluateRequest(BaseModel):
     transcript: Union[List[Turn], str]
+    criteria_data: Optional[Dict[str, Any]] = None
+    tenant_id: Optional[str] = "default"
     channel: Optional[str] = "Call"
     agent_name: Optional[str] = "Agent"
     custom_prompt: Optional[str] = None
@@ -65,14 +69,26 @@ def list_sample_inputs():
 
 @app.post("/api/evaluate")
 def evaluate_tenant_transcript(req: EvaluateRequest):
-    criteria_data = {}
+    criteria_data = req.criteria_data
+    
+    if not criteria_data:
+        config_url = os.getenv("CONFIG_API_URL", "http://config-db:8080/api/criteria/")
+        try:
+            resp = requests.get(f"{config_url}{req.tenant_id}", timeout=5)
+            if resp.status_code == 200:
+                criteria_data = resp.json()
+            else:
+                criteria_data = {}
+        except Exception as e:
+            print(f"Warning: Could not fetch config for {req.tenant_id}: {e}")
+            criteria_data = {}
 
     transcript_payload = [t.dict() for t in req.transcript] if isinstance(req.transcript, list) else req.transcript
 
     # Dispatch async task
     task = celery_app.send_task(
         'orchestrate_evaluation',
-        args=[transcript_payload, criteria_data, "default", req.channel or "Call"],
+        args=[transcript_payload, criteria_data, req.tenant_id, req.channel or "Call"],
         kwargs={"custom_prompt": req.custom_prompt}
     )
 
@@ -98,7 +114,7 @@ def get_job_status(job_id: str):
 
 @app.post("/api/preview-prompt")
 def preview_tenant_prompt(req: EvaluateRequest):
-    criteria_data = {}
+    criteria_data = req.criteria_data or {}
     preview = preview_evaluation_prompt(
         transcript_text=req.transcript,
         criteria_data=criteria_data,

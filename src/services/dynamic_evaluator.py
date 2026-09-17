@@ -231,13 +231,18 @@ def evaluate_interaction(
             
             # REUSE KV CACHE FOR EACH CHUNK
             label = f"scorecard_{chunk[0].get('name', 'cat')[:10]}"
-            reply = query_llm_with_state(transcript_kv_state, chunk_suffix, label=label)
+            reply = query_llm_with_state(transcript_kv_state, chunk_suffix, label=label, format="json")
             llm_reply_parts.append(reply)
             
         llm_reply = "\n\n".join(llm_reply_parts)
 
     ratings = parse_dynamic_ratings(llm_reply, categories)
-    # Inject Python rule-based scores (Branding & Dead Air) into the scorecard
+    # Pre-flight token estimate
+    approx_tokens = len(clean_transcript) / 4
+    if approx_tokens > 25000:
+        raise ValueError(f"Transcript is too large ({approx_tokens} estimated tokens). Maximum allowed is 25000 tokens.")
+
+    # 4. Inject Rule Engine Fixed Outcomes (Branding & Dead Air) into the scorecard
     ratings = rule_ratings + ratings
     intense_moments = []
     harsh_agent_lines = harsh_lines
@@ -247,14 +252,14 @@ def evaluate_interaction(
 
     # 7. Mathematical Scoring Engine
     # Phase 2: Generate Coaching for FAILs
-    failed_items = [r for r in ratings if r["rating"] in ["FAIL", "NO"] and "dead air" not in r["name"].lower()]
+    failed_items = [r for r in ratings if r["rating"] in ["FAIL", "NO"] and "dead air" not in r["name"].lower() and "branding" not in r["name"].lower()]
     if failed_items:
         batch_size = 1
         for i in range(0, len(failed_items), batch_size):
             chunk = failed_items[i:i + batch_size]
             r = chunk[0]
             try:
-                c_prompt = f"""<TRANSCRIPT>\n{clean_transcript}\n</TRANSCRIPT>\n\n<INSTRUCTIONS>\nYou are an expert QA Coach evaluating a {channel} interaction.\nThe agent FAILED the following QA criteria: '{r['name']}'\n\nWrite a brief coaching tip (EXPLICITLY 1 to 2 sentences MAX) on how the agent can improve.\nCRITICAL: Output ONLY a valid JSON object. Do not output reasons, arrays, or conversational text.\n\nJSON FORMAT:\n{{\n  "coaching": "..."\n}}\n</INSTRUCTIONS>"""
+                c_prompt = f"""<TRANSCRIPT>\n{clean_transcript}\n</TRANSCRIPT>\n\n<INSTRUCTIONS>\nYou are an expert QA Coach evaluating a {channel} interaction.\nThe agent FAILED the following QA criteria: '{r['name']}'\nCriteria definition: {r.get('description', '')}\n\nWrite a brief coaching tip (EXPLICITLY 1 to 2 sentences MAX) on how the agent can improve on this specific criterion.\nCRITICAL: Output ONLY a valid JSON object. Do not output reasons, arrays, or conversational text.\n\nJSON FORMAT:\n{{\n  "coaching": "..."\n}}\n</INSTRUCTIONS>"""
                 c_reply = query_llm(c_prompt, label="coaching", timeout=300, format="json")
                 print(f"==== COACHING REPLY ({r['name']}) ====\n", c_reply, "\n========================")
                 
@@ -275,6 +280,11 @@ def evaluate_interaction(
                 r["coaching"] = "Review transcript."
                 
     category_scores, blended_score = calculate_category_scores(ratings, category_weights, is_auto_fail)
+
+    # Check for unrated items due to LLM failure/truncation
+    for r in ratings:
+        if r.get("rating") == "NOT_RATED":
+            raise ValueError(f"Parsing failed for criterion: {r['name']}. Transcript may have been truncated or LLM failed to answer.")
 
     # 8. Dynamic Summary (Aware of failures)
     audit_context_lines = []
@@ -421,39 +431,56 @@ def parse_dynamic_ratings(reply: str, categories: List[Dict[str, Any]]) -> List[
     reply = re.sub(r'<thinking>.*?</thinking>', '', reply, flags=re.DOTALL)
     
     extracted_ratings = []
-    for line in reply.splitlines():
-        match = re.search(r"\b(PASS|FAIL|PASSED|FAILED|YES|NO)\b\s*[^a-zA-Z0-9]*$", line, re.IGNORECASE)
-        if match:
-            rating = match.group(1).upper()
-            if rating == "PASSED": rating = "PASS"
-            if rating == "FAILED": rating = "FAIL"
-            extracted_ratings.append({"raw_line": line.lower(), "rating": rating})
-
+    
+    # 1. Try extracting from JSON format
+    items = re.finditer(r'"item_name"\s*:\s*"([^"]+)"\s*,\s*"rating"\s*:\s*"([^"]+)"', reply, re.IGNORECASE)
+    for match in items:
+        extracted_ratings.append({
+            "raw_name": match.group(1).lower(),
+            "rating": match.group(2).upper()
+        })
+        
+    lines = reply.splitlines()
+    
     ratings = []
     for cat in categories:
         cat_name = cat.get("name", "Category")
         for item in cat.get("line_items", []):
             name = item.get("name", "Item")
-            rating = "PASS"
+            deduction_value = item.get("deduction_value", 10)
+            rating = "NOT_RATED"
             
-            matched = False
+            name_words = set(re.findall(r'\w+', name.lower()))
+            
+            # First check JSON extracted items
             for ext in extracted_ratings:
-                if name.lower() in ext["raw_line"] or name.split()[0].lower() in ext["raw_line"]:
+                ext_words = set(re.findall(r'\w+', ext["raw_name"]))
+                if name.lower() in ext["raw_name"] or len(name_words.intersection(ext_words)) >= min(2, len(name_words)):
                     rating = ext["rating"]
-                    matched = True
-                    extracted_ratings.remove(ext)
                     break
-            
-            if not matched and len(extracted_ratings) > 0:
-                 ext = extracted_ratings.pop(0)
-                 rating = ext["rating"]
-
+                    
+            # If still NOT_RATED, fallback to line-based scan (for non-JSON text)
+            if rating == "NOT_RATED":
+                for line in lines:
+                    line_lower = line.lower()
+                    ext_words = set(re.findall(r'\w+', line_lower))
+                    
+                    if name.lower() in line_lower or len(name_words.intersection(ext_words)) >= min(2, len(name_words)):
+                        if re.search(r'\b(pass|passed|yes)\b', line_lower):
+                            rating = "PASS"
+                            break
+                        elif re.search(r'\b(fail|failed|no)\b', line_lower):
+                            rating = "FAIL"
+                            break
+                        
             score = RATING_SCORES.get(rating, 0)
             ratings.append({
                 "category": cat_name,
                 "name": name,
+                "description": item.get("description", ""),
                 "rating": rating,
                 "score": score,
+                "deduction_value": deduction_value,
                 "coaching": ""
             })
     return ratings
@@ -498,17 +525,25 @@ def calculate_category_scores(
     grouped = {}
     for r in ratings:
         cat = r.get("category", "General Handling")
-        grouped.setdefault(cat, []).append(r["score"])
+        grouped.setdefault(cat, []).append(r)
 
     cat_scores = {}
-    for cat, scores in grouped.items():
-        cat_scores[cat] = round(sum(scores) / len(scores), 1)
+    for cat, items in grouped.items():
+        score = 100.0
+        for item in items:
+            if item.get("rating") in ["FAIL", "NO"]:
+                deduction = item.get("deduction_value", 10)
+                score -= deduction
+        
+        if score < 0:
+            score = 0.0
+            
+        cat_scores[cat] = float(score)
 
     total_weight = sum(category_weights.values()) or 1.0
-    blended = sum(cat_scores.get(cat, 70.0) * (category_weights.get(cat, 1.0) / total_weight) for cat in category_weights)
+    blended = sum(cat_scores.get(cat, 100.0) * (category_weights.get(cat, 1.0) / total_weight) for cat in category_weights)
     
     if not category_weights:
-        all_scores = [r["score"] for r in ratings]
-        blended = sum(all_scores) / len(all_scores) if all_scores else 80.0
+        blended = sum(cat_scores.values()) / len(cat_scores) if cat_scores else 100.0
 
     return cat_scores, round(blended, 1)
