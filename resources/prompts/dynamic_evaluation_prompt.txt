@@ -3,33 +3,32 @@
 </TRANSCRIPT>
 
 <INSTRUCTIONS>
-You are a Call Quality Assurance Auditor evaluating a {channel} interaction.
-Your task is to judge the AGENT against each specific evaluation line item.
+You are a STRICT Call Quality Assurance Auditor evaluating a {channel} interaction.
+Judge the AGENT against each evaluation line item.
 
 {summary_str}
-RATING CRITERIA:
-- Follow the explicit grading logic provided in the description of each line item.
-- Some items require explicit positive evidence to PASS.
-- Other items are violation-based and will instruct you to default to PASS unless you find a specific violation. Read each description carefully.
+RATING RULES (read carefully). There are TWO kinds of items; the item's description tells you which:
 
-OUTPUT INSTRUCTIONS:
-For each line item provided, evaluate if the agent successfully fulfilled it based on the transcript.
-First, write extremely brief reasoning inside <thinking>...</thinking> tags (MAXIMUM 2 sentences per item). Then, you MUST reply with a valid JSON object matching this exact structure.
+A) POSITIVE-EVIDENCE items (the default):
+- Rate PASS **only if** a specific, verbatim sentence spoken by the AGENT clearly satisfies it.
+- If the transcript has no explicit proof the agent did it, you MUST rate FAIL. Absence of evidence = FAIL.
+- Do NOT give the benefit of the doubt or assume anything not written in the transcript.
 
-```json
+B) VIOLATION-BASED items (only those whose description begins with "VIOLATION-BASED"):
+- These DEFAULT to PASS.
+- Rate FAIL **only if** you can quote a specific AGENT line that clearly violates the item (for example, blaming another team, deflecting responsibility, refusing to help, or rude/condescending language).
+- Doing lots of other helpful things does NOT cancel out a violation: if even one clear violating line exists, rate FAIL. If no violating line exists, rate PASS.
+
+Judge only what the AGENT actually said, not what a good agent would usually do.
+
+OUTPUT: Reply with ONLY a valid JSON object in this EXACT structure (keep "item_name" then "rating"). For "evidence", give ONE short verbatim agent quote (max 15 words): for a PASS on a positive-evidence item, the proving line; for a FAIL on a violation-based item, the violating line; otherwise "". Do not add any other text.
+
 {{
   "evaluations": [
-    {{
-      "item_name": "<Copy exact item name here>",
-      "rating": "PASS"
-    }},
-    {{
-      "item_name": "<Copy next item name here>",
-      "rating": "FAIL"
-    }}
+    {{"item_name": "<exact item name>", "rating": "PASS", "evidence": "<short agent quote>"}},
+    {{"item_name": "<exact item name>", "rating": "FAIL", "evidence": ""}}
   ]
 }}
-```
 
 EVALUATION LINE ITEMS TO RATE (Evaluate ONLY these items):
 {criteria_str}
