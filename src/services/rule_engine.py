@@ -283,3 +283,45 @@ def extract_empathy_snippets(turns: List[Tuple[str, str]], sentiment_scores: Lis
                         snippet += f"{spk}: {txt}\n"
                     snippets.append(snippet)
     return "\n---\n".join(snippets)
+
+
+def _agent_lines_with_ctx(turns):
+    """Return list of (index, agent_text) for scanning."""
+    return [(i, txt) for i, (spk, txt) in enumerate(turns) if spk.lower() == "agent"]
+
+def extract_ownership_snippets(turns: List[Tuple[str, str]]) -> str:
+    """Deterministically find AGENT lines that look like blame/deflection/refusal.
+    Returns those lines (short snippets) for the LLM to confirm, or '' if none."""
+    patterns = [
+        "not my department", "not my job", "not something i deal", "not something i handle",
+        "that's not my", "thats not my", "i don't handle", "i dont handle",
+        "call back", "another department", "another team", "different department",
+        "wrong department", "other department", "nothing i can do", "can't do anything",
+        "cant do anything", "you'd have to", "youd have to", "you would have to",
+        "hope you get", "network team", "billing team", "provisioning team", "that's their",
+        "not our problem", "not my problem", "contact them", "you'll have to ask",
+    ]
+    hits = []
+    for i, txt in _agent_lines_with_ctx(turns):
+        low = txt.lower()
+        if any(p in low for p in patterns):
+            hits.append(f"Agent: {txt}")
+    return "\n".join(hits)
+
+def extract_rapport_snippets(turns: List[Tuple[str, str]]) -> str:
+    """Deterministically find AGENT lines that look rude/condescending.
+    Returns those lines for the LLM to confirm, or '' if none."""
+    patterns = [
+        "read the manual", "basic stuff", "obviously", "wasting my time", "waste of time",
+        "calm down", "i already told you", "as i said", "like i said", "i just said",
+        "don't be", "dont be", "how many times", "you should have", "if you'd", "if youd",
+        "not that hard", "figure it out", "not rocket science", "that's a stupid",
+        "thats a stupid", "are you serious", "seriously?", "what did you expect",
+        "should have known", "it's not difficult", "its not difficult",
+    ]
+    hits = []
+    for i, txt in _agent_lines_with_ctx(turns):
+        low = txt.lower()
+        if any(p in low for p in patterns):
+            hits.append(f"Agent: {txt}")
+    return "\n".join(hits)
