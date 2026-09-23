@@ -117,9 +117,10 @@ def evaluate_interaction(
     caller: Optional[str] = None
 ) -> Dict[str, Any]:
     from src.services.rule_engine import (
-        evaluate_branding, evaluate_hold_and_dead_air, 
+        evaluate_branding, evaluate_hold_and_dead_air,
         evaluate_verified_customer, evaluate_personalized_call,
-        extract_active_listening_snippets, extract_empathy_snippets
+        extract_active_listening_snippets, extract_empathy_snippets,
+        extract_ownership_snippets, extract_rapport_snippets
     )
     from src.services.llm_adapter import query_llm, query_llm_with_state, get_embedding
     
@@ -182,7 +183,7 @@ def evaluate_interaction(
     first_10_cust = " ".join(customer_lines[:10])
     first_10_agent = " ".join(agent_lines[:10])
     sim = cosine_similarity(get_embedding(first_10_cust), get_embedding(first_10_agent))
-    para_rating = "PASS" if sim >= 0.30 else "FAIL"
+    para_rating = "PASS" if sim >= 0.50 else "FAIL"
     rule_ratings.append({
         "category": "Technical Knowledge", "name": "Paraphrasing", 
         "rating": para_rating, "score": 100 if para_rating=="PASS" else 0,
@@ -200,6 +201,56 @@ def evaluate_interaction(
         "rating": al_rating, "score": 100 if al_rating=="PASS" else 0,
         "deduction_value": 10, "coaching": "Repeated questions unnecessarily." if al_rating=="FAIL" else ""
     })
+
+    # Violation searchlights: scan agent lines for candidate violations, then have the
+    # LLM confirm on the SHORT snippet only (reliable on a small model vs a full transcript).
+    own_snip = extract_ownership_snippets(turns)
+    own_rating = {"category": "Technical Knowledge", "name": "Took ownership of the problem",
+                  "rating": "PASS", "score": 100, "deduction_value": 25, "coaching": ""}
+    if own_snip:
+        p_own = (f"<AGENT LINES>\n{own_snip}\n</AGENT LINES>\n"
+                 "Do any of these agent lines blame another team/department, deflect responsibility, "
+                 "refuse to help, or tell the customer to contact someone else? "
+                 "Output EXACTLY ONE WORD: FAIL if any line clearly does, otherwise PASS.")
+        r_own = query_llm(p_own, label="verify_ownership", format=None)
+        if "FAIL" in r_own.upper():
+            own_rating["rating"] = "FAIL"
+            own_rating["coaching"] = "Agent deflected responsibility or blamed another team instead of owning the issue."
+    rule_ratings.append(own_rating)
+
+    rap_snip = extract_rapport_snippets(turns)
+    rap_rating = {"category": "Soft Skills", "name": "Build rapport and observed professionalism",
+                  "rating": "PASS", "score": 100, "deduction_value": 20, "coaching": ""}
+    if rap_snip:
+        p_rap = (f"<AGENT LINES>\n{rap_snip}\n</AGENT LINES>\n"
+                 "Are any of these agent lines rude, condescending, dismissive, sarcastic, or unprofessional? "
+                 "Output EXACTLY ONE WORD: FAIL if any line clearly is, otherwise PASS.")
+        r_rap = query_llm(p_rap, label="verify_rapport", format=None)
+        if "FAIL" in r_rap.upper():
+            rap_rating["rating"] = "FAIL"
+            rap_rating["coaching"] = "Agent used rude or condescending language."
+    rule_ratings.append(rap_rating)
+
+    # Probing: focused hybrid. Extract the agent's questions and judge only those, so
+    # the model can't miss diagnostic questions buried in a long agent-only transcript.
+    agent_questions = [txt for spk, txt in turns if spk.lower() == "agent" and "?" in txt]
+    prob_rating = {"category": "Technical Knowledge", "name": "Probing", "rating": "FAIL",
+                   "score": 0, "deduction_value": 25,
+                   "coaching": "Agent did not ask diagnostic questions to investigate the problem."}
+    if agent_questions:
+        q_txt = "\n".join(f"- {q}" for q in agent_questions)
+        p_prob = (f"CUSTOMER PROBLEM: {first_10_cust}\n\nThe agent asked these questions during the call:\n{q_txt}\n\n"
+                  "A DIAGNOSTIC question investigates the CAUSE or specifics of the technical problem "
+                  "(for example: when it started, what changed recently, which device/model/settings, what error or lights appear, what the customer already tried). "
+                  "Do NOT count any of these as diagnostic: greetings like 'how can I help you', "
+                  "identity verification (PIN, account number, name), confirmations like 'is that right', "
+                  "or questions about whether the fix worked at the end. "
+                  "Did the agent ask AT LEAST ONE genuine diagnostic question that investigates the problem? "
+                  "Output EXACTLY ONE WORD: PASS if yes, FAIL if no.")
+        r_prob = query_llm(p_prob, label="verify_probing", format=None)
+        if "PASS" in r_prob.upper():
+            prob_rating["rating"] = "PASS"; prob_rating["score"] = 100; prob_rating["coaching"] = ""
+    rule_ratings.append(prob_rating)
 
     # Phases 3-5: LLM Micro Batches
     categories = criteria_data.get("categories", [])
@@ -230,8 +281,15 @@ def evaluate_interaction(
                 chunk.append(cat_map[c])
             cat_map[c]["line_items"].append(i)
         prefix, suffix = build_dynamic_prompt(tx, chunk, [], [], channel, [], ctx)
-        reply = query_llm_with_state(prefix, suffix, label="batch", format="json")
-        return parse_dynamic_ratings(reply, chunk)
+        # Retry if the model reply can't be parsed into a clear rating for every item,
+        # so one flaky/empty response doesn't cause a false FAIL.
+        parsed = []
+        for _attempt in range(3):
+            reply = query_llm_with_state(prefix, suffix, label="batch", format="json", num_predict=768)
+            parsed = parse_dynamic_ratings(reply, chunk)
+            if all(p.get("rating") != "NOT_RATED" for p in parsed):
+                break
+        return parsed
 
     llm_ratings = []
     prob_ctx = f"\nCUSTOMER PROBLEM CONTEXT:\n{first_10_cust}\n"
@@ -239,9 +297,28 @@ def evaluate_interaction(
     
     end_tx = "\n".join(clean_lines[int(len(clean_lines)*0.7):])
     llm_ratings.extend(run_batch(b2_end, end_tx))
-    llm_ratings.extend(run_batch(b3_full, clean_transcript))
+    # Full transcript + problem context for ownership/rapport/escalation.
+    llm_ratings.extend(run_batch(b3_full, clean_transcript, prob_ctx))
     
     ratings = rule_ratings + llm_ratings
+
+    # Polish: config-db is the single source of truth for deduction values, so the
+    # rubric can be tuned in one place instead of scattered hardcoded numbers.
+    ded_map = {}
+    for cat in categories:
+        for it in cat.get("line_items", []):
+            ded_map[it.get("name", "").strip().lower()] = it.get("deduction_value", 10)
+    for r in ratings:
+        dv = ded_map.get(r.get("name", "").strip().lower())
+        if dv is not None:
+            r["deduction_value"] = dv
+        # An item the LLM never returned a clear answer for is treated as a FAIL
+        # (conservative) rather than silently counting as a pass.
+        if r.get("rating") == "NOT_RATED":
+            r["rating"] = "FAIL"
+            if not r.get("coaching"):
+                r["coaching"] = "Could not be verified from the transcript."
+
     is_auto_fail, reason = check_auto_fail(clean_transcript, [], auto_fail_rules, ratings)
     
     # Phase 6: Batched Coaching
@@ -258,7 +335,10 @@ def evaluate_interaction(
             
     cat_scores, b_score = calculate_category_scores(ratings, criteria_data.get("category_weights", {}), is_auto_fail)
     
-    clean_scorecard = [{"category": r["category"], "name": r["name"], "rating": r["rating"], "coaching": r.get("coaching", "")} for r in ratings]
+    _norm = {"YES": "PASS", "NO": "FAIL"}
+    clean_scorecard = [{"category": r["category"], "name": r["name"],
+                        "rating": _norm.get(r["rating"], r["rating"]),
+                        "coaching": r.get("coaching", "")} for r in ratings]
     return {"final_score": b_score, "scorecard": clean_scorecard, "is_auto_fail": is_auto_fail, "auto_fail_reason": reason}
 
 
