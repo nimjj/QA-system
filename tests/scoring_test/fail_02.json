@@ -1,0 +1,8 @@
+{
+  "id": "fail_02",
+  "intended_quality": "Instant Fail (escalation refusal / unresolved)",
+  "channel": "Call",
+  "agent_name": "Taylor",
+  "description": "Instant fail: customer explicitly asks for a supervisor and the agent refuses, and the issue is left unresolved (Auto Fail category triggers). Polite wording, so it tests the non-profanity auto-fail path.",
+  "transcript": "[00:00] Client: Thank you for calling S-NET Communications. Hi, my service has been down for three days and no one has fixed it.\n[00:08] Agent: Thank you for calling S-NET Communications, my name is Taylor. I see there's an outage note on your account.\n[00:15] Client: It's been three days. This is unacceptable. I'd like to speak to a supervisor please.\n[00:22] Agent: A supervisor won't be able to do anything more than I can, so I won't transfer you.\n[00:28] Client: I am formally requesting to speak with a manager.\n[00:32] Agent: As I said, that's not necessary. There's nothing we can do until the outage clears, whenever that is.\n[00:40] Client: So you're refusing to escalate and you can't tell me when it'll be fixed?\n[00:45] Agent: Correct. You'll just have to wait. Is there anything else?\n[00:50] Client: Unbelievable.\n[00:52] Agent: Okay then."
+}

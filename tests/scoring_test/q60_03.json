@@ -1,0 +1,8 @@
+{
+  "id": "q60_03",
+  "intended_quality": "60%",
+  "channel": "Call",
+  "agent_name": "Marcus",
+  "description": "Mixed: greets and closes with branding, uses name, resolves issue, but blunt at times, no verification, re-asks info already given (weak active listening).",
+  "transcript": "[00:00] Client: Hi, my email on my S-NET account isn't sending. My name is Rita.\n[00:06] Agent: Thank you for calling S-NET Communications, my name is Marcus. What seems to be the problem?\n[00:12] Client: Like I said, my email won't send.\n[00:16] Agent: Okay. And what's your name?\n[00:19] Client: It's Rita, I just told you.\n[00:22] Agent: Right. Let me check the mail server settings.\n[00:30] Agent: The outgoing server port was set wrong. I've corrected it. Try sending now.\n[00:50] Client: Okay... yes, it sent!\n[00:54] Agent: Good, that's fixed then, Rita.\n[00:58] Client: Thanks.\n[01:01] Agent: Thank you for Choosing S-NET, bye."
+}

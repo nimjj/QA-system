@@ -1,0 +1,8 @@
+{
+  "id": "fail_01",
+  "intended_quality": "Instant Fail (profanity/discourtesy)",
+  "channel": "Call",
+  "agent_name": "Rude Agent",
+  "description": "Instant fail: agent is openly rude and uses discourteous language that trips the Python profanity/discourtesy auto-fail.",
+  "transcript": "[00:00] Client: Hi, I've been overcharged and I'd like it explained.\n[00:05] Agent: You clearly didn't read your contract, that's not my problem.\n[00:10] Client: There's no need to be rude, I just want help.\n[00:14] Agent: Honestly? Get lost, I don't have time for this.\n[00:18] Client: Excuse me?\n[00:20] Agent: You heard me. Stop wasting my time."
+}

@@ -1,0 +1,8 @@
+{
+  "id": "q30_01",
+  "intended_quality": "30%",
+  "channel": "Call",
+  "agent_name": "Dylan",
+  "description": "Poor: no branding greeting/closing, no verification, no paraphrase, curt and unhelpful tone, but eventually resolves and does not refuse a supervisor (no auto-fail).",
+  "transcript": "[00:00] Client: My TV package channels are all missing.\n[00:04] Agent: Yeah? Have you tried restarting the box.\n[00:08] Client: Not yet.\n[00:10] Agent: Do that.\n[00:30] Client: Okay it's restarting... the channels are back now.\n[00:36] Agent: Good.\n[00:38] Client: Was there something causing it?\n[00:41] Agent: Just do a restart if it happens again.\n[00:45] Client: Alright.\n[00:47] Agent: Anything else or are we done.\n[00:50] Client: No, that's all.\n[00:52] Agent: Okay bye."
+}

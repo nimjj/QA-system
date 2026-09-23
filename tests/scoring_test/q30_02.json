@@ -1,0 +1,8 @@
+{
+  "id": "q30_02",
+  "intended_quality": "30%",
+  "channel": "Call",
+  "agent_name": "Chloe",
+  "description": "Poor: dismissive and rushed, no greeting spiel, no empathy, no verification or probing, gives a quick fix that works, no closing spiel. No profanity or escalation refusal (no auto-fail).",
+  "transcript": "[00:00] Client: I can't log into my account portal, it keeps saying error.\n[00:05] Agent: What error.\n[00:07] Client: It just says 'session expired' every time.\n[00:11] Agent: Clear your browser cache.\n[00:14] Client: Um, okay, how do I-\n[00:16] Agent: Settings, clear browsing data. Do it.\n[00:35] Client: Okay done, and... it let me in now.\n[00:40] Agent: There you go.\n[00:42] Client: Okay. Thanks I guess.\n[00:45] Agent: Mmhm."
+}

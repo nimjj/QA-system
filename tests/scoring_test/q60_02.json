@@ -1,0 +1,8 @@
+{
+  "id": "q60_02",
+  "intended_quality": "60%",
+  "channel": "Call",
+  "agent_name": "Priya",
+  "description": "Mixed: strong technical (verifies, paraphrases, resolves) but weak branding/soft skills - no proper greeting spiel, no closing spiel, flat tone.",
+  "transcript": "[00:00] Client: I was charged twice for my monthly plan.\n[00:04] Agent: Okay. What's the account number?\n[00:08] Client: It's 55210.\n[00:11] Agent: For security I need the PIN and billing postcode too.\n[00:16] Client: PIN 3390, postcode AC12.\n[00:21] Agent: Verified. So you're saying you see two identical charges for this month's plan, correct?\n[00:28] Client: Yes, both for 49.99.\n[00:32] Agent: I can see the duplicate. It was a billing system error on our side. I've reversed the second charge now and it will show back in 3 to 5 days.\n[00:44] Client: Okay good.\n[00:47] Agent: Anything else?\n[00:49] Client: No that's it.\n[00:51] Agent: Alright. Bye."
+}

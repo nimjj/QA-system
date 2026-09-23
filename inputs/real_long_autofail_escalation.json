@@ -1,0 +1,131 @@
+{
+  "transcript": [
+    {
+      "speaker": "Agent",
+      "start_time": "[00:03]",
+      "end_time": "[00:12]",
+      "text": "Thank you for calling S-Net technical support, this is Dana. Can I verify you with your account number and PIN?"
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[00:15]",
+      "end_time": "[00:27]",
+      "text": "Hi Dana, account 335-901-668, PIN 2214, the name is Samuel Reyes. My service has been completely out for four days now."
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[00:30]",
+      "end_time": "[00:40]",
+      "text": "Thanks Samuel, you're verified. Four days is a long time, what have you already tried?"
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[00:43]",
+      "end_time": "[00:59]",
+      "text": "Everything the last two agents told me. I've rebooted the modem, swapped the cables, done a factory reset, checked every connection. Two separate agents promised call-backs and neither happened. I'm exhausted."
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[01:02]",
+      "end_time": "[01:13]",
+      "text": "Okay. When you say it's out, are the modem lights on at all, or completely dark?"
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[01:16]",
+      "end_time": "[01:26]",
+      "text": "Three are on solid, one is off. Same as it's been the whole four days."
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[01:29]",
+      "end_time": "[01:40]",
+      "text": "That one light being off usually points to the line not authenticating. Let me try refreshing the signal from my side, one moment."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[01:43]",
+      "end_time": "[01:51]",
+      "text": "Okay, go ahead, I'll wait."
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[01:54]",
+      "end_time": "[02:05]",
+      "text": "I've sent a refresh. Can you tell me if that fourth light has changed at all, or is it still off?"
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[02:08]",
+      "end_time": "[02:17]",
+      "text": "Still off. Nothing changed on my end, it looks exactly the same."
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[02:20]",
+      "end_time": "[02:30]",
+      "text": "Alright. Try one more full power-cycle of the modem for me, thirty seconds off then back on."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[02:33]",
+      "end_time": "[02:44]",
+      "text": "I've done it... waiting for it to come up... and no, the same light is still off and there's still no connection."
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[02:47]",
+      "end_time": "[02:59]",
+      "text": "Right. Honestly at this point there's really nothing more I can do from my side. It is what it is."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[03:02]",
+      "end_time": "[03:12]",
+      "text": "That can't be the answer after four days. Please transfer me to a supervisor, I need this escalated."
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[03:15]",
+      "end_time": "[03:24]",
+      "text": "No. I'm not going to transfer you to a supervisor."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[03:27]",
+      "end_time": "[03:38]",
+      "text": "I'm formally asking you to escalate this to a manager. It's been four days, that's my right as a customer."
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[03:41]",
+      "end_time": "[03:51]",
+      "text": "I already told you no. I'm not escalating this, and there's nothing else that can be done."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[03:54]",
+      "end_time": "[04:04]",
+      "text": "You won't even try anything else, and you won't let me speak to anyone above you?"
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[04:07]",
+      "end_time": "[04:16]",
+      "text": "That's correct. There's nothing more to do here."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[04:19]",
+      "end_time": "[04:28]",
+      "text": "This is completely unacceptable. My service is still down."
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[04:31]",
+      "end_time": "[04:39]",
+      "text": "Understood. Thank you for choosing S-Net."
+    }
+  ],
+  "tenant_id": "tenant-abc"
+}
