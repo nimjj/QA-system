@@ -1,13 +1,14 @@
 import os
 import json
-import requests
+import urllib.request
+import urllib.error
 from datetime import datetime
 from dotenv import load_dotenv
+
 load_dotenv()
 
 SERVER_PORT = os.getenv("SERVER_PORT", "8000")
 API_EVALUATE_URL = os.getenv("API_EVALUATE_URL", f"http://localhost:{SERVER_PORT}/api/evaluate")
-
 INPUT_DIR = "inputs"
 OUTPUT_DIR = "inputs/Test (results)"
 
@@ -15,7 +16,6 @@ os.makedirs(OUTPUT_DIR, exist_ok=True)
 
 def main():
     json_files = [f for f in sorted(os.listdir(INPUT_DIR)) if f.endswith('.json')]
-    
     if not json_files:
         print(f"No JSON files found in '{INPUT_DIR}' directory.")
         return
@@ -30,10 +30,15 @@ def main():
             with open(filepath, 'r', encoding='utf-8') as f:
                 payload = json.load(f)
                 
-            response = requests.post(API_EVALUATE_URL, json=payload, timeout=300)
-            response.raise_for_status()
-            
-            result_data = response.json()
+            req_data = json.dumps(payload).encode('utf-8')
+            req = urllib.request.Request(
+                API_EVALUATE_URL,
+                data=req_data,
+                headers={"Content-Type": "application/json"}
+            )
+            with urllib.request.urlopen(req, timeout=300) as resp:
+                result_data = json.loads(resp.read().decode('utf-8'))
+
             status = result_data.get("status", "completed")
             final_score = result_data.get("result", {}).get("final_score")
             print(f"  -> [{status.upper()}] Final Score: {final_score}")
