@@ -1,7 +1,5 @@
-﻿fastapi
+fastapi
 uvicorn
 pydantic
 python-dotenv
-celery
-redis
 requests

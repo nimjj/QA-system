@@ -37,3 +37,8 @@ Thumbs.db
 # Runtime Overrides
 weights.json
 *.gguf
+
+# Graphify
+graphify-out/
+.graphify*
+.gitattributes
