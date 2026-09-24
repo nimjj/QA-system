@@ -1,6 +1,10 @@
 import os
 import sys
 import json
+import time
+import uuid
+import traceback
+from datetime import datetime, timezone
 from typing import Optional, List, Union, Dict, Any
 
 _ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
@@ -9,10 +13,11 @@ for _path in [_ROOT, _SRC]:
     if _path not in sys.path:
         sys.path.insert(0, _path)
 
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, HTTPException, Request, Response
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 
+from src.api.logger import logger
 from src.services.dynamic_evaluator import preview_evaluation_prompt, evaluate_interaction
 
 app = FastAPI(title="Stateless QA Service API")
@@ -25,6 +30,131 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+
+@app.on_event("startup")
+def on_startup():
+    logger.info({
+        "log_type": "APP",
+        "message": "Stateless QA Service started. Logging live to logs/app.log."
+    })
+
+
+@app.on_event("shutdown")
+def on_shutdown():
+    logger.info({
+        "log_type": "APP",
+        "message": "Stateless QA Service shutting down."
+    })
+
+
+@app.middleware("http")
+async def log_requests_middleware(request: Request, call_next):
+    start_time = time.time()
+    correlation_id = request.headers.get("x-correlation-id") or str(uuid.uuid4())
+    client_ip = request.client.host if request.client else "unknown"
+    user_agent = request.headers.get("user-agent", "unknown")
+    method = request.method
+    path = request.url.path
+    query_params = dict(request.query_params)
+
+    # 1. Safely read and parse request body
+    req_body_bytes = await request.body()
+    try:
+        req_body = json.loads(req_body_bytes)
+    except Exception:
+        req_body = req_body_bytes.decode("utf-8", errors="replace") if req_body_bytes else {}
+
+    # 2. Log incoming request as single-line JSON
+    logger.info({
+        "timestamp": datetime.now(timezone.utc).isoformat(),
+        "log_type": "INCOMING",
+        "correlation_id": correlation_id,
+        "actor": {
+            "ip": client_ip,
+            "user_agent": user_agent
+        },
+        "request": {
+            "method": method,
+            "path": path,
+            "query_params": query_params,
+            "body": req_body
+        }
+    })
+
+    try:
+        response = await call_next(request)
+
+        # 3. Safely capture response body
+        res_body_bytes = b""
+        async for chunk in response.body_iterator:
+            res_body_bytes += chunk
+
+        try:
+            res_body = json.loads(res_body_bytes)
+        except Exception:
+            res_body = res_body_bytes.decode("utf-8", errors="replace") if res_body_bytes else {}
+
+        latency_ms = round((time.time() - start_time) * 1000, 2)
+        outcome = "SUCCESS" if 200 <= response.status_code < 400 else "FAILURE"
+
+        # 4. Log outgoing response as single-line JSON
+        logger.info({
+            "timestamp": datetime.now(timezone.utc).isoformat(),
+            "log_type": "OUTGOING",
+            "correlation_id": correlation_id,
+            "actor": {
+                "ip": client_ip,
+                "user_agent": user_agent
+            },
+            "request": {
+                "method": method,
+                "path": path,
+                "query_params": query_params
+            },
+            "response": {
+                "status_code": response.status_code,
+                "outcome": outcome,
+                "latency_ms": latency_ms,
+                "body": res_body
+            }
+        })
+
+        headers = dict(response.headers)
+        headers.pop("content-length", None)
+        headers["x-correlation-id"] = correlation_id
+        return Response(
+            content=res_body_bytes,
+            status_code=response.status_code,
+            headers=headers,
+            media_type=response.media_type
+        )
+    except Exception as exc:
+        latency_ms = round((time.time() - start_time) * 1000, 2)
+        logger.error({
+            "timestamp": datetime.now(timezone.utc).isoformat(),
+            "log_type": "ERROR",
+            "correlation_id": correlation_id,
+            "actor": {
+                "ip": client_ip,
+                "user_agent": user_agent
+            },
+            "request": {
+                "method": method,
+                "path": path,
+                "query_params": query_params,
+                "body": req_body
+            },
+            "response": {
+                "status_code": 500,
+                "outcome": "FAILURE",
+                "latency_ms": latency_ms
+            },
+            "error": str(exc),
+            "traceback": traceback.format_exc()
+        })
+        raise exc
+
+
 CRITERIA_FILE = os.path.join(_ROOT, "resources", "criteria_config.json")
 
 
@@ -36,7 +166,7 @@ def load_criteria(tenant_id: str) -> Dict[str, Any]:
                 data = json.load(f)
             return data.get(tenant_id, data.get("tenant-abc", {}))
         except Exception as e:
-            print(f"Warning: Could not read criteria from {CRITERIA_FILE}: {e}")
+            logger.warning({"message": f"Could not read criteria from {CRITERIA_FILE}: {e}"})
     return {}
 
 
@@ -71,7 +201,7 @@ def list_sample_inputs():
                         data["filename"] = fname
                         samples.append(data)
                 except Exception as e:
-                    print(f"Error loading sample {fname}: {e}")
+                    logger.error({"message": f"Error loading sample {fname}: {e}"})
     return samples
 
 
@@ -115,4 +245,8 @@ if __name__ == "__main__":
 
     host = os.getenv("SERVER_HOST", "0.0.0.0")
     port = int(os.getenv("SERVER_PORT", "8000"))
+    logger.info({
+        "log_type": "APP",
+        "message": f"Starting server directly on http://{host}:{port}..."
+    })
     uvicorn.run(app, host=host, port=port)

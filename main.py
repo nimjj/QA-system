@@ -16,10 +16,14 @@ if __name__ == "__main__":
     import uvicorn
     from dotenv import load_dotenv
     load_dotenv()
-    
+
     host = os.getenv("SERVER_HOST", "0.0.0.0")
     port = int(os.getenv("SERVER_PORT", 8000))
-    
-    print(f"Starting LLM QA Analysis Web Server on http://{host}:{port}...")
+
+    from api.logger import logger
+    logger.info({
+        "log_type": "APP",
+        "message": f"Starting LLM QA Analysis Web Server on http://{host}:{port}..."
+    })
     from api.web_app import app
     uvicorn.run(app, host=host, port=port)

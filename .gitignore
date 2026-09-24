@@ -41,4 +41,8 @@ weights.json
 # Graphify
 graphify-out/
 .graphify*
-.gitattributes
+.gitattributes
+
+# Logs
+logs/*.log*
+
