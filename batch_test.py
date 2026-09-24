@@ -36,7 +36,7 @@ def main():
                 data=req_data,
                 headers={"Content-Type": "application/json"}
             )
-            with urllib.request.urlopen(req, timeout=300) as resp:
+            with urllib.request.urlopen(req, timeout=1800) as resp:
                 result_data = json.loads(resp.read().decode('utf-8'))
 
             status = result_data.get("status", "completed")
