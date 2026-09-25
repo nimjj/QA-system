@@ -28,31 +28,26 @@ function generateCallId() {
 }
 
 export default function App() {
-  // Navigation & Settings
-  const [activeTab, setActiveTab] = useState('criteria'); // 'criteria' or 'evaluate'
-  const [targetPort, setTargetPort] = useState('8000'); // '8000' (App) or '8005' (Gateway)
+  const [activeTab, setActiveTab] = useState('criteria');
+  const [targetPort, setTargetPort] = useState('8000');
   const apiBase = `http://localhost:${targetPort}/api`;
 
-  // Tenants & Criteria state
   const [tenants, setTenants] = useState([]);
   const [selectedTenant, setSelectedTenant] = useState('');
   const [criteriaData, setCriteriaData] = useState({ categories: [], category_weights: {} });
   const [loadingCriteria, setLoadingCriteria] = useState(false);
   const [feedbackMsg, setFeedbackMsg] = useState('');
 
-  // Add Tenant Modal
   const [showAddTenant, setShowAddTenant] = useState(false);
   const [newTenantId, setNewTenantId] = useState('');
   const [newTenantName, setNewTenantName] = useState('');
 
-  // Add Criterion Modal
   const [showAddCriterion, setShowAddCriterion] = useState(false);
   const [critCategoryId, setCritCategoryId] = useState('');
   const [critName, setCritName] = useState('');
   const [critDeduction, setCritDeduction] = useState(15);
   const [critDescription, setCritDescription] = useState('');
 
-  // Evaluate View State
   const [callId, setCallId] = useState(generateCallId());
   const [channel, setChannel] = useState('Call');
   const [customerName, setCustomerName] = useState('');
@@ -61,12 +56,10 @@ export default function App() {
   const [evaluationResult, setEvaluationResult] = useState(null);
   const [evalError, setEvalError] = useState('');
 
-  // Fetch tenants on mount
   useEffect(() => {
     fetchTenants();
   }, [targetPort]);
 
-  // Fetch criteria when tenant changes
   useEffect(() => {
     if (selectedTenant) {
       fetchCriteria(selectedTenant);
@@ -113,7 +106,6 @@ export default function App() {
 
   const handleToggle = async (lineItemId, currentStatus) => {
     const nextStatus = !currentStatus;
-    // Optimistic UI update
     setCriteriaData(prev => ({
       ...prev,
       categories: prev.categories.map(cat => ({
@@ -133,7 +125,6 @@ export default function App() {
       if (res.ok) {
         showNotification(`Criterion "${lineItemId}" ${nextStatus ? 'enabled' : 'disabled'} for ${selectedTenant}`);
       } else {
-        // Rollback on error
         fetchCriteria(selectedTenant);
       }
     } catch (err) {
@@ -240,16 +231,13 @@ export default function App() {
     }
   };
 
-  // Stats calculation
   const allItems = criteriaData.categories.flatMap(c => c.line_items || []);
   const activeItems = allItems.filter(i => i.is_active);
   const inactiveItems = allItems.filter(i => !i.is_active);
 
   return (
     <div className="qa-app">
-      {/* Top Navbar */}
       <header className="navbar">
-        {/* Navigation Tabs */}
         <nav className="nav-tabs">
           <button
             className={`tab-btn ${activeTab === 'criteria' ? 'active' : ''}`}
@@ -266,7 +254,6 @@ export default function App() {
         </nav>
 
         <div className="nav-controls">
-          {/* Target port selector */}
           <div className="port-selector">
             <span className="control-label">API Target:</span>
             <select
@@ -281,15 +268,11 @@ export default function App() {
         </div>
       </header>
 
-      {/* Notification Toast */}
       {feedbackMsg && <div className="toast-notification">{feedbackMsg}</div>}
 
-      {/* Main Content Area */}
       <main className="main-container">
-        {/* VIEW 1: CRITERIA MANAGEMENT */}
         {activeTab === 'criteria' && (
           <section className="view-section">
-            {/* Tenant Toolbar */}
             <div className="toolbar-card">
               <div className="toolbar-left">
                 <label className="toolbar-label">Select Tenant:</label>
@@ -358,7 +341,6 @@ export default function App() {
                           </div>
 
                           <div className="criterion-actions">
-                            {/* Toggle Switch */}
                             <label className="switch" title="Toggle criterion active/inactive">
                               <input
                                 type="checkbox"
@@ -368,7 +350,6 @@ export default function App() {
                               <span className="slider round"></span>
                             </label>
 
-                            {/* Delete button */}
                             <button
                               className="btn-icon delete-btn"
                               title="Delete criterion"
@@ -387,10 +368,8 @@ export default function App() {
           </section>
         )}
 
-        {/* VIEW 2: TRANSCRIPT EVALUATION */}
         {activeTab === 'evaluate' && (
           <section className="view-section evaluate-grid">
-            {/* Input Panel */}
             <div className="eval-input-panel">
               <div className="panel-header">
                 <h2>Interaction Input</h2>
@@ -402,7 +381,6 @@ export default function App() {
                 </button>
               </div>
 
-              {/* Form Controls */}
               <div className="form-row">
                 <div className="form-group flex-1">
                   <label>Tenant ID:</label>
@@ -451,7 +429,6 @@ export default function App() {
                 </div>
               </div>
 
-              {/* Transcript Textarea */}
               <div className="form-group transcript-group">
                 <div className="textarea-header">
                   <label>Transcript:</label>
@@ -466,7 +443,6 @@ export default function App() {
                 />
               </div>
 
-              {/* Action Button */}
               <div className="action-row">
                 <div className="active-summary">
                   <span>Evaluating against <strong>{activeItems.length} active criteria</strong> for {selectedTenant}</span>
@@ -483,7 +459,6 @@ export default function App() {
               {evalError && <div className="error-alert">{evalError}</div>}
             </div>
 
-            {/* Result Panel */}
             <div className="eval-result-panel">
               <div className="panel-header">
                 <h2>Evaluation Scorecard</h2>
@@ -510,7 +485,6 @@ export default function App() {
 
               {evaluationResult && evaluationResult.result && (
                 <div className="scorecard-container">
-                  {/* Score Hero */}
                   <div className={`score-hero ${evaluationResult.result.is_auto_fail ? 'auto-fail' : ''}`}>
                     <div className="score-value">
                       {evaluationResult.result.final_score !== undefined
@@ -529,7 +503,6 @@ export default function App() {
                     </div>
                   </div>
 
-                  {/* Criteria Breakdown Table */}
                   <div className="scorecard-table-wrapper">
                     <table className="scorecard-table">
                       <thead>
@@ -563,7 +536,6 @@ export default function App() {
         )}
       </main>
 
-      {/* Modal: Add Tenant */}
       {showAddTenant && (
         <div className="modal-backdrop">
           <div className="modal-card">
@@ -602,7 +574,6 @@ export default function App() {
         </div>
       )}
 
-      {/* Modal: Add Criterion */}
       {showAddCriterion && (
         <div className="modal-backdrop">
           <div className="modal-card">

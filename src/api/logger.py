@@ -65,8 +65,6 @@ def get_logger(name: str = "qa_service") -> logging.Logger:
     if not logger.handlers:
         formatter = JsonLineFormatter()
 
-        # 1. Daily Rotating File Handler:
-        # Writes live to logs/app.log. At midnight, rotates to logs/YYYY-MM-DD.log
         file_handler = TimedRotatingFileHandler(
             filename=LOG_FILE,
             when="midnight",
@@ -79,7 +77,6 @@ def get_logger(name: str = "qa_service") -> logging.Logger:
         file_handler.setFormatter(formatter)
         logger.addHandler(file_handler)
 
-        # 2. Console Stream Handler (single line per record)
         console_handler = logging.StreamHandler()
         console_handler.setFormatter(formatter)
         logger.addHandler(console_handler)

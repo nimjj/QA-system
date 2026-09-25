@@ -61,14 +61,12 @@ async def log_requests_middleware(request: Request, call_next):
     path = request.url.path
     query_params = dict(request.query_params)
 
-    # 1. Safely read and parse request body
     req_body_bytes = await request.body()
     try:
         req_body = json.loads(req_body_bytes)
     except Exception:
         req_body = req_body_bytes.decode("utf-8", errors="replace") if req_body_bytes else {}
 
-    # 2. Log incoming request as single-line JSON
     logger.info({
         "timestamp": datetime.now(timezone.utc).isoformat(),
         "log_type": "INCOMING",
@@ -88,7 +86,6 @@ async def log_requests_middleware(request: Request, call_next):
     try:
         response = await call_next(request)
 
-        # 3. Safely capture response body
         res_body_bytes = b""
         async for chunk in response.body_iterator:
             res_body_bytes += chunk
@@ -101,7 +98,6 @@ async def log_requests_middleware(request: Request, call_next):
         latency_ms = round((time.time() - start_time) * 1000, 2)
         outcome = "SUCCESS" if 200 <= response.status_code < 400 else "FAILURE"
 
-        # 4. Log outgoing response as single-line JSON
         logger.info({
             "timestamp": datetime.now(timezone.utc).isoformat(),
             "log_type": "OUTGOING",
@@ -235,8 +231,6 @@ class UpdateCriterionRequest(BaseModel):
     deduction_value: Optional[int] = 10
 
 
-# --- Tenant & Criteria Management Endpoints ---
-
 @app.get("/api/tenants")
 def list_tenants():
     return get_all_tenants()
@@ -293,8 +287,6 @@ def delete_existing_criterion(line_item_id: str):
         raise HTTPException(status_code=404, detail="Criterion not found")
     return {"status": "deleted", "line_item_id": line_item_id}
 
-
-# --- Evaluation Endpoints ---
 
 @app.get("/api/samples")
 def list_sample_inputs():

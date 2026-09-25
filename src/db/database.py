@@ -30,7 +30,6 @@ def init_db():
     """Initializes tables matching the ERD schema and seeds default data."""
     with get_connection() as conn:
         with conn.cursor() as cur:
-            # 1. Tenants table
             cur.execute("""
                 CREATE TABLE IF NOT EXISTS tenants (
                     tenant_id VARCHAR(100) PRIMARY KEY,
@@ -38,7 +37,6 @@ def init_db():
                 );
             """)
 
-            # 2. Categories table
             cur.execute("""
                 CREATE TABLE IF NOT EXISTS categories (
                     category_id VARCHAR(100) PRIMARY KEY,
@@ -48,7 +46,6 @@ def init_db():
                 );
             """)
 
-            # 3. Line Items table
             cur.execute("""
                 CREATE TABLE IF NOT EXISTS line_items (
                     line_item_id VARCHAR(100) PRIMARY KEY,
@@ -59,7 +56,6 @@ def init_db():
                 );
             """)
 
-            # 4. Tenant Lines table (junction with toggle isActive)
             cur.execute("""
                 CREATE TABLE IF NOT EXISTS tenant_lines (
                     tenant_id VARCHAR(100) NOT NULL REFERENCES tenants(tenant_id) ON DELETE CASCADE,
@@ -85,7 +81,6 @@ def create_tenant(tenant_id: str, name: str) -> Dict[str, Any]:
                 "INSERT INTO tenants (tenant_id, name) VALUES (%s, %s) RETURNING tenant_id, name;",
                 (tenant_id, name)
             )
-            # Link existing standard line items to this tenant in tenant_lines
             cur.execute("SELECT line_item_id FROM line_items;")
             all_lines = cur.fetchall()
             for row in all_lines:
@@ -189,7 +184,6 @@ def get_active_criteria_for_evaluation(tenant_id: str) -> Dict[str, Any]:
     active_weights = {}
 
     for cat in raw.get("categories", []):
-        # Filter line items that are active
         active_items = [
             {
                 "name": item["name"],
@@ -255,7 +249,6 @@ def create_criterion(category_id: str, name: str, description: str, deduction_va
             )
             item = cur.fetchone()
 
-            # Link to all existing tenants as active
             cur.execute("SELECT tenant_id FROM tenants;")
             tenants = cur.fetchall()
             for t in tenants:

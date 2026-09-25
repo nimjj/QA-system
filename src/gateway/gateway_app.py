@@ -48,13 +48,11 @@ async def route_api_request(request: Request, path: str):
     """Transparently proxies incoming /api/ requests to the backend App on port 8000."""
     target_url = f"{APP_URL}/api/{path}"
     
-    # Read incoming request body and query params
     body = await request.body()
     query_params = request.url.query
     if query_params:
         target_url = f"{target_url}?{query_params}"
 
-    # Filter out hop-by-hop headers
     excluded_headers = {"host", "content-length", "connection"}
     headers = {
         k: v for k, v in request.headers.items()
@@ -70,7 +68,6 @@ async def route_api_request(request: Request, path: str):
                 headers=headers
             )
             
-            # Forward backend response
             resp_headers = dict(backend_resp.headers)
             resp_headers.pop("content-length", None)
             resp_headers.pop("transfer-encoding", None)
