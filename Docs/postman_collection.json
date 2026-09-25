@@ -1,7 +1,7 @@
 {
   "info": {
     "name": "Multi-Tenant QA Service API",
-    "description": "Enterprise Automated QA Intelligence API Collection for Gemma 3 4B & Multi-Tenant Evaluation",
+    "description": "Postman API Collection for Multi-Tenant Automated QA Evaluation Service with Dynamic Criteria Selection and Llama 3.1 / Ollama integration.",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
   },
   "variable": [
@@ -12,155 +12,13 @@
     },
     {
       "key": "tenantId",
-      "value": "S-NET",
-      "type": "string"
-    },
-    {
-      "key": "evalId",
-      "value": "8e96e628-e43d-45e3-a95e-b266e1fa5503",
+      "value": "tenant-abc",
       "type": "string"
     }
   ],
   "item": [
     {
-      "name": "1. Tenant Management",
-      "item": [
-        {
-          "name": "List All Tenants",
-          "request": {
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "{{baseUrl}}/api/tenants",
-              "host": ["{{baseUrl}}"],
-              "path": ["api", "tenants"]
-            }
-          }
-        },
-        {
-          "name": "Create New Tenant",
-          "request": {
-            "method": "POST",
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"id\": \"BrightWave\",\n  \"name\": \"BrightWave Retail\",\n  \"description\": \"E-Commerce Customer Experience & Retail Support\"\n}"
-            },
-            "url": {
-              "raw": "{{baseUrl}}/api/tenants",
-              "host": ["{{baseUrl}}"],
-              "path": ["api", "tenants"]
-            }
-          }
-        }
-      ]
-    },
-    {
-      "name": "2. Guideline & Knowledge Base",
-      "item": [
-        {
-          "name": "Upload Guideline PDF",
-          "request": {
-            "method": "POST",
-            "header": [],
-            "body": {
-              "mode": "formdata",
-              "formdata": [
-                {
-                  "key": "file",
-                  "type": "file",
-                  "src": ""
-                }
-              ]
-            },
-            "url": {
-              "raw": "{{baseUrl}}/api/tenants/{{tenantId}}/upload-pdf",
-              "host": ["{{baseUrl}}"],
-              "path": ["api", "tenants", "{{tenantId}}", "upload-pdf"]
-            }
-          }
-        },
-        {
-          "name": "Get Converted Lossless Markdown",
-          "request": {
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "{{baseUrl}}/api/tenants/{{tenantId}}/markdown",
-              "host": ["{{baseUrl}}"],
-              "path": ["api", "tenants", "{{tenantId}}", "markdown"]
-            }
-          }
-        },
-        {
-          "name": "Get Extracted Criteria JSON",
-          "request": {
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "{{baseUrl}}/api/tenants/{{tenantId}}/criteria",
-              "host": ["{{baseUrl}}"],
-              "path": ["api", "tenants", "{{tenantId}}", "criteria"]
-            }
-          }
-        },
-        {
-          "name": "Get Stored Vector Policies",
-          "request": {
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "{{baseUrl}}/api/tenants/{{tenantId}}/policies",
-              "host": ["{{baseUrl}}"],
-              "path": ["api", "tenants", "{{tenantId}}", "policies"]
-            }
-          }
-        },
-        {
-          "name": "List Uploaded Documents",
-          "request": {
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "{{baseUrl}}/api/tenants/{{tenantId}}/documents",
-              "host": ["{{baseUrl}}"],
-              "path": ["api", "tenants", "{{tenantId}}", "documents"]
-            }
-          }
-        },
-        {
-          "name": "Delete Guideline Document by ID",
-          "request": {
-            "method": "DELETE",
-            "header": [],
-            "url": {
-              "raw": "{{baseUrl}}/api/tenants/{{tenantId}}/documents/1",
-              "host": ["{{baseUrl}}"],
-              "path": ["api", "tenants", "{{tenantId}}", "documents", "1"]
-            }
-          }
-        },
-        {
-          "name": "Clear All Tenant Knowledge Base",
-          "request": {
-            "method": "DELETE",
-            "header": [],
-            "url": {
-              "raw": "{{baseUrl}}/api/tenants/{{tenantId}}/knowledge-base",
-              "host": ["{{baseUrl}}"],
-              "path": ["api", "tenants", "{{tenantId}}", "knowledge-base"]
-            }
-          }
-        }
-      ]
-    },
-    {
-      "name": "3. Live QA & Prompt Builder",
+      "name": "1. Samples & Prompt Preview",
       "item": [
         {
           "name": "List Sample Interaction Files",
@@ -171,11 +29,12 @@
               "raw": "{{baseUrl}}/api/samples",
               "host": ["{{baseUrl}}"],
               "path": ["api", "samples"]
-            }
+            },
+            "description": "Lists all available pre-recorded evaluation sample JSON files stored in the server's inputs directory."
           }
         },
         {
-          "name": "Preview Built Prompt",
+          "name": "Preview Built Prompt (Default Criteria)",
           "request": {
             "method": "POST",
             "header": [
@@ -186,17 +45,18 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"channel\": \"Call\",\n  \"agent_name\": \"Alex\",\n  \"transcript\": \"[00:00] Agent: Thank you for calling S-NET Communications. My name is Alex how can I help you today?\\n[00:05] Client: I need help with my account bill.\\n[00:08] Agent: I can help with that. May I verify your full name and company?\\n[00:15] Client: John Doe, Acme Corp.\\n[00:20] Agent: Thank you John. Your balance is $100.\\n[00:25] Client: Thanks Alex!\\n[00:28] Agent: Thank you for Choosing S-NET and have a great day.\"\n}"
+              "raw": "{\n  \"tenant_id\": \"{{tenantId}}\",\n  \"channel\": \"Call\",\n  \"transcript\": \"[00:00] Agent: Thank you for calling S-Net. My name is Alex. How can I help you today?\\n[00:05] Client: My internet is not working.\\n[00:08] Agent: I can help with that. Could I verify your PIN and billing address?\\n[00:15] Client: Sure, PIN 1234, 456 Elm Street.\\n[00:20] Agent: Thank you. Let me check your router connection.\\n[00:30] Agent: I have reset your port, please check now.\\n[00:35] Client: Yes, the internet is working now! Thanks Alex!\\n[00:40] Agent: Thank you for choosing S-Net, have a wonderful day!\"\n}"
             },
             "url": {
-              "raw": "{{baseUrl}}/api/tenants/{{tenantId}}/preview-prompt",
+              "raw": "{{baseUrl}}/api/preview-prompt",
               "host": ["{{baseUrl}}"],
-              "path": ["api", "tenants", "{{tenantId}}", "preview-prompt"]
-            }
+              "path": ["api", "preview-prompt"]
+            },
+            "description": "Constructs and previews the exact dynamic LLM scorecard prompt without executing evaluation, using the tenant's default criteria configuration."
           }
         },
         {
-          "name": "Evaluate Interaction",
+          "name": "Preview Built Prompt (Custom Criteria)",
           "request": {
             "method": "POST",
             "header": [
@@ -207,78 +67,85 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"channel\": \"Call\",\n  \"agent_name\": \"Alex\",\n  \"transcript\": \"[00:00] Agent: Thank you for calling S-NET Communications. My name is Alex how can I help you today?\\n[00:05] Client: I need help with my account bill.\\n[00:08] Agent: I can help with that. May I verify your full name and company?\\n[00:15] Client: John Doe, Acme Corp.\\n[00:20] Agent: Thank you John. Your balance is $100.\\n[00:25] Client: Thanks Alex!\\n[00:28] Agent: Thank you for Choosing S-NET and have a great day.\"\n}"
+              "raw": "{\n  \"tenant_id\": \"{{tenantId}}\",\n  \"channel\": \"Call\",\n  \"transcript\": \"[00:00] Agent: Hello, how can I assist?\\n[00:05] Client: I have a billing question.\",\n  \"criteria_data\": {\n    \"category_weights\": {\n      \"Soft Skills\": 0.5,\n      \"Technical Knowledge\": 0.5\n    },\n    \"categories\": [\n      {\n        \"name\": \"Soft Skills\",\n        \"line_items\": [\n          {\n            \"name\": \"Hold time and Dead Air\",\n            \"deduction_value\": 15\n          },\n          {\n            \"name\": \"Build rapport and observed professionalism\",\n            \"deduction_value\": 20\n          }\n        ]\n      }\n    ]\n  }\n}"
             },
             "url": {
-              "raw": "{{baseUrl}}/api/tenants/{{tenantId}}/evaluate",
+              "raw": "{{baseUrl}}/api/preview-prompt",
               "host": ["{{baseUrl}}"],
-              "path": ["api", "tenants", "{{tenantId}}", "evaluate"]
-            }
+              "path": ["api", "preview-prompt"]
+            },
+            "description": "Previews the prompt using custom criteria explicitly provided in the request body."
           }
         }
       ]
     },
     {
-      "name": "4. Audit History & Evaluations",
+      "name": "2. Live QA Evaluation",
       "item": [
         {
-          "name": "List Tenant Evaluations",
+          "name": "Evaluate Interaction (Default Tenant Criteria)",
           "request": {
-            "method": "GET",
-            "header": [],
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"tenant_id\": \"{{tenantId}}\",\n  \"channel\": \"Call\",\n  \"customer_name\": \"Grace\",\n  \"transcript\": \"[00:07] Client: Oh, wonderful, a real human. I'm calling to thank you for the hundred dollar roaming charge on my bill. Truly the highlight of my month.[00:09] Agent: I'm sorry about the charge, sir. Let me see what happened. Could I have your account number?[00:12] Client: Sure. It's 8820-423. And I'll save you some time, I bought the unlimited travel pass before my trip. But apparently that's just decoration.[00:17] Agent: I appreciate that, thank you. Let me check when the pass was activated versus when your data usage began.[00:22] Client: Take your time. It's not like I have anything better to do than argue over pay-per-megabyte rates I already paid to avoid.[00:27] Agent: I see it. The pass was set to activate on the wrong time zone, so it started the day after you landed.[00:32] Client: Ah, so the system decided I arrived tomorrow. Fascinating. Maybe I should ask it for next week's lottery numbers.[00:37] Agent: I understand the frustration. That was a system error, and I'm crediting the full hundred dollars to your account.[00:42] Client: The full hundred? Wow, you're giving me my own money back. How generous.[00:47] Agent: I'm also correcting the pass dates so it covers the whole length of your trip.[00:52] Client: Great. Because I still have four days left, and I'd hate to accidentally fund your quarterly bonus again.[00:57] Agent: Understood. I've added a usage alert so you'll get a text before any charges apply.[01:02] Client: A text about charges. From the company that charged me. The irony is delicious, but okay, I'll take it.[01:07] Agent: Is there anything else I can help you with today?[01:12] Client: No, I think you've done enough. Fine, honestly, thanks for actually fixing it. That part I mean sincerely.[01:17] Agent: I appreciate that, sir. Enjoy the rest of your trip.\"\n}"
+            },
             "url": {
-              "raw": "{{baseUrl}}/api/evaluations?tenant_id={{tenantId}}",
+              "raw": "{{baseUrl}}/api/evaluate",
               "host": ["{{baseUrl}}"],
-              "path": ["api", "evaluations"],
-              "query": [
-                {
-                  "key": "tenant_id",
-                  "value": "{{tenantId}}"
-                }
-              ]
-            }
+              "path": ["api", "evaluate"]
+            },
+            "description": "Evaluates a call transcript against default tenant criteria defined in criteria_config.json. Fallback loads all 11 standard criteria."
           }
         },
         {
-          "name": "Get Evaluation Detail by ID",
+          "name": "Evaluate Interaction (Dynamic Criteria Selection - 3 Omitted)",
           "request": {
-            "method": "GET",
-            "header": [],
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"callId\": \"real_36min_good_v1\",\n  \"tenant_id\": \"{{tenantId}}\",\n  \"channel\": \"Call\",\n  \"transcript\": \"[00:07] Client: Oh, wonderful, a real human. I'm calling to thank you for the hundred dollar roaming charge on my bill. Truly the highlight of my month.[00:09] Agent: I'm sorry about the charge, sir. Let me see what happened. Could I have your account number?[00:12] Client: Sure. It's 8820-423. And I'll save you some time, I bought the unlimited travel pass before my trip. But apparently that's just decoration.[00:17] Agent: I appreciate that, thank you. Let me check when the pass was activated versus when your data usage began.[00:22] Client: Take your time. It's not like I have anything better to do than argue over pay-per-megabyte rates I already paid to avoid.[00:27] Agent: I see it. The pass was set to activate on the wrong time zone, so it started the day after you landed.[00:32] Client: Ah, so the system decided I arrived tomorrow. Fascinating. Maybe I should ask it for next week's lottery numbers.[00:37] Agent: I understand the frustration. That was a system error, and I'm crediting the full hundred dollars to your account.[00:42] Client: The full hundred? Wow, you're giving me my own money back. How generous.[00:47] Agent: I'm also correcting the pass dates so it covers the whole length of your trip.[00:52] Client: Great. Because I still have four days left, and I'd hate to accidentally fund your quarterly bonus again.[00:57] Agent: Understood. I've added a usage alert so you'll get a text before any charges apply.[01:02] Client: A text about charges. From the company that charged me. The irony is delicious, but okay, I'll take it.[01:07] Agent: Is there anything else I can help you with today?[01:12] Client: No, I think you've done enough. Fine, honestly, thanks for actually fixing it. That part I mean sincerely.[01:17] Agent: I appreciate that, sir. Enjoy the rest of your trip.\",\n  \"criteria_data\": {\n    \"category_weights\": {\n      \"Soft Skills\": 0.4,\n      \"Technical Knowledge\": 0.6\n    },\n    \"categories\": [\n      {\n        \"name\": \"Soft Skills\",\n        \"line_items\": [\n          {\n            \"name\": \"Hold time and Dead Air\",\n            \"deduction_value\": 15\n          },\n          {\n            \"name\": \"Personalized the call/ticket appropriately\",\n            \"deduction_value\": 15\n          },\n          {\n            \"name\": \"Empathy & Acknowledgment Statement\",\n            \"deduction_value\": 35\n          },\n          {\n            \"name\": \"Build rapport and observed professionalism\",\n            \"deduction_value\": 20\n          }\n        ]\n      },\n      {\n        \"name\": \"Technical Knowledge\",\n        \"line_items\": [\n          {\n            \"name\": \"Probing\",\n            \"deduction_value\": 25\n          },\n          {\n            \"name\": \"Took ownership of the problem\",\n            \"deduction_value\": 25\n          },\n          {\n            \"name\": \"Active listening\",\n            \"deduction_value\": 10\n          },\n          {\n            \"name\": \"Confirmed the issue is resolved\",\n            \"deduction_value\": 15\n          }\n        ]\n      }\n    ]\n  }\n}"
+            },
             "url": {
-              "raw": "{{baseUrl}}/api/evaluations/{{evalId}}",
+              "raw": "{{baseUrl}}/api/evaluate",
               "host": ["{{baseUrl}}"],
-              "path": ["api", "evaluations", "{{evalId}}"]
-            }
+              "path": ["api", "evaluate"]
+            },
+            "description": "Evaluates with 3 omitted criteria ('Branding and Survey Check', 'Verified customer', and 'Paraphrasing'). Demonstrates dynamic criteria selection and dynamic category weight normalization."
           }
         },
         {
-          "name": "Delete Single Evaluation by ID",
+          "name": "Evaluate Interaction (Structured Turn List with Sentiments)",
           "request": {
-            "method": "DELETE",
-            "header": [],
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"tenant_id\": \"{{tenantId}}\",\n  \"channel\": \"Call\",\n  \"customer_name\": \"Grace\",\n  \"transcript\": [\n    {\n      \"speaker\": \"Agent\",\n      \"start_time_sec\": 0,\n      \"text\": \"Thank you for calling S-Net, my name is Alex, how can I help you today?\",\n      \"sentiment_score\": 6.0\n    },\n    {\n      \"speaker\": \"Customer\",\n      \"start_time_sec\": 10,\n      \"text\": \"My smart thermostat keeps resetting its schedule to a default temperature every evening.\",\n      \"sentiment_score\": 6.8\n    },\n    {\n      \"speaker\": \"Agent\",\n      \"start_time_sec\": 20,\n      \"text\": \"I'm sorry to hear that. To verify the account, can I get your account number, PIN, and the name on the account?\",\n      \"sentiment_score\": 7.5\n    },\n    {\n      \"speaker\": \"Customer\",\n      \"start_time_sec\": 30,\n      \"text\": \"Sure, account 771-330-118, PIN 5521, name Grace.\",\n      \"sentiment_score\": 8.3\n    },\n    {\n      \"speaker\": \"Agent\",\n      \"start_time_sec\": 40,\n      \"text\": \"Thank you, that all matches, you're verified. Let me investigate.\",\n      \"sentiment_score\": 9.0\n    },\n    {\n      \"speaker\": \"Customer\",\n      \"start_time_sec\": 50,\n      \"text\": \"Great, thank you.\",\n      \"sentiment_score\": 9.8\n    },\n    {\n      \"speaker\": \"Agent\",\n      \"start_time_sec\": 60,\n      \"text\": \"I see the cloud schedule was overriding your local profile. I have synced the settings now. Could you check if the temperature stays fixed?\",\n      \"sentiment_score\": 10.5\n    },\n    {\n      \"speaker\": \"Customer\",\n      \"start_time_sec\": 75,\n      \"text\": \"Yes! It looks like it is holding the custom temperature now!\",\n      \"sentiment_score\": 11.2\n    },\n    {\n      \"speaker\": \"Agent\",\n      \"start_time_sec\": 85,\n      \"text\": \"Is there anything else I can help you with today, Grace?\",\n      \"sentiment_score\": 11.8\n    },\n    {\n      \"speaker\": \"Customer\",\n      \"start_time_sec\": 92,\n      \"text\": \"No, that completely fixes it. Thank you so much!\",\n      \"sentiment_score\": 12.0\n    },\n    {\n      \"speaker\": \"Agent\",\n      \"start_time_sec\": 98,\n      \"text\": \"Thank you for choosing S-Net, have a great day!\",\n      \"sentiment_score\": 12.2\n    }\n  ]\n}"
+            },
             "url": {
-              "raw": "{{baseUrl}}/api/evaluations/{{evalId}}",
+              "raw": "{{baseUrl}}/api/evaluate",
               "host": ["{{baseUrl}}"],
-              "path": ["api", "evaluations", "{{evalId}}"]
-            }
-          }
-        },
-        {
-          "name": "Clear All Evaluations for Tenant",
-          "request": {
-            "method": "DELETE",
-            "header": [],
-            "url": {
-              "raw": "{{baseUrl}}/api/evaluations?tenant_id={{tenantId}}",
-              "host": ["{{baseUrl}}"],
-              "path": ["api", "evaluations"],
-              "query": [
-                {
-                  "key": "tenant_id",
-                  "value": "{{tenantId}}"
-                }
-              ]
-            }
+              "path": ["api", "evaluate"]
+            },
+            "description": "Evaluates an interaction passed as an array of Turn objects with start_time_sec and sentiment_score."
           }
         }
       ]

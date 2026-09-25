@@ -1,53 +1,136 @@
-# QA Analysis System - Setup & Requirements
+# QA Analysis System - Setup & Requirements Guide
 
-## Prerequisites
-- **Python 3.10+** installed
+This document provides complete instructions for installing, configuring, and running the Multi-Tenant Automated QA Evaluation System locally or via Docker.
 
-## Plug & Play Setup
-The easiest way to get started is to use the provided setup scripts. These scripts will automatically create a virtual environment, install Python dependencies, configure your environment variables, and pull the required default LLM (`llama3.1`) from Ollama.
+---
 
-**For Windows:**
-Double click `setup.bat` or run:
-```bat
-setup.bat
-```
+## 1. Prerequisites
 
-**For macOS/Linux:**
+Before setting up the project, ensure you have:
+* **Operating System:** Windows 10/11, macOS, or Linux.
+* **Python:** Version **3.10+** (verify with `python --version`).
+* **Ollama:** Installed and running on your local machine ([Download Ollama](https://ollama.com/download)).
+* **Docker & Docker Compose (Optional):** If running containerized.
+
+---
+
+## 2. Pulling Required Local Models (Ollama)
+
+The QA Engine uses two local models via Ollama:
+1. **Generative LLM (`llama3.1:8b` or `llama3.1`):** Handles subjective criteria reasoning (Empathy, Ownership, Rapport, Probing) and dynamic coaching generation.
+2. **Embedding Model (`nomic-embed-text`):** Handles zero-LLM vector cosine similarity checks for **Paraphrasing** and **Active Listening**.
+
+Open your terminal and run:
+
 ```bash
-chmod +x setup.sh
-./setup.sh
+# Pull LLM for reasoning and coaching
+ollama pull llama3.1
+
+# Pull dedicated embedding model for vector engine
+ollama pull nomic-embed-text
 ```
 
-## Running the Server
-Once setup is complete, you can start the FastAPI backend:
+> [!TIP]
+> To prevent Ollama from constantly unloading models from memory (which causes cold-start latency), run Ollama with keep-alive enabled:
+> ```bash
+> # On Linux/macOS
+> export OLLAMA_KEEP_ALIVE=-1
+> 
+> # On Windows PowerShell
+> $env:OLLAMA_KEEP_ALIVE="-1"
+> ```
+
+---
+
+## 3. Local Installation & Setup
+
+### Step 1: Clone Repository
+```bash
+git clone https://github.com/nimjj/QA-system.git
+cd QA-system
+```
+
+### Step 2: Create Virtual Environment & Install Dependencies
 
 **Windows:**
 ```bat
+python -m venv .venv
 .venv\Scripts\activate
-uvicorn src.api.web_app:app --host 0.0.0.0 --port 8000 --reload
+pip install --upgrade pip
+pip install -r requirements.txt
 ```
 
-**macOS/Linux:**
+**macOS / Linux:**
 ```bash
+python3 -m venv .venv
 source .venv/bin/activate
+pip install --upgrade pip
+pip install -r requirements.txt
+```
+
+### Step 3: Configure Environment Variables
+Copy `.env.example` to `.env`:
+```bash
+# Windows
+copy .env.example .env
+
+# macOS / Linux
+cp .env.example .env
+```
+
+---
+
+## 4. Environment Variables Configuration (`.env`)
+
+| Variable | Default Value | Description |
+|---|---|---|
+| `OLLAMA_HOST` | `http://localhost:11434` | Base URL of the running Ollama instance. |
+| `LLM_MODEL` | `llama3.1:8b` | The primary reasoning model (e.g., `llama3.1`, `llama3.1:8b`, `qwen2.5:7b`). |
+| `EMBEDDING_MODEL` | `nomic-embed-text` | Dedicated embedding model for vector cosine similarity checks. |
+| `OLLAMA_TIMEOUT` | `300` | HTTP request timeout in seconds for Ollama API generation calls. |
+| `SERVER_HOST` | `0.0.0.0` | Host IP for FastAPI web server. |
+| `SERVER_PORT` | `8000` | Port for FastAPI web server. |
+| `PROMPT_DYNAMIC_EVALUATION_PATH` | `resources/prompts/dynamic_evaluation_prompt.txt` | Path to the dynamic evaluation prompt template. |
+
+---
+
+## 5. Running the Application
+
+You can start the server using either the main launcher or Uvicorn directly:
+
+### Option A: Using Root Launcher (Recommended)
+```bash
+python main.py
+```
+
+### Option B: Using Uvicorn Directly
+```bash
 uvicorn src.api.web_app:app --host 0.0.0.0 --port 8000 --reload
 ```
 
-## How to Change the LLM (Modular Model Support)
-This codebase is completely model-agnostic. You can hot-swap the underlying LLM simply by modifying the `.env` file.
+The web server will start at `http://localhost:8000`. You can access interactive Swagger API documentation at:
+* **Interactive Docs:** `http://localhost:8000/docs`
+* **Alternative ReDoc:** `http://localhost:8000/redoc`
 
-1. Open the `.env` file.
-2. Change the `LLM_MODEL` variable. For example:
-   ```ini
-   LLM_MODEL=qwen2.5:1.5b
-   ```
-3. Ensure you pull the new model via Ollama:
-   ```bash
-   ollama pull qwen2.5:1.5b
-   ```
+### Option C: Using Docker Compose
+```bash
+docker-compose up --build -d
+```
+This builds and launches both the Ollama container and the FastAPI gateway container.
 
-## Note on K2-Horizon / llama.cpp-Specific Optimizations
-While the system is modular and supports any model, you should be aware of a few internal optimizations heavily tuned for **Llama 3.x**:
+---
 
-1. **Parser Resilience (`src/services/dynamic_evaluator.py`)**: The `parse_dynamic_ratings` function uses strict regex matching designed for Llama 3.1's highly structured output format (e.g., `PASS` or `FAIL` at the start of a line). Extremely small models (like 1b or 2b parameters) may fail to follow this strict output schema and trigger the fallback parser mechanism.
-2. **Bottom-Anchoring Prompt Structure (`resources/prompts/dynamic_evaluation_prompt.txt`)**: The prompt is specifically structured with the static `[TRANSCRIPT]` at the top, and dynamic `[EVALUATION LINE ITEMS]` at the bottom. This leverages Ollama's KV Caching engine, which works perfectly with Llama 3.1 to give massive speedups during chunked map-reduce requests.
+## 6. Verifying & Testing the Installation
+
+### 1. Batch Test Script
+Run the automated test runner to evaluate the sample test suite:
+```bash
+python Scripts/batch_test.py
+```
+This script queries `/api/evaluate` against multiple transcript edge cases and logs execution times and results.
+
+### 2. Testing via Postman
+Import `Docs/postman_collection.json` into Postman and execute:
+1. `GET http://localhost:8000/api/samples` (Verify sample input listing)
+2. `POST http://localhost:8000/api/preview-prompt` (Verify prompt builder)
+3. `POST http://localhost:8000/api/evaluate` (Verify end-to-end evaluation)
