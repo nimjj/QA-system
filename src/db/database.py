@@ -70,105 +70,6 @@ def init_db():
             """)
         conn.commit()
 
-    seed_default_data()
-
-
-def seed_default_data():
-    """Seeds default tenant-abc with the 11 standard criteria if not present."""
-    default_tenant_id = "tenant-abc"
-    with get_connection() as conn:
-        with conn.cursor() as cur:
-            cur.execute("SELECT tenant_id FROM tenants WHERE tenant_id = %s;", (default_tenant_id,))
-            if cur.fetchone():
-                return  # already seeded
-
-            # Insert default tenant
-            cur.execute(
-                "INSERT INTO tenants (tenant_id, name) VALUES (%s, %s);",
-                (default_tenant_id, "Tenant ABC")
-            )
-
-            # Insert categories
-            cat_soft_id = "cat-soft-skills"
-            cat_tech_id = "cat-tech-knowledge"
-            cur.execute(
-                "INSERT INTO categories (category_id, tenant_id, name, category_weight) VALUES (%s, %s, %s, %s);",
-                (cat_soft_id, default_tenant_id, "Soft Skills", 0.333)
-            )
-            cur.execute(
-                "INSERT INTO categories (category_id, tenant_id, name, category_weight) VALUES (%s, %s, %s, %s);",
-                (cat_tech_id, default_tenant_id, "Technical Knowledge", 0.667)
-            )
-
-            # The 11 standard criteria
-            items = [
-                # Soft Skills
-                (
-                    "item-branding", cat_soft_id, "Branding and Survey Check",
-                    "Handled by Rule Engine.", 15
-                ),
-                (
-                    "item-hold-dead-air", cat_soft_id, "Hold time and Dead Air",
-                    "Handled by Rule Engine.", 15
-                ),
-                (
-                    "item-personalized-call", cat_soft_id, "Personalized the call/ticket appropriately",
-                    "Handled by Rule Engine.", 15
-                ),
-                (
-                    "item-empathy", cat_soft_id, "Empathy & Acknowledgment Statement",
-                    "Handled by Rule Engine and Snippet LLM.", 35
-                ),
-                (
-                    "item-rapport", cat_soft_id, "Build rapport and observed professionalism",
-                    "VIOLATION-BASED: Default to PASS. Rate FAIL only if you can quote a specific agent line that is rude, condescending, dismissive, sarcastic, or unprofessional.", 20
-                ),
-                # Technical Knowledge
-                (
-                    "item-paraphrasing", cat_tech_id, "Paraphrasing",
-                    "Handled dynamically by Vector Engine.", 15
-                ),
-                (
-                    "item-verified-customer", cat_tech_id, "Verified customer",
-                    "Handled deterministically by Rule Engine.", 25
-                ),
-                (
-                    "item-probing", cat_tech_id, "Probing",
-                    "Based on the customer's problem provided in the context, did the agent ask diagnostic questions to probe this problem? Output YES or NO.", 25
-                ),
-                (
-                    "item-ownership", cat_tech_id, "Took ownership of the problem",
-                    "VIOLATION-BASED: Default to PASS. Rate FAIL only if you can quote a specific agent line that blames another department/team, deflects responsibility, tells the customer to call back elsewhere, or refuses to help.", 25
-                ),
-                (
-                    "item-active-listening", cat_tech_id, "Active listening",
-                    "Handled by Snippet LLM.", 10
-                ),
-                (
-                    "item-confirmed-resolved", cat_tech_id, "Confirmed the issue is resolved",
-                    "Did the agent explicitly confirm that the issue was resolved? Output YES or NO.", 15
-                )
-            ]
-
-            for line_item_id, category_id, name, desc, ded_val in items:
-                cur.execute(
-                    """
-                    INSERT INTO line_items (line_item_id, category_id, name, description, deduction_value)
-                    VALUES (%s, %s, %s, %s, %s)
-                    ON CONFLICT (line_item_id) DO NOTHING;
-                    """,
-                    (line_item_id, category_id, name, desc, ded_val)
-                )
-                cur.execute(
-                    """
-                    INSERT INTO tenant_lines (tenant_id, line_item_id, is_active)
-                    VALUES (%s, %s, TRUE)
-                    ON CONFLICT (tenant_id, line_item_id) DO NOTHING;
-                    """,
-                    (default_tenant_id, line_item_id)
-                )
-        conn.commit()
-
 
 def get_all_tenants() -> List[Dict[str, Any]]:
     with get_connection() as conn:
@@ -183,17 +84,6 @@ def create_tenant(tenant_id: str, name: str) -> Dict[str, Any]:
             cur.execute(
                 "INSERT INTO tenants (tenant_id, name) VALUES (%s, %s) RETURNING tenant_id, name;",
                 (tenant_id, name)
-            )
-            # Replicate standard categories for this tenant
-            cat_soft_id = f"cat-soft-{tenant_id}"
-            cat_tech_id = f"cat-tech-{tenant_id}"
-            cur.execute(
-                "INSERT INTO categories (category_id, tenant_id, name, category_weight) VALUES (%s, %s, %s, %s);",
-                (cat_soft_id, tenant_id, "Soft Skills", 0.333)
-            )
-            cur.execute(
-                "INSERT INTO categories (category_id, tenant_id, name, category_weight) VALUES (%s, %s, %s, %s);",
-                (cat_tech_id, tenant_id, "Technical Knowledge", 0.667)
             )
             # Link existing standard line items to this tenant in tenant_lines
             cur.execute("SELECT line_item_id FROM line_items;")
@@ -211,56 +101,79 @@ def create_tenant(tenant_id: str, name: str) -> Dict[str, Any]:
     return {"tenant_id": tenant_id, "name": name}
 
 
-def get_tenant_criteria(tenant_id: str) -> Dict[str, Any]:
-    """Retrieves all categories and line items with is_active status for a tenant."""
+def create_category(category_id: Optional[str], tenant_id: str, name: str, category_weight: float = 1.0) -> Dict[str, Any]:
+    cat_id = category_id or f"cat-{uuid.uuid4().hex[:8]}"
     with get_connection() as conn:
         with conn.cursor(cursor_factory=RealDictCursor) as cur:
-            # Check tenant exists
-            cur.execute("SELECT tenant_id, name FROM tenants WHERE tenant_id = %s;", (tenant_id,))
-            tenant = cur.fetchone()
-            if not tenant:
-                # If tenant doesn't exist, fallback to tenant-abc
-                tenant_id = "tenant-abc"
-
-            # Fetch categories for this tenant (or default)
             cur.execute(
-                "SELECT category_id, name, category_weight FROM categories WHERE tenant_id = %s ORDER BY name ASC;",
-                (tenant_id,)
+                """
+                INSERT INTO categories (category_id, tenant_id, name, category_weight)
+                VALUES (%s, %s, %s, %s)
+                RETURNING category_id, tenant_id, name, category_weight;
+                """,
+                (cat_id, tenant_id, name, category_weight)
             )
-            categories = cur.fetchall()
-            if not categories:
-                # Fallback to default categories
-                cur.execute(
-                    "SELECT category_id, name, category_weight FROM categories WHERE tenant_id = 'tenant-abc' ORDER BY name ASC;"
-                )
-                categories = cur.fetchall()
+            row = cur.fetchone()
+        conn.commit()
+    return row
 
-            category_weights = {c["name"]: float(c["category_weight"]) for c in categories}
 
-            result_categories = []
-            for cat in categories:
+def get_categories(tenant_id: Optional[str] = None) -> List[Dict[str, Any]]:
+    with get_connection() as conn:
+        with conn.cursor(cursor_factory=RealDictCursor) as cur:
+            if tenant_id:
                 cur.execute(
-                    """
-                    SELECT 
-                        li.line_item_id, 
-                        li.name, 
-                        li.description, 
-                        li.deduction_value,
-                        COALESCE(tl.is_active, TRUE) as is_active
-                    FROM line_items li
-                    LEFT JOIN tenant_lines tl ON li.line_item_id = tl.line_item_id AND tl.tenant_id = %s
-                    WHERE li.category_id = %s
-                    ORDER BY li.name ASC;
-                    """,
-                    (tenant_id, cat["category_id"])
+                    "SELECT category_id, tenant_id, name, category_weight FROM categories WHERE tenant_id = %s ORDER BY name ASC;",
+                    (tenant_id,)
                 )
-                items = cur.fetchall()
-                result_categories.append({
-                    "category_id": cat["category_id"],
-                    "name": cat["name"],
-                    "category_weight": float(cat["category_weight"]),
-                    "line_items": items
+            else:
+                cur.execute(
+                    "SELECT category_id, tenant_id, name, category_weight FROM categories ORDER BY tenant_id, name ASC;"
+                )
+            return cur.fetchall()
+
+
+def get_tenant_criteria(tenant_id: str) -> Dict[str, Any]:
+    """Retrieves all categories and line items with is_active toggle status for a tenant."""
+    with get_connection() as conn:
+        with conn.cursor(cursor_factory=RealDictCursor) as cur:
+            cur.execute("""
+                SELECT 
+                    li.line_item_id, 
+                    c.category_id,
+                    c.name as category_name,
+                    c.category_weight,
+                    li.name, 
+                    li.description, 
+                    li.deduction_value,
+                    COALESCE(tl.is_active, TRUE) as is_active
+                FROM line_items li
+                JOIN categories c ON li.category_id = c.category_id
+                LEFT JOIN tenant_lines tl ON li.line_item_id = tl.line_item_id AND tl.tenant_id = %s
+                ORDER BY c.name, li.name;
+            """, (tenant_id,))
+            rows = cur.fetchall()
+
+            category_map = {}
+            for r in rows:
+                cname = r["category_name"]
+                if cname not in category_map:
+                    category_map[cname] = {
+                        "category_id": r["category_id"],
+                        "name": cname,
+                        "category_weight": float(r["category_weight"]),
+                        "line_items": []
+                    }
+                category_map[cname]["line_items"].append({
+                    "line_item_id": r["line_item_id"],
+                    "name": r["name"],
+                    "description": r["description"],
+                    "deduction_value": r["deduction_value"],
+                    "is_active": r["is_active"]
                 })
+
+            result_categories = list(category_map.values())
+            category_weights = {c["name"]: c["category_weight"] for c in result_categories}
 
             return {
                 "tenant_id": tenant_id,
@@ -328,8 +241,8 @@ def get_all_criteria() -> List[Dict[str, Any]]:
             return cur.fetchall()
 
 
-def create_criterion(category_id: str, name: str, description: str, deduction_value: int) -> Dict[str, Any]:
-    line_item_id = f"item-{uuid.uuid4().hex[:8]}"
+def create_criterion(category_id: str, name: str, description: str, deduction_value: int, line_item_id: Optional[str] = None) -> Dict[str, Any]:
+    item_id = line_item_id or f"item-{uuid.uuid4().hex[:8]}"
     with get_connection() as conn:
         with conn.cursor(cursor_factory=RealDictCursor) as cur:
             cur.execute(

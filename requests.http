@@ -5,7 +5,7 @@
 
 @baseUrl = http://localhost:8000
 @gatewayUrl = http://localhost:8005
-@tenantId = tenant-abc
+@tenantId = tenant-test
 
 ### --------------------------------------------------------------------
 ### 1. API GATEWAY HEALTH
@@ -28,12 +28,35 @@ POST {{baseUrl}}/api/tenants
 Content-Type: application/json
 
 {
-  "tenant_id": "tenant-xyz",
+  "tenant_id": "tenant-test",
   "name": "Acme Global Support"
 }
 
 ### --------------------------------------------------------------------
-### 3. CRITERIA & TOGGLE MANAGEMENT (POSTGRESQL)
+### 3. CATEGORY MANAGEMENT
+### --------------------------------------------------------------------
+
+### List All Categories
+GET {{baseUrl}}/api/categories
+Accept: application/json
+
+### List Categories for Specific Tenant
+GET {{baseUrl}}/api/categories?tenant_id={{tenantId}}
+Accept: application/json
+
+### Create Category for Tenant
+POST {{baseUrl}}/api/categories
+Content-Type: application/json
+
+{
+  "category_id": "cat-soft-skills-snet",
+  "tenant_id": "S-NET",
+  "name": "Soft Skills",
+  "category_weight": 0.333
+}
+
+### --------------------------------------------------------------------
+### 4. CRITERIA & TOGGLE MANAGEMENT (POSTGRESQL)
 ### --------------------------------------------------------------------
 
 ### Retrieve Criteria for a Tenant (Includes isActive toggles)

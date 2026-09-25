@@ -41,7 +41,8 @@ def preview_evaluation_prompt(
 ) -> Dict[str, Any]:
     turns = []
     clean_lines = []
-    for line in transcript_text.strip().splitlines():
+    normalized_text = re.sub(r'(\s*)([\[\(]\s*\d{1,2}:\d{2}(?::\d{2})?\s*[\]\)])', r'\n\2', transcript_text.strip())
+    for line in normalized_text.splitlines():
         line = line.strip()
         if not line:
             continue
@@ -127,20 +128,29 @@ def evaluate_interaction(
             elif spk.lower() == "customer":
                 customer_lines.append(txt)
     else:
-        for line in transcript_data.strip().splitlines():
+        # Pre-split inline timestamps like [00:09] if they are concatenated on a single line
+        normalized_text = re.sub(r'(\s*)([\[\(]\s*\d{1,2}:\d{2}(?::\d{2})?\s*[\]\)])', r'\n\2', transcript_data.strip())
+        for line in normalized_text.splitlines():
             line = line.strip()
             if not line:
                 continue
+            time_match = re.match(r'^[\[\(]\s*(\d{1,2}):(\d{2})(?::(\d{2}))?\s*[\]\)]\s*', line)
+            t_sec = int(time_match.group(1)) * 60 + int(time_match.group(2)) if time_match else 0
+
             line = re.sub(r"^[\[\(]\s*\d{1,2}:\d{2}(?::\d{2})?\s*[\]\)]\s*", "", line)
             clean_lines.append(line)
             if ":" in line:
                 spk, txt = line.split(":", 1)
-                turns.append((spk.strip(), txt.strip()))
-                parsed_times.append((0, 10))
-                if spk.strip().lower() == "agent":
-                    agent_lines.append(txt.strip())
-                elif spk.strip().lower() == "customer":
-                    customer_lines.append(txt.strip())
+                spk_clean = spk.strip()
+                txt_clean = txt.strip()
+                turns.append((spk_clean, txt_clean))
+                parsed_times.append((t_sec, t_sec + 10))
+
+                spk_lower = spk_clean.lower()
+                if spk_lower in ["agent", "rep", "representative", "specialist"]:
+                    agent_lines.append(txt_clean)
+                elif spk_lower in ["customer", "client", "caller", "user"]:
+                    customer_lines.append(txt_clean)
 
     clean_transcript = "\n".join(clean_lines)
     agent_only_transcript = "\n".join([f"Agent: {x}" for x in agent_lines])

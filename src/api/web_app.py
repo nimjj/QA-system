@@ -163,6 +163,8 @@ from src.db.database import (
     init_db,
     get_all_tenants,
     create_tenant as db_create_tenant,
+    create_category as db_create_category,
+    get_categories as db_get_categories,
     get_tenant_criteria,
     get_active_criteria_for_evaluation,
     toggle_tenant_criterion,
@@ -212,11 +214,19 @@ class ToggleCriterionRequest(BaseModel):
     is_active: bool
 
 
+class CreateCategoryRequest(BaseModel):
+    category_id: Optional[str] = None
+    tenant_id: str
+    name: str
+    category_weight: Optional[float] = 1.0
+
+
 class CreateCriterionRequest(BaseModel):
     category_id: str
     name: str
     description: Optional[str] = ""
     deduction_value: Optional[int] = 10
+    line_item_id: Optional[str] = None
 
 
 class UpdateCriterionRequest(BaseModel):
@@ -237,6 +247,16 @@ def add_tenant(req: CreateTenantRequest):
     return db_create_tenant(req.tenant_id, req.name)
 
 
+@app.get("/api/categories")
+def list_categories(tenant_id: Optional[str] = None):
+    return db_get_categories(tenant_id)
+
+
+@app.post("/api/categories")
+def add_category(req: CreateCategoryRequest):
+    return db_create_category(req.category_id, req.tenant_id, req.name, req.category_weight or 1.0)
+
+
 @app.get("/api/tenants/{tenant_id}/criteria")
 def get_criteria_for_tenant(tenant_id: str):
     return get_tenant_criteria(tenant_id)
@@ -255,7 +275,7 @@ def list_all_criteria():
 
 @app.post("/api/criteria")
 def create_new_criterion(req: CreateCriterionRequest):
-    return db_create_criterion(req.category_id, req.name, req.description, req.deduction_value)
+    return db_create_criterion(req.category_id, req.name, req.description, req.deduction_value, req.line_item_id)
 
 
 @app.put("/api/criteria/{line_item_id}")

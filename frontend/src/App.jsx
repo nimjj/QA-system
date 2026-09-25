@@ -35,7 +35,7 @@ export default function App() {
 
   // Tenants & Criteria state
   const [tenants, setTenants] = useState([]);
-  const [selectedTenant, setSelectedTenant] = useState('tenant-abc');
+  const [selectedTenant, setSelectedTenant] = useState('');
   const [criteriaData, setCriteriaData] = useState({ categories: [], category_weights: {} });
   const [loadingCriteria, setLoadingCriteria] = useState(false);
   const [feedbackMsg, setFeedbackMsg] = useState('');
@@ -55,7 +55,7 @@ export default function App() {
   // Evaluate View State
   const [callId, setCallId] = useState(generateCallId());
   const [channel, setChannel] = useState('Call');
-  const [customerName, setCustomerName] = useState('Sir');
+  const [customerName, setCustomerName] = useState('');
   const [transcript, setTranscript] = useState(DEFAULT_SAMPLE_TRANSCRIPT);
   const [evaluating, setEvaluating] = useState(false);
   const [evaluationResult, setEvaluationResult] = useState(null);
@@ -84,8 +84,8 @@ export default function App() {
       if (res.ok) {
         const data = await res.json();
         setTenants(data);
-        if (data.length > 0 && !selectedTenant) {
-          setSelectedTenant(data[0].tenant_id);
+        if (data.length > 0) {
+          setSelectedTenant(prev => prev && data.some(t => t.tenant_id === prev) ? prev : data[0].tenant_id);
         }
       }
     } catch (err) {
@@ -214,9 +214,11 @@ export default function App() {
       callId: callId,
       tenantId: selectedTenant,
       channel: channel,
-      customer_name: customerName,
       transcript: transcript
     };
+    if (customerName && customerName.trim()) {
+      payload.customer_name = customerName.trim();
+    }
 
     try {
       const res = await fetch(`${apiBase}/evaluate`, {
