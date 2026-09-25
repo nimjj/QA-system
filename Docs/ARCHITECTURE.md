@@ -8,62 +8,7 @@ This document provides a comprehensive technical specification of the **Automate
 
 The system evaluates customer support interactions using a **Hybrid Deterministic + Local LLM Architecture**. By offloading exact mathematical SLA calculations and verbatim checks to Python rules and vector similarity, the system minimizes local LLM inference latency, saves tokens, and eliminates hallucinations.
 
-```mermaid
-flowchart TD
-    Client["Client / Postman / Ingestion API"]
-    
-    subgraph FastAPI_Layer ["FastAPI Ingress (src/api/web_app.py)"]
-        Ingress["POST /api/evaluate"]
-        CriteriaLoad["Criteria Loader<br/>(Request criteria_data OR resources/criteria_config.json)"]
-    end
-
-    subgraph Dynamic_Evaluator ["Dynamic Multi-Tenant Engine (src/services/dynamic_evaluator.py)"]
-        CriteriaFilter["Phase 1: Dynamic Criteria Extraction<br/>(Extract selected_criteria Set)"]
-        
-        subgraph Deterministic_Rules ["Phase 2: Deterministic Python Engine (src/services/rule_engine.py)"]
-            Branding["Branding Check (Verbatim regex)"]
-            DeadAir["Hold Time & Dead Air (Gaps > 30s)"]
-            VerifiedCust["Verified Customer (PIN / Address within 4m)"]
-            Personalized["Personalized Call (Customer Name check)"]
-        end
-
-        subgraph Vector_Engine ["Phase 3: Vector Embeddings (nomic-embed-text)"]
-            Paraphrase["Paraphrasing Cosine Similarity (>= 0.50)"]
-        end
-
-        subgraph Snippet_LLM ["Phase 4: Targeted Snippet Verifications (Llama 3.1)"]
-            Empathy["Empathy (Sentiment drop snippet -> 1-word PASS/FAIL)"]
-            ActiveListening["Active Listening (Repeated turns snippet -> 1-word PASS/FAIL)"]
-            Ownership["Ownership Searchlight (Blame/Deflection lines -> 1-word PASS/FAIL)"]
-            Rapport["Rapport Searchlight (Rude/Condescending lines -> 1-word PASS/FAIL)"]
-            Probing["Probing (Diagnostic questions check against customer problem)"]
-        end
-
-        subgraph Batch_LLM ["Phase 5: Micro-Batch LLM Fallbacks"]
-            RemainingItems["Remaining subjective items (Agent-only / Last 30% wrap-up)"]
-        end
-
-        subgraph Coaching_Phase ["Phase 6: Batched Coaching Generation"]
-            CoachingTips["Single JSON LLM call for all failed items"]
-        end
-
-        subgraph Normalization_Phase ["Phase 7 & 8: Dynamic Weight Normalization & Pass Injection"]
-            NormScores["calculate_category_scores<br/>Re-normalize weights across active categories"]
-            PassInjection["Inject RULE_BASED_PASS_DESCRIPTIONS (0 extra tokens)"]
-        end
-    end
-
-    Client --> Ingress
-    Ingress --> CriteriaLoad
-    CriteriaLoad --> CriteriaFilter
-    CriteriaFilter --> Deterministic_Rules
-    CriteriaFilter --> Vector_Engine
-    CriteriaFilter --> Snippet_LLM
-    CriteriaFilter --> Batch_LLM
-    Deterministic_Rules & Vector_Engine & Snippet_LLM & Batch_LLM --> Coaching_Phase
-    Coaching_Phase --> Normalization_Phase
-    Normalization_Phase --> Ingress
-```
+![Pipeline Architecture Flow](flow.png)
 
 ---
 
