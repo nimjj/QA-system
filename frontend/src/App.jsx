@@ -249,13 +249,21 @@ export default function App() {
     <div className="qa-app">
       {/* Top Navbar */}
       <header className="navbar">
-        <div className="nav-brand">
-          <div className="brand-logo">QA</div>
-          <div>
-            <h1 className="brand-title">Nimithra QA Analysis Engine</h1>
-            <p className="brand-subtitle">Multi-Tenant Deterministic & LLM Evaluation</p>
-          </div>
-        </div>
+        {/* Navigation Tabs */}
+        <nav className="nav-tabs">
+          <button
+            className={`tab-btn ${activeTab === 'criteria' ? 'active' : ''}`}
+            onClick={() => setActiveTab('criteria')}
+          >
+            Criteria Manager
+          </button>
+          <button
+            className={`tab-btn ${activeTab === 'evaluate' ? 'active' : ''}`}
+            onClick={() => setActiveTab('evaluate')}
+          >
+            Evaluate Transcript
+          </button>
+        </nav>
 
         <div className="nav-controls">
           {/* Target port selector */}
@@ -270,22 +278,6 @@ export default function App() {
               <option value="8005">Port 8005 (API Gateway)</option>
             </select>
           </div>
-
-          {/* Navigation Tabs */}
-          <nav className="nav-tabs">
-            <button
-              className={`tab-btn ${activeTab === 'criteria' ? 'active' : ''}`}
-              onClick={() => setActiveTab('criteria')}
-            >
-              Criteria Manager
-            </button>
-            <button
-              className={`tab-btn ${activeTab === 'evaluate' ? 'active' : ''}`}
-              onClick={() => setActiveTab('evaluate')}
-            >
-              Evaluate Transcript
-            </button>
-          </nav>
         </div>
       </header>
 
