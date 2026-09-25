@@ -33,6 +33,10 @@ app.add_middleware(
 
 @app.on_event("startup")
 def on_startup():
+    try:
+        init_db()
+    except Exception as e:
+        logger.error({"log_type": "APP", "message": f"Failed to initialize database: {e}"})
     logger.info({
         "log_type": "APP",
         "message": "Stateless QA Service started. Logging live to logs/app.log."
@@ -155,19 +159,18 @@ async def log_requests_middleware(request: Request, call_next):
         raise exc
 
 
-CRITERIA_FILE = os.path.join(_ROOT, "resources", "criteria_config.json")
-
-
-def load_criteria(tenant_id: str) -> Dict[str, Any]:
-    """Load rubric criteria from local JSON configuration file."""
-    if os.path.exists(CRITERIA_FILE):
-        try:
-            with open(CRITERIA_FILE, "r", encoding="utf-8") as f:
-                data = json.load(f)
-            return data.get(tenant_id, data.get("tenant-abc", {}))
-        except Exception as e:
-            logger.warning({"message": f"Could not read criteria from {CRITERIA_FILE}: {e}"})
-    return {}
+from src.db.database import (
+    init_db,
+    get_all_tenants,
+    create_tenant as db_create_tenant,
+    get_tenant_criteria,
+    get_active_criteria_for_evaluation,
+    toggle_tenant_criterion,
+    get_all_criteria,
+    create_criterion as db_create_criterion,
+    update_criterion as db_update_criterion,
+    delete_criterion as db_delete_criterion
+)
 
 
 class Turn(BaseModel):
@@ -180,12 +183,98 @@ class Turn(BaseModel):
 class EvaluateRequest(BaseModel):
     transcript: Union[List[Turn], str]
     criteria_data: Optional[Dict[str, Any]] = None
-    tenant_id: Optional[str] = "default"
+    tenant_id: Optional[str] = None
+    tenantId: Optional[str] = None
+    call_id: Optional[str] = None
+    callId: Optional[str] = None
     channel: Optional[str] = "Call"
     agent_name: Optional[str] = "Agent"
     custom_prompt: Optional[str] = None
     customer_name: Optional[str] = None
+    customerName: Optional[str] = None
 
+    def get_tenant_id(self) -> str:
+        return self.tenant_id or self.tenantId or "tenant-abc"
+
+    def get_call_id(self) -> str:
+        return self.call_id or self.callId or f"call_{uuid.uuid4().hex[:10]}"
+
+    def get_customer_name(self) -> Optional[str]:
+        return self.customer_name or self.customerName
+
+
+class CreateTenantRequest(BaseModel):
+    tenant_id: str
+    name: str
+
+
+class ToggleCriterionRequest(BaseModel):
+    is_active: bool
+
+
+class CreateCriterionRequest(BaseModel):
+    category_id: str
+    name: str
+    description: Optional[str] = ""
+    deduction_value: Optional[int] = 10
+
+
+class UpdateCriterionRequest(BaseModel):
+    name: str
+    description: Optional[str] = ""
+    deduction_value: Optional[int] = 10
+
+
+# --- Tenant & Criteria Management Endpoints ---
+
+@app.get("/api/tenants")
+def list_tenants():
+    return get_all_tenants()
+
+
+@app.post("/api/tenants")
+def add_tenant(req: CreateTenantRequest):
+    return db_create_tenant(req.tenant_id, req.name)
+
+
+@app.get("/api/tenants/{tenant_id}/criteria")
+def get_criteria_for_tenant(tenant_id: str):
+    return get_tenant_criteria(tenant_id)
+
+
+@app.patch("/api/tenants/{tenant_id}/criteria/{line_item_id}/toggle")
+@app.post("/api/tenants/{tenant_id}/criteria/{line_item_id}/toggle")
+def toggle_criterion(tenant_id: str, line_item_id: str, req: ToggleCriterionRequest):
+    return toggle_tenant_criterion(tenant_id, line_item_id, req.is_active)
+
+
+@app.get("/api/criteria")
+def list_all_criteria():
+    return get_all_criteria()
+
+
+@app.post("/api/criteria")
+def create_new_criterion(req: CreateCriterionRequest):
+    return db_create_criterion(req.category_id, req.name, req.description, req.deduction_value)
+
+
+@app.put("/api/criteria/{line_item_id}")
+def update_existing_criterion(line_item_id: str, req: UpdateCriterionRequest):
+    updated = db_update_criterion(line_item_id, req.name, req.description, req.deduction_value)
+    if not updated:
+        raise HTTPException(status_code=404, detail="Criterion not found")
+    return updated
+
+
+@app.delete("/api/criteria/{line_item_id}")
+def delete_existing_criterion(line_item_id: str):
+    deleted = db_delete_criterion(line_item_id)
+    if not deleted:
+        raise HTTPException(status_code=404, detail="Criterion not found")
+    return {"status": "deleted", "line_item_id": line_item_id}
+
+
+# --- Evaluation Endpoints ---
 
 @app.get("/api/samples")
 def list_sample_inputs():
@@ -207,20 +296,24 @@ def list_sample_inputs():
 
 @app.post("/api/evaluate")
 def evaluate_tenant_transcript(req: EvaluateRequest):
-    """Synchronous evaluation endpoint using local criteria config and in-process execution."""
-    criteria_data = req.criteria_data or load_criteria(req.tenant_id or "tenant-abc")
+    """Synchronous evaluation endpoint using PostgreSQL tenant criteria."""
+    tenant_id = req.get_tenant_id()
+    call_id = req.get_call_id()
+    criteria_data = req.criteria_data or get_active_criteria_for_evaluation(tenant_id)
     transcript_payload = [t.dict() for t in req.transcript] if isinstance(req.transcript, list) else req.transcript
 
     result = evaluate_interaction(
         transcript_data=transcript_payload,
         criteria_data=criteria_data,
-        tenant_id=req.tenant_id or "default",
+        tenant_id=tenant_id,
         channel=req.channel or "Call",
         custom_prompt=req.custom_prompt,
-        caller=req.customer_name
+        caller=req.get_customer_name()
     )
 
     return {
+        "call_id": call_id,
+        "tenant_id": tenant_id,
         "status": "completed",
         "result": result
     }
@@ -228,11 +321,12 @@ def evaluate_tenant_transcript(req: EvaluateRequest):
 
 @app.post("/api/preview-prompt")
 def preview_tenant_prompt(req: EvaluateRequest):
-    criteria_data = req.criteria_data or load_criteria(req.tenant_id or "tenant-abc")
+    tenant_id = req.get_tenant_id()
+    criteria_data = req.criteria_data or get_active_criteria_for_evaluation(tenant_id)
     preview = preview_evaluation_prompt(
         transcript_text=req.transcript,
         criteria_data=criteria_data,
-        tenant_id=req.tenant_id or "default",
+        tenant_id=tenant_id,
         channel=req.channel or "Call"
     )
     return preview

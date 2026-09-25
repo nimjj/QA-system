@@ -41,7 +41,10 @@ class OllamaAdapter:
                         return content
             except (urllib.error.URLError, TimeoutError, json.JSONDecodeError) as exc:
                 last_err = exc
-            time.sleep(2 * (attempt + 1))
+                # Fast fail if Ollama service is not running
+                if "10061" in str(exc) or isinstance(getattr(exc, "reason", None), ConnectionRefusedError):
+                    break
+            time.sleep(1 * (attempt + 1))
         return f"Error reaching Ollama: {last_err}"
 
     def get_embedding(self, text: str, **kwargs) -> list[float]:
@@ -66,7 +69,9 @@ class OllamaAdapter:
                         return emb
             except Exception as exc:
                 last_err = exc
-            time.sleep(2 * (attempt + 1))
+                if "10061" in str(exc) or isinstance(getattr(exc, "reason", None), ConnectionRefusedError):
+                    break
+            time.sleep(1 * (attempt + 1))
         return []
 
 _adapter = OllamaAdapter()

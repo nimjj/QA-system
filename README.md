@@ -82,7 +82,7 @@ Server runs at `http://localhost:8000`. Interactive docs at `http://localhost:80
 }
 ```
 
-> **Note on Multi-Tenancy:** If `criteria_data` is omitted, default criteria are loaded from `resources/criteria_config.json`. To evaluate specific criteria only, pass custom `criteria_data` in the payload. Omitted items are skipped with zero mark deductions.
+> **Note on Multi-Tenancy:** If `criteria_data` is omitted, criteria are retrieved directly from the PostgreSQL database (`tenants`, `categories`, `line_items`, `tenant_lines`). Any criteria toggled off (`is_active = FALSE`) for a tenant are omitted from evaluation with zero deductions, and active category weights dynamically re-balance to 100.0%.
 
 * **Response:**
 ```json

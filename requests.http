@@ -1,0 +1,135 @@
+### ====================================================================
+### QA Analysis System - REST Client HTTP Requests
+### Compatible with VS Code REST Client & JetBrains HTTP Client
+### ====================================================================
+
+@baseUrl = http://localhost:8000
+@gatewayUrl = http://localhost:8005
+@tenantId = tenant-abc
+
+### --------------------------------------------------------------------
+### 1. API GATEWAY HEALTH
+### --------------------------------------------------------------------
+
+### Gateway Health Check
+GET {{gatewayUrl}}/health
+Accept: application/json
+
+### --------------------------------------------------------------------
+### 2. TENANT MANAGEMENT
+### --------------------------------------------------------------------
+
+### List All Tenants
+GET {{baseUrl}}/api/tenants
+Accept: application/json
+
+### Create New Tenant
+POST {{baseUrl}}/api/tenants
+Content-Type: application/json
+
+{
+  "tenant_id": "tenant-xyz",
+  "name": "Acme Global Support"
+}
+
+### --------------------------------------------------------------------
+### 3. CRITERIA & TOGGLE MANAGEMENT (POSTGRESQL)
+### --------------------------------------------------------------------
+
+### Retrieve Criteria for a Tenant (Includes isActive toggles)
+GET {{baseUrl}}/api/tenants/{{tenantId}}/criteria
+Accept: application/json
+
+### Toggle Criterion OFF (e.g. Branding and Survey Check)
+PATCH {{baseUrl}}/api/tenants/{{tenantId}}/criteria/item-branding/toggle
+Content-Type: application/json
+
+{
+  "is_active": false
+}
+
+### Toggle Criterion ON (e.g. Branding and Survey Check)
+PATCH {{baseUrl}}/api/tenants/{{tenantId}}/criteria/item-branding/toggle
+Content-Type: application/json
+
+{
+  "is_active": true
+}
+
+### List All Available Criteria
+GET {{baseUrl}}/api/criteria
+Accept: application/json
+
+### Create New Criterion under Category
+POST {{baseUrl}}/api/criteria
+Content-Type: application/json
+
+{
+  "category_id": "cat-soft-skills",
+  "name": "De-escalation Technique",
+  "description": "Agent applied standard de-escalation protocols when customer showed frustration.",
+  "deduction_value": 20
+}
+
+### Update an Existing Criterion
+PUT {{baseUrl}}/api/criteria/item-branding
+Content-Type: application/json
+
+{
+  "name": "Branding and Survey Check",
+  "description": "Verbatim opening and closing scripts compliance.",
+  "deduction_value": 15
+}
+
+### Delete a Criterion (Replace with valid line_item_id)
+DELETE {{baseUrl}}/api/criteria/item-custom-test
+Accept: application/json
+
+### --------------------------------------------------------------------
+### 4. TRANSCRIPT EVALUATION (MAIN APP - PORT 8000)
+### --------------------------------------------------------------------
+
+### Evaluate Interaction (Direct to App :8000)
+POST {{baseUrl}}/api/evaluate
+Content-Type: application/json
+
+{
+  "callId": "real_36min_good_v1",
+  "tenantId": "tenant-abc",
+  "channel": "Call",
+  "customer_name": "Sir",
+  "transcript": "[00:07] Client: Oh, wonderful, a real human. I'm calling to thank you for the hundred dollar roaming charge on my bill. Truly the highlight of my month.\n[00:09] Agent: I'm sorry about the charge, sir. Let me see what happened. Could I have your account number?\n[00:12] Client: Sure. It's 8820-423. And I'll save you some time, I bought the unlimited travel pass before my trip. But apparently that's just decoration.\n[00:17] Agent: I appreciate that, thank you. Let me check when the pass was activated versus when your data usage began.\n[00:22] Client: Take your time. It's not like I have anything better to do than argue over pay-per-megabyte rates I already paid to avoid.\n[00:27] Agent: I see it. The pass was set to activate on the wrong time zone, so it started the day after you landed.\n[00:32] Client: Ah, so the system decided I arrived tomorrow. Fascinating. Maybe I should ask it for next week's lottery numbers.\n[00:37] Agent: I understand the frustration. That was a system error, and I'm crediting the full hundred dollars to your account.\n[00:42] Client: The full hundred? Wow, you're giving me my own money back. How generous.\n[00:47] Agent: I'm also correcting the pass dates so it covers the whole length of your trip.\n[00:52] Client: Great. Because I still have four days left, and I'd hate to accidentally fund your quarterly bonus again.\n[00:57] Agent: Understood. I've added a usage alert so you'll get a text before any charges apply.\n[01:02] Client: A text about charges. From the company that charged me. The irony is delicious, but okay, I'll take it.\n[01:07] Agent: Is there anything else I can help you with today?\n[01:12] Client: No, I think you've done enough. Fine, honestly, thanks for actually fixing it. That part I mean sincerely.\n[01:17] Agent: I appreciate that, sir. Enjoy the rest of your trip."
+}
+
+### --------------------------------------------------------------------
+### 5. TRANSCRIPT EVALUATION (API GATEWAY - PORT 8005)
+### --------------------------------------------------------------------
+
+### Evaluate Interaction (Via Gateway :8005)
+POST {{gatewayUrl}}/api/evaluate
+Content-Type: application/json
+
+{
+  "callId": "gateway_routed_call_001",
+  "tenantId": "tenant-abc",
+  "channel": "Call",
+  "transcript": "[00:00] Agent: Thank you for calling S-Net. My name is Alex. How can I help you today?\n[00:05] Client: My router keeps resetting.\n[00:08] Agent: Could I verify your PIN and billing address?\n[00:12] Client: PIN 5521, 42 Main St.\n[00:15] Agent: Verified, thank you. Let me reset your line profile.\n[00:25] Agent: Line reset complete. Is the connection working now?\n[00:30] Client: Yes, perfect, thanks Alex!\n[00:35] Agent: Thank you for choosing S-Net, have a great day!"
+}
+
+### --------------------------------------------------------------------
+### 6. PROMPT PREVIEW & SAMPLES
+### --------------------------------------------------------------------
+
+### Preview Evaluation Prompt
+POST {{baseUrl}}/api/preview-prompt
+Content-Type: application/json
+
+{
+  "tenantId": "tenant-abc",
+  "channel": "Call",
+  "transcript": "[00:00] Agent: Hello.\n[00:05] Client: I need assistance."
+}
+
+### List Available Sample Inputs
+GET {{baseUrl}}/api/samples
+Accept: application/json
