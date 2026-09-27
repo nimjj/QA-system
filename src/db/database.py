@@ -245,7 +245,7 @@ def create_criterion(category_id: str, name: str, description: str, deduction_va
                 VALUES (%s, %s, %s, %s, %s)
                 RETURNING line_item_id, category_id, name, description, deduction_value;
                 """,
-                (line_item_id, category_id, name, description, deduction_value)
+                (item_id, category_id, name, description, deduction_value)
             )
             item = cur.fetchone()
 
@@ -254,7 +254,7 @@ def create_criterion(category_id: str, name: str, description: str, deduction_va
             for t in tenants:
                 cur.execute(
                     "INSERT INTO tenant_lines (tenant_id, line_item_id, is_active) VALUES (%s, %s, TRUE) ON CONFLICT DO NOTHING;",
-                    (t["tenant_id"], line_item_id)
+                    (t["tenant_id"], item_id)
                 )
         conn.commit()
     return item
