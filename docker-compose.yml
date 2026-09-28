@@ -16,7 +16,7 @@ services:
       dockerfile: Dockerfile
     container_name: qa_service
     ports:
-      - "8010:8000"
+      - "8006:8006"
     depends_on:
       - ollama
     extra_hosts:
@@ -45,7 +45,7 @@ services:
     depends_on:
       - qa-service
     environment:
-      - APP_URL=http://qa-service:8000
+      - APP_URL=http://qa-service:8006
       - GATEWAY_PORT=8005
       - GATEWAY_HOST=0.0.0.0
     restart: unless-stopped

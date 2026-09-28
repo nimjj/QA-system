@@ -3,7 +3,7 @@
 ### Compatible with VS Code REST Client & JetBrains HTTP Client
 ### ====================================================================
 
-@baseUrl = http://localhost:8000
+@baseUrl = http://localhost:8006
 @gatewayUrl = http://localhost:8005
 @tenantId = tenant-test
 
@@ -109,10 +109,10 @@ DELETE {{baseUrl}}/api/criteria/item-custom-test
 Accept: application/json
 
 ### --------------------------------------------------------------------
-### 4. TRANSCRIPT EVALUATION (MAIN APP - PORT 8000)
+### 4. TRANSCRIPT EVALUATION (MAIN APP - PORT 8006)
 ### --------------------------------------------------------------------
 
-### Evaluate Interaction (Direct to App :8000)
+### Evaluate Interaction (Direct to App :8006)
 POST {{baseUrl}}/api/evaluate
 Content-Type: application/json
 

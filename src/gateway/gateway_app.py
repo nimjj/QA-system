@@ -1,5 +1,5 @@
 """API Gateway for QA System.
-Runs on port 8005 by default and routes incoming traffic to core FastAPI App (port 8000).
+Runs on port 8005 by default and routes incoming traffic to core FastAPI App (port 8006).
 Also has direct DB access for fast querying as shown in the system architecture.
 """
 
@@ -19,7 +19,7 @@ for _p in [_ROOT, _SRC]:
 
 load_dotenv()
 
-APP_URL = os.getenv("APP_URL", "http://localhost:8000").rstrip("/")
+APP_URL = os.getenv("APP_URL", "http://localhost:8006").rstrip("/")
 GATEWAY_PORT = int(os.getenv("GATEWAY_PORT", "8005"))
 GATEWAY_HOST = os.getenv("GATEWAY_HOST", "0.0.0.0")
 
@@ -45,7 +45,7 @@ def health_check():
 
 @gateway.api_route("/api/{path:path}", methods=["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS", "HEAD"])
 async def route_api_request(request: Request, path: str):
-    """Transparently proxies incoming /api/ requests to the backend App on port 8000."""
+    """Transparently proxies incoming /api/ requests to the backend App on port 8006."""
     target_url = f"{APP_URL}/api/{path}"
     
     body = await request.body()
@@ -80,7 +80,7 @@ async def route_api_request(request: Request, path: str):
             )
         except httpx.ConnectError:
             return Response(
-                content=b'{"error": "Backend QA Service unavailable on port 8000. Is main.py running?"}',
+                content=b'{"error": "Backend QA Service unavailable on port 8006. Is main.py running?"}',
                 status_code=503,
                 media_type="application/json"
             )

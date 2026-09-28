@@ -7,7 +7,7 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-SERVER_PORT = os.getenv("SERVER_PORT", "8000")
+SERVER_PORT = os.getenv("SERVER_PORT", "8006")
 API_EVALUATE_URL = os.getenv("API_EVALUATE_URL", f"http://localhost:{SERVER_PORT}/api/evaluate")
 INPUT_DIR = "inputs"
 OUTPUT_DIR = "inputs/Test (results)"

@@ -29,7 +29,7 @@ function generateCallId() {
 
 export default function App() {
   const [activeTab, setActiveTab] = useState('criteria');
-  const [targetPort, setTargetPort] = useState('8000');
+  const [targetPort, setTargetPort] = useState('8006');
   const apiBase = `http://localhost:${targetPort}/api`;
 
   const [tenants, setTenants] = useState([]);
@@ -261,7 +261,7 @@ export default function App() {
               onChange={(e) => setTargetPort(e.target.value)}
               className="port-select"
             >
-              <option value="8000">Port 8000 (Main App)</option>
+              <option value="8006">Port 8006 (Main App)</option>
               <option value="8005">Port 8005 (API Gateway)</option>
             </select>
           </div>
