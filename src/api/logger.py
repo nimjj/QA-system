@@ -43,18 +43,18 @@ class JsonLineFormatter(logging.Formatter):
             "log_type": raw_data.get("log_type", "APP")
         }
 
-        # Include standard audit fields in structured order
+        
         for field in ["correlation_id", "actor", "request", "response"]:
             if field in raw_data:
                 ordered[field] = raw_data[field]
 
-        # Add remaining fields, explicitly skipping service, environment, and level
+      
         ignored_keys = {"service", "environment", "level"}
         for k, v in raw_data.items():
             if k not in ordered and k not in ignored_keys:
                 ordered[k] = v
 
-        # Strictly output one line without unescaped newlines
+        
         return json.dumps(ordered, ensure_ascii=False)
 
 

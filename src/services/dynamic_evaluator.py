@@ -128,7 +128,7 @@ def evaluate_interaction(
             elif spk.lower() == "customer":
                 customer_lines.append(txt)
     else:
-        # Pre-split inline timestamps like [00:09] if they are concatenated on a single line
+     
         normalized_text = re.sub(r'(\s*)([\[\(]\s*\d{1,2}:\d{2}(?::\d{2})?\s*[\]\)])', r'\n\2', transcript_data.strip())
         for line in normalized_text.splitlines():
             line = line.strip()
