@@ -10,4 +10,4 @@ COPY resources/ resources/
 COPY inputs/ inputs/
 COPY Scripts/ Scripts/
 
-CMD ["uvicorn", "src.api.web_app:app", "--host", "0.0.0.0", "--port", "8000"]
+CMD ["uvicorn", "src.api.web_app:app", "--host", "0.0.0.0", "--port", "8006"]

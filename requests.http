@@ -3,7 +3,7 @@
 ### Compatible with VS Code REST Client & JetBrains HTTP Client
 ### ====================================================================
 
-@baseUrl = http://localhost:8000
+@baseUrl = http://localhost:8006
 @gatewayUrl = http://localhost:8005
 @tenantId = tenant-test
 
@@ -59,12 +59,24 @@ Content-Type: application/json
 ### 4. CRITERIA & TOGGLE MANAGEMENT (POSTGRESQL)
 ### --------------------------------------------------------------------
 
-### Retrieve Criteria for a Tenant (Includes isActive toggles)
+### Retrieve Criteria for a Tenant (Includes isActive toggles - via Backend)
 GET {{baseUrl}}/api/tenants/{{tenantId}}/criteria
 Accept: application/json
 
-### Toggle Criterion OFF (e.g. Branding and Survey Check)
+### Retrieve Criteria for a Tenant (Direct via API Gateway)
+GET {{gatewayUrl}}/api/tenants/{{tenantId}}/criteria
+Accept: application/json
+
+### Toggle Criterion OFF (via Backend)
 PATCH {{baseUrl}}/api/tenants/{{tenantId}}/criteria/item-branding/toggle
+Content-Type: application/json
+
+{
+  "is_active": false
+}
+
+### Toggle Criterion OFF (Direct via API Gateway)
+PATCH {{gatewayUrl}}/api/tenants/{{tenantId}}/criteria/item-branding/toggle
 Content-Type: application/json
 
 {
@@ -109,10 +121,10 @@ DELETE {{baseUrl}}/api/criteria/item-custom-test
 Accept: application/json
 
 ### --------------------------------------------------------------------
-### 4. TRANSCRIPT EVALUATION (MAIN APP - PORT 8000)
+### 4. TRANSCRIPT EVALUATION (MAIN APP - PORT 8006)
 ### --------------------------------------------------------------------
 
-### Evaluate Interaction (Direct to App :8000)
+### Evaluate Interaction (Direct to App :8006)
 POST {{baseUrl}}/api/evaluate
 Content-Type: application/json
 

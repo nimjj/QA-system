@@ -15,7 +15,7 @@ if __name__ == "__main__":
 
     host = os.getenv("GATEWAY_HOST", "0.0.0.0")
     port = int(os.getenv("GATEWAY_PORT", 8005))
-    target = os.getenv("APP_URL", "http://localhost:8000")
+    target = os.getenv("APP_URL", "http://localhost:8006")
 
     print(f"============================================================")
     print(f" Starting API Gateway on http://{host}:{port}")
