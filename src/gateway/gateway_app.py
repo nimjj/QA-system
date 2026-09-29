@@ -76,7 +76,7 @@ async def route_api_request(request: Request, path: str):
         if k.lower() not in excluded_headers
     }
 
-    async with httpx.AsyncClient(timeout=300.0) as client:
+    async with httpx.AsyncClient(timeout=None) as client:
         try:
             backend_resp = await client.request(
                 method=request.method,
