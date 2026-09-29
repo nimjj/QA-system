@@ -182,20 +182,29 @@ Or import `Docs/postman_collection.json` into Postman.
 
 ```
 QA-system/
-├── main.py                         # Server launcher (uvicorn)
-├── requirements.txt                # 4 dependencies: fastapi, uvicorn, pydantic, python-dotenv
-├── .env.example                    # Ollama & server environment template
+├── main.py                         # QA Service server launcher (:8006)
+├── run_gateway.py                  # API Gateway launcher (:8005)
+├── docker-compose.yml              # Multi-container orchestration (Gateway, QA Service, Ollama)
+├── Dockerfile                      # QA Service Dockerfile
+├── Dockerfile.gateway              # API Gateway Dockerfile
+├── requirements.txt                # Dependencies (fastapi, uvicorn, pydantic, python-dotenv, psycopg2-binary, httpx)
+├── .env.example                    # Environment template (Server, Gateway, DB, Ollama)
 ├── resources/
 │   ├── criteria_config.json        # Default tenant criteria & deduction values
 │   └── prompts/                    # LLM prompt templates
 ├── src/
 │   ├── api/
-│   │   ├── web_app.py              # FastAPI endpoints (/api/evaluate, /api/preview-prompt, /api/samples)
+│   │   ├── web_app.py              # Core QA FastAPI endpoints (/api/evaluate, criteria CRUD, samples)
 │   │   └── logger.py               # Structured JSON logger
+│   ├── gateway/
+│   │   └── gateway_app.py          # API Gateway (Direct DB criteria/toggle routes + reverse proxy)
+│   ├── db/
+│   │   └── database.py             # PostgreSQL data access layer
 │   └── services/
 │       ├── dynamic_evaluator.py    # Core evaluator, normalization & pass descriptions
 │       ├── rule_engine.py          # Deterministic Python rules (branding, dead air, verification)
 │       └── llm_adapter.py          # Singleton Ollama client (chat & embeddings)
+├── frontend/                       # Vite + React UI dashboard
 ├── Scripts/
 │   └── batch_test.py               # Automated test runner
 ├── inputs/                         # Sample transcript test cases

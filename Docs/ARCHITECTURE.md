@@ -185,8 +185,11 @@ erDiagram
 
 | File Path | Description |
 |---|---|
-| `main.py` | Application entry point and server bootstrap launcher. |
-| `src/api/web_app.py` | FastAPI application exposing `/api/evaluate`, `/api/preview-prompt`, and `/api/samples`. |
+| `main.py` | Application entry point and server bootstrap launcher (QA Service :8006). |
+| `run_gateway.py` | Root launcher for the API Gateway (port 8005). |
+| `src/gateway/gateway_app.py` | API Gateway reverse proxy with direct fast-path PostgreSQL routes for criteria fetch & toggle. |
+| `src/api/web_app.py` | FastAPI application exposing `/api/evaluate`, `/api/preview-prompt`, criteria CRUD, and samples. |
+| `src/db/database.py` | PostgreSQL data layer for tenants, categories, line items, and tenant toggle states. |
 | `src/api/logger.py` | Structured JSON logger capturing request correlation IDs, client IPs, latencies, and responses. |
 | `src/services/dynamic_evaluator.py` | Core evaluation orchestrator: dynamic criteria filtering, hybrid pipeline execution, scoring normalization, and pass description injection. |
 | `src/services/rule_engine.py` | Deterministic Python functions for verbatim branding, dead air, verification, and snippet searchlights. |

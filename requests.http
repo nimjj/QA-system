@@ -59,12 +59,24 @@ Content-Type: application/json
 ### 4. CRITERIA & TOGGLE MANAGEMENT (POSTGRESQL)
 ### --------------------------------------------------------------------
 
-### Retrieve Criteria for a Tenant (Includes isActive toggles)
+### Retrieve Criteria for a Tenant (Includes isActive toggles - via Backend)
 GET {{baseUrl}}/api/tenants/{{tenantId}}/criteria
 Accept: application/json
 
-### Toggle Criterion OFF (e.g. Branding and Survey Check)
+### Retrieve Criteria for a Tenant (Direct via API Gateway)
+GET {{gatewayUrl}}/api/tenants/{{tenantId}}/criteria
+Accept: application/json
+
+### Toggle Criterion OFF (via Backend)
 PATCH {{baseUrl}}/api/tenants/{{tenantId}}/criteria/item-branding/toggle
+Content-Type: application/json
+
+{
+  "is_active": false
+}
+
+### Toggle Criterion OFF (Direct via API Gateway)
+PATCH {{gatewayUrl}}/api/tenants/{{tenantId}}/criteria/item-branding/toggle
 Content-Type: application/json
 
 {

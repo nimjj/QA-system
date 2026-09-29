@@ -1,21 +1,18 @@
-"""API Gateway for QA System.
-Runs on port 8005 by default and routes incoming traffic to core FastAPI App (port 8006).
-Also has direct DB access for fast querying as shown in the system architecture.
-"""
-
 import os
 import sys
 import httpx
-from fastapi import FastAPI, Request, Response
+from fastapi import FastAPI, Request, Response, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
+from pydantic import BaseModel
 from dotenv import load_dotenv
 
-# Ensure root and src are on sys.path
 _ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
 _SRC = os.path.join(_ROOT, "src")
 for _p in [_ROOT, _SRC]:
     if _p not in sys.path:
         sys.path.insert(0, _p)
+
+from src.db.database import get_tenant_criteria, toggle_tenant_criterion
 
 load_dotenv()
 
@@ -34,6 +31,10 @@ gateway.add_middleware(
 )
 
 
+class ToggleCriterionRequest(BaseModel):
+    is_active: bool
+
+
 @gateway.get("/health")
 def health_check():
     return {
@@ -43,9 +44,25 @@ def health_check():
     }
 
 
+@gateway.get("/api/tenants/{tenant_id}/criteria")
+def get_criteria_for_tenant(tenant_id: str):
+    try:
+        return get_tenant_criteria(tenant_id)
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@gateway.patch("/api/tenants/{tenant_id}/criteria/{line_item_id}/toggle")
+@gateway.post("/api/tenants/{tenant_id}/criteria/{line_item_id}/toggle")
+def toggle_criterion(tenant_id: str, line_item_id: str, req: ToggleCriterionRequest):
+    try:
+        return toggle_tenant_criterion(tenant_id, line_item_id, req.is_active)
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+
 @gateway.api_route("/api/{path:path}", methods=["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS", "HEAD"])
 async def route_api_request(request: Request, path: str):
-    """Transparently proxies incoming /api/ requests to the backend App on port 8006."""
     target_url = f"{APP_URL}/api/{path}"
     
     body = await request.body()
@@ -94,5 +111,4 @@ async def route_api_request(request: Request, path: str):
 
 if __name__ == "__main__":
     import uvicorn
-    print(f"Starting API Gateway on http://{GATEWAY_HOST}:{GATEWAY_PORT} -> forwarding to {APP_URL}...")
     uvicorn.run(gateway, host=GATEWAY_HOST, port=GATEWAY_PORT)

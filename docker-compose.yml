@@ -44,10 +44,17 @@ services:
       - "8005:8005"
     depends_on:
       - qa-service
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
     environment:
       - APP_URL=http://qa-service:8006
       - GATEWAY_PORT=8005
       - GATEWAY_HOST=0.0.0.0
+      - DB_HOST=host.docker.internal
+      - DB_PORT=5432
+      - DB_NAME=callIntelligence
+      - DB_USER=postgres
+      - DB_PASSWORD=mysecretpassword
     restart: unless-stopped
 
 volumes:
