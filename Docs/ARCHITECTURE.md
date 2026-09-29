@@ -197,4 +197,5 @@ erDiagram
 | `resources/criteria_config.json` | Default tenant criteria configurations, deduction values, and category weights. |
 | `resources/prompts/` | Prompt templates for dynamic evaluation, coaching tips, and suggestions. |
 | `Scripts/batch_test.py` | Automated batch test runner evaluating sample transcripts against `/api/evaluate`. |
+| `Docs/DEPLOYMENT_PLAN.md` | Complete Docker container deployment, startup, and testing guide. |
 | `Docs/postman_collection.json` | Exported Postman API collection for testing endpoints and dynamic criteria payloads. |
