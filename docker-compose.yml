@@ -7,7 +7,7 @@ services:
     ports:
       - "11434:11434"
     volumes:
-      - ollama_data:/root/.ollama
+      - ./ollama_cache:/root/.ollama
     restart: unless-stopped
 
   qa-service:
@@ -21,15 +21,10 @@ services:
       - ollama
     extra_hosts:
       - "host.docker.internal:host-gateway"
+    env_file:
+      - .env
     environment:
       - OLLAMA_HOST=http://qa_ollama:11434
-      - LLM_MODEL=llama3.1
-      - EMBED_MODEL=nomic-embed-text
-      - DB_HOST=host.docker.internal
-      - DB_PORT=5432
-      - DB_NAME=callIntelligence
-      - DB_USER=postgres
-      - DB_PASSWORD=mysecretpassword
     volumes:
       - ./logs:/app/logs
       - ./inputs:/app/inputs
@@ -46,16 +41,8 @@ services:
       - qa-service
     extra_hosts:
       - "host.docker.internal:host-gateway"
+    env_file:
+      - .env
     environment:
-      - APP_URL=http://qa-service:8006
-      - GATEWAY_PORT=8005
-      - GATEWAY_HOST=0.0.0.0
-      - DB_HOST=host.docker.internal
-      - DB_PORT=5432
-      - DB_NAME=callIntelligence
-      - DB_USER=postgres
-      - DB_PASSWORD=mysecretpassword
+      - APP_URL=http://qa_service:8006
     restart: unless-stopped
-
-volumes:
-  ollama_data:

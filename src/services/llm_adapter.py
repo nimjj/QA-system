@@ -9,7 +9,7 @@ class OllamaAdapter:
         self.host = os.getenv("OLLAMA_HOST", "http://localhost:11434")
         self.url = f"{self.host.rstrip('/')}/api/chat"
         self.model = os.getenv("LLM_MODEL", "llama3.1")
-        self.embed_model = os.getenv("EMBED_MODEL", "nomic-embed-text")
+        self.embed_model = os.getenv("EMBED_MODEL") or os.getenv("EMBEDDING_MODEL", "nomic-embed-text")
 
     def generate(self, prompt: str, **kwargs) -> str:
         temperature = kwargs.get('temperature', 0.1)

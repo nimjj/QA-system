@@ -26,6 +26,8 @@ frontend/.vite/
 vector_data/
 *.sqlite
 *.sqlite3
+ollama_cache/
+model_cache/
 
 # Operating System & Editors
 .DS_Store
