@@ -1,3 +1,4 @@
+
 # Virtual Environments
 venv/
 .venv/
@@ -47,4 +48,5 @@ graphify-out/
 logs/*.log*
 
 frontend/
+
 

@@ -31,6 +31,14 @@ app.add_middleware(
 )
 
 
+@app.get("/health")
+def health_check():
+    return {
+        "status": "healthy",
+        "service": "qa-service"
+    }
+
+
 @app.on_event("startup")
 def on_startup():
     try:
