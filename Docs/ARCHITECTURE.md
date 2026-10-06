@@ -194,7 +194,6 @@ erDiagram
 | `src/services/dynamic_evaluator.py` | Core evaluation orchestrator: dynamic criteria filtering, hybrid pipeline execution, scoring normalization, and pass description injection. |
 | `src/services/rule_engine.py` | Deterministic Python functions for verbatim branding, dead air, verification, and snippet searchlights. |
 | `src/services/llm_adapter.py` | Singleton Ollama adapter (`_adapter`) managing chat generation, embedding vector queries, and retries. |
-| `resources/criteria_config.json` | Default tenant criteria configurations, deduction values, and category weights. |
 | `resources/prompts/` | Prompt templates for dynamic evaluation, coaching tips, and suggestions. |
 | `Scripts/batch_test.py` | Automated batch test runner evaluating sample transcripts against `/api/evaluate`. |
 | `Docs/DEPLOYMENT_PLAN.md` | Complete Docker container deployment, startup, and testing guide. |

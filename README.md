@@ -190,7 +190,6 @@ QA-system/
 ├── requirements.txt                # Dependencies (fastapi, uvicorn, pydantic, python-dotenv, psycopg2-binary, httpx)
 ├── .env.example                    # Environment template (Server, Gateway, DB, Ollama)
 ├── resources/
-│   ├── criteria_config.json        # Default tenant criteria & deduction values
 │   └── prompts/                    # LLM prompt templates
 ├── src/
 │   ├── api/
