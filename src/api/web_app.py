@@ -21,7 +21,6 @@ from src.api.logger import logger
 from src.services.dynamic_evaluator import preview_evaluation_prompt, evaluate_interaction
 
 app = FastAPI(title="Stateless QA Service API")
-# TODO: add JWT authentication middleware (requires coordination with the existing auth system)
 
 app.add_middleware(
     CORSMiddleware,
