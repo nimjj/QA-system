@@ -1,0 +1,299 @@
+{
+  "transcript": [
+    {
+      "speaker": "Agent",
+      "start_time": "[00:03]",
+      "end_time": "[00:12]",
+      "text": "Thank you for calling S-Net technical support, my name is Sofia. To start, may I please have your account number and the account PIN so I can verify you securely?"
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[00:15]",
+      "end_time": "[00:25]",
+      "text": "Yeah, the account number is 902-556-113. The name on it is Tomas Bergstrom."
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[00:28]",
+      "end_time": "[00:36]",
+      "text": "Great, thanks Tomas, I've got the account pulled up. What's going on today?"
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[00:39]",
+      "end_time": "[00:59]",
+      "text": "So, honestly I'm pretty frustrated. My Wi-Fi keeps disconnecting on my phone every few minutes, though my laptop seems fine. It's been getting worse over the last few days, and it always seems to happen at the worst possible time. Yesterday it cut out right in the middle of something important and I had to scramble."
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[01:02]",
+      "end_time": "[01:17]",
+      "text": "Tomas, I'm genuinely sorry to hear that, and I completely understand how disruptive and stressful that is, especially when it hits at the worst moment. I'm going to take ownership of this personally and we'll work through it together until it's sorted."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[01:20]",
+      "end_time": "[01:30]",
+      "text": "I appreciate that, thank you. I've called before and got bounced around, so I'm hoping today is different."
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[01:33]",
+      "end_time": "[01:46]",
+      "text": "A few quick questions so I can isolate the root cause. When it happens, is it every device in the home or just one, and do any lights on the equipment change?"
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[01:49]",
+      "end_time": "[02:00]",
+      "text": "It's every device, not just one. And now that you mention it, the router's light flickers when the phone drops."
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[02:03]",
+      "end_time": "[02:14]",
+      "text": "That's a really useful detail. And did anything change around the time this started, any new equipment, an update, a new cable?"
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[02:17]",
+      "end_time": "[02:27]",
+      "text": "Actually yes, it started right after my phone's last software update."
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[02:30]",
+      "end_time": "[02:40]",
+      "text": "Good, that narrows it down a lot. That timing is almost certainly related to what we're seeing."
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[02:43]",
+      "end_time": "[02:59]",
+      "text": "Here's what I think is going on, and I'd rather explain it than just flip switches silently. A stale network profile left over after a device update can cause one device to keep dropping while others are fine. It's a common cause and it produces exactly the symptom you're describing."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[03:02]",
+      "end_time": "[03:10]",
+      "text": "Okay, that actually makes sense with what I've been seeing."
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[03:13]",
+      "end_time": "[03:25]",
+      "text": "Let's start by checking the equipment. Could you walk over to the modem and tell me what the lights are showing right now?"
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[03:28]",
+      "end_time": "[03:37]",
+      "text": "Sure, give me a second... okay, I'm at the modem. There are four lights and they're all solid green except one that's blinking amber."
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[03:40]",
+      "end_time": "[03:52]",
+      "text": "That blinking amber is exactly what I expected to see. It confirms the fault is where I thought it was, not on the main line coming into the house."
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[03:55]",
+      "end_time": "[04:09]",
+      "text": "Before we go further, let's rule out something simple. Can you find the cable running from the modem to your device, unplug it at both ends, check the little gold pins aren't bent, and firmly plug it back in until you hear a click?"
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[04:12]",
+      "end_time": "[04:24]",
+      "text": "Okay... unplugging the first end... the pins look fine, all lined up. Unplugging the other end... that one's fine too. Plugging both back in now... I heard a click on both."
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[04:27]",
+      "end_time": "[04:37]",
+      "text": "Great, that rules out a loose or damaged cable, which is a common culprit, so now we know it's not that."
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[04:40]",
+      "end_time": "[04:53]",
+      "text": "Now let's get a quick reading of the line quality. On your device, could you open the connection details and tell me if it shows any packet loss or a latency number?"
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[04:56]",
+      "end_time": "[05:07]",
+      "text": "Let me look... it says latency is quite high, around 180 milliseconds, and there's some packet loss showing, about 4 percent."
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[05:10]",
+      "end_time": "[05:22]",
+      "text": "That high latency and packet loss lines up perfectly with what we discussed. It's a strong sign we're on the right track with the cause."
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[05:25]",
+      "end_time": "[05:35]",
+      "text": "Unplug the modem and plug it back in. Do that now."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[05:38]",
+      "end_time": "[05:48]",
+      "text": "Okay... unplugging it now... waiting... and plugging it back in. The lights are starting to come back on."
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[05:51]",
+      "end_time": "[05:56]",
+      "text": "Wait for it."
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[06:00]",
+      "end_time": "[06:06]",
+      "text": "Hold on."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[06:09]",
+      "end_time": "[06:15]",
+      "text": "Yeah, that's fine."
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[06:18]",
+      "end_time": "[06:30]",
+      "text": "Thank you for waiting. I've refreshed the line from our end and I can see it re-syncing cleanly now."
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[06:33]",
+      "end_time": "[06:47]",
+      "text": "Now let's address the underlying cause. On the phone, forget the network completely and then rejoin it fresh so it rebuilds the profile. Go ahead and do that for me now."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[06:50]",
+      "end_time": "[07:00]",
+      "text": "Okay, doing that now... it's applying... alright, it says it's done and it's restarting."
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[07:03]",
+      "end_time": "[07:14]",
+      "text": "Good. Let that restart finish. This is the part that should actually stop the problem from coming back."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[07:17]",
+      "end_time": "[07:25]",
+      "text": "Okay, it's back up now. The lights all look normal, solid green across the board."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[07:28]",
+      "end_time": "[07:38]",
+      "text": "Can I ask, why did this suddenly start happening now if the setup hasn't changed on my end?"
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[07:41]",
+      "end_time": "[07:56]",
+      "text": "That's a really fair question. These faults can build up gradually and then tip over a threshold, so it feels sudden even though it was developing for a while. What we just did resets that, which is why it should hold now."
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[07:59]",
+      "end_time": "[08:12]",
+      "text": "While we're here, let's also make sure the firmware is current, since an outdated version can cause exactly this. Can you check the admin page for an update button and run it if there is one?"
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[08:15]",
+      "end_time": "[08:26]",
+      "text": "Looking... yes, there was an update available. I've started it... okay, it's downloading and installing now. It says it'll reboot once more when it's done."
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[08:29]",
+      "end_time": "[08:39]",
+      "text": "Perfect, let that complete. Getting the firmware current removes another possible cause entirely."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[08:42]",
+      "end_time": "[08:50]",
+      "text": "Alright, it finished and rebooted. Everything's back and the lights are solid."
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[08:53]",
+      "end_time": "[09:06]",
+      "text": "Let's verify it properly rather than assume. Could you load a couple of different websites and then, if you can, start a quick video call or a speed test?"
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[09:09]",
+      "end_time": "[09:21]",
+      "text": "Sure... okay, websites are loading instantly now, much faster than before. Running a speed test... yeah, it's back to the full speed. And I'll start a video call... it's connected and holding steady."
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[09:24]",
+      "end_time": "[09:35]",
+      "text": "Let's give that call a couple of minutes to be sure, since your problem was intermittent. In the meantime, can you check whether your other devices are back online too?"
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[09:38]",
+      "end_time": "[09:49]",
+      "text": "Checking... my laptop is online, the TV is streaming fine, and my phone reconnected on its own. The video call is still up, no drops."
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[09:52]",
+      "end_time": "[10:02]",
+      "text": "Excellent. Sustained like that across every device is exactly the result we want to see."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[10:05]",
+      "end_time": "[10:14]",
+      "text": "Honestly this is better than it's been in weeks. Nothing's dropping at all now."
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[10:17]",
+      "end_time": "[10:33]",
+      "text": "That's exactly what I wanted to see, Tomas. So just to confirm before I let you go: your connection is back to full speed, the video call has stayed up, and we've addressed the root cause so it shouldn't recur. Are you satisfied the issue is resolved?"
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[10:36]",
+      "end_time": "[10:45]",
+      "text": "Yes, absolutely. As far as I can tell it's completely resolved. Thank you."
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[10:48]",
+      "end_time": "[11:00]",
+      "text": "Wonderful. I've documented everything we did on the account, and I've flagged your line for monitoring so we'll spot it if anything recurs. Is there anything else at all I can help you with today?"
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[11:03]",
+      "end_time": "[11:09]",
+      "text": "No, that's everything, thank you so much."
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[11:12]",
+      "end_time": "[11:22]",
+      "text": "Thank you so much, Tomas. Please stay on the line for a brief one-question survey. Thank you for choosing S-Net, and have a wonderful day."
+    }
+  ],
+  "tenant_id": "tenant-abc"
+}

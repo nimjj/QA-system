@@ -1,0 +1,8 @@
+{
+  "id": "q60_01",
+  "intended_quality": "60%",
+  "channel": "Call",
+  "agent_name": "Sam",
+  "description": "Mixed: good branding and empathy, resolves issue, but skips identity verification, paraphrasing, and probing.",
+  "transcript": "[00:00] Client: Hey, my broadband keeps dropping every few minutes.\n[00:05] Agent: Thank you for calling S-NET Communications, my name is Sam. I'm sorry about the drops, let's get that sorted.\n[00:12] Client: Thanks. It's really annoying during meetings.\n[00:16] Agent: I completely understand. Let me push a fresh configuration to your router now.\n[00:23] Agent: Okay, I've reset the connection profile on our end. Can you check if it's stable now?\n[00:45] Client: It looks stable so far, yeah.\n[00:49] Agent: Great. That should hold. If it drops again in the next day, give us a call back.\n[00:56] Client: Will do, thanks Sam.\n[01:00] Agent: No problem. Thank you for Choosing S-NET and have a good one."
+}

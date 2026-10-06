@@ -1,0 +1,8 @@
+{
+  "id": "q30_03",
+  "intended_quality": "30%",
+  "channel": "Call",
+  "agent_name": "Ben",
+  "description": "Poor: minimal effort, no branding, no verification, no paraphrasing, long unexplained silence, but issue is resolved and no supervisor refused (no auto-fail).",
+  "transcript": "[00:00] Client: My mobile data stopped working after I travelled back home.\n[00:06] Agent: Hang on.\n[00:40] Client: Hello? Are you there?\n[00:44] Agent: Yeah. Toggle airplane mode on and off.\n[00:49] Client: Okay... one sec.\n[01:10] Client: It's connected again now.\n[01:13] Agent: Cool.\n[01:15] Client: Is that going to keep happening?\n[01:18] Agent: Probably not. That's it?\n[01:21] Client: I suppose so.\n[01:23] Agent: K."
+}

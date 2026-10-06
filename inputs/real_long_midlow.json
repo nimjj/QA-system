@@ -1,0 +1,239 @@
+{
+  "transcript": [
+    {
+      "speaker": "Agent",
+      "start_time": "[00:03]",
+      "end_time": "[00:10]",
+      "text": "S-Net technical support, Kevin. Account number?"
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[00:13]",
+      "end_time": "[00:23]",
+      "text": "Yeah, it's 520-664-871. The name on it is Patricia Alvarez."
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[00:26]",
+      "end_time": "[00:33]",
+      "text": "Right, it's pulled up. What's the problem."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[00:36]",
+      "end_time": "[00:56]",
+      "text": "So, honestly I'm really frustrated. My internet has been dead for two days and I work from home, so I'm losing money. It's been going on and getting worse, and it always cuts out at the worst possible time. I've tried the obvious stuff already and nothing works."
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[00:59]",
+      "end_time": "[01:05]",
+      "text": "Okay. So it's down."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[01:08]",
+      "end_time": "[01:16]",
+      "text": "...yes. It's down. That's why I'm calling."
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[01:19]",
+      "end_time": "[01:28]",
+      "text": "Just reboot it. Unplug it, wait, plug it back in."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[01:31]",
+      "end_time": "[01:42]",
+      "text": "Okay... unplugging it now... waiting... plugging it back in. The lights are coming back on."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[01:45]",
+      "end_time": "[01:54]",
+      "text": "...okay it's back on, but it's still doing the same thing. Nothing's changed."
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[01:57]",
+      "end_time": "[02:04]",
+      "text": "Well, do it again then."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[02:07]",
+      "end_time": "[02:16]",
+      "text": "I've done it twice now. It's exactly the same."
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[02:19]",
+      "end_time": "[02:27]",
+      "text": "What do the lights on it look like."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[02:30]",
+      "end_time": "[02:41]",
+      "text": "There are a few lights... some green, one's kind of orange I think? I'm not really sure what they're supposed to be."
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[02:44]",
+      "end_time": "[02:51]",
+      "text": "Okay. Hold on a sec."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[02:54]",
+      "end_time": "[03:01]",
+      "text": "...are you still there?"
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[03:04]",
+      "end_time": "[03:10]",
+      "text": "Yeah. Still here."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[03:13]",
+      "end_time": "[03:27]",
+      "text": "Look, I really need this sorted, I've explained the problem twice now. Is there something else we can actually try here?"
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[03:30]",
+      "end_time": "[03:36]",
+      "text": "Change your DNS to 8.8.8.8."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[03:39]",
+      "end_time": "[03:49]",
+      "text": "Okay... I've gone into the settings and changed the DNS to 8.8.8.8 and saved it."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[03:52]",
+      "end_time": "[04:01]",
+      "text": "That didn't do anything either. It's still cutting out."
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[04:04]",
+      "end_time": "[04:16]",
+      "text": "To be honest this is really the manufacturer's equipment playing up, not our network. But we can keep trying I suppose."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[04:19]",
+      "end_time": "[04:28]",
+      "text": "...I'd just like it working, whoever's fault it is."
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[04:31]",
+      "end_time": "[04:40]",
+      "text": "Try turning the Wi-Fi off and on on your device."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[04:43]",
+      "end_time": "[04:53]",
+      "text": "Okay, toggled it off and back on. Still the same, still dropping."
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[04:56]",
+      "end_time": "[05:04]",
+      "text": "Try a different cable if you have one."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[05:07]",
+      "end_time": "[05:19]",
+      "text": "I've swapped it for another cable I had in the drawer. Made no difference at all, it's still exactly the same problem."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[05:22]",
+      "end_time": "[05:35]",
+      "text": "This is the third or fourth thing now and nothing's working. I've already been on this call a while and I'm getting nowhere."
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[05:38]",
+      "end_time": "[05:45]",
+      "text": "Let me just check something. Hold on."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[05:48]",
+      "end_time": "[05:56]",
+      "text": "...okay. Still waiting."
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[05:59]",
+      "end_time": "[06:06]",
+      "text": "Yeah. Try disabling the firewall temporarily."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[06:09]",
+      "end_time": "[06:20]",
+      "text": "I turned it off for a second... no change... I've turned it back on because I wasn't comfortable leaving it off."
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[06:23]",
+      "end_time": "[06:29]",
+      "text": "Fine. Hold on again."
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[06:32]",
+      "end_time": "[06:41]",
+      "text": "Alright, do a full power-cycle of the modem this time. Off for thirty seconds, then on."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[06:44]",
+      "end_time": "[06:56]",
+      "text": "Okay... it's off... waiting the thirty seconds... turning it back on now. Lights are coming up one by one."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[06:59]",
+      "end_time": "[07:09]",
+      "text": "Oh - okay, hang on. It actually seems to be working now. Pages are loading and it hasn't dropped."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[07:12]",
+      "end_time": "[07:21]",
+      "text": "Yeah, it's definitely working now, that seems to have done it."
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[07:24]",
+      "end_time": "[07:34]",
+      "text": "Okay, so it's working now. I'll put a note on the account."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[07:37]",
+      "end_time": "[07:44]",
+      "text": "Alright. Thanks I suppose."
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[07:47]",
+      "end_time": "[07:54]",
+      "text": "Anything else? No? Okay. Goodbye."
+    }
+  ],
+  "tenant_id": "tenant-abc"
+}

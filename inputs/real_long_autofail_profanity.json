@@ -1,0 +1,155 @@
+{
+  "transcript": [
+    {
+      "speaker": "Agent",
+      "start_time": "[00:03]",
+      "end_time": "[00:12]",
+      "text": "Thank you for calling S-Net technical support, this is Brett. Can I verify you with your account number and PIN?"
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[00:15]",
+      "end_time": "[00:26]",
+      "text": "Hi Brett, account 704-556-201, PIN 3390, name is Olivia Chen."
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[00:29]",
+      "end_time": "[00:38]",
+      "text": "Thanks Olivia, you're verified. What's happening today?"
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[00:41]",
+      "end_time": "[00:59]",
+      "text": "My internet keeps dropping every few minutes, it's been going on for two days. I've restarted the router loads of times, I've checked all the cables, I've tried everything I can think of and nothing helps."
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[01:02]",
+      "end_time": "[01:12]",
+      "text": "Okay. When it drops, is it every device or just one, and what do the modem lights do?"
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[01:15]",
+      "end_time": "[01:25]",
+      "text": "It's everything in the house, and the main light goes red for about thirty seconds then comes back."
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[01:28]",
+      "end_time": "[01:39]",
+      "text": "And when did this start, was there anything that changed around then, new equipment or an update?"
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[01:42]",
+      "end_time": "[01:53]",
+      "text": "Nothing that I can think of. It just started on its own about two days ago, out of nowhere."
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[01:56]",
+      "end_time": "[02:06]",
+      "text": "Alright. Let's check the cable first. Unplug the one between the modem and your router at both ends and plug it back in firmly."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[02:09]",
+      "end_time": "[02:19]",
+      "text": "Okay... unplugged both ends... pins look fine... plugging them back in. I heard a click on both."
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[02:22]",
+      "end_time": "[02:31]",
+      "text": "Fine. Now open your connection details and tell me the latency and any packet loss."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[02:34]",
+      "end_time": "[02:44]",
+      "text": "It says latency is about 160 milliseconds and packet loss is around 5 percent."
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[02:47]",
+      "end_time": "[02:58]",
+      "text": "Right. And you said you've restarted the router already, how many times roughly?"
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[03:01]",
+      "end_time": "[03:10]",
+      "text": "Honestly probably ten or fifteen times over the two days. It never sticks."
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[03:13]",
+      "end_time": "[03:25]",
+      "text": "Restarting it over and over like that is a stupid thing to keep doing, that was never going to fix anything. Just do exactly what I tell you from now on."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[03:28]",
+      "end_time": "[03:37]",
+      "text": "Excuse me? There's really no need to talk to me like that, I'm just trying to explain what I tried."
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[03:40]",
+      "end_time": "[03:50]",
+      "text": "I'm being honest with you. Change your DNS to 8.8.8.8 in the settings and stop messing with the router."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[03:53]",
+      "end_time": "[04:03]",
+      "text": "I don't appreciate the attitude. Can you please just help me properly?"
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[04:06]",
+      "end_time": "[04:15]",
+      "text": "I am helping you. Go into the network settings and change the DNS like I said."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[04:18]",
+      "end_time": "[04:28]",
+      "text": "Fine. I've changed it to 8.8.8.8 and saved. It's still dropping though, same as before."
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[04:31]",
+      "end_time": "[04:41]",
+      "text": "Then try rebooting the modem this time instead of the router. Do it now."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[04:44]",
+      "end_time": "[04:54]",
+      "text": "Okay, I've rebooted the modem too. Waiting for it to come back... it's back, but it just dropped again."
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[04:57]",
+      "end_time": "[05:06]",
+      "text": "Then it's your equipment, not us. There's not much else I can do."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[05:09]",
+      "end_time": "[05:17]",
+      "text": "So that's it? You're just going to leave it like this?"
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[05:20]",
+      "end_time": "[05:27]",
+      "text": "Try the DNS change again. Thank you for choosing S-Net."
+    }
+  ],
+  "tenant_id": "tenant-abc"
+}

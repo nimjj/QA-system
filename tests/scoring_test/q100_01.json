@@ -1,0 +1,8 @@
+{
+  "id": "q100_01",
+  "intended_quality": "100%",
+  "channel": "Call",
+  "agent_name": "Alex",
+  "description": "Near-perfect call: full branding, verification, paraphrasing, probing, resolution, closing.",
+  "transcript": "[00:00] Client: Hi, my internet has been completely down since this morning and I work from home.\n[00:05] Agent: Thank you for calling S-NET Communications, my name is Alex. I'm sorry to hear your internet is down, I understand how stressful that is when you work from home. May I have your full name please?\n[00:14] Client: Sure, it's John Doe.\n[00:17] Agent: Thank you, John. For security, can you please confirm the account PIN and the service address on file?\n[00:24] Client: PIN is 4821, and the address is 104 North Avenue.\n[00:30] Agent: Perfect, that's verified. So just to confirm, your internet dropped this morning and has stayed down since, is that right?\n[00:38] Client: Yes, exactly.\n[00:40] Agent: Understood. Is the power light on your router solid, and what colour is the internet light?\n[00:47] Client: Power is solid, internet light is blinking red.\n[00:52] Agent: Thank you. A blinking red light usually points to a line issue. I'll run a line diagnostic now, it should take about two minutes, is that okay?\n[01:00] Client: Go ahead.\n[01:05] Agent: Thanks for waiting, John. I found a line fault on our exchange side, so this is on us to fix. I'll dispatch a technician today between 2 and 4 PM at no cost, and I'll personally follow up to make sure it's resolved.\n[01:20] Client: That's great, thank you.\n[01:23] Agent: You're welcome. Does that fully resolve everything for you today, John?\n[01:28] Client: Yes it does.\n[01:30] Agent: Wonderful. Thank you for Choosing S-NET and have a great day."
+}

@@ -1,0 +1,714 @@
+{
+  "tenant_id": "tenant-abc",
+  "customer_name": "Nadia",
+  "transcript": [
+    {
+      "speaker": "Agent",
+      "start_time_sec": 0,
+      "text": "Thank you for calling S-Net, my name is Alex, how can I help you today?",
+      "sentiment_score": 6.0
+    },
+    {
+      "speaker": "Customer",
+      "start_time_sec": 10,
+      "text": "My doorbell camera feed is frozen but it still records clips.",
+      "sentiment_score": 6.5
+    },
+    {
+      "speaker": "Agent",
+      "start_time_sec": 20,
+      "text": "I appreciate your patience, Nadia. Let me dig into this for you.",
+      "sentiment_score": 7.1
+    },
+    {
+      "speaker": "Customer",
+      "start_time_sec": 30,
+      "text": "Okay, thank you.",
+      "sentiment_score": 7.6
+    },
+    {
+      "speaker": "Agent",
+      "start_time_sec": 40,
+      "text": "So to confirm I understand: your doorbell live feed is frozen though clips still record Is that right?",
+      "sentiment_score": 8.2
+    },
+    {
+      "speaker": "Customer",
+      "start_time_sec": 50,
+      "text": "Yes, exactly.",
+      "sentiment_score": 8.7
+    },
+    {
+      "speaker": "Agent",
+      "start_time_sec": 60,
+      "text": "When did you first notice this happening?",
+      "sentiment_score": 9.3
+    },
+    {
+      "speaker": "Customer",
+      "start_time_sec": 70,
+      "text": "About five days ago.",
+      "sentiment_score": 9.8
+    },
+    {
+      "speaker": "Agent",
+      "start_time_sec": 80,
+      "text": "Does it happen at a particular time of day?",
+      "sentiment_score": 10.4
+    },
+    {
+      "speaker": "Customer",
+      "start_time_sec": 90,
+      "text": "Mostly in the evenings.",
+      "sentiment_score": 10.9
+    },
+    {
+      "speaker": "Agent",
+      "start_time_sec": 100,
+      "text": "Have you made any recent changes, like an app update or new router?",
+      "sentiment_score": 11.5
+    },
+    {
+      "speaker": "Customer",
+      "start_time_sec": 110,
+      "text": "Yes, the app updated last week.",
+      "sentiment_score": 12.0
+    },
+    {
+      "speaker": "Agent",
+      "start_time_sec": 120,
+      "text": "What color is the status light on the router right now?",
+      "sentiment_score": 12.6
+    },
+    {
+      "speaker": "Customer",
+      "start_time_sec": 130,
+      "text": "It's red.",
+      "sentiment_score": 13.1
+    },
+    {
+      "speaker": "Agent",
+      "start_time_sec": 140,
+      "text": "Okay, one moment.",
+      "sentiment_score": 13.7
+    },
+    {
+      "speaker": "Customer",
+      "start_time_sec": 150,
+      "text": "Sure.",
+      "sentiment_score": 14.2
+    },
+    {
+      "speaker": "Agent",
+      "start_time_sec": 160,
+      "text": "Sorry, what colour is the light on the router at the moment?",
+      "sentiment_score": 14.8
+    },
+    {
+      "speaker": "Customer",
+      "start_time_sec": 170,
+      "text": "...I just said, it's red.",
+      "sentiment_score": 15.3
+    },
+    {
+      "speaker": "Agent",
+      "start_time_sec": 180,
+      "text": "Let me pull up the diagnostics on your doorbell from my side.",
+      "sentiment_score": 15.8
+    },
+    {
+      "speaker": "Customer",
+      "start_time_sec": 190,
+      "text": "Okay.",
+      "sentiment_score": 16.4
+    },
+    {
+      "speaker": "Agent",
+      "start_time_sec": 200,
+      "text": "I'm refreshing the provisioning on the account now.",
+      "sentiment_score": 16.9
+    },
+    {
+      "speaker": "Customer",
+      "start_time_sec": 210,
+      "text": "Alright.",
+      "sentiment_score": 17.5
+    },
+    {
+      "speaker": "Agent",
+      "start_time_sec": 220,
+      "text": "I can see the device registered on our network here.",
+      "sentiment_score": 18.0
+    },
+    {
+      "speaker": "Customer",
+      "start_time_sec": 230,
+      "text": "Good.",
+      "sentiment_score": 18.6
+    },
+    {
+      "speaker": "Agent",
+      "start_time_sec": 240,
+      "text": "I'm going to re-sync the configuration on our end.",
+      "sentiment_score": 19.1
+    },
+    {
+      "speaker": "Customer",
+      "start_time_sec": 250,
+      "text": "Sure.",
+      "sentiment_score": 19.7
+    },
+    {
+      "speaker": "Agent",
+      "start_time_sec": 260,
+      "text": "Give me just a moment while this updates.",
+      "sentiment_score": 20.2
+    },
+    {
+      "speaker": "Customer",
+      "start_time_sec": 270,
+      "text": "No problem.",
+      "sentiment_score": 20.8
+    },
+    {
+      "speaker": "Agent",
+      "start_time_sec": 280,
+      "text": "I've noted the details on your ticket.",
+      "sentiment_score": 21.3
+    },
+    {
+      "speaker": "Customer",
+      "start_time_sec": 290,
+      "text": "Thanks.",
+      "sentiment_score": 21.9
+    },
+    {
+      "speaker": "Agent",
+      "start_time_sec": 300,
+      "text": "I'm pushing a settings refresh to the doorbell now.",
+      "sentiment_score": 22.4
+    },
+    {
+      "speaker": "Customer",
+      "start_time_sec": 310,
+      "text": "Okay, go ahead.",
+      "sentiment_score": 23.0
+    },
+    {
+      "speaker": "Agent",
+      "start_time_sec": 320,
+      "text": "The system is applying the change, this takes a few seconds.",
+      "sentiment_score": 23.5
+    },
+    {
+      "speaker": "Customer",
+      "start_time_sec": 330,
+      "text": "Right.",
+      "sentiment_score": 24.1
+    },
+    {
+      "speaker": "Agent",
+      "start_time_sec": 340,
+      "text": "I'm checking the signal history on the line.",
+      "sentiment_score": 24.6
+    },
+    {
+      "speaker": "Customer",
+      "start_time_sec": 350,
+      "text": "Okay.",
+      "sentiment_score": 25.1
+    },
+    {
+      "speaker": "Agent",
+      "start_time_sec": 360,
+      "text": "I've cleared the cached session on our servers.",
+      "sentiment_score": 25.7
+    },
+    {
+      "speaker": "Customer",
+      "start_time_sec": 370,
+      "text": "Alright then.",
+      "sentiment_score": 26.2
+    },
+    {
+      "speaker": "Agent",
+      "start_time_sec": 380,
+      "text": "I'm updating the firmware flag for your doorbell.",
+      "sentiment_score": 26.8
+    },
+    {
+      "speaker": "Customer",
+      "start_time_sec": 390,
+      "text": "Okay.",
+      "sentiment_score": 27.3
+    },
+    {
+      "speaker": "Agent",
+      "start_time_sec": 400,
+      "text": "Let me document what we've done so far.",
+      "sentiment_score": 27.9
+    },
+    {
+      "speaker": "Customer",
+      "start_time_sec": 410,
+      "text": "Sure, thanks.",
+      "sentiment_score": 28.4
+    },
+    {
+      "speaker": "Agent",
+      "start_time_sec": 420,
+      "text": "I'm re-registering the device to the account now.",
+      "sentiment_score": 29.0
+    },
+    {
+      "speaker": "Customer",
+      "start_time_sec": 430,
+      "text": "Okay.",
+      "sentiment_score": 29.5
+    },
+    {
+      "speaker": "Agent",
+      "start_time_sec": 440,
+      "text": "The refresh is going through on my screen.",
+      "sentiment_score": 30.1
+    },
+    {
+      "speaker": "Customer",
+      "start_time_sec": 450,
+      "text": "Good to hear.",
+      "sentiment_score": 30.6
+    },
+    {
+      "speaker": "Agent",
+      "start_time_sec": 460,
+      "text": "I'm adjusting the network profile for you.",
+      "sentiment_score": 31.2
+    },
+    {
+      "speaker": "Customer",
+      "start_time_sec": 470,
+      "text": "Alright.",
+      "sentiment_score": 31.7
+    },
+    {
+      "speaker": "Agent",
+      "start_time_sec": 480,
+      "text": "I've applied the recommended configuration.",
+      "sentiment_score": 32.3
+    },
+    {
+      "speaker": "Customer",
+      "start_time_sec": 490,
+      "text": "Okay.",
+      "sentiment_score": 32.8
+    },
+    {
+      "speaker": "Agent",
+      "start_time_sec": 500,
+      "text": "Let me verify the change took effect on the backend.",
+      "sentiment_score": 33.4
+    },
+    {
+      "speaker": "Customer",
+      "start_time_sec": 510,
+      "text": "Sure.",
+      "sentiment_score": 33.9
+    },
+    {
+      "speaker": "Agent",
+      "start_time_sec": 520,
+      "text": "I'm setting the correct region on the account.",
+      "sentiment_score": 34.4
+    },
+    {
+      "speaker": "Customer",
+      "start_time_sec": 530,
+      "text": "Okay.",
+      "sentiment_score": 35.0
+    },
+    {
+      "speaker": "Agent",
+      "start_time_sec": 540,
+      "text": "I've flagged this for priority handling.",
+      "sentiment_score": 35.5
+    },
+    {
+      "speaker": "Customer",
+      "start_time_sec": 550,
+      "text": "Thank you.",
+      "sentiment_score": 36.1
+    },
+    {
+      "speaker": "Agent",
+      "start_time_sec": 560,
+      "text": "I'm running the final provisioning step now.",
+      "sentiment_score": 36.6
+    },
+    {
+      "speaker": "Customer",
+      "start_time_sec": 570,
+      "text": "Alright.",
+      "sentiment_score": 37.2
+    },
+    {
+      "speaker": "Agent",
+      "start_time_sec": 580,
+      "text": "Let me refresh the device list one more time.",
+      "sentiment_score": 37.7
+    },
+    {
+      "speaker": "Customer",
+      "start_time_sec": 590,
+      "text": "Okay.",
+      "sentiment_score": 38.3
+    },
+    {
+      "speaker": "Agent",
+      "start_time_sec": 600,
+      "text": "I've reset the connection profile on our side.",
+      "sentiment_score": 38.8
+    },
+    {
+      "speaker": "Customer",
+      "start_time_sec": 610,
+      "text": "Good.",
+      "sentiment_score": 39.4
+    },
+    {
+      "speaker": "Agent",
+      "start_time_sec": 620,
+      "text": "I'm syncing the latest account settings.",
+      "sentiment_score": 39.9
+    },
+    {
+      "speaker": "Customer",
+      "start_time_sec": 630,
+      "text": "Okay.",
+      "sentiment_score": 40.5
+    },
+    {
+      "speaker": "Agent",
+      "start_time_sec": 640,
+      "text": "The update is nearly complete on my end.",
+      "sentiment_score": 41.0
+    },
+    {
+      "speaker": "Customer",
+      "start_time_sec": 650,
+      "text": "Alright.",
+      "sentiment_score": 41.6
+    },
+    {
+      "speaker": "Agent",
+      "start_time_sec": 660,
+      "text": "I've recorded the reference number on the case.",
+      "sentiment_score": 42.1
+    },
+    {
+      "speaker": "Customer",
+      "start_time_sec": 670,
+      "text": "Thanks.",
+      "sentiment_score": 42.6
+    },
+    {
+      "speaker": "Agent",
+      "start_time_sec": 680,
+      "text": "Let me pull up the diagnostics on your doorbell from my side.",
+      "sentiment_score": 43.2
+    },
+    {
+      "speaker": "Customer",
+      "start_time_sec": 690,
+      "text": "Okay.",
+      "sentiment_score": 43.7
+    },
+    {
+      "speaker": "Agent",
+      "start_time_sec": 700,
+      "text": "I'm refreshing the provisioning on the account now.",
+      "sentiment_score": 44.3
+    },
+    {
+      "speaker": "Customer",
+      "start_time_sec": 710,
+      "text": "Alright.",
+      "sentiment_score": 44.8
+    },
+    {
+      "speaker": "Agent",
+      "start_time_sec": 720,
+      "text": "I can see the device registered on our network here.",
+      "sentiment_score": 45.4
+    },
+    {
+      "speaker": "Customer",
+      "start_time_sec": 730,
+      "text": "Good.",
+      "sentiment_score": 45.9
+    },
+    {
+      "speaker": "Agent",
+      "start_time_sec": 740,
+      "text": "I'm going to re-sync the configuration on our end.",
+      "sentiment_score": 46.5
+    },
+    {
+      "speaker": "Customer",
+      "start_time_sec": 750,
+      "text": "Sure.",
+      "sentiment_score": 47.0
+    },
+    {
+      "speaker": "Agent",
+      "start_time_sec": 760,
+      "text": "Give me just a moment while this updates.",
+      "sentiment_score": 47.6
+    },
+    {
+      "speaker": "Customer",
+      "start_time_sec": 770,
+      "text": "No problem.",
+      "sentiment_score": 48.1
+    },
+    {
+      "speaker": "Agent",
+      "start_time_sec": 780,
+      "text": "I've noted the details on your ticket.",
+      "sentiment_score": 48.7
+    },
+    {
+      "speaker": "Customer",
+      "start_time_sec": 790,
+      "text": "Thanks.",
+      "sentiment_score": 49.2
+    },
+    {
+      "speaker": "Agent",
+      "start_time_sec": 800,
+      "text": "I'm pushing a settings refresh to the doorbell now.",
+      "sentiment_score": 49.8
+    },
+    {
+      "speaker": "Customer",
+      "start_time_sec": 810,
+      "text": "Okay, go ahead.",
+      "sentiment_score": 50.3
+    },
+    {
+      "speaker": "Agent",
+      "start_time_sec": 820,
+      "text": "The system is applying the change, this takes a few seconds.",
+      "sentiment_score": 50.9
+    },
+    {
+      "speaker": "Customer",
+      "start_time_sec": 830,
+      "text": "Right.",
+      "sentiment_score": 51.4
+    },
+    {
+      "speaker": "Agent",
+      "start_time_sec": 840,
+      "text": "I'm checking the signal history on the line.",
+      "sentiment_score": 51.9
+    },
+    {
+      "speaker": "Customer",
+      "start_time_sec": 850,
+      "text": "Okay.",
+      "sentiment_score": 52.5
+    },
+    {
+      "speaker": "Agent",
+      "start_time_sec": 860,
+      "text": "I've cleared the cached session on our servers.",
+      "sentiment_score": 53.0
+    },
+    {
+      "speaker": "Customer",
+      "start_time_sec": 870,
+      "text": "Alright then.",
+      "sentiment_score": 53.6
+    },
+    {
+      "speaker": "Agent",
+      "start_time_sec": 880,
+      "text": "I'm updating the firmware flag for your doorbell.",
+      "sentiment_score": 54.1
+    },
+    {
+      "speaker": "Customer",
+      "start_time_sec": 890,
+      "text": "Okay.",
+      "sentiment_score": 54.7
+    },
+    {
+      "speaker": "Agent",
+      "start_time_sec": 900,
+      "text": "Let me document what we've done so far.",
+      "sentiment_score": 55.2
+    },
+    {
+      "speaker": "Customer",
+      "start_time_sec": 910,
+      "text": "Sure, thanks.",
+      "sentiment_score": 55.8
+    },
+    {
+      "speaker": "Agent",
+      "start_time_sec": 920,
+      "text": "I'm re-registering the device to the account now.",
+      "sentiment_score": 56.3
+    },
+    {
+      "speaker": "Customer",
+      "start_time_sec": 930,
+      "text": "Okay.",
+      "sentiment_score": 56.9
+    },
+    {
+      "speaker": "Agent",
+      "start_time_sec": 940,
+      "text": "The refresh is going through on my screen.",
+      "sentiment_score": 57.4
+    },
+    {
+      "speaker": "Customer",
+      "start_time_sec": 950,
+      "text": "Good to hear.",
+      "sentiment_score": 58.0
+    },
+    {
+      "speaker": "Agent",
+      "start_time_sec": 960,
+      "text": "I'm adjusting the network profile for you.",
+      "sentiment_score": 58.5
+    },
+    {
+      "speaker": "Customer",
+      "start_time_sec": 970,
+      "text": "Alright.",
+      "sentiment_score": 59.1
+    },
+    {
+      "speaker": "Agent",
+      "start_time_sec": 980,
+      "text": "I've applied the recommended configuration.",
+      "sentiment_score": 59.6
+    },
+    {
+      "speaker": "Customer",
+      "start_time_sec": 990,
+      "text": "Okay.",
+      "sentiment_score": 60.2
+    },
+    {
+      "speaker": "Agent",
+      "start_time_sec": 1000,
+      "text": "Let me verify the change took effect on the backend.",
+      "sentiment_score": 60.7
+    },
+    {
+      "speaker": "Customer",
+      "start_time_sec": 1010,
+      "text": "Sure.",
+      "sentiment_score": 61.2
+    },
+    {
+      "speaker": "Agent",
+      "start_time_sec": 1020,
+      "text": "I'm setting the correct region on the account.",
+      "sentiment_score": 61.8
+    },
+    {
+      "speaker": "Customer",
+      "start_time_sec": 1030,
+      "text": "Okay.",
+      "sentiment_score": 62.3
+    },
+    {
+      "speaker": "Agent",
+      "start_time_sec": 1040,
+      "text": "I've flagged this for priority handling.",
+      "sentiment_score": 62.9
+    },
+    {
+      "speaker": "Customer",
+      "start_time_sec": 1050,
+      "text": "Thank you.",
+      "sentiment_score": 63.4
+    },
+    {
+      "speaker": "Agent",
+      "start_time_sec": 1060,
+      "text": "I'm running the final provisioning step now.",
+      "sentiment_score": 64.0
+    },
+    {
+      "speaker": "Customer",
+      "start_time_sec": 1070,
+      "text": "Alright.",
+      "sentiment_score": 64.5
+    },
+    {
+      "speaker": "Agent",
+      "start_time_sec": 1080,
+      "text": "Let me refresh the device list one more time.",
+      "sentiment_score": 65.1
+    },
+    {
+      "speaker": "Customer",
+      "start_time_sec": 1090,
+      "text": "Okay.",
+      "sentiment_score": 65.6
+    },
+    {
+      "speaker": "Agent",
+      "start_time_sec": 1100,
+      "text": "Okay, I've applied the fix from my end.",
+      "sentiment_score": 66.2
+    },
+    {
+      "speaker": "Customer",
+      "start_time_sec": 1110,
+      "text": "Alright.",
+      "sentiment_score": 66.7
+    },
+    {
+      "speaker": "Agent",
+      "start_time_sec": 1120,
+      "text": "Can you check now and confirm it's working as expected?",
+      "sentiment_score": 67.3
+    },
+    {
+      "speaker": "Customer",
+      "start_time_sec": 1130,
+      "text": "Yes, it's working now, that fixed it.",
+      "sentiment_score": 67.8
+    },
+    {
+      "speaker": "Agent",
+      "start_time_sec": 1140,
+      "text": "Wonderful, glad we sorted that out.",
+      "sentiment_score": 68.4
+    },
+    {
+      "speaker": "Customer",
+      "start_time_sec": 1150,
+      "text": "Thanks so much.",
+      "sentiment_score": 68.9
+    },
+    {
+      "speaker": "Agent",
+      "start_time_sec": 1160,
+      "text": "Is there anything else I can help with? If not, thank you for choosing S-Net, have a great day.",
+      "sentiment_score": 69.5
+    },
+    {
+      "speaker": "Customer",
+      "start_time_sec": 1170,
+      "text": "No, that's all, bye.",
+      "sentiment_score": 70.0
+    }
+  ]
+}

@@ -1,0 +1,588 @@
+{
+  "tenant_id": "tenant-abc",
+  "customer_name": "Olivia",
+  "transcript": [
+    {
+      "speaker": "Agent",
+      "start_time_sec": 0,
+      "text": "Thank you for calling S-Net, my name is Nate, how can I help you today?",
+      "sentiment_score": 6.0
+    },
+    {
+      "speaker": "Customer",
+      "start_time_sec": 10,
+      "text": "My cloud photo backup has not synced in two weeks and I am worried I will lose photos.",
+      "sentiment_score": 6.2
+    },
+    {
+      "speaker": "Agent",
+      "start_time_sec": 20,
+      "text": "I'm sorry to hear that, Olivia. Let's sort it out. First, to verify the account, can I get your account number, PIN, and the name on the account?",
+      "sentiment_score": 6.5
+    },
+    {
+      "speaker": "Customer",
+      "start_time_sec": 30,
+      "text": "Sure, account 771-330-118, PIN 5521, name Olivia.",
+      "sentiment_score": 6.8
+    },
+    {
+      "speaker": "Agent",
+      "start_time_sec": 40,
+      "text": "Perfect, Olivia, that all matches, you're verified.",
+      "sentiment_score": 7.0
+    },
+    {
+      "speaker": "Customer",
+      "start_time_sec": 50,
+      "text": "Great, thanks.",
+      "sentiment_score": 7.2
+    },
+    {
+      "speaker": "Agent",
+      "start_time_sec": 60,
+      "text": "So just to confirm I understand correctly: your cloud backup has stopped syncing for two weeks, Is that right?",
+      "sentiment_score": 7.5
+    },
+    {
+      "speaker": "Customer",
+      "start_time_sec": 70,
+      "text": "Yes, exactly.",
+      "sentiment_score": 7.8
+    },
+    {
+      "speaker": "Agent",
+      "start_time_sec": 80,
+      "text": "I appreciate your patience, Olivia. Let me dig into this for you properly.",
+      "sentiment_score": 8.0
+    },
+    {
+      "speaker": "Customer",
+      "start_time_sec": 90,
+      "text": "Okay, thank you.",
+      "sentiment_score": 8.2
+    },
+    {
+      "speaker": "Agent",
+      "start_time_sec": 100,
+      "text": "Is the backup app showing any error message?",
+      "sentiment_score": 8.5
+    },
+    {
+      "speaker": "Customer",
+      "start_time_sec": 110,
+      "text": "It just says sync paused.",
+      "sentiment_score": 8.8
+    },
+    {
+      "speaker": "Agent",
+      "start_time_sec": 120,
+      "text": "Have you checked if you are out of storage space?",
+      "sentiment_score": 9.0
+    },
+    {
+      "speaker": "Customer",
+      "start_time_sec": 130,
+      "text": "How would I even check that?",
+      "sentiment_score": 9.2
+    },
+    {
+      "speaker": "Agent",
+      "start_time_sec": 140,
+      "text": "Can you tell me exactly what you see on the backup app when the problem happens?",
+      "sentiment_score": 9.5
+    },
+    {
+      "speaker": "Customer",
+      "start_time_sec": 150,
+      "text": "It just shows the same issue, nothing obvious changes.",
+      "sentiment_score": 9.8
+    },
+    {
+      "speaker": "Agent",
+      "start_time_sec": 160,
+      "text": "How long has the backup app been set up in your home?",
+      "sentiment_score": 10.0
+    },
+    {
+      "speaker": "Customer",
+      "start_time_sec": 170,
+      "text": "About a year and a half now.",
+      "sentiment_score": 10.2
+    },
+    {
+      "speaker": "Agent",
+      "start_time_sec": 180,
+      "text": "Have you made any changes recently, like an app update or a new router?",
+      "sentiment_score": 10.5
+    },
+    {
+      "speaker": "Customer",
+      "start_time_sec": 190,
+      "text": "Now that you mention it, the app did update last week.",
+      "sentiment_score": 10.8
+    },
+    {
+      "speaker": "Agent",
+      "start_time_sec": 200,
+      "text": "Okay, that's useful. Let's start with a power cycle. Can you unplug it for about 30 seconds and plug it back in?",
+      "sentiment_score": 11.0
+    },
+    {
+      "speaker": "Customer",
+      "start_time_sec": 210,
+      "text": "Okay, unplugging it now... and it's back on.",
+      "sentiment_score": 11.2
+    },
+    {
+      "speaker": "Agent",
+      "start_time_sec": 220,
+      "text": "Great. Once it boots, do the status lights look normal, or is anything blinking oddly?",
+      "sentiment_score": 11.5
+    },
+    {
+      "speaker": "Customer",
+      "start_time_sec": 230,
+      "text": "There's a slow blinking amber light.",
+      "sentiment_score": 11.8
+    },
+    {
+      "speaker": "Agent",
+      "start_time_sec": 240,
+      "text": "A slow amber usually means it's trying to reconnect. Let's check the app pairing next. Can you open the app and go to device settings?",
+      "sentiment_score": 12.0
+    },
+    {
+      "speaker": "Customer",
+      "start_time_sec": 250,
+      "text": "I'm in device settings now.",
+      "sentiment_score": 12.2
+    },
+    {
+      "speaker": "Agent",
+      "start_time_sec": 260,
+      "text": "Do you see the firmware version listed there?",
+      "sentiment_score": 12.5
+    },
+    {
+      "speaker": "Customer",
+      "start_time_sec": 270,
+      "text": "Yes, it says version 4.2.1.",
+      "sentiment_score": 12.8
+    },
+    {
+      "speaker": "Agent",
+      "start_time_sec": 280,
+      "text": "That's one version behind. Let's push the latest firmware. Tap 'Check for updates' for me.",
+      "sentiment_score": 13.0
+    },
+    {
+      "speaker": "Customer",
+      "start_time_sec": 290,
+      "text": "It's downloading now... okay it says installing.",
+      "sentiment_score": 13.2
+    },
+    {
+      "speaker": "Agent",
+      "start_time_sec": 300,
+      "text": "Perfect, let that finish, it can take a couple of minutes. While it does, can you confirm your home WiFi is on the 2.4 gigahertz band for this device?",
+      "sentiment_score": 13.5
+    },
+    {
+      "speaker": "Customer",
+      "start_time_sec": 310,
+      "text": "I think so, but I'm not totally sure.",
+      "sentiment_score": 13.8
+    },
+    {
+      "speaker": "Agent",
+      "start_time_sec": 320,
+      "text": "No problem, I can guide you. In the app, the network name shown should not end in '-5G'. What does it say?",
+      "sentiment_score": 14.0
+    },
+    {
+      "speaker": "Customer",
+      "start_time_sec": 330,
+      "text": "It just says our normal network name, no 5G.",
+      "sentiment_score": 14.2
+    },
+    {
+      "speaker": "Agent",
+      "start_time_sec": 340,
+      "text": "Good, that's the right band. Has the firmware finished installing?",
+      "sentiment_score": 14.5
+    },
+    {
+      "speaker": "Customer",
+      "start_time_sec": 350,
+      "text": "Yes, it just rebooted and the light is solid white now.",
+      "sentiment_score": 14.8
+    },
+    {
+      "speaker": "Agent",
+      "start_time_sec": 360,
+      "text": "Excellent, solid white is what we want. Let's verify the connection quality. In the app, is there a signal strength indicator?",
+      "sentiment_score": 15.0
+    },
+    {
+      "speaker": "Customer",
+      "start_time_sec": 370,
+      "text": "It shows two out of four bars.",
+      "sentiment_score": 15.2
+    },
+    {
+      "speaker": "Agent",
+      "start_time_sec": 380,
+      "text": "Two bars can cause exactly the symptoms you described. How far is the device from your router?",
+      "sentiment_score": 15.5
+    },
+    {
+      "speaker": "Customer",
+      "start_time_sec": 390,
+      "text": "Probably two rooms away, through a couple of walls.",
+      "sentiment_score": 15.8
+    },
+    {
+      "speaker": "Agent",
+      "start_time_sec": 400,
+      "text": "That distance combined with walls explains the weak signal. Do you have the option to move it closer, even temporarily to test?",
+      "sentiment_score": 16.0
+    },
+    {
+      "speaker": "Customer",
+      "start_time_sec": 410,
+      "text": "Sure, let me bring it near the router... okay it's next to it now.",
+      "sentiment_score": 16.2
+    },
+    {
+      "speaker": "Agent",
+      "start_time_sec": 420,
+      "text": "Now how many bars is it showing?",
+      "sentiment_score": 16.5
+    },
+    {
+      "speaker": "Customer",
+      "start_time_sec": 430,
+      "text": "Oh, it jumped to four bars.",
+      "sentiment_score": 16.8
+    },
+    {
+      "speaker": "Agent",
+      "start_time_sec": 440,
+      "text": "That confirms it was a signal issue. Let's re-run the original action now and see if the problem repeats.",
+      "sentiment_score": 17.0
+    },
+    {
+      "speaker": "Customer",
+      "start_time_sec": 450,
+      "text": "Okay, trying it now.",
+      "sentiment_score": 17.2
+    },
+    {
+      "speaker": "Agent",
+      "start_time_sec": 460,
+      "text": "What happens this time?",
+      "sentiment_score": 17.5
+    },
+    {
+      "speaker": "Customer",
+      "start_time_sec": 470,
+      "text": "It actually worked correctly that time.",
+      "sentiment_score": 17.8
+    },
+    {
+      "speaker": "Agent",
+      "start_time_sec": 480,
+      "text": "Great sign. To make this permanent, I'd recommend a WiFi extender or moving the router, but let's first make sure the settings are optimal.",
+      "sentiment_score": 18.0
+    },
+    {
+      "speaker": "Customer",
+      "start_time_sec": 490,
+      "text": "Okay.",
+      "sentiment_score": 18.2
+    },
+    {
+      "speaker": "Agent",
+      "start_time_sec": 500,
+      "text": "In advanced settings, can you make sure 'power saving mode' is turned off? It sometimes causes drop-offs.",
+      "sentiment_score": 18.5
+    },
+    {
+      "speaker": "Customer",
+      "start_time_sec": 510,
+      "text": "Found it... it was on. I've turned it off now.",
+      "sentiment_score": 18.8
+    },
+    {
+      "speaker": "Agent",
+      "start_time_sec": 520,
+      "text": "That was likely contributing too. Let me also refresh the account provisioning from my side.",
+      "sentiment_score": 19.0
+    },
+    {
+      "speaker": "Customer",
+      "start_time_sec": 530,
+      "text": "Alright.",
+      "sentiment_score": 19.2
+    },
+    {
+      "speaker": "Agent",
+      "start_time_sec": 540,
+      "text": "While that refreshes, can you tell me which operating system your phone runs, iOS or Android?",
+      "sentiment_score": 19.5
+    },
+    {
+      "speaker": "Customer",
+      "start_time_sec": 550,
+      "text": "It's an Android phone.",
+      "sentiment_score": 19.8
+    },
+    {
+      "speaker": "Agent",
+      "start_time_sec": 560,
+      "text": "Thanks. And is the app itself up to date in the Play Store?",
+      "sentiment_score": 20.0
+    },
+    {
+      "speaker": "Customer",
+      "start_time_sec": 570,
+      "text": "Let me check... there was an update, I've installed it now.",
+      "sentiment_score": 20.2
+    },
+    {
+      "speaker": "Agent",
+      "start_time_sec": 580,
+      "text": "Perfect. Let's clear the app cache too, that clears out stale connection data. Can you go to app info and tap clear cache?",
+      "sentiment_score": 20.5
+    },
+    {
+      "speaker": "Customer",
+      "start_time_sec": 590,
+      "text": "Done, cache cleared.",
+      "sentiment_score": 20.8
+    },
+    {
+      "speaker": "Agent",
+      "start_time_sec": 600,
+      "text": "Now please sign out of the app and sign back in so it re-authenticates cleanly.",
+      "sentiment_score": 21.0
+    },
+    {
+      "speaker": "Customer",
+      "start_time_sec": 610,
+      "text": "Okay, signed out... and back in now.",
+      "sentiment_score": 21.2
+    },
+    {
+      "speaker": "Agent",
+      "start_time_sec": 620,
+      "text": "Does the backup app appear in your device list now?",
+      "sentiment_score": 21.5
+    },
+    {
+      "speaker": "Customer",
+      "start_time_sec": 630,
+      "text": "Yes, it's showing up again.",
+      "sentiment_score": 21.8
+    },
+    {
+      "speaker": "Agent",
+      "start_time_sec": 640,
+      "text": "Good. Let's check your router's connected-devices page to confirm it has a stable lease. Can you log into your router admin?",
+      "sentiment_score": 22.0
+    },
+    {
+      "speaker": "Customer",
+      "start_time_sec": 650,
+      "text": "I'm logged in.",
+      "sentiment_score": 22.2
+    },
+    {
+      "speaker": "Agent",
+      "start_time_sec": 660,
+      "text": "Do you see the backup app listed with an IP address?",
+      "sentiment_score": 22.5
+    },
+    {
+      "speaker": "Customer",
+      "start_time_sec": 670,
+      "text": "Yes, it has an IP listed.",
+      "sentiment_score": 22.8
+    },
+    {
+      "speaker": "Agent",
+      "start_time_sec": 680,
+      "text": "Is there an option to reserve that IP so it doesn't change? A changing address can cause disconnects.",
+      "sentiment_score": 23.0
+    },
+    {
+      "speaker": "Customer",
+      "start_time_sec": 690,
+      "text": "Found it, I've reserved the IP now.",
+      "sentiment_score": 23.2
+    },
+    {
+      "speaker": "Agent",
+      "start_time_sec": 700,
+      "text": "Excellent, that will help stability a lot. Let me run a quick diagnostic ping from our side.",
+      "sentiment_score": 23.5
+    },
+    {
+      "speaker": "Customer",
+      "start_time_sec": 710,
+      "text": "Okay.",
+      "sentiment_score": 23.8
+    },
+    {
+      "speaker": "Agent",
+      "start_time_sec": 720,
+      "text": "The ping is coming back clean now, no packet loss. How does it look on your end?",
+      "sentiment_score": 24.0
+    },
+    {
+      "speaker": "Customer",
+      "start_time_sec": 730,
+      "text": "Looks stable so far, no issues.",
+      "sentiment_score": 24.2
+    },
+    {
+      "speaker": "Agent",
+      "start_time_sec": 740,
+      "text": "Let's stress it a little to be sure. Can you trigger the feature a few times in a row?",
+      "sentiment_score": 24.5
+    },
+    {
+      "speaker": "Customer",
+      "start_time_sec": 750,
+      "text": "Trying it several times... all good each time.",
+      "sentiment_score": 24.8
+    },
+    {
+      "speaker": "Agent",
+      "start_time_sec": 760,
+      "text": "That's really encouraging. Let me also check there are no outages logged in your area.",
+      "sentiment_score": 25.0
+    },
+    {
+      "speaker": "Customer",
+      "start_time_sec": 770,
+      "text": "Okay.",
+      "sentiment_score": 25.2
+    },
+    {
+      "speaker": "Agent",
+      "start_time_sec": 780,
+      "text": "No outages on record, so this was device-side, which we've now addressed. Are you seeing any warnings at all in the app?",
+      "sentiment_score": 25.5
+    },
+    {
+      "speaker": "Customer",
+      "start_time_sec": 790,
+      "text": "No warnings, it's all green.",
+      "sentiment_score": 25.8
+    },
+    {
+      "speaker": "Agent",
+      "start_time_sec": 800,
+      "text": "Great. Let me note everything we did on your ticket so any future call has the full history.",
+      "sentiment_score": 26.0
+    },
+    {
+      "speaker": "Customer",
+      "start_time_sec": 810,
+      "text": "That's helpful, thank you.",
+      "sentiment_score": 26.2
+    },
+    {
+      "speaker": "Agent",
+      "start_time_sec": 820,
+      "text": "Just so you have it, the ticket reference is 4471-QA. Would you like me to email a summary of the steps?",
+      "sentiment_score": 26.5
+    },
+    {
+      "speaker": "Customer",
+      "start_time_sec": 830,
+      "text": "Yes please, that would be great.",
+      "sentiment_score": 26.8
+    },
+    {
+      "speaker": "Agent",
+      "start_time_sec": 840,
+      "text": "Done, the summary is on its way to the email on file. Let's do a final check together.",
+      "sentiment_score": 27.0
+    },
+    {
+      "speaker": "Customer",
+      "start_time_sec": 850,
+      "text": "Sure.",
+      "sentiment_score": 27.2
+    },
+    {
+      "speaker": "Customer",
+      "start_time_sec": 860,
+      "text": "I really do not want to lose these, they are my kids baby pictures.",
+      "sentiment_score": 27.5
+    },
+    {
+      "speaker": "Agent",
+      "start_time_sec": 870,
+      "text": "Honestly, worrying about that is a stupid thing to stress over, it is just photos.",
+      "sentiment_score": 27.8
+    },
+    {
+      "speaker": "Customer",
+      "start_time_sec": 880,
+      "text": "Excuse me? That's incredibly rude.",
+      "sentiment_score": 28.0
+    },
+    {
+      "speaker": "Agent",
+      "start_time_sec": 890,
+      "text": "Okay, I've pushed the fix from my end and refreshed the configuration.",
+      "sentiment_score": 28.2
+    },
+    {
+      "speaker": "Customer",
+      "start_time_sec": 900,
+      "text": "Alright.",
+      "sentiment_score": 28.5
+    },
+    {
+      "speaker": "Agent",
+      "start_time_sec": 910,
+      "text": "Can you check on your end now and confirm whether it's working as expected?",
+      "sentiment_score": -60
+    },
+    {
+      "speaker": "Customer",
+      "start_time_sec": 920,
+      "text": "Yes! It's working now. That fixed it.",
+      "sentiment_score": -65
+    },
+    {
+      "speaker": "Agent",
+      "start_time_sec": 930,
+      "text": "Wonderful, I'm really glad we sorted that out.",
+      "sentiment_score": -70
+    },
+    {
+      "speaker": "Customer",
+      "start_time_sec": 940,
+      "text": "Thanks so much for your help.",
+      "sentiment_score": -75
+    },
+    {
+      "speaker": "Agent",
+      "start_time_sec": 950,
+      "text": "Is there anything else I can help you with? If not, thank you for choosing S-Net, have a great day.",
+      "sentiment_score": -80
+    },
+    {
+      "speaker": "Customer",
+      "start_time_sec": 960,
+      "text": "No that's all, bye.",
+      "sentiment_score": -85
+    }
+  ]
+}

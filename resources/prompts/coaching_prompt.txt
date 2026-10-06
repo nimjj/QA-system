@@ -1,0 +1,20 @@
+<TRANSCRIPT>
+{transcript_text}
+</TRANSCRIPT>
+
+<INSTRUCTIONS>
+You are an expert QA Coach. Below is a {channel} interaction transcript and a list of QA line items that the agent FAILED.
+For each failed item, provide a short reason why they failed, and a brief coaching tip (max 2 sentences) on how to improve.
+
+JSON FORMAT:
+[
+  {{
+    "name": "Line Item Name",
+    "reason": "Agent missed verifying the account.",
+    "coaching": "The agent must ask for the PIN verification immediately after retrieving the phone number to confirm identity."
+  }}
+]
+
+FAILED LINE ITEMS TO COACH:
+{failed_items_str}
+</INSTRUCTIONS>

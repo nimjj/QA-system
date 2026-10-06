@@ -1,0 +1,732 @@
+{
+  "transcript": [
+    {
+      "speaker": "Agent",
+      "start_time_sec": 0,
+      "text": "Support, what do you need.",
+      "sentiment_score": -2.0
+    },
+    {
+      "speaker": "Customer",
+      "start_time_sec": 10,
+      "text": "Hi, I'm looking at my bill and I'm being charged for a premium package I never signed up for, it's an extra forty dollars.",
+      "sentiment_score": -4.0
+    },
+    {
+      "speaker": "Agent",
+      "start_time_sec": 20,
+      "text": "Okay, what's the account.",
+      "sentiment_score": -6.0
+    },
+    {
+      "speaker": "Customer",
+      "start_time_sec": 30,
+      "text": "340-772-196.",
+      "sentiment_score": -8.0
+    },
+    {
+      "speaker": "Agent",
+      "start_time_sec": 40,
+      "text": "And what's the charge exactly.",
+      "sentiment_score": -10.0
+    },
+    {
+      "speaker": "Customer",
+      "start_time_sec": 50,
+      "text": "It says 'Premium Sports Tier', forty dollars, I've never watched a sports channel in my life.",
+      "sentiment_score": -12.0
+    },
+    {
+      "speaker": "Agent",
+      "start_time_sec": 60,
+      "text": "Sometimes those get added during promotions.",
+      "sentiment_score": -14.0
+    },
+    {
+      "speaker": "Customer",
+      "start_time_sec": 70,
+      "text": "I never agreed to any promotion though.",
+      "sentiment_score": -16.0
+    },
+    {
+      "speaker": "Agent",
+      "start_time_sec": 80,
+      "text": "It happens automatically sometimes.",
+      "sentiment_score": -18.0
+    },
+    {
+      "speaker": "Customer",
+      "start_time_sec": 90,
+      "text": "That doesn't sound right, can you actually look into why it's on my account?",
+      "sentiment_score": -20.0
+    },
+    {
+      "speaker": "Agent",
+      "start_time_sec": 100,
+      "text": "I mean it's just there, not much to look into really.",
+      "sentiment_score": -22.0
+    },
+    {
+      "speaker": "Customer",
+      "start_time_sec": 110,
+      "text": "Something doesn't just appear on a bill for no reason.",
+      "sentiment_score": -24.0
+    },
+    {
+      "speaker": "Agent",
+      "start_time_sec": 120,
+      "text": "Stuff happens, systems aren't perfect.",
+      "sentiment_score": -26.0
+    },
+    {
+      "speaker": "Customer",
+      "start_time_sec": 130,
+      "text": "When exactly did this charge start showing up, do you have a date?",
+      "sentiment_score": -30.0
+    },
+    {
+      "speaker": "Agent",
+      "start_time_sec": 140,
+      "text": "Says it started last billing cycle.",
+      "sentiment_score": -34.0
+    },
+    {
+      "speaker": "Customer",
+      "start_time_sec": 150,
+      "text": "So about a month then. Is there any note on the account about why it was added?",
+      "sentiment_score": -38.0
+    },
+    {
+      "speaker": "Agent",
+      "start_time_sec": 160,
+      "text": "Nothing specific showing here.",
+      "sentiment_score": -42.0
+    },
+    {
+      "speaker": "Customer",
+      "start_time_sec": 170,
+      "text": "That seems like something that should be logged somewhere.",
+      "sentiment_score": -46.0
+    },
+    {
+      "speaker": "Agent",
+      "start_time_sec": 180,
+      "text": "Not always, depends on how it got added.",
+      "sentiment_score": -50.0
+    },
+    {
+      "speaker": "Customer",
+      "start_time_sec": 190,
+      "text": "Can you at least tell me if it was something I clicked, or something added on your end?",
+      "sentiment_score": -54.0
+    },
+    {
+      "speaker": "Agent",
+      "start_time_sec": 200,
+      "text": "Hard to say from here honestly.",
+      "sentiment_score": -58.0
+    },
+    {
+      "speaker": "Customer",
+      "start_time_sec": 210,
+      "text": "That's a pretty important thing not to know.",
+      "sentiment_score": -62.0
+    },
+    {
+      "speaker": "Agent",
+      "start_time_sec": 220,
+      "text": "I just see what's on the screen, not the whole history.",
+      "sentiment_score": -66.0
+    },
+    {
+      "speaker": "Customer",
+      "start_time_sec": 230,
+      "text": "Is there someone who can see the whole history then?",
+      "sentiment_score": -70.0
+    },
+    {
+      "speaker": "Agent",
+      "start_time_sec": 240,
+      "text": "Maybe billing, again.",
+      "sentiment_score": -74.0
+    },
+    {
+      "speaker": "Customer",
+      "start_time_sec": 250,
+      "text": "Everything keeps going back to billing.",
+      "sentiment_score": -78.0
+    },
+    {
+      "speaker": "Agent",
+      "start_time_sec": 260,
+      "text": "That's kind of their department, yeah.",
+      "sentiment_score": -82.0
+    },
+    {
+      "speaker": "Customer",
+      "start_time_sec": 270,
+      "text": "Are there any other charges on my account I should double check while we're at it?",
+      "sentiment_score": -86.0
+    },
+    {
+      "speaker": "Agent",
+      "start_time_sec": 280,
+      "text": "I mean I could read the whole bill to you if you want.",
+      "sentiment_score": -90.0
+    },
+    {
+      "speaker": "Customer",
+      "start_time_sec": 290,
+      "text": "That would actually be helpful, yes.",
+      "sentiment_score": -94.0
+    },
+    {
+      "speaker": "Agent",
+      "start_time_sec": 300,
+      "text": "Internet service, standard fee, premium sports tier forty dollars, equipment rental, taxes.",
+      "sentiment_score": -98.0
+    },
+    {
+      "speaker": "Customer",
+      "start_time_sec": 310,
+      "text": "Wait, equipment rental? I own my own router.",
+      "sentiment_score": -100.0
+    },
+    {
+      "speaker": "Agent",
+      "start_time_sec": 320,
+      "text": "Says rental here.",
+      "sentiment_score": -100.0
+    },
+    {
+      "speaker": "Customer",
+      "start_time_sec": 330,
+      "text": "That's another charge I never agreed to then.",
+      "sentiment_score": -100.0
+    },
+    {
+      "speaker": "Agent",
+      "start_time_sec": 340,
+      "text": "I mean it's just what the system shows.",
+      "sentiment_score": -100.0
+    },
+    {
+      "speaker": "Customer",
+      "start_time_sec": 350,
+      "text": "So there might be two incorrect charges now, not just one.",
+      "sentiment_score": -100.0
+    },
+    {
+      "speaker": "Agent",
+      "start_time_sec": 360,
+      "text": "Could be, not really my area to dig into why.",
+      "sentiment_score": -100.0
+    },
+    {
+      "speaker": "Customer",
+      "start_time_sec": 370,
+      "text": "This is starting to feel like a pattern, not just one mistake.",
+      "sentiment_score": -100.0
+    },
+    {
+      "speaker": "Agent",
+      "start_time_sec": 380,
+      "text": "I couldn't really say either way.",
+      "sentiment_score": -100.0
+    },
+    {
+      "speaker": "Customer",
+      "start_time_sec": 390,
+      "text": "Can you at least remove the equipment rental charge too?",
+      "sentiment_score": -100.0
+    },
+    {
+      "speaker": "Agent",
+      "start_time_sec": 400,
+      "text": "I can note it, same as the other one, but the removal and refund would still be a billing thing.",
+      "sentiment_score": -100.0
+    },
+    {
+      "speaker": "Customer",
+      "start_time_sec": 410,
+      "text": "So essentially you can't actually fix anything on this call.",
+      "sentiment_score": -100.0
+    },
+    {
+      "speaker": "Agent",
+      "start_time_sec": 420,
+      "text": "I can note things, that's about it from here.",
+      "sentiment_score": -100.0
+    },
+    {
+      "speaker": "Customer",
+      "start_time_sec": 430,
+      "text": "Can you remove it and refund the charge?",
+      "sentiment_score": -100.0
+    },
+    {
+      "speaker": "Agent",
+      "start_time_sec": 440,
+      "text": "I can remove it going forward, refunds are a separate process.",
+      "sentiment_score": -100.0
+    },
+    {
+      "speaker": "Customer",
+      "start_time_sec": 450,
+      "text": "So I just lose the forty dollars for something I never asked for?",
+      "sentiment_score": -100.0
+    },
+    {
+      "speaker": "Agent",
+      "start_time_sec": 460,
+      "text": "That's kind of how it works unless you dispute it separately.",
+      "sentiment_score": -100.0
+    },
+    {
+      "speaker": "Customer",
+      "start_time_sec": 470,
+      "text": "I am disputing it, right now, with you.",
+      "sentiment_score": -100.0
+    },
+    {
+      "speaker": "Agent",
+      "start_time_sec": 480,
+      "text": "I can't personally issue refunds from this screen.",
+      "sentiment_score": -100.0
+    },
+    {
+      "speaker": "Customer",
+      "start_time_sec": 490,
+      "text": "Then who can?",
+      "sentiment_score": -100.0
+    },
+    {
+      "speaker": "Agent",
+      "start_time_sec": 500,
+      "text": "Billing department, different queue.",
+      "sentiment_score": -100.0
+    },
+    {
+      "speaker": "Customer",
+      "start_time_sec": 510,
+      "text": "This is genuinely frustrating, I've been on hold for twenty minutes already before you even picked up.",
+      "sentiment_score": -100.0
+    },
+    {
+      "speaker": "Agent",
+      "start_time_sec": 520,
+      "text": "Yeah call volume's high today.",
+      "sentiment_score": -100.0
+    },
+    {
+      "speaker": "Customer",
+      "start_time_sec": 530,
+      "text": "That's not really addressing what I said.",
+      "sentiment_score": -100.0
+    },
+    {
+      "speaker": "Agent",
+      "start_time_sec": 540,
+      "text": "What do you want me to say.",
+      "sentiment_score": -100.0
+    },
+    {
+      "speaker": "Customer",
+      "start_time_sec": 550,
+      "text": "Some acknowledgment that this is a real problem would be nice.",
+      "sentiment_score": -100.0
+    },
+    {
+      "speaker": "Agent",
+      "start_time_sec": 560,
+      "text": "Look, I hear you, but I can't do much more than remove it going forward.",
+      "sentiment_score": -100.0
+    },
+    {
+      "speaker": "Customer",
+      "start_time_sec": 570,
+      "text": "Can you at least transfer me to billing then, without me having to call back and wait again?",
+      "sentiment_score": -100.0
+    },
+    {
+      "speaker": "Agent",
+      "start_time_sec": 580,
+      "text": "Transfers can take a while too, might be faster to just call back.",
+      "sentiment_score": -100.0
+    },
+    {
+      "speaker": "Customer",
+      "start_time_sec": 590,
+      "text": "That seems like a really unhelpful answer honestly.",
+      "sentiment_score": -100.0
+    },
+    {
+      "speaker": "Agent",
+      "start_time_sec": 600,
+      "text": "It's just the reality of how the queues work.",
+      "sentiment_score": -100.0
+    },
+    {
+      "speaker": "Customer",
+      "start_time_sec": 610,
+      "text": "Has this happened to other customers too, or is it just me?",
+      "sentiment_score": -100.0
+    },
+    {
+      "speaker": "Agent",
+      "start_time_sec": 620,
+      "text": "No idea, I don't track that.",
+      "sentiment_score": -100.0
+    },
+    {
+      "speaker": "Customer",
+      "start_time_sec": 630,
+      "text": "It would be useful context if this is a known bug versus just my account.",
+      "sentiment_score": -100.0
+    },
+    {
+      "speaker": "Agent",
+      "start_time_sec": 640,
+      "text": "I really wouldn't know either way.",
+      "sentiment_score": -100.0
+    },
+    {
+      "speaker": "Customer",
+      "start_time_sec": 650,
+      "text": "Is there anyone who would know that?",
+      "sentiment_score": -100.0
+    },
+    {
+      "speaker": "Agent",
+      "start_time_sec": 660,
+      "text": "Maybe a manager, maybe not even them honestly.",
+      "sentiment_score": -100.0
+    },
+    {
+      "speaker": "Customer",
+      "start_time_sec": 670,
+      "text": "This whole call just keeps circling back to 'I don't know'.",
+      "sentiment_score": -100.0
+    },
+    {
+      "speaker": "Agent",
+      "start_time_sec": 680,
+      "text": "That's kind of what I've got today.",
+      "sentiment_score": -100.0
+    },
+    {
+      "speaker": "Customer",
+      "start_time_sec": 690,
+      "text": "Can you check if my account has any credits available at least, for the inconvenience?",
+      "sentiment_score": -100.0
+    },
+    {
+      "speaker": "Agent",
+      "start_time_sec": 700,
+      "text": "Not something I can apply from here.",
+      "sentiment_score": -100.0
+    },
+    {
+      "speaker": "Customer",
+      "start_time_sec": 710,
+      "text": "Who can apply that then?",
+      "sentiment_score": -100.0
+    },
+    {
+      "speaker": "Agent",
+      "start_time_sec": 720,
+      "text": "Probably billing, or a supervisor maybe.",
+      "sentiment_score": -100.0
+    },
+    {
+      "speaker": "Customer",
+      "start_time_sec": 730,
+      "text": "Everything keeps needing someone else.",
+      "sentiment_score": -100.0
+    },
+    {
+      "speaker": "Agent",
+      "start_time_sec": 740,
+      "text": "That's just how it's split up here.",
+      "sentiment_score": -100.0
+    },
+    {
+      "speaker": "Customer",
+      "start_time_sec": 750,
+      "text": "Can you send me something in writing confirming these two charges are disputed, at least?",
+      "sentiment_score": -100.0
+    },
+    {
+      "speaker": "Agent",
+      "start_time_sec": 760,
+      "text": "I can add a note, not sure it generates anything you'd actually get emailed.",
+      "sentiment_score": -100.0
+    },
+    {
+      "speaker": "Customer",
+      "start_time_sec": 770,
+      "text": "So I wouldn't even have proof this conversation happened.",
+      "sentiment_score": -100.0
+    },
+    {
+      "speaker": "Agent",
+      "start_time_sec": 780,
+      "text": "There'd be a call log internally, just not something sent to you necessarily.",
+      "sentiment_score": -100.0
+    },
+    {
+      "speaker": "Customer",
+      "start_time_sec": 790,
+      "text": "That's not very reassuring.",
+      "sentiment_score": -100.0
+    },
+    {
+      "speaker": "Agent",
+      "start_time_sec": 800,
+      "text": "It's just how the system's set up.",
+      "sentiment_score": -100.0
+    },
+    {
+      "speaker": "Customer",
+      "start_time_sec": 810,
+      "text": "Is there a way to escalate this formally, like a case number or ticket?",
+      "sentiment_score": -100.0
+    },
+    {
+      "speaker": "Agent",
+      "start_time_sec": 820,
+      "text": "Might generate one automatically, I'm not totally sure.",
+      "sentiment_score": -100.0
+    },
+    {
+      "speaker": "Customer",
+      "start_time_sec": 830,
+      "text": "You don't seem sure about much on this call.",
+      "sentiment_score": -100.0
+    },
+    {
+      "speaker": "Agent",
+      "start_time_sec": 840,
+      "text": "I've answered what I can.",
+      "sentiment_score": -100.0
+    },
+    {
+      "speaker": "Customer",
+      "start_time_sec": 850,
+      "text": "Is there a supervisor I could speak to about this instead?",
+      "sentiment_score": -100.0
+    },
+    {
+      "speaker": "Agent",
+      "start_time_sec": 860,
+      "text": "They're going to tell you the same thing I'm telling you.",
+      "sentiment_score": -100.0
+    },
+    {
+      "speaker": "Customer",
+      "start_time_sec": 870,
+      "text": "I'd still like to ask, that's my right as a customer.",
+      "sentiment_score": -100.0
+    },
+    {
+      "speaker": "Agent",
+      "start_time_sec": 880,
+      "text": "Sure, I can flag it, don't expect a fast response though.",
+      "sentiment_score": -100.0
+    },
+    {
+      "speaker": "Customer",
+      "start_time_sec": 890,
+      "text": "Great, so nothing's actually getting resolved on this call.",
+      "sentiment_score": -100.0
+    },
+    {
+      "speaker": "Agent",
+      "start_time_sec": 900,
+      "text": "I removed the charge going forward, that's something.",
+      "sentiment_score": -100.0
+    },
+    {
+      "speaker": "Customer",
+      "start_time_sec": 910,
+      "text": "Forty dollars I never agreed to is still just gone though.",
+      "sentiment_score": -100.0
+    },
+    {
+      "speaker": "Agent",
+      "start_time_sec": 920,
+      "text": "I already told you that's a billing thing.",
+      "sentiment_score": -100.0
+    },
+    {
+      "speaker": "Customer",
+      "start_time_sec": 930,
+      "text": "You keep saying that like it's my fault for asking.",
+      "sentiment_score": -100.0
+    },
+    {
+      "speaker": "Agent",
+      "start_time_sec": 940,
+      "text": "I didn't say that.",
+      "sentiment_score": -100.0
+    },
+    {
+      "speaker": "Customer",
+      "start_time_sec": 950,
+      "text": "It kind of feels that way honestly, the way you're talking to me.",
+      "sentiment_score": -100.0
+    },
+    {
+      "speaker": "Agent",
+      "start_time_sec": 960,
+      "text": "I'm just telling you how it is, not much else I can do about the tone.",
+      "sentiment_score": -100.0
+    },
+    {
+      "speaker": "Customer",
+      "start_time_sec": 970,
+      "text": "You could at least sound like you care a little.",
+      "sentiment_score": -100.0
+    },
+    {
+      "speaker": "Agent",
+      "start_time_sec": 980,
+      "text": "I've got a lot of calls today, not really the priority right now.",
+      "sentiment_score": -100.0
+    },
+    {
+      "speaker": "Customer",
+      "start_time_sec": 990,
+      "text": "Wow, okay. That's a pretty bad thing to say to a paying customer.",
+      "sentiment_score": -100.0
+    },
+    {
+      "speaker": "Agent",
+      "start_time_sec": 1000,
+      "text": "It's just honest.",
+      "sentiment_score": -100.0
+    },
+    {
+      "speaker": "Customer",
+      "start_time_sec": 1010,
+      "text": "Can we please just focus on fixing this instead of you being dismissive?",
+      "sentiment_score": -100.0
+    },
+    {
+      "speaker": "Agent",
+      "start_time_sec": 1020,
+      "text": "I removed the charge, told you how to get the refund, what more do you want.",
+      "sentiment_score": -100.0
+    },
+    {
+      "speaker": "Customer",
+      "start_time_sec": 1030,
+      "text": "Some basic courtesy would be a start.",
+      "sentiment_score": -100.0
+    },
+    {
+      "speaker": "Agent",
+      "start_time_sec": 1040,
+      "text": "I don't really have time for a lecture on customer service right now.",
+      "sentiment_score": -100.0
+    },
+    {
+      "speaker": "Customer",
+      "start_time_sec": 1050,
+      "text": "This is exactly the kind of thing that makes people cancel their service entirely.",
+      "sentiment_score": -100.0
+    },
+    {
+      "speaker": "Agent",
+      "start_time_sec": 1060,
+      "text": "Look, I've told you three times already what to do about the refund, if you don't like the answer, feel free to get lost and try a competitor.",
+      "sentiment_score": -100.0
+    },
+    {
+      "speaker": "Customer",
+      "start_time_sec": 1070,
+      "text": "Excuse me? That is completely unacceptable, I want your name and a supervisor right now.",
+      "sentiment_score": -100.0
+    },
+    {
+      "speaker": "Agent",
+      "start_time_sec": 1080,
+      "text": "It's Blake, and like I said, someone will get back to you eventually.",
+      "sentiment_score": -100.0
+    },
+    {
+      "speaker": "Customer",
+      "start_time_sec": 1090,
+      "text": "This has been one of the worst customer service experiences I've ever had.",
+      "sentiment_score": -100.0
+    },
+    {
+      "speaker": "Agent",
+      "start_time_sec": 1100,
+      "text": "Noted. Anything else.",
+      "sentiment_score": -100.0
+    },
+    {
+      "speaker": "Customer",
+      "start_time_sec": 1110,
+      "text": "No, I'm done, I'll be filing a complaint about this entire call.",
+      "sentiment_score": -100.0
+    },
+    {
+      "speaker": "Agent",
+      "start_time_sec": 1120,
+      "text": "Do what you need to do.",
+      "sentiment_score": -100.0
+    },
+    {
+      "speaker": "Customer",
+      "start_time_sec": 1130,
+      "text": "Unbelievable.",
+      "sentiment_score": -100.0
+    },
+    {
+      "speaker": "Customer",
+      "start_time_sec": 1140,
+      "text": "I want it on record that I was told to get lost by a support agent over a billing error.",
+      "sentiment_score": -100.0
+    },
+    {
+      "speaker": "Agent",
+      "start_time_sec": 1150,
+      "text": "It's on record, whatever that's worth to you.",
+      "sentiment_score": -100.0
+    },
+    {
+      "speaker": "Customer",
+      "start_time_sec": 1160,
+      "text": "It should be worth quite a lot, honestly.",
+      "sentiment_score": -100.0
+    },
+    {
+      "speaker": "Agent",
+      "start_time_sec": 1170,
+      "text": "Sure. Anything else.",
+      "sentiment_score": -100.0
+    },
+    {
+      "speaker": "Customer",
+      "start_time_sec": 1180,
+      "text": "No. Goodbye.",
+      "sentiment_score": -100.0
+    },
+    {
+      "speaker": "Agent",
+      "start_time_sec": 1190,
+      "text": "Yep.",
+      "sentiment_score": -100.0
+    },
+    {
+      "speaker": "Agent",
+      "start_time_sec": 1200,
+      "text": "Thank you for choosing S-Net.",
+      "sentiment_score": -100.0
+    }
+  ],
+  "tenant_id": "tenant-abc",
+  "customer_name": ""
+}
