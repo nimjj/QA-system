@@ -419,8 +419,35 @@ def evaluate_interaction(
             "coaching": coaching_text
         })
 
+    cat_summary = {}
+    auto_fail_items_failed = 0
+    for item in clean_scorecard:
+        cat = item["category"]
+        if "AUTO FAIL" in cat.upper():
+            if item["rating"] in ["FAIL", "NO"]:
+                auto_fail_items_failed += 1
+            continue
+        entry = cat_summary.setdefault(cat, {"passed": 0, "total": 0})
+        entry["total"] += 1
+        if item["rating"] == "PASS":
+            entry["passed"] += 1
+
+    summary_list = [
+        {
+            "category": cat,
+            "passed": data["passed"],
+            "total": data["total"],
+            "ratio": f"{data['passed']:02d}/{data['total']:02d}"
+        }
+        for cat, data in cat_summary.items()
+    ]
+
+    auto_failed_count = auto_fail_items_failed if auto_fail_items_failed > 0 else (1 if is_auto_fail else 0)
+
     return {
         "final_score": b_score,
+        "auto_failed_count": auto_failed_count,
+        "category_summary": summary_list,
         "scorecard": clean_scorecard,
         "is_auto_fail": is_auto_fail,
         "auto_fail_reason": reason
