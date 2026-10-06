@@ -3,7 +3,13 @@ import re
 import math
 from typing import List, Tuple, Dict, Any
 
-def evaluate_branding(turns: List[Tuple[str, str]]) -> Dict[str, Any]:
+def evaluate_branding(turns: List[Tuple[str, str]], verbatim_spiels: List[str] = None) -> Dict[str, Any]:
+    """
+    Check opening and closing branding scripts.
+
+    verbatim_spiels: list of required phrases from the tenant's criteria data.
+      Index 0 = greeting phrase, Index 1 = closing phrase (fallback to hardcoded s-net strings).
+    """
     agent_lines = [txt for spk, txt in turns if spk.lower() == "agent"]
     if not agent_lines:
         return {
@@ -13,12 +19,24 @@ def evaluate_branding(turns: List[Tuple[str, str]]) -> Dict[str, Any]:
             "score": 0,
             "coaching": "No agent lines found in the transcript."
         }
-        
+
+    # Resolve greeting/closing from tenant spiels or fall back to hardcoded defaults.
+    _spiels = [s.strip() for s in (verbatim_spiels or []) if s and s.strip()]
+    if len(_spiels) >= 2:
+        greeting_phrase = _spiels[0].lower()
+        closing_phrase = _spiels[1].lower()
+    elif len(_spiels) == 1:
+        greeting_phrase = _spiels[0].lower()
+        closing_phrase = "thank you for choosing s-net"
+    else:
+        greeting_phrase = "thank you for calling s-net"
+        closing_phrase = "thank you for choosing s-net"
+
     first_4 = " ".join(agent_lines[:4]).lower()
     last_4 = " ".join(agent_lines[-4:]).lower()
-    
-    greeting_match = "thank you for calling s-net" in first_4
-    closing_match = "thank you for choosing s-net" in last_4
+
+    greeting_match = greeting_phrase in first_4
+    closing_match = closing_phrase in last_4
 
     if greeting_match and closing_match:
         return {
@@ -113,7 +131,14 @@ def evaluate_verified_customer(turns: List[Tuple[str, str]], parsed_times: List[
 
 def evaluate_personalized_call(turns: List[Tuple[str, str]], customer_name: str) -> Dict[str, Any]:
     if not customer_name or customer_name.strip() == "":
-        return {"category": "Soft Skills", "name": "Personalized the call/ticket appropriately", "rating": "PASS", "score": 100, "coaching": ""}
+        # Customer name is unknown — cannot verify personalisation; skip rather than auto-pass.
+        return {
+            "category": "Soft Skills",
+            "name": "Personalized the call/ticket appropriately",
+            "rating": "NOT_RATED",
+            "score": 0,
+            "coaching": "Customer name not provided; personalisation could not be verified."
+        }
     
     name_lower = customer_name.lower().strip()
     for spk, txt in turns:

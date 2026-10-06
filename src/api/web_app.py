@@ -21,6 +21,7 @@ from src.api.logger import logger
 from src.services.dynamic_evaluator import preview_evaluation_prompt, evaluate_interaction
 
 app = FastAPI(title="Stateless QA Service API")
+# TODO: add JWT authentication middleware (requires coordination with the existing auth system)
 
 app.add_middleware(
     CORSMiddleware,
@@ -75,6 +76,19 @@ async def log_requests_middleware(request: Request, call_next):
     except Exception:
         req_body = req_body_bytes.decode("utf-8", errors="replace") if req_body_bytes else {}
 
+    # Redact transcript from request logs to avoid storing PII.
+    log_req_body = req_body
+    if path == "/api/evaluate" and isinstance(req_body, dict) and "transcript" in req_body:
+        import copy
+        log_req_body = copy.copy(req_body)
+        raw_tx = log_req_body["transcript"]
+        if isinstance(raw_tx, list):
+            char_count = sum(len(t.get("text", "") if isinstance(t, dict) else str(t)) for t in raw_tx)
+            tx_desc = f"[REDACTED: transcript, {len(raw_tx)} turns, {char_count} chars]"
+        else:
+            tx_desc = f"[REDACTED: transcript, {len(str(raw_tx))} chars]"
+        log_req_body["transcript"] = tx_desc
+
     logger.info({
         "timestamp": datetime.now(timezone.utc).isoformat(),
         "log_type": "INCOMING",
@@ -87,7 +101,7 @@ async def log_requests_middleware(request: Request, call_next):
             "method": method,
             "path": path,
             "query_params": query_params,
-            "body": req_body
+            "body": log_req_body
         }
     })
 
@@ -106,6 +120,15 @@ async def log_requests_middleware(request: Request, call_next):
         latency_ms = round((time.time() - start_time) * 1000, 2)
         outcome = "SUCCESS" if 200 <= response.status_code < 400 else "FAILURE"
 
+        # Redact potentially PII-containing fields from evaluate response logs.
+        log_res_body = res_body
+        if path == "/api/evaluate" and isinstance(res_body, dict):
+            import copy
+            log_res_body = copy.deepcopy(res_body)
+            result_obj = log_res_body.get("result", {})
+            if isinstance(result_obj, dict) and "summary" in result_obj:
+                result_obj["summary"] = "[REDACTED: summary]"
+
         logger.info({
             "timestamp": datetime.now(timezone.utc).isoformat(),
             "log_type": "OUTGOING",
@@ -123,7 +146,7 @@ async def log_requests_middleware(request: Request, call_next):
                 "status_code": response.status_code,
                 "outcome": outcome,
                 "latency_ms": latency_ms,
-                "body": res_body
+                "body": log_res_body
             }
         })
 
@@ -320,6 +343,8 @@ def evaluate_tenant_transcript(req: EvaluateRequest):
     tenant_id = req.get_tenant_id()
     call_id = req.get_call_id()
     criteria_data = req.criteria_data or get_active_criteria_for_evaluation(tenant_id)
+    if not req.criteria_data and not criteria_data.get("categories"):
+        raise HTTPException(status_code=400, detail=f"No criteria configured for tenant {tenant_id}")
     transcript_payload = [t.dict() for t in req.transcript] if isinstance(req.transcript, list) else req.transcript
 
     result = evaluate_interaction(

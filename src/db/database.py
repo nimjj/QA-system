@@ -4,8 +4,10 @@ import os
 import uuid
 from typing import Dict, Any, List, Optional
 import psycopg2
+import psycopg2.errors
 from psycopg2.extras import RealDictCursor
 from dotenv import load_dotenv
+from fastapi import HTTPException
 
 load_dotenv()
 
@@ -75,24 +77,27 @@ def get_all_tenants() -> List[Dict[str, Any]]:
 
 
 def create_tenant(tenant_id: str, name: str) -> Dict[str, Any]:
-    with get_connection() as conn:
-        with conn.cursor(cursor_factory=RealDictCursor) as cur:
-            cur.execute(
-                "INSERT INTO tenants (tenant_id, name) VALUES (%s, %s) RETURNING tenant_id, name;",
-                (tenant_id, name)
-            )
-            cur.execute("SELECT line_item_id FROM line_items;")
-            all_lines = cur.fetchall()
-            for row in all_lines:
+    try:
+        with get_connection() as conn:
+            with conn.cursor(cursor_factory=RealDictCursor) as cur:
                 cur.execute(
-                    """
-                    INSERT INTO tenant_lines (tenant_id, line_item_id, is_active)
-                    VALUES (%s, %s, TRUE)
-                    ON CONFLICT DO NOTHING;
-                    """,
-                    (tenant_id, row["line_item_id"])
+                    "INSERT INTO tenants (tenant_id, name) VALUES (%s, %s) RETURNING tenant_id, name;",
+                    (tenant_id, name)
                 )
-        conn.commit()
+                cur.execute("SELECT line_item_id FROM line_items;")
+                all_lines = cur.fetchall()
+                for row in all_lines:
+                    cur.execute(
+                        """
+                        INSERT INTO tenant_lines (tenant_id, line_item_id, is_active)
+                        VALUES (%s, %s, TRUE)
+                        ON CONFLICT DO NOTHING;
+                        """,
+                        (tenant_id, row["line_item_id"])
+                    )
+            conn.commit()
+    except (psycopg2.errors.UniqueViolation, psycopg2.IntegrityError):
+        raise HTTPException(status_code=409, detail="Tenant already exists")
     return {"tenant_id": tenant_id, "name": name}
 
 
@@ -133,20 +138,21 @@ def get_tenant_criteria(tenant_id: str) -> Dict[str, Any]:
     with get_connection() as conn:
         with conn.cursor(cursor_factory=RealDictCursor) as cur:
             cur.execute("""
-                SELECT 
-                    li.line_item_id, 
+                SELECT
+                    li.line_item_id,
                     c.category_id,
                     c.name as category_name,
                     c.category_weight,
-                    li.name, 
-                    li.description, 
+                    li.name,
+                    li.description,
                     li.deduction_value,
                     COALESCE(tl.is_active, TRUE) as is_active
                 FROM line_items li
                 JOIN categories c ON li.category_id = c.category_id
                 LEFT JOIN tenant_lines tl ON li.line_item_id = tl.line_item_id AND tl.tenant_id = %s
+                WHERE c.tenant_id = %s
                 ORDER BY c.name, li.name;
-            """, (tenant_id,))
+            """, (tenant_id, tenant_id))
             rows = cur.fetchall()
 
             category_map = {}
@@ -224,6 +230,7 @@ def toggle_tenant_criterion(tenant_id: str, line_item_id: str, is_active: bool) 
 
 
 def get_all_criteria() -> List[Dict[str, Any]]:
+    # ADMIN-ONLY: returns criteria across ALL tenants; never expose via a per-tenant endpoint.
     with get_connection() as conn:
         with conn.cursor(cursor_factory=RealDictCursor) as cur:
             cur.execute("""

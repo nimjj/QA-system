@@ -156,12 +156,16 @@ def evaluate_interaction(
             txt = turn.get("text", "")
             st_sec = turn.get("start_time_sec", 0)
             turns.append((spk, txt))
-            parsed_times.append((st_sec, st_sec + 10))
+            parsed_times.append((st_sec, st_sec))  # end_time fixed up below
             clean_lines.append(f"{spk}: {txt}")
             if spk.lower() == "agent":
                 agent_lines.append(txt)
             elif spk.lower() == "customer":
                 customer_lines.append(txt)
+        # Fix end times: use each next turn's start_time as the current turn's end_time.
+        # This makes inter-turn gap = next_start - current_start (correct for JSON transcripts).
+        for i in range(len(parsed_times) - 1):
+            parsed_times[i] = (parsed_times[i][0], parsed_times[i + 1][0])
     else:
      
         normalized_text = re.sub(r'(\s*)([\[\(]\s*\d{1,2}:\d{2}(?::\d{2})?\s*[\]\)])', r'\n\2', transcript_data.strip())
@@ -170,7 +174,15 @@ def evaluate_interaction(
             if not line:
                 continue
             time_match = re.match(r'^[\[\(]\s*(\d{1,2}):(\d{2})(?::(\d{2}))?\s*[\]\)]\s*', line)
-            t_sec = int(time_match.group(1)) * 60 + int(time_match.group(2)) if time_match else 0
+            if time_match:
+                if time_match.group(3) is not None:
+                    # HH:MM:SS format
+                    t_sec = int(time_match.group(1)) * 3600 + int(time_match.group(2)) * 60 + int(time_match.group(3))
+                else:
+                    # MM:SS format
+                    t_sec = int(time_match.group(1)) * 60 + int(time_match.group(2))
+            else:
+                t_sec = 0
 
             line = re.sub(r"^[\[\(]\s*\d{1,2}:\d{2}(?::\d{2})?\s*[\]\)]\s*", "", line)
             clean_lines.append(line)
@@ -206,7 +218,13 @@ def evaluate_interaction(
     rule_ratings = []
 
     if "branding and survey check" in selected_criteria:
-        rule_ratings.append(evaluate_branding(turns))
+        # Extract verbatim spiels configured for this tenant so the check is not hardcoded to "s-net".
+        branding_spiels = []
+        for _cat in categories:
+            for _item in _cat.get("line_items", []):
+                if _item.get("name", "").strip().lower() == "branding and survey check":
+                    branding_spiels = _item.get("verbatim_spiels", [])
+        rule_ratings.append(evaluate_branding(turns, verbatim_spiels=branding_spiels))
 
     if "hold time and dead air" in selected_criteria:
         rule_ratings.append(evaluate_hold_and_dead_air(turns, parsed_times))
@@ -400,7 +418,7 @@ def evaluate_interaction(
             if not r.get("coaching"):
                 r["coaching"] = "Could not be verified from the transcript."
 
-    is_auto_fail, reason = check_auto_fail(clean_transcript, [], auto_fail_rules, ratings)
+    is_auto_fail, reason = check_auto_fail(agent_only_transcript, [], auto_fail_rules, ratings)
     
     failed_items = [
         r for r in ratings
@@ -542,14 +560,20 @@ def build_dynamic_prompt(
     with open(full_path, "r", encoding="utf-8") as f:
         template = f.read()
         
-    full_prompt = template.format(
-        channel=channel,
-        auto_fail_str=auto_fail_str,
-        policies_str=policies_str,
-        criteria_str=criteria_str,
-        harsh_lines_str=harsh_lines_str,
-        transcript_text=transcript_text,
-        summary_str=summary_injection
+    # Use .replace() instead of .format() so user-controlled transcript content
+    # containing braces (e.g. JSON snippets) cannot crash or inject format fields.
+    full_prompt = (
+        template
+        .replace("{transcript_text}", transcript_text)
+        .replace("{channel}", channel)
+        .replace("{summary_str}", summary_injection)
+        .replace("{criteria_str}", criteria_str)
+        .replace("{auto_fail_str}", auto_fail_str)
+        .replace("{policies_str}", policies_str)
+        .replace("{harsh_lines_str}", harsh_lines_str)
+        # Convert escaped braces left from str.format() syntax to literal braces.
+        .replace("{{", "{")
+        .replace("}}", "}")
     )
     
     split_str = "EVALUATION LINE ITEMS TO RATE (Evaluate ONLY these items):"
