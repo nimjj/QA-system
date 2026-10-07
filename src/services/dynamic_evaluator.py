@@ -91,41 +91,6 @@ def preview_evaluation_prompt(
         "tenant_id": tenant_id
     }
 
-_SUMMARY_PROMPT_PATH = os.getenv("PROMPT_SUMMARY_PATH", "resources/prompts/summary_prompt.txt")
-_SUMMARY_LENGTH_INSTRUCTION = "Keep the summary to 2-3 concise sentences in plain prose (no bullets, no headings)."
-
-
-def generate_call_summary(
-    transcript: str,
-    scorecard: List[Dict[str, Any]],
-    final_score: float,
-    is_auto_fail: bool,
-    auto_fail_reason: Optional[str],
-) -> str:
-    """Short AI summary of the call for the QA dashboard; '' if the LLM or prompt is unavailable."""
-    try:
-        root = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-        path = _SUMMARY_PROMPT_PATH if os.path.isabs(_SUMMARY_PROMPT_PATH) else os.path.join(root, _SUMMARY_PROMPT_PATH)
-        with open(path, encoding="utf-8") as f:
-            template = f.read()
-        failed = [i["name"] for i in scorecard if i.get("rating") == "FAIL"]
-        context = f"Final QA score: {final_score}."
-        if failed:
-            context += " Failed criteria: " + ", ".join(failed) + "."
-        if is_auto_fail:
-            context += f" AUTO-FAIL: {auto_fail_reason or 'triggered'}."
-        # str.replace, not str.format: transcripts may contain braces.
-        prompt = (
-            template.replace("{length_instruction}", _SUMMARY_LENGTH_INSTRUCTION)
-            .replace("{evaluation_context}", context)
-            .replace("{transcript}", transcript)
-        )
-        return (query_llm(prompt, label="call_summary", num_predict=256, format=None) or "").strip()
-    except Exception:
-        return ""
-
-
-
 def evaluate_interaction(
     transcript_data: Union[str, List[Dict[str, Any]]],
     criteria_data: Dict[str, Any],
@@ -503,8 +468,7 @@ def evaluate_interaction(
         "category_summary": summary_list,
         "scorecard": clean_scorecard,
         "is_auto_fail": is_auto_fail,
-        "auto_fail_reason": reason,
-        "summary": generate_call_summary(clean_transcript, clean_scorecard, b_score, is_auto_fail, reason),
+        "auto_fail_reason": reason
     }
 
 def build_dynamic_prompt(
