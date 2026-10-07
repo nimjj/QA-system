@@ -92,7 +92,6 @@ Server runs at `http://localhost:8000`. Interactive docs at `http://localhost:80
     "final_score": 100.0,
     "is_auto_fail": false,
     "auto_fail_reason": null,
-    "summary": "Short AI-written summary of the call and any failed criteria (empty string if the LLM is unavailable).",
     "scorecard": [
       {
         "category": "Soft Skills",
