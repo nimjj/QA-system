@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>QA Pipeline - Laya vs Ollama</title>
+<style>
+:root {
+  --bg: #f8fafc; --panel: #ffffff; --text: #0f172a; --muted: #475569; --line: #e2e8f0;
+  --py: #dbeafe; --py-b: #2563eb; --laya: #bbf7d0; --laya-b: #16a34a;
+  --caveat: #fde68a; --caveat-b: #d97706; --keep: #fecaca; --keep-b: #dc2626;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) { --bg: #0b1220; --panel: #111a2e; --text: #e6edf7; --muted: #9fb0c8; --line: #24314d; }
+}
+:root[data-theme="dark"] { --bg: #0b1220; --panel: #111a2e; --text: #e6edf7; --muted: #9fb0c8; --line: #24314d; }
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--text); font: 15px/1.5 system-ui, -apple-system, "Segoe UI", sans-serif; }
+main { max-width: 1400px; margin: 0 auto; padding: 24px 16px 48px; }
+h1 { font-size: 24px; margin: 0 0 4px; }
+h2 { font-size: 18px; margin: 32px 0 12px; }
+p.sub { margin: 0 0 20px; color: var(--muted); }
+.legend { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 16px; }
+.tag { display: inline-block; padding: 2px 10px; border-radius: 6px; border: 2px solid; font-weight: 600; font-size: 13px; color: #0f172a; white-space: nowrap; }
+.tag.laya { background: var(--laya); border-color: var(--laya-b); }
+.tag.caveat { background: var(--caveat); border-color: var(--caveat-b); }
+.tag.keep { background: var(--keep); border-color: var(--keep-b); }
+.tag.no { background: var(--py); border-color: var(--py-b); }
+.tag.drop { background: #e2e8f0; border-color: #64748b; }
+.tag.new { background: #f0fdf4; border: 2px dashed var(--laya-b); }
+.legend span.d { color: var(--muted); font-size: 13px; align-self: center; }
+.card { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 12px; overflow: auto; }
+#chart svg { max-width: none; height: auto; min-width: 1100px; }
+.summary { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 12px; margin-top: 16px; }
+.summary .card { padding: 14px 16px; }
+.summary b { display: block; margin-bottom: 4px; }
+table { width: 100%; border-collapse: collapse; }
+th, td { text-align: left; padding: 8px 10px; border-bottom: 1px solid var(--line); vertical-align: top; }
+th { font-size: 13px; color: var(--muted); font-weight: 600; }
+@media (max-width: 700px) { td:nth-child(3), th:nth-child(3) { display: none; } }
+.err { color: var(--keep-b); padding: 12px; }
+</style>
+</head>
+<body>
+<main>
+  <h1>QA pipeline: what Laya can replace</h1>
+  <p class="sub">Historical, pre-migration analysis of the Ollama pipeline. The switch to Laya is done; see README.md for the current pipeline.</p>
+
+  <div class="legend">
+    <span class="tag laya">LAYA</span><span class="d">replace with Laya</span>
+    <span class="tag caveat">LAYA*</span><span class="d">Laya, with a length / aggregation caveat</span>
+    <span class="tag keep">KEEP</span><span class="d">cannot be replaced (text generation or embeddings)</span>
+    <span class="tag no">NO LLM</span><span class="d">already plain Python</span>
+    <span class="tag new">NEW</span><span class="d">component to add</span>
+  </div>
+
+  <div class="card" id="chart"><span class="d">Loading diagram...</span></div>
+
+  <div class="summary">
+    <div class="card"><b>Moves to Laya</b>4 snippet verifications, Probing and the whole batch path (B1/B2/B3). That is 5 one-word calls plus up to 3 JSON calls, each retried up to 3 times.</div>
+    <div class="card"><b>Stays on Ollama</b>1 coaching call, plus embeddings for Paraphrasing and the Active-listening gate. Ollama cannot be removed entirely.</div>
+    <div class="card"><b>Before switching</b>Every noul question needs explicit true/false criteria, thresholds need tuning on labelled calls, and truncation must be checked.</div>
+  </div>
+
+  <h2>Stage decisions</h2>
+  <div class="card">
+    <table>
+      <thead><tr><th>Stage</th><th>Verdict</th><th>Why</th></tr></thead>
+      <tbody>
+<tr><td>Parse, Branding, Dead air, Verified customer, Personalized</td><td><span class="tag no">NO LLM</span></td><td>Plain Python / regex today. Nothing to replace.</td></tr>
+<tr><td>Empathy / Ownership / Rapport searchlights</td><td><span class="tag no">NO LLM</span></td><td>Sentiment thresholds and phrase lists. Keep as the cheap gate in front of Laya.</td></tr>
+<tr><td>Verify empathy (5-turn snippet)</td><td><span class="tag laya">LAYA</span></td><td>Binary question over a short snippet; fits the 512-token window.</td></tr>
+<tr><td>Verify repeated question</td><td><span class="tag laya">LAYA</span></td><td>Binary question over a two-question snippet.</td></tr>
+<tr><td>Verify deflection (Ownership)</td><td><span class="tag laya">LAYA</span></td><td>Binary question over the matched agent lines.</td></tr>
+<tr><td>Verify rudeness (Rapport)</td><td><span class="tag laya">LAYA</span></td><td>Binary question over the matched agent lines.</td></tr>
+<tr><td>Probing</td><td><span class="tag caveat">LAYA*</span></td><td>Binary, but problem + all agent questions can exceed 512 tokens. Use multilingual (1024) or trim.</td></tr>
+<tr><td>Batch B1 / B2 (custom criteria, Confirmed resolved)</td><td><span class="tag laya">LAYA</span></td><td>Each criterion is PASS/FAIL. N noul questions in one pass; the NOT_RATED retry loop goes away.</td></tr>
+<tr><td>Batch B3 (Escalation / Hostility)</td><td><span class="tag caveat">LAYA*</span></td><td>Full transcript needs predict_long or max_len=8192; strongest-window probability drifts upward, so calibrate.</td></tr>
+<tr><td>Active-listening gate</td><td><span class="tag keep">KEEP</span></td><td>Needs embeddings (nomic-embed-text). Laya cannot produce embeddings.</td></tr>
+<tr><td>Paraphrasing</td><td><span class="tag keep">KEEP</span></td><td>Embedding cosine similarity, not a language-model verdict.</td></tr>
+<tr><td>Coaching tips</td><td><span class="tag keep">KEEP</span></td><td>Free-text sentences shown to users. Laya never generates text.</td></tr>
+<tr><td>Evidence quote in batch prompt</td><td><span class="tag drop">DROP</span></td><td>Requested but never read; Laya cannot produce it and nothing needs it.</td></tr>
+      </tbody>
+    </table>
+  </div>
+</main>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mermaid/10.9.1/mermaid.min.js"></script>
+<script>
+const SRC = String.raw`flowchart TD
+    classDef py fill:#dbeafe,stroke:#2563eb,stroke-width:2px,color:#0f172a
+    classDef laya fill:#bbf7d0,stroke:#16a34a,stroke-width:3px,color:#0f172a
+    classDef caveat fill:#fde68a,stroke:#d97706,stroke-width:3px,color:#0f172a
+    classDef keep fill:#fecaca,stroke:#dc2626,stroke-width:3px,color:#0f172a
+    classDef new fill:#f0fdf4,stroke:#16a34a,stroke-width:2px,stroke-dasharray:6 4,color:#0f172a
+
+    IN["<b>INPUT</b> · POST /api/evaluate<br/>turns + sentiment_score + customer_name<br/>+ active criteria from DB"]:::py
+    IN --> PARSE["<b>[NO LLM] Parse transcript</b><br/>turns · agent / customer lines<br/>first-10 slices · agent-only text"]:::py
+
+    NEW["<b>[NEW] laya_adapter</b><br/>ask(text, question, polarity, threshold)<br/>returns PASS/FAIL + P(yes)<br/>every noul question carries explicit true/false criteria"]:::new
+
+    subgraph S1["STAGE 1 · Deterministic rules — no LLM today"]
+        direction LR
+        R1["<b>[NO LLM]</b> Branding and Survey<br/>substring match"]:::py
+        R2["<b>[NO LLM]</b> Hold time and Dead Air<br/>gap over 30s, 2 or more = FAIL"]:::py
+        R3["<b>[NO LLM]</b> Verified customer<br/>regex PIN / address within 240s"]:::py
+        R4["<b>[NO LLM]</b> Personalized call<br/>customer name in agent line"]:::py
+    end
+
+    subgraph S2["STAGE 2 · Snippet-gated checks — Python finds the snippet, an LLM judges it"]
+        direction LR
+        E1["<b>[NO LLM]</b> Empathy searchlight<br/>sentiment ≤ -15 or drop ≥ 8<br/>no apology in next 3 turns"]:::py
+        E2["<b>[LAYA]</b> Verify empathy<br/>5-turn snippet · Ollama one word today"]:::laya
+        A1["<b>[KEEP]</b> Active-listening gate<br/>difflib over 0.60 + embedding cosine over 0.70<br/>nomic-embed-text"]:::keep
+        A2["<b>[LAYA]</b> Verify repeated question<br/>Ollama one word today"]:::laya
+        O1["<b>[NO LLM]</b> Ownership filter<br/>28 deflection phrases"]:::py
+        O2["<b>[LAYA]</b> Verify deflection<br/>Ollama one word today"]:::laya
+        P1["<b>[NO LLM]</b> Rapport filter<br/>26 rude phrases"]:::py
+        P2["<b>[LAYA]</b> Verify rudeness<br/>Ollama one word today"]:::laya
+        E1 -->|snippet found| E2
+        A1 -->|pair found| A2
+        O1 -->|phrase hit| O2
+        P1 -->|phrase hit| P2
+    end
+
+    subgraph S3["STAGE 3 · Context checks"]
+        direction LR
+        C1["<b>[KEEP]</b> Paraphrasing<br/>embedding cosine ≥ 0.50<br/>first 10 customer vs first 10 agent lines"]:::keep
+        C2["<b>[LAYA*]</b> Probing<br/>no agent question = auto FAIL<br/>else problem + questions, Ollama one word today<br/>input may pass 512 tokens"]:::caveat
+    end
+
+    subgraph S4["STAGE 4 · Criteria batches — route remaining criteria by name"]
+        direction LR
+        B1["<b>[LAYA]</b> B1 · agent-only transcript<br/>custom tenant criteria<br/>empty with the default 11 items"]:::laya
+        B2["<b>[LAYA]</b> B2 · last 30% of lines<br/>Confirmed the issue is resolved"]:::laya
+        B3["<b>[LAYA*]</b> B3 · full transcript<br/>Escalation / Hostility, only if tenant adds them<br/>needs windowed predict_long"]:::caveat
+    end
+
+    PARSE --> S1 --> S2 --> S3 --> S4
+
+    S2 -.->|asks Laya| NEW
+    S3 -.->|asks Laya| NEW
+    S4 -.->|asks Laya| NEW
+
+    S4 --> POST["<b>[NO LLM] Merge ratings</b><br/>NOT_RATED becomes FAIL · deduction override<br/>profanity auto-fail: substring list on full transcript"]:::py
+    POST --> COACH["<b>[KEEP] Coaching tips</b><br/>one batched free-text JSON call for all failed items<br/>user-facing text · stays on Ollama llama3.1"]:::keep
+    COACH --> SCORE["<b>[NO LLM] Category scores · weights</b><br/>final scorecard JSON"]:::py`;
+const host = document.getElementById('chart');
+const mq = window.matchMedia('(prefers-color-scheme: dark)');
+let n = 0;
+function draw() {
+  try {
+    mermaid.initialize({ startOnLoad: false, theme: mq.matches ? 'dark' : 'default', securityLevel: 'loose',
+      flowchart: { htmlLabels: true, curve: 'basis', useMaxWidth: false, nodeSpacing: 30, rankSpacing: 50 } });
+    mermaid.render('g' + (n++), SRC).then(function (r) { host.innerHTML = r.svg; })
+      .catch(function (e) { host.innerHTML = '<div class="err">Diagram failed to render: ' + String(e) + '</div>'; });
+  } catch (e) {
+    host.innerHTML = '<div class="err">Diagram failed to render: ' + String(e) + '</div>';
+  }
+}
+if (window.mermaid) { draw(); mq.addEventListener('change', draw); }
+else { host.innerHTML = '<div class="err">Could not load Mermaid from cdnjs (offline?). The diagram source is in PIPELINE_FLOWCHART_LAYA.md.</div>'; }
+</script>
+</body>
+</html>

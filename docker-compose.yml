@@ -1,13 +1,17 @@
 version: '3.8'
 
 services:
-  ollama:
-    image: ollama/ollama:latest
-    container_name: qa_ollama
+  postgres:
+    image: postgres:15
+    container_name: qa_postgres
+    environment:
+      - POSTGRES_DB=ciap
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=your-password
     ports:
-      - "11434:11434"
+      - "5432:5432"
     volumes:
-      - ./ollama_cache:/root/.ollama
+      - postgres_data:/var/lib/postgresql/data
     restart: unless-stopped
 
   qa-service:
@@ -18,13 +22,17 @@ services:
     ports:
       - "8006:8006"
     depends_on:
-      - ollama
+      - postgres
     extra_hosts:
       - "host.docker.internal:host-gateway"
     env_file:
       - .env
     environment:
-      - OLLAMA_HOST=http://qa_ollama:11434
+      - DB_HOST=postgres
+      - DB_PORT=5432
+      - DB_NAME=ciap
+      - DB_USER=postgres
+      - DB_PASSWORD=your-password
     volumes:
       - ./logs:/app/logs
       - ./inputs:/app/inputs
@@ -46,3 +54,20 @@ services:
     environment:
       - APP_URL=http://qa_service:8006
     restart: unless-stopped
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: qa_frontend
+    ports:
+      - "5173:5173"
+    depends_on:
+      - gateway
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    restart: unless-stopped
+
+volumes:
+  postgres_data:

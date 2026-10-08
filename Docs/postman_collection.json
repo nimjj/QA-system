@@ -27,54 +27,15 @@
             "header": [],
             "url": {
               "raw": "{{baseUrl}}/api/samples",
-              "host": ["{{baseUrl}}"],
-              "path": ["api", "samples"]
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "samples"
+              ]
             },
             "description": "Lists all available pre-recorded evaluation sample JSON files stored in the server's inputs directory."
-          }
-        },
-        {
-          "name": "Preview Built Prompt (Default Criteria)",
-          "request": {
-            "method": "POST",
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"tenant_id\": \"{{tenantId}}\",\n  \"channel\": \"Call\",\n  \"transcript\": \"[00:00] Agent: Thank you for calling S-Net. My name is Alex. How can I help you today?\\n[00:05] Client: My internet is not working.\\n[00:08] Agent: I can help with that. Could I verify your PIN and billing address?\\n[00:15] Client: Sure, PIN 1234, 456 Elm Street.\\n[00:20] Agent: Thank you. Let me check your router connection.\\n[00:30] Agent: I have reset your port, please check now.\\n[00:35] Client: Yes, the internet is working now! Thanks Alex!\\n[00:40] Agent: Thank you for choosing S-Net, have a wonderful day!\"\n}"
-            },
-            "url": {
-              "raw": "{{baseUrl}}/api/preview-prompt",
-              "host": ["{{baseUrl}}"],
-              "path": ["api", "preview-prompt"]
-            },
-            "description": "Constructs and previews the exact dynamic LLM scorecard prompt without executing evaluation, using the tenant's default criteria configuration."
-          }
-        },
-        {
-          "name": "Preview Built Prompt (Custom Criteria)",
-          "request": {
-            "method": "POST",
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"tenant_id\": \"{{tenantId}}\",\n  \"channel\": \"Call\",\n  \"transcript\": \"[00:00] Agent: Hello, how can I assist?\\n[00:05] Client: I have a billing question.\",\n  \"criteria_data\": {\n    \"category_weights\": {\n      \"Soft Skills\": 0.5,\n      \"Technical Knowledge\": 0.5\n    },\n    \"categories\": [\n      {\n        \"name\": \"Soft Skills\",\n        \"line_items\": [\n          {\n            \"name\": \"Hold time and Dead Air\",\n            \"deduction_value\": 15\n          },\n          {\n            \"name\": \"Build rapport and observed professionalism\",\n            \"deduction_value\": 20\n          }\n        ]\n      }\n    ]\n  }\n}"
-            },
-            "url": {
-              "raw": "{{baseUrl}}/api/preview-prompt",
-              "host": ["{{baseUrl}}"],
-              "path": ["api", "preview-prompt"]
-            },
-            "description": "Previews the prompt using custom criteria explicitly provided in the request body."
           }
         }
       ]
@@ -98,8 +59,13 @@
             },
             "url": {
               "raw": "{{baseUrl}}/api/evaluate",
-              "host": ["{{baseUrl}}"],
-              "path": ["api", "evaluate"]
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "evaluate"
+              ]
             },
             "description": "Evaluates a call transcript against default tenant criteria defined in criteria_config.json. Fallback loads all 11 standard criteria."
           }
@@ -120,8 +86,13 @@
             },
             "url": {
               "raw": "{{baseUrl}}/api/evaluate",
-              "host": ["{{baseUrl}}"],
-              "path": ["api", "evaluate"]
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "evaluate"
+              ]
             },
             "description": "Evaluates with 3 omitted criteria ('Branding and Survey Check', 'Verified customer', and 'Paraphrasing'). Demonstrates dynamic criteria selection and dynamic category weight normalization."
           }
@@ -142,8 +113,13 @@
             },
             "url": {
               "raw": "{{baseUrl}}/api/evaluate",
-              "host": ["{{baseUrl}}"],
-              "path": ["api", "evaluate"]
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "evaluate"
+              ]
             },
             "description": "Evaluates an interaction passed as an array of Turn objects with start_time_sec and sentiment_score."
           }

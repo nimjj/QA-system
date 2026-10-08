@@ -152,18 +152,8 @@ Content-Type: application/json
 }
 
 ### --------------------------------------------------------------------
-### 6. PROMPT PREVIEW & SAMPLES
+### 6. SAMPLES
 ### --------------------------------------------------------------------
-
-### Preview Evaluation Prompt
-POST {{baseUrl}}/api/preview-prompt
-Content-Type: application/json
-
-{
-  "tenantId": "tenant-abc",
-  "channel": "Call",
-  "transcript": "[00:00] Agent: Hello.\n[00:05] Client: I need assistance."
-}
 
 ### List Available Sample Inputs
 GET {{baseUrl}}/api/samples

@@ -1,126 +1,104 @@
 # System Architecture & Technical Specifications
 
-This document provides a comprehensive technical specification of the **Automated QA Analysis System**. It details the end-to-end execution lifecycle, dynamic multi-tenant criteria selection, deterministic rule algorithms, local LLM integration, and mathematical scoring normalization.
+This document specifies the **Automated QA Analysis System**: the evaluation lifecycle, dynamic multi-tenant criteria selection, the deterministic rules, the Laya decision engine, and score normalization.
 
 ---
 
 ## 1. Master Pipeline Architecture
 
-The system evaluates customer support interactions using a **Hybrid Deterministic + Local LLM Architecture**. By offloading exact mathematical SLA calculations and verbatim checks to Python rules and vector similarity, the system minimizes local LLM inference latency, saves tokens, and eliminates hallucinations.
+The system grades customer support interactions with a **hybrid of deterministic Python rules and the Laya decision engine**. Exact checks (scripts, timing, identity verification, profanity) run in plain Python. Judgement calls (empathy, rudeness, deflection, probing and so on) are yes/no questions answered by Laya.
 
-![Pipeline Architecture Flow](flow.png)
+Laya (`../laya-test/laya`) is a local, non-generative classifier. It returns a yes-probability per question in one forward pass and cannot write text. That is why every model input is kept short and pre-filtered, and why coaching tips are static text.
+
+```mermaid
+flowchart TD
+    IN["POST /api/evaluate<br/>transcript + sentiment_score per turn + criteria"] --> PARSE["Parse turns<br/>agent / customer lines"]
+    PARSE --> RULES["Python rules (no model)<br/>Branding · Dead air · Verified customer · Personalized call"]
+    PARSE --> GATES["Python pre-filters pick a short snippet<br/>sentiment drop · phrase lists · similar questions"]
+    GATES --> LAYA1["Laya yes/no per check<br/>Empathy (top 2 snippets) · Active listening · Ownership · Rapport · Probing"]
+    PARSE --> PARA["Laya yes/no: Paraphrasing<br/>customer opening ≤50 words + first agent lines ≤150 words"]
+    PARSE --> BATCH["Laya batches: one call, one question per item<br/>last 10 lines (Resolved) · agent-only text · full call"]
+    RULES --> MERGE["Merge ratings · deductions · profanity auto-fail"]
+    LAYA1 --> MERGE
+    PARA --> MERGE
+    BATCH --> MERGE
+    MERGE --> SCORE["Category scores · weight normalization<br/>static PASS descriptions / FAIL coaching"]
+```
 
 ---
 
 ## 2. Dynamic Multi-Tenant Criteria Engine
 
 ### 2.1 Dynamic Criteria Selection (`selected_criteria`)
-In traditional engines, all criteria are statically evaluated. If a tenant or request omits a criterion, a static engine might evaluate it anyway and unfairly deduct marks.
-
-In this system:
-1. All line items inside the tenant's categories are extracted into a normalized lowercase Python `set`:
-   ```python
-   selected_criteria = {
-       item.get("name", "").strip().lower()
-       for cat in categories
-       for item in cat.get("line_items", [])
-   }
-   ```
-2. Each rule evaluation runs **if and only if** its identifier exists in `selected_criteria`:
-   ```python
-   if "branding and survey check" in selected_criteria:
-       rule_ratings.append(evaluate_branding(turns))
-
-   if "hold time and dead air" in selected_criteria:
-       rule_ratings.append(evaluate_hold_and_dead_air(turns, parsed_times))
-
-   if "verified customer" in selected_criteria:
-       rule_ratings.append(evaluate_verified_customer(turns, parsed_times))
-   ```
-3. **Benefit:** Unselected criteria are skipped entirely. No LLM tokens are consumed, execution latency drops, and agents receive zero unfair deductions.
-
----
-
-### 2.2 Dynamic Category Weight Normalization (`calculate_category_scores`)
-When a tenant disables or omits one or more categories, the remaining configured weights may not sum to $1.0$ ($100\%$). Without normalization, an agent who passes every evaluated criterion would be unfairly capped at a lower score (e.g., $70/100$).
-
-#### Mathematical Re-Balancing Formula:
-For the subset of evaluated categories $C_1, C_2, \dots, C_k$ with configured base weights $w_i$:
-
-1. Compute Total Active Weight:
-   $$W_{\text{active}} = \sum_{i=1}^{k} w_i$$
-
-2. Calculate Normalized Weights:
-   $$w_i' = \frac{w_i}{W_{\text{active}}}$$
-
-3. Compute Re-Balanced Final Score:
-   $$\text{Final Score} = \sum_{i=1}^{k} \left( \text{Score}_{C_i} \times w_i' \right)$$
-
-This guarantees that evaluated categories scale proportionally and the final score is always normalized to $100.0\%$.
-
----
-
-### 2.3 Rule-Based Distinct Pass Descriptions Injection
-When an item passes, LLMs should not be invoked merely to explain why it passed (which wastes tokens and adds seconds of latency). Conversely, returning an empty coaching string (`"coaching": ""`) degrades the UI audit trail.
-
-The engine maintains a pre-compiled mapping:
+All line items inside the tenant's categories are extracted into a normalized lowercase Python `set`:
 ```python
-RULE_BASED_PASS_DESCRIPTIONS = {
-    "branding and survey check": "Agent successfully used required opening and closing branding scripts.",
-    "hold time and dead air": "Agent maintained active communication without excessive dead air (>30s).",
-    "personalized the call/ticket appropriately": "Agent addressed customer by their verified name during the interaction.",
-    "empathy & acknowledgment statement": "Agent demonstrated appropriate empathy and acknowledgment of the customer's situation.",
-    "build rapport and observed professionalism": "Agent maintained a professional, courteous, and respectful demeanor throughout.",
-    "paraphrasing": "Agent accurately acknowledged and mirrored the customer's reported issue.",
-    "verified customer": "Agent verified customer identity within the required time window.",
-    "probing": "Agent asked effective diagnostic questions to investigate the root cause.",
-    "took ownership of the problem": "Agent demonstrated clear ownership without deflecting or blaming other departments.",
-    "active listening": "Agent practiced active listening without repetitive or redundant questions.",
-    "confirmed the issue is resolved": "Agent explicitly confirmed that the issue was resolved before closing."
+selected_criteria = {
+    item.get("name", "").strip().lower()
+    for cat in categories
+    for item in cat.get("line_items", [])
 }
 ```
-During final scorecard construction, if `rating == "PASS"`, the distinct description is injected automatically at **0 LLM token cost**.
+Each check runs **if and only if** its name exists in `selected_criteria`:
+```python
+if "branding and survey check" in selected_criteria:
+    rule_ratings.append(evaluate_branding(turns))
+```
+Unselected criteria are skipped entirely: no model calls and no deductions.
+
+Built-in checks are matched by **exact name**, so renaming a built-in item in the database moves it to the generic batch path. Any other active item is rated by Laya in a batch using a question built from its name and description. A description starting with `VIOLATION-BASED` is asked as "did the agent violate this?"; anything else is asked as "did the agent do this?".
+
+### 2.2 Dynamic Category Weight Normalization (`calculate_category_scores`)
+When a tenant disables or omits categories, the remaining weights are re-balanced so a perfect call still scores 100.
+
+For the evaluated categories $C_1, \dots, C_k$ with base weights $w_i$:
+
+$$W_{\text{active}} = \sum_{i=1}^{k} w_i \qquad w_i' = \frac{w_i}{W_{\text{active}}} \qquad \text{Final Score} = \sum_{i=1}^{k} \left( \text{Score}_{C_i} \times w_i' \right)$$
+
+Each category starts at 100 and loses each failed item's `deduction_value` (floor 0).
+
+### 2.3 Static PASS descriptions and FAIL coaching
+Laya cannot generate text, so the scorecard text is static:
+* **PASS:** `RULE_BASED_PASS_DESCRIPTIONS` in `dynamic_evaluator.py`.
+* **FAIL:** each check's own message (for example "Agent used rude or condescending language."), then `RULE_BASED_FAIL_COACHING` for batch-rated items, then a generic "Criteria standard for '…' was not met."
 
 ---
 
-## 3. The 11 QA Evaluation Criteria Breakdown
+## 3. The 11 QA Evaluation Criteria
 
 ### Category 1: Soft Skills (Default Weight: 33.3%)
-1. **Branding and Survey Check (`evaluate_branding`):**
-   * *Deterministic Rule:* Checks first 4 agent turns for `"thank you for calling s-net"` AND last 4 turns for `"thank you for choosing s-net"`.
-2. **Hold time and Dead Air (`evaluate_hold_and_dead_air`):**
-   * *Deterministic Rule:* Scans turn timestamp gaps. Gaps $>30\text{s}$ are flagged. Up to 2 communicated holds tolerated; $\ge 3$ gaps triggers FAIL.
-3. **Personalized the call/ticket appropriately (`evaluate_personalized_call`):**
-   * *Deterministic Rule:* Checks if caller/customer name is spoken by agent during interaction.
-4. **Empathy & Acknowledgment Statement (Snippet LLM):**
-   * *Hybrid:* Tracks customer turn sentiment scores. If negative friction occurs, extracts the 4-turn snippet and prompts Llama for a 1-word (`PASS`/`FAIL`) verdict.
-5. **Build rapport and observed professionalism (Searchlight LLM):**
-   * *Violation-Based:* Scans agent lines for rude/condescending patterns (`"read the manual"`, `"calm down"`). If detected, LLM confirms violation; otherwise defaults to PASS.
+1. **Branding and Survey Check** (`evaluate_branding`, rule): `"thank you for calling s-net"` in the first 4 agent turns and `"thank you for choosing s-net"` in the last 4.
+2. **Hold time and Dead Air** (`evaluate_hold_and_dead_air`, rule): gaps over 30 s between turns; **2 or more** such gaps fail.
+3. **Personalized the call/ticket appropriately** (`evaluate_personalized_call`, rule): the request's `customer_name` appears in an agent line.
+4. **Empathy & Acknowledgment Statement** (Laya):
+   * A snippet is taken when a customer turn's `sentiment_score` is ≤ -15 or drops ≥ 8 versus any of the previous 3 turns.
+   * It is skipped if the agent apologises within 3 turns. Each snippet is the customer turn plus the next 4 turns.
+   * Only the **2 most severe, non-overlapping** snippets are checked, one Laya call each. One FAIL fails the item.
+5. **Build rapport and observed professionalism** (Laya, violation-based): agent lines containing a rude phrase (`"calm down"`, `"read the manual"` …) are sent to Laya. No hit means PASS.
 
 ### Category 2: Technical Knowledge (Default Weight: 66.7%)
-6. **Paraphrasing (Vector Engine):**
-   * *Vector Embedding:* Compares embeddings (`nomic-embed-text`) of first 10 customer turns against first 10 agent turns. Cosine similarity $\ge 0.50 \implies \text{PASS}$.
-7. **Verified customer (`evaluate_verified_customer`):**
-   * *Deterministic Rule:* Scans first 4 minutes ($240\text{s}$) for verification credentials (`PIN`, `address`, `security question`).
-8. **Probing (Contextual LLM):**
-   * *Hybrid:* Extracts all agent questions and evaluates against the customer's problem context. Verifies at least 1 genuine diagnostic question was asked.
-9. **Took ownership of the problem (Searchlight LLM):**
-   * *Violation-Based:* Deterministically scans for deflection keywords (`"not my department"`, `"call someone else"`). LLM verifies flagged snippets.
-10. **Active listening (Hybrid Snippet LLM):**
-    * Detects repetitive questions via embedding similarity. LLM confirms if agent repeated questions unnecessarily.
-11. **Confirmed the issue is resolved (Sliced LLM):**
-    * Evaluates the last 30% of the transcript turns to confirm explicit resolution prior to call wrap-up.
+6. **Paraphrasing** (Laya): the customer's opening (≤ 50 words) and the first 10 agent lines (≤ 150 words) are sent with the question "does the agent restate the customer's problem?". This criterion is new on Laya and not yet calibrated.
+7. **Verified customer** (`evaluate_verified_customer`, rule): `\b(pin|address|security question)\b` in an agent line within the first 240 s.
+8. **Probing** (Laya):
+   * No agent questions at all means FAIL without a model call.
+   * Otherwise greeting, identity-check, confirmation and wrap-up questions are dropped. The remaining questions (≤ 100 words) plus the customer problem (≤ 50 words) go to Laya.
+9. **Took ownership of the problem** (Laya, violation-based): agent lines containing a deflection phrase (`"not my department"`, `"call back"` …) are sent to Laya. No hit means PASS.
+10. **Active listening** (Laya): pairs of agent questions with a `difflib` similarity above 0.70 are sent to Laya as possible repeats.
+11. **Confirmed the issue is resolved** (Laya batch): the **last 10 lines** of the call.
+
+Escalation, Hostility and custom criteria (if a tenant adds them) are rated in Laya batches. Escalation and Hostility use the full call, which goes through Laya's windowed `predict_long` when it is longer than one window.
+
+### Thresholds
+Each Laya check has a `pass_threshold` in `LAYA_CHECKS` (`dynamic_evaluator.py`). The values come from a synthetic out-of-the-box test (`../laya-test/qa_eval/RESULTS.md`). Checks on the full-length sample calls show several do **not** transfer yet: Confirmed-resolved fails almost every call, Rapport is inverted, and Paraphrasing doesn't separate. Treat them as starting values to re-tune on human-reviewed calls.
 
 ### Category 3: Auto-Fail Circuit Breakers
-* **Profanity & Abuse:** Blacklisted profanities (`"fuck"`, `"shut up"`, `"idiot"`, etc.) trigger immediate 0 score.
-* **Extreme Hostility:** 3 or more flagged harsh lines trigger immediate 0 score.
-* **Scorecard Circuit Breaker:** Any Auto-Fail item rated FAIL triggers immediate 0 score with reason.
+* **Profanity & abuse:** a fixed word list (`"fuck"`, `"shut up"`, `"idiot"`, …) anywhere in the transcript forces a score of 0.
+* **Scorecard circuit breaker:** any item in a category whose name contains "AUTO FAIL" that is rated FAIL forces a score of 0.
 
 ---
 
 ## 4. Database Schema Roadmap (Multi-Tenant Architecture)
 
-To enable tenant admins to toggle criteria ON/OFF via a Web UI without sending JSON criteria in API requests, the system is designed to integrate with the following relational schema:
+The live tables are `tenants`, `categories`, `line_items` and `tenant_lines` (per-tenant `is_active` toggle) in `src/db/database.py`. The roadmap below adds evaluation history and a `rule_code` so built-in rules no longer depend on display names.
 
 ```mermaid
 erDiagram
@@ -176,26 +154,23 @@ erDiagram
     }
 ```
 
-* **`is_active` in `LINE_ITEMS`:** Allows tenant admins to toggle individual criteria ON or OFF.
-* **`rule_code` in `LINE_ITEMS`:** Decouples user-customizable display names from the underlying Python rule functions (`BRANDING`, `DEAD_AIR`, `VERIFICATION`, etc.), preventing code breaks when criteria names are edited.
-
 ---
 
 ## 5. Codebase Map & Module Reference
 
 | File Path | Description |
 |---|---|
-| `main.py` | Application entry point and server bootstrap launcher (QA Service :8006). |
-| `run_gateway.py` | Root launcher for the API Gateway (port 8005). |
-| `src/gateway/gateway_app.py` | API Gateway reverse proxy with direct fast-path PostgreSQL routes for criteria fetch & toggle. |
-| `src/api/web_app.py` | FastAPI application exposing `/api/evaluate`, `/api/preview-prompt`, criteria CRUD, and samples. |
-| `src/db/database.py` | PostgreSQL data layer for tenants, categories, line items, and tenant toggle states. |
-| `src/api/logger.py` | Structured JSON logger capturing request correlation IDs, client IPs, latencies, and responses. |
-| `src/services/dynamic_evaluator.py` | Core evaluation orchestrator: dynamic criteria filtering, hybrid pipeline execution, scoring normalization, and pass description injection. |
-| `src/services/rule_engine.py` | Deterministic Python functions for verbatim branding, dead air, verification, and snippet searchlights. |
-| `src/services/llm_adapter.py` | Singleton Ollama adapter (`_adapter`) managing chat generation, embedding vector queries, and retries. |
-| `resources/criteria_config.json` | Default tenant criteria configurations, deduction values, and category weights. |
-| `resources/prompts/` | Prompt templates for dynamic evaluation, coaching tips, and suggestions. |
-| `Scripts/batch_test.py` | Automated batch test runner evaluating sample transcripts against `/api/evaluate`. |
-| `Docs/DEPLOYMENT_PLAN.md` | Complete Docker container deployment, startup, and testing guide. |
-| `Docs/postman_collection.json` | Exported Postman API collection for testing endpoints and dynamic criteria payloads. |
+| `main.py` | QA service launcher (port 8006). Loads `.env`. |
+| `run_gateway.py` | API Gateway launcher (port 8005). |
+| `src/api/web_app.py` | FastAPI app: `/api/evaluate`, criteria/tenant CRUD, samples. |
+| `src/api/logger.py` | Structured JSON request logger. |
+| `src/gateway/gateway_app.py` | Gateway reverse proxy plus direct PostgreSQL routes for criteria fetch and toggle. |
+| `src/db/database.py` | PostgreSQL data layer (tenants, categories, line items, toggles). |
+| `src/services/dynamic_evaluator.py` | Orchestrator: criteria selection, input caps, Laya questions and thresholds, batches, scoring, static coaching. |
+| `src/services/rule_engine.py` | Deterministic rules and snippet pre-filters (empathy, ownership, rapport, active listening, probing inputs). |
+| `src/services/laya_adapter.py` | Loads the Laya `Router` once and exposes `predict_yes()`. |
+| `resources/criteria_config.json` | Reference criteria for tenant-abc (also used by the check script). |
+| `Scripts/check_prompt_sizes.py` | Verifies input sizes and scorecards over all sample calls (`--live` runs real Laya). |
+| `Scripts/batch_test.py` | Posts every `inputs/*.json` to `/api/evaluate` and saves results. |
+| `Docs/PIPELINE_FLOWCHART_LAYA.md` | Pre-migration analysis of what Laya could replace. |
+| `Docs/postman_collection.json` | Postman collection for the API. |

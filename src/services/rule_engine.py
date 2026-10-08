@@ -1,6 +1,5 @@
 import difflib
 import re
-import math
 from typing import List, Tuple, Dict, Any
 
 def evaluate_branding(turns: List[Tuple[str, str]]) -> Dict[str, Any]:
@@ -129,59 +128,90 @@ def evaluate_personalized_call(turns: List[Tuple[str, str]], customer_name: str)
         "coaching": f"Agent failed to use the customer's verified name '{customer_name}' during the call."
     }
 
-def extract_active_listening_snippets(turns: List[Tuple[str, str]]) -> str:
-    from src.services.llm_adapter import get_embedding
-    def cos_sim(v1, v2):
-        if not v1 or not v2: return 0.0
-        dot = sum(a*b for a, b in zip(v1, v2))
-        return dot / (math.sqrt(sum(a*a for a in v1)) * math.sqrt(sum(b*b for b in v2)) or 1)
+# Two agent questions at least this similar (difflib ratio) are sent to the model as a possible repeat
+AL_SIMILARITY_THRESHOLD = 0.70
 
+def extract_active_listening_snippets(turns: List[Tuple[str, str]]) -> str:
     agent_questions = [(i, txt) for i, (spk, txt) in enumerate(turns) if spk.lower() == 'agent' and '?' in txt]
     snippets = []
     for idx1, (i1, q1) in enumerate(agent_questions):
         for idx2 in range(idx1 + 1, len(agent_questions)):
             i2, q2 = agent_questions[idx2]
-            if difflib.SequenceMatcher(None, q1.lower(), q2.lower()).ratio() > 0.60:
-                e1 = get_embedding(q1)
-                e2 = get_embedding(q2)
-                if cos_sim(e1, e2) > 0.70:
-                    snippets.append(f"Turn {i1}: {q1}\n... Turn {i2}: {q2}")
+            if difflib.SequenceMatcher(None, q1.lower(), q2.lower()).ratio() > AL_SIMILARITY_THRESHOLD:
+                snippets.append(f"Turn {i1}: {q1}\n... Turn {i2}: {q2}")
     return "\n".join(snippets)
 
-def extract_empathy_snippets(turns: List[Tuple[str, str]], sentiment_scores: List[float]) -> str:
-    snippets = []
+def _empathy_candidates(turns: List[Tuple[str, str]], sentiment_scores: List[float]) -> List[Tuple[int, float, float, str]]:
+    """(turn index, sentiment score, biggest drop, snippet) for every unanswered negative customer turn, in call order."""
+    candidates = []
     apology_keywords = ["sorry", "apologize", "understand", "frustrating", "apologies", "let me help"]
-    
+
     for i, (speaker, text) in enumerate(turns):
-        if speaker.lower() == 'customer':
-            is_negative = False
-            
-            if sentiment_scores and i < len(sentiment_scores):
-                if sentiment_scores[i] <= -15.0:
-                    is_negative = True
-                elif i >= 1 and sentiment_scores[i-1] - sentiment_scores[i] >= 8.0:
-                    is_negative = True
-                elif i >= 2 and sentiment_scores[i-2] - sentiment_scores[i] >= 8.0:
-                    is_negative = True
-                elif i >= 3 and sentiment_scores[i-3] - sentiment_scores[i] >= 8.0:
-                    is_negative = True
-                
-            if is_negative:
-                agent_apologized = False
-                for j in range(i+1, min(i+4, len(turns))):
-                    spk, txt = turns[j]
-                    if spk.lower() == 'agent':
-                        if any(kw in txt.lower() for kw in apology_keywords):
-                            agent_apologized = True
-                            break
-                            
-                if not agent_apologized:
-                    snippet = f"Customer: {text}\n"
-                    for j in range(i+1, min(i+5, len(turns))):
-                        spk, txt = turns[j]
-                        snippet += f"{spk}: {txt}\n"
-                    snippets.append(snippet)
-    return "\n---\n".join(snippets)
+        if speaker.lower() != 'customer' or not sentiment_scores or i >= len(sentiment_scores):
+            continue
+        score = sentiment_scores[i]
+        drop = max((sentiment_scores[i-k] - score for k in (1, 2, 3) if i >= k), default=0.0)
+        if score > -15.0 and drop < 8.0:
+            continue
+
+        agent_apologized = any(
+            spk.lower() == 'agent' and any(kw in txt.lower() for kw in apology_keywords)
+            for spk, txt in turns[i+1:i+4]
+        )
+        if not agent_apologized:
+            snippet = f"Customer: {text}\n"
+            for spk, txt in turns[i+1:i+5]:
+                snippet += f"{spk}: {txt}\n"
+            candidates.append((i, score, drop, snippet))
+    return candidates
+
+def extract_empathy_snippets(turns: List[Tuple[str, str]], sentiment_scores: List[float]) -> str:
+    """All empathy snippets joined into one string (legacy form; the evaluator uses extract_empathy_snippet_list)."""
+    return "\n---\n".join(c[3] for c in _empathy_candidates(turns, sentiment_scores))
+
+def extract_empathy_snippet_list(turns: List[Tuple[str, str]], sentiment_scores: List[float], max_snippets: int = None) -> List[str]:
+    """Empathy snippets most severe first (lowest sentiment, then biggest drop), without overlapping windows."""
+    ranked = sorted(_empathy_candidates(turns, sentiment_scores), key=lambda c: (c[1], -c[2], c[0]))
+    picked = []
+    for idx, _, _, snippet in ranked:
+        # a snippet covers its customer turn plus the next 4 turns, so starts within 4 turns overlap
+        if all(abs(idx - p_idx) > 4 for p_idx, _ in picked):
+            picked.append((idx, snippet))
+        if max_snippets is not None and len(picked) >= max_snippets:
+            break
+    return [snippet for _, snippet in picked]
+
+_PROBING_BOILERPLATE = [
+    "how can i help", "how may i help", "how can i assist", "how are you",
+    "account number", "pin", "name on the account", "verify", "date of birth", "security question",
+    "is that right", "is that correct", "did i get that right",
+    "anything else", "did that fix", "did that work", "did that help", "is it working now", "is that working",
+    "have a good", "can i put you on hold", "may i place you on hold",
+]
+_PROBING_BOILERPLATE_RE = re.compile(r"\b(" + "|".join(re.escape(p) for p in _PROBING_BOILERPLATE) + r")\b", re.IGNORECASE)
+
+def extract_probing_inputs(turns: List[Tuple[str, str]], customer_lines: List[str],
+                           problem_max_words: int, questions_max_words: int) -> Tuple[str, List[str]]:
+    """Customer problem text and agent questions for the probing check, each held to a word budget.
+
+    Greeting, identity-check, confirmation and wrap-up questions are dropped first (the probing check
+    ignores them anyway); if that leaves nothing, the unfiltered questions are used so the model still decides.
+    """
+    problem_text = " ".join(" ".join(customer_lines).split()[:problem_max_words])
+
+    questions = [txt for spk, txt in turns if spk.lower() == "agent" and "?" in txt]
+    candidates = [q for q in questions if not _PROBING_BOILERPLATE_RE.search(q)] or questions
+
+    selected, used = [], 0
+    for q in candidates:
+        n = len(q.split())
+        if used + n > questions_max_words:
+            if not selected:
+                selected.append(" ".join(q.split()[:questions_max_words]))
+            break
+        selected.append(q)
+        used += n
+    return problem_text, selected
 
 def _agent_lines_with_ctx(turns):
     return [(i, txt) for i, (spk, txt) in enumerate(turns) if spk.lower() == "agent"]

@@ -1,212 +1,236 @@
 # Automated QA Evaluation System
 
-A fast, lightweight, locally-hosted Quality Assurance (QA) engine for customer support transcripts. 
+A locally hosted Quality Assurance engine for customer-support call transcripts. It grades each call against tenant-configurable criteria and returns a scorecard.
 
-Built with **FastAPI**, **Ollama** (Llama 3.1 & nomic-embed-text), and a deterministic **Python Rule Engine**. Runs 100% locally with zero external cloud dependencies.
+Built with **FastAPI**, a deterministic **Python rule engine** and **Laya**, a local yes/no decision engine. Runs fully offline once the Laya weights are on disk.
 
----
-
-## Architecture
-
-No Redis, no Celery, no background message queues. The service is a synchronous, in-process FastAPI application that directly evaluates transcripts against dynamic criteria:
-
-```
-Client / Postman
-       │
-       ▼  POST /api/evaluate
-FastAPI Service (src/api/web_app.py :8000)
-       │
-       ├──► Python Rule Engine (src/services/rule_engine.py)
-       │    └── Verbatim Branding, Dead Air, Customer Verification (0 tokens)
-       │
-       ├──► Vector Engine (src/services/llm_adapter.py)
-       │    └── Paraphrasing Cosine Similarity via nomic-embed-text
-       │
-       └──► Local Ollama LLM (http://localhost:11434)
-            └── Snippet Verifications (Empathy, Ownership, Rapport, Probing) & Coaching
-```
+> **Version 10 (branch `version-10-laya`):** Ollama / Llama 3.1 and the `nomic-embed-text` embeddings have been **removed** and replaced by Laya. See [Status & known limitations](#status--known-limitations) before relying on the scores.
 
 ---
 
-## Prerequisites & Quickstart
+## How it works
 
-### Prerequisites
-* **Python 3.10+**
-* **Ollama** installed and running locally ([ollama.com](https://ollama.com))
-
-### 1. Pull Required Models
-```bash
-ollama pull llama3.1
-ollama pull nomic-embed-text
+```
+Client / Frontend / Postman
+        │  POST /api/evaluate
+        ▼
+FastAPI QA service (src/api/web_app.py :8006)       ◄── API Gateway (run_gateway.py :8005)
+        │
+        ├─► Python rules (src/services/rule_engine.py), no model
+        │     Branding · Dead air · Verified customer · Personalized call · Profanity auto-fail
+        │
+        ├─► Python pre-filters cut each judgement down to a short snippet
+        │     sentiment drops · rude/deflection phrase lists · similar questions · word caps
+        │
+        └─► Laya (src/services/laya_adapter.py): one yes/no probability per question
+              Empathy · Active listening · Ownership · Rapport · Probing · Paraphrasing
+              Confirmed resolved (last 10 lines) · Escalation / Hostility / custom criteria (batched)
 ```
 
-### 2. Install & Configure
-```bash
-git clone https://github.com/nimjj/QA-system.git
-cd QA-system
+* Laya cannot generate text, so coaching tips are **static strings** per criterion.
+* Every Laya question has explicit yes/no meanings and its own PASS cutoff (`LAYA_CHECKS` in `src/services/dynamic_evaluator.py`).
+* Full detail: [`Docs/ARCHITECTURE.md`](Docs/ARCHITECTURE.md). Context for whoever picks this up next: [`Docs/AI_HANDOVER.md`](Docs/AI_HANDOVER.md).
 
-# Virtual environment
+---
+
+## Prerequisites
+
+* **Python 3.10+** (developed on 3.14).
+* **The Laya checkout next to this repo**, at `../laya-test/laya`. `requirements.txt` installs it from there in editable mode.
+* **The Laya model weights** (about 1.5 GB). By default they are read from `../laya-test/hf_home`. If that folder is missing, set `LAYA_HF_HOME`, or let Hugging Face download them on first use.
+* **PostgreSQL**, only if criteria come from the database. Requests that include `criteria_data` don't need it.
+
+Expected folder layout:
+```
+QA 2/
+├── qa-analysis/        ← this repo
+└── laya-test/
+    ├── laya/           ← Laya source (pip install -e)
+    └── hf_home/        ← downloaded Laya weights
+```
+
+---
+
+## Setup
+
+Windows: run `setup.bat`. Linux/macOS: run `./setup.sh`. Or do it by hand:
+```bash
 python -m venv .venv
-# Windows:
-.venv\Scripts\activate
-# Linux/macOS:
-source .venv/bin/activate
-
-# Install dependencies (fastapi, uvicorn, pydantic, python-dotenv)
-pip install -r requirements.txt
-
-# Environment config
-copy .env.example .env    # Windows
-cp .env.example .env      # Linux/macOS
+.venv\Scripts\activate            # Windows
+source .venv/bin/activate         # Linux/macOS
+pip install -r requirements.txt   # FastAPI stack, psycopg2-binary, and Laya from ../laya-test/laya
+copy .env.example .env            # Windows  (cp on Linux/macOS)
 ```
 
-### 3. Run the Server
-```bash
-python main.py
-```
-Server runs at `http://localhost:8000`. Interactive docs at `http://localhost:8000/docs`.
+### Environment (`.env`)
+| Variable | Default | Purpose |
+|---|---|---|
+| `LAYA_MODEL` | `english` | Laya checkpoint for every check (the English one tested best) |
+| `LAYA_HF_HOME` | empty → `../laya-test/hf_home` | Folder holding the Laya weights |
+| `LAYA_DEVICE` | empty (automatic) | `cpu` or `cuda` |
+| `SERVER_HOST` / `SERVER_PORT` | `0.0.0.0` / `8006` | QA service (the gateway and frontend expect 8006) |
+| `DB_HOST` `DB_PORT` `DB_NAME` `DB_USER` `DB_PASSWORD` | see `.env.example` | PostgreSQL |
+| `GATEWAY_HOST` / `GATEWAY_PORT` / `APP_URL` | `0.0.0.0` / `8005` / `http://localhost:8006` | API gateway |
 
 ---
 
-## API Endpoints
+## Running
 
-### 1. Evaluate Interaction
-* **Endpoint:** `POST /api/evaluate`
-* **Payload:**
+```bash
+python main.py          # QA service on http://localhost:8006  (docs at /docs)
+python run_gateway.py   # optional: API gateway on http://localhost:8005
+cd frontend && npm install && npm run dev   # optional: React dashboard
+```
+* The first evaluation loads Laya, which takes about a minute on CPU. After that each Laya check takes about 1 s on CPU.
+* Evaluations run one at a time.
+
+> **Docker:** `docker-compose.yml` no longer contains Ollama. The QA-service image does **not** yet include Laya, because the local `../laya-test` path is outside the Docker build context. Run the service locally as above; use compose only for Postgres if needed (`docker compose up -d postgres`).
+
+---
+
+## API
+
+### Evaluate a call: `POST /api/evaluate`
 ```json
 {
   "tenant_id": "tenant-abc",
-  "channel": "Call",
   "customer_name": "Grace",
-  "transcript": "[00:00] Agent: Thank you for calling S-Net. My name is Alex. How can I help you today?\n[00:05] Client: My router keeps resetting.\n[00:08] Agent: Could I verify your PIN and billing address?\n[00:12] Client: PIN 5521, 42 Main St.\n[00:15] Agent: Verified, thank you Grace. Let me reset your line profile.\n[00:25] Agent: Line reset complete. Is the connection working now?\n[00:30] Client: Yes, perfect, thanks Alex!\n[00:35] Agent: Thank you for choosing S-Net, have a great day!"
+  "transcript": [
+    {"speaker": "Agent", "text": "Thank you for calling S-Net, my name is Alex, how can I help you today?", "start_time_sec": 0, "sentiment_score": 6.0},
+    {"speaker": "Customer", "text": "My smart thermostat keeps resetting every evening.", "start_time_sec": 10, "sentiment_score": 6.8}
+  ],
+  "criteria_data": null
 }
 ```
+* `transcript` may also be a raw string (`"[00:00] Agent: …\n[00:05] Customer: …"`). Raw strings carry no sentiment, so Empathy never triggers on them.
+* Put `sentiment_score` **on each turn**. A top-level `sentiment_scores` array is ignored.
+* If `criteria_data` is omitted, the tenant's active criteria are loaded from PostgreSQL. Disabled items are skipped and category weights re-balance to 100.
 
-> **Note on Multi-Tenancy:** If `criteria_data` is omitted, criteria are retrieved directly from the PostgreSQL database (`tenants`, `categories`, `line_items`, `tenant_lines`). Any criteria toggled off (`is_active = FALSE`) for a tenant are omitted from evaluation with zero deductions, and active category weights dynamically re-balance to 100.0%.
-
-* **Response:**
+Response:
 ```json
 {
+  "call_id": "call_…",
+  "tenant_id": "tenant-abc",
   "status": "completed",
   "result": {
-    "final_score": 100.0,
+    "final_score": 90.0,
     "is_auto_fail": false,
     "auto_fail_reason": null,
     "scorecard": [
-      {
-        "category": "Soft Skills",
-        "name": "Branding and Survey Check",
-        "rating": "PASS",
-        "coaching": "Agent successfully used required opening and closing branding scripts."
-      },
-      {
-        "category": "Soft Skills",
-        "name": "Hold time and Dead Air",
-        "rating": "PASS",
-        "coaching": "Agent maintained active communication without excessive dead air (>30s)."
-      },
-      {
-        "category": "Soft Skills",
-        "name": "Personalized the call/ticket appropriately",
-        "rating": "PASS",
-        "coaching": "Agent addressed customer by their verified name during the interaction."
-      },
-      {
-        "category": "Technical Knowledge",
-        "name": "Verified customer",
-        "rating": "PASS",
-        "coaching": "Agent verified customer identity within the required time window."
-      }
+      {"category": "Soft Skills", "name": "Branding and Survey Check", "rating": "PASS",
+       "coaching": "Agent successfully used required opening and closing branding scripts."}
     ]
   }
 }
 ```
 
-### 2. Preview Evaluation Prompt
-* **Endpoint:** `POST /api/preview-prompt`
-* **Description:** Previews the exact generated LLM prompt without executing Ollama inference.
+### Other endpoints
+| Method & path | Purpose |
+|---|---|
+| `GET /health` | Health check (QA service and gateway) |
+| `GET/POST /api/tenants` | List or create tenants |
+| `GET/POST /api/categories` | List or create categories |
+| `GET /api/criteria`, `POST /api/criteria`, `PUT/DELETE /api/criteria/{id}` | Criteria CRUD |
+| `GET /api/tenants/{tenant}/criteria`, `POST /api/tenants/{tenant}/criteria/{id}/toggle` | Per-tenant criteria and on/off toggles |
+| `GET /api/samples` | Sample transcripts from `inputs/` |
 
-### 3. List Samples
-* **Endpoint:** `GET /api/samples`
-* **Description:** Lists all sample transcript files from `inputs/`.
-
----
-
-## The 11 Evaluation Criteria
-
-### Soft Skills (Default Weight: 33.3%)
-1. **Branding and Survey Check:** Verbatim opening (`"thank you for calling s-net"`) and closing scripts (Rule Engine).
-2. **Hold time and Dead Air:** Turn pauses $>30\text{s}$. Up to 2 allowed; $\ge 3$ fails (Rule Engine).
-3. **Personalized the call/ticket appropriately:** Agent uses customer's name (Rule Engine).
-4. **Empathy & Acknowledgment Statement:** Validates frustration on sentiment drops (Snippet LLM).
-5. **Build rapport and observed professionalism:** Flags rude/condescending language (Violation LLM).
-
-### Technical Knowledge (Default Weight: 66.7%)
-6. **Paraphrasing:** Embedding cosine similarity $\ge 0.50$ between customer and agent problem turns (Vector Engine).
-7. **Verified customer:** Validates credentials (PIN/address) within first 4 minutes (Rule Engine).
-8. **Probing:** Checks that agent asked diagnostic questions investigating root cause (Contextual LLM).
-9. **Took ownership of the problem:** Flags deflection or blaming other departments (Violation LLM).
-10. **Active listening:** Flags redundant, repeated agent questions (Hybrid Snippet LLM).
-11. **Confirmed the issue is resolved:** Confirms verbal resolution in final turns (Sliced LLM).
-
-### Auto-Fail Circuit Breakers
-Immediate **0 score** if:
-* Profanity/abuse detected (`"fuck"`, `"shut up"`, `"idiot"`, etc.).
-* Extreme hostility ($\ge 3$ harsh agent statements).
+`/api/preview-prompt` was removed in version 10 (there is no LLM prompt any more). Ready-made requests are in `requests.http` and `Docs/postman_collection.json`.
 
 ---
 
-## Dynamic Weight Normalization
+## The 11 default criteria (`resources/criteria_config.json`)
 
-When a tenant or request disables categories, active weights are dynamically re-balanced:
+| # | Criterion | How it's judged |
+|---|---|---|
+| 1 | Branding and Survey Check | Rule: S-Net opening and closing script |
+| 2 | Hold time and Dead Air | Rule: 2 or more gaps over 30 s fail |
+| 3 | Personalized the call | Rule: customer name used by the agent |
+| 4 | Empathy & Acknowledgment | Laya on the 2 worst upset-customer moments |
+| 5 | Build rapport / professionalism | Phrase list, then Laya |
+| 6 | Paraphrasing | Laya: customer opening plus the first agent lines |
+| 7 | Verified customer | Rule: PIN, address or security question within 4 minutes |
+| 8 | Probing | Laya on the real (non-boilerplate) agent questions |
+| 9 | Took ownership | Phrase list, then Laya |
+| 10 | Active listening | Near-identical agent questions, then Laya |
+| 11 | Confirmed the issue is resolved | Laya on the last 10 lines |
 
-$$W_{\text{active}} = \sum_{i=1}^{k} w_i \quad\implies\quad w_i' = \frac{w_i}{W_{\text{active}}}$$
+**Auto-fail (score 0):** profanity from a fixed list anywhere in the call, or a FAIL in a category named "AUTO FAIL".
 
-$$\text{Final Score} = \sum_{i=1}^{k} \left(\text{Score}_{C_i} \times w_i'\right)$$
+---
 
-The maximum possible score remains **100.0%** regardless of which categories are evaluated.
+## Status & known limitations
+
+Laya runs **out of the box, without training**. Its cutoffs come from a 320-item synthetic test (`../laya-test/qa_eval/RESULTS.md`). Checks on full-length sample calls (October 2026) show:
+
+| Check | State |
+|---|---|
+| Probing, Active listening, Ownership | Reasonable |
+| Confirmed resolved | Fails almost every call; the cutoff doesn't transfer to 10-line endings |
+| Rapport | Inverted: benign trigger phrases score as ruder than truly rude lines |
+| Empathy | Cutoff too strict (failed every time it ran) |
+| Paraphrasing | New; doesn't separate good from bad yet |
+
+Next step: label a few hundred real calls, re-tune the `pass_threshold` values in `LAYA_CHECKS`, and fine-tune Laya where re-tuning isn't enough. Until then, treat these five scores as provisional.
 
 ---
 
 ## Testing
 
-Run the automated batch test script against pre-recorded sample files:
 ```bash
-python Scripts/batch_test.py
+python Scripts/check_prompt_sizes.py          # no model, no server: input caps, scorecards, unit checks
+python Scripts/check_prompt_sizes.py --live   # real Laya over all sample calls: verdicts and timing
+python Scripts/batch_test.py                  # posts every inputs/*.json to a running service
 ```
-Or import `Docs/postman_collection.json` into Postman.
+* Sample payloads are in `inputs/`. They include `b_*` calls with planted defects named in the filename, `v8_*`, `real_*`, and the version-8 sets in `Archive/`, `Completed_tests/`, `Tough checks/` and `inputs(Batch 1)/`.
+* Result files in `inputs/Test (results)/` from before version 10 were produced by Ollama.
 
 ---
 
 ## Codebase Map
 
 ```
-QA-system/
-├── main.py                         # QA Service server launcher (:8006)
-├── run_gateway.py                  # API Gateway launcher (:8005)
-├── docker-compose.yml              # Multi-container orchestration (Gateway, QA Service, Ollama)
-├── Dockerfile                      # QA Service Dockerfile
-├── Dockerfile.gateway              # API Gateway Dockerfile
-├── requirements.txt                # Dependencies (fastapi, uvicorn, pydantic, python-dotenv, psycopg2-binary, httpx)
-├── .env.example                    # Environment template (Server, Gateway, DB, Ollama)
+qa-analysis/
+├── main.py                      # QA service launcher (:8006)
+├── run_gateway.py               # API gateway launcher (:8005)
+├── requirements.txt             # FastAPI stack + psycopg2-binary + Laya (../laya-test/laya)
+├── .env.example                 # Laya, server, Postgres and gateway settings
+├── setup.bat / setup.sh         # venv + install + .env
+├── docker-compose.yml           # Postgres, QA service, gateway, frontend (no Ollama; QA image lacks Laya)
+├── Dockerfile / Dockerfile.base / Dockerfile.gateway
+├── requests.http                # REST-client requests
 ├── resources/
-│   ├── criteria_config.json        # Default tenant criteria & deduction values
-│   └── prompts/                    # LLM prompt templates
+│   └── criteria_config.json     # reference criteria for tenant-abc
 ├── src/
-│   ├── api/
-│   │   ├── web_app.py              # Core QA FastAPI endpoints (/api/evaluate, criteria CRUD, samples)
-│   │   └── logger.py               # Structured JSON logger
-│   ├── gateway/
-│   │   └── gateway_app.py          # API Gateway (Direct DB criteria/toggle routes + reverse proxy)
-│   ├── db/
-│   │   └── database.py             # PostgreSQL data access layer
+│   ├── api/web_app.py           # FastAPI endpoints
+│   ├── api/logger.py            # structured JSON logger
+│   ├── gateway/gateway_app.py   # gateway proxy + direct DB criteria routes
+│   ├── db/database.py           # PostgreSQL access
 │   └── services/
-│       ├── dynamic_evaluator.py    # Core evaluator, normalization & pass descriptions
-│       ├── rule_engine.py          # Deterministic Python rules (branding, dead air, verification)
-│       └── llm_adapter.py          # Singleton Ollama client (chat & embeddings)
-├── frontend/                       # Vite + React UI dashboard
+│       ├── dynamic_evaluator.py # orchestration, Laya questions and cutoffs, scoring, static coaching
+│       ├── rule_engine.py       # rules and snippet pre-filters
+│       └── laya_adapter.py      # Laya Router singleton: predict_yes()
 ├── Scripts/
-│   └── batch_test.py               # Automated test runner
-├── inputs/                         # Sample transcript test cases
-└── Docs/                           # Architecture, setup guide, Postman collection
+│   ├── check_prompt_sizes.py    # verification (stub or --live)
+│   ├── batch_test.py            # batch runner against the API
+│   └── test_results.xlsx        # historical scores (Ollama era, v8.1 to v9.1)
+├── tests/scoring_test/          # small raw-string test calls
+├── inputs/                      # sample payloads and results
+├── frontend/                    # Vite + React dashboard
+└── Docs/
+    ├── ARCHITECTURE.md          # pipeline and criteria in detail
+    ├── AI_HANDOVER.md           # context and constraints for the next maintainer
+    ├── PIPELINE_FLOWCHART_LAYA.md / pipeline_flowchart_laya.html   # pre-migration analysis (historical)
+    └── postman_collection.json
 ```
+
+## Changelog: version 10 (Laya)
+* **Laya replaces Ollama.** Added `src/services/laya_adapter.py` and removed `llm_adapter.py`.
+* **Input caps.** Empathy uses its top 2 snippets, Probing ≤ 150 words, Resolved the last 10 lines, Paraphrasing ≤ 200 words.
+* **Paraphrasing** is now a Laya judgement instead of embedding similarity.
+* **Active listening** uses difflib similarity > 0.70 instead of embeddings.
+* **Batched criteria** are asked as yes/no questions in one Laya call per batch.
+* **Coaching** is static text instead of LLM-generated tips.
+* **Removed:**
+  - `/api/preview-prompt` and the prompt templates;
+  - unused GGUF models and Ollama configuration;
+  - Ollama-era deployment docs (`DEPLOYMENT.md`, `Docs/DEPLOYMENT_PLAN.md`, `Docs/SETUP_REQUIREMENTS.md`, old flowchart and diagrams).

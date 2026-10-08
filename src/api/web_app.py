@@ -18,7 +18,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 
 from src.api.logger import logger
-from src.services.dynamic_evaluator import preview_evaluation_prompt, evaluate_interaction
+from src.services.dynamic_evaluator import evaluate_interaction
 
 app = FastAPI(title="Stateless QA Service API")
 
@@ -195,7 +195,6 @@ class EvaluateRequest(BaseModel):
     callId: Optional[str] = None
     channel: Optional[str] = "Call"
     agent_name: Optional[str] = "Agent"
-    custom_prompt: Optional[str] = None
     customer_name: Optional[str] = None
     customerName: Optional[str] = None
 
@@ -327,7 +326,6 @@ def evaluate_tenant_transcript(req: EvaluateRequest):
         criteria_data=criteria_data,
         tenant_id=tenant_id,
         channel=req.channel or "Call",
-        custom_prompt=req.custom_prompt,
         caller=req.get_customer_name()
     )
 
@@ -337,19 +335,6 @@ def evaluate_tenant_transcript(req: EvaluateRequest):
         "status": "completed",
         "result": result
     }
-
-
-@app.post("/api/preview-prompt")
-def preview_tenant_prompt(req: EvaluateRequest):
-    tenant_id = req.get_tenant_id()
-    criteria_data = req.criteria_data or get_active_criteria_for_evaluation(tenant_id)
-    preview = preview_evaluation_prompt(
-        transcript_text=req.transcript,
-        criteria_data=criteria_data,
-        tenant_id=tenant_id,
-        channel=req.channel or "Call"
-    )
-    return preview
 
 
 if __name__ == "__main__":

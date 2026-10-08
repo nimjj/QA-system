@@ -30,7 +30,7 @@ function generateCallId() {
 export default function App() {
   const [activeTab, setActiveTab] = useState('criteria');
   const [targetPort, setTargetPort] = useState('8006');
-  const apiBase = `http://localhost:${targetPort}/api`;
+  const apiBase = `http://${window.location.hostname}:${targetPort}/api`;
 
   const [tenants, setTenants] = useState([]);
   const [selectedTenant, setSelectedTenant] = useState('');
@@ -47,6 +47,10 @@ export default function App() {
   const [critName, setCritName] = useState('');
   const [critDeduction, setCritDeduction] = useState(15);
   const [critDescription, setCritDescription] = useState('');
+
+  const [showAddCategory, setShowAddCategory] = useState(false);
+  const [catName, setCatName] = useState('');
+  const [catWeight, setCatWeight] = useState(1.0);
 
   const [callId, setCallId] = useState(generateCallId());
   const [channel, setChannel] = useState('Call');
@@ -152,6 +156,31 @@ export default function App() {
       }
     } catch (err) {
       console.error('Create tenant error:', err);
+    }
+  };
+
+  const handleCreateCategory = async (e) => {
+    e.preventDefault();
+    if (!catName.trim() || !selectedTenant) return;
+    try {
+      const res = await fetch(`${apiBase}/categories`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          tenant_id: selectedTenant,
+          name: catName.trim(),
+          category_weight: parseFloat(catWeight) || 1.0
+        })
+      });
+      if (res.ok) {
+        showNotification(`Created category "${catName}"`);
+        setShowAddCategory(false);
+        setCatName('');
+        setCatWeight(1.0);
+        fetchCriteria(selectedTenant);
+      }
+    } catch (err) {
+      console.error('Create category error:', err);
     }
   };
 
@@ -299,6 +328,13 @@ export default function App() {
                 <div className="stat-pill stat-total">Total: {allItems.length}</div>
                 <div className="stat-pill stat-active">Active: {activeItems.length}</div>
                 <div className="stat-pill stat-disabled">Disabled: {inactiveItems.length}</div>
+                <button
+                  className="btn btn-primary"
+                  onClick={() => setShowAddCategory(true)}
+                  style={{ marginRight: '10px' }}
+                >
+                  + Add Category
+                </button>
                 <button
                   className="btn btn-primary"
                   onClick={() => setShowAddCriterion(true)}
@@ -632,6 +668,46 @@ export default function App() {
                 </button>
                 <button type="submit" className="btn btn-primary">
                   Save Criterion
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
+
+      {showAddCategory && (
+        <div className="modal-backdrop">
+          <div className="modal-card">
+            <h3>Add New Category</h3>
+            <form onSubmit={handleCreateCategory}>
+              <div className="form-group">
+                <label>Category Name:</label>
+                <input
+                  type="text"
+                  required
+                  placeholder="e.g. Soft Skills"
+                  value={catName}
+                  onChange={(e) => setCatName(e.target.value)}
+                  className="input-control"
+                />
+              </div>
+              <div className="form-group">
+                <label>Category Weight (0.0 to 1.0):</label>
+                <input
+                  type="number"
+                  step="0.1"
+                  required
+                  value={catWeight}
+                  onChange={(e) => setCatWeight(e.target.value)}
+                  className="input-control"
+                />
+              </div>
+              <div className="modal-actions">
+                <button type="button" className="btn btn-secondary" onClick={() => setShowAddCategory(false)}>
+                  Cancel
+                </button>
+                <button type="submit" className="btn btn-primary">
+                  Save Category
                 </button>
               </div>
             </form>
