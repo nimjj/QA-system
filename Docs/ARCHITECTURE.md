@@ -68,30 +68,37 @@ Laya cannot generate text, so the scorecard text is static:
 ### Category 1: Soft Skills (Default Weight: 33.3%)
 1. **Branding and Survey Check** (`evaluate_branding`, rule): `"thank you for calling s-net"` in the first 4 agent turns and `"thank you for choosing s-net"` in the last 4.
 2. **Hold time and Dead Air** (`evaluate_hold_and_dead_air`, rule): gaps over 30 s between turns; **2 or more** such gaps fail.
+   * A managed hold is not dead air: the agent announced it on the line before the gap ("place you on a brief hold", "bear with me"), or came back with "thanks for holding/waiting".
+   * The exemption is capped at 120 s. It never applies when the customer breaks the silence with "Hello? Are you still there?".
 3. **Personalized the call/ticket appropriately** (`evaluate_personalized_call`, rule): the request's `customer_name` appears in an agent line.
 4. **Empathy & Acknowledgment Statement** (Laya):
-   * A snippet is taken when a customer turn's `sentiment_score` is ≤ -15 or drops ≥ 8 versus any of the previous 3 turns.
+   * A snippet is taken when a customer turn's `sentiment_score` is ≤ -15, drops ≥ 8 versus the **customer's own** previous 3 turns, or is negative and contains a frustration word ("frustrated", "nightmare", "third time" …).
    * It is skipped if the agent apologises within 3 turns. Each snippet is the customer turn plus the next 4 turns.
    * Only the **2 most severe, non-overlapping** snippets are checked, one Laya call each. One FAIL fails the item.
 5. **Build rapport and observed professionalism** (Laya, violation-based): agent lines containing a rude phrase (`"calm down"`, `"read the manual"` …) are sent to Laya. No hit means PASS.
 
 ### Category 2: Technical Knowledge (Default Weight: 66.7%)
-6. **Paraphrasing** (Laya): the customer's opening (≤ 50 words) and the first 10 agent lines (≤ 150 words) are sent with the question "does the agent restate the customer's problem?". This criterion is new on Laya and not yet calibrated.
+6. **Paraphrasing** (Laya): the customer's opening (≤ 50 words) and the first 10 agent lines (≤ 150 words) are sent with the question "does the agent restate the customer's problem?".
+   * Greeting and verification lines from the agent, and account-detail answers from the customer (account number, PIN, a short address), are skipped first.
+   * This criterion is new on Laya and not yet calibrated.
 7. **Verified customer** (`evaluate_verified_customer`, rule): `\b(pin|address|security question)\b` in an agent line within the first 240 s.
 8. **Probing** (Laya):
    * No agent questions at all means FAIL without a model call.
-   * Otherwise greeting, identity-check, confirmation and wrap-up questions are dropped. The remaining questions (≤ 100 words) plus the customer problem (≤ 50 words) go to Laya.
+   * Otherwise only the question sentences of each agent turn are used, and greeting, identity-check, confirmation and wrap-up questions are dropped.
+   * The remaining questions (≤ 100 words) plus the customer problem (≤ 50 words, account-detail answers skipped) go to Laya.
 9. **Took ownership of the problem** (Laya, violation-based): agent lines containing a deflection phrase (`"not my department"`, `"call back"` …) are sent to Laya. No hit means PASS.
-10. **Active listening** (Laya): pairs of agent questions with a `difflib` similarity above 0.70 are sent to Laya as possible repeats.
-11. **Confirmed the issue is resolved** (Laya batch): the **last 10 lines** of the call.
+10. **Active listening** (Laya): possible repeats are sent to Laya. There are two sources:
+    * pairs of agent question *sentences* with a `difflib` similarity above 0.70 (check-ins like "Is that right?" are ignored);
+    * agent questions the customer answers with "like I said" / "I mentioned", paired with the most similar earlier question and sent with that reply.
+11. **Confirmed the issue is resolved** (Laya batch): the **last 10 lines** of the call. Its cutoff is 0.73, chosen on the `b_*` bulk calls (see `Docs/LAYA_TEST_LOG.md`).
 
 Escalation, Hostility and custom criteria (if a tenant adds them) are rated in Laya batches. Escalation and Hostility use the full call, which goes through Laya's windowed `predict_long` when it is longer than one window.
 
 ### Thresholds
-Each Laya check has a `pass_threshold` in `LAYA_CHECKS` (`dynamic_evaluator.py`). The values come from a synthetic out-of-the-box test (`../laya-test/qa_eval/RESULTS.md`). Checks on the full-length sample calls show several do **not** transfer yet: Confirmed-resolved fails almost every call, Rapport is inverted, and Paraphrasing doesn't separate. Treat them as starting values to re-tune on human-reviewed calls.
+Each Laya check has a `pass_threshold` in `LAYA_CHECKS` (`dynamic_evaluator.py`). The starting values come from a synthetic out-of-the-box test (`laya_eval/RESULTS.md`). Tests on full-length calls (`Docs/LAYA_TEST_LOG.md`) show several do **not** transfer yet: Resolved barely separates (its cutoff was re-picked on the `b_*` calls), Rapport is inverted, and Paraphrasing doesn't separate. Treat them as starting values to re-tune on human-reviewed calls; `Scripts/probe_laya.py` and `Scripts/laya_cutoffs.py` show the raw probabilities and the best cutoff per check.
 
 ### Category 3: Auto-Fail Circuit Breakers
-* **Profanity & abuse:** a fixed word list (`"fuck"`, `"shut up"`, `"idiot"`, …) anywhere in the transcript forces a score of 0.
+* **Profanity & abuse:** a fixed word list (`"fuck"`, `"shut up"`, `"idiot"`, …) in any agent line forces a score of 0. Customer lines are not checked, so a customer swearing never fails the agent.
 * **Scorecard circuit breaker:** any item in a category whose name contains "AUTO FAIL" that is rated FAIL forces a score of 0.
 
 ---
@@ -171,6 +178,11 @@ erDiagram
 | `src/services/laya_adapter.py` | Loads the Laya `Router` once and exposes `predict_yes()`. |
 | `resources/criteria_config.json` | Reference criteria for tenant-abc (also used by the check script). |
 | `Scripts/check_prompt_sizes.py` | Verifies input sizes and scorecards over all sample calls (`--live` runs real Laya). |
-| `Scripts/batch_test.py` | Posts every `inputs/*.json` to `/api/evaluate` and saves results. |
+| `Scripts/batch_test.py` | Posts `inputs/Main tests` (default) or `inputs/Bulk tests` to `/api/evaluate` with inline criteria and saves results. |
+| `Scripts/compare_results.py` | Compares result folders (by label) with the Main tests expected grades and the defects named in the `b_*` filenames. |
+| `Scripts/probe_laya.py` | Runs the Main and Bulk calls in-process and records every Laya input and probability. |
+| `Scripts/laya_cutoffs.py` | Best balanced-accuracy cutoff per Laya check from a probe file and the `b_*` filename defects. |
+| `laya_eval/` | Synthetic 320-item gold set and the Laya vs Ollama benchmark behind the starting cutoffs (`RESULTS.md`). |
+| `Docs/LAYA_TEST_LOG.md` | Ollama vs Laya test rounds on full-length calls, and the Laya training focus. |
 | `Docs/PIPELINE_FLOWCHART_LAYA.md` | Pre-migration analysis of what Laya could replace. |
 | `Docs/postman_collection.json` | Postman collection for the API. |

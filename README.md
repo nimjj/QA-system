@@ -4,7 +4,7 @@ A locally hosted Quality Assurance engine for customer-support call transcripts.
 
 Built with **FastAPI**, a deterministic **Python rule engine** and **Laya**, a local yes/no decision engine. Runs fully offline once the Laya weights are on disk.
 
-> **Version 10 (branch `version-10-laya`):** Ollama / Llama 3.1 and the `nomic-embed-text` embeddings have been **removed** and replaced by Laya. See [Status & known limitations](#status--known-limitations) before relying on the scores.
+> **Version 10 (branches `version-10-laya`, and `version-10.1-laya` with the test round fixes):** Ollama / Llama 3.1 and the `nomic-embed-text` embeddings have been **removed** and replaced by Laya. See [Status & known limitations](#status--known-limitations) before relying on the scores.
 
 ---
 
@@ -36,7 +36,7 @@ FastAPI QA service (src/api/web_app.py :8006)       ◄── API Gateway (run_g
 ## Prerequisites
 
 * **Python 3.10+** (developed on 3.14).
-* **The Laya checkout next to this repo**, at `../laya-test/laya`. `requirements.txt` installs it from there in editable mode.
+* **The Laya checkout next to this repo**, at `../laya-test/laya`: a clone of [github.com/NandhaKishorM/laya](https://github.com/NandhaKishorM/laya), tested at commit `3cf26cb`. `requirements.txt` installs it from there in editable mode. The engine is not vendored into this repo.
 * **The Laya model weights** (about 1.5 GB). By default they are read from `../laya-test/hf_home`. If that folder is missing, set `LAYA_HF_HOME`, or let Hugging Face download them on first use.
 * **PostgreSQL**, only if criteria come from the database. Requests that include `criteria_data` don't need it.
 
@@ -143,7 +143,7 @@ Response:
 | # | Criterion | How it's judged |
 |---|---|---|
 | 1 | Branding and Survey Check | Rule: S-Net opening and closing script |
-| 2 | Hold time and Dead Air | Rule: 2 or more gaps over 30 s fail |
+| 2 | Hold time and Dead Air | Rule: 2 or more gaps over 30 s fail (announced holds up to 120 s don't count) |
 | 3 | Personalized the call | Rule: customer name used by the agent |
 | 4 | Empathy & Acknowledgment | Laya on the 2 worst upset-customer moments |
 | 5 | Build rapport / professionalism | Phrase list, then Laya |
@@ -151,26 +151,28 @@ Response:
 | 7 | Verified customer | Rule: PIN, address or security question within 4 minutes |
 | 8 | Probing | Laya on the real (non-boilerplate) agent questions |
 | 9 | Took ownership | Phrase list, then Laya |
-| 10 | Active listening | Near-identical agent questions, then Laya |
+| 10 | Active listening | Near-identical agent questions, or ones the customer answers with "like I said", then Laya |
 | 11 | Confirmed the issue is resolved | Laya on the last 10 lines |
 
-**Auto-fail (score 0):** profanity from a fixed list anywhere in the call, or a FAIL in a category named "AUTO FAIL".
+**Auto-fail (score 0):** profanity from a fixed list in any agent line (customer lines are not checked), or a FAIL in a category named "AUTO FAIL".
 
 ---
 
 ## Status & known limitations
 
-Laya runs **out of the box, without training**. Its cutoffs come from a 320-item synthetic test (`../laya-test/qa_eval/RESULTS.md`). Checks on full-length sample calls (October 2026) show:
+Laya runs **out of the box, without training**. Its starting cutoffs come from a 320-item synthetic test ([`laya_eval/RESULTS.md`](laya_eval/RESULTS.md)). Two rounds on full-length calls (the hand-graded `inputs/Main tests` and the labelled `b_*` bulk calls, October 2026) are logged in [`Docs/LAYA_TEST_LOG.md`](Docs/LAYA_TEST_LOG.md). After Round 2, Laya matched 36/44 hand-graded items (Ollama 40/44) and 348/372 `b_*` items:
 
 | Check | State |
 |---|---|
-| Probing, Active listening, Ownership | Reasonable |
-| Confirmed resolved | Fails almost every call; the cutoff doesn't transfer to 10-line endings |
+| Dead air | Good on both sets after the managed-hold fix |
+| Probing | Good; a 0.70 cutoff (now 0.60) would separate every test call |
+| Active listening | Regressed in Round 2: the attached customer reply lowers Laya's repeat score |
+| Confirmed resolved | Cutoff 0.73 chosen on the `b_*` calls; Laya barely separates confirmed from unconfirmed endings |
+| Paraphrasing | Doesn't separate good from bad yet |
 | Rapport | Inverted: benign trigger phrases score as ruder than truly rude lines |
-| Empathy | Cutoff too strict (failed every time it ran) |
-| Paraphrasing | New; doesn't separate good from bad yet |
+| Empathy | The 0.78 cutoff still fails 2 of the 4 hand-graded calls |
 
-Next step: label a few hundred real calls, re-tune the `pass_threshold` values in `LAYA_CHECKS`, and fine-tune Laya where re-tuning isn't enough. Until then, treat these five scores as provisional.
+Next step: Laya training on Active listening, Resolved, Paraphrasing, Rapport and Empathy (in that order, see the log), plus a few hundred human-labelled real calls to re-tune `LAYA_CHECKS`. Until then, treat those scores as provisional.
 
 ---
 
@@ -179,10 +181,16 @@ Next step: label a few hundred real calls, re-tune the `pass_threshold` values i
 ```bash
 python Scripts/check_prompt_sizes.py          # no model, no server: input caps, scorecards, unit checks
 python Scripts/check_prompt_sizes.py --live   # real Laya over all sample calls: verdicts and timing
-python Scripts/batch_test.py                  # posts every inputs/*.json to a running service
+python Scripts/batch_test.py --label laya     # posts inputs/Main tests to a running service
+python Scripts/batch_test.py bulk --label laya  # posts inputs/Bulk tests
+python Scripts/compare_results.py ollama laya laya-v2  # result folders vs expected grades and the b_* filename defects
+python Scripts/probe_laya.py out.json           # in-process: every Laya probability per call (no server)
+python Scripts/laya_cutoffs.py out.json         # best cutoff per check from the b_* filename defects
 ```
-* Sample payloads are in `inputs/`. They include `b_*` calls with planted defects named in the filename, `v8_*`, `real_*`, and the version-8 sets in `Archive/`, `Completed_tests/`, `Tough checks/` and `inputs(Batch 1)/`.
-* Result files in `inputs/Test (results)/` from before version 10 were produced by Ollama.
+* `batch_test.py` sends the criteria from `resources/criteria_config.json` with every call (`criteria_data`), so it needs no database; `--use-db` turns that off. Results go to `inputs/Test (results)/<suite> (<label>)/`.
+* `inputs/Main tests/` holds four hand-graded 16–22 minute calls; their expected scorecards are in `expected/` (see the README there).
+* `inputs/Bulk tests/` holds the older samples: `b_*` calls with planted defects named in the filename, `v8_*` and `real_*`. `inputs/Tough checks/` holds three 28-minute trap calls.
+* `inputs/Test (results)/` holds the Ollama, Laya and Laya-v2 runs of both suites and the raw Laya probabilities (`Laya probes/`). Older Ollama-era inputs and results were removed in `version-10.1-laya` and remain in git history.
 
 ---
 
@@ -212,16 +220,26 @@ qa-analysis/
 ├── Scripts/
 │   ├── check_prompt_sizes.py    # verification (stub or --live)
 │   ├── batch_test.py            # batch runner against the API
-│   └── test_results.xlsx        # historical scores (Ollama era, v8.1 to v9.1)
+│   ├── compare_results.py       # result folders vs expected grades and b_* defects
+│   ├── probe_laya.py            # records every Laya probability per call
+│   └── laya_cutoffs.py          # cutoff per check from a probe file
+├── laya_eval/                   # synthetic gold set + Laya-vs-Ollama benchmark (RESULTS.md)
 ├── tests/scoring_test/          # small raw-string test calls
-├── inputs/                      # sample payloads and results
+├── inputs/                      # Main tests, Bulk tests, Tough checks, Test (results)
 ├── frontend/                    # Vite + React dashboard
 └── Docs/
     ├── ARCHITECTURE.md          # pipeline and criteria in detail
     ├── AI_HANDOVER.md           # context and constraints for the next maintainer
-    ├── PIPELINE_FLOWCHART_LAYA.md / pipeline_flowchart_laya.html   # pre-migration analysis (historical)
+    ├── LAYA_TEST_LOG.md         # Ollama vs Laya test rounds and the Laya training focus
+    ├── PIPELINE_FLOWCHART_LAYA.md   # pre-migration analysis (historical)
     └── postman_collection.json
 ```
+
+## Changelog: version 10.1 (Laya test rounds)
+* **Tests:** `inputs/Main tests` (4 hand-graded calls with expected scorecards) and `inputs/Bulk tests`; `batch_test.py` posts either suite with inline criteria; `compare_results.py` scores result folders.
+* **Fixes:** profanity checks agent lines only; announced holds aren't dead air; the empathy drop is measured against the customer's own turns; Probing and Active listening work on question sentences; Paraphrasing and Probing skip greeting and verification lines; Resolved cutoff 0.80 → 0.73.
+* **Laya evidence in the repo:** `laya_eval/` (moved from `../laya-test/qa_eval`), `Docs/LAYA_TEST_LOG.md`, result folders and probes.
+* **Removed:** pre-version-8 inputs (`Archive/`, `inputs(Batch 1)/`, `Completed_tests/`), Ollama-era results and `test_results.xlsx`, `Docs/pipeline_flowchart_laya.html`.
 
 ## Changelog: version 10 (Laya)
 * **Laya replaces Ollama.** Added `src/services/laya_adapter.py` and removed `llm_adapter.py`.

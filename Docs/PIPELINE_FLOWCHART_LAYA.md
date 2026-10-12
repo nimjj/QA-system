@@ -129,7 +129,7 @@ Evidence is in `laya-test/laya` (`README.md`, `docs/questions-and-answers.md`, `
 2. **Thresholds must be tuned.** Probabilities ship over-confident, so 0.5 is only a starting point. Treat roughly 0.4–0.6 as "unsure".
 3. **Polarity differs per criterion.** Violation-based items (Ownership, Rapport, Active listening) FAIL on a high P(yes). Positive-evidence items (Empathy, Probing, Confirmed resolved) PASS on a high P(yes).
 4. **Truncation is silent.** Check `usage["truncated"]` and fail safe when it is set.
-5. **Accuracy on this QA wording needs checking.** Laya's own benchmarks show the base checkpoints near chance on its typed-decisions set. The repo has no human per-criterion labels (`tests/scoring_test/*.json` carry only a quality tier and `inputs/Test (results)/` holds Ollama's own outputs), so a synthetic gold set and a first out-of-the-box test now live in `laya-test/qa_eval/` (see `RESULTS.md` there).
+5. **Accuracy on this QA wording needs checking.** Laya's own benchmarks show the base checkpoints near chance on its typed-decisions set. The repo has no human per-criterion labels (`tests/scoring_test/*.json` carry only a quality tier and `inputs/Test (results)/` holds Ollama's own outputs), so a synthetic gold set and a first out-of-the-box test now live in `laya_eval/` (see `RESULTS.md` there).
 6. **Criterion descriptions need rewriting.** The seeded descriptions for Probing and Confirmed say "Output YES or NO" and the batch prompt asks for JSON. These become Laya question text and `criteria`.
 
 Illustrative question shape (not yet run against this data):
@@ -162,7 +162,7 @@ questions = {
 ## Not part of this change (next phase)
 - Build `laya_adapter` behind a config flag, keeping Ollama as the fallback.
 - `qa-analysis/.venv` already has `torch` and `transformers` but not `laya`. Laya would need installing there, or running as a separate local service.
-- Tune thresholds on human-reviewed labels and compare Laya against the current Ollama verdicts. (A synthetic first pass is in `laya-test/qa_eval/RESULTS.md`; the labels there are not human-verified.)
+- Tune thresholds on human-reviewed labels and compare Laya against the current Ollama verdicts. (A synthetic first pass is in `laya_eval/RESULTS.md`; the labels there are not human-verified.)
 - Quirks noticed along the way, left alone:
   - `OLLAMA_TIMEOUT` is never read.
   - `download_model.py` (called by `setup.sh`/`setup.bat`) does not exist.
