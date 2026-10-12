@@ -43,7 +43,7 @@ def _noul(instructions: str, true_text: str, false_text: str, neutral_labels: bo
     return question
 
 # One Laya question per check. pass_threshold applies to P(pass): P(yes) when yes means PASS, else 1 - P(yes).
-# Wording and thresholds come from the out-of-the-box test in laya-test/qa_eval (synthetic data, so they are
+# Wording and thresholds come from the out-of-the-box test in laya_eval/ (synthetic data, so they are
 # starting values to re-tune on human-reviewed calls).
 LAYA_CHECKS = {
     "empathy": {"yes_means": "PASS", "pass_threshold": 0.78, "question": _noul(
@@ -66,7 +66,9 @@ LAYA_CHECKS = {
         "Did the agent ask at least one genuine diagnostic question about the customer's problem?",
         "the agent asked at least one question that investigates the cause or specifics of the problem, such as when it started, which device, what error or lights, or what was already tried",
         "the agent only asked greetings, identity verification, confirmations, upsell, scheduling or closing questions", neutral_labels=True)},
-    "resolved": {"yes_means": "PASS", "pass_threshold": 0.80, "question": _noul(
+    # 0.73: best balanced accuracy (0.68) on the b_* bulk calls, whose filenames name the missing confirmation.
+    # The scores barely separate (no-confirmation endings 0.66-0.75, confirmed 0.47-0.79), so this needs training.
+    "resolved": {"yes_means": "PASS", "pass_threshold": 0.73, "question": _noul(
         "Did the agent explicitly confirm that the customer's issue was resolved?",
         "the agent explicitly confirms the issue is resolved or fixed, usually after checking with the customer",
         "the agent never confirms resolution: the call just ends, the agent assumes it is fixed, the customer says it still fails, or it is handed off", neutral_labels=True)},
@@ -130,7 +132,8 @@ def evaluate_interaction(
         evaluate_branding, evaluate_hold_and_dead_air,
         evaluate_verified_customer, evaluate_personalized_call,
         extract_active_listening_snippets, extract_empathy_snippet_list,
-        extract_ownership_snippets, extract_rapport_snippets, extract_probing_inputs
+        extract_ownership_snippets, extract_rapport_snippets, extract_probing_inputs,
+        without_setup_lines, without_detail_answers
     )
     
     turns = []
@@ -181,7 +184,7 @@ def evaluate_interaction(
     clean_transcript = "\n".join(clean_lines)
     agent_only_transcript = "\n".join([f"Agent: {x}" for x in agent_lines])
     first_10_cust = " ".join(customer_lines[:10])
-    first_10_agent = " ".join(agent_lines[:10])
+    problem_lines = without_detail_answers(customer_lines) or customer_lines
 
     categories = criteria_data.get("categories", [])
     category_weights = criteria_data.get("category_weights", {})
@@ -227,8 +230,10 @@ def evaluate_interaction(
         rule_ratings.append(emp_rating)
 
     if "paraphrasing" in selected_criteria:
-        para_cust = " ".join(" ".join(customer_lines).split()[:PARAPHRASE_CUSTOMER_MAX_WORDS])
-        para_agent = " ".join(first_10_agent.split()[:PARAPHRASE_AGENT_MAX_WORDS])
+        # greeting, verification and account-detail turns would otherwise fill most of both word budgets
+        para_cust = " ".join(" ".join(problem_lines).split()[:PARAPHRASE_CUSTOMER_MAX_WORDS])
+        para_agent_lines = (without_setup_lines(agent_lines) or agent_lines)[:10]
+        para_agent = " ".join(" ".join(para_agent_lines).split()[:PARAPHRASE_AGENT_MAX_WORDS])
         para_rating = _laya_verdict("paraphrasing", f"CUSTOMER: {para_cust}\nAGENT: {para_agent}", "verify_paraphrasing")
         rule_ratings.append({
             "category": "Technical Knowledge",
@@ -297,7 +302,7 @@ def evaluate_interaction(
         }
         if agent_questions:
             problem_text, probe_questions = extract_probing_inputs(
-                turns, customer_lines, PROBING_PROBLEM_MAX_WORDS, PROBING_QUESTIONS_MAX_WORDS
+                turns, problem_lines, PROBING_PROBLEM_MAX_WORDS, PROBING_QUESTIONS_MAX_WORDS
             )
             q_txt = "\n".join(f"- {q}" for q in probe_questions)
             p_prob = f"CUSTOMER PROBLEM: {problem_text}\n\nThe agent asked these questions during the call:\n{q_txt}"
@@ -369,7 +374,8 @@ def evaluate_interaction(
             if not r.get("coaching"):
                 r["coaching"] = "Could not be verified from the transcript."
 
-    is_auto_fail, reason = check_auto_fail(clean_transcript, [], auto_fail_rules, ratings)
+    # profanity is checked on agent lines only; the customer's language never fails the agent
+    is_auto_fail, reason = check_auto_fail(agent_only_transcript, [], auto_fail_rules, ratings)
 
     cat_scores, b_score = calculate_category_scores(
         ratings,

@@ -130,6 +130,41 @@ def unit_checks():
     check("active listening: difflib gate keeps near-repeats and skips loose matches",
           rule_engine.extract_active_listening_snippets(near) != "" and rule_engine.extract_active_listening_snippets(loose) == "")
 
+    hold = [("Agent", "Can I place you on a brief hold while I run a test?"), ("Customer", "Sure."),
+            ("Agent", "Thanks for holding, the test is halfway."), ("Customer", "Okay."),
+            ("Agent", "Thank you for waiting, I have the results.")]
+    silent = [("Agent", "Okay."), ("Customer", "Hello? Are you still there?"), ("Agent", "Yes."), ("Customer", "Hello?")]
+    check("dead air: announced holds are exempt, unannounced gaps still count",
+          rule_engine.evaluate_hold_and_dead_air(hold, [(0, 10), (12, 22), (70, 80), (82, 92), (140, 150)])["rating"] == "PASS"
+          and rule_engine.evaluate_hold_and_dead_air(silent, [(0, 10), (50, 60), (62, 72), (110, 120)])["rating"] == "FAIL")
+
+    turns = [("Customer", "My wifi is down."), ("Agent", "Great, let's look."), ("Customer", "It drops every evening.")]
+    check("empathy: a cheerful agent turn does not make the customer's next turn a drop",
+          rule_engine.extract_empathy_snippet_list(turns, [0.0, 20.0, -2.0]) == [])
+    turns = [("Customer", "This is the third time I've called about it."), ("Agent", "Okay."), ("Agent", "Next.")]
+    check("empathy: frustration words trigger a snippet without a big sentiment drop",
+          len(rule_engine.extract_empathy_snippet_list(turns, [-3.0, 5.0, 5.0])) == 1)
+
+    turns = [("Agent", "How long has this been happening?"), ("Customer", "Three weeks."),
+             ("Agent", "Okay, the light means it lost signal. And how long has this been happening for, roughly?"),
+             ("Customer", "Like I said, about three weeks."),
+             ("Agent", "Is that right?"), ("Customer", "Yes."), ("Agent", "Is that right?")]
+    al = rule_engine.extract_active_listening_snippets(turns)
+    check("active listening: a 'like I said' reply pairs the repeat with the earlier question",
+          "Turn 0: How long has this been happening?" in al and "Customer: Like I said" in al)
+    check("active listening: repeated 'Is that right?' check-ins are not repeats", "Is that right" not in al)
+
+    turns = [("Agent", "That light means the modem lost its signal from our network. Which light is blinking?")]
+    _, qs = rule_engine.extract_probing_inputs(turns, [], 50, 100)
+    check("probing: only the question sentence of a turn is sent", qs == ["Which light is blinking?"])
+
+    check("paraphrasing: greeting, verification and account-detail turns are skipped",
+          rule_engine.without_setup_lines(["Thank you for calling S-Net.", "Can I get your PIN?", "So your wifi drops?"])
+          == ["So your wifi drops?"]
+          and rule_engine.without_detail_answers(["It's 4417-882-310.", "It's 18 Larkspur Lane.",
+                                                  "I upgraded to the 500 megabit plan five weeks ago and it's slow."])
+          == ["I upgraded to the 500 megabit plan five weeks ago and it's slow."])
+
     viol = de._batch_check({"name": "No blame", "description": "VIOLATION-BASED: FAIL if the agent blames another team."})
     pos = de._batch_check({"name": "Offered survey", "description": "Did the agent offer the survey? Output YES or NO."})
     check("batch: VIOLATION-BASED items are asked as violations, others as evidence",
