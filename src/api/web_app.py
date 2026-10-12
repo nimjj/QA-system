@@ -295,21 +295,31 @@ def delete_existing_criterion(line_item_id: str):
     return {"status": "deleted", "line_item_id": line_item_id}
 
 
+SAMPLE_DIRS = ["Main tests", "Bulk tests"]
+
+
 @app.get("/api/samples")
 def list_sample_inputs():
+    """Sample call payloads from inputs/Main tests and inputs/Bulk tests (expected/ grades are skipped)."""
     inputs_dir = os.path.join(_ROOT, "inputs")
     samples = []
-    if os.path.exists(inputs_dir):
-        for fname in sorted(os.listdir(inputs_dir)):
-            if fname.endswith(".json"):
-                fpath = os.path.join(inputs_dir, fname)
+    for sub in SAMPLE_DIRS:
+        sample_dir = os.path.join(inputs_dir, sub)
+        for dirpath, dirnames, filenames in os.walk(sample_dir):
+            dirnames[:] = sorted(d for d in dirnames if d.lower() != "expected")
+            for fname in sorted(filenames):
+                if not fname.endswith(".json"):
+                    continue
+                fpath = os.path.join(dirpath, fname)
                 try:
                     with open(fpath, "r", encoding="utf-8") as f:
                         data = json.load(f)
-                        data["filename"] = fname
-                        samples.append(data)
                 except Exception as e:
                     logger.error({"message": f"Error loading sample {fname}: {e}"})
+                    continue
+                if isinstance(data, dict) and data.get("transcript"):
+                    data["filename"] = os.path.relpath(fpath, inputs_dir).replace(os.sep, "/")
+                    samples.append(data)
     return samples
 
 

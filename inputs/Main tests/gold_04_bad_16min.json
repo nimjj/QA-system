@@ -1,0 +1,894 @@
+{
+  "tenant_id": "tenant-abc",
+  "customer_name": "Walter",
+  "transcript": [
+    {
+      "speaker": "Agent",
+      "start_time": "[00:00]",
+      "end_time": "[00:05]",
+      "start_time_sec": 0,
+      "text": "Thank you for calling S-Net technical support, this is Brett. Account number and PIN?",
+      "sentiment_score": 2.0
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[00:07]",
+      "end_time": "[00:13]",
+      "start_time_sec": 7,
+      "text": "Oh, hi. Yes, it's 5561-209-847, and the PIN is 3318. My name's Walter Hughes.",
+      "sentiment_score": 0.0
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[00:14]",
+      "end_time": "[00:16]",
+      "start_time_sec": 14,
+      "text": "Okay. What's the issue?",
+      "sentiment_score": 0.0
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[00:18]",
+      "end_time": "[00:40]",
+      "start_time_sec": 18,
+      "text": "So, about five weeks ago I upgraded to the 500 megabit plan, because we've got the kids doing school stuff online and my wife and I both work from home a couple of days a week. And I'm not getting anywhere near that. Every time I test it, it's about fifty or sixty.",
+      "sentiment_score": -10.0
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[00:42]",
+      "end_time": "[00:53]",
+      "start_time_sec": 42,
+      "text": "And it's not just the number, our video calls freeze, the kids' streaming buffers. It's honestly worse than before we upgraded, which makes no sense to me.",
+      "sentiment_score": -14.0
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[00:54]",
+      "end_time": "[00:56]",
+      "start_time_sec": 54,
+      "text": "Okay.",
+      "sentiment_score": 0.0
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[01:34]",
+      "end_time": "[01:36]",
+      "start_time_sec": 94,
+      "text": "Hello? Are you there?",
+      "sentiment_score": -12.0
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[01:37]",
+      "end_time": "[01:42]",
+      "start_time_sec": 97,
+      "text": "Yeah. I'm looking at the account. It says you're on the 500 plan.",
+      "sentiment_score": 0.0
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[01:44]",
+      "end_time": "[01:50]",
+      "start_time_sec": 104,
+      "text": "Yes, that's what I'm saying. I'm paying for the 500 and I'm getting fifty.",
+      "sentiment_score": -14.0
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[01:52]",
+      "end_time": "[02:05]",
+      "start_time_sec": 112,
+      "text": "And when I upgraded, the guy on the phone said we'd get at least three hundred on WiFi, easily. He was very clear about that. That's the whole reason I upgraded.",
+      "sentiment_score": -12.0
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[02:06]",
+      "end_time": "[02:10]",
+      "start_time_sec": 126,
+      "text": "I can't comment on what sales told you. I'm technical support.",
+      "sentiment_score": -2.0
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[02:12]",
+      "end_time": "[02:18]",
+      "start_time_sec": 132,
+      "text": "Okay, but he was from S-Net, same as you. I'm not making it up.",
+      "sentiment_score": -16.0
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[02:19]",
+      "end_time": "[02:26]",
+      "start_time_sec": 139,
+      "text": "I'm not saying you're making it up. I just can't see what was said on a sales call.",
+      "sentiment_score": -2.0
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[02:28]",
+      "end_time": "[02:35]",
+      "start_time_sec": 148,
+      "text": "Fine. I've been with you eleven years, you know. We've never had a problem like this.",
+      "sentiment_score": -14.0
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[02:36]",
+      "end_time": "[02:41]",
+      "start_time_sec": 156,
+      "text": "Okay. Read me the serial number on the bottom of the router.",
+      "sentiment_score": 0.0
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[02:47]",
+      "end_time": "[02:56]",
+      "start_time_sec": 167,
+      "text": "Hang on, I need to tip it over. Okay. It's S N, 4, 4, 0, 9, B, 7, 7, 2, 1.",
+      "sentiment_score": -10.0
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[02:57]",
+      "end_time": "[03:00]",
+      "start_time_sec": 177,
+      "text": "Okay, that matches what's on the account.",
+      "sentiment_score": 0.0
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[03:01]",
+      "end_time": "[03:06]",
+      "start_time_sec": 181,
+      "text": "Okay. I'm going to send a refresh to the modem. It'll restart.",
+      "sentiment_score": 0.0
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[03:08]",
+      "end_time": "[03:13]",
+      "start_time_sec": 188,
+      "text": "Okay. I did restart it myself this morning, for what it's worth.",
+      "sentiment_score": -12.0
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[03:14]",
+      "end_time": "[03:16]",
+      "start_time_sec": 194,
+      "text": "Well, I'm sending it from here.",
+      "sentiment_score": -2.0
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[03:21]",
+      "end_time": "[03:24]",
+      "start_time_sec": 201,
+      "text": "Alright. The lights have all gone off.",
+      "sentiment_score": -14.0
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[04:12]",
+      "end_time": "[04:17]",
+      "start_time_sec": 252,
+      "text": "Is something supposed to be happening? The lights are flashing now.",
+      "sentiment_score": -16.0
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[04:18]",
+      "end_time": "[04:21]",
+      "start_time_sec": 258,
+      "text": "It's rebooting. It takes a few minutes.",
+      "sentiment_score": 0.0
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[04:24]",
+      "end_time": "[04:26]",
+      "start_time_sec": 264,
+      "text": "Okay.",
+      "sentiment_score": -14.0
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[05:06]",
+      "end_time": "[05:10]",
+      "start_time_sec": 306,
+      "text": "Okay, the lights look normal again. The globe is white.",
+      "sentiment_score": -14.0
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[05:11]",
+      "end_time": "[05:13]",
+      "start_time_sec": 311,
+      "text": "Is it working now?",
+      "sentiment_score": 0.0
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[05:33]",
+      "end_time": "[05:38]",
+      "start_time_sec": 333,
+      "text": "I just ran the test again on my laptop. It says 54 down.",
+      "sentiment_score": -16.0
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[05:39]",
+      "end_time": "[05:45]",
+      "start_time_sec": 339,
+      "text": "Like I said, the refresh takes time to settle. You'll need to test it again later.",
+      "sentiment_score": -4.0
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[05:47]",
+      "end_time": "[05:51]",
+      "start_time_sec": 347,
+      "text": "You didn't say that. You said it would restart.",
+      "sentiment_score": -22.0
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[05:52]",
+      "end_time": "[05:56]",
+      "start_time_sec": 352,
+      "text": "It needs time to settle after the refresh. That's normal.",
+      "sentiment_score": -4.0
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[05:59]",
+      "end_time": "[06:02]",
+      "start_time_sec": 359,
+      "text": "How long is later? An hour? Tomorrow?",
+      "sentiment_score": -24.0
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[06:03]",
+      "end_time": "[06:05]",
+      "start_time_sec": 363,
+      "text": "Could be a few hours.",
+      "sentiment_score": -2.0
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[06:08]",
+      "end_time": "[06:18]",
+      "start_time_sec": 368,
+      "text": "Okay, well, can you stay on while I test it again in a few minutes? I'd rather not have to call back in.",
+      "sentiment_score": -22.0
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[06:19]",
+      "end_time": "[06:22]",
+      "start_time_sec": 379,
+      "text": "You can test it now if you want.",
+      "sentiment_score": -2.0
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[06:47]",
+      "end_time": "[06:50]",
+      "start_time_sec": 407,
+      "text": "Okay. Testing again... 58 down. 11 up.",
+      "sentiment_score": -22.0
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[06:51]",
+      "end_time": "[06:53]",
+      "start_time_sec": 411,
+      "text": "That's a bit better.",
+      "sentiment_score": -2.0
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[06:55]",
+      "end_time": "[06:57]",
+      "start_time_sec": 415,
+      "text": "It's four megabits better. That's nothing.",
+      "sentiment_score": -28.0
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[06:58]",
+      "end_time": "[07:00]",
+      "start_time_sec": 418,
+      "text": "It'll keep improving as it settles.",
+      "sentiment_score": -4.0
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[07:03]",
+      "end_time": "[07:11]",
+      "start_time_sec": 423,
+      "text": "You said that already. I don't see how restarting it from your end is any different from me restarting it.",
+      "sentiment_score": -26.0
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[07:12]",
+      "end_time": "[07:15]",
+      "start_time_sec": 432,
+      "text": "It resets the connection profile on our side.",
+      "sentiment_score": -4.0
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[07:18]",
+      "end_time": "[07:24]",
+      "start_time_sec": 438,
+      "text": "And has that ever fixed a problem like this? Fifty instead of five hundred?",
+      "sentiment_score": -24.0
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[07:25]",
+      "end_time": "[07:27]",
+      "start_time_sec": 445,
+      "text": "Sometimes. Hold on.",
+      "sentiment_score": -4.0
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[08:17]",
+      "end_time": "[08:19]",
+      "start_time_sec": 497,
+      "text": "Hello? Brett?",
+      "sentiment_score": -26.0
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[08:20]",
+      "end_time": "[08:24]",
+      "start_time_sec": 500,
+      "text": "Yeah. I was checking the line again. The line's fine.",
+      "sentiment_score": -4.0
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[08:26]",
+      "end_time": "[08:39]",
+      "start_time_sec": 506,
+      "text": "Look, I've been paying for the 500 for over a month and getting about a tenth of it. And I've been paying twenty more a month for it. That's really not okay.",
+      "sentiment_score": -30.0
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[08:40]",
+      "end_time": "[08:44]",
+      "start_time_sec": 520,
+      "text": "Speeds aren't guaranteed. It says up to 500 on the plan.",
+      "sentiment_score": -4.0
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[08:46]",
+      "end_time": "[08:52]",
+      "start_time_sec": 526,
+      "text": "Up to 500, sure, but fifty? That's not up to, that's nowhere near it.",
+      "sentiment_score": -36.0
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[08:53]",
+      "end_time": "[08:57]",
+      "start_time_sec": 533,
+      "text": "The line is showing 500 provisioned. So the line is fine.",
+      "sentiment_score": -4.0
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[08:59]",
+      "end_time": "[09:01]",
+      "start_time_sec": 539,
+      "text": "Then why am I getting fifty?",
+      "sentiment_score": -30.0
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[09:02]",
+      "end_time": "[09:05]",
+      "start_time_sec": 542,
+      "text": "Probably the WiFi. WiFi is your own setup.",
+      "sentiment_score": -4.0
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[09:07]",
+      "end_time": "[09:12]",
+      "start_time_sec": 547,
+      "text": "It's your router. You sent it to me when I upgraded.",
+      "sentiment_score": -32.0
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[09:13]",
+      "end_time": "[09:15]",
+      "start_time_sec": 553,
+      "text": "The router's showing online. It's fine.",
+      "sentiment_score": -4.0
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[09:18]",
+      "end_time": "[09:33]",
+      "start_time_sec": 558,
+      "text": "Online isn't the same as fast. I'm sitting in the kitchen, it's maybe five metres from the router, there's one wall. My wife's laptop is the same, and the kids' tablets. It's slow on all of them.",
+      "sentiment_score": -34.0
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[09:34]",
+      "end_time": "[09:36]",
+      "start_time_sec": 574,
+      "text": "Okay.",
+      "sentiment_score": -4.0
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[09:39]",
+      "end_time": "[09:44]",
+      "start_time_sec": 579,
+      "text": "So is there anything you can actually check? Anything at all?",
+      "sentiment_score": -30.0
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[09:45]",
+      "end_time": "[09:53]",
+      "start_time_sec": 585,
+      "text": "I sent the refresh. You should have restarted the router before you called, that's the first thing anyone should do.",
+      "sentiment_score": -6.0
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[09:55]",
+      "end_time": "[10:00]",
+      "start_time_sec": 595,
+      "text": "I did restart it. I told you that. I restarted it this morning.",
+      "sentiment_score": -40.0
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[10:01]",
+      "end_time": "[10:04]",
+      "start_time_sec": 601,
+      "text": "Well, the refresh from our side is different.",
+      "sentiment_score": -6.0
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[10:07]",
+      "end_time": "[10:17]",
+      "start_time_sec": 607,
+      "text": "Okay. Fine. Can I at least get some money back for the five weeks? I've been paying for a speed I'm not getting.",
+      "sentiment_score": -38.0
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[10:18]",
+      "end_time": "[10:25]",
+      "start_time_sec": 618,
+      "text": "That's not something I handle. That's a billing team thing. You'd have to call back and ask them.",
+      "sentiment_score": -4.0
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[10:27]",
+      "end_time": "[10:29]",
+      "start_time_sec": 627,
+      "text": "Can't you just transfer me?",
+      "sentiment_score": -40.0
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[10:30]",
+      "end_time": "[10:35]",
+      "start_time_sec": 630,
+      "text": "The billing line closes at six. You'd have to call back tomorrow.",
+      "sentiment_score": -4.0
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[10:38]",
+      "end_time": "[10:49]",
+      "start_time_sec": 638,
+      "text": "So I've been on the phone with you for ten minutes, nothing's changed, and now I have to call back tomorrow and start again with somebody else.",
+      "sentiment_score": -44.0
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[10:50]",
+      "end_time": "[10:52]",
+      "start_time_sec": 650,
+      "text": "Billing is a different department.",
+      "sentiment_score": -4.0
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[10:55]",
+      "end_time": "[10:58]",
+      "start_time_sec": 655,
+      "text": "Can I speak to a supervisor, please?",
+      "sentiment_score": -46.0
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[10:59]",
+      "end_time": "[11:06]",
+      "start_time_sec": 659,
+      "text": "A supervisor's going to tell you the same thing. There's nothing I can do about WiFi speeds.",
+      "sentiment_score": -6.0
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[11:08]",
+      "end_time": "[11:11]",
+      "start_time_sec": 668,
+      "text": "I'd still like to speak to one.",
+      "sentiment_score": -48.0
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[11:12]",
+      "end_time": "[11:17]",
+      "start_time_sec": 672,
+      "text": "They're all busy at the moment. You'd have to wait a long time.",
+      "sentiment_score": -6.0
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[11:21]",
+      "end_time": "[11:28]",
+      "start_time_sec": 681,
+      "text": "Unbelievable. Okay. So what am I supposed to do about the speed? Just live with it?",
+      "sentiment_score": -46.0
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[11:29]",
+      "end_time": "[11:41]",
+      "start_time_sec": 689,
+      "text": "Obviously if you want the full 500 you plug the laptop into the router with a cable. That's basic stuff. WiFi is never going to give you the full speed.",
+      "sentiment_score": -6.0
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[11:43]",
+      "end_time": "[11:57]",
+      "start_time_sec": 703,
+      "text": "I don't need the full 500 on WiFi. I'd be happy with two hundred. Before the upgrade we were getting about a hundred and fifty on WiFi, on the old router. Now it's fifty.",
+      "sentiment_score": -44.0
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[11:58]",
+      "end_time": "[12:00]",
+      "start_time_sec": 718,
+      "text": "Different routers perform differently.",
+      "sentiment_score": -4.0
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[12:03]",
+      "end_time": "[12:16]",
+      "start_time_sec": 723,
+      "text": "A friend of mine said it might be the WiFi channel, that if everyone on our street is on the same channel it slows down. Can you change that from your end?",
+      "sentiment_score": -44.0
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[12:17]",
+      "end_time": "[12:23]",
+      "start_time_sec": 737,
+      "text": "You can change the channel in the router settings yourself. There's a guide on the website.",
+      "sentiment_score": -4.0
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[12:25]",
+      "end_time": "[12:31]",
+      "start_time_sec": 745,
+      "text": "I wouldn't know where to start with that. Can you walk me through it?",
+      "sentiment_score": -46.0
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[12:32]",
+      "end_time": "[12:36]",
+      "start_time_sec": 752,
+      "text": "It's in the guide. It's step by step. It's not difficult.",
+      "sentiment_score": -6.0
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[12:39]",
+      "end_time": "[12:46]",
+      "start_time_sec": 759,
+      "text": "I'm sure it's not difficult for you. I'm asking for help, that's why I called technical support.",
+      "sentiment_score": -48.0
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[12:47]",
+      "end_time": "[12:53]",
+      "start_time_sec": 767,
+      "text": "The guide covers it. Go to the website, search WiFi channel, and follow the steps.",
+      "sentiment_score": -6.0
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[12:58]",
+      "end_time": "[13:00]",
+      "start_time_sec": 778,
+      "text": "Okay. Fine. I'll try that later.",
+      "sentiment_score": -46.0
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[13:03]",
+      "end_time": "[13:10]",
+      "start_time_sec": 783,
+      "text": "So the new router is worse than the old one? Can you send me a different one?",
+      "sentiment_score": -46.0
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[13:11]",
+      "end_time": "[13:16]",
+      "start_time_sec": 791,
+      "text": "I can't send equipment unless there's a fault. The router's showing no fault.",
+      "sentiment_score": -4.0
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[13:18]",
+      "end_time": "[13:23]",
+      "start_time_sec": 798,
+      "text": "But it's slower than the old one. Isn't that a fault?",
+      "sentiment_score": -48.0
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[13:24]",
+      "end_time": "[13:27]",
+      "start_time_sec": 804,
+      "text": "Not on our system, no. It's online.",
+      "sentiment_score": -4.0
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[13:31]",
+      "end_time": "[13:37]",
+      "start_time_sec": 811,
+      "text": "Okay. Is there an engineer who can come out and look at it, then?",
+      "sentiment_score": -50.0
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[13:38]",
+      "end_time": "[13:47]",
+      "start_time_sec": 818,
+      "text": "An engineer visit is for line faults. The line is fine. If they come out and it's your WiFi, there's a call-out charge.",
+      "sentiment_score": -4.0
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[13:49]",
+      "end_time": "[13:51]",
+      "start_time_sec": 829,
+      "text": "How much is that?",
+      "sentiment_score": -50.0
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[13:52]",
+      "end_time": "[13:54]",
+      "start_time_sec": 832,
+      "text": "Sixty-five.",
+      "sentiment_score": -4.0
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[13:57]",
+      "end_time": "[14:05]",
+      "start_time_sec": 837,
+      "text": "So I pay sixty-five for you to tell me it's my WiFi. On the router you sent me.",
+      "sentiment_score": -52.0
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[14:06]",
+      "end_time": "[14:09]",
+      "start_time_sec": 846,
+      "text": "If it's not a line fault, yes.",
+      "sentiment_score": -4.0
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[14:14]",
+      "end_time": "[14:20]",
+      "start_time_sec": 854,
+      "text": "Fine. Forget it. I'll call billing tomorrow and I'll ask them about cancelling, honestly.",
+      "sentiment_score": -46.0
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[14:21]",
+      "end_time": "[14:23]",
+      "start_time_sec": 861,
+      "text": "They can help with that.",
+      "sentiment_score": -4.0
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[14:26]",
+      "end_time": "[14:34]",
+      "start_time_sec": 866,
+      "text": "Great. Is there a reference number or anything for this call, so I don't have to explain it all again?",
+      "sentiment_score": -48.0
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[14:35]",
+      "end_time": "[14:37]",
+      "start_time_sec": 875,
+      "text": "It's on the account.",
+      "sentiment_score": -4.0
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[14:39]",
+      "end_time": "[14:42]",
+      "start_time_sec": 879,
+      "text": "Right. Is there a reference number, though?",
+      "sentiment_score": -46.0
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[14:43]",
+      "end_time": "[14:46]",
+      "start_time_sec": 883,
+      "text": "They'll see the call on the account.",
+      "sentiment_score": -4.0
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[14:49]",
+      "end_time": "[15:02]",
+      "start_time_sec": 889,
+      "text": "Then can you at least put a note on there that I've complained about the speed, and that I asked for a supervisor and didn't get one? I want that written down.",
+      "sentiment_score": -48.0
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[15:03]",
+      "end_time": "[15:05]",
+      "start_time_sec": 903,
+      "text": "I can add a note.",
+      "sentiment_score": -4.0
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[15:07]",
+      "end_time": "[15:09]",
+      "start_time_sec": 907,
+      "text": "What will it say?",
+      "sentiment_score": -48.0
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[15:10]",
+      "end_time": "[15:13]",
+      "start_time_sec": 910,
+      "text": "Customer called about WiFi speed. Refresh sent.",
+      "sentiment_score": -4.0
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[15:15]",
+      "end_time": "[15:28]",
+      "start_time_sec": 915,
+      "text": "That's not what I said. I said I'm getting fifty on a five hundred plan, on your router, for five weeks, and I want a refund and a supervisor. Please put that.",
+      "sentiment_score": -52.0
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[15:29]",
+      "end_time": "[15:33]",
+      "start_time_sec": 929,
+      "text": "Okay. I'll put customer reports slow speed and wants a refund.",
+      "sentiment_score": -4.0
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[15:36]",
+      "end_time": "[15:38]",
+      "start_time_sec": 936,
+      "text": "And the supervisor.",
+      "sentiment_score": -50.0
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[15:39]",
+      "end_time": "[15:41]",
+      "start_time_sec": 939,
+      "text": "And requested a supervisor.",
+      "sentiment_score": -4.0
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[15:45]",
+      "end_time": "[15:54]",
+      "start_time_sec": 945,
+      "text": "My son has an online exam tomorrow morning, you know. If it freezes during that, I don't know what we'll do.",
+      "sentiment_score": -48.0
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[15:55]",
+      "end_time": "[15:59]",
+      "start_time_sec": 955,
+      "text": "You can plug his computer into the router with a cable.",
+      "sentiment_score": -4.0
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[16:02]",
+      "end_time": "[16:07]",
+      "start_time_sec": 962,
+      "text": "He's upstairs. The router is downstairs. There's no cable that goes that far.",
+      "sentiment_score": -50.0
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[16:08]",
+      "end_time": "[16:10]",
+      "start_time_sec": 968,
+      "text": "Then he'll be on WiFi.",
+      "sentiment_score": -4.0
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[16:13]",
+      "end_time": "[16:15]",
+      "start_time_sec": 973,
+      "text": "Fine.",
+      "sentiment_score": -50.0
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[16:16]",
+      "end_time": "[16:18]",
+      "start_time_sec": 976,
+      "text": "Is there anything else?",
+      "sentiment_score": -4.0
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[16:20]",
+      "end_time": "[16:22]",
+      "start_time_sec": 980,
+      "text": "No. Clearly not.",
+      "sentiment_score": -52.0
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[16:23]",
+      "end_time": "[16:25]",
+      "start_time_sec": 983,
+      "text": "Okay. Thanks for calling. Bye.",
+      "sentiment_score": -4.0
+    }
+  ]
+}

@@ -1,0 +1,878 @@
+{
+  "tenant_id": "tenant-abc",
+  "customer_name": "Grace",
+  "transcript": [
+    {
+      "speaker": "Agent",
+      "start_time": "[00:00]",
+      "end_time": "[00:08]",
+      "start_time_sec": 0,
+      "text": "Thank you for calling S-Net technical support, my name is Leon. Who do I have the pleasure of speaking with today?",
+      "sentiment_score": 12.0
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[00:10]",
+      "end_time": "[00:12]",
+      "start_time_sec": 10,
+      "text": "Hi Leon, this is Grace Whitfield.",
+      "sentiment_score": 8.0
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[00:13]",
+      "end_time": "[00:24]",
+      "start_time_sec": 13,
+      "text": "Hi Grace, nice to meet you. Before we get into anything, could I get the account number and the PIN on the account so I can verify you?",
+      "sentiment_score": 14.0
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[00:26]",
+      "end_time": "[00:31]",
+      "start_time_sec": 26,
+      "text": "Sure. The account number is 4417-882-310 and the PIN is 2290.",
+      "sentiment_score": 5.0
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[00:32]",
+      "end_time": "[00:38]",
+      "start_time_sec": 32,
+      "text": "Thank you. And just to finish verifying, can you confirm the service address for me?",
+      "sentiment_score": 12.0
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[00:40]",
+      "end_time": "[00:42]",
+      "start_time_sec": 40,
+      "text": "It's 18 Larkspur Lane, unit B.",
+      "sentiment_score": 5.0
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[00:43]",
+      "end_time": "[00:49]",
+      "start_time_sec": 43,
+      "text": "Perfect, that all matches, you're verified. Thanks, Grace. So what's going on with the service today?",
+      "sentiment_score": 15.0
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[00:51]",
+      "end_time": "[01:13]",
+      "start_time_sec": 51,
+      "text": "So it's my WiFi, mainly upstairs. I work from home and the connection in my office keeps dropping out. It's not totally down, it just cuts out for maybe ten or twenty seconds and then comes back, but when I'm on a video call that's enough to freeze me or kick me out completely.",
+      "sentiment_score": -12.0
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[01:15]",
+      "end_time": "[01:23]",
+      "start_time_sec": 75,
+      "text": "And it's been like that for over a week now. Honestly it's been driving me up the wall.",
+      "sentiment_score": -20.0
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[01:24]",
+      "end_time": "[01:47]",
+      "start_time_sec": 84,
+      "text": "I'm sorry, that sounds exhausting, especially when your work depends on those calls. Let me make sure I've got the full picture. Your office upstairs is getting short dropouts, around ten to twenty seconds at a time, often enough to freeze or disconnect your video calls, and it's been going on for a bit over a week. Is that right?",
+      "sentiment_score": 10.0
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[01:49]",
+      "end_time": "[01:51]",
+      "start_time_sec": 109,
+      "text": "Yes, that's it exactly.",
+      "sentiment_score": 2.0
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[01:53]",
+      "end_time": "[02:01]",
+      "start_time_sec": 113,
+      "text": "Oh, and the TV downstairs buffers a lot in the evenings too, but I'm not sure that's related.",
+      "sentiment_score": -6.0
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[02:02]",
+      "end_time": "[02:17]",
+      "start_time_sec": 122,
+      "text": "Good to know. I'll keep the TV on the list as well, because it could be the same root cause or something separate, and I'd rather check both than guess. Do you mind if I ask a few questions first?",
+      "sentiment_score": 12.0
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[02:19]",
+      "end_time": "[02:21]",
+      "start_time_sec": 139,
+      "text": "No, go ahead.",
+      "sentiment_score": 6.0
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[02:22]",
+      "end_time": "[02:30]",
+      "start_time_sec": 142,
+      "text": "When the dropouts happen, is it everything upstairs, so your laptop and your phone at the same time, or just the laptop?",
+      "sentiment_score": 12.0
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[02:32]",
+      "end_time": "[02:41]",
+      "start_time_sec": 152,
+      "text": "Hmm. I think it's both? Now that you say it, my phone does lose the WiFi symbol sometimes when I'm up there.",
+      "sentiment_score": 0.0
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[02:42]",
+      "end_time": "[02:49]",
+      "start_time_sec": 162,
+      "text": "Okay, that's helpful. And is the laptop on WiFi, or is it plugged in with a cable?",
+      "sentiment_score": 12.0
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[02:51]",
+      "end_time": "[02:53]",
+      "start_time_sec": 171,
+      "text": "WiFi. There's no cable up there.",
+      "sentiment_score": 2.0
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[02:54]",
+      "end_time": "[03:03]",
+      "start_time_sec": 174,
+      "text": "Got it. How is your setup laid out? Do you have just the S-Net Hub, or the hub plus one of our mesh satellites?",
+      "sentiment_score": 12.0
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[03:05]",
+      "end_time": "[03:16]",
+      "start_time_sec": 185,
+      "text": "The hub plus one satellite. The hub is downstairs in the living room by the TV, and the satellite is upstairs on the landing, outside my office.",
+      "sentiment_score": 4.0
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[03:17]",
+      "end_time": "[03:26]",
+      "start_time_sec": 197,
+      "text": "Great. And roughly when did this start? Can you narrow it down to a particular day, or think of anything that changed around then?",
+      "sentiment_score": 12.0
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[03:29]",
+      "end_time": "[03:45]",
+      "start_time_sec": 209,
+      "text": "It would have been... maybe ten days ago? I don't think anything changed. Oh, wait, actually, I redid the office about two weeks ago. New shelves and a new desk. I did move the satellite a bit then.",
+      "sentiment_score": 0.0
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[03:46]",
+      "end_time": "[03:51]",
+      "start_time_sec": 226,
+      "text": "That's a really useful detail. Where is the satellite sitting now, compared to before?",
+      "sentiment_score": 14.0
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[03:53]",
+      "end_time": "[04:07]",
+      "start_time_sec": 233,
+      "text": "It used to be on a little table on the landing. Now it's on the bottom shelf of the new bookcase, sort of tucked in behind some boxes so it isn't so visible.",
+      "sentiment_score": 2.0
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[04:08]",
+      "end_time": "[04:35]",
+      "start_time_sec": 248,
+      "text": "Okay, I think we may have our first suspect. The satellite needs a fairly clear path back to the hub, and a bookcase full of boxes plus the floor between you and the living room can weaken that link a lot. While we talk I'm pulling up the satellite's connection details on my side. Has anything else changed at home, like a new microwave or a new device that's always on?",
+      "sentiment_score": 14.0
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[04:37]",
+      "end_time": "[04:40]",
+      "start_time_sec": 277,
+      "text": "No, nothing new. Same devices as always.",
+      "sentiment_score": -4.0
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[04:42]",
+      "end_time": "[04:56]",
+      "start_time_sec": 282,
+      "text": "It's just been really bad timing. Yesterday I was presenting to a new client and it froze right in the middle of my slides. I had to rejoin twice. It was so embarrassing.",
+      "sentiment_score": -32.0
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[04:57]",
+      "end_time": "[05:15]",
+      "start_time_sec": 297,
+      "text": "Oh no. Freezing in the middle of a pitch to a new client is about the worst timing there is, and that's a horrible position to be put in. Let's make sure it doesn't happen to you again. I'll stay with this until the connection upstairs is solid.",
+      "sentiment_score": 10.0
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[05:17]",
+      "end_time": "[05:19]",
+      "start_time_sec": 317,
+      "text": "Thank you. I appreciate that.",
+      "sentiment_score": 4.0
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[05:20]",
+      "end_time": "[05:45]",
+      "start_time_sec": 320,
+      "text": "Okay, I have the satellite's details up now, and a couple of things stand out. First, the link between the satellite and the hub is weak. We'd want to see that signal somewhere around minus sixty, and yours is sitting around minus seventy-eight, which is borderline. When that link wobbles, the satellite drops and reconnects, and that lines up with the dropouts you're seeing.",
+      "sentiment_score": 12.0
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[05:47]",
+      "end_time": "[05:49]",
+      "start_time_sec": 347,
+      "text": "Okay. That makes sense.",
+      "sentiment_score": 0.0
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[05:50]",
+      "end_time": "[06:06]",
+      "start_time_sec": 350,
+      "text": "The second thing is that the satellite's firmware is two versions behind. It looks like the automatic update failed about three weeks ago. That older version has a known issue with weak links: instead of riding out a wobble, it disconnects completely.",
+      "sentiment_score": 12.0
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[06:08]",
+      "end_time": "[06:10]",
+      "start_time_sec": 368,
+      "text": "So it's two problems at once.",
+      "sentiment_score": -8.0
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[06:11]",
+      "end_time": "[06:34]",
+      "start_time_sec": 371,
+      "text": "Possibly, yes, and they make each other worse. The good news is both are fixable today. Here's what I'd suggest. First, I'll push the firmware update to the satellite from here. That takes three or four minutes and the satellite restarts on its own. While it does that, we can find it a better spot. Does that sound okay?",
+      "sentiment_score": 14.0
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[06:36]",
+      "end_time": "[06:38]",
+      "start_time_sec": 396,
+      "text": "Yes, let's do it.",
+      "sentiment_score": 8.0
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[06:39]",
+      "end_time": "[06:52]",
+      "start_time_sec": 399,
+      "text": "Great, I'm sending the update now. You'll see the light on the satellite start pulsing white. Please don't unplug it while it's pulsing. Can you tell me what the light is doing at the moment?",
+      "sentiment_score": 14.0
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[07:00]",
+      "end_time": "[07:02]",
+      "start_time_sec": 420,
+      "text": "It's... yes, it's pulsing white now.",
+      "sentiment_score": 4.0
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[07:03]",
+      "end_time": "[07:26]",
+      "start_time_sec": 423,
+      "text": "Perfect, that's the update going in. While it works, let's talk about placement. Ideally the satellite sits about halfway between the hub and where you need the signal, up off the floor and out in the open. Is there a spot on the landing or at the top of the stairs where it could sit with nothing in front of it?",
+      "sentiment_score": 14.0
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[07:28]",
+      "end_time": "[07:35]",
+      "start_time_sec": 448,
+      "text": "There's the windowsill at the top of the stairs. It's roughly right above the living room.",
+      "sentiment_score": 4.0
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[07:36]",
+      "end_time": "[07:50]",
+      "start_time_sec": 456,
+      "text": "That sounds ideal. High up, in the open, and right above the hub is about the best spot you could pick. Once the light goes solid we'll move it there. Is there a power socket nearby?",
+      "sentiment_score": 14.0
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[07:52]",
+      "end_time": "[07:55]",
+      "start_time_sec": 472,
+      "text": "Yeah, there's one right under the window.",
+      "sentiment_score": 4.0
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[07:56]",
+      "end_time": "[08:06]",
+      "start_time_sec": 476,
+      "text": "Excellent. While we wait, can I ask about the TV? When it buffers in the evening, is that on one particular app, or everything you watch?",
+      "sentiment_score": 14.0
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[08:08]",
+      "end_time": "[08:15]",
+      "start_time_sec": 488,
+      "text": "Mostly the streaming apps. Regular channels are fine. And it's worse around eight or nine at night.",
+      "sentiment_score": 2.0
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[08:16]",
+      "end_time": "[08:24]",
+      "start_time_sec": 496,
+      "text": "That evening pattern is a helpful clue. Is the TV connected to the hub with a cable, or is it on WiFi?",
+      "sentiment_score": 14.0
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[08:26]",
+      "end_time": "[08:31]",
+      "start_time_sec": 506,
+      "text": "WiFi, even though it's in the same room as the hub.",
+      "sentiment_score": 2.0
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[08:32]",
+      "end_time": "[08:43]",
+      "start_time_sec": 512,
+      "text": "Okay. I'll look at the hub's side of things in a minute, because the evening timing points to something different from the satellite. How's the light looking now?",
+      "sentiment_score": 12.0
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[08:53]",
+      "end_time": "[08:55]",
+      "start_time_sec": 533,
+      "text": "Still pulsing.",
+      "sentiment_score": 4.0
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[08:56]",
+      "end_time": "[09:05]",
+      "start_time_sec": 536,
+      "text": "That's normal, it usually takes another minute or so. How long have you been working from home, if you don't mind me asking?",
+      "sentiment_score": 12.0
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[09:07]",
+      "end_time": "[09:15]",
+      "start_time_sec": 547,
+      "text": "About three years now. I'm a landscape architect, so it's lots of big drawing files and video calls with clients.",
+      "sentiment_score": 10.0
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[09:16]",
+      "end_time": "[09:27]",
+      "start_time_sec": 556,
+      "text": "Oh, nice. Big drawing files and video calls are about the hardest workload you can put on a home connection, so it makes sense you'd notice every hiccup.",
+      "sentiment_score": 14.0
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[09:29]",
+      "end_time": "[09:34]",
+      "start_time_sec": 569,
+      "text": "Ha, yes. Usually I don't think about it until it breaks.",
+      "sentiment_score": 12.0
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[09:46]",
+      "end_time": "[09:49]",
+      "start_time_sec": 586,
+      "text": "Oh, the light's gone solid blue now.",
+      "sentiment_score": 6.0
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[09:50]",
+      "end_time": "[10:08]",
+      "start_time_sec": 590,
+      "text": "That's the update finished. I can see on my side that the satellite is on the new firmware and back online. Now, could you unplug it, carry it over to the windowsill, and plug it back in there? It'll take about a minute to come back up.",
+      "sentiment_score": 16.0
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[10:10]",
+      "end_time": "[10:12]",
+      "start_time_sec": 610,
+      "text": "Okay, give me a second.",
+      "sentiment_score": 6.0
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[10:32]",
+      "end_time": "[10:37]",
+      "start_time_sec": 632,
+      "text": "Alright, it's on the windowsill and plugged in. The light is blinking blue.",
+      "sentiment_score": 6.0
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[10:38]",
+      "end_time": "[10:43]",
+      "start_time_sec": 638,
+      "text": "Blinking blue means it's looking for the hub. Give it a moment.",
+      "sentiment_score": 12.0
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[10:57]",
+      "end_time": "[10:59]",
+      "start_time_sec": 657,
+      "text": "It's gone solid now.",
+      "sentiment_score": 4.0
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[11:02]",
+      "end_time": "[11:13]",
+      "start_time_sec": 662,
+      "text": "And I can see it's connected, and this is a big difference. The link signal has gone from minus seventy-eight to minus fifty-eight. That's a strong, healthy connection now.",
+      "sentiment_score": 16.0
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[11:15]",
+      "end_time": "[11:17]",
+      "start_time_sec": 675,
+      "text": "Oh good. That's much better, right?",
+      "sentiment_score": 14.0
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[11:18]",
+      "end_time": "[11:33]",
+      "start_time_sec": 678,
+      "text": "Much better, that's right in the range we want. Now let's see it from your side. Could you go back into the office and run a speed test on the laptop? Just search for S-Net speed test and press go.",
+      "sentiment_score": 16.0
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[11:49]",
+      "end_time": "[11:52]",
+      "start_time_sec": 709,
+      "text": "Okay, it says 312 down and 41 up.",
+      "sentiment_score": 8.0
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[11:53]",
+      "end_time": "[12:06]",
+      "start_time_sec": 713,
+      "text": "That's very good for upstairs. Your plan is 400 megabits, and over WiFi on a different floor, three hundred plus is right where it should be. Do you know what you were getting before?",
+      "sentiment_score": 16.0
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[12:08]",
+      "end_time": "[12:14]",
+      "start_time_sec": 728,
+      "text": "I ran one last week out of frustration and I think it was about ninety.",
+      "sentiment_score": 6.0
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[12:15]",
+      "end_time": "[12:39]",
+      "start_time_sec": 735,
+      "text": "So more than three times faster. That fits with the satellite straining to reach the hub. Speed is only half of it, though. What matters for you is that it stays connected. I'd like to watch the link live on my side for a few minutes while you do something normal on the laptop, like playing a video. Would that be okay?",
+      "sentiment_score": 16.0
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[12:41]",
+      "end_time": "[12:43]",
+      "start_time_sec": 761,
+      "text": "Sure, I'll put something on.",
+      "sentiment_score": 10.0
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[12:47]",
+      "end_time": "[13:06]",
+      "start_time_sec": 767,
+      "text": "Thank you. While that runs, I'll look at the hub for the TV issue. I'm in the hub's WiFi settings now. I can see the TV is connected on the 2.4 gigahertz band, which is the slower, more crowded one, even though it's sitting right next to the hub.",
+      "sentiment_score": 12.0
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[13:08]",
+      "end_time": "[13:10]",
+      "start_time_sec": 788,
+      "text": "Is that bad?",
+      "sentiment_score": 2.0
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[13:11]",
+      "end_time": "[13:34]",
+      "start_time_sec": 791,
+      "text": "It's not ideal. The 2.4 band reaches further, but it's slower and it's shared with a lot of household gadgets and with your neighbours' networks. I can see nineteen other networks around you on that band, and in the evening, when everyone's streaming, it gets congested. That would explain buffering at eight or nine at night but not during the day.",
+      "sentiment_score": 14.0
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[13:36]",
+      "end_time": "[13:43]",
+      "start_time_sec": 816,
+      "text": "Ah, okay. That makes a lot of sense, actually. Everyone on our street would be home then.",
+      "sentiment_score": 4.0
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[13:44]",
+      "end_time": "[14:15]",
+      "start_time_sec": 824,
+      "text": "Exactly. There are two changes I'd like to make. First, I'll turn on band steering, which lets the hub move devices like the TV onto the faster 5 gigahertz band when they're close enough. Second, I'll move the 5 gigahertz band off the channel it picked automatically, because that one's shared with a lot of neighbours too, onto a quieter channel. Both changes restart the WiFi for about thirty seconds, so your video upstairs will pause briefly. Is that alright?",
+      "sentiment_score": 14.0
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[14:17]",
+      "end_time": "[14:19]",
+      "start_time_sec": 857,
+      "text": "Yes, go for it.",
+      "sentiment_score": 8.0
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[14:20]",
+      "end_time": "[14:27]",
+      "start_time_sec": 860,
+      "text": "Okay, applying those now. You'll lose WiFi for about thirty seconds and then everything reconnects by itself.",
+      "sentiment_score": 14.0
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[14:41]",
+      "end_time": "[14:43]",
+      "start_time_sec": 881,
+      "text": "Okay, the video stopped.",
+      "sentiment_score": 2.0
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[14:44]",
+      "end_time": "[14:47]",
+      "start_time_sec": 884,
+      "text": "That's expected. It should come back any second.",
+      "sentiment_score": 12.0
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[14:59]",
+      "end_time": "[15:01]",
+      "start_time_sec": 899,
+      "text": "Yep, it's playing again.",
+      "sentiment_score": 6.0
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[15:02]",
+      "end_time": "[15:16]",
+      "start_time_sec": 902,
+      "text": "Great. And I can see the TV has moved over to the 5 gigahertz band now, along with your laptop. Upstairs, the satellite has stayed connected through the restart, and the link is holding at minus fifty-eight.",
+      "sentiment_score": 16.0
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[15:22]",
+      "end_time": "[15:29]",
+      "start_time_sec": 922,
+      "text": "Oh no, wait. My phone just lost the WiFi for a second. Is it still happening?",
+      "sentiment_score": -18.0
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[15:30]",
+      "end_time": "[15:57]",
+      "start_time_sec": 930,
+      "text": "Good catch, and I can see why that'd make your heart sink after the week you've had. Let me look at exactly what your phone did. Okay, what I'm seeing is that your phone switched from the satellite to the hub just now. That's the band steering doing its job, moving it to the stronger signal. The switch took less than a second, so it's a handover rather than a dropout.",
+      "sentiment_score": 12.0
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[15:59]",
+      "end_time": "[16:01]",
+      "start_time_sec": 959,
+      "text": "Okay. So that's normal?",
+      "sentiment_score": 0.0
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[16:02]",
+      "end_time": "[16:20]",
+      "start_time_sec": 962,
+      "text": "That's normal, and it's a good thing. A proper dropout, like the ones you've been having, would show as a gap of ten seconds or more, and there hasn't been a single one since we moved the satellite. I'll keep watching while we finish up the TV side.",
+      "sentiment_score": 14.0
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[16:22]",
+      "end_time": "[16:24]",
+      "start_time_sec": 982,
+      "text": "Okay, phew.",
+      "sentiment_score": 8.0
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[16:25]",
+      "end_time": "[16:35]",
+      "start_time_sec": 985,
+      "text": "Could you check the TV for me? Put on whichever streaming app gave you the most trouble and let it play for a minute or two.",
+      "sentiment_score": 14.0
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[16:37]",
+      "end_time": "[16:39]",
+      "start_time_sec": 997,
+      "text": "Sure, I'm going downstairs.",
+      "sentiment_score": 6.0
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[16:59]",
+      "end_time": "[17:05]",
+      "start_time_sec": 1019,
+      "text": "Okay, it's playing. It says 4K in the corner, which it never used to.",
+      "sentiment_score": 10.0
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[17:06]",
+      "end_time": "[17:35]",
+      "start_time_sec": 1026,
+      "text": "That's what we want to see. On my side it's getting over 500 megabits to the TV now, so even when the street is busy in the evening it should have plenty of headroom. One more suggestion, and it's optional: because the TV sits right next to the hub, a short network cable between them would take it off WiFi altogether. That's the most reliable option long term, and you'd just need a standard ethernet cable.",
+      "sentiment_score": 16.0
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[17:37]",
+      "end_time": "[17:43]",
+      "start_time_sec": 1057,
+      "text": "I think I actually have one in a drawer somewhere. I'll try that this weekend.",
+      "sentiment_score": 8.0
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[17:44]",
+      "end_time": "[18:02]",
+      "start_time_sec": 1064,
+      "text": "That would be perfect. Either way, the TV should be in much better shape now. Let me check the satellite's log while you're down there. Since we moved it, the link hasn't dropped once, and the signal has stayed between minus fifty-six and minus fifty-nine the whole time.",
+      "sentiment_score": 14.0
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[18:04]",
+      "end_time": "[18:06]",
+      "start_time_sec": 1084,
+      "text": "That's great to hear.",
+      "sentiment_score": 14.0
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[18:07]",
+      "end_time": "[18:17]",
+      "start_time_sec": 1087,
+      "text": "I've also switched automatic updates back on for the satellite and made sure it's set to install overnight, so this doesn't fall behind again without you knowing.",
+      "sentiment_score": 14.0
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[18:19]",
+      "end_time": "[18:23]",
+      "start_time_sec": 1099,
+      "text": "Oh, good. I had no idea it had stopped updating.",
+      "sentiment_score": 12.0
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[18:24]",
+      "end_time": "[18:48]",
+      "start_time_sec": 1104,
+      "text": "Most people wouldn't. The update failing quietly is on us, not you, which is why I've added a note to your account about it. Now, one thing I'd like to do is a final test that looks like your real work. Do you have a video call app you could open for a quick test call, just with yourself, for a minute?",
+      "sentiment_score": 14.0
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[18:50]",
+      "end_time": "[18:53]",
+      "start_time_sec": 1130,
+      "text": "Yes, I can open a test meeting.",
+      "sentiment_score": 8.0
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[18:54]",
+      "end_time": "[18:59]",
+      "start_time_sec": 1134,
+      "text": "Perfect. Head back up to the office and start it whenever you're ready.",
+      "sentiment_score": 12.0
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[19:21]",
+      "end_time": "[19:28]",
+      "start_time_sec": 1161,
+      "text": "Okay, I'm in the test meeting. The video looks clear, it says the connection is good.",
+      "sentiment_score": 8.0
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[19:29]",
+      "end_time": "[19:39]",
+      "start_time_sec": 1169,
+      "text": "Great. I'm watching the satellite at the same time and everything's steady. Give it another minute while I tell you what to expect going forward.",
+      "sentiment_score": 16.0
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[19:41]",
+      "end_time": "[19:43]",
+      "start_time_sec": 1181,
+      "text": "Sure.",
+      "sentiment_score": 10.0
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[19:44]",
+      "end_time": "[20:06]",
+      "start_time_sec": 1184,
+      "text": "The dropouts you had were caused by the satellite's weak link to the hub, made worse by the old firmware. Both of those are fixed now. If you ever rearrange the office again, the main thing is to keep the satellite up high and out in the open, roughly halfway between the hub and where you work.",
+      "sentiment_score": 14.0
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[20:08]",
+      "end_time": "[20:11]",
+      "start_time_sec": 1208,
+      "text": "Got it. No more hiding it behind boxes.",
+      "sentiment_score": 12.0
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[20:12]",
+      "end_time": "[20:25]",
+      "start_time_sec": 1212,
+      "text": "Exactly. And for the TV, the evening buffering came from the crowded 2.4 band and a busy channel. It's on the fast band and a quieter channel now, and the cable would make it bulletproof.",
+      "sentiment_score": 16.0
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[20:27]",
+      "end_time": "[20:33]",
+      "start_time_sec": 1227,
+      "text": "That all makes sense. Thank you for explaining it, nobody ever tells me why.",
+      "sentiment_score": 14.0
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[20:34]",
+      "end_time": "[20:42]",
+      "start_time_sec": 1234,
+      "text": "Of course, it's much easier to keep things running when you know what's going on. How's the test call looking now?",
+      "sentiment_score": 16.0
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[20:48]",
+      "end_time": "[20:50]",
+      "start_time_sec": 1248,
+      "text": "Still perfect. No freezing at all.",
+      "sentiment_score": 16.0
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[20:51]",
+      "end_time": "[21:09]",
+      "start_time_sec": 1251,
+      "text": "And on my side the satellite hasn't dropped once in the ten minutes since we moved it. I'll also check its log again tomorrow afternoon, and if I see even one disconnect I'll give you a ring to arrange next steps. You won't need to call us.",
+      "sentiment_score": 18.0
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[21:11]",
+      "end_time": "[21:14]",
+      "start_time_sec": 1271,
+      "text": "That's really kind of you, thank you.",
+      "sentiment_score": 18.0
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[21:15]",
+      "end_time": "[21:29]",
+      "start_time_sec": 1275,
+      "text": "My pleasure. So, before I let you go: your office WiFi is stable, you're getting over 300 megabits upstairs, and the TV is streaming in 4K. Would you say the issue is resolved on your end?",
+      "sentiment_score": 18.0
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[21:31]",
+      "end_time": "[21:35]",
+      "start_time_sec": 1291,
+      "text": "Yes, completely. It's working better than it has in weeks.",
+      "sentiment_score": 22.0
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[21:36]",
+      "end_time": "[21:46]",
+      "start_time_sec": 1296,
+      "text": "Wonderful, then I'll mark this as resolved, and I've added notes about everything we changed today. Is there anything else I can help you with, Grace?",
+      "sentiment_score": 20.0
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[21:48]",
+      "end_time": "[21:52]",
+      "start_time_sec": 1308,
+      "text": "No, that's everything. You've been brilliant, Leon, thank you.",
+      "sentiment_score": 20.0
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[21:53]",
+      "end_time": "[22:08]",
+      "start_time_sec": 1313,
+      "text": "Thank you so much, Grace, it was a pleasure. We value your feedback, so please stay on the line after the call for a short survey. Thank you for choosing S-Net, and good luck with the new client.",
+      "sentiment_score": 22.0
+    }
+  ]
+}
