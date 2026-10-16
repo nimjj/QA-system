@@ -1,9 +1,10 @@
 {
   "inputs_sha256": "66deff95a20ce04e2b731dc0f7fea374761f7eca36337f88bed6ff0bcf582c2e",
   "rows": {
-    "train": 1269,
-    "dev": 273,
-    "test": 396
+    "train": 1629,
+    "dev": 393,
+    "test": 396,
+    "test_long": 180
   },
   "counts": {
     "train": {
@@ -16,12 +17,12 @@
         "FAIL": 70
       },
       "paraphrasing": {
-        "PASS": 100,
-        "FAIL": 100
+        "PASS": 180,
+        "FAIL": 180
       },
       "rapport": {
-        "PASS": 70,
-        "FAIL": 70
+        "PASS": 120,
+        "FAIL": 120
       },
       "ownership": {
         "PASS": 29,
@@ -40,8 +41,8 @@
         "FAIL": 30
       },
       "resolved": {
-        "PASS": 70,
-        "FAIL": 70
+        "PASS": 120,
+        "FAIL": 120
       },
       "replay": {
         "gold": 250
@@ -49,24 +50,24 @@
     },
     "dev": {
       "paraphrasing": {
-        "PASS": 20,
-        "FAIL": 20
+        "PASS": 40,
+        "FAIL": 40
       },
       "active_listening": {
         "PASS": 20,
         "FAIL": 20
       },
       "resolved": {
-        "PASS": 20,
-        "FAIL": 20
+        "PASS": 40,
+        "FAIL": 40
       },
       "empathy": {
         "PASS": 20,
         "FAIL": 20
       },
       "rapport": {
-        "PASS": 20,
-        "FAIL": 20
+        "PASS": 40,
+        "FAIL": 40
       },
       "ownership": {
         "PASS": 4,
@@ -125,17 +126,33 @@
         "PASS": 12,
         "FAIL": 12
       }
+    },
+    "test_long": {
+      "paraphrasing": {
+        "PASS": 30,
+        "FAIL": 30
+      },
+      "rapport": {
+        "PASS": 30,
+        "FAIL": 30
+      },
+      "resolved": {
+        "PASS": 30,
+        "FAIL": 30
+      }
     }
   },
   "pairs": {
-    "train": 510,
-    "dev": 118,
-    "test": 198
+    "train": 690,
+    "dev": 178,
+    "test": 198,
+    "test_long": 90
   },
   "sha256": {
-    "train_all.jsonl": "556389dc5e8802d5ed4e2d2ab82c89d66688484c05a755c5a079afbbf353b37f",
-    "dev_all.jsonl": "cde28dbd1cd863defb01eef19c8f9ae10f3dfac68a571c78f20344e8eb345cc1",
-    "test.jsonl": "c8334ea87b5a12a0ee05a09feb82893856032c1abd48ee0340ef025e2404fd23"
+    "train_all.jsonl": "38cdf3c385a8e81c21944ea7c8a7d2e721699fa512ae5fd70a1d06aa78351e22",
+    "dev_all.jsonl": "78ac5811dd638efd852fbf1a62b521d35b001c18bfbfd794ee59b28f4af145f4",
+    "test.jsonl": "c8334ea87b5a12a0ee05a09feb82893856032c1abd48ee0340ef025e2404fd23",
+    "test_long.jsonl": "7f5ddde4192857c357411e6e0d557c3823463b15d07071203e2f563497798ddc"
   },
   "near_duplicates_ge_0.6": [],
   "removed_pairs": [

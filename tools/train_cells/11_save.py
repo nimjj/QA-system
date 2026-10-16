@@ -15,7 +15,7 @@ for n in VARIANTS:
     for fn in (f"preds_{n}.json", f"train_{n}.log"):
         shutil.copy(f"{WORK}/{fn}", f"{DRIVE_RUN}/files/{fn}")
 shutil.copy(f"{WORK}/preds_base.json", f"{DRIVE_RUN}/files/preds_base.json")
-for split in ("train_all", "dev_all", "test"):
+for split in ("train_all", "dev_all", "test", "test_long"):
     shutil.copy(f"{DATA_DIR}/{split}.jsonl", f"{DRIVE_RUN}/files/{split}.jsonl")
 json.dump(RES, open(f"{DRIVE_RUN}/files/results.json", "w"), indent=1)
 
@@ -63,6 +63,8 @@ for c in TRAINED + REGRESSION:
             parts.append(f"{n} BA {r['ba_test_frozen_cut']:.2f} AUC {r['auc_test']:.2f}")
     lines.append(" | ".join(parts))
 for n in VARIANTS:
+    lg = RES[n]["long"]
+    lines.append(f"[{n}] LONG test BA/AUC: " + "; ".join(f"{c} {v['ba']:.2f}/{v['auc']:.2f}" for c, v in lg.items()) + " | base: " + "; ".join(f"{c} {v['ba']:.2f}/{v['auc']:.2f}" for c, v in RES["base"]["long"].items()))
     d = RES[n]["replay_dev"]
     lines.append(f"[{n}] ECE {RES[n]['ece_test']:.3f} (base {RES['base']['ece_test']:.3f}) | replay same-verdict {d['verdict_agreement'] * 100:.0f}% mean change {d['mean_abs_diff']:.3f}")
 lines.append(f"checkpoints on Drive: MyDrive/laya-finetuning/checkpoints/{RUN_ID}/final-{WINNER} (download this folder)")

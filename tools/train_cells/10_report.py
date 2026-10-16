@@ -20,6 +20,8 @@ for n in VARIANTS:
         else:
             lo, hi = r["ba_test_frozen_ci"]
             print(f"{c:<18}{r['n_test']:>4}{b['ba_test_frozen_cut']:>9.3f}{r['ba_test_frozen_cut']:>7.3f}  [{lo:.2f}, {hi:.2f}]{r['auc_test']:>9.3f}{b['auc_test']:>10.3f}{'(frozen)':>11}")
+    print("long snippets (padded to real-call length), BA at the same cutoff / AUC, base in brackets: " + "; ".join(
+        f"{c} {v['ba']:.2f}/{v['auc']:.2f} ({B['long'][c]['ba']:.2f}/{B['long'][c]['auc']:.2f})" for c, v in R["long"].items()))
     print(f"mean test BA over trained checks: {R['mean_ba_test_trained']:.3f} | ECE test: {R['ece_test']:.3f} (base {B['ece_test']:.3f})")
     d = R["replay_dev"]
     print(f"replay drift on custom-criteria questions (dev, {d['items']} items): mean |change| {d['mean_abs_diff']:.3f}, "
