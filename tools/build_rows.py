@@ -40,33 +40,71 @@ LINE_RE = re.compile(r"^(A|C)(\*)?(?:\(([+-]?\d+(?:\.\d+)?)\))?:\s*(.*)$")
 
 
 # ------------------------------------------------------------------ parsing
+def parse_turns(lines, src):
+    turns, pending_gap = [], 0
+    for n, line in lines:
+        if line.startswith("@gap"):
+            pending_gap = int(line.split()[1])
+            continue
+        m = LINE_RE.match(line)
+        if not m:
+            raise ValueError(f"{src}:{n}: cannot read line: {line[:60]}")
+        spk, focus, sent, text = m.groups()
+        turns.append({"speaker": "Agent" if spk == "A" else "Customer", "text": text.strip(), "focus": bool(focus),
+                      "sentiment": float(sent) if sent is not None else (6.0 if spk == "A" else -4.0), "gap": pending_gap})
+        pending_gap = 0
+    return turns
+
+
+def parse_attrs(header, src):
+    attrs = {k: v.strip('"') for k, v in re.findall(r"(\w+)=((?:\"[^\"]*\")|\S+)", header)}
+    for need in ("id", "check"):
+        if need not in attrs:
+            raise ValueError(f"{src}: fragment header lacks {need}=")
+    return attrs
+
+
 def parse_file(path):
-    frags, cur, pending_gap = [], None, 0
+    """Two block kinds.
+    Single:  "@@ id=.. check=.. label=PASS|FAIL [pair=..] ..." followed by turn lines.
+    Pair:    "@@pair id=.. check=.. industry=.. persona=.. hard=.." with shared turn lines first, then
+             "--- PASS" and "--- FAIL" sections (the part that differs), then optional "--- END" shared closing lines.
+             Expands to two fragments, <id>_p (PASS) and <id>_f (FAIL), both with pair=<id> and the same persona."""
+    blocks, cur = [], None
     for n, raw in enumerate(open(path, encoding="utf-8"), 1):
         line = raw.rstrip("\n")
         if not line.strip() or line.lstrip().startswith("#"):
             continue
         if line.startswith("@@"):
-            attrs = dict(re.findall(r"(\w+)=((?:\"[^\"]*\")|\S+)", line[2:]))
-            attrs = {k: v.strip('"') for k, v in attrs.items()}
-            for need in ("id", "check", "label"):
-                if need not in attrs:
-                    raise ValueError(f"{path}:{n}: fragment header lacks {need}=")
-            cur = {**attrs, "turns": [], "src": f"{os.path.basename(path)}:{n}"}
-            frags.append(cur)
-            pending_gap = 0
-        elif line.startswith("@gap"):
-            pending_gap = int(line.split()[1])
+            cur = {"header": line, "n": n, "lines": []}
+            blocks.append(cur)
+        elif cur is None:
+            raise ValueError(f"{path}:{n}: line before any @@ header")
         else:
-            m = LINE_RE.match(line)
-            if not m or cur is None:
-                raise ValueError(f"{path}:{n}: cannot read line: {line[:60]}")
-            spk, focus, sent, text = m.groups()
-            cur["turns"].append({"speaker": "Agent" if spk == "A" else "Customer", "text": text.strip(),
-                                 "focus": bool(focus),
-                                 "sentiment": float(sent) if sent is not None else (6.0 if spk == "A" else -4.0),
-                                 "gap": pending_gap})
-            pending_gap = 0
+            cur["lines"].append((n, line))
+    frags = []
+    for blk in blocks:
+        src = f"{os.path.basename(path)}:{blk['n']}"
+        if blk["header"].startswith("@@pair"):
+            attrs = parse_attrs(blk["header"][6:], src)
+            sections, name = {"": []}, ""
+            for n, line in blk["lines"]:
+                m = re.match(r"^---\s*(PASS|FAIL|END)\s*$", line)
+                if m:
+                    name = m.group(1)
+                    sections.setdefault(name, [])
+                else:
+                    sections[name].append((n, line))
+            if "PASS" not in sections or "FAIL" not in sections:
+                raise ValueError(f"{src}: a pair needs both --- PASS and --- FAIL sections")
+            for label, suffix in (("PASS", "_p"), ("FAIL", "_f")):
+                frags.append({**attrs, "id": attrs["id"] + suffix, "pair": attrs["id"], "label": label, "src": src,
+                              "turns": parse_turns(sections[""] + sections[label] + sections.get("END", []), src)})
+        else:
+            attrs = parse_attrs(blk["header"][2:], src)
+            if "label" not in attrs:
+                raise ValueError(f"{src}: fragment header lacks label=")
+            frags.append({**attrs, "src": src, "turns": parse_turns(blk["lines"], src)})
     return frags
 
 
@@ -209,6 +247,14 @@ def report(frags, rows, dropped):
     for c in sorted(by):
         print(f"{c:18s} {by[c]['PASS']:5d} {by[c]['FAIL']:5d}")
     print(f"roughened: {sum(r['meta']['rough'] for r in rows)}/{len(rows)}   max tokens {max((r['meta']['tokens'] for r in rows), default=0)}")
+    ln = collections.defaultdict(lambda: collections.defaultdict(list))
+    for r in rows:
+        ln[r["meta"]["check"]][r["meta"]["label"]].append(r["meta"]["tokens"])
+    print("mean tokens per label (PASS / FAIL, ratio):")
+    for c in sorted(ln):
+        mp, mf = (sum(ln[c][k]) / len(ln[c][k]) if ln[c][k] else 0 for k in ("PASS", "FAIL"))
+        flag = "  <-- length gap over 15%" if mp and mf and abs(mp - mf) / max(mp, mf) > 0.15 else ""
+        print(f"  {c:18s} {mp:6.1f} / {mf:6.1f}  {mp / mf if mf else 0:5.2f}{flag}")
     for d in dropped[:25]:
         print("  DROPPED", d["id"], "-", d["reason"])
     if len(dropped) > 25:

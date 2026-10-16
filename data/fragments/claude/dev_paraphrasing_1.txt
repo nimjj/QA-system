@@ -1,0 +1,147 @@
+# Dev set: Paraphrasing, part 1 (13 pairs). Same industries and personas as training, new situations and wording.
+
+# ------------------------------------------------------------- Paraphrasing
+@@pair id=dv_para_001 check=paraphrasing industry=satellite_internet persona=warm hard=restate_no_tag
+A: Thanks for calling S-Net, Brett speaking.
+C(-9): Hi, since we put up the new curtains the wifi barely reaches the bedroom and it was fine before, which makes no sense to me.
+--- PASS
+A: Funny one. So since the curtains went up, the bedroom signal's gone weak, and it was strong before. Let's look at what changed.
+--- FAIL
+A: Are the curtains thick ones? And is the bedroom the furthest room from the router, or not?
+--- END
+C(-5): They're thick, and yes, it's furthest.
+A: Right.
+
+@@pair id=dv_para_002 check=paraphrasing industry=retail_bank persona=formal hard=wrong_restate
+A: Halden Savings, good evening, how may I help?
+C(-9): I set up a standing order for my rent last month and it has paid out twice, which has left me overdrawn.
+--- PASS
+A: So the monthly rent standing order has gone out twice, and the extra payment has put you into overdraft. I will look at the order.
+--- FAIL
+A: So you wish to cancel the standing order for your rent because it will leave you overdrawn. I will look at the order.
+--- END
+C(-8): No, I don't want to cancel it, it paid twice.
+A: Thank you, I apologise, let me check it again.
+
+@@pair id=dv_para_003 check=paraphrasing industry=airline persona=hurried hard=short_restate
+A: SkyHarbor, Marcus.
+C(-10): I got an email saying my gate changed but the app still shows the old gate and I'm about to leave for the airport.
+--- PASS
+A: Email says new gate, app shows the old one. Okay, checking which is right.
+--- FAIL
+A: Flight number? Which airport?
+--- END
+C(-6): SH 218, Gatwick.
+A: Right.
+
+@@pair id=dv_para_004 check=paraphrasing industry=ecommerce persona=chatty hard=generic_filler
+A: Hi, Brightcart, Ellie here, how can I help?
+C(-8): I ordered a blue rug and a green one turned up, and the green one's the wrong size as well, so it doesn't fit under the table.
+--- PASS
+A: Oh no, wrong colour and wrong size, you ordered blue and got a green one that doesn't fit under the table. Let's get the right one sent.
+--- FAIL
+A: Oh no, I know, mix-ups are the worst, and I'm really sorry that happened, we'll get it all sorted for you, don't you worry.
+--- END
+C(-5): Thanks.
+A: Let me pull up the order.
+
+@@pair id=dv_para_005 check=paraphrasing industry=saas persona=technical hard=echo_questions
+A: Cloudweave support, Nikhil.
+C(-9): Our scheduled backup says completed but the restore test fails every time with a checksum error.
+--- PASS
+A: So the backup job reports success, yet restoring it fails with a checksum error each time, which suggests the backup itself is corrupt. I'll check the job logs.
+--- FAIL
+A: Does the backup say completed? And does the restore fail with a checksum error each time?
+--- END
+C(-6): Yes to both.
+A: Okay.
+
+@@pair id=dv_para_006 check=paraphrasing industry=car_rental persona=apologetic hard=plan_readback
+A: Roadly Car Hire, Tom speaking, so sorry about the wait.
+C(-10): The deposit hold on my card is five hundred dollars higher than the quote said, and nobody can tell me why.
+--- PASS
+A: Thank you for waiting. So the deposit hold is five hundred higher than your quote, and you haven't had an explanation. I'll look at how it was calculated.
+--- FAIL
+A: Thank you for waiting. I can see a booking for the compact class for six days. May I take your booking number?
+--- END
+C(-6): It's R-30921.
+A: Thanks.
+
+@@pair id=dv_para_007 check=paraphrasing industry=streaming persona=warm hard=restate_late
+A: Hi, Streamly, Jo here, how can I help?
+C(-8): The kids' profile keeps switching back to the adult one every time we restart the tv.
+A(+7): Oh, which tv do you have?
+C(-4): A Lumen, the new model.
+--- PASS
+A: Got it. So on the Lumen tv the kids' profile reverts to the adult one after every restart, which isn't ideal for the kids. Let me see.
+--- FAIL
+A: Lovely. And is the tv updated to the latest software, do you know?
+--- END
+C(-5): I think so.
+A: Okay.
+
+@@pair id=dv_para_008 check=paraphrasing industry=appliance_repair persona=terse hard=short_restate
+A: HomeFix, Carla.
+C(-9): The microwave sparks inside whenever I use the grill setting, and it has done since Sunday.
+--- PASS
+A: Sparking on the grill setting since Sunday. That's a fault. Okay.
+--- FAIL
+A: Brand? How old?
+--- END
+C(-6): Hartwell, three years.
+A: Okay.
+
+@@pair id=dv_para_009 check=paraphrasing industry=mobile_carrier persona=scripted hard=generic_filler
+A: Thank you for calling Voxel Mobile. This is Leo.
+C(-9): My upgrade offer disappeared from the app yesterday and I haven't been told why, and I've been planning it for weeks.
+--- PASS
+A: So the upgrade offer you had planned for has vanished from your app, and you were not told why. I will check your eligibility.
+--- FAIL
+A: Thank you for explaining. I understand this is important to you and I will do my very best to assist you today.
+--- END
+C(-7): I'd like to know what happened.
+A: Certainly.
+
+@@pair id=dv_para_010 check=paraphrasing industry=health_insurance persona=chatty hard=jump_to_fix
+A: Hi, Greenfield Health, Dana here!
+C(-8): My daughter's dentist says she's not covered for braces but the plan booklet says she is, so I'm confused about who's right.
+--- PASS
+A: Ah, so there's a mismatch, the dentist says braces aren't covered but your plan booklet says they are. Let me check which is right.
+--- FAIL
+A: Okay, can I take her member ID and the dentist's name, and I'll check the coverage straight away?
+--- END
+C(-5): It's 4471 8820, Dr Moyo.
+A: Great, thanks.
+
+@@pair id=dv_para_011 check=paraphrasing industry=electric_utility persona=formal hard=restate_no_tag
+A: Northline Power, good afternoon.
+C(-9): I moved in last week and the previous tenant's name is still on the account, and I keep getting his bills.
+--- PASS
+A: Since you moved in last week the account is still in the previous tenant's name, and his bills are being sent to you. I will transfer the account to you.
+--- FAIL
+A: May I ask the date you moved in? And is the previous tenant's name Mr Hale, as shown on screen?
+--- END
+C(-6): Yes, the ninth.
+A: Thank you.
+
+@@pair id=dv_para_012 check=paraphrasing industry=airline persona=technical hard=wrong_restate
+A: SkyHarbor operations, Nikhil.
+C(-10): We were bumped from the flight we booked for a family reunion and offered a flight two days later, which is too late for the event.
+--- PASS
+A: You were removed from the reunion flight and offered one two days later, which misses the event. I'll look for earlier options.
+--- FAIL
+A: You were upgraded on the reunion flight but the baggage allowance was reduced. I'll look at the allowance.
+--- END
+C(-8): No, we were bumped, not upgraded.
+A: Right, apologies.
+
+@@pair id=dv_para_013 check=paraphrasing industry=ecommerce persona=warm hard=echo_same_words
+A: Hello, Brightcart, Ellie speaking.
+C(-8): The kettle I ordered stopped working after three days and the replacement you sent does exactly the same thing.
+--- PASS
+A: That's frustrating. So the kettle died after three days, and the replacement has failed in the same way. Let's get this properly resolved.
+--- FAIL
+A: That's frustrating. Did the kettle stop working after three days? And did the replacement do exactly the same?
+--- END
+C(-5): Yes, both.
+A: Okay.

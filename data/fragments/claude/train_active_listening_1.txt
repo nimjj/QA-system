@@ -1,0 +1,602 @@
+# Train: Active listening, part 1 (40 pairs). Same opening, first question and answer. PASS = second question re-checks something that changed
+# (or clarifies a vague answer). FAIL = second question asks again for what the customer already said. Both second questions share most words.
+
+@@pair id=tr_al_001 check=active_listening industry=satellite_internet persona=warm hard=status_now
+C(-9): The internet's gone again this afternoon.
+A: Thank you for calling S-Net. Which lights are showing on the dish controller?
+C(-6): Just the power light, nothing else.
+--- PASS
+A: Okay, I've sent a reset to the dish, so give it a couple of minutes.
+C(-5): It's been two minutes.
+A*: Which lights are showing on the dish controller now?
+C(-3): The power and the signal light are on.
+--- FAIL
+A: Okay, let me pull up the history on your line, one second.
+C(-5): Sure, take your time.
+A*: Which lights are showing on the dish controller now?
+C(-8): Just the power light, like I said.
+
+@@pair id=tr_al_002 check=active_listening industry=retail_bank persona=formal hard=repeat_no_now
+C(-10): A payment of two hundred pounds went out of my account yesterday that I don't recognise.
+A: Good morning, Halden Savings. What name appears next to the payment in your transaction list?
+C(-7): It says Kestrel Online, with a reference number.
+--- PASS
+A: I have placed a temporary block on that merchant. Please refresh your transaction list.
+C(-6): Refreshed.
+A*: What name appears next to the payment in your transaction list after the refresh?
+C(-4): It's gone from pending and says reversed.
+--- FAIL
+A: Thank you, I will begin the fraud review for that transaction.
+C(-6): All right.
+A*: What name appears beside the payment in your transaction list?
+C(-9): Kestrel Online, I just told you.
+
+@@pair id=tr_al_003 check=active_listening industry=airline persona=hurried hard=status_now
+C(-11): I can't download my boarding pass, the button just spins.
+A: SkyHarbor, Marcus. What happens when you press the download button?
+C(-8): It spins for ever and then says error.
+--- PASS
+A: I've cleared a stuck session. Press it once more.
+C(-7): Pressing.
+A*: What happens when you press the download button now?
+C(-4): It downloaded, I've got the pass.
+--- FAIL
+A: Right, I'm looking at the booking.
+C(-7): Okay.
+A*: And what happens when you press the download button?
+C(-10): It spins and then says error. I said that.
+
+@@pair id=tr_al_004 check=active_listening industry=ecommerce persona=chatty hard=clarify_vague
+C(-8): My parcel tracking looks strange and I'm not sure what's going on.
+A: Hi, Brightcart, Ellie here! What does the tracking page say about your parcel?
+C(-5): It says something odd, I don't know, it's not what I expected.
+--- PASS
+A: Hmm, can you read me the exact words, so I can see what's odd?
+C(-5): Hang on, it says held at depot, awaiting customs.
+A*: And what does the tracking page say about your parcel in the last line?
+C(-4): Same, awaiting customs clearance.
+--- FAIL
+A: Okay, let me look at it from my side too, give me a moment.
+C(-5): Sure.
+A*: So what does the tracking page say about your parcel?
+C(-9): Held at depot, awaiting customs, like I told you at the start.
+
+@@pair id=tr_al_005 check=active_listening industry=saas persona=technical hard=status_now
+C(-9): The sync between our CRM and your tool has stopped.
+A: Cloudweave support, Nikhil. What does the sync status panel show for the CRM connection?
+C(-6): It shows a red badge that says authentication failed.
+--- PASS
+A: I've refreshed your connector token. Open the panel again.
+C(-5): Opened it.
+A*: What does the sync status panel show for the CRM connection this time?
+C(-3): Green, connected.
+--- FAIL
+A: Understood, that fits a token problem. I'm checking the connector logs.
+C(-5): Okay.
+A*: What does the sync status panel show for the CRM connection?
+C(-9): The red badge, authentication failed. I already said.
+
+@@pair id=tr_al_006 check=active_listening industry=car_rental persona=apologetic hard=repeat_no_now
+C(-10): The car I rented has a flat tyre and I'm stuck at a petrol station.
+A: Roadly, Tom, I'm sorry about that. Which tyre is flat on the car?
+C(-7): The rear passenger side one.
+--- PASS
+A: A recovery van is on its way to you. Please wait with the car.
+C(-6): Okay, the van just pulled in.
+A*: Which tyre is flat on the car now that the driver has looked?
+C(-4): He says it's the rear one and the front is low as well.
+--- FAIL
+A: Thank you, I'm arranging the recovery now, bear with me.
+C(-6): Okay.
+A*: And which tyre is flat on the car, please?
+C(-9): The rear passenger side one, I said that.
+
+@@pair id=tr_al_007 check=active_listening industry=streaming persona=chatty hard=status_now
+C(-8): Nothing loads in the app tonight, it's driving me mad.
+A: Hey, Streamly, Jo here! What does the app show when you open it?
+C(-6): Just a black screen with the logo.
+--- PASS
+A: Let's reset the app cache from here. Close it completely and wait ten seconds.
+C(-5): Closed, waiting.
+A*: What does the app show when you open it again?
+C(-3): Home screen, loading now.
+--- FAIL
+A: Ah, that one, I've seen it a few times this week to be fair.
+C(-5): Right.
+A*: And what does the app show when you open it?
+C(-9): A black screen with the logo, I just told you.
+
+@@pair id=tr_al_008 check=active_listening industry=appliance_repair persona=terse hard=repeat_no_now
+C(-9): The dishwasher stopped mid-cycle and now won't open.
+A: HomeFix, Carla. What does the display say on the dishwasher?
+C(-6): E15.
+--- PASS
+A: Switch it off at the wall for one minute, then back on.
+C(-5): Done.
+A*: What does the display say on the dishwasher after the restart?
+C(-3): It says nothing, the door unlocked.
+--- FAIL
+A: Noted. Checking the manual.
+C(-5): Okay.
+A*: What does the display say on the dishwasher?
+C(-9): E15. Already told you.
+
+@@pair id=tr_al_009 check=active_listening industry=mobile_carrier persona=scripted hard=status_now
+C(-9): I can't get a signal anywhere in my house since yesterday.
+A: Thank you for calling Voxel Mobile. How many signal bars does the phone show?
+C(-6): None, it says searching.
+--- PASS
+A: I have refreshed the network registration on my side. Please restart the handset.
+C(-5): Restarted.
+A*: How many signal bars does the phone show now?
+C(-3): Two bars.
+--- FAIL
+A: Thank you. I am reviewing the tower status for your area.
+C(-5): Okay.
+A*: How many signal bars does the phone show?
+C(-9): None, it says searching, I already told you.
+
+@@pair id=tr_al_010 check=active_listening industry=health_insurance persona=warm hard=clarify_vague
+C(-8): I got a letter about my claim but it's confusing.
+A: Hello, Greenfield Health, Dana speaking. What does the letter say about the amount you owe?
+C(-5): It has a few numbers on it, I can't tell which one is the amount.
+--- PASS
+A: That's easy to mix up. Can you read me the number next to the words 'balance due'?
+C(-5): Oh, it says one hundred and eighty dollars.
+A*: And what does the letter say about the amount you owe beside the date?
+C(-4): It's due by the twentieth.
+--- FAIL
+A: That's easy to mix up, let me look at the claim on screen.
+C(-5): Thank you.
+A*: So what does the letter say about the amount you owe?
+C(-9): I just told you, I can't tell which number is the amount.
+
+@@pair id=tr_al_011 check=active_listening industry=electric_utility persona=hurried hard=status_now
+C(-10): Half my house has no power, the other half is fine.
+A: Northline, Pete. Which breakers are tripped in the fuse box?
+C(-7): The one marked kitchen sockets.
+--- PASS
+A: Flip it off then on, firmly.
+C(-6): Done.
+A*: Which breakers are tripped in the fuse box now?
+C(-4): It tripped again straight away.
+--- FAIL
+A: Right, I'm checking for an area fault.
+C(-6): Okay.
+A*: Which breakers are tripped in the fuse box?
+C(-9): The kitchen sockets one. I said that.
+
+@@pair id=tr_al_012 check=active_listening industry=satellite_internet persona=technical hard=repeat_no_now
+C(-9): Speeds are terrible since the firmware update.
+A: S-Net technical support, Alex. What download speed does your speed test show right now?
+C(-6): About twelve megabits.
+--- PASS
+A: I'll push a line recalibration. Please re-run the test in three minutes.
+C(-5): Running it again.
+A*: What download speed does your speed test show after the recalibration?
+C(-3): Ninety-six.
+--- FAIL
+A: Twelve against a paid plan of a hundred, that is low. I will check for a firmware fault.
+C(-5): Okay.
+A*: What download speed does your speed test show at the moment?
+C(-9): Twelve, like I said a minute ago.
+
+@@pair id=tr_al_013 check=active_listening industry=airline persona=formal hard=status_now
+C(-10): The seat I selected has disappeared from my booking.
+A: Good afternoon, SkyHarbor. What seat number does the booking summary show?
+C(-7): It shows no seat at all.
+--- PASS
+A: I have reassigned seat fourteen C to your booking. Please reload the page.
+C(-6): Reloaded.
+A*: What seat number does the booking summary show now?
+C(-4): Fourteen C, thank you.
+--- FAIL
+A: Thank you. I am checking the seat map for your flight.
+C(-6): Of course.
+A*: What seat number does the booking summary show?
+C(-9): No seat at all. I have said so.
+
+@@pair id=tr_al_014 check=active_listening industry=ecommerce persona=warm hard=repeat_no_now
+C(-9): I can't apply my loyalty points at checkout.
+A: Hello, Brightcart, Ellie speaking. How many points does your account page show?
+C(-6): It shows twelve hundred points.
+--- PASS
+A: I've synced your points balance. Pop back to your account page for me.
+C(-5): Back on the page.
+A*: How many points does your account page show after the sync?
+C(-3): Still twelve hundred, but the redeem button is active now.
+--- FAIL
+A: Twelve hundred, lovely, that should be plenty for this order.
+C(-5): It should.
+A*: How many points does your account page show?
+C(-9): Twelve hundred. That's what I said.
+
+@@pair id=tr_al_015 check=active_listening industry=saas persona=chatty hard=status_now
+C(-8): My dashboard widgets are all blank.
+A: Hey, Cloudweave, Leo here! What message shows inside the blank widgets?
+C(-6): Just a spinning wheel that never stops.
+--- PASS
+A: I'll bounce your data service. Give it a minute and reload.
+C(-5): Reloaded it.
+A*: What message shows inside the widgets now?
+C(-3): Numbers, they're all back.
+--- FAIL
+A: Ah, the endless wheel, nasty one, let me poke around in the backend.
+C(-5): Thanks.
+A*: What message shows inside the blank widgets?
+C(-9): The spinning wheel. As I just said.
+
+@@pair id=tr_al_016 check=active_listening industry=car_rental persona=technical hard=repeat_no_now
+C(-9): The infotainment screen is frozen and the radio won't turn off.
+A: Roadly technical, Nikhil. What is the screen displaying at the moment?
+C(-6): The Roadly logo and nothing else.
+--- PASS
+A: Hold the power button for fifteen seconds to force a reboot.
+C(-5): Holding it.
+A*: What is the screen displaying after the reboot?
+C(-3): The home menu came up.
+--- FAIL
+A: A logo freeze is typical of a boot loop. I'll look up the software version.
+C(-5): Okay.
+A*: What is the screen displaying at the moment?
+C(-9): The logo, nothing else, I already told you.
+
+@@pair id=tr_al_017 check=active_listening industry=streaming persona=formal hard=status_now
+C(-9): The episode I want says unavailable in my region.
+A: Good evening, Streamly. What error code appears under the unavailable message?
+C(-6): It's code 7004.
+--- PASS
+A: I have refreshed your regional licence data. Please reopen the episode.
+C(-5): Reopened.
+A*: What error code appears under the message this time?
+C(-3): No code, it's playing.
+--- FAIL
+A: Thank you, I will check what that code refers to.
+C(-5): Please.
+A*: What error code appears under the unavailable message?
+C(-9): Code 7004, as I said.
+
+@@pair id=tr_al_018 check=active_listening industry=appliance_repair persona=warm hard=clarify_vague
+C(-9): Our oven is making a weird noise and then goes off.
+A: Hello, HomeFix, Ines here. What kind of noise does the oven make before it goes off?
+C(-5): I don't know how to describe it, sort of a noise.
+--- PASS
+A: That's okay. Is it more like a buzzing, a clicking or a bang?
+C(-5): Clicking, definitely clicking.
+A*: And what kind of noise does the oven make just before it goes off, steady or in bursts?
+C(-4): In bursts, about once a second.
+--- FAIL
+A: That's okay, we'll work it out together, I'm just opening the notes.
+C(-5): Thanks.
+A*: So what kind of noise does the oven make before it goes off?
+C(-9): I told you, I don't know how to describe it.
+
+@@pair id=tr_al_019 check=active_listening industry=mobile_carrier persona=hurried hard=status_now
+C(-10): I can't send picture messages.
+A: Voxel, Leo. What error does the phone show when you send a picture message?
+C(-7): Message not sent, try later.
+--- PASS
+A: I've reset your messaging settings. Try one more.
+C(-6): Sending one.
+A*: What error does the phone show when you send a picture message now?
+C(-4): It went through, no error.
+--- FAIL
+A: Right, checking your account flags.
+C(-6): Okay.
+A*: What error does the phone show when you send a picture message?
+C(-10): Message not sent. I already said that.
+
+@@pair id=tr_al_020 check=active_listening industry=retail_bank persona=apologetic hard=repeat_no_now
+C(-10): I'm locked out of online banking and I need to pay a bill today.
+A: Meridian Bank, Priya, sorry about that. What message do you see when you try to log in?
+C(-7): It says too many attempts, account locked.
+--- PASS
+A: I have unlocked it. Please try logging in once more.
+C(-6): Trying.
+A*: What message do you see when you try to log in after the unlock?
+C(-4): It lets me in, thank you.
+--- FAIL
+A: I'm sorry, that's inconvenient, let me look at the security flags.
+C(-6): Thank you.
+A*: What message do you see when you try to log in?
+C(-10): Too many attempts, account locked, I already told you.
+
+@@pair id=tr_al_021 check=active_listening industry=satellite_internet persona=chatty hard=status_now
+C(-8): My internet keeps cutting out every few minutes.
+A: Hey, S-Net, Brett here! What colour is the status light on the modem?
+C(-5): It's flashing green.
+--- PASS
+A: Great, let's power cycle it. Unplug it for thirty seconds.
+C(-5): Plugged back in.
+A*: What colour is the status light on the modem now?
+C(-3): Solid white, no flashing.
+--- FAIL
+A: Flashing green, got it, that usually means it's searching.
+C(-5): Right.
+A*: What colour is the status light on the modem?
+C(-9): It's flashing green, I said that already.
+
+@@pair id=tr_al_022 check=active_listening industry=electric_utility persona=formal hard=repeat_no_now
+C(-9): Our estimated bill makes no sense, it's three times last month's.
+A: Northline Power, good morning. What reading does your meter show today?
+C(-6): It shows 48,210.
+--- PASS
+A: I have applied a revised reading to your account. Please open your bill again.
+C(-5): Opened it.
+A*: What reading does your meter show on the revised bill?
+C(-3): It now says 48,210 as well, so it matches.
+--- FAIL
+A: Thank you. I will compare that against the estimate.
+C(-5): Please do.
+A*: What reading does your meter show today?
+C(-9): 48,210, as I stated a moment ago.
+
+@@pair id=tr_al_023 check=active_listening industry=airline persona=warm hard=status_now
+C(-9): My baggage allowance on the app is different from my ticket.
+A: Thanks for calling SkyHarbor, Rosa speaking. What baggage allowance does the app show for your flight?
+C(-6): Just one cabin bag, no hold bag.
+--- PASS
+A: I've added your included hold bag. Refresh the app for me.
+C(-5): Refreshing.
+A*: What baggage allowance does the app show for your flight now?
+C(-3): One cabin bag and one hold bag.
+--- FAIL
+A: One cabin bag only, I see, that's not what you paid for.
+C(-5): Exactly.
+A*: What baggage allowance does the app show for your flight?
+C(-9): One cabin bag, no hold bag, as I've said.
+
+@@pair id=tr_al_024 check=active_listening industry=ecommerce persona=technical hard=repeat_no_now
+C(-9): The order confirmation email has the wrong delivery address on it.
+A: Brightcart, Min-jun. What address does the confirmation email show for delivery?
+C(-6): It shows my old flat on Dunmore Street.
+--- PASS
+A: I've updated the address on the order and re-sent the email. Open the new one.
+C(-5): Got the new email.
+A*: What address does the confirmation email show for delivery in the new one?
+C(-3): The right one, Alder Court.
+--- FAIL
+A: Dunmore Street, understood, I'm checking when it was changed.
+C(-5): Okay.
+A*: What address does the confirmation email show for delivery?
+C(-9): My old flat, Dunmore Street, I just said.
+
+@@pair id=tr_al_025 check=active_listening industry=saas persona=apologetic hard=status_now
+C(-9): Our file uploads keep failing with an error.
+A: Cloudweave support, Grace, sorry for the trouble. What error message appears when the upload fails?
+C(-6): File too large, but the file is tiny.
+--- PASS
+A: I've raised your upload limit. Please try the upload again.
+C(-5): Trying again.
+A*: What error message appears when the upload fails now?
+C(-3): No error, it finished.
+--- FAIL
+A: I'm sorry, that does sound wrong for a small file, let me look.
+C(-5): Thank you.
+A*: What error message appears when the upload fails?
+C(-9): File too large. I already told you, and it's tiny.
+
+@@pair id=tr_al_026 check=active_listening industry=car_rental persona=chatty hard=repeat_no_now
+C(-8): The car won't unlock with the app, I'm standing next to it.
+A: Hey, Roadly, Leo here. What does the app say when you tap the unlock button?
+C(-5): It says connecting and then times out.
+--- PASS
+A: I'll wake up the car's modem from here, give it a moment.
+C(-5): Okay, waited a moment.
+A*: What does the app say when you tap the unlock button after that?
+C(-3): It unlocked.
+--- FAIL
+A: Connecting and timing out, yeah, I've seen that on a few cars.
+C(-5): Hm.
+A*: What does the app say when you tap the unlock button?
+C(-9): Connecting then it times out. Like I said.
+
+@@pair id=tr_al_027 check=active_listening industry=streaming persona=terse hard=status_now
+C(-8): The app shows the wrong language everywhere.
+A: Streamly, Jo. What language does the app menu show?
+C(-5): French.
+--- PASS
+A: I've reset your language preference. Restart the app.
+C(-4): Restarted.
+A*: What language does the app menu show now?
+C(-3): English.
+--- FAIL
+A: French. Okay.
+C(-4): Yes.
+A*: What language does the app menu show?
+C(-9): French. I just said it.
+
+@@pair id=tr_al_028 check=active_listening industry=appliance_repair persona=scripted hard=repeat_no_now
+C(-9): The washing machine floods the kitchen when it drains.
+A: Thank you for calling HomeFix, this is Carla. Where exactly is the water coming from on the machine?
+C(-6): From the back, where the hose connects.
+--- PASS
+A: Thank you. Please tighten the hose clamp and run a short rinse.
+C(-5): Done, the rinse is running.
+A*: Where exactly is the water coming from on the machine now?
+C(-3): Nowhere, it's dry.
+--- FAIL
+A: Thank you. I will check the model for known hose faults.
+C(-5): Okay.
+A*: Where exactly is the water coming from on the machine?
+C(-9): From the back where the hose connects, as I already said.
+
+@@pair id=tr_al_029 check=active_listening industry=mobile_carrier persona=warm hard=status_now
+C(-9): Mobile data stopped working on my phone this morning.
+A: Hi, Voxel Mobile, Amara here. What does the data icon show at the top of your screen?
+C(-6): It's got a little cross through it.
+--- PASS
+A: Let's reset your network settings. Go ahead and do that now.
+C(-5): Done, it's restarting.
+A*: What does the data icon show at the top of your screen now?
+C(-3): It says 4G with arrows.
+--- FAIL
+A: A cross through it, that tells me the data's switched off at the network.
+C(-5): Right.
+A*: What does the data icon show at the top of your screen?
+C(-9): The cross, I told you.
+
+@@pair id=tr_al_030 check=active_listening industry=health_insurance persona=hurried hard=repeat_no_now
+C(-9): My member card on the app looks wrong, wrong dates.
+A: Greenfield Health, Pete. What effective date does the card show?
+C(-6): First of January last year.
+--- PASS
+A: I've updated your record. Reload the card.
+C(-5): Reloaded.
+A*: What effective date does the card show after the update?
+C(-3): First of this January.
+--- FAIL
+A: Last year's, that's old.
+C(-5): Yes, it is.
+A*: What effective date does the card show?
+C(-9): First of January last year, I told you.
+
+@@pair id=tr_al_031 check=active_listening industry=satellite_internet persona=formal hard=status_now
+C(-10): The dish app shows an alert I can't clear.
+A: Good afternoon, S-Net support. What does the alert in the app say?
+C(-7): Obstruction detected, check the dish view.
+--- PASS
+A: I see a branch may have grown. Please trim it and reopen the app.
+C(-6): I've trimmed the branch and reopened it.
+A*: What does the alert in the app say now?
+C(-4): No alert, signal's strong.
+--- FAIL
+A: An obstruction alert normally relates to the dish's field of view. I will check the telemetry.
+C(-6): Please.
+A*: What does the alert in the app say?
+C(-9): Obstruction detected, check the dish view. As I said.
+
+@@pair id=tr_al_032 check=active_listening industry=retail_bank persona=technical hard=repeat_no_now
+C(-9): The app shows two different balances on two screens.
+A: Meridian digital support, Nikhil. What balance does the home screen show?
+C(-6): Four thousand two hundred.
+--- PASS
+A: I've forced a ledger refresh. Pull down on the home screen to update.
+C(-5): Updated it.
+A*: What balance does the home screen show after the refresh?
+C(-3): Three thousand nine hundred, same as the other screen.
+--- FAIL
+A: Four thousand two hundred on the home screen, so the other screen is stale.
+C(-5): Probably.
+A*: What balance does the home screen show?
+C(-9): Four thousand two hundred, I told you that.
+
+@@pair id=tr_al_033 check=active_listening industry=airline persona=chatty hard=status_now
+C(-9): I'm trying to check in but it says my passport details are incomplete.
+A: Hi, SkyHarbor, Rosa here! What does the check-in page say is missing?
+C(-6): It says expiry date missing.
+--- PASS
+A: I've added the expiry from your saved profile. Try the page again.
+C(-5): Trying again.
+A*: What does the check-in page say is missing now?
+C(-3): Nothing, it lets me proceed.
+--- FAIL
+A: Expiry date missing, ah, I see, that happens a lot with new bookings.
+C(-5): Right.
+A*: What does the check-in page say is missing?
+C(-9): The expiry date, I said that.
+
+@@pair id=tr_al_034 check=active_listening industry=ecommerce persona=hurried hard=repeat_no_now
+C(-10): The tracking number you gave me doesn't work on the courier site.
+A: Brightcart, Min-jun. Which courier site are you entering the tracking number on?
+C(-7): The Fastway site.
+--- PASS
+A: Ah, this one goes through a different carrier, I've updated the order. Check the email again.
+C(-6): New email's here.
+A*: Which courier site does the new email tell you to enter the tracking number on?
+C(-4): Northpost, it's a new link.
+--- FAIL
+A: Fastway, okay.
+C(-6): Yes.
+A*: Which courier site are you entering the tracking number on?
+C(-10): The Fastway site. I told you.
+
+@@pair id=tr_al_035 check=active_listening industry=saas persona=technical hard=status_now
+C(-9): Single sign-on is failing for the whole team.
+A: Cloudweave identity team, Nikhil. What error does the sign-in page show for SSO?
+C(-6): SAML assertion invalid.
+--- PASS
+A: I've re-synced your identity provider certificate. Try signing in again.
+C(-5): Trying.
+A*: What error does the sign-in page show for SSO now?
+C(-3): None, it logged me in.
+--- FAIL
+A: That usually points at a certificate mismatch. I'll check the metadata.
+C(-5): Okay.
+A*: What error does the sign-in page show for SSO?
+C(-9): SAML assertion invalid, I already gave you that.
+
+@@pair id=tr_al_036 check=active_listening industry=car_rental persona=warm hard=repeat_no_now
+C(-9): The rental agreement app says my licence has expired but it hasn't.
+A: Hello, Roadly, Tom here. What expiry date does the app show for your licence?
+C(-6): It shows March of last year.
+--- PASS
+A: I've corrected the date from the copy you uploaded. Refresh the screen.
+C(-5): Refreshed.
+A*: What expiry date does the app show for your licence after the correction?
+C(-3): March in four years' time.
+--- FAIL
+A: March of last year, that's clearly a mistake on our side.
+C(-5): It is.
+A*: What expiry date does the app show for your licence?
+C(-9): March of last year, as I said.
+
+@@pair id=tr_al_037 check=active_listening industry=streaming persona=apologetic hard=status_now
+C(-9): Video keeps pausing every few seconds even on good wifi.
+A: Streamly support, Jo, so sorry about this. What quality setting is the video playing at?
+C(-6): Automatic, it says.
+--- PASS
+A: Let's lower it to see if that helps. Set it to 720p.
+C(-5): Set to 720p.
+A*: What quality setting is the video playing at now?
+C(-3): 720p, and it's smooth.
+--- FAIL
+A: I'm sorry, automatic can sometimes struggle, let me look at your stream data.
+C(-5): Okay.
+A*: What quality setting is the video playing at?
+C(-9): Automatic. I've told you.
+
+@@pair id=tr_al_038 check=active_listening industry=appliance_repair persona=chatty hard=repeat_no_now
+C(-9): The freezer is beeping and the display is flashing.
+A: Hi, HomeFix, Ines here! What temperature does the freezer display show?
+C(-6): Minus six, flashing.
+--- PASS
+A: That's warm. I've sent a defrost cycle command, so give it five minutes.
+C(-5): Five minutes are up.
+A*: What temperature does the freezer display show after the cycle?
+C(-3): Minus eighteen and steady.
+--- FAIL
+A: Minus six, hmm, that's definitely not right, it should be a lot colder.
+C(-5): No, it shouldn't.
+A*: What temperature does the freezer display show?
+C(-9): Minus six, flashing. I said.
+
+@@pair id=tr_al_039 check=active_listening industry=electric_utility persona=technical hard=status_now
+C(-9): The smart thermostat linked to my account says offline.
+A: Northline smart home desk, Min-jun. What does the thermostat screen display?
+C(-6): It shows a wifi symbol with a line through it.
+--- PASS
+A: Let's re-pair it. I've sent a pairing request, hold the button for five seconds.
+C(-5): Done, holding it.
+A*: What does the thermostat screen display now?
+C(-3): Wifi symbol, no line, and it says connected.
+--- FAIL
+A: A struck-through wifi symbol usually means it lost the router. I'll check the hub.
+C(-5): Okay.
+A*: What does the thermostat screen display?
+C(-9): The wifi symbol with a line through it, I told you.
+
+@@pair id=tr_al_040 check=active_listening industry=mobile_carrier persona=scripted hard=repeat_no_now
+C(-9): I can't set up voicemail, it keeps saying invalid.
+A: Thank you for calling Voxel Mobile. What message does the phone play when you dial voicemail?
+C(-6): It says the mailbox is not set up.
+--- PASS
+A: I have activated your mailbox. Please dial voicemail again.
+C(-5): Dialling.
+A*: What message does the phone play when you dial voicemail now?
+C(-3): It asks me to record a greeting.
+--- FAIL
+A: Thank you. I will check whether the mailbox exists on your plan.
+C(-5): All right.
+A*: What message does the phone play when you dial voicemail?
+C(-9): The mailbox is not set up. I already told you.

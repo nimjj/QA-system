@@ -1,0 +1,655 @@
+# Dev set, part 2: Paraphrasing (7 more pairs), Active listening (20), Resolved (20).
+
+# ------------------------------------------------------------- Paraphrasing (continued)
+@@pair id=dv_para_014 check=paraphrasing industry=saas persona=chatty hard=short_restate
+A: Hey, Cloudweave, Leo here!
+C(-8): The calendar sync double books everything on my team's shared calendar, every single meeting appears twice.
+--- PASS
+A: Ha, every meeting showing twice on the shared calendar, got it.
+--- FAIL
+A: Which calendar app do you sync with? Is it all meetings?
+--- END
+C(-5): Outlook, and yes, all of them.
+A: Right.
+
+@@pair id=dv_para_015 check=paraphrasing industry=car_rental persona=formal hard=restate_no_tag
+A: Roadly Car Hire, good afternoon.
+C(-9): The child seat I reserved for my toddler was not in the car when I collected it and the desk said none were left.
+--- PASS
+A: You reserved a child seat for your toddler, it was not in the car at collection, and the desk said none remained. I will arrange one at once.
+--- FAIL
+A: May I have the pick-up branch? And at what time did you collect the car?
+--- END
+C(-6): The airport branch, at nine.
+A: Thank you.
+
+@@pair id=dv_para_016 check=paraphrasing industry=streaming persona=apologetic hard=generic_filler
+A: Streamly support, Jo, apologies for the hold.
+C(-10): My downloads keep disappearing from the app before I can watch them on my flight, and I travel every week.
+--- PASS
+A: No problem at all. So the downloads vanish before you can watch offline on your flights, which hurts as you fly weekly. I'll check the download settings.
+--- FAIL
+A: No problem at all. I'm really sorry you're having this experience, and I do want to make it right for you.
+--- END
+C(-7): I just want them to stay.
+A: Of course.
+
+@@pair id=dv_para_017 check=paraphrasing industry=appliance_repair persona=warm hard=echo_questions
+A: HomeFix, Ines speaking, how can I help?
+C(-9): The washing machine door won't unlock after the cycle and there's still water in the drum.
+--- PASS
+A: Oh, that's a nuisance. So the door stays locked after the cycle and there's water left in the drum. We'll get that drained.
+--- FAIL
+A: Oh, that's a nuisance. Is the door locked after the cycle? And is there still water in the drum?
+--- END
+C(-5): Yes, both.
+A: Okay.
+
+@@pair id=dv_para_018 check=paraphrasing industry=mobile_carrier persona=technical hard=plan_readback
+A: Voxel Mobile technical, Min-jun.
+C(-9): My phone shows full bars but calls drop after about thirty seconds, every time, only at home.
+--- PASS
+A: Full bars yet calls cut after roughly thirty seconds, only when you're at home. That looks like a handover issue. I'll check the cell.
+--- FAIL
+A: I can see your line is on the Unlimited plan on a twenty-four month contract. Can you confirm your date of birth?
+--- END
+C(-6): It's the third of March.
+A: Thanks.
+
+@@pair id=dv_para_019 check=paraphrasing industry=health_insurance persona=hurried hard=jump_to_fix
+A: Greenfield Health, Pete.
+C(-10): My prescription was refilled at a different pharmacy and the new one says it's not on file, so I can't pick it up.
+--- PASS
+A: Refill went to a new pharmacy that can't see it on file. Okay, checking.
+--- FAIL
+A: Member number and the pharmacy name, I'll push it through.
+--- END
+C(-6): 4471 8820, Larch Chemists.
+A: Got it.
+
+@@pair id=dv_para_020 check=paraphrasing industry=electric_utility persona=warm hard=wrong_restate
+A: Northline Power, Rosa speaking.
+C(-9): The new smart meter went in last week but my app still shows the old one and nothing's updating.
+--- PASS
+A: So the smart meter was fitted last week, but your app is still pointing at the old meter, so no readings are coming through. Let me link it.
+--- FAIL
+A: So you'd like to switch to a smart meter and want to know when an engineer can come out. Let me book that.
+--- END
+C(-8): No, it's already fitted, the app is the problem.
+A: Oh, sorry, let me look at that.
+
+# ------------------------------------------------------------- Active listening
+@@pair id=dv_al_001 check=active_listening industry=satellite_internet persona=technical hard=status_now
+C(-9): The connection keeps dropping at random.
+A: S-Net support, Alex. What is the signal strength reading in the app?
+C(-6): Minus ninety.
+--- PASS
+A: I've pushed a realignment command to the dish. Check the app again in a couple of minutes.
+C(-5): Two minutes have gone by.
+A*: What is the signal strength reading in the app now?
+C(-3): Minus sixty-eight.
+--- FAIL
+A: Minus ninety is weak. I'll look at the telemetry history for the last week.
+C(-5): Okay.
+A*: What is the signal strength reading in the app?
+C(-9): Minus ninety, like I said.
+
+@@pair id=dv_al_002 check=active_listening industry=retail_bank persona=warm hard=repeat_no_now
+C(-9): My card was declined and I'm at the till.
+A: Hello, Meridian Bank, Priya here. What does the card machine say when you tap?
+C(-6): Card declined, contact your bank.
+--- PASS
+A: I've removed a security hold. Try tapping once more.
+C(-5): Tapping again.
+A*: What does the card machine say when you tap after the hold was removed?
+C(-3): Approved.
+--- FAIL
+A: Okay, let me look at the security flags on the card.
+C(-5): Thanks.
+A*: What does the card machine say when you tap?
+C(-9): Card declined, contact your bank, I just told you.
+
+@@pair id=dv_al_003 check=active_listening industry=airline persona=hurried hard=status_now
+C(-10): I can't select a seat on the app.
+A: SkyHarbor, Marcus. What happens when you tap on a seat?
+C(-7): Nothing, it just stays grey.
+--- PASS
+A: I've cleared a block on your booking. Tap a seat again.
+C(-6): Tapping.
+A*: What happens when you tap on a seat now?
+C(-4): It turns blue, it's selected.
+--- FAIL
+A: Right, I'm looking at the booking.
+C(-6): Okay.
+A*: What happens when you tap on a seat?
+C(-10): Nothing, it stays grey. I said that.
+
+@@pair id=dv_al_004 check=active_listening industry=ecommerce persona=chatty hard=clarify_vague
+C(-8): The tracking number you sent doesn't seem right.
+A: Hi, Brightcart, Ellie here! What does the courier site say when you enter the number?
+C(-5): It says something about not found but also something else, I can't read it properly.
+--- PASS
+A: No problem, can you zoom in and read me the full message on the courier site?
+C(-5): It says not found, check the number format.
+A*: And what does the courier site say when you enter the number with no spaces?
+C(-4): It found it, in transit.
+--- FAIL
+A: No problem, let me test the number from my side as well.
+C(-5): Thanks.
+A*: So what does the courier site say when you enter the number?
+C(-9): Not found, and something else, I told you I can't read it.
+
+@@pair id=dv_al_005 check=active_listening industry=saas persona=technical hard=repeat_no_now
+C(-9): Our alerts stopped arriving in the channel.
+A: Cloudweave support, Nikhil. What does the alert settings page show for the channel integration?
+C(-6): It shows disconnected in red.
+--- PASS
+A: I've re-authorised the integration from my end. Refresh that page.
+C(-5): Refreshed.
+A*: What does the alert settings page show for the channel integration after the refresh?
+C(-3): Connected, green.
+--- FAIL
+A: Disconnected, so the token expired. I'll check the logs.
+C(-5): Okay.
+A*: What does the alert settings page show for the channel integration?
+C(-9): Disconnected in red. I already said.
+
+@@pair id=dv_al_006 check=active_listening industry=car_rental persona=apologetic hard=status_now
+C(-10): The car won't start, I'm so late.
+A: Roadly, Tom, I'm sorry. What does the dashboard display when you press start?
+C(-7): A key symbol with a red line through it.
+--- PASS
+A: Try holding the fob right next to the start button.
+C(-6): Holding it there.
+A*: What does the dashboard display when you press start now?
+C(-4): It's started, no key symbol.
+--- FAIL
+A: I'm sorry about that, that tells me it can't read the key.
+C(-6): Right.
+A*: What does the dashboard display when you press start?
+C(-10): A key symbol with a red line, I said that.
+
+@@pair id=dv_al_007 check=active_listening industry=streaming persona=chatty hard=repeat_no_now
+C(-8): The app won't play anything.
+A: Hey, Streamly, Jo here. What does the player show when you press play?
+C(-5): A circle going round and round.
+--- PASS
+A: Let's sign you out and back in. Do that and press play again.
+C(-5): Signed back in.
+A*: What does the player show when you press play after signing in?
+C(-3): The film started.
+--- FAIL
+A: A spinning circle, yep, that's a classic sign of a licence refresh issue.
+C(-5): Is it?
+A*: What does the player show when you press play?
+C(-9): A circle going round and round, I told you.
+
+@@pair id=dv_al_008 check=active_listening industry=appliance_repair persona=terse hard=status_now
+C(-9): The freezer's warm.
+A: HomeFix, Carla. What does the freezer display say?
+C(-6): Minus two.
+--- PASS
+A: Defrost cycle started. Wait ten minutes.
+C(-5): Waited.
+A*: What does the freezer display say now?
+C(-3): Minus sixteen.
+--- FAIL
+A: Minus two. Not good.
+C(-5): No.
+A*: What does the freezer display say?
+C(-9): Minus two. Said that.
+
+@@pair id=dv_al_009 check=active_listening industry=mobile_carrier persona=scripted hard=repeat_no_now
+C(-9): I can't call out from my mobile.
+A: Thank you for calling Voxel Mobile. What message do you hear when you dial a number?
+C(-6): Call failed, network unavailable.
+--- PASS
+A: I have refreshed your network profile. Please try the call again.
+C(-5): Trying again.
+A*: What message do you hear when you dial a number after the refresh?
+C(-3): It rings, it's connecting.
+--- FAIL
+A: Thank you. I will check for a barring on your line.
+C(-5): Please.
+A*: What message do you hear when you dial a number?
+C(-9): Call failed, network unavailable, I already told you.
+
+@@pair id=dv_al_010 check=active_listening industry=health_insurance persona=warm hard=clarify_vague
+C(-8): My explanation of benefits shows something wrong.
+A: Hello, Greenfield Health, Dana here. What does the statement say next to the date of service?
+C(-5): It's got a different date to the visit, I think, or maybe not.
+--- PASS
+A: Let's pin it down. Can you read me the date shown on the statement?
+C(-5): It says the fifth of May.
+A*: And what does the statement say next to the date of service you attended?
+C(-4): I went on the fourth.
+--- FAIL
+A: Let me pull the claim up on my side.
+C(-5): Okay.
+A*: So what does the statement say next to the date of service?
+C(-9): A different date to the visit, I think, I just said.
+
+@@pair id=dv_al_011 check=active_listening industry=electric_utility persona=hurried hard=status_now
+C(-10): No power in the kitchen.
+A: Northline, Pete. Which circuit breakers are down in the panel?
+C(-7): The one labelled ring main.
+--- PASS
+A: Flip it back up firmly.
+C(-6): Done.
+A*: Which circuit breakers are down in the panel now?
+C(-4): Same one fell again.
+--- FAIL
+A: Right, I'll check for a fault on that circuit.
+C(-6): Okay.
+A*: Which circuit breakers are down in the panel?
+C(-10): The ring main one, I said it.
+
+@@pair id=dv_al_012 check=active_listening industry=satellite_internet persona=chatty hard=repeat_no_now
+C(-8): My speeds are rubbish today.
+A: Hey, S-Net, Brett here! What does the speed test say for download right now?
+C(-5): About fifteen megabits.
+--- PASS
+A: Let's reboot the modem. Unplug it for thirty seconds.
+C(-5): Plugged back in.
+A*: What does the speed test say for download after the reboot?
+C(-3): Eighty-two.
+--- FAIL
+A: Fifteen, that's low for your plan, I can see why you're annoyed.
+C(-5): Yes.
+A*: What does the speed test say for download?
+C(-9): Fifteen megabits, as I said.
+
+@@pair id=dv_al_013 check=active_listening industry=airline persona=formal hard=status_now
+C(-10): My booking confirmation is incorrect.
+A: Good afternoon, SkyHarbor. What departure date does the confirmation show?
+C(-7): The fourth of June.
+--- PASS
+A: I have corrected the date on your booking. Please check your email again.
+C(-6): Checking.
+A*: What departure date does the confirmation show now?
+C(-4): The fourteenth of June, that's correct.
+--- FAIL
+A: Thank you. I am reviewing the booking history.
+C(-6): Please do.
+A*: What departure date does the confirmation show?
+C(-10): The fourth of June, as I told you.
+
+@@pair id=dv_al_014 check=active_listening industry=ecommerce persona=warm hard=repeat_no_now
+C(-9): I can't apply my gift card.
+A: Hello, Brightcart, Ellie speaking. What message appears when you enter the gift card code?
+C(-6): It says code not recognised.
+--- PASS
+A: I've activated the card on our side. Try the code again.
+C(-5): Entering it again.
+A*: What message appears when you enter the gift card code after the activation?
+C(-3): It applied, thank you.
+--- FAIL
+A: Code not recognised, that sometimes means it hasn't been activated.
+C(-5): Right.
+A*: What message appears when you enter the gift card code?
+C(-9): Code not recognised. I just told you.
+
+@@pair id=dv_al_015 check=active_listening industry=saas persona=chatty hard=status_now
+C(-8): Our reports are coming out blank.
+A: Hey, Cloudweave, Leo here! What does the report preview show when you open it?
+C(-6): Just column headers and nothing else.
+--- PASS
+A: Let me rebuild the cache. Give it a minute and reopen it.
+C(-5): Reopened.
+A*: What does the report preview show when you open it now?
+C(-3): Full data, all columns.
+--- FAIL
+A: Headers only, ah, that's the thing I suspected.
+C(-5): Is it?
+A*: What does the report preview show when you open it?
+C(-9): Column headers and nothing else, like I said.
+
+@@pair id=dv_al_016 check=active_listening industry=car_rental persona=technical hard=repeat_no_now
+C(-9): The fuel gauge reads empty but I've just filled it up.
+A: Roadly fleet support, Nikhil. What does the fuel gauge show right now?
+C(-6): Empty, with the warning light on.
+--- PASS
+A: I'll send a reset to the instrument cluster. Turn the car off and on.
+C(-5): Done.
+A*: What does the fuel gauge show after the restart?
+C(-3): Full.
+--- FAIL
+A: Empty with the warning on, that points to a sensor fault.
+C(-5): Right.
+A*: What does the fuel gauge show right now?
+C(-9): Empty, with the warning light on, I told you.
+
+@@pair id=dv_al_017 check=active_listening industry=streaming persona=formal hard=status_now
+C(-9): The video quality is poor on my tablet.
+A: Good evening, Streamly. What resolution does the playback info screen show?
+C(-6): It says 360p.
+--- PASS
+A: I have lifted the data-saver limit on your account. Please restart the stream.
+C(-5): Restarted.
+A*: What resolution does the playback info screen show now?
+C(-3): 1080p.
+--- FAIL
+A: Thank you. I will check your plan entitlements.
+C(-5): Please.
+A*: What resolution does the playback info screen show?
+C(-9): 360p, as I already stated.
+
+@@pair id=dv_al_018 check=active_listening industry=appliance_repair persona=warm hard=clarify_vague
+C(-9): The tumble dryer is making a funny noise.
+A: Hello, HomeFix, Ines here. What kind of noise does the dryer make while it runs?
+C(-5): I'm not sure how to put it, it's just funny.
+--- PASS
+A: That's fine. Is it more of a rumble, a squeak, or a thump?
+C(-5): A squeak, mostly.
+A*: And what kind of noise does the dryer make, does the squeak come with every turn?
+C(-4): Every turn of the drum.
+--- FAIL
+A: That's fine, we'll get to the bottom of it, I'm just checking the model.
+C(-5): Thanks.
+A*: So what kind of noise does the dryer make while it runs?
+C(-9): Funny, I told you I can't describe it.
+
+@@pair id=dv_al_019 check=active_listening industry=mobile_carrier persona=hurried hard=status_now
+C(-10): My picture messages won't download.
+A: Voxel, Leo. What does the message say when you tap to download?
+C(-7): Download failed.
+--- PASS
+A: I've reset your data profile. Tap download again.
+C(-6): Tapping.
+A*: What does the message say when you tap to download now?
+C(-4): It downloaded.
+--- FAIL
+A: Right, checking your settings.
+C(-6): Okay.
+A*: What does the message say when you tap to download?
+C(-10): Download failed. I told you.
+
+@@pair id=dv_al_020 check=active_listening industry=health_insurance persona=technical hard=repeat_no_now
+C(-9): The portal won't show my digital card.
+A: Greenfield Health systems, Nikhil. What does the card page display when you open it?
+C(-6): A blank white page.
+--- PASS
+A: I've re-issued your card record. Reload the page.
+C(-5): Reloaded.
+A*: What does the card page display when you open it after the reload?
+C(-3): The card, with my name.
+--- FAIL
+A: A blank page, that suggests the record isn't loading.
+C(-5): Right.
+A*: What does the card page display when you open it?
+C(-9): A blank white page. I already told you.
+
+# ------------------------------------------------------------- Resolved
+@@pair id=dv_res_001 check=resolved industry=satellite_internet persona=warm hard=no_keyword_vs_keyword_no_check
+A: Give the page a refresh and tell me what you see.
+C(0): It loads fast and the video's playing.
+--- PASS
+A*(+7): Lovely. So everything's running smoothly again on your end?
+C(+4): Yes, smoothly.
+--- FAIL
+A*(+7): Lovely. I'll mark this as resolved and fixed on my side and close the ticket.
+C(+2): Okay.
+--- END
+A: Anything else I can do?
+C(+3): No.
+A: Take care.
+
+@@pair id=dv_res_002 check=resolved industry=retail_bank persona=formal hard=explicit_vs_anything_else
+A: I have released the hold and the funds are now available.
+C(-1): The balance has updated in the app.
+--- PASS
+A*(+5): Excellent. May I confirm that the matter of the blocked payment is fully settled for you?
+C(+3): Yes, it is.
+--- FAIL
+A*(+5): Excellent. Is there anything further that I may assist you with today?
+C(+3): No, thank you.
+--- END
+A: Thank you for calling Halden Savings.
+
+@@pair id=dv_res_003 check=resolved industry=airline persona=hurried hard=explicit_vs_assumed
+A: Passes reissued, check your email.
+C(0): Got both, thanks.
+--- PASS
+A*(+4): Good. So the boarding pass issue's sorted for both of you?
+C(+3): Yes, sorted.
+--- FAIL
+A*(+4): Good. They should work at the gate.
+C(+2): I hope so.
+--- END
+A: Anything else?
+C(+2): No.
+A: Bye.
+
+@@pair id=dv_res_004 check=resolved industry=ecommerce persona=chatty hard=buried_pass_vs_fail
+A: Your replacement's booked for delivery tomorrow, I'll email the details.
+C(0): Great, thanks.
+--- PASS
+A*(+8): Before you go, is the wrong-item problem all put right now, replacement sorted?
+C(+4): Yes, all put right.
+--- FAIL
+A*(+8): Before you go, deliveries sometimes come early, so keep an eye on the door.
+C(+3): I will.
+--- END
+A: And there's a short survey coming by email if you fancy rating me.
+C(+3): Sure.
+A: Thanks for choosing Brightcart!
+
+@@pair id=dv_res_005 check=resolved industry=saas persona=technical hard=no_keyword_vs_handoff
+A: I've restored the workspace from last night's backup.
+C(-1): The projects are all there again.
+--- PASS
+A*(+5): Good. So all your projects are back and you can work as normal?
+C(+3): Yes, I can work as normal.
+--- FAIL
+A*(+5): Good. I'll hand the root cause to engineering and they'll write to you.
+C(+2): Fine.
+--- END
+A: Anything else?
+C(+2): No thanks.
+A: Goodbye.
+
+@@pair id=dv_res_006 check=resolved industry=car_rental persona=apologetic hard=explicit_vs_still_failing
+A: The replacement car should be with you now.
+C(-2): It's here, but the air conditioning isn't working either.
+--- PASS
+A*(+6): I'm so sorry. I've asked the driver to swap it again, and once you have the new car, can you confirm the air con works?
+C(+2): It works on this one, thank you.
+--- FAIL
+A*(+6): I'm so sorry. Air con can take a few minutes to cool down properly, so give it time.
+C(-3): Hopefully.
+--- END
+A: Is there anything else?
+C(0): No.
+A: Safe travels.
+
+@@pair id=dv_res_007 check=resolved industry=streaming persona=terse hard=no_keyword_vs_anything_else
+A: Open the app again.
+C(0): It's loading the show and the picture's sharp.
+--- PASS
+A*(+3): Good. All working properly?
+C(+3): Yes.
+--- FAIL
+A*(+3): Good. Anything else?
+C(+3): No.
+--- END
+A: Bye.
+
+@@pair id=dv_res_008 check=resolved industry=appliance_repair persona=warm hard=keyword_check_vs_assumed
+A: The engineer has replaced the door seal and tested a full cycle.
+C(-1): Yes, no leaks at all during the cycle.
+--- PASS
+A*(+7): Wonderful. Can I check that the leaking problem is fully fixed from your side?
+C(+4): Yes, fully fixed.
+--- FAIL
+A*(+7): Wonderful. It shouldn't leak again after that, so that's the end of it.
+C(+3): Good.
+--- END
+A: Is there anything else I can do?
+C(+3): No.
+A: Lovely, take care.
+
+@@pair id=dv_res_009 check=resolved industry=mobile_carrier persona=scripted hard=explicit_vs_handoff
+A: I have restored your call forwarding settings.
+C(-1): Calls are coming through to my phone again.
+--- PASS
+A*(+5): Thank you. Can you confirm that your calls are now working and the forwarding issue is resolved?
+C(+3): Yes, it's resolved.
+--- FAIL
+A*(+5): Thank you. If the issue returns, our line services team will contact you.
+C(+2): Right.
+--- END
+A: Is there anything else I can assist you with?
+C(+2): No.
+A: Thank you for calling Voxel Mobile.
+
+@@pair id=dv_res_010 check=resolved industry=electric_utility persona=hurried hard=no_keyword_vs_assumed
+A: Crew's reconnected your supply.
+C(0): Yes, lights are on.
+--- PASS
+A*(+4): Good. So power's stable at your end now?
+C(+3): Stable, yes.
+--- FAIL
+A*(+4): Good. It should stay stable.
+C(+2): Fine.
+--- END
+A: Anything else?
+C(+2): No.
+A: Bye.
+
+@@pair id=dv_res_011 check=resolved industry=health_insurance persona=chatty hard=volunteer_vs_ignored
+A: I've resubmitted the form and the portal should update shortly.
+C(0): Oh yes, it's changed to approved already!
+--- PASS
+A*(+8): Brilliant! So the approval's showing and the rejection's been put right?
+C(+5): Yes, put right.
+--- FAIL
+A*(+8): Brilliant! Anything else I can help with while you're here?
+C(+5): No, that's it.
+--- END
+A: Lovely, thanks for calling Greenfield!
+
+@@pair id=dv_res_012 check=resolved industry=retail_bank persona=technical hard=explicit_vs_handoff
+A: I've cleared the lock on your online access.
+C(-1): I can log in again.
+--- PASS
+A*(+5): Good. So you're back into online banking and the lockout is dealt with?
+C(+3): Yes, it's dealt with.
+--- FAIL
+A*(+5): Good. If it locks again, our security team will review your account.
+C(+2): Okay.
+--- END
+A: Anything else?
+C(+2): No thanks.
+A: Goodbye.
+
+@@pair id=dv_res_013 check=resolved industry=airline persona=warm hard=keyword_no_check_vs_explicit
+A: Your refund of two hundred dollars is approved and on its way.
+C(-1): Thank you.
+--- PASS
+A*(+7): You're welcome. Can I check the refund matter is all settled now, as far as you're concerned?
+C(+4): Yes, all settled.
+--- FAIL
+A*(+7): You're welcome. That's the refund resolved and the case closed on our side.
+C(+2): Okay.
+--- END
+A: Is there anything else I can help with?
+C(+3): No, thank you.
+A: Safe travels.
+
+@@pair id=dv_res_014 check=resolved industry=ecommerce persona=formal hard=explicit_vs_still_failing
+A: I have applied the corrected price to your order.
+C(-1): The item price has changed, but the delivery charge is still wrong.
+--- PASS
+A*(+5): Thank you. I have corrected the delivery charge as well. Does the order total now look right, and is the matter closed?
+C(+3): Yes, the total's right, closed.
+--- FAIL
+A*(+5): Thank you. The delivery charge is calculated separately and may update later.
+C(-3): Hm.
+--- END
+A: Is there anything else I may help with?
+C(0): No.
+A: Thank you for shopping with Brightcart.
+
+@@pair id=dv_res_015 check=resolved industry=saas persona=apologetic hard=explicit_vs_anything_else
+A: The seat count is corrected to fifteen and the invoice is reissued.
+C(-1): I can see the new invoice.
+--- PASS
+A*(+6): I'm sorry again for the mix-up. Can I confirm the invoice error is now fully corrected on your side?
+C(+3): Yes, it's all correct.
+--- FAIL
+A*(+6): I'm sorry again for the mix-up. Is there anything else I can help you with?
+C(+3): No.
+--- END
+A: Thank you for your patience.
+
+@@pair id=dv_res_016 check=resolved industry=car_rental persona=chatty hard=no_keyword_vs_keyword_no_check
+A: So I've removed the extra fee, the credit will show in a few days.
+C(0): That's great, thank you.
+--- PASS
+A*(+8): Happy to help! So you're all good on the fee and there's nothing else odd on the invoice?
+C(+4): Nothing else odd.
+--- FAIL
+A*(+8): Happy to help! I'll tick that off as fixed and resolved in our notes, so you're done.
+C(+3): Great.
+--- END
+A: Anything else?
+C(+3): No thanks.
+A: Have a great day!
+
+@@pair id=dv_res_017 check=resolved industry=streaming persona=technical hard=explicit_vs_assumed
+A: I've re-synced your profile settings.
+C(-1): The recommendations look right.
+--- PASS
+A*(+5): Good. So the kids' profile now filters correctly and you're not seeing adult titles?
+C(+3): Right, no adult titles.
+--- FAIL
+A*(+5): Good. It should stay that way after the sync.
+C(+2): Fine.
+--- END
+A: Anything else?
+C(+2): No.
+A: Goodbye.
+
+@@pair id=dv_res_018 check=resolved industry=appliance_repair persona=hurried hard=explicit_vs_handoff
+A: Tech's finished, element's replaced.
+C(0): Oven's heating again.
+--- PASS
+A*(+4): Good. So it heats properly now, issue fixed?
+C(+3): Heats fine, fixed.
+--- FAIL
+A*(+4): Good. Follow-up team will ring if anything's wrong.
+C(+2): Okay.
+--- END
+A: Anything else?
+C(+2): No.
+A: Bye.
+
+@@pair id=dv_res_019 check=resolved industry=mobile_carrier persona=warm hard=buried_pass_vs_fail
+A: I've reset your voicemail and you can record a new greeting.
+C(0): Done, I've recorded one.
+--- PASS
+A*(+7): Lovely. So voicemail's working again and the error message has gone?
+C(+4): Yes, it's gone.
+--- FAIL
+A*(+7): Lovely. You can change the greeting any time from the same menu.
+C(+3): Good to know.
+--- END
+A: Anything else I can help with?
+C(+3): No.
+A: There's a short survey coming by text if you've a minute.
+C(+3): Sure.
+A: Thanks for being with Voxel Mobile.
+
+@@pair id=dv_res_020 check=resolved industry=electric_utility persona=formal hard=explicit_vs_still_failing
+A: I have cleared the fault code on your smart meter.
+C(-2): The display is on, but it still shows the wrong reading.
+--- PASS
+A*(+5): Thank you. I have forced a fresh reading. Is the display now correct, and is that concluded?
+C(+3): Yes, it's correct, concluded.
+--- FAIL
+A*(+5): Thank you. Readings usually correct themselves within a day.
+C(-3): Will they?
+--- END
+A: Is there anything further?
+C(0): No.
+A: Thank you for calling Northline Power.

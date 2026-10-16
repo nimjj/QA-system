@@ -1,3 +1,5 @@
+> **SUPERSEDED in part (2026-10-16).** The Gemini test set, the human labelling and the Gemini dev slice were dropped for time. All train, dev and test data is written and labelled by Claude (test = unseen industries, personas and wording), the data is built in stages (first stage: train 1,269 / dev 273 / test 396 rows), and training is one self-contained notebook, `01_train_eval.ipynb`. The README is the current plan; read the Gemini and human-review parts below as history.
+
 # Plan B: full training plan
 
 Status: approved by Nimithra. Plan A (the smoke test) comes first; this plan starts after it passes.

@@ -4,7 +4,9 @@
 
 ## 1. One-paragraph summary
 
-We grade telephony-support calls against 11 criteria with a service (`qa-analysis`) that combines deterministic Python rules with **Laya**, a local, non-generative yes/no classifier (ModernBERT-large encoder, 421M parameters, English checkpoint). Ollama/llama3.1 was removed in version 10. In a first test on 4 hand-written calls Laya made more mistakes than Ollama (mean score error 11.7 after pipeline fixes vs Ollama's 9.2). We propose a **full fine-tune of Laya's English checkpoint on synthetic, extractor-built examples** for the five checks where it is weak, with replay data and regression checks to avoid breaking the rest, and an **independent test set written by a different LLM (Gemini) and labelled by hand**. There are no real call transcripts and no way to get any, so every result will be reported as "good on realistic synthetic calls", not "proven on real calls". Training runs on a Colab L4 GPU (about 15 minutes per run, measured); serving stays on CPU.
+We grade telephony-support calls against 11 criteria with a service (`qa-analysis`) that combines deterministic Python rules with **Laya**, a local, non-generative yes/no classifier (ModernBERT-large encoder, 421M parameters, English checkpoint). Ollama/llama3.1 was removed in version 10. In a first test on 4 hand-written calls Laya made more mistakes than Ollama (mean score error 11.7 after pipeline fixes vs Ollama's 9.2). We propose a **full fine-tune of Laya's English checkpoint on synthetic, extractor-built examples** for the five checks where it is weak, with replay data and regression checks to avoid breaking the rest.
+
+**Decision of 2026-10-16 (time pressure; the owner delegated the ML calls):** the Gemini-written test set and all human labelling were dropped. **Every train, dev and test row was written and labelled by Claude.** To keep the test as far from the training data as possible, the test rows use industries, agent personas and looser wording that the training rows never contain. That makes the test a fair check of generalisation *within Claude's writing*, but **it is not an independent or human-labelled test**. There are no real call transcripts, so every result is "measured on Claude-written synthetic calls", never "proven on real calls". The data is built in stages (small first, scale only if the learning curve says so). Training runs on a Colab L4 GPU (about 15 minutes per run, measured); serving stays on CPU.
 
 ## 2. The system and where Laya sits
 
@@ -57,12 +59,12 @@ Goal: a fine-tuned English checkpoint that matches or beats Ollama on grading ac
 Proposed final criteria (all on synthetic data; cutoffs are re-tuned on dev data and the test set is scored once):
 
 1. **Main calls:** mean score error against the answer key is below Ollama's and at most 9.0, and the 4 calls rank in strict tier order. *The key is currently Claude-written and unreviewed (section 7), so this is a sanity gate, not the headline.*
-2. **Trained checks, independent test set:** balanced accuracy at least 0.85, with the lower 95% bound at least 0.75.
-   - **2b. Rapport at call level:** at most 5% of ~20 held-out full polite calls fail Rapport (reported with its interval; 0 of 20 still allows a true rate near 14%).
+2. **Trained checks, Claude-written held-out test set (not independent):** balanced accuracy at least 0.85, with the lower 95% bound at least 0.75.
+   - **2b. Rapport at call level:** at most 5% of full polite calls fail Rapport. Without Gemini calls this is measured on the polite bulk calls (`b_*`, 33 calls) and the 4 Main calls, locally after integration.
 3. **Regression checks:** test balanced accuracy no more than 0.05 below the untouched model, with no significant paired drop; bulk `b_*` items at least 348/372.
 4. **Unlabelled real-looking calls** (`real_long_*`, `v8_*`): scores keep tier order (Spearman at least 0.8).
 5. **Drift:** at least 90% agreement with the untouched model on generic (custom-criteria) questions.
-6. **Calibration:** ECE at most 0.10 on the Gemini dev slice (reported).
+6. **Calibration:** ECE at most 0.10 on the test set (reported).
 7. **Speed:** at most 15 s per 20-minute call on CPU.
 
 ## 5. Proposed approach
@@ -88,40 +90,48 @@ Proposed final criteria (all on synthetic data; cutoffs are re-tuned on dev data
 
 The exact question and option texts are exported to `data/frozen/checks_frozen.json` with a sha256; every training row records the hash. The Ownership phrase gate (about 30 phrases) has the same blind-spot as Rapport had; it is a known limitation and not changed in this phase.
 
-### 5.3 Data (all synthetic)
-- **Train/dev (written by Claude):** wide variety across about 12 industries (half S-Net telecom), 8 agent personalities, short/mid/long calls, customer moods, and speech-to-text-style roughening on about 30% (scripted and reproducible). Every example is produced by running a generated call through `build_laya_inputs`; fragments that never reach a check's gate are logged.
-- **Matched pairs** so the model learns the skill, not trigger words: restate vs echo the customer's words; rude vs polite lines containing the same words ("obviously", "as I said"); warm vs cold reply to the same upset turn; re-asked information vs re-checked changing status; explicit resolution check vs call that just ends. About 40% hard cases, 50/50 PASS/FAIL.
-- **Independent test set:** written by **Gemini** (a different model, to reduce shared style), generated from scenario cards, **labelled blind by a human**. Gemini's intended labels are stored separately for an agreement check. Also about 20 full polite calls for the Rapport call-level false-positive test.
-- **Replay rows (drift guard):** about 300 rows with generic custom-criteria questions (as built by `_batch_check`), with the **untouched model's own probabilities as soft targets** (`gold`), so the fine-tune does not drift on tenant-defined criteria.
-- **Splits are by call and by pair, never by row** (union-find on `call_id` and `pair_id`). The test file is sealed until the final evaluation.
+### 5.3 Data (all synthetic; all written and labelled by Claude)
+- **Authorship, stated plainly:** train, dev and test fragments are hand-written by Claude as call excerpts (`data/fragments/claude/*.txt`) in a compact pair format and turned into rows by `tools/build_rows.py`. No row was labelled by a human. The PASS/FAIL label of a row is what Claude intended when writing it.
+- **Every row goes through production code:** `build_laya_inputs` cuts the snippet, the check's gate must be reached, the decision line must be in the snippet, and the snippet must fit the 512-token window with the real tokenizer. Fragments that fail are dropped and logged (`data/rows/*_dropped.json`).
+- **Matched pairs** so the model learns the skill, not trigger words: the same call with only the decision line changed (restate vs echo; rude vs polite with the same trigger words such as "obviously" or "as I said"; warm vs cold reply to the same upset turn; re-asked info vs re-checked status; explicit resolution check vs a call that just ends). Same persona on both members, roughening (speech-to-text noise, about 30%) decided per pair, PASS and FAIL balanced 50/50, hard cases in most pairs.
+- **Test set built to differ from training:** industries (water utility, hotel booking, food delivery, gym, university, pharmacy, travel agency, auto insurance, credit card, rental portal), personas (rambling, blunt, overly polite, robotic, sleepy, slangy) and looser wording that never occur in train or dev. It is still Claude's writing and Claude's labels, so style shared with the training data can still help the model.
+- **Replay rows (drift guard):** 250 train and 37 dev rows with 1-3 generic custom-criteria questions (built exactly like `_batch_check`, over agent-only text, end of call or the full call), with the **untouched model's own probabilities as soft targets** (`gold`). No human or Claude label is involved. `tools/build_replay.py`.
+- **Splits are by pair and call.** `tools/make_manifest.py` proves no pair or call appears in two splits, no identical snippet crosses splits, and it removes dev/test pairs that are near-copies (5-gram Jaccard at least 0.6) of earlier splits (13 dev pairs removed; none from test). `data/rows/manifest.json` has the counts and sha256 of each file.
 
-| Check | Role | Train | Dev (Claude) | Gemini dev | Gemini test |
-|---|---|---|---|---|---|
-| Rapport (chunks) | train | 500 | 100 | 35 | 60 (+20 full polite calls) |
-| Paraphrasing | train | 500 | 100 | 35 | 60 |
-| Active listening | train | 400 | 80 | 35 | 50 |
-| Confirmed resolved | train | 400 | 80 | 35 | 50 |
-| Empathy | train | 400 | 80 | 35 | 50 |
-| Ownership | regression | 150 | 40 | - | 30 |
-| Probing | regression | 150 | 40 | - | 30 |
-| Hostility | regression | 100 | 30 | - | 20 |
-| Escalation | regression | 100 | 30 | - | 20 |
-| Replay | drift guard | 300 | 50 | - | - |
-| **Total** | | **3,400** | **630** | **175** | **370 + 20 calls** |
+**Volumes actually built** (pairs = two rows; ownership train has one unpaired row left after a gate drop):
 
-**Validation before training:** schema; token-budget check with the real tokenizer and question head (`laya-train` truncates a too-long state silently and `--dry-run` does not report it); 50/50 balance; near-duplicates across splits; length and trigger-word balance per label; frozen-hash match; and a **shortcut probe**: a bag-of-words classifier trained on dev must not exceed 0.85 balanced accuracy per check (warning for every check, hard fail for Rapport and Paraphrasing).
+| Check | Role | Train pairs | Dev pairs | Test pairs |
+|---|---|---|---|---|
+| Rapport (chunks) | train | 70 | 20 | 30 |
+| Paraphrasing | train | 100 | 20 | 30 |
+| Active listening | train | 80 | 20 | 30 |
+| Confirmed resolved | train | 70 | 20 | 30 |
+| Empathy | train | 70 | 20 | 30 |
+| Ownership | regression | 30 | 4 | 12 |
+| Probing | regression | 30 | 4 | 12 |
+| Hostility | regression | 30 | 4 | 12 |
+| Escalation | regression | 30 | 6 | 12 |
+| Replay rows | drift guard | 250 rows | 37 rows | - |
+| **Rows** | | **1,269** | **273** | **396** |
 
-### 5.4 Training recipe (planned; speed measured)
-- Two runs, keep the better on dev: **R1** `--loss soft-ce --label-smoothing 0.05`; **R2** `--loss rlcd` (Laya's policy-gradient + soft cross-entropy objective). Both: 4 epochs, micro-batch 8 x grad-accum 8 (effective 64), encoder lr 2.5e-5, head lr 1e-4, AdamW with cosine schedule, weight decay 0.01, gradient clip 1.0, fp16 autocast with gradient checkpointing, `max_len 512`, `head_max_len 192` (same as serving), seed 0 (more seeds if time allows), `--eval` on dev.
-- `laya-train` holds out min(400, 10%) of the training items before training and fits one temperature per question type on them; this slice **includes replay rows** (about 9% of it). A shared per-type temperature never changes which of two calls scores higher, and every check's cutoff is re-tuned afterwards on Gemini dev, so verdicts do not depend on it. If ECE misses 0.10 we train through `laya.train.finetune` with a calibration split restricted to the nine frozen questions.
-- **Measured (smoke test, L4):** 13.7 items/s at 367 mean state tokens; a 3,400-item x 4-epoch run is about 15 minutes plus about 2 minutes of load/save. Checkpoints are fp16, about 0.84 GB.
+This is about a third of the volume first planned (3,400 train rows). It is a **first stage**: train, read the learning curve, and scale only if the checks that matter keep improving with more data. The dev slices of the four regression checks are tiny (4-6 pairs); they are a sanity check, not a measurement.
+
+**Validation (shortcut probe, `tools/shortcut_probe.py`, bag-of-words balanced accuracy with grouped cross-validation by pair):**
+- Hard-fail checks pass: Rapport 0.71 and Paraphrasing 0.79 on train (limit 0.85); Active listening 0.71.
+- **Warnings (above 0.85) on train:** Empathy 0.96, Escalation 0.97, Hostility 0.95, Ownership 0.90, Probing 0.98, Resolved 0.94 (test: Probing 1.00, Resolved 0.87). In these checks the label really is carried by words ("sorry"/"thank you", "okay" vs "yes", question words), so a high lexical score is partly the task itself, but it also means **the test scores for these checks may be optimistic** relative to real calls. Length balance is reported per label; the worst gap is Probing on train (PASS 21% longer).
+
+### 5.4 Training recipe (one self-contained notebook, `01_train_eval.ipynb`)
+- The notebook embeds the data and the frozen questions (hash-checked), so the owner opens it on Colab and presses **Run all** once. It scores the untouched model, trains **two variants** (`--loss soft-ce --label-smoothing 0.05` and `--loss rlcd`), scores both on dev and test, **picks the winner by mean dev AUC over the five trained checks**, saves everything to Drive and prints a summary to paste back.
+- Settings: 4 epochs, micro-batch 8 x grad-accum 2 (effective 16, chosen because 1,269 rows give only about 80 steps per epoch at the default 64), encoder lr 2.5e-5, head lr 1e-4, `max_len 512`, `head_max_len 192` (same as serving), seed 0. One seed only. No `--eval` flag (the notebook computes its own metrics).
+- `laya-train` holds out min(400, 10%) of the training items and fits one temperature per question type on them; this slice includes replay rows. A shared temperature never changes which of two calls scores higher, and cutoffs are re-tuned on dev afterwards.
+- **Measured (smoke test, L4):** 13.7 items/s at 367 mean state tokens; the training rows here are much shorter (about 60-90 tokens), so each variant should take well under 10 minutes. Checkpoints are fp16, about 0.84 GB.
 - **Known laya 0.4.0 bug:** `finetune()` evaluates before training while the model is still on the CPU, so it crashes on any GPU ("tensors on the same device ... index_select"). `tools/laya_train_cuda.py` wraps it (moves the model to the device first; installed package not edited). Verified on CPU with a simulated device mismatch, and then on the Colab GPU.
 - Output goes to `/content` and a watcher copies `checkpoint_latest/` to Drive only when its files have stopped changing for 30 s and the epoch-end log line has appeared, via a temp folder and rename.
 
 ### 5.5 Cutoffs and evaluation
-- After training, every check's cutoff is re-tuned on **Gemini dev** (not on Claude dev, which shares the training data's style). Rapport's cutoff is tuned **at call level**: best chunk balanced accuracy subject to at most 5% of polite full calls failing.
-- The test set is then scored **once**. Reported per check: balanced accuracy with 95% bootstrap intervals resampled by call; paired comparison with the untouched model on regression checks; ECE; replay agreement. Also re-run `batch_test.py main` and `bulk` through the service and compare scorecards with Ollama and earlier Laya runs.
-- If decisions are made on the test set more than once, a fresh Gemini test set is generated.
+- For the five trained checks the cutoff is tuned on **dev** (best balanced accuracy, ties to the one nearest 0.5), then applied to test. Regression checks keep their frozen cutoff. Because dev and test share Claude's authorship, a cutoff tuned on dev is likely to transfer better to test than it will to real calls; the final cutoffs must be re-checked on the Main and bulk calls locally.
+- Reported per check on test: balanced accuracy at the tuned cutoff with a 95% bootstrap interval resampled by pair, AUC, balanced accuracy of the untouched model at the production cutoff, ECE, and replay agreement (same verdict as the untouched model on custom-criteria questions).
+- After the notebook: set `LAYA_CHECKPOINT`, re-run `batch_test.py main` and `bulk` through the service, `probe_laya.py`, `compare_results.py`, and commit new cutoffs to `LAYA_CHECKS`.
 
 ### 5.6 Integration
 `qa-analysis/src/services/laya_adapter.py` serves a fine-tuned folder when the environment variable `LAYA_CHECKPOINT` is set (served under the `english` name); unset means the stock checkpoint. **Done and tested** on CPU through the real adapter. New cutoffs are committed to `LAYA_CHECKS`.
@@ -133,20 +143,18 @@ The exact question and option texts are exported to `data/frozen/checks_frozen.j
 | Plan A | Smoke test: install, download, dry-run, 1-epoch train on 20 rows, reload, predict, save to Drive, load locally on CPU through the adapter | **Done** (passed 2026-10-16) |
 | 0 | Answer key for the 4 Main calls | **Done, with a caveat**: key is Claude-written and **not human-reviewed** (section 7) |
 | 1 | Remaining pipeline input changes + freeze | **Done** 2026-10-16: frozen at `qa-analysis` tag `laya-inputs-frozen-v1` (commit `53becd8`), `inputs_sha256` `66deff95a20c...` in `data/frozen/checks_frozen.json` |
-| 2 | Labelling guide (PASS/FAIL per check, examples, hard-case types, "unsure" rule) | **Written** (`docs/LABELLING_GUIDE.md`), awaiting the owner's approval |
-| 3 | Generator + pilot of about 240 items for human skim | **Built**: 240 hand-written fragments, all pass the production gates (`data/rows/pilot.jsonl`); skim sheet `data/review/pilot_review.xlsx` awaiting the owner |
-| 4 | Gemini test set: prompts and scenario cards, imported and validated; human labels about 545 items | **Materials ready** (33 batch prompts, importer tested on a simulated reply); waiting for the owner to run Gemini and label |
-| 5 | Full generation to the volumes above | Planned |
-| 6 | Validation (incl. shortcut probe) | Planned |
-| 7 | Split by call and pair; seal test | Planned |
-| 8 | Baseline of the untouched model on dev, Gemini dev and test | Planned |
-| 9 | Training R1/R2 on Colab | Planned |
-| 10 | Evaluation, test scored once | Planned |
-| 11 | Integration, re-run Main and bulk | Planned |
-| 12 | Iteration (error analysis on dev only) | Planned |
-| 13 | Report: "good on realistic synthetic calls" | Planned |
+| 2 | Labelling guide (PASS/FAIL per check, examples, hard-case types) | **Written** (`docs/LABELLING_GUIDE.md`); used by Claude as its own labelling rules, never approved by a human |
+| 3 | Generator + 240-row pilot | **Done** (`data/rows/pilot.jsonl`, part of train) |
+| 4 | Gemini test set and human labelling | **Dropped** 2026-10-16 (time); replaced by a Claude-written test set built from unseen industries, personas and wording |
+| 5 | Data generation | **Done, first stage**: train 1,269 rows, dev 273, test 396 (section 5.3); scale only if the learning curve asks for it |
+| 6 | Validation (incl. shortcut probe) | **Done**: warnings recorded in section 5.3, no hard fails |
+| 7 | Split by pair and call; manifest | **Done** (`data/rows/manifest.json`, no leakage found) |
+| 8-10 | Baseline, training R1/R2, evaluation | **Ready to run**: `01_train_eval.ipynb` on Colab (one Run all) |
+| 11 | Integration, re-run Main and bulk | Planned (after the notebook) |
+| 12 | Iteration (error analysis on dev only; more data if the learning curve says so) | Planned |
+| 13 | Report: "measured on Claude-written synthetic data" | Planned |
 
-Elapsed estimate 3-4 weeks; the human's time is about 14-16 hours (section 8).
+The human's time is now about 1 hour (section 8).
 
 ## 7. What has been done (facts)
 
@@ -163,43 +171,35 @@ Elapsed estimate 3-4 weeks; the human's time is about 14-16 hours (section 8).
 
   Probing is now 34/34 on bulk (was 30/34) and Active listening 33/33 (was 30/33). The mean score error rose although more items are right, because two wrong answers on Main call 3 used to cancel. **Rapport: the untrained model has no signal on the chunk question.** Across all 44 labelled calls the highest chunk P(rude) is 0.19-0.22 for rude and polite calls alike (rude calls 0.199-0.217, median polite 0.198), so no cutoff separates them; the first cutoff (0.81) sat on that floor and failed 29 of 33 polite bulk calls. The cutoff is therefore an interim 0.50 that never fails a call until the model is fine-tuned. Active listening has a thin margin (planted repeats 0.82-0.85, all other calls 0.55-0.81, cutoff 0.81) and still misses the genuine repeats in Main call 2.
 - **The freeze:** `inputs_sha256` covers the nine question texts, which answer means PASS, the word caps, and the source of `laya_inputs.py` and `rule_engine.py`. Cutoffs are deliberately excluded because they are re-tuned after training. `tools/export_checks.py --check` fails if any of it changes; training data built before such a change must be regenerated.
-- **Phases 2-4 materials (2026-10-16):**
+- **Phases 2-3 materials (2026-10-16):**
   - `docs/LABELLING_GUIDE.md`: PASS/FAIL per check on the text the model sees, with worked examples. Active listening uses the app's definition (re-asked question) as a default pending the owner's decision.
   - Pilot: `tools/build_rows.py` turns hand-written fragments (`data/fragments/claude/pilot_*.txt`: 20 matched pairs for each of the five trained checks, 5 pairs for each regression check) into 240 rows through the frozen `build_laya_inputs`. Every row passes its production gate and fits the window (max 112 tokens). Roughening (about 30%) is decided per pair. `tools/shortcut_probe.py` already found a **length shortcut in Empathy (0.88)** and a **word shortcut in Resolved (0.93)** at pilot size; `docs/GENERATION_NOTES.md` records the rules the full generation must follow (length balance per label, hard cases that break the lexical markers).
-  - Gemini: `tools/make_gemini_batches.py` wrote 731 scenario cards (711 excerpts, 20 polite full calls; cards are over-generated by 30% because some excerpts will not pass the gates) in 33 paste-ready prompts. About 38% S-Net telecom, 42% industries the training data never uses, 31% asked to be written as raw speech-to-text. `tools/import_gemini.py` validates replies, applies the gates, writes **blind** label sheets and re-ask prompts; tested end to end on a simulated reply (bad speaker, unknown id, gate failure and too-short call were all caught). The intended outcome of every card is kept in a file the labeller does not need to see.
+  - Gemini workflow (scenario cards, 33 paste-ready prompts, importer): built, then **removed from the repo** on 2026-10-16 when the Gemini test set and human labelling were dropped (see the decision note in section 1). It is in git history on branch `phase-3-pilot`.
+- **Data creation, first stage (2026-10-16):** train 1,269 rows, dev 273, test 396 (section 5.3), the replay builder, the split manifest and the self-contained notebook `01_train_eval.ipynb`. A local CPU run of the notebook's scoring and metric code on the untouched model passed (it is the baseline numbers the notebook will print again on Colab).
 - **Phase 0 answer key is not human-reviewed.** Two review spreadsheets were produced for the 4 Main calls; both came back with notes written by an assistant that had Claude's grades ("Claude:" / "Claude (not human):"), so neither is an independent human check. Three contested items were re-read by Claude and all stood. `docs/PHASE0_ANSWER_KEY.md` and `data/review/answer_key_main.json` record this. Ollama's 9.2 and Laya's 11.7 are therefore measured against Claude-written grades. Open requirement question: should Active listening also fail an agent who ignores what the customer already said, not only one who re-asks a question?
 
 ## 8. Who does what: the steps only the human owner (Nimithra) can do
 
-Claude (the assistant doing the build) cannot press Run in Colab, cannot use Gemini, and cannot supply human judgement. There is **no Gemini CLI**: she runs Gemini by hand in its chat.
+Claude (the assistant doing the build) cannot press Run in Colab. Human labelling and Gemini were dropped, so the owner's list is short:
 
 | # | When | Action | Time |
 |---|---|---|---|
-| 1 | End of Phase 1 | Okay the frozen question wording and cutoffs | **done** 2026-10-16 |
-| 2 | Before Phase 2 | Decide the Active-listening definition (above) | 5 min |
-| 3 | Phase 2 | Approve the labelling guide | ~1 h |
-| 4 | Phase 3 | Read the ~240-item pilot; flag disagreements | ~1 h |
-| 5 | Phase 4 | **Run Gemini**: paste each of the 33 batch prompts in `prompts/gemini/` (28 batches of about 25 short excerpts, 5 batches of 4 full polite calls) into a fresh Gemini chat and save each reply unedited as `data/fragments/gemini/raw/batch_NN.json`; `tools/import_gemini.py` validates them, runs them through the production gates and names any cards to re-ask | ~2-2.5 h |
-| 6 | Phase 4 | **Label the ~545 Gemini items herself** and skim ~20 full polite calls | ~7-8 h |
-| 7 | Phase 6 | Read the validation report | 15 min |
-| 8 | Phases 8, 9, 10 | Press Run in the three Colab notebooks and paste summary lines back | ~30 min each |
-| 9 | Phase 9 | Download the trained checkpoint from Drive | 10 min |
-| 10 | Phase 10 | Go / no-go on results | 15 min |
-| 11 | Phase 11 | Review re-run Main and bulk scorecards | 30 min |
-| 12 | Phase 13 | Approve the report | 15 min |
+| 1 | Now | Open `01_train_eval.ipynb` in Colab (L4 GPU), press **Run all**, allow the Drive prompt, and paste the block that starts `=== PASTE THIS BACK TO CLAUDE ===` | ~5 min of attention, ~30-40 min of waiting |
+| 2 | After | Download `MyDrive/laya-finetuning/checkpoints/<run id>/final-<winner>` to `laya-training/checkpoints/` (zip it first) | 10 min |
+| 3 | After | Go / no-go on the Main and bulk scorecards | 30 min |
 
-Item 6 is the load-bearing one: the final claim holds only if those labels are genuinely human judgement. The earlier review files show the failure mode (an assistant filling the sheet from Claude's grades makes the result circular).
+Nothing in the final claim comes from human judgement. If an independent check matters later, a human-labelled sample of real calls is the thing to add.
 
 ## 9. Risks, limitations and what we want the ML engineer to challenge
 
-1. **Full fine-tune vs something lighter.** 421M parameters on about 3,400 synthetic rows for 4 epochs. Is full fine-tuning right, or would head-only (`--freeze-encoder`, which Laya documents as gaining much less), a lower encoder learning rate, fewer epochs, or early stopping on dev be safer against overfitting to synthetic style? We plan R1/R2 and dev-based selection only.
-2. **Synthetic-to-real gap and style shortcuts.** All training text is written by one LLM family. Mitigations: variety matrix, matched pairs, speech-to-text noise, a different-model test set, a bag-of-words shortcut probe. Are these enough, and is 0.85 the right probe threshold?
-3. **Replay as a drift guard.** Soft targets from the untouched model on ~300 generic questions. Is that adequate, or should the replay set be larger or cover more question styles? Is it sound that replay rows enter the calibration slice?
-4. **Label noise and size of the independent test set.** 50-60 test items per check gives a balanced-accuracy interval of about +/-0.09. Is that enough to claim 0.85? The labels also come from one person.
+1. **Full fine-tune vs something lighter.** 421M parameters on about 1,270 synthetic rows (1,020 supervised + 250 replay) for 4 epochs. Is full fine-tuning right, or would head-only (`--freeze-encoder`, which Laya documents as gaining much less), a lower encoder learning rate, fewer epochs, or early stopping on dev be safer against overfitting to synthetic style? We run soft-ce and rlcd and pick on dev, one seed only.
+2. **Synthetic-to-real gap and style shortcuts.** All training text is written by one LLM family. Mitigations: variety matrix, matched pairs, speech-to-text noise, a test set of unseen industries/personas/wording, a bag-of-words shortcut probe (which warned for six checks, section 5.3). Are these enough, and is 0.85 the right probe threshold?
+3. **Replay as a drift guard.** Soft targets from the untouched model on 250 train rows of generic questions. Is that adequate, or should the replay set be larger or cover more question styles? Is it sound that replay rows enter the calibration slice?
+4. **The test set is not independent.** Train, dev and test were written and labelled by the same model; only industries, personas and wording differ. 24-60 test pairs per check gives a balanced-accuracy interval of about +/-0.09 or wider. A high test score shows the model learned Claude's labelling rules and generalises across Claude's styles; it does not show agreement with human graders on real calls.
 5. **Rapport aggregation.** The untrained model scores every chunk 0.19-0.22, so training must create the signal first. "One rude chunk fails the call" over about 8 chunks per call multiplies false positives; we address it by tuning the cutoff at call level against full polite calls (target at most 5%, only ~20 calls). Is a better aggregation (max vs mean vs top-k, overlapping chunks, customer context in the chunk) worth trying?
 6. **Latency.** Rapport now makes about 8 Laya calls per call (up to 21). Measured: 22.4 s per Main call on CPU (bulk mean 12.8 s) against a 15 s target. Batching the chunks into one forward pass is the planned fix; is that safe for ModernBERT at 512 tokens, or would you cache or shorten chunks instead?
 7. **Active listening is under-defined** (re-asked question vs ignored statement) and its input is a question pair plus one customer answer, which may be too little context for "already gave in their answer".
-8. **Answer key for the 4 Main calls is LLM-written.** The headline claim therefore rests on the Gemini test set labelled by hand, not on the Main calls.
+8. **Answer key for the 4 Main calls is LLM-written** and so is the whole test set. There is currently no human-labelled number anywhere in this project.
 9. **Calibration.** One temperature per question type is fitted on at most 400 held-out items (including replay). Cutoffs are re-tuned per check afterwards. Is per-check calibration needed?
 10. **Reproducibility.** One seed planned for the main comparison; more seeds only if time allows. Is a seed ensemble or a paired seed comparison needed to trust a 0.02-0.05 difference?
 11. **Tooling risk.** `laya-train` v0.4.0 needs a wrapper to run on a GPU (section 5.4). Anything else in it you would distrust (silent state truncation, the `--eval` path, the shared calibration clamp)?
@@ -209,14 +209,14 @@ Item 6 is the load-bearing one: the final claim holds only if those labels are g
 
 | Where | What |
 |---|---|
-| **Google Colab (L4 GPU, ~23 GB)** | notebooks `0x_*.ipynb`: install, download base, train, evaluate. Pinned: laya commit `3cf26cb`, transformers 5.16.1 |
+| **Google Colab (L4 GPU, ~23 GB)** | notebooks `00_smoke_test.ipynb` (plumbing) and `01_train_eval.ipynb` (baseline, train, evaluate). Pinned: laya commit `3cf26cb`, transformers 5.16.1 |
 | **PC (CPU, Windows)** | `tools/*.py` and the `qa-analysis` service. No NVIDIA GPU |
 | **Google Drive** `MyDrive/laya-finetuning/` | checkpoints, datasets, run reports (Colab's disk is wiped at session end) |
 | **Git (this repo)** | notebooks, tools, prompts, docs, small data. Never weights |
 
 Branches: this repo `plan-a-smoke-test`, `phase-0-ground-truth`; `qa-analysis` `version-10.2-laya-finetune`.
 
-Tools in `tools/`: `export_checks.py` (freeze the production questions with a sha256; `--check` detects drift), `smoke_rows.py` / `smoke_cells/` / `build_smoke_notebook.py` (the smoke test), `check_local_load.py` (CPU check through the adapter), `laya_train_cuda.py` (GPU workaround), `make_review_sheet.py` and `pick_review_subset.py` (Phase 0 sheets). In `qa-analysis/Scripts/`: `dump_laya_inputs.py` records every Laya input without a model and compares two code versions.
+Tools in `tools/`: `build_rows.py` (fragments to rows through production code), `build_replay.py`, `make_manifest.py` (combine, de-duplicate, prove no leakage), `shortcut_probe.py`, `build_train_notebook.py` (assembles `01_train_eval.ipynb` from `train_cells/`), `export_checks.py` (freeze the production questions with a sha256; `--check` detects drift), `smoke_rows.py` / `smoke_cells/` / `build_smoke_notebook.py` (the smoke test), `check_local_load.py` (CPU check through the adapter), `laya_train_cuda.py` (GPU workaround), `make_review_sheet.py` and `pick_review_subset.py` (Phase 0 sheets). In `qa-analysis/Scripts/`: `dump_laya_inputs.py` records every Laya input without a model and compares two code versions.
 
 Run the smoke test: open `00_smoke_test.ipynb` on Colab, run cells top to bottom (each starts with an "EXPECT" comment), download the `final/` folder and `smoke_preds_ft.json` from Drive into `checkpoints/<run id>/`, then
 
@@ -230,5 +230,5 @@ To serve any fine-tuned checkpoint in `qa-analysis`, set `LAYA_CHECKPOINT` to it
 ## 11. Rules that keep the data honest
 - Question wording and every extractor are **frozen** before data is generated; changing one means regenerating.
 - Training inputs come only from `build_laya_inputs`, never written by hand.
-- Splits are by call and by pair. The test set is generated by a different model, labelled by a human, and scored once.
+- Splits are by call and by pair. The test set is written and labelled by Claude (not human) and is only used for the notebook's final scoring; cutoffs are chosen on dev.
 - The original checkpoint is never modified; every checkpoint records its base revision and hashes in a manifest.

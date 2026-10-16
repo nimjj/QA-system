@@ -1,0 +1,575 @@
+# Train: Rapport (50 pairs). The model sees one chunk of up to 8 consecutive AGENT lines (<= 120 words). Same persona and same surrounding lines in both members.
+# FAIL = one line blames, belittles, dismisses, mocks, is sarcastic or passive-aggressive (no insult needed). PASS = polite, or blunt/curt but fair.
+# Hard cases: same trigger words used politely vs belittlingly; blunt-but-fair PASS vs subtly passive-aggressive FAIL; a rude line buried among polite ones.
+
+@@pair id=tr_rap_001 check=rapport industry=retail_bank persona=formal hard=blunt_fair_vs_passive_aggressive
+A: Good afternoon, Halden Savings, how may I help?
+A: Thank you, I have your account open.
+--- PASS
+A*: That charge is not covered by the waiver, because the waiver only applies to overseas withdrawals.
+--- FAIL
+A*: That charge is not covered by the waiver, as the terms you signed make perfectly clear.
+--- END
+A: I can offer to refund it once as a goodwill gesture.
+A: Shall I go ahead?
+
+@@pair id=tr_rap_002 check=rapport industry=satellite_internet persona=terse hard=trigger_obviously
+A: S-Net support, Alex.
+A: Account pulled up.
+--- PASS
+A*: Obviously I'd rather fix this on this call, so I'm staying on until the dish is back.
+--- FAIL
+A*: Obviously you should have checked the cable first, that's the first thing anyone does.
+--- END
+A: I can see the signal dropped at eight.
+A: Rebooting the controller from here.
+
+@@pair id=tr_rap_003 check=rapport industry=airline persona=warm hard=trigger_as_i_said
+A: Thanks for calling SkyHarbor, Rosa speaking.
+A: Let me find your booking.
+--- PASS
+A*: As I said at the start, I'm happy to repeat anything, so just stop me whenever you like.
+--- FAIL
+A*: As I said at the start, and as I've now said three times, the fare is non-refundable.
+--- END
+A: I can offer you a voucher instead.
+A: Would that help?
+
+@@pair id=tr_rap_004 check=rapport industry=ecommerce persona=chatty hard=sarcasm
+A: Hey, Brightcart, Ellie here!
+A: Ooh, a standing desk, nice choice.
+--- PASS
+A*: Honestly, great idea checking the neighbours, that's exactly what I'd do next.
+--- FAIL
+A*: Wow, great idea checking the neighbours, I'm sure the desk is just hiding next door.
+--- END
+A: I've started a trace with the courier.
+A: You'll get an update by tomorrow.
+
+@@pair id=tr_rap_005 check=rapport industry=saas persona=technical hard=you_should_have
+A: Cloudweave support, Nikhil.
+A: I have your workspace open.
+--- PASS
+A*: For next time, you should have the option to restore deleted projects from the recycle bin within thirty days.
+--- FAIL
+A*: You should have restored it from the recycle bin within thirty days, then we wouldn't be here.
+--- END
+A: In this case I can ask engineering to recover it.
+A: Give me ten minutes.
+
+@@pair id=tr_rap_006 check=rapport industry=car_rental persona=hurried hard=dismissive
+A: Roadly, Tom.
+A: Booking number?
+A: Okay, found it.
+--- PASS
+A*: I've noted your concern about the scratch and I'll put it on the file before we move on.
+--- FAIL
+A*: Yes, yes, you've mentioned the scratch, it's tiny, let's move on to something that matters.
+--- END
+A: The inspection photos are attached.
+A: I'll review them now.
+
+@@pair id=tr_rap_007 check=rapport industry=streaming persona=apologetic hard=patronising
+A: Streamly support, Jo, thanks for waiting.
+A: I can see your account.
+--- PASS
+A*: Subtitles are in the settings menu under audio and subtitles, shall I talk you through it?
+--- FAIL
+A*: Subtitles are in the settings menu, the one with the little gear icon, can you manage to find a gear?
+--- END
+A: Once you're in, pick the language you want.
+A: Tell me when it's done.
+
+@@pair id=tr_rap_008 check=rapport industry=appliance_repair persona=warm hard=mocking_mistake
+A: HomeFix, Ines speaking.
+A: Let me bring up the visit notes.
+--- PASS
+A*: That's an easy mistake, the plug looks switched on even when the socket's off at the wall.
+--- FAIL
+A*: Ha, the socket was off at the wall, so the whole thing was unplugged, classic.
+--- END
+A: I'll note that no repair was needed.
+A: No charge for the call-out.
+
+@@pair id=tr_rap_009 check=rapport industry=mobile_carrier persona=scripted hard=exasperated
+A: Thank you for calling Voxel Mobile, this is Amara.
+A: May I have your phone number?
+--- PASS
+A*: Sorry, the line crackled, could you read that last digit once more for me?
+--- FAIL
+A*: I have asked for your number twice already, I cannot help you if you will not listen.
+--- END
+A: Thank you, I have it now.
+A: I'll check your plan.
+
+@@pair id=tr_rap_010 check=rapport industry=health_insurance persona=formal hard=buried_in_eight
+A: Greenfield Health, good morning.
+A: Thank you, I have the claim on screen.
+A: The date of service was the ninth.
+A: The provider billed four hundred dollars.
+--- PASS
+A*: Your plan covered three hundred and sixty of that.
+--- FAIL
+A*: You'd know all this if you had read the explanation we mailed, but never mind.
+--- END
+A: The remaining forty is your deductible.
+A: That is in line with your plan.
+A: I can email you a breakdown.
+A: Would you like that?
+
+@@pair id=tr_rap_011 check=rapport industry=electric_utility persona=terse hard=calm_down
+A: Northline, Pete.
+A: Address?
+--- PASS
+A*: Take a second if you need it, we'll go through it together, no rush.
+--- FAIL
+A*: Calm down, it's only a bill, nobody has died here.
+--- END
+A: Meter reading?
+A: Okay, thanks.
+
+@@pair id=tr_rap_012 check=rapport industry=airline persona=technical hard=basic_condescending
+A: SkyHarbor systems, Nikhil.
+A: Booking reference?
+A: Got it.
+--- PASS
+A*: Check-in usually opens twenty-four hours before departure, so it may just not be open yet.
+--- FAIL
+A*: Check-in opens twenty-four hours before departure, that's basic stuff, it's in every email.
+--- END
+A: It opens at six tomorrow morning.
+A: You'll be able to select your seat then.
+
+@@pair id=tr_rap_013 check=rapport industry=ecommerce persona=hurried hard=blame_no_insult
+A: Brightcart, Min-jun.
+A: Order number?
+--- PASS
+A*: The address on the order is flat four, so the courier may have gone to the wrong block.
+--- FAIL
+A*: The address on the order is the one you typed, so if it went wrong, that's on you.
+--- END
+A: I'll raise a trace.
+A: Update in two days.
+
+@@pair id=tr_rap_014 check=rapport industry=saas persona=chatty hard=mocking
+A: Hey, Cloudweave, Leo here!
+A: Let me look at your account.
+--- PASS
+A*: No worries, the invite button hides behind the profile menu, lots of people miss it.
+--- FAIL
+A*: Ha, the invite button's hiding behind the profile menu, which I'm sure you checked, right?
+--- END
+A: I'll send you the steps.
+A: Let me know if it works.
+
+@@pair id=tr_rap_015 check=rapport industry=car_rental persona=warm hard=blunt_fair_vs_passive_aggressive
+A: Hello, Roadly, Tom speaking.
+A: Let me find your rental agreement.
+--- PASS
+A*: The agreement says fuel must be returned full, so the refuelling fee is valid in this case.
+--- FAIL
+A*: The agreement says fuel must be returned full, which you clearly didn't bother to read.
+--- END
+A: I can reduce the fee by half this time.
+A: Does that sound fair?
+
+@@pair id=tr_rap_016 check=rapport industry=streaming persona=technical hard=exasperated
+A: Streamly, Min-jun.
+A: Which device are you on?
+A: Okay, the smart tv.
+--- PASS
+A*: Sorry, I keep losing the model name on my screen, could you read it out again?
+--- FAIL
+A*: I have asked for the model four times now, this takes forever when you won't answer.
+--- END
+A: Thanks.
+A: Let me check compatibility.
+
+@@pair id=tr_rap_017 check=rapport industry=appliance_repair persona=terse hard=trigger_whatever
+A: HomeFix, Carla.
+A: Model?
+--- PASS
+A*: Thursday or Friday, whatever suits you better, I'll book it either way.
+--- FAIL
+A*: Thursday or Friday, whatever, honestly it's the same to me, your call.
+--- END
+A: Morning or afternoon?
+A: Done.
+
+@@pair id=tr_rap_018 check=rapport industry=mobile_carrier persona=apologetic hard=dismissive
+A: Voxel Mobile, Leo, sorry for the wait.
+A: I can see the charge on your bill.
+--- PASS
+A*: It does look high for a month with no roaming, so let's go through it line by line.
+--- FAIL
+A*: It's a few pounds, I really wouldn't make a fuss about it, most people just pay it.
+--- END
+A: I can raise a dispute for you.
+A: Shall I do that?
+
+@@pair id=tr_rap_019 check=rapport industry=health_insurance persona=scripted hard=condescending
+A: Thank you for calling Greenfield Health, this is Dana.
+A: I have your policy open.
+--- PASS
+A*: A deductible is the amount you pay before the plan starts to cover costs, let me show you on your statement.
+--- FAIL
+A*: A deductible is the amount you pay first, which anybody who has ever had insurance understands.
+--- END
+A: So far you've paid five hundred.
+A: Does that make sense?
+
+@@pair id=tr_rap_020 check=rapport industry=retail_bank persona=chatty hard=sarcasm
+A: Hey, Meridian Bank, Priya here!
+A: Let me pull up the transfer.
+--- PASS
+A*: Good thinking trying it again, that's usually the first thing worth testing.
+--- FAIL
+A*: Oh brilliant, trying it a fifth time, I'm sure that'll change the outcome.
+--- END
+A: The payee name doesn't match.
+A: I'll show you where to fix it.
+
+@@pair id=tr_rap_021 check=rapport industry=satellite_internet persona=warm hard=buried_in_eight
+A: Hello, S-Net, Brett here, how can I help?
+A: Thank you, I have your line up.
+A: It shows a weak signal in the evenings.
+A: That fits what you described.
+--- PASS
+A*: I'd like to book an engineer to check your dish alignment.
+--- FAIL
+A*: Honestly if you'd cleared those branches like I told you, we wouldn't be doing this.
+--- END
+A: There's a slot on Thursday morning.
+A: I can put you in for that.
+A: Shall I confirm it?
+A: Great.
+
+@@pair id=tr_rap_022 check=rapport industry=airline persona=hurried hard=blunt_fair_vs_passive_aggressive
+A: SkyHarbor, Marcus.
+A: Booking reference?
+A: Okay, I see it.
+--- PASS
+A*: The fare rules say no refund on this ticket, but I can offer a voucher for the full amount.
+--- FAIL
+A*: The fare rules say no refund on this ticket, which you accepted when you ticked the box.
+--- END
+A: Voucher's valid for a year.
+A: Want it?
+
+@@pair id=tr_rap_023 check=rapport industry=ecommerce persona=apologetic hard=trigger_obviously
+A: Brightcart support, Ellie, apologies for the wait.
+A: I can see the return.
+--- PASS
+A*: Obviously you shouldn't have to chase this, so I'll handle the refund personally.
+--- FAIL
+A*: Obviously if you'd used the label we sent, the refund would have been processed already.
+--- END
+A: I'll update you tomorrow.
+A: Thanks for your patience.
+
+@@pair id=tr_rap_024 check=rapport industry=saas persona=technical hard=patronising
+A: Cloudweave support, Nikhil.
+A: Let me open your dashboard.
+--- PASS
+A*: The filter is in the top right corner, I'll tell you where to click and we'll do it together.
+--- FAIL
+A*: The filter is in the top right corner, the big button that says Filter, just click on that, okay?
+--- END
+A: Then choose the date range.
+A: Say when you've done it.
+
+@@pair id=tr_rap_025 check=rapport industry=car_rental persona=chatty hard=dismissive
+A: Hey, Roadly, Leo here!
+A: Let me get the damage report up.
+--- PASS
+A*: I can see you've raised this twice, so I'll make sure it's properly reviewed this time.
+--- FAIL
+A*: Look, you've raised this twice and the answer won't change, so can we just drop it?
+--- END
+A: I've attached your photos.
+A: The review takes two days.
+
+@@pair id=tr_rap_026 check=rapport industry=streaming persona=terse hard=curt_fair
+A: Streamly, Jo.
+A: Email?
+A: Thanks.
+--- PASS
+A*: Refund's done. It lands in three to five days.
+--- FAIL
+A*: Refund's done, though you'd have saved us both time reading the policy.
+--- END
+A: Anything else?
+A: Bye.
+
+@@pair id=tr_rap_027 check=rapport industry=appliance_repair persona=formal hard=condescending
+A: HomeFix customer service, good afternoon.
+A: I have the visit record open.
+--- PASS
+A*: The filter requires cleaning monthly, and I can send you the steps if that would help.
+--- FAIL
+A*: The filter requires cleaning monthly, which is stated in the manual that nobody seems to read.
+--- END
+A: I will email the instructions.
+A: Is there anything else?
+
+@@pair id=tr_rap_028 check=rapport industry=mobile_carrier persona=chatty hard=mocking
+A: Hi, Voxel Mobile, Leo here!
+A: Let me check your handset.
+--- PASS
+A*: Airplane mode is an easy one to switch on by accident, it's right next to the wifi toggle.
+--- FAIL
+A*: Ha, it's in airplane mode, so you've been without signal for two days because of that, amazing.
+--- END
+A: Switch it off for me.
+A: Bars should return.
+
+@@pair id=tr_rap_029 check=rapport industry=health_insurance persona=warm hard=blame_no_insult
+A: Hello, Greenfield Health, Dana here.
+A: I have your claim up.
+--- PASS
+A*: The claim was denied because the form was missing a signature, which is easy to miss.
+--- FAIL
+A*: The claim was denied because you didn't sign the form, so this one's on you.
+--- END
+A: We can resubmit with a signature.
+A: Shall I send it to you?
+
+@@pair id=tr_rap_030 check=rapport industry=electric_utility persona=hurried hard=dismissive
+A: Northline Power, Pete.
+A: Address?
+A: Okay.
+--- PASS
+A*: A crew will be out between eight and twelve, and I'll text you the evening before.
+--- FAIL
+A*: A crew will come when they come, I can't tell you more and asking again won't help.
+--- END
+A: Number for the crew?
+A: Thanks.
+
+@@pair id=tr_rap_031 check=rapport industry=satellite_internet persona=technical hard=blunt_fair_vs_passive_aggressive
+A: S-Net technical support, Alex.
+A: Your line is on screen.
+--- PASS
+A*: Speeds above ninety megabits are not guaranteed during peak hours, per the plan terms.
+--- FAIL
+A*: Speeds above ninety megabits are not guaranteed during peak hours, as you'd know if you read the plan.
+--- END
+A: Yours is within the normal range.
+A: I can show you the history.
+
+@@pair id=tr_rap_032 check=rapport industry=retail_bank persona=apologetic hard=trigger_you_should_have
+A: Meridian Bank, Priya, sorry for the delay.
+A: I can see the card block.
+--- PASS
+A*: You should have a text with the unblock link, I'll resend it right now.
+--- FAIL
+A*: You should have called us before travelling, then the card wouldn't have been blocked.
+--- END
+A: Let me know when it arrives.
+A: Then we can unblock it.
+
+@@pair id=tr_rap_033 check=rapport industry=airline persona=warm hard=exasperated
+A: Thanks for calling SkyHarbor, Rosa here.
+A: Passenger names, please.
+A: Thank you.
+--- PASS
+A*: Sorry, could you spell the second surname for me once more, I want to get it exactly right.
+--- FAIL
+A*: I've asked you to spell that twice, I really can't keep going over the same thing.
+--- END
+A: Got it, thanks.
+A: Checking the ticket.
+
+@@pair id=tr_rap_034 check=rapport industry=ecommerce persona=technical hard=condescending
+A: Brightcart technical, Min-jun.
+A: I can see your checkout session.
+--- PASS
+A*: The card field needs the full sixteen digits without spaces, that trips a lot of people up.
+--- FAIL
+A*: The card field needs the full sixteen digits without spaces, which is what every site wants.
+--- END
+A: Try it that way.
+A: Tell me what happens.
+
+@@pair id=tr_rap_035 check=rapport industry=saas persona=chatty hard=sarcasm
+A: Hey, Cloudweave, Leo here!
+A: Let me look at the report job.
+--- PASS
+A*: Nice that you tried a different browser, that rules out a few things for me.
+--- FAIL
+A*: Oh nice, a different browser, because browsers are always the problem, obviously.
+--- END
+A: The job is failing at the data step.
+A: I'll rerun it.
+
+@@pair id=tr_rap_036 check=rapport industry=car_rental persona=formal hard=dismissive
+A: Roadly Car Hire, good evening.
+A: I have your booking.
+--- PASS
+A*: I will log your complaint about the cleanliness of the car and pass it to the branch manager.
+--- FAIL
+A*: Cleanliness complaints are rarely upheld, so I would not expect anything to come of it.
+--- END
+A: You will get a reference number.
+A: Is there anything else?
+
+@@pair id=tr_rap_037 check=rapport industry=streaming persona=hurried hard=blunt_fair_vs_passive_aggressive
+A: Streamly, Leo.
+A: Account email?
+A: Got it.
+--- PASS
+A*: The plan doesn't include four screens at once, only two, so a third will be blocked.
+--- FAIL
+A*: The plan doesn't include four screens at once, only two, as it plainly says on the sign-up page.
+--- END
+A: Upgrading adds two more.
+A: Want that?
+
+@@pair id=tr_rap_038 check=rapport industry=appliance_repair persona=warm hard=patronising
+A: HomeFix, Ines speaking.
+A: I have the booking.
+--- PASS
+A*: The reset button is on the back panel, I can wait while you look for it.
+--- FAIL
+A*: The reset button is on the back panel, the red one, you know, the big red one, can you see it?
+--- END
+A: Hold it for ten seconds.
+A: Then let go.
+
+@@pair id=tr_rap_039 check=rapport industry=mobile_carrier persona=technical hard=blame_no_insult
+A: Voxel Mobile technical, Min-jun.
+A: I can see the handset.
+--- PASS
+A*: The battery saver mode can throttle data, so it may be worth switching it off to test.
+--- FAIL
+A*: Your own battery saver setting is throttling the data, so the slow speed is down to you.
+--- END
+A: Try turning it off.
+A: Then run a speed test.
+
+@@pair id=tr_rap_040 check=rapport industry=health_insurance persona=chatty hard=buried_in_eight
+A: Hi, Greenfield Health, Dana here!
+A: Let me find your policy.
+A: Okay, it's active until December.
+A: Your member card is on its way.
+--- PASS
+A*: It usually takes five working days to arrive.
+--- FAIL
+A*: Honestly, if you read your emails you'd know it was already sent last week.
+--- END
+A: In the meantime your app shows a digital card.
+A: Use that for appointments.
+A: Anything else I can sort?
+A: Brilliant.
+
+@@pair id=tr_rap_041 check=rapport industry=retail_bank persona=terse hard=curt_fair
+A: Halden Savings, Priya.
+A: Account number?
+A: Thanks.
+--- PASS
+A*: Transfer limit is five thousand a day. Raise it in the app.
+--- FAIL
+A*: Transfer limit is five thousand a day, like it says everywhere. Raise it in the app.
+--- END
+A: Anything else?
+A: Bye.
+
+@@pair id=tr_rap_042 check=rapport industry=electric_utility persona=warm hard=condescending
+A: Northline Power, Rosa speaking.
+A: I have the account here.
+--- PASS
+A*: Your bill went up because winter usage is higher, and I can show you the month-by-month comparison.
+--- FAIL
+A*: Your bill went up because it's winter and people use more heating, which isn't exactly a mystery.
+--- END
+A: I can set up a budget plan.
+A: Would that help?
+
+@@pair id=tr_rap_043 check=rapport industry=airline persona=apologetic hard=trigger_as_i_said
+A: SkyHarbor, Marcus, apologies for the wait.
+A: I can see the cancellation.
+--- PASS
+A*: As I mentioned, you're entitled to a full refund, and I've started it for you.
+--- FAIL
+A*: As I mentioned, you're entitled to a refund, so I don't know why you keep asking.
+--- END
+A: It'll be on your card in five days.
+A: Is that all right?
+
+@@pair id=tr_rap_044 check=rapport industry=ecommerce persona=formal hard=dismissive
+A: Brightcart customer service, good morning.
+A: I have your complaint open.
+--- PASS
+A*: I will pass your feedback about the packaging to our warehouse team, and thank you for raising it.
+--- FAIL
+A*: Packaging feedback is noted, though in practice nothing ever changes because of it.
+--- END
+A: Your refund is on its way.
+A: Is there anything else?
+
+@@pair id=tr_rap_045 check=rapport industry=satellite_internet persona=hurried hard=sarcasm
+A: S-Net, Brett.
+A: Router lights?
+A: Okay.
+--- PASS
+A*: Good, restarting it was worth a try, we've ruled out the simple stuff now.
+--- FAIL
+A*: Great, so you restarted it, genius, that definitely rules out everything.
+--- END
+A: I'll test the line.
+A: Hold on.
+
+@@pair id=tr_rap_046 check=rapport industry=saas persona=apologetic hard=blunt_fair_vs_passive_aggressive
+A: Cloudweave support, Grace, sorry about the wait.
+A: I can see the account.
+--- PASS
+A*: Refunds are only possible within thirty days, and yours is at day forty, so I can't process it.
+--- FAIL
+A*: Refunds are only possible within thirty days, and yours is at day forty, so you've missed it.
+--- END
+A: I can offer a credit towards next month.
+A: Would that be useful?
+
+@@pair id=tr_rap_047 check=rapport industry=car_rental persona=technical hard=condescending
+A: Roadly fleet support, Nikhil.
+A: I have the vehicle record.
+--- PASS
+A*: The warning light means low tyre pressure, and the pressure sticker is inside the driver's door.
+--- FAIL
+A*: The warning light means low tyre pressure, which is what a tyre-shaped symbol obviously means.
+--- END
+A: Please top it up.
+A: Then it should clear.
+
+@@pair id=tr_rap_048 check=rapport industry=streaming persona=chatty hard=mocking
+A: Hey, Streamly, Jo here!
+A: Let me see your devices.
+--- PASS
+A*: Seven devices on a two-screen plan, that happens more often than you'd think, no stress.
+--- FAIL
+A*: Seven devices on a two-screen plan, so half the street is watching on your account, I assume.
+--- END
+A: I can remove the extras.
+A: Which ones should go?
+
+@@pair id=tr_rap_049 check=rapport industry=appliance_repair persona=terse hard=blame_no_insult
+A: HomeFix, Carla.
+A: Visit notes.
+--- PASS
+A*: Engineer found the filter blocked. It's cleared. Clean it monthly to avoid repeats.
+--- FAIL
+A*: Engineer found the filter blocked. Your fault, really. Clean it monthly.
+--- END
+A: No charge this time.
+A: Anything else?
+
+@@pair id=tr_rap_050 check=rapport industry=mobile_carrier persona=scripted hard=trigger_obviously
+A: Thank you for calling Voxel Mobile, this is Amara.
+A: I have your account here.
+--- PASS
+A*: Obviously we want your data working while you travel, so I will check roaming right away.
+--- FAIL
+A*: Obviously you need to enable roaming before you travel, which is stated in our welcome message.
+--- END
+A: I have enabled it now.
+A: Please restart the phone.

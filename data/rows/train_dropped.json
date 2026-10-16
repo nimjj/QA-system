@@ -1,0 +1,8 @@
+[
+ {
+  "id": "tr_own_023_p",
+  "check": "ownership",
+  "reason": "gate not reached: no deflection phrase in an agent line",
+  "src": "train_regression_1.txt:226"
+ }
+]
