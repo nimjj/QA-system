@@ -1,0 +1,363 @@
+# Pilot: Empathy. 20 matched pairs: the same upset customer turn, then a warm reply (PASS) or a cold/dismissive/procedural reply (FAIL).
+# Production skips a snippet when the agent says sorry/apologize/understand/frustrating/apologies/"let me help" within 3 turns,
+# so NO agent line here uses those words. Exactly one customer turn per fragment is upset (sentiment <= -15 with a big drop).
+
+@@ id=emp_p01_a check=empathy label=PASS pair=emp_p01 industry=satellite_internet persona=warm hard=warm_vs_cold
+C(-4): Hi, it's me again about the internet.
+A: Hello, thank you for calling S-Net, this is Brett.
+C*(-28): This is the third time this week it died in the middle of a client call and I'm honestly about to cancel.
+A(+6): Three drops in a week during client calls is really stressful, and I'd be fuming too. Let's get to the bottom of it right now.
+C(-8): Thank you.
+A: First, I'll check the signal history on your line.
+C(-6): Okay.
+
+@@ id=emp_p01_b check=empathy label=FAIL pair=emp_p01 industry=satellite_internet persona=terse hard=warm_vs_cold
+C(-4): Hi, it's me again about the internet.
+A: Hello, thank you for calling S-Net, this is Brett.
+C*(-28): This is the third time this week it died in the middle of a client call and I'm honestly about to cancel.
+A(+3): Okay. Can you restart the router for me?
+C(-9): I've done that ten times.
+A: Please do it once more so I can watch it come up.
+C(-10): Fine.
+
+@@ id=emp_p02_a check=empathy label=PASS pair=emp_p02 industry=electric_utility persona=formal hard=warm_vs_cold
+C(-3): Good evening, I'm calling about a power cut.
+A: Northline Power, how may I help?
+C*(-26): My freezer has defrosted and I've lost about three hundred dollars of food, and this is the second outage this month!
+A(+5): Losing that much food is a serious loss, and two outages in one month would try anyone's patience. We will look into this properly.
+C(-7): I'd appreciate that.
+A: May I have your service address?
+C(-5): It's 14 Alder Close.
+
+@@ id=emp_p02_b check=empathy label=FAIL pair=emp_p02 industry=electric_utility persona=formal hard=warm_vs_cold
+C(-3): Good evening, I'm calling about a power cut.
+A: Northline Power, how may I help?
+C*(-26): My freezer has defrosted and I've lost about three hundred dollars of food, and this is the second outage this month!
+A(+3): Compensation claims are handled through the website. May I have your service address?
+C(-9): That's all you've got to say about it?
+A: Your service address, please.
+C(-10): 14 Alder Close.
+
+@@ id=emp_p03_a check=empathy label=PASS pair=emp_p03 industry=health_insurance persona=chatty hard=warm_vs_cold
+C(-4): Hi, I need help with a claim.
+A: Hi, thanks for calling Greenfield Health, I'm Dana!
+C*(-24): They're telling me I owe two thousand dollars for my son's surgery and I was told it was covered, I've been up all night worrying about this.
+A(+7): Oh wow, a bill like that out of nowhere, and the worry keeping you up all night, that sounds awful. Let's see exactly what happened with that claim.
+C(-6): Thanks, I really need this fixed.
+A: Absolutely. What's the date of the surgery?
+C(-5): March the ninth.
+
+@@ id=emp_p03_b check=empathy label=FAIL pair=emp_p03 industry=health_insurance persona=chatty hard=warm_vs_cold
+C(-4): Hi, I need help with a claim.
+A: Hi, thanks for calling Greenfield Health, I'm Dana!
+C*(-24): They're telling me I owe two thousand dollars for my son's surgery and I was told it was covered, I've been up all night worrying about this.
+A(+6): Okay, claims, sure thing. What's the date of the surgery?
+C(-8): March the ninth. Did you hear what I said?
+A: Yep, March the ninth. And the member number?
+C(-8): It's on the card.
+
+@@ id=emp_p04_a check=empathy label=PASS pair=emp_p04 industry=retail_bank persona=scripted hard=warm_vs_cold
+C(-4): I have a problem with my account.
+A: Thank you for calling Meridian Bank, this is Priya.
+C*(-27): Someone has taken nine hundred dollars from my account and I'm terrified, that's my rent money.
+A(+4): That is a frightening thing to see, especially with your rent at stake. I'm going to secure your account right now and we will sort this out together.
+C(-8): Please hurry.
+A: First I need to confirm a few details to protect your account.
+C(-5): Go ahead.
+
+@@ id=emp_p04_b check=empathy label=FAIL pair=emp_p04 industry=retail_bank persona=scripted hard=warm_vs_cold
+C(-4): I have a problem with my account.
+A: Thank you for calling Meridian Bank, this is Priya.
+C*(-27): Someone has taken nine hundred dollars from my account and I'm terrified, that's my rent money.
+A(+3): Please hold while I transfer you to the fraud department.
+C(-10): Can't you do anything yourself?
+A: The fraud department handles all unauthorised transactions.
+C(-10): Great.
+
+@@ id=emp_p05_a check=empathy label=PASS pair=emp_p05 industry=airline persona=hurried hard=warm_vs_cold
+C(-5): My flight got cancelled.
+A: SkyHarbor reservations.
+C*(-30): I've got a wedding on Saturday and every option you've given me lands on Sunday, I'm going to miss my own sister's wedding!
+A(+4): Missing your sister's wedding, that's awful, I get it. Let me find you something that lands Friday.
+C(-9): Please, anything.
+A: Give me one minute on the system.
+C(-6): Okay.
+
+@@ id=emp_p05_b check=empathy label=FAIL pair=emp_p05 industry=airline persona=hurried hard=warm_vs_cold
+C(-5): My flight got cancelled.
+A: SkyHarbor reservations.
+C*(-30): I've got a wedding on Saturday and every option you've given me lands on Sunday, I'm going to miss my own sister's wedding!
+A(+2): Those are the only flights available. Booking reference?
+C(-10): That's it? Nothing else?
+A: Booking reference.
+C(-10): K7QD2M.
+
+@@ id=emp_p06_a check=empathy label=PASS pair=emp_p06 industry=ecommerce persona=warm hard=warm_vs_cold
+C(-5): I ordered a desk and it never arrived.
+A: Hello, Brightcart, this is Ellie.
+C*(-25): It's been two weeks, I took a day off to wait for it and the tracking says delivered, I'm absolutely livid.
+A(+7): Taking a day off to wait and then finding nothing there would make me livid too. I'm going to track this down for you.
+C(-7): Thank you, I'm just fed up.
+A: Let's start with the order number.
+C(-6): It's BC-44812.
+
+@@ id=emp_p06_b check=empathy label=FAIL pair=emp_p06 industry=ecommerce persona=warm hard=warm_vs_cold
+C(-5): I ordered a desk and it never arrived.
+A: Hello, Brightcart, this is Ellie.
+C*(-25): It's been two weeks, I took a day off to wait for it and the tracking says delivered, I'm absolutely livid.
+A(+5): Delivered items can't be refunded straight away. The order number?
+C(-10): You're not even listening.
+A: I need the order number to proceed.
+C(-10): BC-44812.
+
+@@ id=emp_p07_a check=empathy label=PASS pair=emp_p07 industry=saas persona=technical hard=warm_vs_cold
+C(-4): Our dashboard has been broken since the update.
+A: Cloudweave support, Nikhil speaking.
+C*(-22): My team can't do their jobs, we have a board report due in two hours and half the charts are empty!
+A(+4): A board report in two hours with empty charts, that's a lot of pressure. I'll make this my priority and check the update right now.
+C(-8): Thank you, please be quick.
+A: I'm checking whether your region was affected.
+C(-5): Okay.
+
+@@ id=emp_p07_b check=empathy label=FAIL pair=emp_p07 industry=saas persona=technical hard=warm_vs_cold
+C(-4): Our dashboard has been broken since the update.
+A: Cloudweave support, Nikhil speaking.
+C*(-22): My team can't do their jobs, we have a board report due in two hours and half the charts are empty!
+A(+3): Please clear your browser cache and reload the page.
+C(-9): I did that already, that's not the point!
+A: Clearing the cache resolves most display issues.
+C(-10): Not this one.
+
+@@ id=emp_p08_a check=empathy label=PASS pair=emp_p08 industry=car_rental persona=apologetic hard=warm_vs_cold
+C(-6): The car I rented has broken down.
+A: Roadly Car Hire, Tom speaking.
+C*(-26): I'm stuck on the side of a motorway with two kids in the back and nobody has called me back for an hour!
+A(+5): Stuck on a motorway with two kids waiting an hour, that must be really scary. You're my only job right now, we're getting you help.
+C(-9): Please, it's getting dark.
+A: First, are you somewhere safe, away from traffic?
+C(-6): We're on the verge.
+
+@@ id=emp_p08_b check=empathy label=FAIL pair=emp_p08 industry=car_rental persona=apologetic hard=warm_vs_cold
+C(-6): The car I rented has broken down.
+A: Roadly Car Hire, Tom speaking.
+C*(-26): I'm stuck on the side of a motorway with two kids in the back and nobody has called me back for an hour!
+A(+3): Roadside assistance is dispatched in order of request. Registration number?
+C(-10): An hour! That's not good enough!
+A: I'll need the registration number.
+C(-10): It's LK71 WRD.
+
+@@ id=emp_p09_a check=empathy label=PASS pair=emp_p09 industry=streaming persona=chatty hard=warm_vs_cold
+C(-4): My streaming has been awful.
+A: Hey, Streamly, this is Jo!
+C*(-23): I pay thirty bucks a month and the whole final season is stuttering, I have been waiting all year for this and it's ruined.
+A(+7): Ugh, waiting all year and then having it stutter on you, that's the worst. Let's get it sorted so you can actually enjoy it.
+C(-8): Thank you, finally someone gets it.
+A: What device are you watching on?
+C(-5): The living room tv.
+
+@@ id=emp_p09_b check=empathy label=FAIL pair=emp_p09 industry=streaming persona=chatty hard=warm_vs_cold
+C(-4): My streaming has been awful.
+A: Hey, Streamly, this is Jo!
+C*(-23): I pay thirty bucks a month and the whole final season is stuttering, I have been waiting all year for this and it's ruined.
+A(+5): Streaming quality depends on your own internet connection. What device are you using?
+C(-10): So it's my fault?
+A: I'm only saying it depends on your connection.
+C(-10): Unbelievable.
+
+@@ id=emp_p10_a check=empathy label=PASS pair=emp_p10 industry=appliance_repair persona=terse hard=warm_vs_cold
+C(-4): My washer is broken again.
+A: HomeFix, Carla.
+C*(-25): That's the fourth repair in six months, I've had enough, I'm tired of paying for this thing!
+A(+4): Four repairs in six months, that's wearing. Fair to be done with it. Let's see what the options are.
+C(-8): Thank you, that's all I want.
+A: I'll pull the repair history.
+C(-5): Okay.
+
+@@ id=emp_p10_b check=empathy label=FAIL pair=emp_p10 industry=appliance_repair persona=terse hard=warm_vs_cold
+C(-4): My washer is broken again.
+A: HomeFix, Carla.
+C*(-25): That's the fourth repair in six months, I've had enough, I'm tired of paying for this thing!
+A(+2): Model number.
+C(-10): Did you not hear me?
+A: Model number.
+C(-10): It's on the back.
+
+@@ id=emp_p11_a check=empathy label=PASS pair=emp_p11 industry=mobile_carrier persona=warm hard=late_ack
+C(-4): I can't make calls from my house.
+A: Voxel Mobile, Amara.
+C*(-24): I've been without a phone signal for ten days and I'm a carer, my mother could be trying to reach me!
+A(+4): Which phone number are you calling from?
+C(-9): It's 555 0143.
+A(+7): Ten days without a signal when your mother might need you, I can't imagine how worrying that is. I'm going to treat this as urgent.
+C(-6): Thank you.
+
+@@ id=emp_p11_b check=empathy label=FAIL pair=emp_p11 industry=mobile_carrier persona=warm hard=late_ack
+C(-4): I can't make calls from my house.
+A: Voxel Mobile, Amara.
+C*(-24): I've been without a phone signal for ten days and I'm a carer, my mother could be trying to reach me!
+A(+4): Which phone number are you calling from?
+C(-9): It's 555 0143.
+A(+4): Thanks. Ten days is longer than our usual repair time. What's your address?
+C(-10): Is that all you're going to say?
+
+@@ id=emp_p12_a check=empathy label=PASS pair=emp_p12 industry=satellite_internet persona=technical hard=warm_vs_cold
+C(-4): My speed is terrible.
+A: S-Net technical support, Alex.
+C*(-22): I'm paying for 500 and getting 50, I've called twice already and each time they say it's fixed and it never is!
+A(+4): Being told twice it's fixed when it clearly isn't, I'd be annoyed too. This time I'll check it properly and stay on until the speed is right.
+C(-7): That's what I want.
+A: Let me see what your line reports.
+C(-5): Okay.
+
+@@ id=emp_p12_b check=empathy label=FAIL pair=emp_p12 industry=satellite_internet persona=technical hard=warm_vs_cold
+C(-4): My speed is terrible.
+A: S-Net technical support, Alex.
+C*(-22): I'm paying for 500 and getting 50, I've called twice already and each time they say it's fixed and it never is!
+A(+3): Speeds are quoted as up to 500. I'll run a line test.
+C(-9): Up to? I'm paying for 500.
+A: The test will show the actual line speed.
+C(-10): Whatever.
+
+@@ id=emp_p13_a check=empathy label=PASS pair=emp_p13 industry=retail_bank persona=formal hard=warm_vs_cold
+C(-3): I'm calling about my mortgage payment.
+A: Halden Savings, how may I assist?
+C*(-25): The payment came out twice this month and now I can't pay my other bills, I'm panicking.
+A(+4): A double payment leaving you short on other bills is a worrying position, and I can hear how stressed you are. We will correct it as quickly as we can.
+C(-8): Please, I need that money back.
+A: I will begin by locating both payments.
+C(-5): Okay.
+
+@@ id=emp_p13_b check=empathy label=FAIL pair=emp_p13 industry=retail_bank persona=formal hard=warm_vs_cold
+C(-3): I'm calling about my mortgage payment.
+A: Halden Savings, how may I assist?
+C*(-25): The payment came out twice this month and now I can't pay my other bills, I'm panicking.
+A(+3): Duplicate payments are refunded within five to seven working days.
+C(-10): Five to seven days?! I can't wait that long.
+A: That is the standard processing time.
+C(-10): This is useless.
+
+@@ id=emp_p14_a check=empathy label=PASS pair=emp_p14 industry=airline persona=warm hard=warm_vs_cold
+C(-4): My luggage is missing.
+A: Thanks for calling SkyHarbor, this is Rosa.
+C*(-27): All my work clothes are in that suitcase and I've got a big meeting at nine tomorrow, I don't know what I'm going to do!
+A(+7): Having your work clothes in a missing bag the night before a big meeting, that's such a stressful spot to be in. Let's do everything we can to get it to you tonight.
+C(-8): That would be amazing.
+A: First, can you give me the bag tag number?
+C(-5): It's on my boarding pass.
+
+@@ id=emp_p14_b check=empathy label=FAIL pair=emp_p14 industry=airline persona=warm hard=warm_vs_cold
+C(-4): My luggage is missing.
+A: Thanks for calling SkyHarbor, this is Rosa.
+C*(-27): All my work clothes are in that suitcase and I've got a big meeting at nine tomorrow, I don't know what I'm going to do!
+A(+5): Baggage tracing can take up to five days. Do you have the tag number?
+C(-10): Five days! I have a meeting tomorrow!
+A: Tracing times vary. Tag number please.
+C(-10): It's on my boarding pass.
+
+@@ id=emp_p15_a check=empathy label=PASS pair=emp_p15 industry=ecommerce persona=technical hard=warm_vs_cold
+C(-4): My refund hasn't arrived.
+A: Brightcart support, Min-jun.
+C*(-24): It's been five weeks since I sent the item back and I keep getting a different excuse every time I call, I'm sick of this!
+A(+4): Five weeks and a different story every call, I'd be sick of it too. I'll trace the return personally and tell you exactly where it stands.
+C(-7): Finally.
+A: Let me pull up the return record.
+C(-5): Okay.
+
+@@ id=emp_p15_b check=empathy label=FAIL pair=emp_p15 industry=ecommerce persona=technical hard=warm_vs_cold
+C(-4): My refund hasn't arrived.
+A: Brightcart support, Min-jun.
+C*(-24): It's been five weeks since I sent the item back and I keep getting a different excuse every time I call, I'm sick of this!
+A(+3): Refunds are processed within thirty days of receipt. What is the return number?
+C(-9): It's been thirty-five days!
+A: What is the return number?
+C(-10): Forget it, it's R-90211.
+
+@@ id=emp_p16_a check=empathy label=PASS pair=emp_p16 industry=health_insurance persona=hurried hard=warm_vs_cold
+C(-4): I got a rejection letter for my prescription.
+A: Greenfield Health, Pete.
+C*(-26): I need that medication for my heart and they rejected it, I'm scared I'll run out on Thursday!
+A(+4): Heart medication and running out on Thursday, that's scary, I get it. We'll push this through today.
+C(-8): Thank you so much.
+A: What's the medication called?
+C(-5): Metoprolol.
+
+@@ id=emp_p16_b check=empathy label=FAIL pair=emp_p16 industry=health_insurance persona=hurried hard=warm_vs_cold
+C(-4): I got a rejection letter for my prescription.
+A: Greenfield Health, Pete.
+C*(-26): I need that medication for my heart and they rejected it, I'm scared I'll run out on Thursday!
+A(+2): Prior authorisation takes ten business days. Member number?
+C(-10): Ten days! I'll be out by Thursday!
+A: Member number.
+C(-10): 4471 8820.
+
+@@ id=emp_p17_a check=empathy label=PASS pair=emp_p17 industry=mobile_carrier persona=chatty hard=warm_vs_cold
+C(-4): I got a huge phone bill.
+A: Hi, Voxel Mobile, Leo here!
+C*(-28): It's four hundred dollars and I barely used the phone, I'm a student, I literally can't afford this!
+A(+7): Four hundred bucks when you're a student, that's a huge hit and it would stress anybody out. Let's go through the charges and see what's going on.
+C(-8): Thanks, I'm so stressed about it.
+A: Can I take your number first?
+C(-5): Sure.
+
+@@ id=emp_p17_b check=empathy label=FAIL pair=emp_p17 industry=mobile_carrier persona=chatty hard=warm_vs_cold
+C(-4): I got a huge phone bill.
+A: Hi, Voxel Mobile, Leo here!
+C*(-28): It's four hundred dollars and I barely used the phone, I'm a student, I literally can't afford this!
+A(+5): Bills are based on usage records, and those are accurate. Can I take your number?
+C(-10): So you're not going to check?
+A: Your number, please.
+C(-10): It's 555 0198.
+
+@@ id=emp_p18_a check=empathy label=PASS pair=emp_p18 industry=saas persona=apologetic hard=warm_vs_cold
+C(-4): I lost my project data.
+A: Cloudweave support, Grace here.
+C*(-29): Eight months of work just disappeared after the migration and I'm shaking, I don't know how I'm going to tell my team!
+A(+6): Eight months of work, that's heart-stopping, and I can hear how shaken you are. Nothing is lost until we've checked every backup, and I'll stay with you through it.
+C(-8): Thank you, really.
+A: Which project was it?
+C(-5): The Atlas one.
+
+@@ id=emp_p18_b check=empathy label=FAIL pair=emp_p18 industry=saas persona=apologetic hard=warm_vs_cold
+C(-4): I lost my project data.
+A: Cloudweave support, Grace here.
+C*(-29): Eight months of work just disappeared after the migration and I'm shaking, I don't know how I'm going to tell my team!
+A(+3): Data restoration requests go through a ticket. Which project?
+C(-10): A ticket?! My data is gone!
+A: Which project, please.
+C(-10): The Atlas one.
+
+@@ id=emp_p19_a check=empathy label=PASS pair=emp_p19 industry=car_rental persona=formal hard=warm_vs_cold
+C(-3): I want to dispute a charge.
+A: Roadly Car Hire, how may I help?
+C*(-25): You've charged me a thousand dollars for a scratch that was already on the car when I collected it, and I have photos!
+A(+4): Being charged for damage you did not cause is upsetting, and photos from the pick-up will help us a great deal. We will review them carefully.
+C(-8): I'm glad someone is listening.
+A: Please send the photos to the address I'll give you.
+C(-5): Go ahead.
+
+@@ id=emp_p19_b check=empathy label=FAIL pair=emp_p19 industry=car_rental persona=formal hard=warm_vs_cold
+C(-3): I want to dispute a charge.
+A: Roadly Car Hire, how may I help?
+C*(-25): You've charged me a thousand dollars for a scratch that was already on the car when I collected it, and I have photos!
+A(+3): Damage assessments are final once the vehicle is returned.
+C(-10): But I have photos!
+A: Disputes must be submitted in writing.
+C(-10): That's ridiculous.
+
+@@ id=emp_p20_a check=empathy label=PASS pair=emp_p20 industry=appliance_repair persona=warm hard=warm_vs_cold
+C(-4): The technician never showed up.
+A: HomeFix, Ines speaking.
+C*(-26): I waited all day, the whole day, and nobody came or called, and I have a newborn at home, this is unacceptable!
+A(+7): Waiting a whole day with a newborn and not even a phone call, that's not okay and you have every right to be upset. Let's get someone to you first thing tomorrow.
+C(-8): Thank you, I appreciate it.
+A: Can I have the booking reference?
+C(-5): It's HF-30077.
+
+@@ id=emp_p20_b check=empathy label=FAIL pair=emp_p20 industry=appliance_repair persona=warm hard=warm_vs_cold
+C(-4): The technician never showed up.
+A: HomeFix, Ines speaking.
+C*(-26): I waited all day, the whole day, and nobody came or called, and I have a newborn at home, this is unacceptable!
+A(+4): Appointments are subject to technician availability. Booking reference?
+C(-10): Subject to availability? I waited all day!
+A: Booking reference.
+C(-10): HF-30077.

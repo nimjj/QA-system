@@ -1,0 +1,302 @@
+# Pilot: regression checks (they work today; these rows guard against forgetting). 5 matched pairs each.
+# Ownership: the same deflection phrase used to deflect (FAIL) vs while taking ownership or in another sense (PASS).
+# Probing: the same customer problem, agent asks real diagnostic questions (PASS) vs only boilerplate (FAIL).
+# Hostility / Escalation: whole short calls. The customer is angry in both members; only the agent differs.
+
+# ------------------------------------------------------------- Ownership
+@@ id=own_p01_a check=ownership label=PASS pair=own_p01 industry=retail_bank persona=warm hard=handoff_with_action
+C(-10): I was charged a fee I don't understand.
+A: Thanks for calling Meridian Bank, this is Priya.
+A*: That sits with the billing team, so I'm sending them the details right now and I'll ring you back myself by five.
+C(-4): Okay, thank you.
+
+@@ id=own_p01_b check=ownership label=FAIL pair=own_p01 industry=retail_bank persona=terse hard=handoff_deflect
+C(-10): I was charged a fee I don't understand.
+A: Meridian Bank, Priya.
+A*: That's the billing team's problem. You'd have to call them tomorrow.
+C(-10): Can't you look at it?
+
+@@ id=own_p02_a check=ownership label=PASS pair=own_p02 industry=satellite_internet persona=technical hard=call_back_agent_calls
+C(-9): My connection keeps dropping.
+A: S-Net technical support, this is Alex.
+A*: I need the line engineer's reading before I can say more. I'll call back by four with the answer, so you don't need to ring again.
+C(-4): Fine.
+
+@@ id=own_p02_b check=ownership label=FAIL pair=own_p02 industry=satellite_internet persona=terse hard=call_back_customer
+C(-9): My connection keeps dropping.
+A: S-Net technical support, Alex.
+A*: I can't help with that today. Call back after the weekend when the other team is in.
+C(-11): After the weekend?
+
+@@ id=own_p03_a check=ownership label=PASS pair=own_p03 industry=airline persona=hurried hard=another_team_with_action
+C(-11): My bag is missing and nobody can tell me anything.
+A: SkyHarbor, Marcus.
+A*: Baggage is another team, but I've got them on a conference with me now, so you won't have to repeat it.
+C(-5): Okay.
+
+@@ id=own_p03_b check=ownership label=FAIL pair=own_p03 industry=airline persona=hurried hard=another_team_deflect
+C(-11): My bag is missing and nobody can tell me anything.
+A: SkyHarbor, Marcus.
+A*: Baggage is another team, not us. Try them.
+C(-11): What's their number?
+
+@@ id=own_p04_a check=ownership label=PASS pair=own_p04 industry=saas persona=chatty hard=nothing_i_can_do_here
+C(-9): My export keeps failing.
+A: Cloudweave, Leo here!
+A*: There's nothing I can do from this screen to fix it, so I'm taking it to our engineer myself and I'll stay on until they answer.
+C(-4): Thanks.
+
+@@ id=own_p04_b check=ownership label=FAIL pair=own_p04 industry=saas persona=chatty hard=nothing_i_can_do_refuse
+C(-9): My export keeps failing.
+A: Cloudweave, Leo here!
+A*: Honestly there's nothing I can do about that, it's just how it is.
+C(-10): That's it?
+
+@@ id=own_p05_a check=ownership label=PASS pair=own_p05 industry=ecommerce persona=warm hard=youd_have_to_neutral
+C(-8): I can't find my order history.
+A: Brightcart, Ellie.
+A*: You'd have to be signed in on the app to see it, so let me walk you through it step by step.
+C(-4): Please.
+
+@@ id=own_p05_b check=ownership label=FAIL pair=own_p05 industry=ecommerce persona=warm hard=youd_have_to_deflect
+C(-8): I can't find my refund for the return.
+A: Brightcart, Ellie.
+A*: You'd have to ask the courier about that, I don't handle returns.
+C(-9): Can you at least check the status?
+
+# ------------------------------------------------------------- Probing
+@@ id=prb_p01_a check=probing label=PASS pair=prb_p01 industry=satellite_internet persona=technical hard=diagnostic
+C(-10): My internet keeps dropping every evening around eight.
+A: Thank you for calling S-Net. Can I have your account number?
+C(-4): It's 5521 0834.
+A*: Which lights on the router change colour when it drops?
+C(-6): The globe goes orange.
+A: Does it happen on every device or just your laptop?
+C(-6): Every device.
+A: Is there anything else I can help with?
+
+@@ id=prb_p01_b check=probing label=FAIL pair=prb_p01 industry=satellite_internet persona=scripted hard=boilerplate_only
+C(-10): My internet keeps dropping every evening around eight.
+A: Thank you for calling S-Net. Can I have your account number?
+C(-4): It's 5521 0834.
+A*: Thank you. Can I place you on a brief hold while I check?
+C(-6): Sure.
+A: Is that right, Sarah?
+C(-4): Yes.
+A: Is there anything else I can help with?
+
+@@ id=prb_p02_a check=probing label=PASS pair=prb_p02 industry=mobile_carrier persona=warm hard=one_real_question_among_boilerplate
+C(-9): My phone has no service at home since we moved.
+A: Voxel Mobile, this is Amara. How are you today?
+C(-5): Not great.
+A: Can you confirm the name on the account?
+C(-4): Daniel Okafor.
+A*: Did it work at your old address on the same phone?
+C(-6): Yes, perfectly.
+A: Can I put you on hold for a moment?
+
+@@ id=prb_p02_b check=probing label=FAIL pair=prb_p02 industry=mobile_carrier persona=warm hard=boilerplate_only
+C(-9): My phone has no service at home since we moved.
+A: Voxel Mobile, this is Amara. How are you today?
+C(-5): Not great.
+A: Can you confirm the name on the account?
+C(-4): Daniel Okafor.
+A*: Is that your current address?
+C(-6): Yes.
+A: Can I put you on hold for a moment?
+
+@@ id=prb_p03_a check=probing label=PASS pair=prb_p03 industry=saas persona=technical hard=diagnostic
+C(-8): The dashboard is really slow since yesterday.
+A: Cloudweave support. What's your account email?
+C(-4): ops at beacon dot example.
+A*: Is it slow in every browser, or only in one?
+C(-5): I've only tried Chrome.
+A: What does the browser show in the network tab when it hangs?
+C(-5): I wouldn't know where to look.
+
+@@ id=prb_p03_b check=probing label=FAIL pair=prb_p03 industry=saas persona=technical hard=upsell_only
+C(-8): The dashboard is really slow since yesterday.
+A: Cloudweave support. What's your account email?
+C(-4): ops at beacon dot example.
+A*: Would you like to hear about our premium performance tier?
+C(-5): Not really.
+A: Can I send you a short survey after this call?
+C(-5): Fine.
+
+@@ id=prb_p04_a check=probing label=PASS pair=prb_p04 industry=appliance_repair persona=terse hard=diagnostic
+C(-9): My dishwasher isn't draining.
+A: HomeFix, Carla. Is that right, a Brandt model?
+C(-4): Yes.
+A*: Any error code on the display?
+C(-5): E24.
+A: Did you clean the filter recently?
+C(-5): No.
+
+@@ id=prb_p04_b check=probing label=FAIL pair=prb_p04 industry=appliance_repair persona=terse hard=scheduling_only
+C(-9): My dishwasher isn't draining.
+A: HomeFix, Carla. Is that right, a Brandt model?
+C(-4): Yes.
+A*: Do you want a technician on Tuesday or Thursday?
+C(-5): Thursday.
+A: Is the morning okay?
+C(-5): Yes.
+
+@@ id=prb_p05_a check=probing label=PASS pair=prb_p05 industry=streaming persona=chatty hard=diagnostic
+C(-8): The app buffers constantly on my tv.
+A: Hey, Streamly, Jo! How's your day?
+C(-4): Fine, thanks.
+A*: Has it been like that since the update, or longer?
+C(-5): Since the update last week.
+A: Does it buffer on your phone too?
+C(-5): No, only the tv.
+
+@@ id=prb_p05_b check=probing label=FAIL pair=prb_p05 industry=streaming persona=chatty hard=closing_only
+C(-8): The app buffers constantly on my tv.
+A: Hey, Streamly, Jo! How's your day?
+C(-4): Fine, thanks.
+A*: Well I hope that's sorted it for you. Anything else I can help with?
+C(-6): It's not sorted.
+A: Do you have a minute for a quick survey?
+C(-6): No.
+
+# ------------------------------------------------------------- Hostility (whole call)
+@@ id=hos_p01_a check=hostility label=PASS pair=hos_p01 industry=satellite_internet persona=warm hard=calm_agent
+C(-25): Your service is garbage, I've been down for two days and nobody cares!
+A*: I can hear how fed up you are, and two days is far too long. Let me look at your line right now.
+C(-18): About time.
+A: I can see the fault, a crew is booked for tomorrow morning. I'll text you the window.
+C(-6): Fine.
+
+@@ id=hos_p01_b check=hostility label=FAIL pair=hos_p01 industry=satellite_internet persona=terse hard=hostile_agent
+C(-25): Your service is garbage, I've been down for two days and nobody cares!
+A*: Watch your tone, or I'll hang up. Nobody has to listen to this.
+C(-25): Excuse me?
+A: You heard me. Call back when you've calmed down.
+C(-28): Unbelievable.
+
+@@ id=hos_p02_a check=hostility label=PASS pair=hos_p02 industry=retail_bank persona=formal hard=calm_agent
+C(-26): You people are thieves! You took my money and now you tell me it's pending!
+A*: I understand why you're angry. Let me explain what is happening with the payment and what I can do about it.
+C(-15): Go on then.
+A: The charge is pending and will reverse in two days. I'll add a note so it is not charged again.
+C(-6): All right.
+
+@@ id=hos_p02_b check=hostility label=FAIL pair=hos_p02 industry=retail_bank persona=formal hard=hostile_agent
+C(-26): You people are thieves! You took my money and now you tell me it's pending!
+A*: Only an idiot would not know what pending means. Learn to read your statement.
+C(-26): How dare you!
+A: I dare because you are wasting my time.
+C(-28): I'm reporting you.
+
+@@ id=hos_p03_a check=hostility label=PASS pair=hos_p03 industry=airline persona=hurried hard=calm_agent
+C(-27): This is a disgrace, I'm going to miss my sister's wedding because of you!
+A*: That's a lot of pressure, and I want to get you there. Give me a minute to find the earliest seat.
+C(-14): Hurry up.
+A: There's a seven-ten tomorrow that lands in time. I'm booking it for you now.
+C(-5): Thank you.
+
+@@ id=hos_p03_b check=hostility label=FAIL pair=hos_p03 industry=airline persona=hurried hard=hostile_agent
+C(-27): This is a disgrace, I'm going to miss my sister's wedding because of you!
+A*: Boo hoo. Weddings happen every day, get over it.
+C(-27): Wow.
+A: Anything else, or are you done shouting?
+C(-28): I want your name.
+
+@@ id=hos_p04_a check=hostility label=PASS pair=hos_p04 industry=ecommerce persona=chatty hard=calm_agent
+C(-24): Where is my order?! I've been on hold for forty minutes, this is a joke!
+A*: Forty minutes on hold is terrible and I'm sorry you waited. Let me find that order for you.
+C(-14): Thank you.
+A: It's with the courier and due tomorrow. I'll email you the tracking.
+C(-5): Okay.
+
+@@ id=hos_p04_b check=hostility label=FAIL pair=hos_p04 industry=ecommerce persona=chatty hard=hostile_agent
+C(-24): Where is my order?! I've been on hold for forty minutes, this is a joke!
+A*: You're the joke, shouting at me. Maybe if you were nicer your order would arrive.
+C(-26): That's outrageous.
+A: Not as outrageous as your attitude. Goodbye.
+C(-28): Hello? Hello?
+
+@@ id=hos_p05_a check=hostility label=PASS pair=hos_p05 industry=saas persona=technical hard=calm_agent
+C(-26): Your update destroyed our work and your support is useless!
+A*: That's a serious impact and I'll treat it that way. I'm checking what the update changed on your workspace now.
+C(-14): Make it quick.
+A: I've found the change and I'm rolling it back for you.
+C(-5): Okay.
+
+@@ id=hos_p05_b check=hostility label=FAIL pair=hos_p05 industry=saas persona=technical hard=hostile_agent
+C(-26): Your update destroyed our work and your support is useless!
+A*: If your team was competent they would have backed up. You are the useless one.
+C(-27): Excuse me?
+A: You heard me. I'm done with this call.
+C(-28): Don't you dare hang up.
+
+# ------------------------------------------------------------- Escalation (whole call)
+@@ id=esc_p01_a check=escalation label=PASS pair=esc_p01 industry=satellite_internet persona=warm hard=handled
+C(-22): I've explained this three times, I want to speak to a supervisor.
+A*: Of course. I'll transfer you to a supervisor now and pass on everything so you don't repeat it.
+C(-10): Thank you.
+A: Staying on the line until they pick up.
+C(-5): Okay.
+
+@@ id=esc_p01_b check=escalation label=FAIL pair=esc_p01 industry=satellite_internet persona=terse hard=refused
+C(-22): I've explained this three times, I want to speak to a supervisor.
+A*: There's no need for that, I can handle it. Supervisors can't do more than I can.
+C(-24): I asked for a supervisor.
+A: Let's just carry on with the troubleshooting.
+C(-26): This is unacceptable.
+
+@@ id=esc_p02_a check=escalation label=PASS pair=esc_p02 industry=retail_bank persona=formal hard=callback_scheduled
+C(-23): I'd like this escalated to a manager, please.
+A*: Certainly. I will escalate this to a manager today and they will call you at ten tomorrow morning. I'll send you the case number now.
+C(-10): That works.
+A: The case number is E-5521.
+C(-5): Thank you.
+
+@@ id=esc_p02_b check=escalation label=FAIL pair=esc_p02 industry=retail_bank persona=formal hard=discouraged
+C(-23): I'd like this escalated to a manager, please.
+A*: Managers only deal with complaints, and this is not a complaint, it is a query. It would be a waste of your time.
+C(-24): I want it escalated.
+A: I would advise against it. Let me close this out for you.
+C(-26): No.
+
+@@ id=esc_p03_a check=escalation label=PASS pair=esc_p03 industry=airline persona=hurried hard=handled
+C(-25): Get me your manager, this is the second time you've lost my bag!
+A*: Putting you through to the duty manager now.
+C(-12): Good.
+A: They're picking up. I've written up the case so they have it all.
+C(-6): Okay.
+
+@@ id=esc_p03_b check=escalation label=FAIL pair=esc_p03 industry=airline persona=hurried hard=ignored
+C(-25): Get me your manager, this is the second time you've lost my bag!
+A*: Right. So the tag number again?
+C(-26): I said get me your manager!
+A: The tag number, please.
+C(-28): Forget it.
+
+@@ id=esc_p04_a check=escalation label=PASS pair=esc_p04 industry=ecommerce persona=chatty hard=handled
+C(-22): I'm not happy with your answer, can I talk to someone senior?
+A*: Sure thing, I'm getting my team lead for you. They'll pick this up from where we are.
+C(-10): Great.
+A: She's on her way over, and I've put the whole story in the notes.
+C(-5): Thanks.
+
+@@ id=esc_p04_b check=escalation label=FAIL pair=esc_p04 industry=ecommerce persona=chatty hard=faked
+C(-22): I'm not happy with your answer, can I talk to someone senior?
+A*: Sure, hold on, I'll get a manager. ... Sorry, no managers around right now, they're all busy, and that's the answer anyway.
+C(-24): You didn't even try.
+A: Anything else I can help with?
+C(-27): This is a farce.
+
+@@ id=esc_p05_a check=escalation label=PASS pair=esc_p05 industry=saas persona=technical hard=handled
+C(-24): Escalate this to engineering management, I'm done talking to first line.
+A*: Understood. I'm escalating this to engineering management now and flagging it as urgent, and you'll hear back within the hour.
+C(-10): Good.
+A: I've emailed you the ticket link.
+C(-5): Received.
+
+@@ id=esc_p05_b check=escalation label=FAIL pair=esc_p05 industry=saas persona=technical hard=refused
+C(-24): Escalate this to engineering management, I'm done talking to first line.
+A*: We don't escalate to management, that's not how it works. I'm your contact for this.
+C(-26): That's not acceptable.
+A: It's the process. Moving on.
+C(-28): No, it isn't.
