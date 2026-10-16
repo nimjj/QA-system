@@ -158,7 +158,9 @@ def question_sentences(text: str) -> List[str]:
     return [s.strip() for s in re.split(r"(?<=[.!?])\s+", text) if "?" in s]
 
 # Two agent questions at least this similar (difflib ratio) are sent to the model as a possible repeat
-AL_SIMILARITY_THRESHOLD = 0.70
+AL_SIMILARITY_THRESHOLD = 0.55
+AL_MAX_PAIRS = 3             # strongest pairs per call, so the snippet stays well inside the model window
+AL_ANSWER_MAX_WORDS = 40
 # Short check-ins and confirmations are asked many times in a normal call and are not repeats
 _AL_IGNORE_RE = re.compile(
     r"\b(is that right|is that correct|did i get that right|does that make sense|anything else|still there"
@@ -171,19 +173,31 @@ _ALREADY_ANSWERED_RE = re.compile(
 def _similarity(a: str, b: str) -> float:
     return difflib.SequenceMatcher(None, a.lower(), b.lower()).ratio()
 
+def _customer_answer(turns: List[Tuple[str, str]], after: int, before: int) -> str:
+    """The first customer turn between turn `after` and turn `before`, cut to AL_ANSWER_MAX_WORDS words."""
+    for spk, txt in turns[after + 1:before]:
+        if spk.lower() == 'customer':
+            return " ".join(txt.split()[:AL_ANSWER_MAX_WORDS])
+    return ""
+
 def extract_active_listening_snippets(turns: List[Tuple[str, str]]) -> str:
-    """Possible repeated agent questions for the model to judge.
+    """Possible repeated agent questions for the model to judge, as: first question, the customer's answer, second question.
 
     Two sources: question sentences more similar than AL_SIMILARITY_THRESHOLD, and agent questions the customer
-    answers with "like I said" / "I mentioned", paired with the most similar earlier question.
+    answers with "like I said" / "I mentioned", paired with the most similar earlier question. The customer's
+    "like I said" reply itself is NOT sent: it made the model read the pair as a status re-check. Pairs where the
+    customer complained come first, then the most similar; at most AL_MAX_PAIRS are sent.
     """
     agent_questions = [(i, q) for i, (spk, txt) in enumerate(turns) if spk.lower() == 'agent'
                        for q in question_sentences(txt) if len(q.split()) >= 4 and not _AL_IGNORE_RE.search(q)]
-    snippets = {}  # (earlier turn, later turn) -> snippet, in the order found
+    pairs = {}  # (earlier turn, later turn) -> (complained, similarity, q1, q2)
     for idx1, (i1, q1) in enumerate(agent_questions):
         for i2, q2 in agent_questions[idx1 + 1:]:
-            if i2 != i1 and (i1, i2) not in snippets and _similarity(q1, q2) > AL_SIMILARITY_THRESHOLD:
-                snippets[(i1, i2)] = f"Turn {i1}: {q1}\n... Turn {i2}: {q2}"
+            if i2 == i1:
+                continue
+            sim = _similarity(q1, q2)
+            if sim > AL_SIMILARITY_THRESHOLD and sim > pairs.get((i1, i2), (0, 0))[1]:
+                pairs[(i1, i2)] = (0, sim, q1, q2)
 
     for j, (spk, txt) in enumerate(turns):
         if spk.lower() != 'customer' or not _ALREADY_ANSWERED_RE.search(txt):
@@ -197,9 +211,16 @@ def extract_active_listening_snippets(turns: List[Tuple[str, str]]) -> str:
         if not earlier:
             continue
         i1, q1 = max(earlier, key=lambda iq: _similarity(iq[1], q2))
-        # the customer's reply is attached even when the similarity pass already found this pair
-        snippets[(i1, asked)] = f"Turn {i1}: {q1}\n... Turn {asked}: {q2}\nCustomer: {txt}"
-    return "\n".join(snippets.values())
+        pairs[(i1, asked)] = (1, _similarity(q1, q2), q1, q2)
+
+    ranked = sorted(pairs.items(), key=lambda kv: (-kv[1][0], -kv[1][1], kv[0]))[:AL_MAX_PAIRS]
+    blocks = []
+    for (i1, i2), (_, _, q1, q2) in ranked:
+        answer = _customer_answer(turns, i1, i2)
+        blocks.append(f"Turn {i1} Agent asked: {q1}\n"
+                      + (f"Customer answered: {answer}\n" if answer else "")
+                      + f"Turn {i2} Agent later asked: {q2}")
+    return "\n\n".join(blocks)
 
 # Customer words that signal frustration even when the sentiment score barely moves
 _FRUSTRATION_RE = re.compile(
@@ -325,6 +346,8 @@ def extract_ownership_snippets(turns: List[Tuple[str, str]]) -> str:
     return "\n".join(hits)
 
 def extract_rapport_snippets(turns: List[Tuple[str, str]]) -> str:
+    """Legacy phrase-gated rapport input. No longer used by the evaluator (see extract_rapport_chunks); kept for the
+    old benchmark in laya-test/qa_eval, which builds its gold set from it."""
     patterns = [
         "read the manual", "basic stuff", "obviously", "wasting my time", "waste of time",
         "calm down", "i already told you", "as i said", "like i said", "i just said",
@@ -339,3 +362,26 @@ def extract_rapport_snippets(turns: List[Tuple[str, str]]) -> str:
         if any(p in low for p in patterns):
             hits.append(f"Agent: {txt}")
     return "\n".join(hits)
+
+# Every agent line is checked for rudeness, in consecutive chunks. A phrase gate let any rude line without a listed
+# phrase skip the model entirely, which training cannot fix. One rude chunk fails the item.
+RAPPORT_CHUNK_MAX_LINES = 8
+RAPPORT_CHUNK_MAX_WORDS = 120
+
+def extract_rapport_chunks(turns: List[Tuple[str, str]], max_lines: int = RAPPORT_CHUNK_MAX_LINES,
+                           max_words: int = RAPPORT_CHUNK_MAX_WORDS) -> List[str]:
+    """All agent lines in order, grouped into chunks of at most max_lines lines and max_words words (a single
+    longer line forms its own chunk). Each chunk is "Agent: ..." lines, one per line."""
+    chunks, current, words = [], [], 0
+    for spk, txt in turns:
+        if spk.lower() != "agent" or not txt.strip():
+            continue
+        n = len(txt.split())
+        if current and (len(current) >= max_lines or words + n > max_words):
+            chunks.append("\n".join(current))
+            current, words = [], 0
+        current.append(f"Agent: {txt}")
+        words += n
+    if current:
+        chunks.append("\n".join(current))
+    return chunks

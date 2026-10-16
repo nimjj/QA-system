@@ -150,9 +150,22 @@ def unit_checks():
              ("Customer", "Like I said, about three weeks."),
              ("Agent", "Is that right?"), ("Customer", "Yes."), ("Agent", "Is that right?")]
     al = rule_engine.extract_active_listening_snippets(turns)
-    check("active listening: a 'like I said' reply pairs the repeat with the earlier question",
-          "Turn 0: How long has this been happening?" in al and "Customer: Like I said" in al)
+    check("active listening: a repeat is sent as first question, the customer's answer, second question",
+          "Turn 0 Agent asked: How long has this been happening?" in al and "Customer answered: Three weeks." in al
+          and "Turn 2 Agent later asked: And how long has this been happening for, roughly?" in al)
+    check("active listening: the customer's 'like I said' reply is not sent", "Like I said" not in al)
     check("active listening: repeated 'Is that right?' check-ins are not repeats", "Is that right" not in al)
+
+    many = [("Agent" if i % 2 == 0 else "Customer", f"Line number {i} " + "word " * 5) for i in range(60)]
+    chunks = rule_engine.extract_rapport_chunks(many)
+    check("rapport: every agent line is in exactly one chunk, customer lines are not",
+          sum(c.count("Agent:") for c in chunks) == 30 and not any("Customer" in c for c in chunks))
+    check("rapport: chunks hold at most 8 lines and about 120 words",
+          all(c.count("\n") + 1 <= rule_engine.RAPPORT_CHUNK_MAX_LINES for c in chunks)
+          and all(len(c.split()) - c.count("Agent:") <= rule_engine.RAPPORT_CHUNK_MAX_WORDS for c in chunks))
+    check("rapport: a rude line without any listed phrase still reaches the model",
+          rule_engine.extract_rapport_chunks([("Agent", "Right, so you did nothing, as usual.")]) == ["Agent: Right, so you did nothing, as usual."])
+    check("rapport: no agent lines means nothing to send", rule_engine.extract_rapport_chunks([("Customer", "Hi.")]) == [])
 
     turns = [("Agent", "That light means the modem lost its signal from our network. Which light is blinking?")]
     _, qs = rule_engine.extract_probing_inputs(turns, [], 50, 100)
@@ -258,6 +271,8 @@ def main():
         ("paraphrasing customer <= PARAPHRASE_CUSTOMER_MAX_WORDS", max(sizes["paraphrasing customer"], default=0) <= de.PARAPHRASE_CUSTOMER_MAX_WORDS),
         ("paraphrasing agent <= PARAPHRASE_AGENT_MAX_WORDS", max(sizes["paraphrasing agent"], default=0) <= de.PARAPHRASE_AGENT_MAX_WORDS),
         ("resolved batch <= RESOLVED_TAIL_LINES lines", max(resolved_lines, default=0) <= de.RESOLVED_TAIL_LINES),
+        ("rapport chunk <= 140 words (8 lines of normal length)", max(sizes["rapport"], default=0) <= 140 + 8),
+        ("active listening snippet <= 3 pairs (<= 260 words)", max(sizes["al"], default=0) <= 260),
     ]
     print("\ncap checks:")
     for name, cond in caps:

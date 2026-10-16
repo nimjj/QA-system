@@ -48,18 +48,20 @@ LAYA_CHECKS = {
         "the agent acknowledges the customer's frustration or feelings and responds with care",
         "the agent ignores, brushes off or is rude about the customer's frustration", neutral_labels=True)},
     "active_listening": {"yes_means": "FAIL", "pass_threshold": 0.19, "question": _noul(
-        "Does the second agent question ask for the same information as the first?",
-        "the agent repeats the same question and asks again for information already requested",
-        "the second question asks for something different from the first")},
+        "Does the second agent question ask again for information the customer already gave in their answer?",
+        "the second question asks again for information the customer already gave in their answer",
+        "the second question asks for something new, or re-checks something that may have changed")},
     "ownership": {"yes_means": "FAIL", "pass_threshold": 0.52, "question": _noul(
         "Does the agent deflect responsibility, blame another team, or refuse to help?",
         "the agent deflects, blames another team or department, refuses to help, or tells the customer to contact someone else",
         "the agent takes ownership and keeps working on the customer's problem", neutral_labels=True)},
+    # judged on every agent line in chunks (rule_engine.extract_rapport_chunks); one rude chunk fails the item
     "rapport": {"yes_means": "FAIL", "pass_threshold": 0.81, "question": _noul(
-        "Is the agent rude, condescending, dismissive, sarcastic or unprofessional?",
-        "the agent is rude, condescending, dismissive, sarcastic or unprofessional toward the customer",
-        "the agent is polite, respectful and professional")},
-    "probing": {"yes_means": "PASS", "pass_threshold": 0.60, "question": _noul(
+        "Is any agent line rude, condescending, dismissive, sarcastic or unprofessional toward the customer?",
+        "at least one agent line is rude, condescending, dismissive, sarcastic or unprofessional toward the customer, "
+        "for example blaming the customer, talking down to them or brushing them off",
+        "every agent line is polite, respectful and professional")},
+    "probing": {"yes_means": "PASS", "pass_threshold": 0.70, "question": _noul(
         "Did the agent ask at least one genuine diagnostic question about the customer's problem?",
         "the agent asked at least one question that investigates the cause or specifics of the problem, such as when it started, which device, what error or lights, or what was already tried",
         "the agent only asked greetings, identity verification, confirmations, upsell, scheduling or closing questions", neutral_labels=True)},

@@ -13,7 +13,7 @@ from typing import Any, List, Optional, Tuple, Union
 
 from src.services.rule_engine import (
     extract_active_listening_snippets, extract_empathy_snippet_list, extract_ownership_snippets,
-    extract_probing_inputs, extract_rapport_snippets, without_detail_answers, without_setup_lines,
+    extract_probing_inputs, extract_rapport_chunks, without_detail_answers, without_setup_lines,
 )
 
 # Size limits on what each model call receives (Laya reads roughly 340 words per question)
@@ -36,7 +36,7 @@ class LayaInputs:
     paraphrasing: str = ""
     active_listening: str = ""
     ownership: str = ""
-    rapport: List[str] = field(default_factory=list)       # one Laya call per snippet
+    rapport: List[str] = field(default_factory=list)       # every agent line, in chunks; one Laya call per chunk
     probing: Optional[str] = None                          # None: the agent asked no questions at all
     resolved: str = ""                                     # last RESOLVED_TAIL_LINES lines
     batch_agent_only: str = ""                             # customer context + agent lines (generic batch items)
@@ -109,8 +109,7 @@ def build_laya_inputs(transcript_data: Union[str, List[dict]], caller: Optional[
 
     out.active_listening = extract_active_listening_snippets(turns)
     out.ownership = extract_ownership_snippets(turns)
-    rapport = extract_rapport_snippets(turns)
-    out.rapport = [rapport] if rapport else []
+    out.rapport = extract_rapport_chunks(turns)
 
     agent_questions = [txt for spk, txt in turns if spk.lower() == "agent" and "?" in txt]
     if agent_questions:
