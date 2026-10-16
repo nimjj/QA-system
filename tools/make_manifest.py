@@ -40,9 +40,10 @@ def main():
     pilot = load("pilot.jsonl")
     train = [r for r in load("train.jsonl")]       # train.jsonl already includes the pilot rows
     # long_*.jsonl = the same pairs padded with neutral agent lines (tools/build_long.py); test_long is reported separately
-    splits = {"train": train + load("replay_train.jsonl") + load("long_train.jsonl"),
-              "dev": load("dev.jsonl") + load("replay_dev.jsonl") + load("long_dev.jsonl"),
-              "test": load("test.jsonl"), "test_long": load("long_test.jsonl")}
+    # calls_*.jsonl = rows cut by the extractors from complete natural calls (tools/build_calls.py); test_calls is reported separately
+    splits = {"train": train + load("replay_train.jsonl") + load("long_train.jsonl") + load("calls_train.jsonl"),
+              "dev": load("dev.jsonl") + load("replay_dev.jsonl") + load("long_dev.jsonl") + load("calls_dev.jsonl"),
+              "test": load("test.jsonl"), "test_long": load("long_test.jsonl"), "test_calls": load("calls_test.jsonl")}
     # near-duplicate removal: a dev/test pair is dropped (both members) if any of its rows is a near-copy of a row in an
     # earlier split. Short snippets (ownership) repeat often, so this matters.
     sh = {s: [(r, shingles(r["state"])) for r in rows if r["meta"]["check"] != "replay"] for s, rows in splits.items()}
@@ -62,6 +63,7 @@ def main():
     write("dev_all.jsonl", splits["dev"])
     write("test.jsonl", splits["test"])
     write("test_long.jsonl", splits["test_long"])
+    write("test_calls.jsonl", splits["test_calls"])
 
     problems = []
     frozen = {r["meta"]["inputs_sha256"] for s in splits.values() for r in s}
@@ -101,7 +103,7 @@ def main():
             counts[s][c][lab] += 1
     manifest = {"inputs_sha256": next(iter(frozen)), "rows": {s: len(r) for s, r in splits.items()}, "counts": counts,
                 "pairs": {s: len({r["meta"]["pair_id"] for r in rows if r["meta"]["check"] != "replay"}) for s, rows in splits.items()},
-                "sha256": {n: sha(n) for n in ("train_all.jsonl", "dev_all.jsonl", "test.jsonl", "test_long.jsonl")},
+                "sha256": {n: sha(n) for n in ("train_all.jsonl", "dev_all.jsonl", "test.jsonl", "test_long.jsonl", "test_calls.jsonl")},
                 "near_duplicates_ge_0.6": near, "removed_pairs": removed, "problems": problems,
                 "authorship": "All train, dev and test rows were written and labelled by Claude; none is human-labelled."}
     json.dump(manifest, open(os.path.join(ROWS, "manifest.json"), "w", encoding="utf-8"), indent=2)

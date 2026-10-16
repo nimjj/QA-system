@@ -127,11 +127,13 @@ def evaluate_long(rows, preds, res):
     """Long-snippet test (Rapport, Paraphrasing, Resolved padded with neutral agent lines). Uses the dev-tuned cutoff of `res` when given."""
     ts, out = by_check(rows, preds), {}
     for c in ts:
+        if not any(y for _, y, _ in ts[c]) or all(y for _, y, _ in ts[c]):      # needs both PASS and FAIL rows to score
+            continue
         cut = res["checks"][c].get("tuned_cut", CHECKS[c]["pass_threshold"]) if res else CHECKS[c]["pass_threshold"]
         out[c] = {"n": len(ts[c]), "cut": cut, "ba": bal_acc(ts[c], cut), "ba_frozen_cut": bal_acc(ts[c], CHECKS[c]["pass_threshold"]),
                   "auc": auc(ts[c]), "ci": boot_ci(ts[c], cut)}
     return out
 
 
-DEV, TEST, TEST_LONG = SPLIT["dev_all"], SPLIT["test"], SPLIT["test_long"]
+DEV, TEST, TEST_LONG, TEST_CALLS = SPLIT["dev_all"], SPLIT["test"], SPLIT["test_long"], SPLIT["test_calls"]
 print("eval helpers ready")

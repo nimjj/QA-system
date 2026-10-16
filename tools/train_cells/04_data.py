@@ -1,5 +1,5 @@
 # CELL 4: unpack the embedded data and the frozen production questions, and check their hashes.
-# EXPECT: "data sha OK" for train_all/dev_all/test/test_long, "frozen checks sha OK", row counts (see the table),
+# EXPECT: "data sha OK" for train_all/dev_all/test/test_long/test_calls, "frozen checks sha OK", row counts (see the table),
 # and a table of rows per check. Every row must carry the same inputs hash as the frozen questions.
 import base64
 import gzip
@@ -35,6 +35,6 @@ tbl = collections.defaultdict(lambda: collections.Counter())
 for name, rows in SPLIT.items():
     for r in rows:
         tbl[r["meta"]["check"]][name] += 1
-print(f"{'check':<18}" + "".join(f"{n:>10}" for n in SPLIT))
+print(f"{'check':<18}" + "".join(f"{n:>12}" for n in SPLIT))
 for c, cnt in tbl.items():
-    print(f"{c:<18}" + "".join(f"{cnt[n]:>10}" for n in SPLIT))
+    print(f"{c:<18}" + "".join(f"{cnt[n]:>12}" for n in SPLIT))

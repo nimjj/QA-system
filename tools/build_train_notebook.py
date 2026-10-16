@@ -21,7 +21,7 @@ import sys
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 REPO = os.path.dirname(HERE)
-SPLITS = ("train_all", "dev_all", "test", "test_long")
+SPLITS = ("train_all", "dev_all", "test", "test_long", "test_calls")
 
 
 def lines(text):

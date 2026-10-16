@@ -34,11 +34,13 @@ for name, loss_args in RUNS:
         continue
     t1 = time.time()
     agent = laya.load(OUT)
-    PRED[name] = {"dev": predict_rows(agent, DEV), "test": predict_rows(agent, TEST), "test_long": predict_rows(agent, TEST_LONG)}
+    PRED[name] = {"dev": predict_rows(agent, DEV), "test": predict_rows(agent, TEST), "test_long": predict_rows(agent, TEST_LONG),
+                 "test_calls": predict_rows(agent, TEST_CALLS)}
     del agent
     torch.cuda.empty_cache()
     json.dump(PRED[name], open(f"{WORK}/preds_{name}.json", "w"))
     RES[name] = evaluate(DEV, PRED[name]["dev"], TEST, PRED[name]["test"])
     RES[name]["long"] = evaluate_long(TEST_LONG, PRED[name]["test_long"], RES[name])
+    RES[name]["nat"] = evaluate_long(TEST_CALLS, PRED[name]["test_calls"], RES[name])
     print(f"{name}: scored in {time.time() - t1:.0f}s | mean dev AUC (trained checks) {RES[name]['mean_auc_dev_trained']:.3f}")
 assert any(n in RES for n, _ in RUNS), "no variant trained successfully: paste the errors above"
