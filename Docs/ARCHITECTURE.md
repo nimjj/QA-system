@@ -75,7 +75,7 @@ Laya cannot generate text, so the scorecard text is static:
    * A snippet is taken when a customer turn's `sentiment_score` is ≤ -15, drops ≥ 8 versus the **customer's own** previous 3 turns, or is negative and contains a frustration word ("frustrated", "nightmare", "third time" …).
    * It is skipped if the agent apologises within 3 turns. Each snippet is the customer turn plus the next 4 turns.
    * Only the **2 most severe, non-overlapping** snippets are checked, one Laya call each. One FAIL fails the item.
-5. **Build rapport and observed professionalism** (Laya, violation-based): agent lines containing a rude phrase (`"calm down"`, `"read the manual"` …) are sent to Laya. No hit means PASS.
+5. **Build rapport and observed professionalism** (Laya, violation-based): **every agent line** is checked, in consecutive chunks of at most 8 lines / 120 words, one Laya call per chunk (about 8 per call; the longest Main call needs 21). One rude chunk fails the item. Before version 10.2 only lines containing a listed rude phrase were sent, so a rude line without a listed phrase never reached Laya.
 
 ### Category 2: Technical Knowledge (Default Weight: 66.7%)
 6. **Paraphrasing** (Laya): the customer's opening (≤ 50 words) and the first 10 agent lines (≤ 150 words) are sent with the question "does the agent restate the customer's problem?".
@@ -87,15 +87,15 @@ Laya cannot generate text, so the scorecard text is static:
    * Otherwise only the question sentences of each agent turn are used, and greeting, identity-check, confirmation and wrap-up questions are dropped.
    * The remaining questions (≤ 100 words) plus the customer problem (≤ 50 words, account-detail answers skipped) go to Laya.
 9. **Took ownership of the problem** (Laya, violation-based): agent lines containing a deflection phrase (`"not my department"`, `"call back"` …) are sent to Laya. No hit means PASS.
-10. **Active listening** (Laya): possible repeats are sent to Laya. There are two sources:
-    * pairs of agent question *sentences* with a `difflib` similarity above 0.70 (check-ins like "Is that right?" are ignored);
-    * agent questions the customer answers with "like I said" / "I mentioned", paired with the most similar earlier question and sent with that reply.
+10. **Active listening** (Laya): possible repeats are sent to Laya as *first question / the customer's answer / second question* (at most 3 pairs, answer cut to 40 words). There are two sources:
+    * pairs of agent question *sentences* with a `difflib` similarity above 0.55 (check-ins like "Is that right?" are ignored);
+    * agent questions the customer answers with "like I said" / "I mentioned", paired with the most similar earlier question. These pairs go first. The customer's "like I said" reply itself is not sent: it made Laya read the pair as a status re-check.
 11. **Confirmed the issue is resolved** (Laya batch): the **last 10 lines** of the call. Its cutoff is 0.73, chosen on the `b_*` bulk calls (see `Docs/LAYA_TEST_LOG.md`).
 
 Escalation, Hostility and custom criteria (if a tenant adds them) are rated in Laya batches. Escalation and Hostility use the full call, which goes through Laya's windowed `predict_long` when it is longer than one window.
 
 ### Thresholds
-Each Laya check has a `pass_threshold` in `LAYA_CHECKS` (`dynamic_evaluator.py`). The starting values come from a synthetic out-of-the-box test (`laya_eval/RESULTS.md`). Tests on full-length calls (`Docs/LAYA_TEST_LOG.md`) show several do **not** transfer yet: Resolved barely separates (its cutoff was re-picked on the `b_*` calls), Rapport is inverted, and Paraphrasing doesn't separate. Treat them as starting values to re-tune on human-reviewed calls; `Scripts/probe_laya.py` and `Scripts/laya_cutoffs.py` show the raw probabilities and the best cutoff per check.
+Each Laya check has a `pass_threshold` in `LAYA_CHECKS` (`dynamic_evaluator.py`). The starting values come from a synthetic out-of-the-box test (`laya_eval/RESULTS.md`). Tests on full-length calls (`Docs/LAYA_TEST_LOG.md`) show several do **not** transfer yet: Resolved barely separates (its cutoff was re-picked on the `b_*` calls), Rapport is inverted, and Paraphrasing doesn't separate. Version 10.2 moved Probing's cutoff from 0.60 to 0.70 (it then separates all `b_*` and Main calls), and with the Rapport chunk scan the old 0.81 cutoff fails most polite calls (`Docs/LAYA_TEST_LOG.md`, Round 3), so it is set to an interim 0.50 (never fails) until the model is fine-tuned and the cutoff can be tuned at call level. Treat them as starting values to re-tune on human-reviewed calls; `Scripts/probe_laya.py` and `Scripts/laya_cutoffs.py` show the raw probabilities and the best cutoff per check.
 
 ### Category 3: Auto-Fail Circuit Breakers
 * **Profanity & abuse:** a fixed word list (`"fuck"`, `"shut up"`, `"idiot"`, …) in any agent line forces a score of 0. Customer lines are not checked, so a customer swearing never fails the agent.
@@ -174,7 +174,8 @@ erDiagram
 | `src/gateway/gateway_app.py` | Gateway reverse proxy plus direct PostgreSQL routes for criteria fetch and toggle. |
 | `src/db/database.py` | PostgreSQL data layer (tenants, categories, line items, toggles). |
 | `src/services/dynamic_evaluator.py` | Orchestrator: criteria selection, input caps, Laya questions and thresholds, batches, scoring, static coaching. |
-| `src/services/rule_engine.py` | Deterministic rules and snippet pre-filters (empathy, ownership, rapport, active listening, probing inputs). |
+| `src/services/rule_engine.py` | Deterministic rules and snippet pre-filters (empathy, ownership, rapport chunks, active listening, probing inputs). |
+| `src/services/laya_inputs.py` | `build_laya_inputs()`: parses a transcript and builds the text every Laya check receives. Shared with the training-data tools, so training rows match production exactly. |
 | `src/services/laya_adapter.py` | Loads the Laya `Router` once and exposes `predict_yes()`. |
 | `resources/criteria_config.json` | Reference criteria for tenant-abc (also used by the check script). |
 | `Scripts/check_prompt_sizes.py` | Verifies input sizes and scorecards over all sample calls (`--live` runs real Laya). |

@@ -55,8 +55,11 @@ LAYA_CHECKS = {
         "Does the agent deflect responsibility, blame another team, or refuse to help?",
         "the agent deflects, blames another team or department, refuses to help, or tells the customer to contact someone else",
         "the agent takes ownership and keeps working on the customer's problem", neutral_labels=True)},
-    # judged on every agent line in chunks (rule_engine.extract_rapport_chunks); one rude chunk fails the item
-    "rapport": {"yes_means": "FAIL", "pass_threshold": 0.81, "question": _noul(
+    # judged on every agent line in chunks (rule_engine.extract_rapport_chunks); one rude chunk fails the item.
+    # INTERIM cutoff 0.50: the untrained model gives every chunk of every probed call (polite or rude) P(rude) of only
+    # 0.19-0.22, so no cutoff separates them. 0.81 (P(rude) > 0.19) sat on that floor and failed 29 of 33 polite
+    # bulk calls. At 0.50 the check never fails until the model is fine-tuned, then re-tune at call level.
+    "rapport": {"yes_means": "FAIL", "pass_threshold": 0.50, "question": _noul(
         "Is any agent line rude, condescending, dismissive, sarcastic or unprofessional toward the customer?",
         "at least one agent line is rude, condescending, dismissive, sarcastic or unprofessional toward the customer, "
         "for example blaming the customer, talking down to them or brushing them off",

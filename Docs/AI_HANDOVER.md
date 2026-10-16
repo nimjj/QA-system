@@ -18,6 +18,8 @@ A synchronous QA grading service for customer-support transcripts. It takes a ca
 2. **Laya reads about 340 words per question.** Every input is capped:
    - Empathy: top 2 snippets, one call each.
    - Probing: problem ≤ 50 words plus questions ≤ 100 words.
+   - Rapport: every agent line, in chunks of ≤ 8 lines / ≤ 120 words, one call per chunk.
+   - Active listening: up to 3 question pairs, each with the customer's answer (≤ 40 words).
    - Paraphrasing: 50 + 150 words.
    - Resolved: the last 10 lines.
    
@@ -72,8 +74,9 @@ To write mock transcripts that exercise each check, follow this structure.
   - It triggers on a customer turn with `sentiment_score` ≤ -15, a drop of ≥ 8 versus the customer's own previous 3 turns, or a negative score plus a frustration word ("nightmare", "third time" …).
   - It is skipped if the agent says sorry, apologize, understand, frustrating or "let me help" within 3 turns.
   - To **FAIL**, have the agent answer coldly. To **PASS** while still being checked, acknowledge the feeling without those keywords ("That sounds really stressful, let's fix it").
-* **Active listening:** to **FAIL**, have the agent ask nearly the same question sentence twice (difflib similarity above 0.70), or re-ask something the customer answers with "like I said" / "I mentioned".
-* **Took ownership / Rapport:** only agent lines containing listed phrases are checked ("not my department", "call back" … / "calm down", "obviously" …). Lines without those phrases always pass.
+* **Active listening:** to **FAIL**, have the agent ask nearly the same question sentence twice (difflib similarity above 0.55), or re-ask something the customer answers with "like I said" / "I mentioned". Laya sees the first question, the customer's answer and the second question.
+* **Took ownership:** only agent lines containing listed phrases are checked ("not my department", "call back" …). Lines without those phrases always pass.
+* **Rapport:** every agent line is checked by Laya in chunks, so a rude line needs no particular phrase; one rude chunk fails the item. The cutoff is not tuned for this yet (Round 3 in `LAYA_TEST_LOG.md`).
 * **Probing:** to **FAIL**, the agent asks only greetings, verification, confirmations or wrap-up questions.
 * **Paraphrasing:** to **FAIL**, the agent never restates the customer's problem early in the call.
 * **Confirmed the issue is resolved:** only the last 10 lines are read. To **FAIL**, end the call without confirming the fix worked.

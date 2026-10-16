@@ -181,3 +181,37 @@ Laya v2 still ranks the Excellent call (78.3) below the Good one (83.4).
 3. **Paraphrasing:** restating the problem vs. asking about it in the customer's words.
 4. **Build rapport:** condescension without insults.
 5. **Empathy:** warm vs. cold replies to a frustrated customer.
+
+
+---
+
+# Round 3: Phase 1 input changes (2026-10-16)
+
+Code: `fcc6869` (all input-building moved to `src/services/laya_inputs.py`, byte-identical inputs on 80 calls), `9050b41` (Rapport chunk scan, Active-listening snippet, Probing cutoff), then an interim Rapport cutoff (below). Result folders: `Main tests (laya-v3|laya-v3.1)`, `Bulk tests (laya-v3|laya-v3.1)`; raw probabilities in `Laya probes/probe_laya-v3.json`. `laya-v3` is the first run (Rapport cutoff 0.81); `laya-v3.1` is the final Phase 1 state (Rapport cutoff 0.50).
+
+## What changed
+| Item | Change |
+|---|---|
+| Rapport | Every agent line is checked, in chunks of at most 8 lines / 120 words, one Laya call per chunk; one rude chunk fails the item. The 27-phrase gate is gone. Question reworded for chunks. |
+| Active listening | Snippet is first question / the customer's answer / second question (up to 3 pairs). The customer's "like I said" reply is no longer sent. Similarity cut 0.70 to 0.55. Question reworded. |
+| Probing | Cutoff 0.60 to 0.70. |
+
+## Results (answer key = Claude-written grades, not human-reviewed)
+| | Ollama | Laya v2 | Laya v3 (0.81) | **Laya v3.1 (final)** |
+|---|---|---|---|---|
+| Main items matching (of 44) | 40 | 36 | 35 | **37** |
+| Main scores (expected 100 / 88.3 / 56.7 / 13.3) | 100 / 83.3 / 78.3 / 23.3 | 78.3 / 83.4 / 60.0 / 30.0 | 71.7 / 76.7 / 60.0 / 23.3 | 78.3 / 83.4 / 66.7 / 30.0 |
+| Main mean score error | 9.2 | 11.7 | 13.3 | **13.3** |
+| Bulk `b_*` items matching (of 372) | n/a | 348 | 326 | **351** |
+| Time per call, Main / bulk mean | ~6.4 min | ~8.5 s | 13.5 s / 9.5 s | **22.4 s / 12.8 s** |
+
+Laya still ranks the Excellent call (78.3) below the Good call (83.4). More items are right than in v2, but the mean score error is higher: in v2 a wrong Active-listening FAIL on call 3 cancelled a wrong Paraphrasing PASS; with the Active-listening fix the Paraphrasing error shows (60.0 became 66.7 against 56.7).
+
+## Per check
+- **Probing:** 4/4 Main, 34/34 bulk (was 30/34). The 0.70 cutoff does what the Round 2 probe predicted.
+- **Active listening:** bulk 33/33 (was 30/33). Planted repeats score 0.82-0.85 against a 0.81 cutoff; every other call that produced a snippet scores 0.55-0.81 (the highest, `real_20min_low`, 0.807), so the margin is thin. The genuine repeats in Main call 2 still score only 0.73 and are missed (Main 3/4).
+- **Rapport: the untrained model has no signal on this question.** Across all 44 labelled calls the highest chunk P(rude) is 0.19-0.22 for the five rude calls (0.199-0.217) and for the median polite call (0.198; maximum 0.488). No cutoff separates them. The first cutoff, 0.81 (P(rude) above 0.19), sat on that floor and failed 29 of 33 polite bulk calls and 3 of 4 Main calls (Main 1/4, bulk 4/33). The interim cutoff 0.50 never fails a call: bulk 29/33 (the 4 planted rude calls are missed), Main 3/4 (the rude call 4 is missed, as in v2). This needs fine-tuning, then a cutoff tuned at call level.
+- **Unchanged and still to train:** Empathy 2/4 (bulk 34/34), Paraphrasing 2/4 (bulk 28/34), Confirmed resolved 3/4 (bulk 22/33).
+
+## Cost
+Rapport now makes about 8 Laya calls per call (mean 7.9, up to 21 for Main call 1). With nothing failing early, a Main call takes 22.4 s on CPU against a 15 s target. Planned mitigation if it stays: score the chunks in one batched forward pass.
