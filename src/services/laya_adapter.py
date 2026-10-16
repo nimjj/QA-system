@@ -9,6 +9,8 @@ Environment:
     LAYA_HF_HOME  folder holding the downloaded Laya weights (Hugging Face cache). Defaults to
                   ../laya-test/hf_home next to this repo when that folder exists.
     LAYA_DEVICE   optional torch device, e.g. "cpu" or "cuda"
+    LAYA_CHECKPOINT  optional folder of a fine-tuned checkpoint. When set, it is served under the
+                  LAYA_MODEL name in place of the downloaded one. Unset means the stock checkpoint.
 """
 import os
 import threading
@@ -32,7 +34,12 @@ def _get_router():
             os.environ.setdefault("HF_HOME", hf_home)
         os.environ.setdefault("HF_HUB_DISABLE_SYMLINKS_WARNING", "1")
         from laya import Router
-        _router = Router(device=os.getenv("LAYA_DEVICE") or None, max_loaded=1, default=LAYA_MODEL)
+        checkpoint = os.getenv("LAYA_CHECKPOINT")
+        if checkpoint and not os.path.isdir(checkpoint):
+            raise FileNotFoundError(f"LAYA_CHECKPOINT is not a folder: {checkpoint}")
+        # a built-in name pointed at a folder serves that fine-tune in place of the stock checkpoint
+        models = {LAYA_MODEL: checkpoint} if checkpoint else None
+        _router = Router(models=models, device=os.getenv("LAYA_DEVICE") or None, max_loaded=1, default=LAYA_MODEL)
     return _router
 
 
