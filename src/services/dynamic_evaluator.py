@@ -4,13 +4,10 @@ from src.services.laya_adapter import predict_yes
 
 RATING_SCORES = {"PASS": 100, "FAIL": 0, "YES": 100, "NO": 0}
 
-# Size limits on what each model call receives (Laya reads roughly 340 words per question)
-EMPATHY_MAX_SNIPPETS = 2          # most severe upset-customer moments checked, one call each
-PROBING_PROBLEM_MAX_WORDS = 50    # customer-problem text sent with the probing check
-PROBING_QUESTIONS_MAX_WORDS = 100 # agent questions sent with the probing check
-RESOLVED_TAIL_LINES = 10          # last N lines sent to the "resolved" batch (B2)
-PARAPHRASE_CUSTOMER_MAX_WORDS = 50
-PARAPHRASE_AGENT_MAX_WORDS = 150
+from src.services.laya_inputs import (  # noqa: F401  (re-exported: other scripts read them from here)
+    EMPATHY_MAX_SNIPPETS, PROBING_PROBLEM_MAX_WORDS, PROBING_QUESTIONS_MAX_WORDS, RESOLVED_TAIL_LINES,
+    PARAPHRASE_CUSTOMER_MAX_WORDS, PARAPHRASE_AGENT_MAX_WORDS, build_laya_inputs,
+)
 
 RULE_BASED_PASS_DESCRIPTIONS = {
     "branding and survey check": "Agent successfully used required opening and closing branding scripts.",
@@ -131,60 +128,10 @@ def evaluate_interaction(
     from src.services.rule_engine import (
         evaluate_branding, evaluate_hold_and_dead_air,
         evaluate_verified_customer, evaluate_personalized_call,
-        extract_active_listening_snippets, extract_empathy_snippet_list,
-        extract_ownership_snippets, extract_rapport_snippets, extract_probing_inputs,
-        without_setup_lines, without_detail_answers
     )
-    
-    turns = []
-    parsed_times = []
-    clean_lines = []
-    agent_lines = []
-    customer_lines = []
-    customer_name = caller or ""
-    sentiment_scores = [t.get('sentiment_score', 0.0) for t in transcript_data] if isinstance(transcript_data, list) else []
-    
-    if isinstance(transcript_data, list):
-        for turn in transcript_data:
-            spk = turn.get("speaker", "Unknown")
-            txt = turn.get("text", "")
-            st_sec = turn.get("start_time_sec", 0)
-            turns.append((spk, txt))
-            parsed_times.append((st_sec, st_sec + 10))
-            clean_lines.append(f"{spk}: {txt}")
-            if spk.lower() == "agent":
-                agent_lines.append(txt)
-            elif spk.lower() == "customer":
-                customer_lines.append(txt)
-    else:
-        # Pre-split inline timestamps like [00:09] if they are concatenated on a single line
-        normalized_text = re.sub(r'(\s*)([\[\(]\s*\d{1,2}:\d{2}(?::\d{2})?\s*[\]\)])', r'\n\2', transcript_data.strip())
-        for line in normalized_text.splitlines():
-            line = line.strip()
-            if not line:
-                continue
-            time_match = re.match(r'^[\[\(]\s*(\d{1,2}):(\d{2})(?::(\d{2}))?\s*[\]\)]\s*', line)
-            t_sec = int(time_match.group(1)) * 60 + int(time_match.group(2)) if time_match else 0
 
-            line = re.sub(r"^[\[\(]\s*\d{1,2}:\d{2}(?::\d{2})?\s*[\]\)]\s*", "", line)
-            clean_lines.append(line)
-            if ":" in line:
-                spk, txt = line.split(":", 1)
-                spk_clean = spk.strip()
-                txt_clean = txt.strip()
-                turns.append((spk_clean, txt_clean))
-                parsed_times.append((t_sec, t_sec + 10))
-
-                spk_lower = spk_clean.lower()
-                if spk_lower in ["agent", "rep", "representative", "specialist"]:
-                    agent_lines.append(txt_clean)
-                elif spk_lower in ["customer", "client", "caller", "user"]:
-                    customer_lines.append(txt_clean)
-
-    clean_transcript = "\n".join(clean_lines)
-    agent_only_transcript = "\n".join([f"Agent: {x}" for x in agent_lines])
-    first_10_cust = " ".join(customer_lines[:10])
-    problem_lines = without_detail_answers(customer_lines) or customer_lines
+    inp = build_laya_inputs(transcript_data, caller)
+    turns, parsed_times, customer_name = inp.turns, inp.times, inp.customer_name
 
     categories = criteria_data.get("categories", [])
     category_weights = criteria_data.get("category_weights", {})
@@ -212,7 +159,7 @@ def evaluate_interaction(
         rule_ratings.append(evaluate_personalized_call(turns, customer_name))
 
     if "empathy & acknowledgment statement" in selected_criteria:
-        empathy_snippets = extract_empathy_snippet_list(turns, sentiment_scores, EMPATHY_MAX_SNIPPETS)
+        empathy_snippets = inp.empathy
         emp_rating = {
             "category": "Soft Skills",
             "name": "Empathy & Acknowledgment Statement",
@@ -230,11 +177,7 @@ def evaluate_interaction(
         rule_ratings.append(emp_rating)
 
     if "paraphrasing" in selected_criteria:
-        # greeting, verification and account-detail turns would otherwise fill most of both word budgets
-        para_cust = " ".join(" ".join(problem_lines).split()[:PARAPHRASE_CUSTOMER_MAX_WORDS])
-        para_agent_lines = (without_setup_lines(agent_lines) or agent_lines)[:10]
-        para_agent = " ".join(" ".join(para_agent_lines).split()[:PARAPHRASE_AGENT_MAX_WORDS])
-        para_rating = _laya_verdict("paraphrasing", f"CUSTOMER: {para_cust}\nAGENT: {para_agent}", "verify_paraphrasing")
+        para_rating = _laya_verdict("paraphrasing", inp.paraphrasing, "verify_paraphrasing")
         rule_ratings.append({
             "category": "Technical Knowledge",
             "name": "Paraphrasing",
@@ -245,7 +188,7 @@ def evaluate_interaction(
         })
 
     if "active listening" in selected_criteria:
-        al_snippet = extract_active_listening_snippets(turns)
+        al_snippet = inp.active_listening
         al_rating = "PASS"
         if al_snippet:
             al_rating = _laya_verdict("active_listening", al_snippet, "verify_al")
@@ -259,7 +202,7 @@ def evaluate_interaction(
         })
 
     if "took ownership of the problem" in selected_criteria:
-        own_snip = extract_ownership_snippets(turns)
+        own_snip = inp.ownership
         own_rating = {
             "category": "Technical Knowledge",
             "name": "Took ownership of the problem",
@@ -275,7 +218,6 @@ def evaluate_interaction(
         rule_ratings.append(own_rating)
 
     if "build rapport and observed professionalism" in selected_criteria:
-        rap_snip = extract_rapport_snippets(turns)
         rap_rating = {
             "category": "Soft Skills",
             "name": "Build rapport and observed professionalism",
@@ -284,14 +226,15 @@ def evaluate_interaction(
             "deduction_value": 20,
             "coaching": ""
         }
-        if rap_snip:
+        # each snippet is judged on its own; one FAIL fails the item
+        for rap_snip in inp.rapport:
             if _laya_verdict("rapport", rap_snip, "verify_rapport") == "FAIL":
                 rap_rating["rating"] = "FAIL"
                 rap_rating["coaching"] = "Agent used rude or condescending language."
+                break
         rule_ratings.append(rap_rating)
 
     if "probing" in selected_criteria:
-        agent_questions = [txt for spk, txt in turns if spk.lower() == "agent" and "?" in txt]
         prob_rating = {
             "category": "Technical Knowledge",
             "name": "Probing",
@@ -300,13 +243,8 @@ def evaluate_interaction(
             "deduction_value": 25,
             "coaching": "Agent did not ask diagnostic questions to investigate the problem."
         }
-        if agent_questions:
-            problem_text, probe_questions = extract_probing_inputs(
-                turns, problem_lines, PROBING_PROBLEM_MAX_WORDS, PROBING_QUESTIONS_MAX_WORDS
-            )
-            q_txt = "\n".join(f"- {q}" for q in probe_questions)
-            p_prob = f"CUSTOMER PROBLEM: {problem_text}\n\nThe agent asked these questions during the call:\n{q_txt}"
-            if _laya_verdict("probing", p_prob, "verify_probing") == "PASS":
+        if inp.probing is not None:
+            if _laya_verdict("probing", inp.probing, "verify_probing") == "PASS":
                 prob_rating["rating"] = "PASS"
                 prob_rating["score"] = 100
                 prob_rating["coaching"] = ""
@@ -352,12 +290,9 @@ def evaluate_interaction(
         return batch
 
     batch_ratings = []
-    prob_ctx = f"CUSTOMER PROBLEM CONTEXT:\n{first_10_cust}\n\n"
-    batch_ratings.extend(run_batch(b1_agent, prob_ctx + agent_only_transcript, "batch_agent_only"))
-
-    end_tx = "\n".join(clean_lines[-RESOLVED_TAIL_LINES:])
-    batch_ratings.extend(run_batch(b2_end, end_tx, "batch_end"))
-    batch_ratings.extend(run_batch(b3_full, clean_transcript, "batch_full"))
+    batch_ratings.extend(run_batch(b1_agent, inp.batch_agent_only, "batch_agent_only"))
+    batch_ratings.extend(run_batch(b2_end, inp.resolved, "batch_end"))
+    batch_ratings.extend(run_batch(b3_full, inp.batch_full, "batch_full"))
 
     ratings = rule_ratings + batch_ratings
 
@@ -375,7 +310,7 @@ def evaluate_interaction(
                 r["coaching"] = "Could not be verified from the transcript."
 
     # profanity is checked on agent lines only; the customer's language never fails the agent
-    is_auto_fail, reason = check_auto_fail(agent_only_transcript, [], auto_fail_rules, ratings)
+    is_auto_fail, reason = check_auto_fail(inp.agent_text, [], auto_fail_rules, ratings)
 
     cat_scores, b_score = calculate_category_scores(
         ratings,
