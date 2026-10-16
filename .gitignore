@@ -13,3 +13,6 @@ __pycache__/
 # secrets
 .env
 .env.*
+
+# a duplicate unzip of a checkpoint run at the repo root (the real copy lives in checkpoints/)
+/smoke-*/

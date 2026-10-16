@@ -30,7 +30,7 @@ After the Round 2 pipeline fixes, Laya's mean score error on the 4 Main calls is
 | **1. Remaining input changes** (qa-analysis) | **a.** One `build_laya_inputs(payload)` used by production *and* the data tools (proof: byte-identical inputs to `probe_laya-v2.json`). **b.** Rapport chunked scan: all agent lines in chunks of ≤8 lines / ≤120 words, FAIL if any chunk is rude. **c.** Active listening snippet = "Agent asked Q1 / Customer answered A1 / Agent later asked Q2"; similarity cut 0.70 → ~0.55. **d.** Probing cutoff 0.60 → 0.70. **e.** Re-run `batch_test.py main` and `bulk` as `laya-v3` = the untrained baseline. **f.** **Freeze:** export `checks_frozen.json`, tag the commit | 0 | me 1–1.5 days, you 1 h | ⏸ you approve wording and snippets. After this, **no extractor or wording change without regenerating data** |
 | **2. Labelling guide** | `docs/LABELLING_GUIDE.md`: PASS/FAIL per check, defined on the snippet Laya sees, 4–6 examples, named hard-case types, "unsure → ?" rule | 1 | me 0.5 day, you 1 h | ⏸ you approve |
 | **3. Generator and pilot** | Call fragments as payload-shaped JSON from a matrix: ~12 industries (50% S-Net telecom), 8 agent personalities, short/mid/long, customer moods. `roughen.py` adds speech-to-text noise to 30% (scripted, reproducible). Fragments go through `build_laya_inputs`. **Pilot:** 40 per trained check + 10 per regression check (~240) | 2 | me 1 day, you ~1 h skim | ⏸ if you disagree with >10% of a check, I fix the guide or generator and redo that pilot |
-| **4. Gemini test set** (alongside 5) | **Gemini CLI 0.35.3 is installed**, so it runs headless: `tools/run_gemini.py` loops over scenario cards with `gemini -m <pinned model> -p … -o json --approval-mode plan` and saves raw output. Model and CLI version go in the manifest. `import_gemini.py` validates, builds rows with the same extractors and writes a **blind** label sheet (Gemini's intended label kept apart). Also **~20 full polite calls** (8–12 min) for the Rapport call-level false-positive test. You first check the CLI is logged in (`! gemini -p "say ok"`) | 2 | me 0.5 day, you ~5.5 h labelling + ~1.5–2 h skimming polite calls | ⏸ labels done |
+| **4. Gemini test set** (alongside 5) | **Nimithra runs Gemini by hand in its chat** (no Gemini CLI is available to her). I write `prompts/gemini_test_prompt.md` and a numbered list of scenario cards, in batches sized to fit one Gemini reply (about 10 short call excerpts each, so roughly 25-30 batches). Per batch she pastes the batch's prompt into Gemini and saves Gemini's reply, unedited, as `data/fragments/gemini/raw/batch_NN.json` (the reply format is JSON so she never retypes anything). `tools/import_gemini.py` validates each file (parses, schema, turn counts, no label words leaked into the text) and prints the exact scenario ids to re-ask if a batch is broken. The Gemini model name and the date go in the manifest by hand. It then builds rows with the same extractors and writes a **blind** label sheet (Gemini's intended label kept apart). Also **~20 full polite calls** (8-12 min) for the Rapport call-level false-positive test, generated the same way, in smaller batches | 2 | me 0.5 day; **you ~2 h running Gemini** + ~5.5 h labelling + ~1.5-2 h skimming polite calls | ⏸ labels done |
 | **5. Full generation** | Volumes below, in matched pairs (paraphrase vs echo; rude vs polite with the same trigger words; warm vs cold reply to the same turn; asked-again vs re-checked status), ~40% hard cases | 3 | me 2–3 days | – |
 | **6. Validation** | Schema; token budget with the real tokenizer (laya-train truncates states silently); 50/50 balance; hard-case share; near-duplicates across splits; length and trigger-word balance per label; frozen-hash match. **Shortcut probe** (bag-of-words classifier on dev, per check): >0.85 is a **warning** for every check and a **hard fail** for Rapport and Paraphrasing (regenerate) | 5 | me 0.5 day | ⏸ you read the report |
 | **7. Split** | `split.py` groups by `call_id` and `pair_id`. Claude data → train/dev 85/15; Gemini data → gemini-dev / test. `manifest.json` with sha256. `test.jsonl` stays **sealed** until Phase 10 | 6, 4 | me 1 h | – |
@@ -41,7 +41,29 @@ After the Round 2 pipeline fixes, Laya's mean score error on the 4 Main calls is
 | **12. Iteration** | Error analysis on dev and gemini-dev only; targeted data; new run. If the test set has informed decisions more than once, generate a fresh Gemini test v2 | 11 | 1–3 days per round | – |
 | **13. Report** | `docs/RESULTS.md`: "good on realistic synthetic calls", with intervals and limits | 11/12 | me 0.5 day | ⏸ you approve |
 
-Elapsed: about 3–4 weeks. Your hours: about 12–13 including labelling and approvals.
+Elapsed: about 3–4 weeks. Your hours: about 14–16 including running Gemini, labelling and approvals (see "Who does what").
+
+## Who does what: the steps only Nimithra can do
+Claude cannot press Run in Colab, cannot use Gemini, and cannot supply human judgement. Everything else is Claude's job.
+
+| # | When | You do | Why only you | Time |
+|---|---|---|---|---|
+| 1 | End of Phase 1 | Okay the frozen question wording and cutoffs (Claude shows the baseline numbers) | it is your product's grading standard | 10 min |
+| 2 | Before Phase 2 | Decide: should Active listening also fail an agent who *ignores what the customer already said*, or only one who re-asks a question? | a requirements decision | 5 min |
+| 3 | Phase 2 | Approve `LABELLING_GUIDE.md` (what PASS/FAIL mean per check, with examples) | defines what "correct" means for all later data | ~1 h |
+| 4 | Phase 3 | Read the ~240-item pilot and say where you disagree with the labels | first human check on Claude's training data | ~1 h |
+| 5 | Phase 4 | **Run Gemini yourself**: paste each batch prompt, save the reply as `batch_NN.json` (about 25-30 batches) | Claude cannot use Gemini; a different model writes the test calls on purpose | ~2 h |
+| 6 | Phase 4 | **Label the Gemini items yourself** (~545) and skim ~20 full polite calls | the independent test must be human judgement, not Claude's | ~7-8 h |
+| 7 | Phase 6 | Read the validation report | decide if the data is fit to train on | 15 min |
+| 8 | Phases 8, 9, 10 | **Press Run** in the three Colab notebooks (`01_baseline`, `02_train`, `03_evaluate`) and paste the summary lines back; connect the `laya-train` kernel first | Claude cannot operate Colab | ~30 min of attention each (runs themselves 15-40 min) |
+| 9 | Phase 9 | Download the trained checkpoint from Drive into `laya-training/checkpoints/` | it lives on your Drive | 10 min |
+| 10 | Phase 10 | Go / no-go on the results | the decision to retire Ollama is yours | 15 min |
+| 11 | Phase 11 | Review the re-run Main and bulk scorecards | sanity check on real behaviour | 30 min |
+| 12 | Phase 13 | Approve the report | | 15 min |
+| - | any time | Make `nimjj/laya-finetuning` private; delete the duplicate `smoke-20261016-0848/` folder in the repo root | your GitHub and your disk | 5 min |
+
+Total: about **14-16 hours** spread over the weeks, almost all of it labelling (item 6) and Gemini (item 5). Phases 1, 5, 7 and 12 need nothing from you.
+If item 6 is too large, cut the label count or share it with a second person *before* Phase 4; the labels must be human judgement for the final claim to hold.
 
 ## Data volumes
 | Check | Role | Train (Claude) | Dev (Claude) | Gemini dev (you label) | Gemini test (you label) |

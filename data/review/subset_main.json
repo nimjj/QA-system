@@ -1,0 +1,97 @@
+{
+ "seed": 20261016,
+ "n_items": 20,
+ "items": [
+  "1-EMP",
+  "1-PROBE",
+  "1-OWN",
+  "1-RESOLVED",
+  "2-BRAND",
+  "2-HOLD",
+  "2-EMP",
+  "2-AL",
+  "2-RESOLVED",
+  "3-EMP",
+  "3-PARA",
+  "3-PROBE",
+  "3-OWN",
+  "3-AL",
+  "3-RESOLVED",
+  "4-EMP",
+  "4-RAPPORT",
+  "4-PARA",
+  "4-OWN",
+  "4-AL"
+ ],
+ "reasons": {
+  "1-EMP": [
+   "laya says FAIL (Claude PASS)",
+   "laya-v2 says FAIL (Claude PASS)"
+  ],
+  "1-PROBE": [
+   "laya says FAIL (Claude PASS)"
+  ],
+  "1-OWN": [
+   "spot check (random, all engines agreed with Claude)"
+  ],
+  "1-RESOLVED": [
+   "laya says FAIL (Claude PASS)",
+   "laya-v2 says FAIL (Claude PASS)"
+  ],
+  "2-BRAND": [
+   "Claude: closing says 'Thanks for calling S-Net', not the required script; a lenient grader might pass it"
+  ],
+  "2-HOLD": [
+   "ollama says FAIL (Claude PASS)",
+   "laya says FAIL (Claude PASS)"
+  ],
+  "2-EMP": [
+   "laya says FAIL (Claude PASS)",
+   "laya-v2 says FAIL (Claude PASS)"
+  ],
+  "2-AL": [
+   "laya says PASS (Claude FAIL)",
+   "laya-v2 says PASS (Claude FAIL)"
+  ],
+  "2-RESOLVED": [
+   "laya says FAIL (Claude PASS)"
+  ],
+  "3-EMP": [
+   "ollama says PASS (Claude FAIL)"
+  ],
+  "3-PARA": [
+   "ollama says PASS (Claude FAIL)",
+   "laya says PASS (Claude FAIL)",
+   "laya-v2 says PASS (Claude FAIL)"
+  ],
+  "3-PROBE": [
+   "spot check (random, all engines agreed with Claude)"
+  ],
+  "3-OWN": [
+   "spot check (random, all engines agreed with Claude)"
+  ],
+  "3-AL": [
+   "laya-v2 says FAIL (Claude PASS)"
+  ],
+  "3-RESOLVED": [
+   "laya says FAIL (Claude PASS)"
+  ],
+  "4-EMP": [
+   "spot check (random, all engines agreed with Claude)"
+  ],
+  "4-RAPPORT": [
+   "laya says PASS (Claude FAIL)",
+   "laya-v2 says PASS (Claude FAIL)"
+  ],
+  "4-PARA": [
+   "ollama says PASS (Claude FAIL)",
+   "laya-v2 says PASS (Claude FAIL)"
+  ],
+  "4-OWN": [
+   "spot check (random, all engines agreed with Claude)"
+  ],
+  "4-AL": [
+   "Claude: no careless repeat by this app's definition, but the agent clearly does not listen; a stricter grader could fail it"
+  ]
+ }
+}

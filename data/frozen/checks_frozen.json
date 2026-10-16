@@ -22,10 +22,10 @@
         "pass_threshold": 0.19,
         "question": {
           "type": "noul",
-          "instructions": "Does the second agent question ask for the same information as the first?",
+          "instructions": "Does the second agent question ask again for information the customer already gave in their answer?",
           "criteria": {
-            "true": "the agent repeats the same question and asks again for information already requested",
-            "false": "the second question asks for something different from the first"
+            "true": "the second question asks again for information the customer already gave in their answer",
+            "false": "the second question asks for something new, or re-checks something that may have changed"
           }
         }
       },
@@ -50,16 +50,16 @@
         "pass_threshold": 0.81,
         "question": {
           "type": "noul",
-          "instructions": "Is the agent rude, condescending, dismissive, sarcastic or unprofessional?",
+          "instructions": "Is any agent line rude, condescending, dismissive, sarcastic or unprofessional toward the customer?",
           "criteria": {
-            "true": "the agent is rude, condescending, dismissive, sarcastic or unprofessional toward the customer",
-            "false": "the agent is polite, respectful and professional"
+            "true": "at least one agent line is rude, condescending, dismissive, sarcastic or unprofessional toward the customer, for example blaming the customer, talking down to them or brushing them off",
+            "false": "every agent line is polite, respectful and professional"
           }
         }
       },
       "probing": {
         "yes_means": "PASS",
-        "pass_threshold": 0.6,
+        "pass_threshold": 0.7,
         "question": {
           "type": "noul",
           "instructions": "Did the agent ask at least one genuine diagnostic question about the customer's problem?",
@@ -135,9 +135,14 @@
       "PARAPHRASE_AGENT_MAX_WORDS": 150
     }
   },
-  "sha256": "ac9a5f3c019a68ba07b88b0aa37ae160100a1315fe24812cfbc0123e449ec6b7",
+  "sha256": "b20f335289b2ffe83147ffc7fab0d728e0f2521a1eae5feb7ff6af8b95bf3e81",
+  "inputs_sha256": "66deff95a20ce04e2b731dc0f7fea374761f7eca36337f88bed6ff0bcf582c2e",
+  "extractor_sources_sha256": {
+    "laya_inputs.py": "611d73145101249872eadd0a6fbe9491d26fb6b90eca3832e84fa877e60c969c",
+    "rule_engine.py": "5b755cea212a2dd409db3e01f64ec29ef50ab94c5e3378cdb2ea5041bc13bce9"
+  },
   "n_questions": 9,
-  "qa_analysis_commit": "378f3e5217dd2d591f3afbc044bfbc1d888690d9",
+  "qa_analysis_commit": "9050b4105df61c57ec3e96e41d714ea9907debf6",
   "qa_analysis_branch": "version-10.2-laya-finetune",
-  "qa_analysis_dirty": true
+  "qa_analysis_dirty": false
 }
