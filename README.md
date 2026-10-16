@@ -78,7 +78,7 @@ Proposed final criteria (all on synthetic data; cutoffs are re-tuned on dev data
 | Check | Input text (cap) | Cutoff on P(pass) | yes means |
 |---|---|---|---|
 | Empathy | up to 2 snippets, each an upset customer turn + next 4 turns; one Laya call per snippet; one FAIL fails | 0.78 | PASS |
-| Rapport | **all agent lines** in chunks of at most 8 lines / 120 words; one Laya call per chunk; one rude chunk fails | 0.81 | FAIL |
+| Rapport | **all agent lines** in chunks of at most 8 lines / 120 words; one Laya call per chunk; one rude chunk fails | 0.50 (interim, see 7) | FAIL |
 | Paraphrasing | customer problem (<=50 words) + first 10 non-setup agent lines (<=150 words) | 0.50 | PASS |
 | Probing | customer problem (<=50 words) + agent question sentences (<=100 words, boilerplate removed) | 0.70 | PASS |
 | Ownership | agent lines containing a deflection phrase (gate still in place) | 0.52 | FAIL |
@@ -132,7 +132,7 @@ The exact question and option texts are exported to `data/frozen/checks_frozen.j
 |---|---|---|
 | Plan A | Smoke test: install, download, dry-run, 1-epoch train on 20 rows, reload, predict, save to Drive, load locally on CPU through the adapter | **Done** (passed 2026-10-16) |
 | 0 | Answer key for the 4 Main calls | **Done, with a caveat**: key is Claude-written and **not human-reviewed** (section 7) |
-| 1 | Remaining pipeline input changes + freeze | **In progress**: refactor and changes committed; untrained baseline `laya-v3` running; freeze pending |
+| 1 | Remaining pipeline input changes + freeze | **Done** 2026-10-16: frozen at `qa-analysis` tag `laya-inputs-frozen-v1` (commit `53becd8`), `inputs_sha256` `66deff95a20c...` in `data/frozen/checks_frozen.json` |
 | 2 | Labelling guide (PASS/FAIL per check, examples, hard-case types, "unsure" rule) | Planned |
 | 3 | Generator + pilot of about 240 items for human skim | Planned |
 | 4 | Gemini test set: prompts and scenario cards, imported and validated; human labels about 545 items | Planned |
@@ -151,7 +151,18 @@ Elapsed estimate 3-4 weeks; the human's time is about 14-16 hours (section 8).
 ## 7. What has been done (facts)
 
 - **Smoke test passed**, run `smoke-20261016-0848` (details in `runs/smoke-20261016-0848/RESULT.md`): base weights downloaded and hash-matched to the local copy; 1 epoch on a Colab L4; checkpoint copied to Drive with verification; reloaded two ways with identical output; served on CPU through `laya_adapter` with a largest difference from the GPU of 0.0057 (tolerance 0.03); original weights verified unchanged.
-- **Phase 1 code** (`qa-analysis`, branch `version-10.2-laya-finetune`): `fcc6869` refactor (no behaviour change, proved by byte-identical inputs on 80 calls); `9050b41` Rapport chunk scan (mean 7.9 chunks per call, max 21), Active-listening first-question/answer/second-question snippet and 0.55 similarity (calls with an Active-listening snippet rise from 8 to 19 of 80), Probing cutoff 0.60 to 0.70; self-checks updated and passing.
+- **Phase 1 code** (`qa-analysis`, branch `version-10.2-laya-finetune`): `fcc6869` refactor (no behaviour change, proved by byte-identical inputs on 80 calls); `9050b41` Rapport chunk scan (mean 7.9 chunks per call, max 21), Active-listening first-question/answer/second-question snippet and 0.55 similarity (calls with an Active-listening snippet rise from 8 to 19 of 80), Probing cutoff 0.60 to 0.70; `53becd8` interim Rapport cutoff, Round 3 results and docs. Tagged `laya-inputs-frozen-v1`. Self-checks pass.
+- **Phase 1 baseline of the untrained model** (full detail in `qa-analysis/Docs/LAYA_TEST_LOG.md`, Round 3; answer key is Claude-written):
+
+  | | Ollama | Laya v2 | Laya v3.1 (final Phase 1) |
+  |---|---|---|---|
+  | Main items matching (of 44) | 40 | 36 | 37 |
+  | Main mean score error | 9.2 | 11.7 | 13.3 |
+  | Bulk `b_*` items matching (of 372) | n/a | 348 | 351 |
+  | Time per Main call (CPU) | ~6.4 min | ~8.5 s | 22.4 s |
+
+  Probing is now 34/34 on bulk (was 30/34) and Active listening 33/33 (was 30/33). The mean score error rose although more items are right, because two wrong answers on Main call 3 used to cancel. **Rapport: the untrained model has no signal on the chunk question.** Across all 44 labelled calls the highest chunk P(rude) is 0.19-0.22 for rude and polite calls alike (rude calls 0.199-0.217, median polite 0.198), so no cutoff separates them; the first cutoff (0.81) sat on that floor and failed 29 of 33 polite bulk calls. The cutoff is therefore an interim 0.50 that never fails a call until the model is fine-tuned. Active listening has a thin margin (planted repeats 0.82-0.85, all other calls 0.55-0.81, cutoff 0.81) and still misses the genuine repeats in Main call 2.
+- **The freeze:** `inputs_sha256` covers the nine question texts, which answer means PASS, the word caps, and the source of `laya_inputs.py` and `rule_engine.py`. Cutoffs are deliberately excluded because they are re-tuned after training. `tools/export_checks.py --check` fails if any of it changes; training data built before such a change must be regenerated.
 - **Phase 0 answer key is not human-reviewed.** Two review spreadsheets were produced for the 4 Main calls; both came back with notes written by an assistant that had Claude's grades ("Claude:" / "Claude (not human):"), so neither is an independent human check. Three contested items were re-read by Claude and all stood. `docs/PHASE0_ANSWER_KEY.md` and `data/review/answer_key_main.json` record this. Ollama's 9.2 and Laya's 11.7 are therefore measured against Claude-written grades. Open requirement question: should Active listening also fail an agent who ignores what the customer already said, not only one who re-asks a question?
 
 ## 8. Who does what: the steps only the human owner (Nimithra) can do
@@ -160,7 +171,7 @@ Claude (the assistant doing the build) cannot press Run in Colab, cannot use Gem
 
 | # | When | Action | Time |
 |---|---|---|---|
-| 1 | End of Phase 1 | Okay the frozen question wording and cutoffs | 10 min |
+| 1 | End of Phase 1 | Okay the frozen question wording and cutoffs | **done** 2026-10-16 |
 | 2 | Before Phase 2 | Decide the Active-listening definition (above) | 5 min |
 | 3 | Phase 2 | Approve the labelling guide | ~1 h |
 | 4 | Phase 3 | Read the ~240-item pilot; flag disagreements | ~1 h |
@@ -181,8 +192,8 @@ Item 6 is the load-bearing one: the final claim holds only if those labels are g
 2. **Synthetic-to-real gap and style shortcuts.** All training text is written by one LLM family. Mitigations: variety matrix, matched pairs, speech-to-text noise, a different-model test set, a bag-of-words shortcut probe. Are these enough, and is 0.85 the right probe threshold?
 3. **Replay as a drift guard.** Soft targets from the untouched model on ~300 generic questions. Is that adequate, or should the replay set be larger or cover more question styles? Is it sound that replay rows enter the calibration slice?
 4. **Label noise and size of the independent test set.** 50-60 test items per check gives a balanced-accuracy interval of about +/-0.09. Is that enough to claim 0.85? The labels also come from one person.
-5. **Rapport aggregation.** "One rude chunk fails the call" over about 8 chunks per call multiplies false positives; we address it by tuning the cutoff at call level against full polite calls (target at most 5%, only ~20 calls). Is a better aggregation (max vs mean vs top-k, overlapping chunks, customer context in the chunk) worth trying?
-6. **Latency.** Rapport now makes about 8 Laya calls per call (up to 21). The baseline run measures the cost on CPU; batching the chunks into one forward pass is the fallback.
+5. **Rapport aggregation.** The untrained model scores every chunk 0.19-0.22, so training must create the signal first. "One rude chunk fails the call" over about 8 chunks per call multiplies false positives; we address it by tuning the cutoff at call level against full polite calls (target at most 5%, only ~20 calls). Is a better aggregation (max vs mean vs top-k, overlapping chunks, customer context in the chunk) worth trying?
+6. **Latency.** Rapport now makes about 8 Laya calls per call (up to 21). Measured: 22.4 s per Main call on CPU (bulk mean 12.8 s) against a 15 s target. Batching the chunks into one forward pass is the planned fix; is that safe for ModernBERT at 512 tokens, or would you cache or shorten chunks instead?
 7. **Active listening is under-defined** (re-asked question vs ignored statement) and its input is a question pair plus one customer answer, which may be too little context for "already gave in their answer".
 8. **Answer key for the 4 Main calls is LLM-written.** The headline claim therefore rests on the Gemini test set labelled by hand, not on the Main calls.
 9. **Calibration.** One temperature per question type is fitted on at most 400 held-out items (including replay). Cutoffs are re-tuned per check afterwards. Is per-check calibration needed?

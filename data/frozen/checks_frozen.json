@@ -47,7 +47,7 @@
       },
       "rapport": {
         "yes_means": "FAIL",
-        "pass_threshold": 0.81,
+        "pass_threshold": 0.5,
         "question": {
           "type": "noul",
           "instructions": "Is any agent line rude, condescending, dismissive, sarcastic or unprofessional toward the customer?",
@@ -135,14 +135,14 @@
       "PARAPHRASE_AGENT_MAX_WORDS": 150
     }
   },
-  "sha256": "b20f335289b2ffe83147ffc7fab0d728e0f2521a1eae5feb7ff6af8b95bf3e81",
+  "sha256": "f31b14a509629d6554551702f4d6c50fd6fa41a694186b7b87d2843a78456f61",
   "inputs_sha256": "66deff95a20ce04e2b731dc0f7fea374761f7eca36337f88bed6ff0bcf582c2e",
   "extractor_sources_sha256": {
     "laya_inputs.py": "611d73145101249872eadd0a6fbe9491d26fb6b90eca3832e84fa877e60c969c",
     "rule_engine.py": "5b755cea212a2dd409db3e01f64ec29ef50ab94c5e3378cdb2ea5041bc13bce9"
   },
   "n_questions": 9,
-  "qa_analysis_commit": "9050b4105df61c57ec3e96e41d714ea9907debf6",
+  "qa_analysis_commit": "53becd834c0ae76c4ab19702f785483c109d28b0",
   "qa_analysis_branch": "version-10.2-laya-finetune",
   "qa_analysis_dirty": false
 }
