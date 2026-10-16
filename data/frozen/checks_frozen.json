@@ -1,0 +1,143 @@
+{
+  "frozen": {
+    "checks": {
+      "empathy": {
+        "yes_means": "PASS",
+        "pass_threshold": 0.78,
+        "question": {
+          "type": "noul",
+          "instructions": "Does the agent acknowledge the customer's frustration with empathy?",
+          "criteria": {
+            "true": "the agent acknowledges the customer's frustration or feelings and responds with care",
+            "false": "the agent ignores, brushes off or is rude about the customer's frustration"
+          },
+          "labels": {
+            "true": "A",
+            "false": "B"
+          }
+        }
+      },
+      "active_listening": {
+        "yes_means": "FAIL",
+        "pass_threshold": 0.19,
+        "question": {
+          "type": "noul",
+          "instructions": "Does the second agent question ask for the same information as the first?",
+          "criteria": {
+            "true": "the agent repeats the same question and asks again for information already requested",
+            "false": "the second question asks for something different from the first"
+          }
+        }
+      },
+      "ownership": {
+        "yes_means": "FAIL",
+        "pass_threshold": 0.52,
+        "question": {
+          "type": "noul",
+          "instructions": "Does the agent deflect responsibility, blame another team, or refuse to help?",
+          "criteria": {
+            "true": "the agent deflects, blames another team or department, refuses to help, or tells the customer to contact someone else",
+            "false": "the agent takes ownership and keeps working on the customer's problem"
+          },
+          "labels": {
+            "true": "A",
+            "false": "B"
+          }
+        }
+      },
+      "rapport": {
+        "yes_means": "FAIL",
+        "pass_threshold": 0.81,
+        "question": {
+          "type": "noul",
+          "instructions": "Is the agent rude, condescending, dismissive, sarcastic or unprofessional?",
+          "criteria": {
+            "true": "the agent is rude, condescending, dismissive, sarcastic or unprofessional toward the customer",
+            "false": "the agent is polite, respectful and professional"
+          }
+        }
+      },
+      "probing": {
+        "yes_means": "PASS",
+        "pass_threshold": 0.6,
+        "question": {
+          "type": "noul",
+          "instructions": "Did the agent ask at least one genuine diagnostic question about the customer's problem?",
+          "criteria": {
+            "true": "the agent asked at least one question that investigates the cause or specifics of the problem, such as when it started, which device, what error or lights, or what was already tried",
+            "false": "the agent only asked greetings, identity verification, confirmations, upsell, scheduling or closing questions"
+          },
+          "labels": {
+            "true": "A",
+            "false": "B"
+          }
+        }
+      },
+      "resolved": {
+        "yes_means": "PASS",
+        "pass_threshold": 0.73,
+        "question": {
+          "type": "noul",
+          "instructions": "Did the agent explicitly confirm that the customer's issue was resolved?",
+          "criteria": {
+            "true": "the agent explicitly confirms the issue is resolved or fixed, usually after checking with the customer",
+            "false": "the agent never confirms resolution: the call just ends, the agent assumes it is fixed, the customer says it still fails, or it is handed off"
+          },
+          "labels": {
+            "true": "A",
+            "false": "B"
+          }
+        }
+      },
+      "escalation": {
+        "yes_means": "FAIL",
+        "pass_threshold": 0.47,
+        "question": {
+          "type": "noul",
+          "instructions": "Did the customer ask for a supervisor, manager or escalation that the agent refused, ignored or discouraged?",
+          "criteria": {
+            "true": "the customer asked for a supervisor, manager or escalation and the agent refused, ignored, discouraged or faked it",
+            "false": "the customer did not ask to escalate, or the agent handled the request properly"
+          }
+        }
+      },
+      "hostility": {
+        "yes_means": "FAIL",
+        "pass_threshold": 0.79,
+        "question": {
+          "type": "noul",
+          "instructions": "Is the agent hostile, abusive, insulting, threatening, mocking, or hangs up on the customer?",
+          "criteria": {
+            "true": "the agent insults, mocks, threatens, is abusive toward the customer, or abruptly hangs up",
+            "false": "the agent stays professional and respectful, even if the customer is angry"
+          }
+        }
+      },
+      "paraphrasing": {
+        "yes_means": "PASS",
+        "pass_threshold": 0.5,
+        "question": {
+          "type": "noul",
+          "instructions": "Does the agent restate or paraphrase the customer's problem back to them?",
+          "criteria": {
+            "true": "the agent restates the customer's problem in their own words to confirm they understood it",
+            "false": "the agent never restates the customer's problem"
+          }
+        }
+      }
+    },
+    "caps": {
+      "EMPATHY_MAX_SNIPPETS": 2,
+      "PROBING_PROBLEM_MAX_WORDS": 50,
+      "PROBING_QUESTIONS_MAX_WORDS": 100,
+      "RESOLVED_TAIL_LINES": 10,
+      "PARAPHRASE_CUSTOMER_MAX_WORDS": 50,
+      "PARAPHRASE_AGENT_MAX_WORDS": 150
+    }
+  },
+  "sha256": "ac9a5f3c019a68ba07b88b0aa37ae160100a1315fe24812cfbc0123e449ec6b7",
+  "n_questions": 9,
+  "qa_analysis_commit": "378f3e5217dd2d591f3afbc044bfbc1d888690d9",
+  "qa_analysis_branch": "version-10.2-laya-finetune",
+  "qa_analysis_dirty": true
+}

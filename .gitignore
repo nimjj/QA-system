@@ -1,0 +1,15 @@
+# model weights and local checkpoint copies (they live on Google Drive and on your PC, never in git)
+checkpoints/
+*.safetensors
+*.pt
+*.bin
+
+# notebooks and python noise
+.ipynb_checkpoints/
+__pycache__/
+*.py[cod]
+.venv/
+
+# secrets
+.env
+.env.*
