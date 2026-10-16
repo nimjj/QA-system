@@ -151,72 +151,56 @@ def load_tokenizer():
     return _load_tokenizer(os.path.join(snap, "tokenizer"), cfg), cfg
 
 
-def main():
-    ap = argparse.ArgumentParser()
-    ap.add_argument("--fragments", required=True, help='glob, e.g. "data/fragments/claude/pilot_*.txt"')
-    ap.add_argument("--out", required=True)
-    ap.add_argument("--dropped", default=None)
-    ap.add_argument("--sheet", default=None, help="write the human skim sheet (xlsx)")
-    ap.add_argument("--source", default="claude")
-    args = ap.parse_args()
+class Builder:
+    """Everything needed to turn one fragment into one row: the frozen questions, the real tokenizer, and
+    qa-analysis's input builder. Used by this script and by tools/import_gemini.py."""
 
-    qa = os.path.abspath(os.path.join(REPO, "..", "qa-analysis"))
-    sys.path.insert(0, qa)
-    chk = subprocess.run([sys.executable, os.path.join(HERE, "export_checks.py"), "--check"], capture_output=True, text=True)
-    print(chk.stdout.strip())
-    if chk.returncode != 0:
-        sys.exit("STOP: qa-analysis no longer matches data/frozen/checks_frozen.json. Regenerate the data after a deliberate re-freeze.")
-    frozen = json.load(open(os.path.join(REPO, "data", "frozen", "checks_frozen.json"), encoding="utf-8"))
-    checks = frozen["frozen"]["checks"]
+    def __init__(self, source="claude"):
+        self.source = source
+        qa = os.path.abspath(os.path.join(REPO, "..", "qa-analysis"))
+        sys.path.insert(0, qa)
+        chk = subprocess.run([sys.executable, os.path.join(HERE, "export_checks.py"), "--check"], capture_output=True, text=True)
+        print(chk.stdout.strip())
+        if chk.returncode != 0:
+            sys.exit("STOP: qa-analysis no longer matches data/frozen/checks_frozen.json. Regenerate the data after a deliberate re-freeze.")
+        self.frozen = json.load(open(os.path.join(REPO, "data", "frozen", "checks_frozen.json"), encoding="utf-8"))
+        self.checks = self.frozen["frozen"]["checks"]
+        from src.services.laya_inputs import build_laya_inputs
+        import src.services.rule_engine as rule_engine
+        import laya.common as lc
+        import laya.train as lt
+        self.build_laya_inputs, self.rule_engine, self.lc, self.lt = build_laya_inputs, rule_engine, lc, lt
+        self.tok, cfg = load_tokenizer()
+        self.max_len, self.head_max_len = cfg["max_len"], cfg["head_max_len"]
 
-    from src.services.laya_inputs import build_laya_inputs
-    import src.services.rule_engine as rule_engine
-    import laya.common as lc
-    import laya.train as lt
-    tok, cfg = load_tokenizer()
-    max_len, head_max_len = cfg["max_len"], cfg["head_max_len"]
-
-    files = sorted(glob.glob(os.path.join(REPO, args.fragments)) if not os.path.isabs(args.fragments) else glob.glob(args.fragments))
-    frags = [f for p in files for f in parse_file(p)]
-    ids = [f["id"] for f in frags]
-    dup = [i for i, c in collections.Counter(ids).items() if c > 1]
-    if dup:
-        sys.exit(f"duplicate fragment ids: {dup[:5]}")
-
-    rows, dropped = [], []
-    for f in frags:
+    def row(self, f):
+        """(row, None) or (None, {"id", "reason", ...}) for one parsed fragment."""
         check = f["check"]
-        if check not in checks:
-            dropped.append({"id": f["id"], "reason": f"unknown check {check}", "src": f["src"]}); continue
+        if check not in self.checks:
+            return None, {"id": f["id"], "reason": f"unknown check {check}", "src": f.get("src")}
         transcript, focus_idx, rough = to_transcript(f)
-        inp = build_laya_inputs(transcript, f.get("name"))
-        snippet, why = select(check, inp, transcript, focus_idx, rule_engine)
+        inp = self.build_laya_inputs(transcript, f.get("name"))
+        snippet, why = select(check, inp, transcript, focus_idx, self.rule_engine)
         if snippet is None:
-            dropped.append({"id": f["id"], "check": check, "reason": why, "src": f["src"]}); continue
-        q = checks[check]["question"]
-        room = lc.state_room(tok, lt.to_internal(check, q), max_len, head_max_len)
-        n_tok = len(lt.encode_state(tok, snippet, 10 ** 6))
+            return None, {"id": f["id"], "check": check, "reason": why, "src": f.get("src")}
+        q = self.checks[check]["question"]
+        room = self.lc.state_room(self.tok, self.lt.to_internal(check, q), self.max_len, self.head_max_len)
+        n_tok = len(self.lt.encode_state(self.tok, snippet, 10 ** 6))
         if n_tok > room:
-            dropped.append({"id": f["id"], "check": check, "reason": f"{n_tok} tokens > window room {room}", "src": f["src"]}); continue
+            return None, {"id": f["id"], "check": check, "reason": f"{n_tok} tokens > window room {room}", "src": f.get("src")}
         label = f["label"].upper()
-        yes_means = checks[check]["yes_means"]
-        rows.append({
+        return {
             "state": snippet,
             "questions": {check: q},
-            "expected": {check: label == yes_means},
+            "expected": {check: label == self.checks[check]["yes_means"]},
             "meta": {"id": f["id"], "call_id": f["id"], "pair_id": f.get("pair", f["id"]), "check": check, "label": label,
                      "industry": f.get("industry"), "persona": f.get("persona"), "hard": f.get("hard"),
-                     "rough": rough, "source": args.source, "tokens": n_tok, "room": room,
-                     "inputs_sha256": frozen["inputs_sha256"]},
-        })
+                     "rough": rough, "source": self.source, "tokens": n_tok, "room": room,
+                     "inputs_sha256": self.frozen["inputs_sha256"]},
+        }, None
 
-    os.makedirs(os.path.dirname(os.path.abspath(args.out)), exist_ok=True)
-    with open(args.out, "w", encoding="utf-8", newline="\n") as fh:
-        for r in rows:
-            fh.write(json.dumps(r, ensure_ascii=False) + "\n")
-    if args.dropped:
-        json.dump(dropped, open(args.dropped, "w", encoding="utf-8"), indent=1)
 
+def report(frags, rows, dropped):
     print(f"\nfragments {len(frags)} -> rows {len(rows)}, dropped {len(dropped)}")
     by = collections.defaultdict(collections.Counter)
     for r in rows:
@@ -230,6 +214,35 @@ def main():
     if len(dropped) > 25:
         print(f"  ... and {len(dropped) - 25} more")
 
+
+def main():
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--fragments", required=True, help='glob, e.g. "data/fragments/claude/pilot_*.txt"')
+    ap.add_argument("--out", required=True)
+    ap.add_argument("--dropped", default=None)
+    ap.add_argument("--sheet", default=None, help="write the human skim sheet (xlsx)")
+    ap.add_argument("--source", default="claude")
+    args = ap.parse_args()
+
+    builder = Builder(args.source)
+    files = sorted(glob.glob(os.path.join(REPO, args.fragments)) if not os.path.isabs(args.fragments) else glob.glob(args.fragments))
+    frags = [f for p in files for f in parse_file(p)]
+    dup = [i for i, c in collections.Counter(f["id"] for f in frags).items() if c > 1]
+    if dup:
+        sys.exit(f"duplicate fragment ids: {dup[:5]}")
+
+    rows, dropped = [], []
+    for f in frags:
+        row, drop = builder.row(f)
+        (rows if row else dropped).append(row or drop)
+
+    os.makedirs(os.path.dirname(os.path.abspath(args.out)), exist_ok=True)
+    with open(args.out, "w", encoding="utf-8", newline="\n") as fh:
+        for r in rows:
+            fh.write(json.dumps(r, ensure_ascii=False) + "\n")
+    if args.dropped:
+        json.dump(dropped, open(args.dropped, "w", encoding="utf-8"), indent=1)
+    report(frags, rows, dropped)
     if args.sheet:
         write_sheet(rows, args.sheet)
 
