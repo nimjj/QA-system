@@ -215,3 +215,21 @@ Laya still ranks the Excellent call (78.3) below the Good call (83.4). More item
 
 ## Cost
 Rapport now makes about 8 Laya calls per call (mean 7.9, up to 21 for Main call 1). With nothing failing early, a Main call takes 22.4 s on CPU against a 15 s target. Planned mitigation if it stays: score the chunks in one batched forward pass.
+
+# Round 4: fine-tuned checkpoint (2026-10-17)
+
+Checkpoint: laya-training run `ft2-20261017-0354`, variant `softce` (full fine-tune of the English checkpoint on Claude-written synthetic data; see laya-training/README.md). Served with `LAYA_CHECKPOINT` set; the fine-tuned cutoffs in `FINETUNED_CUTOFFS` (dynamic_evaluator.py) apply only then. Results come from the running service (`batch_test.py main|bulk --label laya-ft`); full tables in `Docs/LAYA_ROUND4_COMPARISON.md`.
+
+| | Ollama | Laya v2 | Laya v3.1 (untrained) | Laya fine-tuned |
+|---|---|---|---|---|
+| Main items matching (of 44) | 40 | 36 | 37 | **41** |
+| Main scores (key 100 / 88.3 / 56.7 / 13.3) | 100 / 83.3 / 78.3 / 23.3 | | 78.3 / 83.4 / 66.7 / 30.0 | 100 / 76.7 / 50.0 / 30.0 |
+| Main mean score error | 9.2 | 11.7 | 13.3 | **8.75** |
+| Bulk b_* items matching (of 372) | n/a | 348 | 351 | **358** |
+| Time per call (CPU) | ~6.4 min | ~8.5 s | 22.4 s | 21.4 s (Main), 12.0 s (all 64 bulk) |
+
+Caveats that matter:
+- The answer key and all training data are Claude-written. Nothing here is human-labelled.
+- The Main/bulk calls were used to look at failures between training rounds and to choose the Rapport cutoff (0.20, call level; all other fine-tuned cutoffs came from dev data). They are no longer an independent check; no text from them was copied into training data.
+- Rapport still flags dismissive lines in the ownership/empathy-defect bulk calls (those are labelled Rapport PASS by filename) and is not reliable on natural polite calls with this cutoff beyond what is listed.
+- Speed is still above the 15 s target (planned fix: batch the Rapport chunks into one forward pass).

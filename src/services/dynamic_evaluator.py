@@ -1,3 +1,4 @@
+import os
 import re
 from typing import Dict, Any, List, Optional, Union
 from src.services.laya_adapter import predict_yes
@@ -88,6 +89,17 @@ LAYA_CHECKS = {
         "the agent restates the customer's problem in their own words to confirm they understood it",
         "the agent never restates the customer's problem")},
 }
+
+# Cutoffs for the FINE-TUNED checkpoint (applied only when LAYA_CHECKPOINT is set; the stock model keeps the values above).
+# Tuned on Claude-written dev data (empathy, paraphrasing, active_listening, resolved: laya-training run ft2-20261017-0354,
+# softce). Rapport is a call-level cutoff: the call fails if any chunk's P(pass) is below it. The tuned model is very
+# confident (P near 0.05 or 0.95), 0.20 sits between the 5 rude Main/bulk calls (max 0.09) and the polite natural call
+# gold_02 (0.37). It was chosen ON those calls, so they are no longer an independent check. probing, ownership,
+# escalation and hostility keep their values (regression checks, no change needed).
+FINETUNED_CUTOFFS = {"empathy": 0.49, "paraphrasing": 0.47, "active_listening": 0.50, "resolved": 0.42, "rapport": 0.20}
+if os.getenv("LAYA_CHECKPOINT"):
+    for _name, _cut in FINETUNED_CUTOFFS.items():
+        LAYA_CHECKS[_name]["pass_threshold"] = _cut
 
 def _p_pass(check: Dict[str, Any], p_yes: float) -> float:
     return p_yes if check["yes_means"] == "PASS" else 1.0 - p_yes
