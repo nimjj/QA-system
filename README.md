@@ -8,6 +8,8 @@ We grade telephony-support calls against 11 criteria with a service (`qa-analysi
 
 **Decision of 2026-10-16 (time pressure; the owner delegated the ML calls):** the Gemini-written test set and all human labelling were dropped. **Every train, dev and test row was written and labelled by Claude.** To keep the test as far from the training data as possible, the test rows use industries, agent personas and looser wording that the training rows never contain. That makes the test a fair check of generalisation *within Claude's writing*, but **it is not an independent or human-labelled test**. There are no real call transcripts, so every result is "measured on Claude-written synthetic calls", never "proven on real calls". The data is built in stages (small first, scale only if the learning curve says so). Training runs on a Colab L4 GPU (about 15 minutes per run, measured); serving stays on CPU.
 
+**Result so far (2026-10-17, details in `runs/ft3-stage3/RESULT.md`):** after three training rounds the fine-tuned model scores 41/44 items on the 4 Main calls with a mean score error of 8.75 (Ollama 40/44, 9.2; untrained Laya 37/44, 13.3), and 358/372 bulk items (untrained 351). The first two rounds were not good enough on the natural Main calls (errors 16.3 and 15.4); the cause was that training snippets were half the length and much less natural than real ones, fixed with padded rows (stage 2) and complete natural calls cut by the extractors (stage 3). **Limits:** all data, tests and the answer key are Claude-written; the Main/bulk calls were used to pick the Rapport cutoff and to see failure types, so they are no longer independent; the custom-criteria safeguard agrees with the untouched model on 82% of questions (target 90%); speed is 21.4 s per Main call (target 15 s).
+
 ## 2. The system and where Laya sits
 
 `POST /api/evaluate` (FastAPI, synchronous) parses a transcript (turns with speaker, start time, per-turn sentiment score) and grades it:
@@ -149,10 +151,10 @@ This is about a third of the volume first planned (3,400 train rows). It is a **
 | 5 | Data generation | **Done, first stage**: train 1,269 rows, dev 273, test 396 (section 5.3); scale only if the learning curve asks for it |
 | 6 | Validation (incl. shortcut probe) | **Done**: warnings recorded in section 5.3, no hard fails |
 | 7 | Split by pair and call; manifest | **Done** (`data/rows/manifest.json`, no leakage found) |
-| 8-10 | Baseline, training R1/R2, evaluation | **Ready to run**: `01_train_eval.ipynb` on Colab (one Run all) |
-| 11 | Integration, re-run Main and bulk | Planned (after the notebook) |
+| 8-10 | Baseline, training, evaluation | **Done** three times (stage 1, 2, 3): `01_train_eval.ipynb`, results in `runs/` |
+| 11 | Integration, re-run Main and bulk | **Done** for stage 3: `LAYA_CHECKPOINT` + `FINETUNED_CUTOFFS` in `qa-analysis`; Main 41/44, error 8.75; bulk 358/372 |
 | 12 | Iteration (error analysis on dev only; more data if the learning curve says so) | Planned |
-| 13 | Report: "measured on Claude-written synthetic data" | Planned |
+| 13 | Report: "measured on Claude-written synthetic data" | Written in the results paragraph above and `runs/ft3-stage3/RESULT.md`; final write-up with the owner |
 
 The human's time is now about 1 hour (section 8).
 
