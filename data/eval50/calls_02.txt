@@ -1,0 +1,131 @@
+# Eval50 batch 2: eval_06 - eval_10.
+
+@@call id=eval_06 name=Marcus
+@labels B=P H=P V=P PE=P E=P R=P PA=P AL=P O=P PR=P CR=P
+@notes All PASS. Speed fault fixed on the call with a firmware push during a managed hold (announced, thanked); speed re-tested after the fix (legitimate re-check, not a repeat).
+A: Thank you for calling S-Net technical support, my name is Leon. How can I help today?
+C(-22): Hi Leon. My internet speed has been absolutely terrible for a week. I'm paying for 500 meg and I'm getting about twelve. It's ridiculous, honestly.
+A: That's a huge drop from what you're paying for, and a week of it would wear anyone's patience thin. Let's work out what's going on. Could you give me your account PIN, please?
+C(-12): 2 9 9 1.
+A: Thanks, Marcus. So for the last week you've been getting around twelve megabits instead of the five hundred on your plan. Have I got that right?
+C(-10): Yes.
+A: Where are you testing the speed, on wifi or with a cable plugged into the router?
+C(-10): On wifi, on my laptop, in the same room as the router.
+A: Okay. Do you have a laptop or computer you could plug in with a network cable, just for a test?
+C(-9): I've got a cable somewhere. Give me a minute.
+@gap 25
+C(-8): Right, it's plugged in.
+A: Great. Could you run the speed test again on the cable and tell me what figure you get?
+C(-8): Twenty-one megabits. Still awful.
+A: Thanks, that rules out the wifi. Which router do you have, is it the black S-Net Hub 4 or the older white one?
+C(-8): The old white one. It's been here years.
+A: That's useful. The white Hub 2 has a known fault where an old firmware version caps the speed after a power cut. I can see yours is on that version and has been restarting itself this week. Let me place you on a brief hold while I push the update to it.
+@gap 70
+A: Thank you for holding, Marcus. The update has gone through and the router will restart now. The lights will flash for about two minutes.
+C(-6): Okay, it's flashing.
+@gap 25
+C(-5): It's back to solid white.
+A: Great. Could you run the speed test on the cable again and tell me the figure?
+C(-3): Four hundred and eighty-seven! That's more like it.
+A: Excellent. And on wifi, from the laptop in the same room?
+C(-3): Three hundred and ten on wifi.
+A: That's normal for wifi on that router. Because you've been getting a fraction of your speed for a week, I've also added a credit of fifteen pounds to your account.
+C(-2): Oh, that's fair. Thank you.
+A: You're welcome. So your speed is back to full on the cable and normal on wifi. Is everything working properly now, from your side?
+C(-2): Yes, that's all sorted, thank you.
+A: Thank you for choosing S-Net, Marcus. Have a good evening.
+
+@@call id=eval_07 name=Ingrid
+@labels B=P H=P V=P PE=P E=P R=P PA=P AL=P O=P PR=P CR=P
+@notes All PASS. Moving-house request; customer neutral; agent paraphrases, probes, confirms.
+A: Thank you for calling S-Net, this is Ben. What can I help you with today?
+C(-3): Hi Ben. I'm moving house at the end of the month and I want to take my broadband with me.
+A: Great, congratulations on the move. So you'd like to move your S-Net broadband to your new home at the end of the month. Is that correct?
+C(-2): Yes.
+A: Can I take your PIN to get into the account?
+C(-2): Sure, 5 6 1 2.
+A: Thanks, Ingrid. What's the new postcode, so I can check what's available there?
+C(-2): It's EH10 5JW.
+A: And what's your moving date exactly?
+C(-2): Thursday the twenty-ninth.
+A: Will anyone be in at the new place before then, or is that the first day you'll have keys?
+C(-2): I get the keys on the twenty-eighth.
+A: Perfect. Good news, the new address can get the same five hundred meg fibre. I can book the switch for the twenty-ninth, and an engineer visit isn't needed because the property already has a fibre point. Shall I go ahead?
+C(-1): Yes please.
+A: Done. Your current address will switch off on the twenty-ninth at midnight, and the new one goes live the same morning. Just take your router with you and plug it into the fibre point.
+C(-1): Easy enough.
+A: Is there anything about the move that's still unclear, or have I covered everything you needed?
+C(-1): No, that's everything. All clear.
+A: Brilliant. Good luck with the move, Ingrid. Thank you for choosing S-Net.
+
+@@call id=eval_08 name=Kwabena
+@labels B=P H=P V=P PE=P E=P R=P PA=P AL=P O=P PR=P CR=P
+@notes All PASS. Very upset customer (overcharged for months); agent shows strong empathy, owns the fix, confirms resolution.
+A: Thank you for calling S-Net, my name is Hannah. How can I help you today?
+C(-35): I'm absolutely livid. I've just found out you've been charging me for a landline I cancelled in March. That's seven months of money you've taken from me.
+A: I'm so sorry, Kwabena. Paying for seven months for something you cancelled is completely unacceptable, and I completely understand why you're angry. I'm going to look into it right now and put it right.
+C(-20): I should hope so.
+A: Can you answer the security question on the account for me: the name of your first pet?
+C(-18): Biscuit.
+A: Thank you. So you cancelled the landline in March, and you've still been billed for it every month since then. Is that right?
+C(-15): Yes. Twelve pounds a month.
+A: Did you get a cancellation confirmation at the time, by email or letter?
+C(-14): I got an email, I've still got it.
+A: That's really helpful. Does it have a reference number at the top, starting with CN?
+C(-12): Yes, CN 4 4 0 9 1.
+A: Thank you. I can see that cancellation, and I can see where it went wrong: the request was logged but never sent through to billing. That's our error, entirely.
+C(-12): So what are you going to do about it?
+A: I'm cancelling the line on the billing system right now, and I'm refunding all seven months, that's eighty-four pounds, back to your card. I'm also adding a ten-pound goodwill credit because you shouldn't have had to find this yourself.
+C(-6): Okay. Thank you. That's more like it.
+A: The refund will show on your card in three to five working days. Would you like me to email you a breakdown so you can check it?
+C(-5): Yes please.
+A: Sent. Could you check that it's arrived, and that it shows the line as cancelled?
+C(-3): Yes, it's here. Says line cancelled and refund of eighty-four pounds.
+A: Great. So the landline is properly cancelled now, the refund is on its way, and the credit is applied. Is there anything about this that you're still unhappy with?
+C(-2): No, you've sorted it. Thanks Hannah.
+A: Thank you for your patience, Kwabena. Thank you for choosing S-Net, and have a good day.
+
+@@call id=eval_09 name=Leticia
+@labels B=F H=P V=P PE=P E=P R=P PA=P AL=P O=P PR=P CR=P
+@notes B: the agent never uses the closing script ("thank you for choosing S-Net"); ends with "Thanks, bye now". Everything else is good.
+A: Thank you for calling S-Net, this is Rory. How can I help today?
+C(-18): Hi. My TV box keeps freezing in the middle of programmes and it's been going on for days, it's driving us mad.
+A: Freezing mid-programme for days would drive anyone mad, I'm sorry about that. Let's see what we can do. Can I take your PIN first?
+C(-8): 8 1 2 0.
+A: Thanks, Leticia. So the TV box freezes partway through programmes, and it's been happening for a few days. Is that right?
+C(-6): Yes.
+A: Does it happen on live TV, recordings, or the catch-up apps?
+C(-6): Mostly live TV. Recordings seem fine.
+A: Is the box connected to the router with a cable, or over wifi?
+C(-6): Wifi, I think. There's no cable.
+A: That would explain live TV struggling. Do you know roughly how far the box is from the router?
+C(-6): Other side of the house. Two walls.
+A: That's likely the cause. I'm sending a powerline adapter kit, free, which uses your electrics to give the box a wired connection. It arrives in two days. In the meantime, could you restart the box for me now?
+C(-5): Okay, it's restarting.
+C(-4): It's back on.
+A: Can you put on a live channel and let it run for a minute, and tell me if it freezes?
+C(-3): It's been fine for a minute or so now.
+A: Good. With the adapter it should stay that way. Is everything working for now?
+C(-2): Yes, it's all working.
+A: Great. Thanks, bye now.
+
+@@call id=eval_10 name=Rowan
+@labels B=P H=P V=P PE=F E=P R=P PA=P AL=P O=P PR=P CR=P
+@notes PE: the agent never addresses Rowan by name at any point. Everything else is good.
+A: Thank you for calling S-Net, my name's Sophie. How can I help you today?
+C(-20): Hi, I've been trying to log into my S-Net email for two days and it keeps saying wrong password, but I know it's right. I'm getting so annoyed with it.
+A: That's annoying, especially when you're sure the password is right. Let's get you back in. Can you answer the security question on your account, please?
+C(-8): My mum's maiden name is Hartley.
+A: Thank you, that's verified. So for two days you've been getting a wrong-password message on S-Net email, even though you're sure the password is correct. Is that right?
+C(-6): Yes, exactly.
+A: Are you logging in on the website, or in an email app on your phone?
+C(-6): The app on my phone. The website does the same, I tried.
+A: Did you change your password anywhere else recently, for example on the S-Net account page?
+C(-6): Oh. I did change my account password last week, actually.
+A: That's very likely it. The email password and the account password became one and the same in our update last month, so the email now needs the new one. Could you try logging into the email with the password you set last week?
+C(-4): Okay. Trying on the website. Yes, I'm in.
+A: Great. And in the app, you'll need to remove the account and add it again with the new password. Can you try that now?
+C(-3): Done. It's loading my emails.
+A: Perfect. So your email works on both the website and the app now. Is that all sorted for you?
+C(-2): Yes, all sorted. Thanks.
+A: You're welcome. Thank you for choosing S-Net, have a good day.
