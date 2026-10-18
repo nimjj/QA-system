@@ -1,0 +1,14 @@
+# AG50: an independent test of the fine-tuned model (2026-10-18)
+
+50 calls of 10 to 20 minutes, written and graded by Antigravity (a different AI from the one that wrote the training data; not human-reviewed). Calls, keys, results, report and dashboard live in the `qa-analysis` repo, branch `version-10.2-laya-finetune`: `inputs/AG50/`, `Docs/AG50_REPORT.md`, `Docs/AG50_DASHBOARD.html`, `Docs/ag50_stats.json`. The checkpoint tested is `checkpoints/final-softce-3` (stage 3).
+
+| | Stock Laya | Fine-tuned Laya | Ollama |
+|---|---|---|---|
+| 7 judged items matching the key (of 350) | 226 (64.6%) | 252 (72.0%) | **275 (78.6%)** |
+| Mean score error / bias (points) | 16.0 / -4.7 | **12.7 / +1.2** | 12.8 / +11.7 |
+| Time per call | 17.1 s | 16.2 s | 386.2 s |
+
+- On the judged items Ollama is ahead of fine-tuned Laya by 6.6 points (95% CI 0.9 to 12.3; McNemar p = 0.014). Fine-tuning gained 7.4 points over stock (p = 0.005). The earlier 92% on Eval50 and 41/44 on Main were measured against keys with the same author as the training data and were optimistic.
+- Training clearly improved the model's ranking (AUC) only on Rapport (+0.24, CI +0.08 to +0.42). Empathy, Paraphrasing and Resolved show no clear change.
+- Much of the loss happens before the model: 6 of 15 Active-listening faults and 6 of 17 Ownership faults never reach it (the app's snippet rules), Empathy is checked per upset moment while the key is call-level (25 false alarms), and Rapport's any-chunk rule over about 10 chunks gives 31% false fails.
+- Implication for phase 12: more training on the existing snippets is the least promising lever. Fix the snippet builders (Active listening, Empathy, Ownership gate, windows for Paraphrasing and Resolved), re-tune cutoffs (Probing especially), regenerate the affected training data with a second author, retrain, and keep AG50 sealed as the test. A human review of the disagreements (about 30 items) is the most valuable next step.
