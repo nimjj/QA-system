@@ -233,3 +233,19 @@ Caveats that matter:
 - The Main/bulk calls were used to look at failures between training rounds and to choose the Rapport cutoff (0.20, call level; all other fine-tuned cutoffs came from dev data). They are no longer an independent check; no text from them was copied into training data.
 - Rapport still flags dismissive lines in the ownership/empathy-defect bulk calls (those are labelled Rapport PASS by filename) and is not reliable on natural polite calls with this cutoff beyond what is listed.
 - Speed is still above the 15 s target (planned fix: batch the Rapport chunks into one forward pass).
+
+# Round 5: AG50, an independent test (2026-10-18)
+
+50 calls of 10 to 20 minutes with sentiment scores, **written and graded by Antigravity** (not Claude, not human-reviewed; brief in `Docs/ANTIGRAVITY_TEST_BRIEF.md`, files in `inputs/AG50/`). The four rule items, auto-fail detection and score maths of the key were re-checked against the app's code: 0 mismatches. Full report: `Docs/AG50_REPORT.md`; charts: `Docs/AG50_DASHBOARD.html`; numbers: `Docs/ag50_stats.json`; per-call tables: `Docs/AG50_RESULTS.md`.
+
+| | Stock Laya | Fine-tuned Laya | Ollama |
+|---|---|---|---|
+| 7 judged items matching the key (of 350) | 226 (64.6%) | 252 (72.0%) | **275 (78.6%)** |
+| All 11 items (of 550) | 426 (77.5%) | 452 (82.2%) | **471 (85.6%)** |
+| Mean score error / bias | 16.0 / -4.7 | **12.7 / +1.2** | 12.8 / +11.7 |
+| Time per call | 17.1 s | 16.2 s | 386.2 s |
+
+- Ollama beats fine-tuned Laya on the judged items by 6.6 points (95% CI 0.9 to 12.3, McNemar p = 0.014); fine-tuning beat stock by 7.4 points (p = 0.005). The 92% on Eval50 (same author as the training data) was optimistic.
+- Pipeline: on long calls the snippets often miss the evidence. 6 of 15 Active-listening faults and 6 of 17 Ownership faults never reach the model; Empathy is checked per upset moment but the key (and the QA definition) is call-level, giving 25 false alarms; Rapport's any-chunk rule on about 10 chunks per call gives 31% false fails; Paraphrasing and Resolved see about 200 of about 1,900 words.
+- Training clearly raised ranking quality (AUC) only for Rapport (+0.24, CI 0.08 to 0.42); Probing's problem is its cutoff (balanced accuracy 0.65, 0.79 with a cross-validated cutoff).
+- `Scripts/probe_laya.py` gained `--suite <folder>` (default behaviour unchanged). `Scripts/ag50_analysis.py` and `Scripts/build_ag50_dashboard.py` regenerate the statistics and the dashboard.

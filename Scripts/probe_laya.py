@@ -7,6 +7,7 @@ Feed the output to Scripts/laya_cutoffs.py to pick cutoffs from the b_* filename
 Usage:
     python Scripts/probe_laya.py "inputs/Test (results)/Laya probes/probe_laya-v3.json"
     python Scripts/probe_laya.py out.json --code-root ../other-checkout   # probe another version of src/
+    python Scripts/probe_laya.py out.json --suite inputs/AG50             # probe one folder of calls
 
 Loads Laya (~1.5 GB) and takes about 15 minutes on CPU. Don't run it while the service or Ollama is busy.
 """
@@ -22,6 +23,7 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 ap = argparse.ArgumentParser()
 ap.add_argument("out", help="output JSON file")
 ap.add_argument("--code-root", default=ROOT, help="checkout whose src/ is probed (default: this repo)")
+ap.add_argument("--suite", default=None, help="probe only this folder of call payloads, e.g. inputs/AG50 (default: Main + Bulk)")
 args = ap.parse_args()
 sys.path[:0] = [args.code_root, os.path.join(args.code_root, "src")]
 
@@ -50,8 +52,11 @@ de.predict_yes = logged
 with open(os.path.join(ROOT, "resources", "criteria_config.json"), encoding="utf-8") as f:
     criteria = json.load(f)["tenant-abc"]
 
-files = sorted(glob.glob(os.path.join(ROOT, "inputs", "Main tests", "gold_*.json")))
-files += sorted(glob.glob(os.path.join(ROOT, "inputs", "Bulk tests", "*.json")))
+if args.suite:
+    files = sorted(glob.glob(os.path.join(os.path.abspath(args.suite), "*.json")))
+else:
+    files = sorted(glob.glob(os.path.join(ROOT, "inputs", "Main tests", "gold_*.json")))
+    files += sorted(glob.glob(os.path.join(ROOT, "inputs", "Bulk tests", "*.json")))
 for fp in files:
     with open(fp, encoding="utf-8") as f:
         payload = json.load(f)
