@@ -247,5 +247,21 @@ Caveats that matter:
 
 - Ollama beats fine-tuned Laya on the judged items by 6.6 points (95% CI 0.9 to 12.3, McNemar p = 0.014); fine-tuning beat stock by 7.4 points (p = 0.005). The 92% on Eval50 (same author as the training data) was optimistic.
 - Pipeline: on long calls the snippets often miss the evidence. 6 of 15 Active-listening faults and 6 of 17 Ownership faults never reach the model; Empathy is checked per upset moment but the key (and the QA definition) is call-level, giving 25 false alarms; Rapport's any-chunk rule on about 10 chunks per call gives 31% false fails; Paraphrasing and Resolved see about 200 of about 1,900 words.
-- Training clearly raised ranking quality (AUC) only for Rapport (+0.24, CI 0.08 to 0.42); Probing's problem is its cutoff (balanced accuracy 0.65, 0.79 with a cross-validated cutoff).
+- Training clearly raised ranking quality (AUC) only for Rapport (+0.24, CI 0.08 to 0.42). A Probing cutoff tuned on AG50 (balanced accuracy 0.65 -> 0.79) was tested on the bulk set and rejected: it raises false fails from 1 to 12 of 33 good calls.
 - `Scripts/probe_laya.py` gained `--suite <folder>` (default behaviour unchanged). `Scripts/ag50_analysis.py` and `Scripts/build_ag50_dashboard.py` regenerate the statistics and the dashboard.
+
+# Round 6: flow v2, windows chosen by call structure (2026-10-19)
+
+Full write-up: `Docs/FLOW_V2.md`. Lab reports: `Docs/FLOW_V2_LAB.md`, `Docs/FLOW_V2_REGRESSION.md`. Same fine-tuned checkpoint and cutoffs; only what the model is shown changes (Empathy: one window per distinct outburst, strict rubric chosen by the owner; Paraphrasing: restatement-cue gate plus a tight window; Ownership: wider deflection list). On when `LAYA_CHECKPOINT` is set (override with `LAYA_FLOW`).
+
+| | Flow v1 | Flow v2 | Ollama |
+|---|---|---|---|
+| AG50 judged items (of 350), a development set | 252 (72.0%) | **281 (80.3%)** | 275 (78.6%) |
+| AG50 mean score error | 12.7 | **9.0** | 12.8 |
+| Main items (of 44) | 41 | **42** | 40 |
+| Bulk items (of 372) | 358 | **359** | n/a |
+| AG50 time per call | 16.2 s | 15.4 s | 386.2 s |
+
+- v2 vs Ollama on AG50 judged items: +1.7 points, 95% CI -3.7 to +7.1, McNemar p = 0.58: not distinguishable. Gain over v1: +8.3 points, p < 0.001, but AG50 was used to design v2.
+- Two regressions on the way (bulk 358 -> 347), both found by rerunning Main and bulk, both fixed: late outbursts with positive sentiment were missed; "you'll have to wait" matched the Ownership phrase.
+- Still weak: Active listening (0 of 15 caught), Rapport (31% false fails), Probing, Resolved. Need training data.

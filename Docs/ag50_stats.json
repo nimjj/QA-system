@@ -3,11 +3,13 @@
  "engines": [
   "laya-stock",
   "laya-ft",
+  "laya-ft-v2b",
   "ollama"
  ],
  "nice": {
   "laya-stock": "Stock Laya",
   "laya-ft": "Fine-tuned Laya",
+  "laya-ft-v2b": "Fine-tuned Laya + flow v2",
   "ollama": "Ollama"
  },
  "short": {
@@ -104,6 +106,35 @@
    "sec_per_call": 16.154,
    "autofail_ok": 50
   },
+  "laya-ft-v2b": {
+   "items_all": [
+    481,
+    550
+   ],
+   "acc_all": 0.8745454545454546,
+   "acc_all_ci": [
+    0.8454545454545453,
+    0.9036363636363636
+   ],
+   "items_judged": [
+    281,
+    350
+   ],
+   "acc_judged": 0.8028571428571427,
+   "acc_judged_ci": [
+    0.7571428571428571,
+    0.8485714285714285
+   ],
+   "mae": 8.966,
+   "mae_ci": [
+    6.734,
+    11.268049999999999
+   ],
+   "bias": 1.3700000000000003,
+   "spearman": 0.8689188141135659,
+   "sec_per_call": 15.357999999999999,
+   "autofail_ok": 50
+  },
   "ollama": {
    "items_all": [
     471,
@@ -179,6 +210,36 @@
    "only_a_right": 70,
    "only_b_right": 21,
    "mcnemar_p": 2.509086976240059e-07
+  },
+  "laya-ft-v2b vs laya-ft": {
+   "diff_judged": 0.08285714285714274,
+   "diff_judged_ci": [
+    0.04571428571428593,
+    0.12
+   ],
+   "diff_all": 0.052727272727272734,
+   "diff_all_ci": [
+    0.029090909090909167,
+    0.0763636363636363
+   ],
+   "only_a_right": 37,
+   "only_b_right": 8,
+   "mcnemar_p": 1.5374090196473844e-05
+  },
+  "laya-ft-v2b vs ollama": {
+   "diff_judged": 0.017142857142857015,
+   "diff_judged_ci": [
+    -0.03714285714285692,
+    0.07142857142857151
+   ],
+   "diff_all": 0.018181818181818077,
+   "diff_all_ci": [
+    -0.016363636363636358,
+    0.05454545454545423
+   ],
+   "only_a_right": 43,
+   "only_b_right": 37,
+   "mcnemar_p": 0.5764306261883931
   }
  },
  "per_item": {
@@ -197,6 +258,18 @@
     ]
    },
    "laya-ft": {
+    "tp": 11,
+    "fn": 0,
+    "fp": 0,
+    "tn": 39,
+    "acc": 1.0,
+    "ba": 1.0,
+    "ba_ci": [
+     1.0,
+     1.0
+    ]
+   },
+   "laya-ft-v2b": {
     "tp": 11,
     "fn": 0,
     "fp": 0,
@@ -247,6 +320,18 @@
      1.0
     ]
    },
+   "laya-ft-v2b": {
+    "tp": 11,
+    "fn": 0,
+    "fp": 0,
+    "tn": 39,
+    "acc": 1.0,
+    "ba": 1.0,
+    "ba_ci": [
+     1.0,
+     1.0
+    ]
+   },
    "ollama": {
     "tp": 11,
     "fn": 0,
@@ -275,6 +360,18 @@
     ]
    },
    "laya-ft": {
+    "tp": 10,
+    "fn": 0,
+    "fp": 0,
+    "tn": 40,
+    "acc": 1.0,
+    "ba": 1.0,
+    "ba_ci": [
+     1.0,
+     1.0
+    ]
+   },
+   "laya-ft-v2b": {
     "tp": 10,
     "fn": 0,
     "fp": 0,
@@ -325,6 +422,18 @@
      1.0
     ]
    },
+   "laya-ft-v2b": {
+    "tp": 12,
+    "fn": 0,
+    "fp": 0,
+    "tn": 38,
+    "acc": 1.0,
+    "ba": 1.0,
+    "ba_ci": [
+     1.0,
+     1.0
+    ]
+   },
    "ollama": {
     "tp": 12,
     "fn": 0,
@@ -362,6 +471,18 @@
     "ba_ci": [
      0.5535714285714286,
      0.7
+    ]
+   },
+   "laya-ft-v2b": {
+    "tp": 16,
+    "fn": 1,
+    "fp": 10,
+    "tn": 23,
+    "acc": 0.78,
+    "ba": 0.8190730837789661,
+    "ba_ci": [
+     0.7190401785714285,
+     0.9091680814940577
     ]
    },
    "ollama": {
@@ -403,6 +524,18 @@
      0.7127287586169164
     ]
    },
+   "laya-ft-v2b": {
+    "tp": 14,
+    "fn": 2,
+    "fp": 5,
+    "tn": 29,
+    "acc": 0.86,
+    "ba": 0.8639705882352942,
+    "ba_ci": [
+     0.7565524193548386,
+     0.9565972222222222
+    ]
+   },
    "ollama": {
     "tp": 0,
     "fn": 16,
@@ -431,6 +564,18 @@
     ]
    },
    "laya-ft": {
+    "tp": 0,
+    "fn": 15,
+    "fp": 0,
+    "tn": 35,
+    "acc": 0.7,
+    "ba": 0.5,
+    "ba_ci": [
+     0.5,
+     0.5
+    ]
+   },
+   "laya-ft-v2b": {
     "tp": 0,
     "fn": 15,
     "fp": 0,
@@ -481,6 +626,18 @@
      0.90625
     ]
    },
+   "laya-ft-v2b": {
+    "tp": 16,
+    "fn": 1,
+    "fp": 0,
+    "tn": 33,
+    "acc": 0.98,
+    "ba": 0.9705882352941176,
+    "ba_ci": [
+     0.9047619047619048,
+     1.0
+    ]
+   },
    "ollama": {
     "tp": 8,
     "fn": 9,
@@ -509,6 +666,18 @@
     ]
    },
    "laya-ft": {
+    "tp": 11,
+    "fn": 4,
+    "fp": 11,
+    "tn": 24,
+    "acc": 0.7,
+    "ba": 0.7095238095238094,
+    "ba_ci": [
+     0.5665280665280665,
+     0.8416666666666666
+    ]
+   },
+   "laya-ft-v2b": {
     "tp": 11,
     "fn": 4,
     "fp": 11,
@@ -559,6 +728,18 @@
      0.8089430894308942
     ]
    },
+   "laya-ft-v2b": {
+    "tp": 5,
+    "fn": 8,
+    "fp": 2,
+    "tn": 35,
+    "acc": 0.8,
+    "ba": 0.6652806652806653,
+    "ba_ci": [
+     0.5267410714285714,
+     0.8089430894308942
+    ]
+   },
    "ollama": {
     "tp": 9,
     "fn": 4,
@@ -598,6 +779,18 @@
      0.8833333333333333
     ]
    },
+   "laya-ft-v2b": {
+    "tp": 12,
+    "fn": 7,
+    "fp": 3,
+    "tn": 28,
+    "acc": 0.8,
+    "ba": 0.7674023769100169,
+    "ba_ci": [
+     0.6440972222222222,
+     0.8833333333333333
+    ]
+   },
    "ollama": {
     "tp": 13,
     "fn": 6,
@@ -615,6 +808,7 @@
  "kappa_judged": {
   "laya-stock": 0.1897543125980136,
   "laya-ft": 0.34736281299946736,
+  "laya-ft-v2b": 0.5393858477970628,
   "ollama": 0.41824387216878706
  },
  "by_length": [
@@ -623,6 +817,7 @@
    "n": 10,
    "laya-stock": 0.7285714285714285,
    "laya-ft": 0.7571428571428572,
+   "laya-ft-v2b": 0.8285714285714285,
    "ollama": 0.9142857142857145
   },
   {
@@ -630,6 +825,7 @@
    "n": 15,
    "laya-stock": 0.619047619047619,
    "laya-ft": 0.6857142857142857,
+   "laya-ft-v2b": 0.7999999999999999,
    "ollama": 0.780952380952381
   },
   {
@@ -637,6 +833,7 @@
    "n": 15,
    "laya-stock": 0.6190476190476192,
    "laya-ft": 0.7523809523809523,
+   "laya-ft-v2b": 0.8095238095238094,
    "ollama": 0.7142857142857143
   },
   {
@@ -644,6 +841,7 @@
    "n": 10,
    "laya-stock": 0.6428571428571429,
    "laya-ft": 0.6857142857142857,
+   "laya-ft-v2b": 0.7714285714285714,
    "ollama": 0.7714285714285714
   }
  ],
@@ -654,6 +852,7 @@
    "key_mean": 100.0,
    "laya-stock": 76.25,
    "laya-ft": 82.075,
+   "laya-ft-v2b": 93.525,
    "ollama": 96.6625
   },
   {
@@ -662,6 +861,7 @@
    "key_mean": 84.19999999999999,
    "laya-stock": 67.67333333333335,
    "laya-ft": 82.77333333333333,
+   "laya-ft-v2b": 83.99333333333333,
    "ollama": 91.32
   },
   {
@@ -670,6 +870,7 @@
    "key_mean": 65.54166666666667,
    "laya-stock": 63.90833333333334,
    "laya-ft": 67.90833333333335,
+   "laya-ft-v2b": 65.96666666666667,
    "ollama": 82.36666666666666
   },
   {
@@ -678,6 +879,7 @@
    "key_mean": 36.28888888888889,
    "laya-stock": 52.977777777777774,
    "laya-ft": 51.3,
+   "laya-ft-v2b": 47.21111111111111,
    "ollama": 61.111111111111114
   },
   {
@@ -686,6 +888,7 @@
    "key_mean": 25.0,
    "laya-stock": 60.0,
    "laya-ft": 56.7,
+   "laya-ft-v2b": 35.0,
    "ollama": 65.0
   },
   {
@@ -694,6 +897,7 @@
    "key_mean": 0.0,
    "laya-stock": 0.0,
    "laya-ft": 0.0,
+   "laya-ft-v2b": 0.0,
    "ollama": 0.0
   }
  ],
@@ -704,6 +908,7 @@
    "dur": 765,
    "laya-stock": 78.3,
    "laya-ft": 88.3,
+   "laya-ft-v2b": 100.0,
    "ollama": 100.0
   },
   {
@@ -712,6 +917,7 @@
    "dur": 655,
    "laya-stock": 78.3,
    "laya-ft": 88.3,
+   "laya-ft-v2b": 88.3,
    "ollama": 100.0
   },
   {
@@ -720,6 +926,7 @@
    "dur": 985,
    "laya-stock": 61.7,
    "laya-ft": 68.3,
+   "laya-ft-v2b": 68.3,
    "ollama": 100.0
   },
   {
@@ -728,6 +935,7 @@
    "dur": 1130,
    "laya-stock": 35.0,
    "laya-ft": 38.3,
+   "laya-ft-v2b": 38.3,
    "ollama": 46.7
   },
   {
@@ -736,6 +944,7 @@
    "dur": 830,
    "laya-stock": 0.0,
    "laya-ft": 0.0,
+   "laya-ft-v2b": 0.0,
    "ollama": 0.0
   },
   {
@@ -744,6 +953,7 @@
    "dur": 945,
    "laya-stock": 78.3,
    "laya-ft": 93.3,
+   "laya-ft-v2b": 83.3,
    "ollama": 93.3
   },
   {
@@ -752,6 +962,7 @@
    "dur": 1165,
    "laya-stock": 88.3,
    "laya-ft": 88.3,
+   "laya-ft-v2b": 100.0,
    "ollama": 95.0
   },
   {
@@ -760,6 +971,7 @@
    "dur": 680,
    "laya-stock": 50.0,
    "laya-ft": 43.3,
+   "laya-ft-v2b": 45.0,
    "ollama": 61.7
   },
   {
@@ -768,6 +980,7 @@
    "dur": 790,
    "laya-stock": 78.3,
    "laya-ft": 55.0,
+   "laya-ft-v2b": 45.0,
    "ollama": 90.0
   },
   {
@@ -776,6 +989,7 @@
    "dur": 1030,
    "laya-stock": 51.7,
    "laya-ft": 61.7,
+   "laya-ft-v2b": 35.0,
    "ollama": 61.7
   },
   {
@@ -784,6 +998,7 @@
    "dur": 630,
    "laya-stock": 66.7,
    "laya-ft": 83.4,
+   "laya-ft-v2b": 95.0,
    "ollama": 95.0
   },
   {
@@ -792,6 +1007,7 @@
    "dur": 850,
    "laya-stock": 83.4,
    "laya-ft": 88.3,
+   "laya-ft-v2b": 76.7,
    "ollama": 95.0
   },
   {
@@ -800,6 +1016,7 @@
    "dur": 995,
    "laya-stock": 71.7,
    "laya-ft": 81.7,
+   "laya-ft-v2b": 93.3,
    "ollama": 100.0
   },
   {
@@ -808,6 +1025,7 @@
    "dur": 1110,
    "laya-stock": 55.0,
    "laya-ft": 55.0,
+   "laya-ft-v2b": 45.0,
    "ollama": 56.7
   },
   {
@@ -816,6 +1034,7 @@
    "dur": 745,
    "laya-stock": 51.7,
    "laya-ft": 100.0,
+   "laya-ft-v2b": 90.0,
    "ollama": 83.3
   },
   {
@@ -824,6 +1043,7 @@
    "dur": 1060,
    "laya-stock": 0.0,
    "laya-ft": 0.0,
+   "laya-ft-v2b": 0.0,
    "ollama": 0.0
   },
   {
@@ -832,6 +1052,7 @@
    "dur": 705,
    "laya-stock": 61.7,
    "laya-ft": 71.7,
+   "laya-ft-v2b": 81.7,
    "ollama": 100.0
   },
   {
@@ -840,6 +1061,7 @@
    "dur": 1185,
    "laya-stock": 51.7,
    "laya-ft": 61.7,
+   "laya-ft-v2b": 56.7,
    "ollama": 73.3
   },
   {
@@ -848,6 +1070,7 @@
    "dur": 815,
    "laya-stock": 78.3,
    "laya-ft": 78.3,
+   "laya-ft-v2b": 100.0,
    "ollama": 100.0
   },
   {
@@ -856,6 +1079,7 @@
    "dur": 920,
    "laya-stock": 35.0,
    "laya-ft": 66.7,
+   "laya-ft-v2b": 45.0,
    "ollama": 73.3
   },
   {
@@ -864,6 +1088,7 @@
    "dur": 615,
    "laya-stock": 78.3,
    "laya-ft": 88.3,
+   "laya-ft-v2b": 88.3,
    "ollama": 100.0
   },
   {
@@ -872,6 +1097,7 @@
    "dur": 880,
    "laya-stock": 88.3,
    "laya-ft": 88.3,
+   "laya-ft-v2b": 88.3,
    "ollama": 76.7
   },
   {
@@ -880,6 +1106,7 @@
    "dur": 1015,
    "laya-stock": 68.3,
    "laya-ft": 51.7,
+   "laya-ft-v2b": 35.0,
    "ollama": 68.3
   },
   {
@@ -888,6 +1115,7 @@
    "dur": 1150,
    "laya-stock": 45.0,
    "laya-ft": 83.3,
+   "laya-ft-v2b": 83.3,
    "ollama": 83.3
   },
   {
@@ -896,6 +1124,7 @@
    "dur": 695,
    "laya-stock": 71.7,
    "laya-ft": 71.7,
+   "laya-ft-v2b": 83.3,
    "ollama": 83.3
   },
   {
@@ -904,6 +1133,7 @@
    "dur": 775,
    "laya-stock": 56.7,
    "laya-ft": 73.3,
+   "laya-ft-v2b": 85.0,
    "ollama": 51.7
   },
   {
@@ -912,6 +1142,7 @@
    "dur": 960,
    "laya-stock": 66.7,
    "laya-ft": 73.3,
+   "laya-ft-v2b": 85.0,
    "ollama": 95.0
   },
   {
@@ -920,6 +1151,7 @@
    "dur": 1095,
    "laya-stock": 0.0,
    "laya-ft": 0.0,
+   "laya-ft-v2b": 0.0,
    "ollama": 0.0
   },
   {
@@ -928,6 +1160,7 @@
    "dur": 840,
    "laya-stock": 56.7,
    "laya-ft": 63.3,
+   "laya-ft-v2b": 63.3,
    "ollama": 95.0
   },
   {
@@ -936,6 +1169,7 @@
    "dur": 1045,
    "laya-stock": 56.7,
    "laya-ft": 33.3,
+   "laya-ft-v2b": 33.3,
    "ollama": 18.3
   },
   {
@@ -944,6 +1178,7 @@
    "dur": 1190,
    "laya-stock": 78.3,
    "laya-ft": 88.3,
+   "laya-ft-v2b": 100.0,
    "ollama": 95.0
   },
   {
@@ -952,6 +1187,7 @@
    "dur": 640,
    "laya-stock": 66.7,
    "laya-ft": 66.7,
+   "laya-ft-v2b": 68.3,
    "ollama": 78.3
   },
   {
@@ -960,6 +1196,7 @@
    "dur": 805,
    "laya-stock": 66.7,
    "laya-ft": 76.7,
+   "laya-ft-v2b": 61.7,
    "ollama": 95.0
   },
   {
@@ -968,6 +1205,7 @@
    "dur": 935,
    "laya-stock": 66.7,
    "laya-ft": 60.0,
+   "laya-ft-v2b": 60.0,
    "ollama": 95.0
   },
   {
@@ -976,6 +1214,7 @@
    "dur": 670,
    "laya-stock": 55.0,
    "laya-ft": 65.0,
+   "laya-ft-v2b": 76.7,
    "ollama": 83.3
   },
   {
@@ -984,6 +1223,7 @@
    "dur": 865,
    "laya-stock": 71.7,
    "laya-ft": 61.7,
+   "laya-ft-v2b": 71.7,
    "ollama": 83.3
   },
   {
@@ -992,6 +1232,7 @@
    "dur": 970,
    "laya-stock": 71.7,
    "laya-ft": 71.7,
+   "laya-ft-v2b": 83.3,
    "ollama": 100.0
   },
   {
@@ -1000,6 +1241,7 @@
    "dur": 1120,
    "laya-stock": 58.3,
    "laya-ft": 71.7,
+   "laya-ft-v2b": 73.3,
    "ollama": 80.0
   },
   {
@@ -1008,6 +1250,7 @@
    "dur": 735,
    "laya-stock": 88.3,
    "laya-ft": 100.0,
+   "laya-ft-v2b": 90.0,
    "ollama": 100.0
   },
   {
@@ -1016,6 +1259,7 @@
    "dur": 1005,
    "laya-stock": 0.0,
    "laya-ft": 0.0,
+   "laya-ft-v2b": 0.0,
    "ollama": 0.0
   },
   {
@@ -1024,6 +1268,7 @@
    "dur": 660,
    "laya-stock": 71.7,
    "laya-ft": 100.0,
+   "laya-ft-v2b": 88.3,
    "ollama": 83.3
   },
   {
@@ -1032,6 +1277,7 @@
    "dur": 1140,
    "laya-stock": 63.3,
    "laya-ft": 63.3,
+   "laya-ft-v2b": 63.3,
    "ollama": 95.0
   },
   {
@@ -1040,6 +1286,7 @@
    "dur": 890,
    "laya-stock": 71.7,
    "laya-ft": 88.3,
+   "laya-ft-v2b": 100.0,
    "ollama": 100.0
   },
   {
@@ -1048,6 +1295,7 @@
    "dur": 910,
    "laya-stock": 50.0,
    "laya-ft": 23.3,
+   "laya-ft-v2b": 23.3,
    "ollama": 45.0
   },
   {
@@ -1056,6 +1304,7 @@
    "dur": 710,
    "laya-stock": 66.7,
    "laya-ft": 95.0,
+   "laya-ft-v2b": 95.0,
    "ollama": 95.0
   },
   {
@@ -1064,6 +1313,7 @@
    "dur": 820,
    "laya-stock": 61.7,
    "laya-ft": 71.7,
+   "laya-ft-v2b": 55.0,
    "ollama": 78.4
   },
   {
@@ -1072,6 +1322,7 @@
    "dur": 1070,
    "laya-stock": 46.7,
    "laya-ft": 46.7,
+   "laya-ft-v2b": 56.7,
    "ollama": 68.3
   },
   {
@@ -1080,6 +1331,7 @@
    "dur": 1170,
    "laya-stock": 61.7,
    "laya-ft": 78.3,
+   "laya-ft-v2b": 90.0,
    "ollama": 90.0
   },
   {
@@ -1088,6 +1340,7 @@
    "dur": 875,
    "laya-stock": 55.0,
    "laya-ft": 55.0,
+   "laya-ft-v2b": 56.6,
    "ollama": 83.3
   },
   {
@@ -1096,6 +1349,7 @@
    "dur": 955,
    "laya-stock": 73.4,
    "laya-ft": 66.7,
+   "laya-ft-v2b": 50.0,
    "ollama": 66.7
   }
  ],
@@ -1115,6 +1369,12 @@
     "caught_when_shown": 17,
     "missed_when_shown": 0,
     "false_alarms": 25
+   },
+   "laya-ft-v2b": {
+    "caught": 16,
+    "caught_when_shown": 16,
+    "missed_when_shown": 1,
+    "false_alarms": 10
    },
    "ollama": {
     "caught": 8,
@@ -1139,6 +1399,12 @@
     "missed_when_shown": 11,
     "false_alarms": 5
    },
+   "laya-ft-v2b": {
+    "caught": 14,
+    "caught_when_shown": 14,
+    "missed_when_shown": 2,
+    "false_alarms": 5
+   },
    "ollama": {
     "caught": 0,
     "caught_when_shown": 0,
@@ -1157,6 +1423,12 @@
     "false_alarms": 0
    },
    "laya-ft": {
+    "caught": 0,
+    "caught_when_shown": 0,
+    "missed_when_shown": 9,
+    "false_alarms": 0
+   },
+   "laya-ft-v2b": {
     "caught": 0,
     "caught_when_shown": 0,
     "missed_when_shown": 9,
@@ -1185,6 +1457,12 @@
     "missed_when_shown": 1,
     "false_alarms": 0
    },
+   "laya-ft-v2b": {
+    "caught": 16,
+    "caught_when_shown": 10,
+    "missed_when_shown": 1,
+    "false_alarms": 0
+   },
    "ollama": {
     "caught": 8,
     "caught_when_shown": 8,
@@ -1203,6 +1481,12 @@
     "false_alarms": 0
    },
    "laya-ft": {
+    "caught": 11,
+    "caught_when_shown": 11,
+    "missed_when_shown": 4,
+    "false_alarms": 11
+   },
+   "laya-ft-v2b": {
     "caught": 11,
     "caught_when_shown": 11,
     "missed_when_shown": 4,
@@ -1231,6 +1515,12 @@
     "missed_when_shown": 8,
     "false_alarms": 2
    },
+   "laya-ft-v2b": {
+    "caught": 5,
+    "caught_when_shown": 4,
+    "missed_when_shown": 8,
+    "false_alarms": 2
+   },
    "ollama": {
     "caught": 9,
     "caught_when_shown": 8,
@@ -1249,6 +1539,12 @@
     "false_alarms": 6
    },
    "laya-ft": {
+    "caught": 12,
+    "caught_when_shown": 12,
+    "missed_when_shown": 7,
+    "false_alarms": 3
+   },
+   "laya-ft-v2b": {
     "caught": 12,
     "caught_when_shown": 12,
     "missed_when_shown": 7,

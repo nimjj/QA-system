@@ -1,6 +1,8 @@
 # AG50 report: three grading engines on 50 independent long calls
 
 Interactive version with charts: open `Docs/AG50_DASHBOARD.html` in a browser (one file, works offline).
+> **Update 2026-10-19:** after this report I changed what the model is shown for Empathy, Paraphrasing and Ownership ("flow v2", `Docs/FLOW_V2.md`) and re-ran. With no retraining, fine-tuned Laya reaches 80.3% of the judged items on AG50 (a development set, so optimistic), against Ollama's 78.6% (not distinguishable, p = 0.58), and Main and bulk did not regress (42/44, 359/372). The tables below describe the flow *before* that change.
+
 Raw numbers: `Docs/ag50_stats.json`, `Docs/AG50_RESULTS.md` (every call and every disagreement). Reproduce with `python Scripts/ag50_analysis.py && python Scripts/build_ag50_dashboard.py`.
 
 ## 1. In one minute
@@ -109,7 +111,7 @@ AUC is the chance that the model ranks a faulty call as worse than a good call, 
 
 What it means:
 - **Training clearly improved ranking on one item: Rapport.** Probing probably improved. For Empathy, Paraphrasing and Resolved the change is not distinguishable from zero, and Resolved trends worse.
-- **Probing is a cutoff problem.** It ranks well (AUC 0.88, 0.94 when asked) but the cutoff of 0.70 is set badly. A cutoff chosen on half the calls and tested on the other half lifts balanced accuracy from 0.65 to 0.79. This is the biggest cheap win. Caveat: tuned against this key, so treat it as an upper bound.
+- **Probing ranks well (AUC 0.88) but a new cutoff is not a safe fix.** A cutoff chosen on half of AG50 and tested on the other half lifts balanced accuracy from 0.65 to 0.79, but that cutoff (about 0.94) lands in the middle of the *good* cluster on the earlier bulk set, where it raises false fails from 1 to 12 of 33 good calls (balanced accuracy 0.98 to 0.82). The model's probabilities sit in tight clusters, and where the gap falls differs between data sets. *(An earlier version of this report called the cutoff "the biggest cheap win"; the bulk check showed it is not.)*
 - **Paraphrasing and Empathy are not cutoff problems.** Re-tuning does not help them. Their ranking is weak, which points at the snippet or the key.
 
 ## 8. Would more fine-tuning help?
@@ -118,7 +120,7 @@ What it means:
 
 | Lever | Evidence | Needs retraining? | Expected value |
 |---|---|---|---|
-| Retune the Probing cutoff (and check Rapport's rule) | AUC 0.88 vs balanced accuracy 0.65; Rapport 31% false alarms | No | High, cheap (hours) |
+| ~~Retune the Probing cutoff~~ (tested, rejected) | Fits AG50 but breaks the bulk set (12 false fails); Probing needs better discrimination, not a new cutoff | n/a | None |
 | Make Empathy call-level (acknowledged anywhere = pass, or send the first upset moment plus the agent's reply) | 25 false alarms, all 17 faults already caught | Probably yes, to re-train on the new snippet | High |
 | Active listening: add a second candidate source (customer statement vs later agent question) and train on reworded, far-apart repeats | 15 faults, 0 caught; 6 never reach the model; on the 9 that do (8 right pair) the fine-tuned model gives P(repeat) 0.05-0.12 | Yes, mainly for the model | Medium (worth 10 points of the score, but 0 of 15 caught today) |
 | Widen the Ownership gate (semantic, not a fixed phrase list) | 6 of 17 faults blocked | Yes | Medium |
@@ -128,7 +130,7 @@ What it means:
 How fine-tuning works, since you asked: it adjusts the model's weights using labelled examples. More epochs or more examples of the *same kind* help until the model has learned what those examples teach, then it just memorises them. Gains come from examples that (a) match what the model will really see and (b) cover cases it currently gets wrong. Both depend on fixing the snippet-building first. If we retrain on examples built from today's snippets, the model learns to be good at snippets that are missing the evidence.
 
 **A sensible plan, if you want to put in effort:**
-1. **Cutoffs and the Rapport rule (no training).** Re-tune Probing; test Rapport "two chunks must fail". Fix on a split of the data, not on all 50.
+1. **Window changes (no training).** Empathy, Paraphrasing and Ownership windows chosen by call structure: see `Docs/FLOW_V2_LAB.md`. (Probing cutoff re-tuning was tested and rejected, see section 7.)
 2. **Fix the snippet builders** for Active listening, Empathy and the Ownership gate. This changes the frozen inputs, so the frozen-input hash and the data for those checks must be regenerated.
 3. **New training data from a different author.** Have Antigravity write a *new* batch (not AG50) in the new snippet format, with different scenarios, and mix it with the existing Claude data. A second author makes the training less dependent on one writing style.
 4. **Keep AG50 sealed.** Do not train on it; otherwise it can no longer tell us anything.
@@ -154,7 +156,7 @@ Yes. The calls went through `/api/evaluate`, the same route production uses. The
 ## 11. Recommended next steps
 
 1. Review the disagreement list (`Docs/AG50_RESULTS.md`, bottom table) with a person: about 30 items, one hour.
-2. Re-tune Probing's cutoff and test the Rapport rule on a split.
+2. Adopt the flow-v2 windows that the lab supports (Empathy, Paraphrasing, Ownership) and test them end to end.
 3. Rebuild the Active-listening and Empathy snippets; regenerate their data; retrain; test on sealed AG50.
 4. Run the fine-tuned model in **shadow mode** beside Ollama on real calls, and compare against human QA scores.
 

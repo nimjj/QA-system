@@ -31,8 +31,8 @@ from src.services.laya_inputs import build_laya_inputs  # noqa: E402
 
 INPUTS = os.path.join(ROOT, "inputs")
 RES = os.path.join(INPUTS, "Test (results)")
-ENGINES = ["laya-stock", "laya-ft", "ollama"]
-NICE = {"laya-stock": "Stock Laya", "laya-ft": "Fine-tuned Laya", "ollama": "Ollama"}
+ENGINES = ["laya-stock", "laya-ft", "laya-ft-v2b", "ollama"]
+NICE = {"laya-stock": "Stock Laya", "laya-ft": "Fine-tuned Laya", "laya-ft-v2b": "Fine-tuned Laya + flow v2", "ollama": "Ollama"}
 ITEMS = ["Branding and Survey Check", "Hold time and Dead Air", "Verified customer",
          "Personalized the call/ticket appropriately", "Empathy & Acknowledgment Statement", "Paraphrasing",
          "Active listening", "Took ownership of the problem", "Build rapport and observed professionalism",
@@ -121,7 +121,7 @@ out["headline"] = head
 
 # ---------------------------------------------------------------- paired differences (judged items)
 pairs = {}
-for a, b in (("laya-ft", "ollama"), ("laya-ft", "laya-stock"), ("ollama", "laya-stock")):
+for a, b in (("laya-ft", "ollama"), ("laya-ft", "laya-stock"), ("ollama", "laya-stock"), ("laya-ft-v2b", "laya-ft"), ("laya-ft-v2b", "ollama")):
     d_boot = [acc(a, JUDGED, ix) - acc(b, JUDGED, ix) for ix in boots]
     d_all = [acc(a, ITEMS, ix) - acc(b, ITEMS, ix) for ix in boots]
     only_a = int(sum(((correct[a][it] == 1) & (correct[b][it] == 0)).sum() for it in JUDGED))
