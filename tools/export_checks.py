@@ -59,7 +59,7 @@ def build(qa_root: str) -> dict:
     caps = {name: getattr(de, name) for name in CAP_NAMES}
     body = {"checks": checks, "caps": caps}
     services = os.path.join(qa_root, "src", "services")
-    extractors = {name: file_sha(os.path.join(services, name)) for name in ("laya_inputs.py", "rule_engine.py")}
+    extractors = {name: file_sha(os.path.join(services, name)) for name in ("laya_inputs.py", "rule_engine.py", "laya_windows.py")}
     inputs_view = {"questions": {k: {"yes_means": v["yes_means"], "question": v["question"]} for k, v in checks.items()},
                    "caps": caps, "extractors": extractors}
     return {
