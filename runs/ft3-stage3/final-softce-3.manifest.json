@@ -1,0 +1,29 @@
+{
+ "folder_name": "final-softce-3",
+ "files": {
+  "encoder/config.json": {
+   "bytes": 2084,
+   "sha256": "4d31981e52fcbf329542b1be74989bd46fcceda83e747ae003ee8dc7a1cc13c6"
+  },
+  "model.safetensors": {
+   "bytes": 842609220,
+   "sha256": "fc6a3f1b793aa38e5e78543a10be5626064f420d1f5b5abcf77095ff72582dad"
+  },
+  "questions.json": {
+   "bytes": 4794,
+   "sha256": "75e2e56357014e307786c4df542e35398b2ca4924ba306d334d50959c8b9e25d"
+  },
+  "rl_agent_config.json": {
+   "bytes": 4873,
+   "sha256": "a8b3869e9ed66ffd0fe44115a83a9dcb70bb029733a1a4e2fbea457c58f3a7c9"
+  },
+  "tokenizer/tokenizer.json": {
+   "bytes": 3583325,
+   "sha256": "0b3214f8efe1327290428b84e5d344ff3f2442686c1b89fb7b42c13a79ce6779"
+  },
+  "tokenizer/tokenizer_config.json": {
+   "bytes": 337,
+   "sha256": "08d4cf3ac4dca381759441b85b91a6d40e688471dcd33d15d6649eb0a9a854d1"
+  }
+ }
+}

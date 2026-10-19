@@ -1,5 +1,7 @@
 # Fine-tuning Laya to replace Ollama in the QA grading pipeline
 
+> Moving to another PC? See `docs/NEW_PC_SETUP.md` (what to copy, setup steps, checks, and how to carry the Claude Code notes).
+
 **Document status:** review copy for the AI/ML engineer, written 2026-10-16. Everything below is marked **Done**, **In progress** or **Planned**. Section 9 lists the specific points we want challenged. `docs/DATA_PLAN.md` is the working copy of the phase table and data volumes; if the two ever differ, this README is the one reviewed.
 
 ## 1. One-paragraph summary
