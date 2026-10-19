@@ -1,0 +1,249 @@
+{
+  "inputs_sha256": "66deff95a20ce04e2b731dc0f7fea374761f7eca36337f88bed6ff0bcf582c2e",
+  "rows": {
+    "train": 1796,
+    "dev": 419,
+    "test": 396,
+    "test_long": 180,
+    "test_calls": 40
+  },
+  "counts": {
+    "train": {
+      "active_listening": {
+        "PASS": 83,
+        "FAIL": 84
+      },
+      "empathy": {
+        "PASS": 78,
+        "FAIL": 75
+      },
+      "paraphrasing": {
+        "PASS": 208,
+        "FAIL": 194
+      },
+      "rapport": {
+        "PASS": 144,
+        "FAIL": 132
+      },
+      "ownership": {
+        "PASS": 30,
+        "FAIL": 35
+      },
+      "probing": {
+        "PASS": 44,
+        "FAIL": 37
+      },
+      "hostility": {
+        "PASS": 30,
+        "FAIL": 30
+      },
+      "escalation": {
+        "PASS": 30,
+        "FAIL": 30
+      },
+      "resolved": {
+        "PASS": 148,
+        "FAIL": 134
+      },
+      "replay": {
+        "gold": 250
+      }
+    },
+    "dev": {
+      "paraphrasing": {
+        "PASS": 44,
+        "FAIL": 41
+      },
+      "active_listening": {
+        "PASS": 20,
+        "FAIL": 21
+      },
+      "resolved": {
+        "PASS": 43,
+        "FAIL": 42
+      },
+      "empathy": {
+        "PASS": 21,
+        "FAIL": 21
+      },
+      "rapport": {
+        "PASS": 46,
+        "FAIL": 41
+      },
+      "ownership": {
+        "PASS": 4,
+        "FAIL": 5
+      },
+      "probing": {
+        "PASS": 8,
+        "FAIL": 5
+      },
+      "hostility": {
+        "PASS": 4,
+        "FAIL": 4
+      },
+      "escalation": {
+        "PASS": 6,
+        "FAIL": 6
+      },
+      "replay": {
+        "gold": 37
+      }
+    },
+    "test": {
+      "paraphrasing": {
+        "PASS": 30,
+        "FAIL": 30
+      },
+      "active_listening": {
+        "PASS": 30,
+        "FAIL": 30
+      },
+      "resolved": {
+        "PASS": 30,
+        "FAIL": 30
+      },
+      "empathy": {
+        "PASS": 30,
+        "FAIL": 30
+      },
+      "rapport": {
+        "PASS": 30,
+        "FAIL": 30
+      },
+      "ownership": {
+        "PASS": 12,
+        "FAIL": 12
+      },
+      "probing": {
+        "PASS": 12,
+        "FAIL": 12
+      },
+      "hostility": {
+        "PASS": 12,
+        "FAIL": 12
+      },
+      "escalation": {
+        "PASS": 12,
+        "FAIL": 12
+      }
+    },
+    "test_long": {
+      "paraphrasing": {
+        "PASS": 30,
+        "FAIL": 30
+      },
+      "rapport": {
+        "PASS": 30,
+        "FAIL": 30
+      },
+      "resolved": {
+        "PASS": 30,
+        "FAIL": 30
+      }
+    },
+    "test_calls": {
+      "rapport": {
+        "PASS": 8,
+        "FAIL": 3
+      },
+      "paraphrasing": {
+        "PASS": 5,
+        "FAIL": 3
+      },
+      "resolved": {
+        "PASS": 5,
+        "FAIL": 3
+      },
+      "probing": {
+        "PASS": 7
+      },
+      "empathy": {
+        "PASS": 2,
+        "FAIL": 1
+      },
+      "active_listening": {
+        "PASS": 1,
+        "FAIL": 1
+      },
+      "ownership": {
+        "FAIL": 1
+      }
+    }
+  },
+  "pairs": {
+    "train": 734,
+    "dev": 183,
+    "test": 198,
+    "test_long": 90,
+    "test_calls": 8
+  },
+  "sha256": {
+    "train_all.jsonl": "8cb4db91d0a23eb45519ef6b2f61cbf2ee6c5ed7243f22627dde1bee711f70c1",
+    "dev_all.jsonl": "41cf0ad285bfc5bdf6411216d1fa3c07088f6d90e3927339b5d0ed39cd1cad8d",
+    "test.jsonl": "c8334ea87b5a12a0ee05a09feb82893856032c1abd48ee0340ef025e2404fd23",
+    "test_long.jsonl": "7f5ddde4192857c357411e6e0d557c3823463b15d07071203e2f563497798ddc",
+    "test_calls.jsonl": "1123cc959fe9c5781df704f33832b69352bac57983b39752f01319376c30e62f"
+  },
+  "near_duplicates_ge_0.6": [],
+  "removed_pairs": [
+    [
+      "dev",
+      "dv_esc_005"
+    ],
+    [
+      "dev",
+      "dv_esc_006"
+    ],
+    [
+      "dev",
+      "dv_hos_004"
+    ],
+    [
+      "dev",
+      "dv_hos_005"
+    ],
+    [
+      "dev",
+      "dv_hos_007"
+    ],
+    [
+      "dev",
+      "dv_hos_008"
+    ],
+    [
+      "dev",
+      "dv_own_004"
+    ],
+    [
+      "dev",
+      "dv_own_006"
+    ],
+    [
+      "dev",
+      "dv_own_008"
+    ],
+    [
+      "dev",
+      "dv_prb_004"
+    ],
+    [
+      "dev",
+      "dv_prb_006"
+    ],
+    [
+      "dev",
+      "dv_prb_007"
+    ],
+    [
+      "dev",
+      "dv_prb_008"
+    ],
+    [
+      "dev",
+      "nc_dv_02"
+    ]
+  ],
+  "problems": [],
+  "authorship": "All train, dev and test rows were written and labelled by Claude; none is human-labelled."
+}

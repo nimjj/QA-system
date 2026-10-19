@@ -1,0 +1,223 @@
+# Stage 3, train part 4: more natural FAIL examples (probing, rapport, paraphrasing, active listening, ownership, empathy).
+
+@@call id=nc_tr_33 industry=gym persona=warm name=Rosa labels=rapport:PASS,paraphrasing:PASS,resolved:PASS,probing:FAIL
+A: Hi, Ironfield Fitness, this is Jess, how can I help?
+C(-8): Hi, I'd like to freeze my membership for two months, I'm having an operation.
+A: Okay, so you want to freeze your membership for two months because of an operation. Is that right?
+C(-4): Yes.
+A: Of course. Could I have your member number?
+C(-4): 88 120 4.
+A: Thanks Rosa. And can I confirm the email on the account?
+C(-4): It's rosa dot silva at mail dot com.
+A: Perfect. Shall I send you a form to sign?
+C(-4): Yes please.
+A: It's on its way. Can you tell me when it lands in your inbox?
+C(-4): Yes, it's here.
+A: Brilliant, so the freeze will start once you've signed it. Anything else I can help with?
+C(-4): No, thank you.
+A: Take care of yourself, Rosa.
+
+@@call id=nc_tr_34 industry=travel persona=blunt name=Neil labels=rapport:FAIL,paraphrasing:PASS,resolved:PASS,probing:PASS
+A: Wanderly, Callum.
+C(-12): My hotel in Rome says they've got no booking under my name, I've just landed and I'm stood outside.
+A: So you're at the hotel in Rome and they can't find your booking. Right?
+C(-8): Yes.
+A: Booking reference.
+C(-6): WL 5 8 3 0 1.
+A: What name did you book under, and what date did you book for?
+C(-6): Neil Hammond, tonight for three nights.
+A: Did you get a confirmation email from us or from the hotel directly?
+C(-6): From you.
+A*: Well, if you can't be bothered to print your confirmation, that's hardly my fault, is it.
+C(-12): I'm stood in the street.
+A: I'll ring the hotel now. Give me a minute.
+C(-8): Fine.
+A: They had it under a typo, Hammon. It's fixed and they're expecting you. Can you ask at the desk and tell me they've got you in?
+C(-8): Yes, they've found it and I'm checked in.
+A: Good, so you're in for the three nights. Anything else?
+C(-8): No.
+A: Enjoy Rome.
+
+@@call id=nc_tr_35 industry=car_rental persona=overly_polite name=Beverley labels=rapport:PASS,paraphrasing:FAIL,resolved:PASS,probing:PASS,active_listening:PASS
+A: Good afternoon, thank you for calling Roadster Rentals, this is Alistair. How may I help?
+C(-8): Hello, I picked up a car yesterday and the satnav doesn't work, and I'm driving to Cornwall tomorrow.
+A: Might I take the rental agreement number, please?
+C(-4): It's RR 6 6 1 4 0.
+A: Thank you. Is the screen blank or does it show an error?
+C(-4): It's on, but it says no GPS signal.
+A: Is the vehicle parked in a garage or under cover at present?
+C(-4): It's on the street outside.
+A: Could you try restarting the car and waiting a few minutes?
+C(-4): Okay. It's restarted. It's still saying no signal.
+A: Is the screen still showing no GPS signal now?
+C(-4): Is it still showing no signal, yes it is.
+A: In that case I shall arrange a replacement car for you at the nearest branch.
+C(-4): That would be good.
+A: A car will be ready at the branch on Harrow Road from nine tomorrow. Could you confirm that the confirmation email has arrived?
+C(-4): Yes, I've got it.
+A: Splendid, so your replacement is booked from nine. Is there anything further?
+C(-4): No.
+A: Thank you, Beverley, safe travels.
+
+@@call id=nc_tr_36 industry=government persona=robotic name=Colin labels=paraphrasing:FAIL,resolved:FAIL,probing:FAIL,ownership:FAIL
+A: Licensing office. State your query.
+C(-10): My driving licence renewal has been pending for six weeks and I haven't received anything.
+A: Provide your reference.
+C(-6): It's DL 4 4 5 2 0.
+A: Confirm your date of birth.
+C(-6): Fourth of April, sixty-eight.
+A: Confirm your postcode.
+C(-6): HG1 4EF.
+A: The renewals are processed by the central processing unit. That is another team, and you would have to contact them.
+C(-10): Can you chase them for me?
+A: This office cannot chase them.
+C(-10): That's useless.
+A: Your reference has been recorded.
+
+@@call id=nc_tr_37 industry=telecom persona=slangy name=Zara labels=rapport:PASS,paraphrasing:PASS,resolved:FAIL,probing:PASS,empathy:PASS
+A: Hey, S-Net mobile, Kofi here.
+C*(-28): Hi. I've been charged for roaming in France and I haven't even left the country, I'm so annoyed.
+A: Ugh, being billed for a trip you never took would annoy anyone, thanks for flagging it. Let's dig into it.
+C(-10): Thanks.
+A: So you've got roaming charges for France but you've been home the whole time. Is that right?
+C(-6): Yes.
+A: What's the number?
+C(-4): 07700 900456.
+A: Did you connect to any wifi on the Eurostar, or travel anywhere near the coast?
+C(-4): Ha, I was at my sister's in Dover for the weekend.
+A: That'll be it, phones near the coast can grab a French mast. How many charges are on the bill?
+C(-4): Three, about twelve pounds.
+A: I'll reverse them and switch off data roaming on the line so it doesn't happen again.
+C(-4): Great.
+A: All sorted from my end. Cheers for calling.
+
+@@call id=nc_tr_38 industry=education persona=warm name=Lucas labels=rapport:FAIL,paraphrasing:PASS,resolved:PASS,probing:PASS,empathy:PASS
+A: Hello, student support, this is Amy, how can I help?
+C*(-26): Hi, I got a letter saying I've been withdrawn from my course but I never asked for that, and I'm panicking because I start in a week.
+A: That sounds really stressful, thank you for ringing right away. We'll look at it together.
+C(-10): Thank you.
+A: So you received a withdrawal letter, you didn't request it, and your course starts in a week. Have I got that right?
+C(-6): Yes.
+A: Could I have your student number?
+C(-4): 20 44 19 8.
+A: When did the letter arrive, and does it say who processed the withdrawal?
+C(-4): Yesterday, it says it was an automatic decision.
+A*: Automatic means you probably missed the payment, so it's your own doing, not exactly shocking.
+C(-8): I paid it on time.
+A: Let me look at the payments. I can see it arrived late because of a bank holiday, so I'm reinstating your place.
+C(-6): Thank goodness.
+A: It's done and you'll get a confirmation by email. Can you check it's come through?
+C(-4): Yes, I can see it.
+A: Good, so you're back on the course. Anything else?
+C(-4): No, thank you.
+A: Good luck next week, Lucas.
+
+@@call id=nc_tr_39 industry=restaurant persona=blunt name=Tariq labels=rapport:PASS,paraphrasing:FAIL,resolved:PASS,probing:FAIL
+A: Table booking, Lee.
+C(-8): I booked a table for ten on Saturday and I got an email saying it's cancelled.
+A: Name and date.
+C(-6): Tariq Aziz, Saturday the second.
+A: Postcode for the account?
+C(-4): E14 8XY.
+A: Okay. Is that the right email address, tariq at mail dot com?
+C(-4): Yes.
+A: I'll reinstate it. Done. You'll get a new email.
+C(-4): Has it arrived? Yes, I see a confirmation.
+A: Good, the table's back. Anything else?
+C(-4): No.
+A: Right.
+
+@@call id=nc_tr_40 industry=banking persona=sleepy name=Edith labels=rapport:PASS,paraphrasing:PASS,resolved:FAIL,probing:PASS,active_listening:FAIL
+A: Northbank... Joe speaking.
+C(-8): Hi, I think I've been scammed, I got a text from you and I clicked a link and now I'm worried.
+A: So you got a text that looked like it was from us, clicked the link, and now you're worried. Is that it?
+C(-6): Yes.
+A: Okay... can you tell me what the text said?
+C(-4): It said my account was suspended and to confirm my details.
+A: And what did you enter on the page after you clicked?
+C(-4): My card number and my password.
+A: Right. What did the text say again?
+C(-4): That my account was suspended, I just told you.
+A: Sorry... I'll freeze your card and reset your online access now.
+C(-6): Please.
+A: It's all done. You'll get a call from the fraud team.
+C(-6): Okay.
+A: Take care.
+
+@@call id=nc_tr_41 industry=saas persona=overly_polite name=Nadia labels=rapport:FAIL,paraphrasing:PASS,resolved:PASS,probing:PASS,ownership:FAIL
+A: Good morning, thank you for contacting Cloudly, this is Oliver. How may I assist you?
+C(-10): Hi, our invoices are showing the wrong VAT rate since last month and our accountant is not happy.
+A: I see, so the invoices have had the wrong VAT rate since last month, and your accountant has raised it. Is that correct?
+C(-6): Yes.
+A: May I have the workspace name?
+C(-4): Elmwood Studio.
+A: Thank you. Which country is the billing address set to?
+C(-4): The UK.
+A: Is the VAT number filled in on the billing page?
+C(-4): It's there, but it might be an old one.
+A: That would be a matter for the finance team, and you would have to contact them directly to amend it.
+C(-8): Can't you fix it?
+A*: Frankly, one would expect an accounts person to keep their own VAT details up to date, so I shan't be doing it.
+C(-10): That's not helpful.
+A: I have raised a ticket with the finance team nonetheless.
+C(-6): Thanks.
+A: Is it correct that you have received the ticket email?
+C(-6): Yes.
+A: Thank you for contacting Cloudly.
+
+@@call id=nc_tr_42 industry=healthcare persona=blunt name=Sam labels=rapport:PASS,paraphrasing:PASS,resolved:PASS,probing:PASS,empathy:FAIL,active_listening:PASS
+A: Riverside Health, Hannah.
+C*(-27): I've been trying to get through for two days to book a scan and I'm so frustrated with your system.
+A: Name and date of birth.
+C(-8): Sam Pryce, tenth of February, eighty-four.
+A: So you need to book a scan, and you couldn't get through. What scan is it?
+C(-6): An ultrasound, my doctor referred me.
+A: Is the referral letter in front of you?
+C(-6): Yes.
+A: Does it say the hospital name at the top?
+C(-6): Yes, St Mary's.
+A: Does the referral letter say which hospital it is?
+C(-6): It says St Mary's, yes.
+A: Right, I'll book you in there on Friday at nine. Can you do that?
+C(-6): Yes.
+A: Done. Confirmation's by text. Can you check it's come through?
+C(-6): Got it.
+A: Good, Friday at nine, St Mary's. Anything else?
+C(-6): No.
+A: Right.
+
+@@call id=nc_tr_43 industry=travel persona=rambling name=Hilda labels=rapport:PASS,paraphrasing:FAIL,resolved:FAIL,probing:PASS,empathy:PASS
+A: Yes, hello, Wanderly, Percy speaking, how can I help this lovely morning?
+C*(-26): Oh dear, it's my trip to Edinburgh, they've cancelled the train and I'm travelling with my husband who's not well and I just don't know what to do.
+A: Oh goodness, with your husband unwell that must be so worrying, thank you for ringing, we'll sort something out together.
+C(-10): Thank you.
+A: Now, could I have your booking reference?
+C(-4): It's WL 9 1 7 4 4.
+A: Thank you. Which station are you at just now?
+C(-4): York.
+A: Is your husband able to wait for a few hours or does he need to get there soon?
+C(-4): He's fine to wait a bit but he needs to sit down.
+A: I'll book you onto the next train to Edinburgh, which leaves in ninety minutes, and arrange assistance at the station.
+C(-4): Oh, that would be wonderful.
+A: It's all arranged and the tickets will be in your email shortly.
+C(-4): Lovely, thank you.
+A: Safe travels, both of you.
+
+@@call id=nc_tr_44 industry=car_rental persona=slangy name=Bo labels=rapport:FAIL,paraphrasing:PASS,resolved:PASS,probing:FAIL
+A: Hey, Roadster Rentals, Nina here.
+C(-10): Hi, I was charged four hundred quid for a scratch I didn't make, I want to dispute it.
+A: Right, so they've hit you with a four hundred pound charge for a scratch you say you didn't cause. You want to dispute it. Is that it?
+C(-6): Exactly.
+A: Rental number?
+C(-4): RR 7 7 0 2 3.
+A: Cheers. Can I confirm the email on file?
+C(-4): bo dot lin at mail dot com.
+A*: Everyone says they didn't do it, mate. Funny how the scratches always show up when you're driving.
+C(-12): I have photos from pickup.
+A: Okay, send those over and I'll flag the charge for review.
+C(-6): Sending now.
+A: Got them. The charge is on hold and the review takes five days. Can you see the email I just sent with the case number?
+C(-6): Yes, I see it.
+A: Good, so the dispute's logged. Anything else?
+C(-6): No.
+A: Cheers.

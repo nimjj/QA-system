@@ -1,0 +1,127 @@
+# Eval50 batch 7: eval_35 - eval_40 (mid to poor calls).
+
+@@call id=eval_35 name=Lorcan
+@labels B=F H=F V=P PE=P E=P R=P PA=P AL=F O=P PR=P CR=P
+@notes B: closing is "Cheers, bye" (no scripted close). H: two unannounced silences (~45 s, ~55 s). AL: re-asks which room the box is in and whether it is on wifi, both already answered. Good empathy, fix confirmed.
+A: Thank you for calling S-Net, I'm Tess. How can I help?
+C(-20): Hi Tess. The TV box in my bedroom keeps losing the signal every evening, which is when I actually want to watch it. I'm getting fed up.
+A: Losing the TV right when you want to watch it is really annoying, I'm sorry, Lorcan. Let's fix it. Can I take your PIN?
+C(-8): 6 2 6 2.
+A: Thanks. So the bedroom TV box loses its signal every evening. Is that right?
+C(-6): Yes.
+A: Is it the box in the bedroom or the living room?
+C(-6): The bedroom, upstairs.
+A: Is it on wifi or plugged in?
+C(-6): Wifi.
+@gap 45
+C(-10): Hello?
+A: Sorry, yes. Which room is the box in again?
+C(-10): The bedroom. Upstairs.
+A: And it's on wifi, not a cable?
+C(-11): Yes, wifi, I just said.
+@gap 55
+C(-12): Are you still there?
+A: Yes. In the evening the wifi is busiest. I've switched your router to a less crowded channel. Can you put the TV on now and leave it on a channel for a couple of minutes?
+C(-8): Okay. It's on. It's playing fine, no dropping so far.
+@gap 20
+C(-6): Still fine.
+A: Great, so the box is holding the signal now. Is that working for you?
+C(-5): Yes, it's working.
+A: Cheers, bye.
+
+@@call id=eval_36 name=Maeve
+@labels B=P H=P V=P PE=P E=F R=P PA=F AL=P O=F PR=P CR=F
+@notes E: customer distressed (elderly mother's phone line dead, care alarm offline); not acknowledged. PA: no restatement. O: "Care alarms are nothing to do with us, you'd have to contact the alarm company." CR: nothing fixed or confirmed; agent just logs a fault.
+A: Thank you for calling S-Net, this is Greg. How can I help?
+C(-33): It's my mum's landline. It's been dead since yesterday, and her care alarm runs through it, so if she falls nobody will know. I'm really scared for her.
+A: Can I take the account PIN?
+C(-18): 2 1 2 1.
+A: Thanks, Maeve. Is there a dial tone when you pick up the phone?
+C(-16): No, nothing at all.
+A: Have any of the cables been unplugged, or is there building work nearby?
+C(-16): Not that I know of.
+A: Care alarms are nothing to do with us, you'd have to contact the alarm company. For the line, I'll log a fault.
+C(-20): How long will that take?
+A: Faults are usually fixed within three working days.
+C(-22): Three days? She's on her own.
+A: It's logged. Anything else?
+C(-20): No.
+A: Thank you for choosing S-Net, Maeve.
+
+@@call id=eval_37 name=Nikhil
+@labels B=P H=P V=P PE=F E=P R=F PA=P AL=P O=P PR=F CR=P
+@notes PE: no name used. R: "Seriously, you could have just read the email we sent" - condescending. PR: no diagnostic questions (the agent knows the answer straight away and just tells it). CR: customer confirms the new password works.
+A: Thank you for calling S-Net, I'm Holly. How can I help?
+C(-12): Hi. I can't log into my S-Net account online since yesterday. It says my account is locked. Bit annoying.
+A: That's annoying, I'm sorry. Let's get you back in. Can I take your PIN?
+C(-6): 8 3 8 3.
+A: Thanks. So since yesterday your online account says it's locked. Is that right?
+C(-5): Yes.
+A: Seriously, you could have just read the email we sent, it explains the lock after three wrong passwords. I've unlocked it and sent you a temporary password by text.
+C(-10): Okay. Got the text.
+A: Log in with that and set a new one.
+C(-8): Done. I'm in, and it's let me set a new password.
+A: So you're back in. Anything else?
+C(-8): No.
+A: Thank you for choosing S-Net.
+
+@@call id=eval_38 name=Odette
+@labels B=P H=P V=F PE=P E=F R=P PA=P AL=F O=F PR=P CR=P
+@notes V: no PIN/address/security question in the first 4 minutes (the agent asks only for the email). E: customer upset about being double-charged; not acknowledged. AL: asks for the amount and the date again after they were given. O: "Payment problems are the bank's issue really, I'd ring them first." CR: the duplicate is refunded and the customer confirms she can see the refund in the app.
+A: Thank you for calling S-Net, my name's Pete. How can I help?
+C(-25): I've been charged twice for this month's bill, fifty-five pounds each, both on the third. Now I'm overdrawn and I'm really stressed about it.
+A: Can I take the email on the account?
+C(-14): odette dot b at mail dot com.
+A: Thanks, Odette. So you were charged twice for this month's bill. Is that correct?
+C(-12): Yes.
+A: How much was each payment?
+C(-14): Fifty-five pounds, I said.
+A: And what date did they go out?
+C(-15): The third. Both on the third.
+A: Payment problems are the bank's issue really, I'd ring them first. But I can see the duplicate on our side, so I'll refund one of them now.
+C(-10): Please do.
+A: Done. It shows in the S-Net app as refunded straight away. Can you see it?
+C(-6): Yes, it says refund fifty-five pounds.
+A: So the duplicate is refunded. Is that everything?
+C(-5): Yes.
+A: Thank you for choosing S-Net, Odette.
+
+@@call id=eval_39 name=Pavel
+@labels B=F H=F V=P PE=P E=F R=P PA=F AL=P O=P PR=P CR=F
+@notes B: greeting "S-Net, hello" (no script) and no closing script. H: two unannounced silences (~45 s, ~60 s). E: customer upset; ignored. PA: no restatement. CR: ends without the problem being fixed.
+A: S-Net, hello.
+C(-28): Hi. My internet goes off every single night at about eleven and comes back in the morning. I do night shifts and I need it then. I'm really fed up with this.
+A: Can I take your PIN?
+C(-15): 4 7 4 7.
+A: Thanks, Pavel. Is it only at night, or during the day too?
+C(-14): Only at night.
+A: Do you have any timers or schedules set on the router?
+C(-14): I don't think so. My son set it up.
+@gap 45
+C(-16): Hello?
+A: Yes. Do you have the S-Net app?
+C(-14): Yes.
+@gap 60
+C(-18): Are you there?
+A: Yes. There might be a schedule on the router. Have a look in the app later and turn off anything that says bedtime.
+C(-16): Can't you check?
+A: I can't see router settings from here. Have a look tonight.
+C(-16): Fine.
+A: Okay then, bye.
+
+@@call id=eval_40 name=Quentin
+@labels B=P H=P V=F PE=F E=P R=F PA=P AL=P O=F PR=F CR=P
+@notes V: no PIN/address/security question (asks for date of birth only). PE: no name used. R: "Look, I don't have all day." O: "Contract cancellations aren't my job, ring the cancellations line." PR: no diagnostic questions. CR: customer's question (notice period) is answered and confirmed understood.
+A: Thank you for calling S-Net, I'm Dan. How can I help?
+C(-10): Hi. I want to know how much notice I need to give to cancel my broadband, and whether I'll pay a fee.
+A: Okay, so you'd like to know the notice period for cancelling your broadband and whether there's a fee. Is that right?
+C(-6): Yes.
+A: Can I take your date of birth?
+C(-6): Ninth of September, seventy-eight.
+A: Look, I don't have all day. Your contract ended in January, so there's no fee, and the notice period is thirty days.
+C(-10): Okay. Can you cancel it for me?
+A: Contract cancellations aren't my job, ring the cancellations line on 0800 900 100.
+C(-12): Right. But to be clear: thirty days' notice, and no fee?
+A: Correct, thirty days and no fee. Is that clear now?
+C(-8): Yes, that's clear.
+A: Thank you for choosing S-Net.

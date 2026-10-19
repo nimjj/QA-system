@@ -1,0 +1,655 @@
+# Train: regression checks, part 1: Ownership (25 pairs) and Probing (25 pairs). Same persona in both members; FAIL lines are as long as PASS lines.
+# Ownership: a flagged agent line contains a deflection phrase. PASS = ownership kept / harmless use. FAIL = deflects, refuses or sends away.
+# Probing: PASS = at least one real diagnostic question. FAIL = only greeting / identity / confirmation / hold / upsell / scheduling / wrap-up questions.
+
+# =============================================================== Ownership
+@@pair id=tr_own_001 check=ownership industry=retail_bank persona=warm hard=billing_team
+C(-9): There's a fee on my account I don't understand.
+A: Thanks for calling Meridian Bank, this is Priya.
+--- PASS
+A*: That one belongs with the billing team, so I'll send them the details now and ring you back myself by five with the answer.
+--- FAIL
+A*: That one belongs with the billing team, so it isn't something I'll be looking into, you'd have to take it up with them.
+--- END
+C(-6): Okay.
+
+@@pair id=tr_own_002 check=ownership industry=satellite_internet persona=terse hard=call_back
+C(-9): The dish went offline again this morning.
+A: S-Net support, Alex.
+--- PASS
+A*: I need the line engineer's readings first, so I'll call back by four today with the result and you won't need to ring again.
+--- FAIL
+A*: There's nothing more I can do on this call, so call back after the weekend when the line engineers are in again.
+--- END
+C(-6): Fine.
+
+@@pair id=tr_own_003 check=ownership industry=airline persona=hurried hard=another_team
+C(-10): My bag was lost on the connecting flight.
+A: SkyHarbor, Marcus.
+--- PASS
+A*: Baggage is another team, but I've got them on a three-way call with us now, so you only explain it once.
+--- FAIL
+A*: Baggage is another team and that's not something I handle, so you'll need to find their number and ring them.
+--- END
+C(-6): Okay.
+
+@@pair id=tr_own_004 check=ownership industry=ecommerce persona=chatty hard=nothing_i_can_do
+C(-9): The parcel never turned up and the tracking is useless.
+A: Hey, Brightcart, Ellie here!
+--- PASS
+A*: There's nothing I can do from this screen to move it, so I'm raising it with the courier myself and I'll stay on until they pick up.
+--- FAIL
+A*: Honestly there's nothing I can do about that now, it's with the courier and out of my hands, so there you go.
+--- END
+C(-6): Right.
+
+@@pair id=tr_own_005 check=ownership industry=saas persona=technical hard=youd_have_to
+C(-9): I can't find the export history in the app.
+A: Cloudweave support, Nikhil.
+--- PASS
+A*: You'd have to be an admin to see it, so I'll switch your role on now and then walk you to the screen.
+--- FAIL
+A*: You'd have to ask your account admin about that one, it's their area, so I can't really help beyond saying that.
+--- END
+C(-6): Okay.
+
+@@pair id=tr_own_006 check=ownership industry=car_rental persona=apologetic hard=wrong_department
+C(-10): I was charged a fee that wasn't on my booking.
+A: Roadly, Tom, sorry for the wait.
+--- PASS
+A*: Fees sit with the wrong department for you to call, I know, so I'll pass this to the right department myself and keep you updated.
+--- FAIL
+A*: I'm so sorry, but that's the wrong department for it, I can't see fees, so you'd have to call accounts directly.
+--- END
+C(-6): Okay.
+
+@@pair id=tr_own_007 check=ownership industry=streaming persona=formal hard=contact_them
+C(-9): My payment keeps failing and I don't know why.
+A: Good morning, Streamly support.
+--- PASS
+A*: The bank may be rejecting it, and I will contact them on your behalf through the payments desk and report back today.
+--- FAIL
+A*: The bank may be rejecting it, and you will need to contact them yourself, as we cannot discuss it further.
+--- END
+C(-6): I see.
+
+@@pair id=tr_own_008 check=ownership industry=appliance_repair persona=warm hard=another_department
+C(-10): The part you ordered for my dryer hasn't come.
+A: Hello, HomeFix, Ines speaking.
+--- PASS
+A*: Parts sit in another department, but I've messaged the manager there directly and I'll phone you tomorrow with a delivery date.
+--- FAIL
+A*: Parts sit in another department and that's not my area, so I can't chase it, you'll have to ask them.
+--- END
+C(-6): Okay.
+
+@@pair id=tr_own_009 check=ownership industry=mobile_carrier persona=scripted hard=network_team
+C(-9): My signal drops every time I'm indoors.
+A: Thank you for calling Voxel Mobile, this is Leo.
+--- PASS
+A*: I will log this with the network team as a coverage fault, and I will call you back with their findings myself.
+--- FAIL
+A*: Coverage is handled by the network team, which is a separate function, so I am unable to assist with it.
+--- END
+C(-6): Right.
+
+@@pair id=tr_own_010 check=ownership industry=health_insurance persona=hurried hard=nothing_i_can_do
+C(-10): My claim's been rejected and no one will explain why.
+A: Greenfield Health, Pete.
+--- PASS
+A*: Nothing I can do on the rejection from here, so I'm calling the claims lead now, and you'll have a reason today.
+--- FAIL
+A*: Nothing I can do about a rejection, that's the claims office's decision, and they don't take calls.
+--- END
+C(-6): Hmm.
+
+@@pair id=tr_own_011 check=ownership industry=electric_utility persona=technical hard=youd_have_to
+C(-9): The meter display shows an error code.
+A: Northline smart desk, Min-jun.
+--- PASS
+A*: You'd have to reset the meter locally, and I'll send a remote reset first, then talk you through the button if it fails.
+--- FAIL
+A*: You'd have to book a meter engineer for that, so it's out of our hands on this line, I'm afraid.
+--- END
+C(-6): Okay.
+
+@@pair id=tr_own_012 check=ownership industry=satellite_internet persona=chatty hard=billing_team
+C(-10): I've been billed after cancelling.
+A: Hey, S-Net, Brett here!
+--- PASS
+A*: Billing team handle the refunds, so I'm sending them your cancellation proof right now and I'll chase it myself.
+--- FAIL
+A*: That's the billing team's department, so it's nothing to do with me, you'd have to contact them.
+--- END
+C(-6): Hm.
+
+@@pair id=tr_own_013 check=ownership industry=airline persona=apologetic hard=call_back
+C(-10): I need my refund approved today.
+A: SkyHarbor, Rosa, so sorry for the wait.
+--- PASS
+A*: I'll escalate it now and call back before the end of the day, so you'll hear from me without chasing.
+--- FAIL
+A*: I'm sorry, refunds take time and I can't speed it up, so call back in a week or so and ask again.
+--- END
+C(-6): Okay.
+
+@@pair id=tr_own_014 check=ownership industry=ecommerce persona=formal hard=another_team
+C(-9): My order was cancelled without any warning.
+A: Brightcart customer care, good afternoon.
+--- PASS
+A*: Cancellations sit with another team, and I will speak with them now and ring you back this afternoon.
+--- FAIL
+A*: Cancellations are handled by another team, which is not the one I am on, so I cannot comment.
+--- END
+C(-6): I see.
+
+@@pair id=tr_own_015 check=ownership industry=saas persona=hurried hard=another_department
+C(-10): My invoice has the wrong company name.
+A: Cloudweave, Leo.
+--- PASS
+A*: Invoices sit in another department, but I'll message them now and have the corrected one to you today.
+--- FAIL
+A*: Invoices are another department, not mine, so I can't touch them, ring finance if you want it changed.
+--- END
+C(-6): Fine.
+
+@@pair id=tr_own_016 check=ownership industry=car_rental persona=warm hard=nothing_i_can_do
+C(-9): My deposit hasn't been returned.
+A: Hello, Roadly, Tom here.
+--- PASS
+A*: There's nothing I can do to speed up the bank, but I've flagged it with our finance lead and I'll check on it again on Friday.
+--- FAIL
+A*: There's nothing I can do about it, honestly, it's up to the bank now and that's all there is to say.
+--- END
+C(-6): Okay.
+
+@@pair id=tr_own_017 check=ownership industry=streaming persona=technical hard=youd_have_to
+C(-9): Subtitles are out of sync on every film.
+A: Streamly, Min-jun.
+--- PASS
+A*: You'd have to update the app to get the fix, so I'll send the update link now and check back with you tomorrow.
+--- FAIL
+A*: You'd have to wait for the developers to release a fix, which isn't something I handle or have any control over.
+--- END
+C(-6): Okay.
+
+@@pair id=tr_own_018 check=ownership industry=appliance_repair persona=terse hard=call_back
+C(-10): Nobody's confirmed my repair appointment.
+A: HomeFix, Carla.
+--- PASS
+A*: I'll call back within the hour with a confirmed slot, so keep your phone on.
+--- FAIL
+A*: Can't confirm anything today, call back tomorrow, and maybe someone will have an answer for you.
+--- END
+C(-6): Right.
+
+@@pair id=tr_own_019 check=ownership industry=mobile_carrier persona=warm hard=provisioning_team
+C(-9): My new SIM hasn't been activated.
+A: Hi, Voxel Mobile, Amara here.
+--- PASS
+A*: Activations go through the provisioning team, so I'm on the internal chat with them right now and I'll stay until it's live.
+--- FAIL
+A*: Activations are the provisioning team's job, not mine, so there's no point asking me, try them later.
+--- END
+C(-6): Okay.
+
+@@pair id=tr_own_020 check=ownership industry=health_insurance persona=scripted hard=contact_them
+C(-10): My provider says they never received the authorisation.
+A: Thank you for calling Greenfield Health, this is Dana.
+--- PASS
+A*: I will contact them directly now, confirm what they hold, and email you the outcome today.
+--- FAIL
+A*: That would be something for you to take up with them, you will have to contact them yourself.
+--- END
+C(-6): I see.
+
+@@pair id=tr_own_021 check=ownership industry=electric_utility persona=hurried hard=another_team
+C(-10): The crew that came didn't fix the fault.
+A: Northline Power, Pete.
+--- PASS
+A*: Repairs belong to another team, so I'm rebooking them as urgent and I'll text you the new time myself.
+--- FAIL
+A*: Repairs are another team and nothing to do with my desk, so I can't rebook anything for you.
+--- END
+C(-6): Hmm.
+
+@@pair id=tr_own_022 check=ownership industry=satellite_internet persona=technical hard=youd_have_to
+C(-9): The router won't connect to the new dish.
+A: S-Net technical, Alex.
+--- PASS
+A*: You'd have to pair them, and I'll push the pairing request from here and stay while you hold the button.
+--- FAIL
+A*: You'd have to book an installer for that, which isn't something this line handles at all.
+--- END
+C(-6): Okay.
+
+@@pair id=tr_own_023 check=ownership industry=ecommerce persona=apologetic hard=nothing_i_can_do
+C(-10): My refund has been pending for a month.
+A: Brightcart, Ellie, sorry about the delay.
+--- PASS
+A*: There's nothing I can do from my side to speed it up, so I'm calling the payments lead myself and I'll ring you back by three.
+--- FAIL
+A*: I'm sorry, there's nothing I can do about it, payments are separate and we can't see their queue.
+--- END
+C(-6): Okay.
+
+@@pair id=tr_own_024 check=ownership industry=car_rental persona=chatty hard=call_back
+C(-9): The breakdown cover hasn't been arranged yet.
+A: Hey, Roadly, Leo here!
+--- PASS
+A*: I'll call back in fifteen minutes with the recovery van's arrival time, I won't leave you hanging.
+--- FAIL
+A*: Not sure on that one, you might want to call back later and see if they've sorted it by then.
+--- END
+C(-6): Right.
+
+@@pair id=tr_own_025 check=ownership industry=streaming persona=formal hard=another_department
+C(-10): My account was suspended in error.
+A: Good evening, Streamly customer care.
+--- PASS
+A*: Suspensions fall under another department, and I will speak with them now and confirm the outcome by phone.
+--- FAIL
+A*: Suspensions fall under another department, which I have no authority over, so I cannot assist.
+--- END
+C(-6): I see.
+
+# =============================================================== Probing
+@@pair id=tr_prb_001 check=probing industry=satellite_internet persona=technical hard=diagnostic_among_boilerplate
+C(-10): My internet keeps dropping in the evenings.
+A: Thank you for calling S-Net. Can I confirm the name on the account?
+C(-4): Daniel Okafor.
+--- PASS
+A*: Which lights on the modem change colour when it drops?
+C(-6): The globe goes orange.
+A: Does it happen on every device?
+--- FAIL
+A*: Is that the correct address on file?
+C(-6): Yes.
+A: Can I place you on a brief hold while I check?
+--- END
+C(-5): Okay.
+A: Is there anything else I can help with?
+
+@@pair id=tr_prb_002 check=probing industry=retail_bank persona=formal hard=diagnostic_among_boilerplate
+C(-10): A payment I made last night hasn't shown up.
+A: Good morning, Halden Savings. How are you today?
+C(-4): Fine, thanks.
+--- PASS
+A*: Was the payment made by transfer or by card, and what time did you submit it?
+C(-6): A transfer, around ten at night.
+A: May I confirm your date of birth?
+--- FAIL
+A*: May I confirm your date of birth?
+C(-6): It's the third of March.
+A: And is the address on the account still current?
+--- END
+C(-5): Yes.
+A: Is there anything further?
+
+@@pair id=tr_prb_003 check=probing industry=airline persona=hurried hard=diagnostic_among_boilerplate
+C(-11): I can't change my seat in the app.
+A: SkyHarbor, Marcus. Booking reference?
+C(-5): K7QD2M.
+--- PASS
+A*: What does the app say when you tap the seat?
+C(-7): It says unavailable.
+A: Is that for every seat or just that row?
+--- FAIL
+A*: Can I put you on hold for a second?
+C(-7): Sure.
+A: Is that your only booking today?
+--- END
+C(-5): Yes.
+A: Anything else?
+
+@@pair id=tr_prb_004 check=probing industry=ecommerce persona=chatty hard=diagnostic_among_boilerplate
+C(-9): The coupon won't apply at checkout.
+A: Hi, Brightcart, Ellie here! How's your day?
+C(-4): Not great.
+--- PASS
+A*: What happens when you type the coupon, does it show an error or just ignore it?
+C(-6): It says invalid.
+A: Is it the first time you've used this code?
+--- FAIL
+A*: Would you like to hear about our loyalty programme?
+C(-6): Not really.
+A: And would you like a quick survey after this call?
+--- END
+C(-5): No.
+A: Anything else I can sort?
+
+@@pair id=tr_prb_005 check=probing industry=saas persona=technical hard=diagnostic_among_boilerplate
+C(-9): The dashboard is very slow since yesterday.
+A: Cloudweave support, Nikhil. Can I have your account email?
+C(-4): ops at beacon dot example.
+--- PASS
+A*: Is it slow in every browser, or only in one?
+C(-5): I've only tried Chrome.
+A: Did anything change in your workspace before it slowed?
+--- FAIL
+A*: Can you confirm that's the right email for your billing?
+C(-5): Yes.
+A: And can I place you on hold while I look?
+--- END
+C(-5): Sure.
+A: Is there anything else?
+
+@@pair id=tr_prb_006 check=probing industry=car_rental persona=apologetic hard=diagnostic_among_boilerplate
+C(-10): The car keeps beeping and a light came on.
+A: Roadly, Tom, sorry about that. Can I have the registration?
+C(-5): LK71 WRD.
+--- PASS
+A*: What colour is the warning light, and does it stay on or flash?
+C(-6): It's orange and it stays on.
+A: Is the car driving normally?
+--- FAIL
+A*: Is that the car you collected on Monday?
+C(-6): Yes.
+A: And may I place you on a short hold?
+--- END
+C(-5): Okay.
+A: Is there anything else?
+
+@@pair id=tr_prb_007 check=probing industry=streaming persona=terse hard=diagnostic_among_boilerplate
+C(-9): The show won't play on my tv.
+A: Streamly, Jo. Email?
+C(-4): It's on the account.
+--- PASS
+A*: What error message do you get?
+C(-5): Code 7004.
+A: Does it play on your phone?
+--- FAIL
+A*: Is that the right plan?
+C(-5): Yes.
+A: Want a survey after this?
+--- END
+C(-5): No.
+A: Anything else?
+
+@@pair id=tr_prb_008 check=probing industry=appliance_repair persona=warm hard=diagnostic_among_boilerplate
+C(-10): Our dishwasher isn't cleaning properly.
+A: Hello, HomeFix, Ines here, how are you?
+C(-4): Okay.
+--- PASS
+A*: Does it leave a film on the glasses, or is it food stuck on the plates?
+C(-6): Food on the plates.
+A: Have you cleaned the filter recently?
+--- FAIL
+A*: Can I have the model number?
+C(-6): It's on the door.
+A: Is the address on the booking still right?
+--- END
+C(-5): Yes.
+A: Is there anything else?
+
+@@pair id=tr_prb_009 check=probing industry=mobile_carrier persona=scripted hard=diagnostic_among_boilerplate
+C(-10): I'm not receiving any texts.
+A: Thank you for calling Voxel Mobile. Can I confirm your phone number?
+C(-4): 555 0143.
+--- PASS
+A*: Since when have the texts stopped arriving, and do calls still come through?
+C(-6): Since Monday, and calls are fine.
+A: Is it all senders or only some?
+--- FAIL
+A*: May I confirm your date of birth?
+C(-6): Third of March.
+A: Is that the address on the account?
+--- END
+C(-5): Yes.
+A: Is there anything else I can assist you with?
+
+@@pair id=tr_prb_010 check=probing industry=health_insurance persona=formal hard=diagnostic_among_boilerplate
+C(-10): The portal won't let me upload a document.
+A: Greenfield Health, good afternoon. May I take your member number?
+C(-4): 4471 8820.
+--- PASS
+A*: What happens when you press upload, does an error appear?
+C(-6): It just spins.
+A: What type and size is the file?
+--- FAIL
+A*: May I confirm your date of birth?
+C(-6): Third of March.
+A: And may I place you on hold for a moment?
+--- END
+C(-5): Yes.
+A: Is there anything further?
+
+@@pair id=tr_prb_011 check=probing industry=electric_utility persona=hurried hard=diagnostic_among_boilerplate
+C(-11): The lights flicker in the whole house.
+A: Northline, Pete. Address?
+C(-5): Fourteen Alder Close.
+--- PASS
+A*: Does it happen at certain times, or all day?
+C(-7): Mostly evenings.
+A: Do the neighbours have it too?
+--- FAIL
+A*: Can I confirm the account holder's name?
+C(-7): Daniel Okafor.
+A: Anything else I can note down?
+--- END
+C(-5): No.
+A: Right, thanks.
+
+@@pair id=tr_prb_012 check=probing industry=satellite_internet persona=chatty hard=diagnostic_among_boilerplate
+C(-9): The wifi's rubbish in my son's room.
+A: Hey, S-Net, Brett here! How's it going?
+C(-4): Fine.
+--- PASS
+A*: How far is that room from the router, and are there thick walls in between?
+C(-6): Two floors up, and yes.
+A: Is it slow on every device in there?
+--- FAIL
+A*: Would you like to hear about our mesh extender bundle?
+C(-6): Not really.
+A: Can I send you a quick survey afterwards?
+--- END
+C(-5): No thanks.
+A: Anything else?
+
+@@pair id=tr_prb_013 check=probing industry=retail_bank persona=technical hard=diagnostic_among_boilerplate
+C(-10): The app crashes whenever I try to pay someone.
+A: Meridian digital, Nikhil. Can I take your customer number?
+C(-4): It's 77120.
+--- PASS
+A*: Which phone and which app version are you on?
+C(-6): An old Lumen, version 4.
+A: Does it crash on the payee screen or after you press confirm?
+--- FAIL
+A*: Can you confirm your date of birth?
+C(-6): Third of March.
+A: May I place you on hold?
+--- END
+C(-5): Okay.
+A: Anything else?
+
+@@pair id=tr_prb_014 check=probing industry=airline persona=warm hard=diagnostic_among_boilerplate
+C(-9): I can't check in online for my flight.
+A: Thanks for calling SkyHarbor, Rosa here. How are you today?
+C(-4): Stressed.
+--- PASS
+A*: What does the page say after you enter your booking reference?
+C(-6): Booking not found.
+A: Is it a flight you booked through us or through a travel agent?
+--- FAIL
+A*: Can I confirm the passenger names on the booking?
+C(-6): Daniel and Amara Okafor.
+A: And can I have your phone number?
+--- END
+C(-5): 555 0143.
+A: Anything else?
+
+@@pair id=tr_prb_015 check=probing industry=ecommerce persona=formal hard=diagnostic_among_boilerplate
+C(-10): My package arrived damaged.
+A: Brightcart customer care, good morning. May I take the order number?
+C(-4): BC-80441.
+--- PASS
+A*: Which part of the packaging was damaged, and was the item itself broken?
+C(-6): The box was crushed and the lamp is cracked.
+A: Do you have any photos?
+--- FAIL
+A*: Can you confirm the delivery address?
+C(-6): Yes, that's right.
+A: May I place you on hold briefly?
+--- END
+C(-5): Yes.
+A: Is there anything further?
+
+@@pair id=tr_prb_016 check=probing industry=saas persona=hurried hard=diagnostic_among_boilerplate
+C(-10): Our webhook has stopped firing.
+A: Cloudweave, Leo. Account email?
+C(-4): ops at beacon dot example.
+--- PASS
+A*: When did it last fire, and did anything change on your endpoint?
+C(-6): Around ten, no changes.
+A: What status codes did you see before it stopped?
+--- FAIL
+A*: Is that the right email for notifications?
+C(-6): Yes.
+A: Can I put you on hold?
+--- END
+C(-5): Okay.
+A: Anything else?
+
+@@pair id=tr_prb_017 check=probing industry=car_rental persona=chatty hard=diagnostic_among_boilerplate
+C(-9): The sat nav's in the wrong language.
+A: Hey, Roadly, Leo here! How are you?
+C(-4): Fine.
+--- PASS
+A*: Which car is it, and does the screen offer a language option in the settings?
+C(-6): The grey Volta, I can't find it.
+A: Does the voice speak in the same language as the screen?
+--- FAIL
+A*: Would you like a roadside cover upgrade for your next trip?
+C(-6): No.
+A: Can I send you a survey about this rental?
+--- END
+C(-5): No thanks.
+A: Anything else?
+
+@@pair id=tr_prb_018 check=probing industry=streaming persona=apologetic hard=diagnostic_among_boilerplate
+C(-10): The picture keeps freezing.
+A: Streamly, Jo, sorry for the wait. Can I take your email?
+C(-4): It's on the account.
+--- PASS
+A*: Does the sound carry on while the picture freezes?
+C(-6): Yes, it carries on.
+A: Is it on one device or all of them?
+--- FAIL
+A*: Is that the right email for the plan?
+C(-6): Yes.
+A: May I put you on a short hold?
+--- END
+C(-5): Okay.
+A: Is there anything else?
+
+@@pair id=tr_prb_019 check=probing industry=appliance_repair persona=terse hard=diagnostic_among_boilerplate
+C(-10): The oven won't heat.
+A: HomeFix, Carla. Postcode?
+C(-4): PN4 2AB.
+--- PASS
+A*: Does the fan come on?
+C(-6): Yes, and the light.
+A: Any error on the display?
+--- FAIL
+A*: Is the booking in your name?
+C(-6): Yes.
+A: Want a survey?
+--- END
+C(-5): No.
+A: Anything else?
+
+@@pair id=tr_prb_020 check=probing industry=mobile_carrier persona=warm hard=diagnostic_among_boilerplate
+C(-9): My data is really slow abroad.
+A: Hi, Voxel Mobile, Amara here. How are you?
+C(-4): Okay.
+--- PASS
+A*: Which country are you in, and is roaming switched on in your settings?
+C(-6): Spain, and yes it's on.
+A: What does the signal indicator show?
+--- FAIL
+A*: Can I confirm your phone number?
+C(-6): 555 0143.
+A: And can I place you on hold for a moment?
+--- END
+C(-5): Yes.
+A: Anything else?
+
+@@pair id=tr_prb_021 check=probing industry=health_insurance persona=technical hard=diagnostic_among_boilerplate
+C(-10): The prior authorisation keeps getting rejected.
+A: Greenfield Health, Nikhil. Member number?
+C(-4): 4471 8820.
+--- PASS
+A*: What reason code does the rejection letter give?
+C(-6): It says missing clinical notes.
+A: Has your doctor sent notes before?
+--- FAIL
+A*: Can you confirm your date of birth?
+C(-6): Third of March.
+A: May I put you on hold?
+--- END
+C(-5): Okay.
+A: Anything else?
+
+@@pair id=tr_prb_022 check=probing industry=electric_utility persona=formal hard=diagnostic_among_boilerplate
+C(-10): The bill seems far too high.
+A: Northline Power, good afternoon. May I take your account number?
+C(-4): 5520 1871.
+--- PASS
+A*: Does the bill state an actual reading or an estimate?
+C(-6): It says estimated.
+A: What does your meter show today?
+--- FAIL
+A*: May I confirm the name on the account?
+C(-6): Daniel Okafor.
+A: And is the address current?
+--- END
+C(-5): Yes.
+A: Is there anything further?
+
+@@pair id=tr_prb_023 check=probing industry=satellite_internet persona=hurried hard=diagnostic_among_boilerplate
+C(-11): Internet's gone completely.
+A: S-Net, Brett. Account number?
+C(-5): 5521 0834.
+--- PASS
+A*: What lights are on the dish controller?
+C(-7): Only the power one.
+A: Did it go down after the storm?
+--- FAIL
+A*: Can I confirm the address?
+C(-7): Yes, it's right.
+A: Can I place you on hold?
+--- END
+C(-5): Okay.
+A: Anything else?
+
+@@pair id=tr_prb_024 check=probing industry=airline persona=chatty hard=diagnostic_among_boilerplate
+C(-9): My boarding pass won't download.
+A: Hi, SkyHarbor, Rosa here! What's the booking reference?
+C(-4): K7QD2M.
+--- PASS
+A*: What happens when you press download, does it give an error or just spin?
+C(-6): It spins and stops.
+A: Have you tried it on another browser?
+--- FAIL
+A*: Would you like to add extra legroom for your flight?
+C(-6): No.
+A: Can I send you a quick survey afterwards?
+--- END
+C(-5): No.
+A: Anything else?
+
+@@pair id=tr_prb_025 check=probing industry=ecommerce persona=technical hard=diagnostic_among_boilerplate
+C(-10): The checkout page freezes at payment.
+A: Brightcart technical, Min-jun. Can I take your email?
+C(-4): It's on the account.
+--- PASS
+A*: Which browser and device are you using, and does it freeze after entering the card number?
+C(-6): Chrome on a laptop, yes after the card number.
+A: Does a different card behave the same way?
+--- FAIL
+A*: Is that the right email for the order?
+C(-6): Yes.
+A: May I place you on a short hold?
+--- END
+C(-5): Okay.
+A: Is there anything else?

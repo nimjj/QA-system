@@ -1,0 +1,141 @@
+# Eval50 batch 3: eval_11 - eval_16 (good calls with one or two faults).
+
+@@call id=eval_11 name=Siobhan
+@labels B=P H=P V=P PE=P E=P R=P PA=P AL=P O=P PR=P CR=F
+@notes CR: agent says "that should fix it" and closes without asking whether it worked; the customer never confirms.
+A: Thank you for calling S-Net, this is Imran. How can I help?
+C(-19): Hi Imran. My voicemail isn't working at all. People tell me they're leaving messages but I never get them, and I've missed some important calls.
+A: Missing important calls is really stressful, I'm sorry. Let's look into it. Could you confirm the address on the account, please?
+C(-8): 7 Park Terrace, Cardiff, CF10 3NN.
+A: Thank you, Siobhan. So callers say they're leaving voicemails, but none of them reach you, and you've missed some important calls. Is that correct?
+C(-6): Yes, that's it.
+A: When you dial 1 2 1 to listen, what do you hear?
+C(-6): It says I have no new messages.
+A: Do you get a missed call notification when someone rings and you don't answer?
+C(-6): Yes, the missed call shows up, but no voicemail.
+A: Did you recently change your phone or your SIM?
+C(-6): New phone two weeks ago.
+A: That's probably it. Your new phone has call forwarding switched on to a number that isn't our voicemail. I've reset the forwarding from our side to point back to S-Net voicemail.
+C(-4): Oh, okay.
+A: That should fix it. Messages will start coming through from now on.
+C(-4): Okay, thanks.
+A: Thank you for choosing S-Net, Siobhan. Have a good day.
+
+@@call id=eval_12 name=Hamid
+@labels B=P H=P V=P PE=P E=P R=P PA=F AL=P O=P PR=P CR=P
+@notes PA: the agent never restates or checks the customer's problem; goes straight to questions. Otherwise good.
+A: Thank you for calling S-Net, my name is Grace. What can I do for you?
+C(-20): Hi. I've been charged a cancellation fee of a hundred and twenty pounds for switching my mobile contract to a SIM-only plan with you, and nobody told me there'd be a fee. I'm really not happy.
+A: I'm sorry, Hamid, an unexpected fee like that would upset anyone. Let's look at it now. Can you give me your PIN, please?
+C(-10): 6 6 0 4.
+A: Thank you. When did you make the switch?
+C(-10): Last Tuesday, in the shop on the high street.
+A: And did the shop assistant go through any paperwork or a summary of the new plan with you?
+C(-10): She printed a summary but I didn't read every line.
+A: That's understandable. Was your old contract still within the first twenty-four months?
+C(-9): I think it had about three months left.
+A: Thanks. The fee is for ending the old phone contract early, but because you stayed with S-Net and moved to a SIM-only plan, it shouldn't apply. It was added by mistake.
+C(-6): So I don't have to pay it?
+A: No. I've removed the hundred and twenty pounds from your account just now, and you'll see a corrected bill in the next few days.
+C(-3): That's a relief.
+A: Can you check the app for me, and see whether the fee is gone from your balance?
+C(-2): Yes, the balance is back to normal now.
+A: Great, so the fee is removed and your plan is correct. Anything else I can help with today, Hamid?
+C(-1): No, that's all. Thanks.
+A: Thank you for choosing S-Net. Have a good day.
+
+@@call id=eval_13 name=Beatriz
+@labels B=P H=P V=P PE=P E=F R=P PA=P AL=P O=P PR=P CR=F
+@notes E: the customer is clearly upset (repeat outage, working from home, losing money); the agent never acknowledges it and moves straight to process. Not rude, just no empathy. CR: the outage is not fixed on the call (repair later today); only a hotspot workaround is confirmed.
+A: Thank you for calling S-Net, this is Kevin. How can I help you?
+C(-30): This is the third time this month my internet has died completely. I run a business from home and every time it happens I lose a day's work and money. I'm at the end of my rope with you people.
+A: Okay. Can I take your PIN to access the account?
+C(-18): 3 0 3 0.
+A: Thanks, Beatriz. So your connection has gone down completely three times this month, and it's down again now. Is that right?
+C(-15): Yes.
+A: What lights are showing on the router right now?
+C(-15): Just the power light. The internet light is off.
+A: Have there been any works on the street, or anyone digging nearby?
+C(-15): There's been a crew in the road for a few weeks, yes.
+A: That fits. I can see a fault on the cable in your street, logged by the network team this morning. The repair is scheduled for today, and the estimate is by five p.m.
+C(-14): And it'll just happen again next week?
+A: I've added your line to the repair notes so the engineer checks your connection specifically, and I've asked for a fault-free test to be run on the cable once it's repaired.
+C(-12): Fine.
+A: I'll also give you a mobile hotspot code for unlimited data on your phone until it's fixed. Has the text with the code come through?
+C(-10): Yes, I've got it.
+A: Good. Could you try the hotspot on your laptop and tell me if it connects?
+C(-8): Yes, it's connected and working.
+A: So you're online through the hotspot for now and the line repair is booked for today. Is that okay for now?
+C(-8): Yes, it'll do.
+A: Thank you for choosing S-Net, Beatriz.
+
+@@call id=eval_14 name=Callum
+@labels B=P H=F V=F PE=P E=P R=P PA=P AL=P O=P PR=P CR=P
+@notes H: two unannounced silences of about 45 s and 50 s while the agent works (customer asks "hello?"). V: no PIN/address/security question in the first 4 minutes; the agent only asks for the date of birth.
+A: Thank you for calling S-Net, I'm Owen. How can I help?
+C(-18): Hi Owen. I can't get my phone to connect to the wifi any more, it says incorrect password, and everyone else in the house is fine. It's really annoying.
+A: That is annoying, when everyone else is online and you're not. Let's sort it out. Can I take your date of birth?
+C(-8): Fourth of February, ninety-two.
+A: Thank you, Callum. So your phone says incorrect password for the home wifi, but everyone else in the house connects fine. Is that right?
+C(-6): Yes.
+A: Is your phone an iPhone or an Android?
+C(-6): Android, a Samsung.
+@gap 45
+C(-10): Hello? Are you still there?
+A: Yes, still here. Did the wifi name change recently, or did anyone change the password on the router?
+C(-6): My brother changed something on the router last week, now I think about it.
+@gap 50
+C(-10): Hello?
+A: Sorry. I can see the wifi password was changed on the twelfth. On your phone, go to wifi, tap the network, choose forget, then connect again with the password on the back of the router.
+C(-5): Okay, forgetting it. Typing the password from the card. Connected!
+A: Great. Can you open a website to make sure it actually loads?
+C(-3): Yes, it's loading.
+A: Perfect, so your phone is back on the wifi. Anything else, Callum?
+C(-2): No, that's it, thanks.
+A: Thank you for choosing S-Net, have a good day.
+
+@@call id=eval_15 name=Noor
+@labels B=P H=P V=P PE=P E=P R=P PA=P AL=F O=P PR=P CR=P
+@notes AL: the agent asks for the order number twice after the customer already gave it, and re-asks which phone was ordered after it was stated. Otherwise good.
+A: Thank you for calling S-Net, my name is Callie. How can I help today?
+C(-16): Hi. I ordered a new phone on your website a week ago, a Pixel 9, order number S N O 8 8 1 4, and it still hasn't arrived. It's a bit frustrating.
+A: I'm sorry it's taken so long, Noor, that is frustrating when you're waiting on a new phone. Can I take your PIN to look at the account?
+C(-8): 4 0 0 9.
+A: Thanks. So you ordered a phone a week ago and it hasn't been delivered yet. Is that right?
+C(-6): Yes.
+A: What's the order number?
+C(-8): S N O 8 8 1 4, I said it at the start.
+A: Thanks. And which phone was it you ordered?
+C(-9): A Pixel 9.
+A: Okay. Was there a delivery date on the confirmation email?
+C(-7): It said the twelfth, which was Monday.
+A: Can you read me the order number again so I can check it's the right one?
+C(-12): S N O 8 8 1 4. Again.
+A: Got it. The parcel is held at the courier depot because the address label was damaged. I've arranged redelivery for tomorrow, with a text the night before.
+C(-5): Okay, good.
+A: Have you received the redelivery text with the time slot?
+C(-4): Yes, it's come through. Tomorrow between ten and two.
+A: Great, so the phone is booked for delivery tomorrow. Is everything sorted for you now, Noor?
+C(-3): Yes, thanks.
+A: Thank you for choosing S-Net, have a good day.
+
+@@call id=eval_16 name=Oskar
+@labels B=P H=P V=P PE=P E=P R=P PA=P AL=P O=P PR=F CR=F
+@notes PR: the agent asks no diagnostic questions about the problem at all (only verification and admin questions), and just sends a replacement remote. Probing FAIL. CR: the fault is not fixed on the call; a replacement is posted and never tested.
+A: Thank you for calling S-Net, this is Ellie. How can I help you today?
+C(-14): Hi Ellie. My TV remote has stopped working properly, half the buttons don't do anything and it's quite annoying.
+A: That's annoying, I'm sorry, Oskar. Let's get it sorted. Can I take your PIN?
+C(-6): 1 1 7 7.
+A: Thank you. So your TV remote has partly stopped working and half the buttons do nothing. Is that right?
+C(-5): Yes, that's right.
+A: I'll send you a replacement remote today. Can I confirm the delivery address is still 3 Station Road?
+C(-4): Yes it is.
+A: Would you like it sent first class, or is standard post okay?
+C(-4): Standard is fine.
+A: That's ordered. It should arrive in two to three days, and it pairs automatically when you press the two blue buttons together for three seconds.
+C(-3): Okay.
+A: Has the order email come through to you?
+C(-3): Yes, I've got it.
+A: Great. When the new remote arrives and you've paired it, does that cover everything you needed today?
+C(-2): Yes, that's fine. Thanks.
+A: Thank you for choosing S-Net, Oskar. Have a good day.

@@ -1,0 +1,22 @@
+train items 288, calibration items 32, eval items 32 (calibration_slice), skipped {}, device cuda:0
+epoch 1/2 mean loss 0.7874
+epoch 2/2 mean loss 0.6630
+/usr/local/lib/python3.13/dist-packages/laya/train_cli.py:221: RuntimeWarning: laya.train: noul calibration: fitted on only 32 calibration items
+  summary = finetune(
+/usr/local/lib/python3.13/dist-packages/laya/train_cli.py:221: RuntimeWarning: laya.train: noul calibration: the fitted temperature 5 is on the [0.5, 5] clamp
+  summary = finetune(
+
+=== Calibration Evidence (in-sample calibration slice, 32 items; not held-out) ===
+Metric                 Before         After          Delta         
+-----------------------------------------------------------------
+Accuracy               0.5938         0.4375         -0.1563       
+Loss                   0.6956         0.6980         +0.0024       
+ECE                    0.2165         0.0712         -0.1453       
+Brier (multi-class)    0.4998         0.5049         +0.0051       
+Brier (top-1)          0.2499         0.2524         +0.0025       
+Mean Confidence        0.6767         0.5087         -0.1680       
+-----------------------------------------------------------------
+
+/usr/local/lib/python3.13/dist-packages/laya/train.py:1214: UserWarning: Conflicting schema detected for question 'q' across rows; keeping first seen definition.
+  warnings.warn("Conflicting schema detected for question %r across rows; "
+Training complete! Model saved to /content/work/timing-ckpt

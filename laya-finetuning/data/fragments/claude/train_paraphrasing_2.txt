@@ -1,0 +1,447 @@
+# Train: Paraphrasing, part 2 (40 pairs).
+
+@@pair id=tr_para_041 check=paraphrasing industry=satellite_internet persona=hurried hard=restate_no_tag
+A: S-Net, Brett.
+C(-9): Our connection died after the storm on Sunday and the dish looks like it's pointing slightly differently than before.
+--- PASS
+A: Storm on Sunday, connection's dead, dish looks like it's moved. Okay, probably misaligned.
+--- FAIL
+A: Has the dish moved? Is there any damage to the mount, can you see?
+--- END
+C(-6): The mount looks bent.
+A: Right.
+
+@@pair id=tr_para_042 check=paraphrasing industry=retail_bank persona=technical hard=echo_questions
+A: Meridian Bank digital support, Nikhil.
+C(-10): The app keeps logging me out every time I try to approve a payment, so I can never actually complete a transfer.
+--- PASS
+A: So whenever you go to approve a payment the app signs you out, which means no transfer ever completes. Let me check the session settings.
+--- FAIL
+A: Does the app log you out when you approve a payment? And is that on every transfer?
+--- END
+C(-6): Every transfer, since Thursday.
+A: Noted.
+
+@@pair id=tr_para_043 check=paraphrasing industry=airline persona=apologetic hard=wrong_restate
+A: SkyHarbor customer care, Rosa, sorry for the hold.
+C(-11): I was moved to a middle seat after paying extra for an aisle, and the agent at the desk said there was nothing they could do.
+--- PASS
+A: I'm sorry. So you paid extra for an aisle seat, ended up in the middle, and the desk agent told you they couldn't change it. Let me see what the booking shows.
+--- FAIL
+A: I'm sorry. So you'd like to upgrade to extra legroom and the desk couldn't take payment. Let me see what the booking shows.
+--- END
+C(-8): No, I'd already paid for the aisle.
+A: Right, sorry, looking at that now.
+
+@@pair id=tr_para_044 check=paraphrasing industry=ecommerce persona=chatty hard=generic_filler
+A: Hi, Brightcart, Ellie here, how can I make your day better?
+C(-8): The mattress I ordered came in three boxes but only two have arrived, and the delivery guy just left.
+--- PASS
+A: Ooh, so a three-box mattress and only two boxes turned up, and the driver's already gone. Let's find box number three.
+--- FAIL
+A: Oh gosh, that's a pain, deliveries are such a hassle sometimes, I'm sure we can sort something out for you, don't worry.
+--- END
+C(-5): I hope so.
+A: Let me pull up the order.
+
+@@pair id=tr_para_045 check=paraphrasing industry=saas persona=formal hard=plan_readback
+A: Cloudweave customer support, good morning.
+C(-9): We want to downgrade from the Enterprise tier but the billing page only offers an upgrade option.
+--- PASS
+A: You would like to move down from Enterprise, but the billing page only gives you the option to upgrade. I will look at what your account permits.
+--- FAIL
+A: I see your organisation is on the Enterprise tier. May I confirm your billing contact's email address?
+--- END
+C(-6): It's finance at northgate dot example.
+A: Thank you.
+
+@@pair id=tr_para_046 check=paraphrasing industry=car_rental persona=warm hard=restate_no_tag
+A: Hello, Roadly Car Hire, Tom here, how can I help?
+C(-8): I returned the car with a small dent in the door that was already there when I picked it up, and they're saying I caused it.
+--- PASS
+A: That's stressful. So the dent in the door was there before you drove off, and now you're being held responsible for it. I'll go through the pick-up photos.
+--- FAIL
+A: That's stressful. Which door has the dent? And were any photos taken at pick-up, do you remember?
+--- END
+C(-5): The passenger door, and I took some myself.
+A: That helps.
+
+@@pair id=tr_para_047 check=paraphrasing industry=streaming persona=technical hard=echo_questions
+A: Streamly technical support, Min-jun.
+C(-9): The app crashes on launch on my phone since the latest update, I just see the logo and then it closes.
+--- PASS
+A: Since the latest update the app closes right after the logo on your phone, so it never reaches the home screen. I'll check known issues for your device.
+--- FAIL
+A: Does the app close after the logo? And is that on your phone only, or on other devices as well?
+--- END
+C(-6): Just the phone.
+A: Okay.
+
+@@pair id=tr_para_048 check=paraphrasing industry=appliance_repair persona=chatty hard=jump_to_fix
+A: Hi, HomeFix, Ines, what's going on?
+C(-9): Our fridge door doesn't seal anymore and there's frost building up on the shelves and a puddle underneath.
+--- PASS
+A: So the door isn't sealing, which explains the frost on the shelves and the puddle underneath. That'll be the gasket most likely.
+--- FAIL
+A: Right, I'll book a technician for you, which day works, and do you have the model number to hand?
+--- END
+C(-6): Thursday, and it's a CoolMax 300.
+A: Cool, thanks.
+
+@@pair id=tr_para_049 check=paraphrasing industry=mobile_carrier persona=scripted hard=generic_filler
+A: Thank you for calling Voxel Mobile. My name is Leo.
+C(-9): I'm being charged for a premium text subscription I never signed up for, and it's been going on for three months.
+--- PASS
+A: So for three months you have been charged for a premium text service you did not sign up for. I will find out where that subscription originated.
+--- FAIL
+A: Thank you for explaining that to me. I understand that is a concern, and I will do everything I can to help you today.
+--- END
+C(-7): I want it stopped and refunded.
+A: Certainly.
+
+@@pair id=tr_para_050 check=paraphrasing industry=health_insurance persona=hurried hard=short_restate
+A: Greenfield Health, Pete.
+C(-10): My specialist says the scan was approved but the imaging centre says they got a denial from you.
+--- PASS
+A: Specialist says approved, imaging centre says denied. Conflict. I'll check.
+--- FAIL
+A: Which scan? Which centre?
+--- END
+C(-6): MRI, Westgate Imaging.
+A: Okay.
+
+@@pair id=tr_para_051 check=paraphrasing industry=electric_utility persona=technical hard=wrong_restate
+A: Northline Power, Nikhil, technical desk.
+C(-9): Our smart meter reads in the app but it's showing yesterday's usage as zero when we definitely used power.
+--- PASS
+A: The app shows zero for yesterday even though you clearly used electricity, so the daily reading isn't coming through. I'll check the meter's data feed.
+--- FAIL
+A: So the app is showing too much usage for yesterday and you think the meter is overreading. I'll check the meter's accuracy.
+--- END
+C(-8): No, the opposite, it's showing zero.
+A: Right, thanks for clarifying.
+
+@@pair id=tr_para_052 check=paraphrasing industry=retail_bank persona=warm hard=echo_same_words
+A: Hello, Halden Savings, you're through to Priya, how can I help?
+C(-10): I've been waiting three weeks for my joint account to be opened and I keep getting told it's being processed.
+--- PASS
+A: Three weeks is a long time. So you applied for a joint account, it still isn't open, and every time you ask you hear it's being processed. Let me see the application.
+--- FAIL
+A: Three weeks is a long time. Has it been three weeks since you applied? And when you ask, are they saying it's being processed?
+--- END
+C(-6): Yes, every time.
+A: Okay.
+
+@@pair id=tr_para_053 check=paraphrasing industry=airline persona=formal hard=restate_late
+A: SkyHarbor Airlines, good afternoon.
+C(-10): My flight voucher from the cancellation says it's valid but the booking site rejects the code every time I enter it.
+A(+4): May I ask which site you are using?
+C(-5): Your main website.
+--- PASS
+A: Thank you. So you hold a voucher issued after the cancellation, it is marked valid, but our website declines the code at every attempt. I will test the code.
+--- FAIL
+A: Thank you. And what is the code, and the date on which the voucher was issued?
+--- END
+C(-6): It's VC-88213, issued on the fifth.
+A: Thank you.
+
+@@pair id=tr_para_054 check=paraphrasing industry=ecommerce persona=hurried hard=restate_no_tag
+A: Brightcart, Min-jun.
+C(-10): I got charged twice for the same order and the second charge says pending, I need that reversed today.
+--- PASS
+A: Double charge on one order, second one pending, you want it reversed today. Okay.
+--- FAIL
+A: Order number? Which card?
+--- END
+C(-6): BC-77120, the Visa.
+A: Got it.
+
+@@pair id=tr_para_055 check=paraphrasing industry=saas persona=apologetic hard=plan_readback
+A: Cloudweave support, Grace speaking, sorry for the delay.
+C(-10): We deleted a project by mistake yesterday and I'd like to know if it can be restored from a backup.
+--- PASS
+A: No worries, it happens. So a project was deleted by accident yesterday and you want to know whether a backup can bring it back. Let me check.
+--- FAIL
+A: No worries, it happens. I can see you're on the Pro plan. Could you give me the name of the workspace?
+--- END
+C(-6): It's called Delta Rollout.
+A: Thanks.
+
+@@pair id=tr_para_056 check=paraphrasing industry=car_rental persona=chatty hard=generic_filler
+A: Hey, Roadly, Leo here, what's happening?
+C(-9): I booked a minivan for eight people but they only had a seven-seater at the desk, and we've got a grandmother who can't squeeze in.
+--- PASS
+A: Oh no, so you booked a minivan for eight and they gave you a seven-seater, which leaves your grandmother without a seat. Let's fix that.
+--- FAIL
+A: Oh no, that's the worst, I totally feel for you, we really don't want anyone stuck at the desk, so let's see what we can do.
+--- END
+C(-6): We need an eight-seater.
+A: Got it.
+
+@@pair id=tr_para_057 check=paraphrasing industry=streaming persona=formal hard=echo_questions
+A: Good morning, Streamly customer care.
+C(-8): I changed my email address on the account but the confirmation message keeps going to the old one, so I can't verify it.
+--- PASS
+A: You updated the email on the account, but the confirmation keeps being sent to the previous address, so you are unable to verify the new one. I will check the account details.
+--- FAIL
+A: Did you change the email address on the account? And is the confirmation going to the old address?
+--- END
+C(-6): Yes, both.
+A: Thank you.
+
+@@pair id=tr_para_058 check=paraphrasing industry=appliance_repair persona=technical hard=short_restate
+A: HomeFix technical, Nikhil.
+C(-9): The heat pump tumble dryer is leaking water onto the floor from the door area during the cycle.
+--- PASS
+A: Water coming out around the door mid-cycle. Likely the condenser or seal.
+--- FAIL
+A: Which brand? How old is it?
+--- END
+C(-6): Hartwell, about two years.
+A: Okay.
+
+@@pair id=tr_para_059 check=paraphrasing industry=mobile_carrier persona=warm hard=wrong_restate
+A: Hi, Voxel Mobile, Amara speaking, how can I help?
+C(-9): I'm in another country and I can't make calls even though my data works, and I'm supposed to be on a business trip.
+--- PASS
+A: Business trips are stressful enough. So you're abroad, your data works, but you can't place calls. I'll check your roaming settings.
+--- FAIL
+A: Business trips are stressful enough. So you're abroad and you can't use data, and calls work fine. I'll check your roaming settings.
+--- END
+C(-8): No, it's the other way round, data works but calls don't.
+A: Oh, right, thank you.
+
+@@pair id=tr_para_060 check=paraphrasing industry=health_insurance persona=scripted hard=restate_no_tag
+A: Thank you for calling Greenfield Health. My name is Dana.
+C(-9): My husband had an emergency room visit last month and we've received a bill for the whole amount, saying it was out of network.
+--- PASS
+A: So your husband went to the emergency room last month and you've been billed the full amount because it was labelled out of network. I will review how the claim was processed.
+--- FAIL
+A: May I ask which hospital he went to? And on what date was the emergency room visit?
+--- END
+C(-6): St Aldric's, on the twelfth.
+A: Thank you.
+
+@@pair id=tr_para_061 check=paraphrasing industry=satellite_internet persona=chatty hard=echo_same_words
+A: Hey, S-Net, Brett here, how can I help?
+C(-9): Our internet's been slow only on the smart tv for a week, everything else in the house is fine.
+--- PASS
+A: Right, so just the smart tv has been slow for the past week while the rest of the devices are fine. That narrows it down.
+--- FAIL
+A: Is it only the smart tv that's slow? And has it been a week, you said?
+--- END
+C(-5): Yeah, a week.
+A: Gotcha.
+
+@@pair id=tr_para_062 check=paraphrasing industry=airline persona=hurried hard=jump_to_fix
+A: SkyHarbor, Marcus.
+C(-10): I booked a flight for my son and put the wrong date of birth, and I'm told it won't match his passport.
+--- PASS
+A: Wrong date of birth on your son's booking, won't match the passport. We can correct that.
+--- FAIL
+A: Booking reference and his passport number, please, I'll amend it.
+--- END
+C(-6): It's QD73ZP, passport is 55102934.
+A: Got them.
+
+@@pair id=tr_para_063 check=paraphrasing industry=retail_bank persona=apologetic hard=generic_filler
+A: Meridian Bank, Priya, thank you so much for waiting.
+C(-10): My salary didn't arrive yesterday as usual and my employer says they sent it, so I don't know where it is.
+--- PASS
+A: Thank you for your patience. So your salary was due yesterday, your employer says it was sent, and it hasn't shown up in your account. I'll trace the payment.
+--- FAIL
+A: Thank you for your patience. I'm so sorry for the worry this is causing you, and I really do want to put this right.
+--- END
+C(-7): I need it today.
+A: Of course.
+
+@@pair id=tr_para_064 check=paraphrasing industry=ecommerce persona=technical hard=echo_questions
+A: Brightcart technical team, Min-jun.
+C(-9): The checkout page freezes when I enter my card number, so I can't complete my order, and I've tried two browsers.
+--- PASS
+A: The checkout page freezes at the card number field, in two different browsers, so you can't place the order. I'll check for a fault on our side.
+--- FAIL
+A: Does the checkout page freeze when you enter the card number? And have you tried a different browser?
+--- END
+C(-6): Yes, two of them.
+A: Right.
+
+@@pair id=tr_para_065 check=paraphrasing industry=saas persona=warm hard=restate_late
+A: Hi, Cloudweave support, Grace here, how can I help?
+C(-8): Our team can't see the shared calendar since this morning.
+A(+7): Is that everybody, or just some of you?
+C(-4): Everyone on the marketing team.
+--- PASS
+A: Got it, so the whole marketing team lost access to the shared calendar this morning. Let me check the permissions.
+--- FAIL
+A: Thanks. And which calendar is it, and has anyone changed the group settings recently?
+--- END
+C(-5): The campaign one, not that I know of.
+A: Okay.
+
+@@pair id=tr_para_066 check=paraphrasing industry=car_rental persona=formal hard=plan_readback
+A: Roadly Car Hire, good evening, how may I assist you?
+C(-10): The toll charges on my invoice are far higher than the tolls on my route, and I would like them itemised.
+--- PASS
+A: You feel the toll charges on your invoice are too high for the route you drove, and you would like them itemised. I will request the breakdown.
+--- FAIL
+A: I see your rental was for seven days with the Standard package. May I take your booking number?
+--- END
+C(-6): It's RD-30921.
+A: Thank you.
+
+@@pair id=tr_para_067 check=paraphrasing industry=streaming persona=chatty hard=short_restate
+A: Hey, Streamly, Jo here.
+C(-8): The live sports channel keeps freezing in the last minutes of every match, always at the worst time.
+--- PASS
+A: Ha, so it freezes right at the end of matches, just when it matters. Classic.
+--- FAIL
+A: Which channel is it? Is it all matches?
+--- END
+C(-5): The football one, every match.
+A: Right.
+
+@@pair id=tr_para_068 check=paraphrasing industry=appliance_repair persona=scripted hard=wrong_restate
+A: Thank you for calling HomeFix. This is Ines.
+C(-9): The technician replaced the part last week but my washing machine is making the same grinding noise as before.
+--- PASS
+A: So the part was replaced last week, and the washing machine still makes the same grinding noise. I will arrange a follow-up visit.
+--- FAIL
+A: So the technician failed to arrive last week and you are still waiting for the part. I will arrange a visit.
+--- END
+C(-8): No, he came and replaced it, it just didn't fix the noise.
+A: I apologise, I will correct that.
+
+@@pair id=tr_para_069 check=paraphrasing industry=mobile_carrier persona=hurried hard=restate_no_tag
+A: Voxel Mobile, Leo.
+C(-9): My phone was stolen last night and I need the number blocked before anyone runs up charges.
+--- PASS
+A: Phone stolen, you need the line blocked before anyone uses it. On it.
+--- FAIL
+A: Account holder name? Date of birth?
+--- END
+C(-8): It's Daniel Okoro, 4 June 1992.
+A: Thanks.
+
+@@pair id=tr_para_070 check=paraphrasing industry=electric_utility persona=warm hard=echo_questions
+A: Hello, Northline Power, Rosa here, how can I help?
+C(-9): There's been no power on our street for three hours and my mother is on oxygen at home.
+--- PASS
+A: That's frightening, I'm sorry. So your whole street has been without power for three hours and your mother depends on oxygen at home. I'm marking this as a priority.
+--- FAIL
+A: That's frightening. Has your whole street been without power for three hours? And your mother is on oxygen, is that right?
+--- END
+C(-8): Yes, please hurry.
+A: I will.
+
+@@pair id=tr_para_071 check=paraphrasing industry=satellite_internet persona=technical hard=generic_filler
+A: S-Net technical support, Alex.
+C(-9): Latency spikes to over a second every few minutes, which is ruining my online meetings.
+--- PASS
+A: So every few minutes latency jumps past a second, and that's disrupting your online meetings. I'll look at the line history.
+--- FAIL
+A: Understood. Latency issues can be caused by a number of different factors, and I will do my best to investigate.
+--- END
+C(-6): Can you tell what it is?
+A: I will check.
+
+@@pair id=tr_para_072 check=paraphrasing industry=airline persona=chatty hard=restate_late
+A: Hi, SkyHarbor, Rosa speaking, how can I help?
+C(-9): The airline lost my wheelchair on the last flight and I've got nothing to get around the hotel with.
+A(+8): Oh no, which airport did you land at?
+C(-6): Lisbon, this morning.
+--- PASS
+A: That's awful. So your wheelchair didn't come off the plane in Lisbon this morning, and you've nothing to get around with at the hotel. I'm getting the baggage team right now.
+--- FAIL
+A: That's awful. And what hotel are you staying at? And is it close to the airport?
+--- END
+C(-8): The Mira, about twenty minutes away.
+A: Okay.
+
+@@pair id=tr_para_073 check=paraphrasing industry=health_insurance persona=technical hard=restate_no_tag
+A: Greenfield Health systems desk, Nikhil.
+C(-9): The portal says my claim is 'under review' but it's been like that for sixty days, which is way past your stated time.
+--- PASS
+A: So the claim has said 'under review' for sixty days, well beyond the standard processing time. I'll see what's holding it.
+--- FAIL
+A: What's the claim number? And what was the date of service on it?
+--- END
+C(-6): C-90123, the second of May.
+A: Thanks.
+
+@@pair id=tr_para_074 check=paraphrasing industry=retail_bank persona=scripted hard=short_restate
+A: Thank you for calling Halden Savings. My name is Priya.
+C(-9): I've lost my debit card and I'm travelling abroad tomorrow, so I need a replacement fast.
+--- PASS
+A: Lost debit card and a trip abroad tomorrow, you need a quick replacement.
+--- FAIL
+A: Which account is the card linked to?
+--- END
+C(-6): The current account.
+A: Thank you.
+
+@@pair id=tr_para_075 check=paraphrasing industry=ecommerce persona=apologetic hard=echo_same_words
+A: Brightcart support, Ellie, apologies for the wait.
+C(-9): The sofa I ordered has arrived with a tear in the fabric on one arm, and I'd like it replaced, not repaired.
+--- PASS
+A: I'm sorry. So the sofa came with a tear in the fabric on one arm, and you want a replacement rather than a repair. I'll arrange that.
+--- FAIL
+A: I'm sorry. Is the tear on one arm of the sofa? And you'd like a replacement, not a repair?
+--- END
+C(-6): Yes, a replacement.
+A: Right.
+
+@@pair id=tr_para_076 check=paraphrasing industry=saas persona=chatty hard=jump_to_fix
+A: Hey, Cloudweave, Leo here, what's going on?
+C(-8): Our webhook stopped firing about an hour ago and our orders system depends on it.
+--- PASS
+A: So your webhook went quiet an hour ago and your orders system relies on it. I'll check the delivery logs.
+--- FAIL
+A: Okay, can you send me the webhook URL? I'll resend the last events.
+--- END
+C(-6): It's on the orders subdomain.
+A: Got it.
+
+@@pair id=tr_para_077 check=paraphrasing industry=car_rental persona=hurried hard=wrong_restate
+A: Roadly, Tom.
+C(-10): The agent said the deposit would be refunded in five days, it's been nineteen and nothing has arrived.
+--- PASS
+A: Deposit was promised in five days, it's day nineteen, nothing yet. Checking.
+--- FAIL
+A: You want to know how to cancel the booking, correct? Checking.
+--- END
+C(-8): No, it's the deposit refund, nineteen days.
+A: Right.
+
+@@pair id=tr_para_078 check=paraphrasing industry=streaming persona=technical hard=restate_no_tag
+A: Streamly technical support, Nikhil.
+C(-9): Casting from my phone to the tv keeps dropping after about ten minutes, and the tv then says it can't connect.
+--- PASS
+A: So casting from the phone to the tv cuts out after roughly ten minutes, and the tv reports a connection failure. I'll check for network or app causes.
+--- FAIL
+A: What kind of tv is it? And is the phone on the same wifi network as the tv?
+--- END
+C(-6): A Lumen smart tv, same wifi.
+A: Thanks.
+
+@@pair id=tr_para_079 check=paraphrasing industry=appliance_repair persona=formal hard=echo_questions
+A: HomeFix customer service, good afternoon.
+C(-9): My extractor fan makes a loud humming noise even when switched off at the wall, and I am concerned about safety.
+--- PASS
+A: Your extractor fan hums loudly even when it is switched off at the wall, and that worries you from a safety point of view. I will treat it as urgent.
+--- FAIL
+A: Does the fan hum even when switched off at the wall? And is the humming loud all the time?
+--- END
+C(-7): Yes, constantly.
+A: Understood.
+
+@@pair id=tr_para_080 check=paraphrasing industry=mobile_carrier persona=apologetic hard=generic_filler
+A: Voxel Mobile, Amara speaking, so sorry about the hold.
+C(-10): My eSIM activation keeps failing at the last step and I've been trying since this morning, and I can't make any calls.
+--- PASS
+A: No need to apologise, thanks for holding. So the eSIM activation fails at the final step every time, and you can't use the phone for calls. Let me look.
+--- FAIL
+A: No need to apologise, thanks for holding. I'm really sorry about all of this trouble, I know it's a lot, and we'll get there.
+--- END
+C(-8): I just want it working.
+A: Understood.

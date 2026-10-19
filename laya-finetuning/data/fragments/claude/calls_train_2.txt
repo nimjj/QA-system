@@ -1,0 +1,203 @@
+# Stage 3, train part 2.
+
+@@call id=nc_tr_11 industry=telecom persona=warm name=Owen labels=rapport:FAIL,paraphrasing:PASS,resolved:PASS,probing:PASS
+A: Thanks for calling S-Net, this is Kirsty, how can I help?
+C(-8): Hi, my wifi is really slow upstairs, like I can't even load a web page in the bedroom but downstairs it's fine.
+A: Okay, so the signal is fine downstairs but really weak in the bedroom, enough that pages won't load. Did I get that right?
+C(-4): Yeah, that's exactly it.
+A: Thanks Owen. Which floor is the router on?
+C(-4): The ground floor, by the front door.
+A: Is the bedroom directly above it, or at the other end of the house?
+C(-4): The other end, over the kitchen.
+A: Right, that's quite a long way for the signal. Do you have any thick walls or a chimney between the two?
+C(-4): There's a big chimney breast in the middle, yes.
+A: That would block a lot of it. Have you tried moving the router at all?
+C(-4): No, it's where the phone line comes in.
+A*: Honestly, anyone with a house that old should know a single router won't reach every room, it's not complicated.
+C(-8): Right, I didn't know that.
+A: What I can offer is a small extender that plugs in halfway along. It's free on your plan, and I can post it to you.
+C(-4): That'd be great.
+A: Lovely, it's ordered and will arrive in two days. Can you confirm the address I have is still your current one?
+C(-4): Yes, that's right.
+A: Good, so the extender is on its way. Is there anything else I can help with?
+C(-4): No, that's it.
+A: Thanks for calling, Owen.
+
+@@call id=nc_tr_12 industry=banking persona=overly_polite name=Fatima labels=rapport:PASS,paraphrasing:PASS,resolved:PASS,probing:PASS,active_listening:PASS
+A: Good afternoon, thank you for calling Northbank, this is Julian. How may I help you today?
+C(-8): Hello, I'm trying to set up a standing order for my rent but the app keeps rejecting the sort code.
+A: I see, so you are setting up a standing order for rent and the app is rejecting the sort code. Have I understood correctly?
+C(-4): Yes, that's it.
+A: Thank you. Might I take your full name and date of birth, please?
+C(-4): Fatima Rahman, the ninth of January, nineteen ninety.
+A: Thank you, Fatima. What exact message does the app show when it rejects the code?
+C(-4): It says invalid sort code, even though I copied it from the letter.
+A: Did you type the dashes between the numbers or only the six digits?
+C(-4): I put the dashes in.
+A: That is very likely the cause. Could you try again with only the six digits and no dashes?
+C(-4): Okay, trying. It's accepted it.
+A: Is the standing order now showing as pending on the screen?
+C(-4): Is the order showing as pending, yes, it says pending.
+A: Wonderful. So the standing order is set up and pending. Does that fully resolve the issue for you?
+C(-4): Yes, it does, thank you.
+A: It was my pleasure. Is there anything further I can assist with today?
+C(-4): No, that's all.
+A: Thank you for calling Northbank, Fatima. Have a lovely day.
+
+@@call id=nc_tr_13 industry=utility persona=blunt name=Dennis labels=rapport:PASS,paraphrasing:FAIL,resolved:PASS,probing:PASS
+A: Eastbrook Energy, Mo.
+C(-12): My heating's off again. Boiler's showing an error, E twenty-two.
+A: Account number?
+C(-6): 2 2 0 5 4 1 7.
+A: Okay, got you. Is the boiler pressure gauge reading low?
+C(-6): It's at zero.
+A: Then it's lost pressure. Is there a silver tap with a loop underneath it?
+C(-6): Yes, I can see that.
+A: That's the filling loop. Have you topped it up before?
+C(-6): Years ago, I can't remember how.
+A: I'll talk you through it. Turn both taps slowly, the one on each end of the loop, and watch the gauge. Stop at one and a half bar.
+C(-6): Okay. It's at one point five.
+A: Close both taps tight. Now press the reset button on the boiler for three seconds.
+C(-6): Doing it. The error's gone and it's firing up.
+A: Good. Are the radiators warming up?
+C(-6): Yeah, they're getting warm.
+A: Then that's done. Anything else?
+C(-6): No.
+A: Right. Bye.
+
+@@call id=nc_tr_14 industry=retail persona=warm name=Chloe labels=rapport:PASS,paraphrasing:PASS,resolved:FAIL,probing:FAIL
+A: Hi there, Brightway Home, this is Anna, how can I help?
+C(-8): Hi, I want to return a lamp, the shade was damaged when it arrived.
+A: Okay, so the lamp arrived with a damaged shade and you'd like to send it back. Is that right?
+C(-4): Yes please.
+A: Of course. Could I have your order number?
+C(-4): BW-554109.
+A: Thank you, Chloe. Can I confirm the delivery postcode?
+C(-4): M14 6TQ.
+A: Perfect. Shall I send you a prepaid return label by email?
+C(-4): Yes, that would be great.
+A: It'll be with you in a few minutes, and the refund goes back to your card once the lamp reaches us. Would you like me to put you on hold while I check the refund timing?
+C(-4): No, that's fine.
+A: Brilliant. Thanks for calling, Chloe, and have a lovely day.
+
+@@call id=nc_tr_15 industry=airline persona=rambling name=Beatrice labels=rapport:PASS,paraphrasing:PASS,resolved:PASS,probing:PASS,empathy:PASS
+A: Yes, hello, SkyReach, Walter speaking, how can I help you this afternoon?
+C*(-30): Oh, I really don't know where to start, my bag didn't turn up in Madrid and the airline desk was shut and I've been sat here for two hours with no clothes and my medication is in it.
+A: Two hours with no bag and your medication stuck in it, that must be so worrying, and thank you for ringing us straight away. Let's find it together.
+C(-10): Thank you.
+A: So your bag didn't arrive in Madrid and you need your medication. Is that the situation?
+C(-6): Yes.
+A: What's the reference on your baggage tag?
+C(-4): IB 4 4 7 2 1 9.
+A: Thanks, I've got it. It shows the bag stayed in Frankfurt. Did you check in with another airline's bag tag as well?
+C(-4): Yes, I changed planes there.
+A: That explains it. I'll have it sent on tonight's flight and delivered to your hotel by morning. Which hotel are you at?
+C(-4): The Hotel Alba, near the station.
+A: Noted. Do you need the medication sooner than morning?
+C(-6): Yes, I'm due a dose tonight.
+A: Then I'll arrange for the airport pharmacy to hold an emergency supply. Can you tell me the name on the prescription?
+C(-6): Beatrice Okoro.
+A: Right, that's flagged. Can you see the text I just sent with the pharmacy details?
+C(-6): Yes, got it.
+A: Good, then the bag is on its way and the pharmacy has your name. Is there anything else?
+C(-6): No, thank you so much.
+A: Take care, Beatrice.
+
+@@call id=nc_tr_16 industry=insurance persona=blunt name=Kwame labels=rapport:PASS,paraphrasing:PASS,resolved:PASS,probing:PASS,ownership:PASS,empathy:FAIL
+A: Claims, Dave.
+C*(-27): I've been waiting three weeks for someone to ring me about my car claim and no one has, this is ridiculous.
+A: Policy number?
+C(-8): CM 7 7 3 0.
+A: Okay. So you're waiting for a call about the car claim and it's been three weeks. Right?
+C(-6): Yes.
+A: What does the claim cover, the repair or a write-off?
+C(-6): The repair, the rear bumper.
+A: Has the garage sent in their quote?
+C(-6): They said they did last week.
+A: I see it here, but it's pending with the assessors. Those are the assessment team's job, but I'll chase them myself and ring you tomorrow by noon.
+C(-6): Fine.
+A: I've sent the message to them. Can you confirm you got the text with the case number?
+C(-6): Yes, got it.
+A: Good. That's logged and I'll call tomorrow. Anything else?
+C(-6): No.
+A: Right.
+
+@@call id=nc_tr_17 industry=saas persona=slangy name=Priya labels=rapport:FAIL,paraphrasing:FAIL,resolved:PASS,probing:PASS
+A: Hey, Cloudly support, Max here.
+C(-8): Hi, our exports keep failing, it says error 500 whenever we try to download the monthly report.
+A: Right, cool, what's your workspace name?
+C(-4): Bright Studios.
+A: Got it. When did it start failing?
+C(-4): Since this morning, the last one worked on Friday.
+A: Does it fail on all reports or just the monthly?
+C(-4): Just the monthly, the others are fine.
+A: And how many rows is that report, roughly?
+C(-4): Maybe forty thousand.
+A*: Forty thousand and you're surprised it fell over? That's a lot for something you're clicking at without thinking.
+C(-8): I just need the report.
+A: Okay, I can split it into two exports. I've run the first half, can you check your email for the link?
+C(-4): Got it, the first half downloaded.
+A: Nice. Second half's sent too. Does that one open?
+C(-4): Yes, that one too.
+A: Great, so both halves work. Anything else you need?
+C(-4): No, thanks.
+A: Cheers.
+
+@@call id=nc_tr_18 industry=ecommerce persona=sleepy name=Tomas labels=rapport:PASS,paraphrasing:PASS,resolved:PASS,probing:PASS,active_listening:FAIL
+A: Parcelo... this is Rhea.
+C(-8): Hi, my order's got the wrong size in it, I asked for a large and it's a small.
+A: So you ordered a large and received a small... Is that it?
+C(-4): That's it.
+A: Okay. What's the order number?
+C(-4): It's PC-30277.
+A: And which item is it, the jacket?
+C(-4): Yes, the grey jacket.
+A: Can you check the label inside for me, what size does it say?
+C(-4): It says S.
+A: Okay... then we sent the wrong one. I can send the large out today.
+C(-4): Great.
+A: What was the order number again, please?
+C(-4): It's PC-30277, I just told you.
+A: Right... sorry. The large is on its way and there's a return label in the email.
+C(-4): Has the email arrived? Yes, I see it.
+A: Good, so the large is on its way and the label's with you. Anything else?
+C(-4): No, thanks.
+A: Take care, Tomas.
+
+@@call id=nc_tr_19 industry=healthcare persona=robotic name=Joan labels=rapport:PASS,paraphrasing:PASS,resolved:FAIL,probing:PASS,ownership:FAIL
+A: Riverside Health Centre. State the reason for your call.
+C(-10): I need a repeat prescription but the pharmacy says it hasn't been sent.
+A: The repeat prescription has not reached the pharmacy. Is that correct?
+C(-6): Yes.
+A: Provide your date of birth.
+C(-4): Third of May, seventy-six.
+A: Which medication?
+C(-4): Blood pressure tablets, ramipril.
+A: When was it last issued?
+C(-4): About a month ago.
+A: Prescription requests are processed by the prescribing team. You would have to ring them on their own line.
+C(-8): Can't you pass the message on?
+A: Not possible. The prescribing team is open from two o'clock.
+C(-8): Right.
+A: Thank you for calling.
+
+@@call id=nc_tr_20 industry=telecom persona=warm name=Yusuf labels=rapport:PASS,paraphrasing:PASS,resolved:PASS,probing:PASS,empathy:PASS
+A: Hello, S-Net, Grace speaking, how can I help?
+C*(-29): Hi. I've had no phone signal at home for a week and I've been charged for the full month. Honestly I'm at the end of my rope.
+A: A week with no signal and a full bill on top, that's exhausting, and I'm glad you called. Let's get it fixed.
+C(-10): Thanks.
+A: So you've lost mobile signal at home for a week and still been charged. Is that right?
+C(-6): Yes.
+A: Which phone are you using, and does it show no service or just emergency calls only?
+C(-6): It's an older Samsung, and it says emergency calls only.
+A: Has it worked at all in other places this week?
+C(-6): Yes, at work it's fine.
+A: So it's just your home area. I can see a mast fault logged near you since Tuesday. Would wifi calling be an option while it's repaired?
+C(-6): I didn't know that existed.
+A: It's in the settings, under connections. Could you switch it on now and try ringing me back from the app?
+C(-6): Okay, I've switched it on... it connected, calls work now.
+A: Great, so calls work over wifi. I'll also credit you for the week. Does that sound fair?
+C(-6): Yes, thank you.
+A: It's done. Anything else I can sort?
+C(-6): No.
+A: Take care, Yusuf.

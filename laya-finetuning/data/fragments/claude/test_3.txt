@@ -1,0 +1,986 @@
+# Test set, part 3: Rapport (30 pairs) and regression checks (12 pairs each: Ownership, Probing, Hostility, Escalation). UNSEEN industries and personas.
+
+# ------------------------------------------------------------- Rapport
+@@pair id=ts_rap_001 check=rapport industry=water_utility persona=blunt hard=blunt_fair_vs_passive_aggressive
+A: Eastbrook Water.
+A: Pulled up your account.
+--- PASS
+A*: The bill is correct because the meter shows a real increase in usage over the quarter.
+--- FAIL
+A*: The bill is correct, and if you actually watched your usage you wouldn't be surprised.
+--- END
+A: I can set up a payment plan.
+A: Interested?
+
+@@pair id=ts_rap_002 check=rapport industry=hotel_booking persona=overly_polite hard=trigger_obviously
+A: Good afternoon, and thank you for calling Staybright.
+A: May I have your booking reference, please?
+--- PASS
+A*: Obviously it would be our pleasure to have you stay, so I shall do everything to put this right.
+--- FAIL
+A*: Obviously you ought to have read the cancellation terms before you booked, they are quite clear.
+--- END
+A: I can offer a partial refund.
+A: Would that be acceptable?
+
+@@pair id=ts_rap_003 check=rapport industry=food_delivery persona=slangy hard=sarcasm
+A: Hey, Munchbox, Jay here.
+A: Let me pull up the order.
+--- PASS
+A*: Smart move taking a photo of the bag, that makes this easy to sort.
+--- FAIL
+A*: Smart move, taking a photo, I'm sure the soup just leaked out of its own accord, eh.
+--- END
+A: I'll credit the full order.
+A: Should hit your account today.
+
+@@pair id=ts_rap_004 check=rapport industry=gym persona=sleepy hard=dismissive
+A: Ironfield... Tim speaking.
+A: Let me see the account.
+--- PASS
+A*: I'll note that the changing room was dirty and pass it to the manager today.
+--- FAIL
+A*: Dirty changing rooms... yeah, it's a gym, that comes with the territory, not much to be done.
+--- END
+A: I'll add a credit for the trouble.
+A: Is that okay?
+
+@@pair id=ts_rap_005 check=rapport industry=university persona=robotic hard=condescending
+A: Student support. State your query.
+A: Record located.
+--- PASS
+A*: The deadline passed on the first, and I can explain the late submission route if that helps.
+--- FAIL
+A*: The deadline passed on the first, which is stated on every module page, so this should be self-evident.
+--- END
+A: Extenuating circumstances can be submitted.
+A: Shall I send the form?
+
+@@pair id=ts_rap_006 check=rapport industry=pharmacy persona=warm hard=blame_no_insult
+A: Hello, Larch Pharmacy, Imogen here.
+A: Let me see the prescription.
+--- PASS
+A*: The prescription expired last week, which is an easy date to miss, so I'll get a new one requested.
+--- FAIL
+A*: The prescription expired last week because you didn't renew it, so that's your own doing.
+--- END
+A: I'll contact your doctor now.
+A: It'll be ready by Friday.
+
+@@pair id=ts_rap_007 check=rapport industry=travel_agency persona=rambling hard=mocking
+A: Yes, hello, Wanderly, Marguerite speaking, goodness, what a morning.
+A: Now let me find your trip.
+--- PASS
+A*: Oh, mixing up the dates is the easiest thing in the world, I've done it myself, so don't give it a thought.
+--- FAIL
+A*: Oh, you booked the wrong month, did you, well, that's one way to take a holiday, isn't it, ha.
+--- END
+A: I'll see what I can change.
+A: Bear with me a moment.
+
+@@pair id=ts_rap_008 check=rapport industry=auto_insurance persona=blunt hard=exasperated
+A: Drivewell claims.
+A: Policy number?
+A: Okay.
+--- PASS
+A*: Sorry, I lost the last two digits, could you give them again?
+--- FAIL
+A*: That's the third time I've asked and I can't keep repeating myself, it's not hard.
+--- END
+A: Thanks.
+A: Pulling up your claim.
+
+@@pair id=ts_rap_009 check=rapport industry=credit_card persona=overly_polite hard=trigger_you_should_have
+A: Good morning, and thank you for calling Northbank.
+A: May I have your card number, please?
+--- PASS
+A*: You should have an alert on your phone about this charge, and I shall resend it now.
+--- FAIL
+A*: You should have checked your statement last month, and then we wouldn't be in this position.
+--- END
+A: I can open a dispute.
+A: Shall I proceed?
+
+@@pair id=ts_rap_010 check=rapport industry=rental_portal persona=slangy hard=patronising
+A: Hey, Homely, Dev here.
+A: Pulling up your tenancy.
+--- PASS
+A*: The upload button's top right, so I'll stay on while you find it, no rush.
+--- FAIL
+A*: The upload button's top right, the big blue one, you can't miss it, can you manage to click on it?
+--- END
+A: Pick the file.
+A: Tell me when it's done.
+
+@@pair id=ts_rap_011 check=rapport industry=water_utility persona=rambling hard=buried_in_eight
+A: Yes, hello, Eastbrook Water, Gerald speaking.
+A: Now then, let me find the account.
+A: Found it, and it's all there.
+A: The reading was taken on the third.
+--- PASS
+A*: The usage doesn't look unusual to me.
+--- FAIL
+A*: Honestly if you checked your taps more often, you wouldn't have a leak this big, would you.
+--- END
+A: I'll send a plumber's recommendation.
+A: It's free to book.
+A: Shall I do that?
+A: Lovely.
+
+@@pair id=ts_rap_012 check=rapport industry=hotel_booking persona=blunt hard=calm_down
+A: Staybright. Yes?
+A: Name?
+--- PASS
+A*: Take your time, there's no rush at all, we'll sort it out together.
+--- FAIL
+A*: Calm down, it's a room booking, nobody's life is at stake.
+--- END
+A: Dates?
+A: Okay.
+
+@@pair id=ts_rap_013 check=rapport industry=food_delivery persona=warm hard=blunt_fair_vs_passive_aggressive
+A: Hi, Munchbox, Imogen here.
+A: Let me find your order.
+--- PASS
+A*: The terms say refunds are only issued if you report within an hour, so I can't refund this in full.
+--- FAIL
+A*: The terms say refunds are only issued within an hour, which you'd have seen if you'd read them.
+--- END
+A: I can offer a fifty percent credit.
+A: Would that be okay?
+
+@@pair id=ts_rap_014 check=rapport industry=gym persona=slangy hard=trigger_whatever
+A: Hey, Ironfield, Jay here.
+A: What can I do?
+--- PASS
+A*: Monday or Wednesday, whatever's best for you, I'll make either work.
+--- FAIL
+A*: Monday or Wednesday, whatever, I really don't mind, you decide.
+--- END
+A: Morning or evening?
+A: Done.
+
+@@pair id=ts_rap_015 check=rapport industry=university persona=overly_polite hard=condescending
+A: Good morning, Bursar's Office, how may I help?
+A: Thank you, I have your record.
+--- PASS
+A*: A hold means an unpaid balance may prevent enrolment, and I can show you exactly where it appears.
+--- FAIL
+A*: A hold means an unpaid balance, which any student would be aware of by now, I should think.
+--- END
+A: The balance is two hundred pounds.
+A: Shall I explain the options?
+
+@@pair id=ts_rap_016 check=rapport industry=pharmacy persona=robotic hard=dismissive
+A: Pharmacy services.
+A: Prescription located.
+--- PASS
+A*: Your concern about the side effects is noted and I will forward it to the pharmacist.
+--- FAIL
+A*: Side effects are listed on the leaflet which nobody reads, so your concern is noted but pointless.
+--- END
+A: The pharmacist will call you.
+A: Within two hours.
+
+@@pair id=ts_rap_017 check=rapport industry=travel_agency persona=blunt hard=blame_no_insult
+A: Wanderly.
+A: Booking reference?
+A: Right.
+--- PASS
+A*: The visa wasn't included in the package, which isn't made obvious, so I'll point you to the right office.
+--- FAIL
+A*: The visa wasn't included in the package, and that's on you for not checking before you flew.
+--- END
+A: Here's the address.
+A: Anything else?
+
+@@pair id=ts_rap_018 check=rapport industry=auto_insurance persona=warm hard=sarcasm
+A: Hello, Drivewell, Imogen here.
+A: Let me see your claim.
+--- PASS
+A*: Good thinking getting a second quote, that gives us something to compare against.
+--- FAIL
+A*: Wow, a second quote, how thorough, I'm sure the garage is thrilled you don't trust them.
+--- END
+A: I'll review both figures.
+A: Back to you tomorrow.
+
+@@pair id=ts_rap_019 check=rapport industry=credit_card persona=sleepy hard=exasperated
+A: Northbank... Mara here.
+A: Account number?
+A: Okay.
+--- PASS
+A*: Sorry... the line's a bit faint, could you say the last four digits once more?
+--- FAIL
+A*: I've asked for the last four digits twice now... it takes forever when you won't just answer.
+--- END
+A: Thanks.
+A: Checking your account.
+
+@@pair id=ts_rap_020 check=rapport industry=rental_portal persona=rambling hard=trigger_as_i_said
+A: Yes, hello, Homely, Gerald here, what a day.
+A: Let me look at your tenancy.
+--- PASS
+A*: As I said earlier, there's absolutely no rush, so take your time looking for the paperwork.
+--- FAIL
+A*: As I said earlier, and I'll say it once more, the deposit isn't released until the landlord confirms.
+--- END
+A: I can chase him for you.
+A: Shall I?
+
+@@pair id=ts_rap_021 check=rapport industry=water_utility persona=warm hard=buried_in_eight
+A: Hello, Eastbrook Water, Imogen speaking.
+A: Let me bring up the account.
+A: I can see your last three readings.
+A: They're all in order.
+--- PASS
+A*: The latest one shows a small rise.
+--- FAIL
+A*: You'd know that if you ever read your own bills, but let's not dwell on it.
+--- END
+A: The rise is due to the cold snap.
+A: It should settle next month.
+A: Would you like a usage tip sheet?
+A: Great.
+
+@@pair id=ts_rap_022 check=rapport industry=hotel_booking persona=blunt hard=curt_fair
+A: Staybright.
+A: Booking reference.
+A: Thanks.
+--- PASS
+A*: Late checkout is thirty pounds. Want it?
+--- FAIL
+A*: Late checkout is thirty pounds, as every guest should know. Want it?
+--- END
+A: Booked.
+A: Anything else?
+
+@@pair id=ts_rap_023 check=rapport industry=food_delivery persona=overly_polite hard=condescending
+A: Good evening, thank you for calling Munchbox.
+A: May I take your order number, please?
+--- PASS
+A*: The promo code applies to orders above twenty pounds, and I can show you which items to add.
+--- FAIL
+A*: The promo code applies to orders above twenty pounds, which is quite plain to anyone who reads properly.
+--- END
+A: Would you like me to adjust the order?
+A: It's no trouble.
+
+@@pair id=ts_rap_024 check=rapport industry=gym persona=robotic hard=dismissive
+A: Membership services.
+A: Record found.
+--- PASS
+A*: Your complaint about the broken lockers is logged and will be passed to the facilities manager.
+--- FAIL
+A*: Broken lockers are common and complaints rarely lead to action, so I would not expect anything.
+--- END
+A: A reference has been generated.
+A: Further assistance?
+
+@@pair id=ts_rap_025 check=rapport industry=university persona=sleepy hard=mocking
+A: Registry... Tim speaking.
+A: Let me find your record.
+--- PASS
+A*: Forgetting to tick the box is really easy, it's tiny and easy to miss on that form.
+--- FAIL
+A*: So you forgot to tick the box... on a form with one box on it... that's quite something.
+--- END
+A: I'll submit it for you.
+A: Give me a minute.
+
+@@pair id=ts_rap_026 check=rapport industry=pharmacy persona=slangy hard=blame_no_insult
+A: Hey, Larch Pharmacy, Dev here.
+A: Let me check your repeat.
+--- PASS
+A*: It looks like the repeat request went to your old address, so the delivery went there by mistake.
+--- FAIL
+A*: It looks like you never updated your address, so the delivery going astray is on you, really.
+--- END
+A: I'll resend it today.
+A: Free of charge.
+
+@@pair id=ts_rap_027 check=rapport industry=travel_agency persona=warm hard=blunt_fair_vs_passive_aggressive
+A: Hello, Wanderly, Imogen here.
+A: Let me find your booking.
+--- PASS
+A*: The fare class doesn't allow changes, so I can't move the date, though I can look at other options.
+--- FAIL
+A*: The fare class doesn't allow changes, which you accepted when you picked the cheapest one.
+--- END
+A: I could offer a voucher.
+A: Interested?
+
+@@pair id=ts_rap_028 check=rapport industry=auto_insurance persona=overly_polite hard=exasperated
+A: Good afternoon, thank you for calling Drivewell.
+A: May I have your registration, please?
+A: Thank you.
+--- PASS
+A*: Forgive me, I did not catch that last letter, might you repeat it?
+--- FAIL
+A*: I have requested your registration three times and I cannot continue unless you listen.
+--- END
+A: Thank you.
+A: Locating your policy.
+
+@@pair id=ts_rap_029 check=rapport industry=credit_card persona=blunt hard=curt_fair
+A: Northbank.
+A: Last four digits.
+A: Right.
+--- PASS
+A*: Limit increase takes two days. Apply in the app.
+--- FAIL
+A*: Limit increase takes two days, which is written on the app, apparently nobody checks. Apply there.
+--- END
+A: Anything else?
+A: Bye.
+
+@@pair id=ts_rap_030 check=rapport industry=rental_portal persona=slangy hard=sarcasm
+A: Hey, Homely, Dev here.
+A: Let me look at the ticket.
+--- PASS
+A*: Good call sending a photo, that really helps the landlord see what's up.
+--- FAIL
+A*: Great call sending a photo of a blurry wall, I'm sure the landlord will work miracles with that.
+--- END
+A: I'll attach it.
+A: And chase him.
+
+# ------------------------------------------------------------- Ownership (12)
+@@pair id=ts_own_001 check=ownership industry=water_utility persona=blunt hard=another_team
+C(-10): There's a leak in the road outside.
+A: Eastbrook Water.
+--- PASS
+A*: Roads sit with another team, but I'm raising it with them now and I'll text you once a crew's booked.
+--- FAIL
+A*: Roads are another team and that's not something I handle, so you'll have to ring the council or them.
+--- END
+C(-6): Right.
+
+@@pair id=ts_own_002 check=ownership industry=hotel_booking persona=overly_polite hard=call_back
+C(-9): I'd like my refund approved.
+A: Good evening, thank you for calling Staybright.
+--- PASS
+A*: I shall call back before nine tomorrow with the outcome, so you need not ring again.
+--- FAIL
+A*: I regret there is nothing further to be done today, so you may call back next week and ask again.
+--- END
+C(-6): Okay.
+
+@@pair id=ts_own_003 check=ownership industry=food_delivery persona=slangy hard=nothing_i_can_do
+C(-9): My order's late and the driver's not answering.
+A: Hey, Munchbox, Jay here.
+--- PASS
+A*: There's nothing I can do from here to hurry the driver, so I'm calling the dispatcher now and I'll stay on until they pick up.
+--- FAIL
+A*: Honestly there's nothing I can do about it, drivers do what they do, so that's just how it goes.
+--- END
+C(-6): Right.
+
+@@pair id=ts_own_004 check=ownership industry=gym persona=sleepy hard=youd_have_to
+C(-10): I can't cancel in the app.
+A: Ironfield... Tim.
+--- PASS
+A*: You'd have to be signed in on the web for that, so I'll cancel it from here and you'll get an email.
+--- FAIL
+A*: You'd have to go into the gym and ask at the desk... I can't do cancellations, not my area.
+--- END
+C(-6): Hm.
+
+@@pair id=ts_own_005 check=ownership industry=university persona=robotic hard=another_department
+C(-9): My grade appeal hasn't been acknowledged.
+A: Student support.
+--- PASS
+A*: Appeals sit in another department, and I am messaging them now and will confirm back to you by phone today.
+--- FAIL
+A*: Appeals sit in another department, which is not mine, so I am unable to assist with the matter.
+--- END
+C(-6): Right.
+
+@@pair id=ts_own_006 check=ownership industry=pharmacy persona=warm hard=billing_team
+C(-10): My insurance isn't being applied to the prescription.
+A: Hello, Larch Pharmacy, Imogen here.
+--- PASS
+A*: That sits with the billing team, so I'm sending them your details now and I'll ring you back myself this afternoon.
+--- FAIL
+A*: That sits with the billing team and isn't something I look at, so you'd have to ring them yourself.
+--- END
+C(-6): Okay.
+
+@@pair id=ts_own_007 check=ownership industry=travel_agency persona=rambling hard=contact_them
+C(-9): The hotel won't honour the booking.
+A: Yes, hello, Wanderly, Gerald here.
+--- PASS
+A*: I'll contact them myself right now, goodness, and I'll ring you back as soon as I have an answer, today.
+--- FAIL
+A*: Well, you'll have to contact them yourself, I'm afraid, it's between you and them, really, not us.
+--- END
+C(-6): I see.
+
+@@pair id=ts_own_008 check=ownership industry=auto_insurance persona=blunt hard=call_back
+C(-10): I need my claim moved forward.
+A: Drivewell.
+--- PASS
+A*: I'll call back in an hour with the status, and you won't have to chase.
+--- FAIL
+A*: Nothing doing today, so call back at the end of the week and see where it's got to.
+--- END
+C(-6): Fine.
+
+@@pair id=ts_own_009 check=ownership industry=credit_card persona=slangy hard=network_team
+C(-9): My payment's stuck on pending.
+A: Hey, Northbank, Dev here.
+--- PASS
+A*: Pending payments sit with another team, so I'm pinging them on chat and I'll stay on till it clears.
+--- FAIL
+A*: Pending payments are the payments team's thing, not mine, so I can't do anything, you'd have to ask them.
+--- END
+C(-6): Right.
+
+@@pair id=ts_own_010 check=ownership industry=rental_portal persona=overly_polite hard=wrong_department
+C(-10): My landlord hasn't returned my deposit.
+A: Good morning, thank you for calling Homely.
+--- PASS
+A*: Deposits sit with another department, and I shall write to them directly and call back with their reply.
+--- FAIL
+A*: I regret deposits are the wrong department for this line, so you would have to ring the deposits team yourself.
+--- END
+C(-6): I see.
+
+@@pair id=ts_own_011 check=ownership industry=water_utility persona=warm hard=youd_have_to
+C(-9): I can't see my usage online.
+A: Hello, Eastbrook Water, Imogen speaking.
+--- PASS
+A*: You'd have to link your meter to the account first, so let me do that now and walk you through it.
+--- FAIL
+A*: You'd have to ask the meter team for that, it's their area, so I can't help beyond saying so.
+--- END
+C(-6): Okay.
+
+@@pair id=ts_own_012 check=ownership industry=hotel_booking persona=sleepy hard=nothing_i_can_do
+C(-10): The hotel overbooked and turned us away.
+A: Staybright... Mara.
+--- PASS
+A*: There's nothing I can do from this desk, so I'm calling the hotel's duty manager now and I'll stay until we have a room.
+--- FAIL
+A*: There's nothing I can do, they overbook sometimes... it's out of my hands.
+--- END
+C(-6): Hm.
+
+# ------------------------------------------------------------- Probing (12)
+@@pair id=ts_prb_001 check=probing industry=water_utility persona=blunt hard=diagnostic_among_boilerplate
+C(-10): My water's got really low pressure.
+A: Eastbrook Water. Account number?
+C(-4): 5520 1871.
+--- PASS
+A*: Is it low at every tap or just one?
+C(-6): Every tap.
+A: Did it start after any roadworks?
+--- FAIL
+A*: Is the address on the account current?
+C(-6): Yes.
+A: Can I put you on hold a moment?
+A: Can I confirm the best phone number to reach you on? Would you like a summary emailed afterwards?
+--- END
+C(-5): Fine.
+A: Anything else?
+
+@@pair id=ts_prb_002 check=probing industry=hotel_booking persona=overly_polite hard=diagnostic_among_boilerplate
+C(-10): My confirmation email has the wrong dates.
+A: Good evening, thank you for calling Staybright. May I take your booking reference?
+C(-4): SB-5521.
+--- PASS
+A*: Which dates does the email show, and which dates did you select when you booked?
+C(-6): It shows the tenth, I chose the twelfth.
+A: Did you receive only one email or two?
+--- FAIL
+A*: May I confirm the name on the booking?
+C(-6): Daniel Okafor.
+A: And may I place you on hold briefly?
+A: Is the email address on the account still current? Shall I send you a short feedback survey afterwards?
+--- END
+C(-5): Yes.
+A: Is there anything further?
+
+@@pair id=ts_prb_003 check=probing industry=food_delivery persona=slangy hard=diagnostic_among_boilerplate
+C(-9): The app keeps crashing on checkout.
+A: Hey, Munchbox, Jay here. How's your night?
+C(-4): Not great.
+--- PASS
+A*: Does it crash right when you hit pay, or before that?
+C(-6): Right when I hit pay.
+A: What phone are you on, and is the app up to date?
+--- FAIL
+A*: Want to hear about our premium delivery pass?
+C(-6): Not really.
+A: Can I send you a survey after this?
+A: Can I confirm the postcode on the account? Would you like a text message when this is closed?
+--- END
+C(-5): No thanks.
+A: Anything else?
+
+@@pair id=ts_prb_004 check=probing industry=gym persona=sleepy hard=diagnostic_among_boilerplate
+C(-9): The door reader won't take my card.
+A: Ironfield... Tim. Can I have your member number?
+C(-4): 88120.
+--- PASS
+A*: Does the reader light up at all when you tap?
+C(-6): It flashes red.
+A: Does it work for your partner's card?
+--- FAIL
+A*: Is that the number on your card?
+C(-6): Yes.
+A: Can I put you on hold?
+A: Is the mobile number on file the right one? Would you like to hear about our loyalty offers afterwards?
+--- END
+C(-5): Okay.
+A: Anything else...?
+
+@@pair id=ts_prb_005 check=probing industry=university persona=robotic hard=diagnostic_among_boilerplate
+C(-9): I cannot log into the portal.
+A: Student support. State your student number.
+C(-4): 30188.
+--- PASS
+A*: What error message appears when you attempt to log in?
+C(-6): It says account disabled.
+A: Have you changed your password recently?
+--- FAIL
+A*: Confirm your date of birth.
+C(-6): Third of March.
+A: Confirm your postcode.
+A: Can I confirm the best phone number to reach you on? Would you like a summary emailed afterwards?
+--- END
+C(-5): PN4 2AB.
+A: Is there further assistance required?
+
+@@pair id=ts_prb_006 check=probing industry=pharmacy persona=warm hard=diagnostic_among_boilerplate
+C(-10): The tablets look different this time.
+A: Hello, Larch Pharmacy, Imogen here. Can I take your name?
+C(-4): Daniel Okafor.
+--- PASS
+A*: What colour and shape are they now, compared with the usual ones?
+C(-6): White and round, they were oval before.
+A: Is the label the same as last time?
+--- FAIL
+A*: Is that your date of birth on the account?
+C(-6): Yes.
+A: Can I put you on hold for a moment?
+A: Is the email address on the account still current? Shall I send you a short feedback survey afterwards?
+--- END
+C(-5): Okay.
+A: Anything else?
+
+@@pair id=ts_prb_007 check=probing industry=travel_agency persona=rambling hard=diagnostic_among_boilerplate
+C(-9): My e-ticket won't open.
+A: Yes, hello, Wanderly, Gerald here, how are you?
+C(-4): Fine.
+--- PASS
+A*: What happens when you tap the ticket, does it show an error or just a blank page?
+C(-6): A blank page.
+A: Have you tried opening it in a different app?
+--- FAIL
+A*: Would you like to hear about our premium lounge pass?
+C(-6): No.
+A: Might I send you a survey about your trip?
+A: Can I confirm the postcode on the account? Would you like a text message when this is closed?
+--- END
+C(-5): No thanks.
+A: Anything else?
+
+@@pair id=ts_prb_008 check=probing industry=auto_insurance persona=blunt hard=diagnostic_among_boilerplate
+C(-10): My claim form keeps failing.
+A: Drivewell. Policy number?
+C(-4): It's on the letter.
+--- PASS
+A*: What error does the form give?
+C(-6): Required field missing.
+A: Which field does it point to?
+--- FAIL
+A*: Is the policy in your name?
+C(-6): Yes.
+A: Want a survey?
+A: Is the mobile number on file the right one? Would you like to hear about our loyalty offers afterwards?
+--- END
+C(-5): No.
+A: Anything else?
+
+@@pair id=ts_prb_009 check=probing industry=credit_card persona=slangy hard=diagnostic_among_boilerplate
+C(-9): My card keeps getting declined online.
+A: Hey, Northbank, Dev here. Can I take your name?
+C(-4): Daniel Okafor.
+--- PASS
+A*: What message pops up when it's declined, and is it every site or just one?
+C(-6): Just says declined, every site.
+A: Does it work in shops?
+--- FAIL
+A*: Is that the right postcode on file?
+C(-6): Yes.
+A: Can I pop you on hold?
+A: Can I confirm the best phone number to reach you on? Would you like a summary emailed afterwards?
+--- END
+C(-5): Okay.
+A: Anything else?
+
+@@pair id=ts_prb_010 check=probing industry=rental_portal persona=overly_polite hard=diagnostic_among_boilerplate
+C(-10): The portal won't let me pay the rent.
+A: Good morning, thank you for calling Homely. May I have your tenancy ID?
+C(-4): HR-3321.
+--- PASS
+A*: What happens when you press the pay button, does an error appear?
+C(-6): It just reloads the page.
+A: Does the same happen with a different card?
+--- FAIL
+A*: May I confirm your date of birth?
+C(-6): Third of March.
+A: And may I place you on hold briefly?
+A: Is the email address on the account still current? Shall I send you a short feedback survey afterwards?
+--- END
+C(-5): Yes.
+A: Is there anything further?
+
+@@pair id=ts_prb_011 check=probing industry=water_utility persona=warm hard=diagnostic_among_boilerplate
+C(-9): My water is brown.
+A: Hello, Eastbrook Water, Imogen here. How are you?
+C(-4): Not good.
+--- PASS
+A*: Is it brown from every tap, and does it clear if you run it for a few minutes?
+C(-6): Every tap, it clears slowly.
+A: Has there been any work on the road nearby?
+--- FAIL
+A*: Can I confirm your account number?
+C(-6): It's 5520 1871.
+A: And can I place you on a short hold?
+A: Can I confirm the postcode on the account? Would you like a text message when this is closed?
+--- END
+C(-5): Okay.
+A: Anything else?
+
+@@pair id=ts_prb_012 check=probing industry=hotel_booking persona=sleepy hard=diagnostic_among_boilerplate
+C(-10): My room key won't work.
+A: Staybright... Tim. Name on the booking?
+C(-4): Okafor.
+--- PASS
+A*: Does the door light flash red or green when you try it?
+C(-6): Red.
+A: Did you keep the key near your phone?
+--- FAIL
+A*: Is that the right booking reference?
+C(-6): Yes.
+A: Can I put you on hold?
+A: Is the mobile number on file the right one? Would you like to hear about our loyalty offers afterwards?
+--- END
+C(-5): Fine.
+A: Anything else...?
+
+# ------------------------------------------------------------- Hostility (12)
+@@pair id=ts_hos_001 check=hostility industry=water_utility persona=blunt hard=curt_ok_vs_insult
+C(-25): Your water's filthy and you lot don't care, what a joke!
+--- PASS
+A*(+3): It's filthy, that's not right. I'll send someone today. What's your address?
+C(-14): Fourteen Alder Close.
+A: Crew booked for this afternoon, I'll text you.
+--- FAIL
+A*(-4): Filthy? So's your attitude. Maybe stop screaming and let the grown-ups work.
+C(-26): Excuse me?
+A: You heard. Go and wash your mouth out.
+--- END
+C(-9): Unbelievable.
+
+@@pair id=ts_hos_002 check=hostility industry=hotel_booking persona=overly_polite hard=calm_vs_mock
+C(-26): You've ruined our holiday, you incompetent idiots!
+--- PASS
+A*(+5): I am so sorry your holiday has been disrupted, and I would like to put it right. May I have your booking reference?
+C(-14): SB-5521.
+A: Thank you. I am contacting the hotel now and will move you tonight.
+--- FAIL
+A*(-5): Idiots, is it? How terribly charming. Perhaps you ought to have booked something you could read.
+C(-26): That is outrageous.
+A: Not as outrageous as your manners, I should say.
+--- END
+C(-9): I'll be complaining.
+
+@@pair id=ts_hos_003 check=hostility industry=food_delivery persona=slangy hard=calm_vs_hang_up
+C(-27): My food's cold and it's the third time, you're useless, all of you!
+--- PASS
+A*(+6): Third time, that's rubbish, I'd be fuming too. Let me sort a refund and a redelivery right now.
+C(-15): Do it, then.
+A: Done, full refund and a free replacement on the way.
+--- FAIL
+A*(-6): Useless? Right, that's it, mate, I'm not taking this, I'm hanging up and you can eat cold food.
+C(-27): Don't you dare!
+A: *(the agent ends the call)*
+--- END
+C(-10): Hello?
+
+@@pair id=ts_hos_004 check=hostility industry=gym persona=sleepy hard=calm_vs_threat
+C(-24): You've charged me for a year I cancelled, you're crooks!
+--- PASS
+A*(+3): That's not on... I'll look at it now. I can hear you're angry, and you should be.
+C(-14): I want it back.
+A: Refund's going through today... I'll email the confirmation.
+--- FAIL
+A*(-4): Crooks... say that again and I'll block your account... then you'll never get your money.
+C(-25): Are you threatening me?
+A: Take it how you like... say it once more.
+--- END
+C(-9): Unbelievable.
+
+@@pair id=ts_hos_005 check=hostility industry=university persona=robotic hard=curt_ok_vs_insult
+C(-25): Your portal is rubbish and your staff are morons!
+--- PASS
+A*(+3): The portal fault is acknowledged. I will fix your access now. Please state your student number.
+C(-14): It's 30188.
+A: Access restored. Please log in again.
+--- FAIL
+A*(-4): The moron is the student who cannot operate a portal. Learn to read the instructions, idiot.
+C(-26): How dare you.
+A: I dare because it is accurate. Enquiry terminated.
+--- END
+C(-9): Appalling.
+
+@@pair id=ts_hos_006 check=hostility industry=pharmacy persona=warm hard=calm_vs_mock
+C(-26): You gave me the wrong tablets, you're dangerous, all of you!
+--- PASS
+A*(+7): That's serious and I'm so glad you called. I'm getting the pharmacist on the line right now to check you're safe.
+C(-15): Hurry up.
+A: She's on, and she'll walk you through exactly what to do.
+--- FAIL
+A*(-5): Dangerous? That's a bit dramatic, isn't it? Perhaps you shouldn't be so quick to swallow things.
+C(-26): That's disgusting.
+A: Well, it's hardly the end of the world, is it?
+--- END
+C(-9): I'm reporting this.
+
+@@pair id=ts_hos_007 check=hostility industry=travel_agency persona=rambling hard=calm_vs_insult
+C(-25): You've sent us to the wrong airport, you absolute clowns!
+--- PASS
+A*(+5): Oh goodness, the wrong airport, that's awful and I'm going to sort it. Let me look at the quickest route for you.
+C(-14): Quickly, please.
+A: There's a transfer from where you are in forty minutes, I'm booking it.
+--- FAIL
+A*(-5): Clowns, am I? Well, you're the one who didn't read the itinerary, you silly woman, honestly.
+C(-26): I beg your pardon?
+A: You heard, and it's quite true, isn't it.
+--- END
+C(-9): Unbelievable.
+
+@@pair id=ts_hos_008 check=hostility industry=auto_insurance persona=blunt hard=curt_ok_vs_hang_up
+C(-26): You've refused my claim and I think you're all swindlers!
+--- PASS
+A*(+3): I hear you. I'll look at the refusal reason and tell you what can be done.
+C(-14): Do it, then.
+A: It was refused for missing photos. I'll reopen it today.
+--- FAIL
+A*(-5): Swindlers? I don't have to listen to this. I'm ending the call, and you can write in if you want.
+C(-26): You can't just hang up!
+A: *(the agent ends the call)*
+--- END
+C(-10): Hello?
+
+@@pair id=ts_hos_009 check=hostility industry=credit_card persona=slangy hard=calm_vs_threat
+C(-25): You took my money and now you're ignoring me, you thieves!
+--- PASS
+A*(+5): That's not okay and I'm sorry. Let me find that payment and sort it out right now.
+C(-14): Go on.
+A: Found it, it's a duplicate and I'm reversing it today.
+--- FAIL
+A*(-5): Thieves? Keep that up and I'll flag your account and you won't get anything back, mate.
+C(-26): Are you threatening me?
+A: It's a promise. Say it again.
+--- END
+C(-9): Unbelievable.
+
+@@pair id=ts_hos_010 check=hostility industry=rental_portal persona=overly_polite hard=calm_vs_mock
+C(-24): You're useless, I've lost my deposit and nobody will help me!
+--- PASS
+A*(+5): I am so very sorry, and I do want to help. May I have your tenancy ID so I can look into the deposit at once?
+C(-14): It's HR-3321.
+A: Thank you. I am contacting the landlord now.
+--- FAIL
+A*(-5): Useless, am I? How very rude. Perhaps if you had kept the flat tidy you would still have your deposit.
+C(-25): That's outrageous.
+A: Is it? I rather doubt it.
+--- END
+C(-9): Appalling.
+
+@@pair id=ts_hos_011 check=hostility industry=water_utility persona=sleepy hard=calm_vs_insult
+C(-26): You've flooded my garden and you're a disgrace, the lot of you!
+--- PASS
+A*(+3): That's awful... I'll get a crew out to you as an emergency. What's the address?
+C(-14): Fourteen Alder Close.
+A: They're on their way... within the hour.
+--- FAIL
+A*(-4): A disgrace? Maybe you should've fenced the garden... or got a brain... before shouting at me.
+C(-26): How dare you.
+A: I dare because you're loud and silly.
+--- END
+C(-9): I'm reporting you.
+
+@@pair id=ts_hos_012 check=hostility industry=gym persona=blunt hard=curt_ok_vs_insult
+C(-23): Your gym is a dump and the manager's a clown!
+--- PASS
+A*(+3): Noted, and I'll pass it on. Tell me what happened and I'll log it properly.
+C(-14): The showers have been broken a week.
+A: Logged. I'll push facilities today.
+--- FAIL
+A*(-4): The clown is whoever pays for a gym they hate. Go somewhere else then, loser.
+C(-24): Excuse me?
+A: You heard. Door's that way.
+--- END
+C(-9): Unbelievable.
+
+# ------------------------------------------------------------- Escalation (12)
+@@pair id=ts_esc_001 check=escalation industry=water_utility persona=blunt hard=handled_vs_refused
+C(-22): I've asked three times for this to be fixed, get me a supervisor.
+--- PASS
+A*(+3): Okay. Transferring you to a supervisor now with the full history.
+C(-10): Fine.
+A: They're ringing through.
+--- FAIL
+A*(+3): No. I can do this. A supervisor wouldn't know more than I do.
+C(-24): I asked for a supervisor.
+A: Not happening.
+--- END
+C(-8): Unbelievable.
+
+@@pair id=ts_esc_002 check=escalation industry=hotel_booking persona=overly_polite hard=callback_vs_discourage
+C(-23): I should like to speak to a manager about this charge.
+--- PASS
+A*(+5): Certainly. I shall arrange for the duty manager to telephone you at ten tomorrow morning, and I will send you the case number now.
+C(-10): That's acceptable.
+A: The case number is E-6610.
+--- FAIL
+A*(+5): I would gently advise against it, as the manager will only repeat what I have said, and it would be a waste of your time.
+C(-24): I still want to speak to a manager.
+A: I really would not recommend it.
+--- END
+C(-8): Unbelievable.
+
+@@pair id=ts_esc_003 check=escalation industry=food_delivery persona=slangy hard=handled_vs_faked
+C(-24): I want to talk to someone higher up, this is a joke.
+--- PASS
+A*(+6): No worries, I'll get my team lead for you right now, and I'll fill her in so you don't repeat yourself.
+C(-10): Good.
+A: She's coming over.
+--- FAIL
+A*(+5): Sure, hang on. ... Ah, no, nobody's free, they're all in a huddle, so that's that, sorry.
+C(-25): Then get one to call me.
+A: Can't promise that, mate.
+--- END
+C(-9): Wow.
+
+@@pair id=ts_esc_004 check=escalation industry=gym persona=sleepy hard=no_request_vs_refused
+C(-22): This is the fourth time they've billed me wrongly, I'm very unhappy.
+--- PASS
+A*(+3): Four times... that's not acceptable. I'll sort it myself today and ring you with the outcome by noon tomorrow.
+C(-10): Okay, thanks.
+A: I'll keep you posted.
+--- FAIL
+A*(+3): Four times... it happens. I'll have a look.
+C(-25): I'd like to speak to a manager.
+A: No need... I can handle it.
+--- END
+C(-9): Hm.
+
+@@pair id=ts_esc_005 check=escalation industry=university persona=robotic hard=handled_vs_refused
+C(-24): Escalate my appeal to the head of department.
+--- PASS
+A*(+3): Understood. Escalating to the head of department now and marking it urgent. A reply will follow within two days.
+C(-10): Good.
+A: Reference sent by email.
+--- FAIL
+A*(+3): Appeals are not escalated to heads of department on request. Your contact is this office.
+C(-26): That is unacceptable.
+A: It is the policy.
+--- END
+C(-9): It is not.
+
+@@pair id=ts_esc_006 check=escalation industry=pharmacy persona=warm hard=handled_vs_ignored
+C(-23): I want to speak to the pharmacist in charge about this error.
+--- PASS
+A*(+7): Of course, I'll put you through to the pharmacist in charge, and I've written up the error for her so you don't have to explain it again.
+C(-10): Thank you.
+A: She's picking up.
+--- FAIL
+A*(+5): Of course. Could I just take your date of birth first?
+C(-25): I asked for the pharmacist in charge.
+A: Your date of birth, please.
+--- END
+C(-9): Forget it.
+
+@@pair id=ts_esc_007 check=escalation industry=travel_agency persona=rambling hard=handled_vs_discourage
+C(-24): I demand to speak to a director about the cancellation.
+--- PASS
+A*(+4): Goodness, of course, I'll arrange for a director to ring you, and I'll make sure they have the entire story first, so you needn't repeat a word.
+C(-10): When?
+A: Before five today.
+--- FAIL
+A*(+4): Oh, directors never take calls from customers, I'm afraid, and it would only slow things down, you see.
+C(-25): I still demand it.
+A: I wouldn't, honestly, it won't help.
+--- END
+C(-9): Unbelievable.
+
+@@pair id=ts_esc_008 check=escalation industry=auto_insurance persona=blunt hard=no_request_vs_ignored
+C(-22): The garage and you keep contradicting each other and nothing's getting done.
+--- PASS
+A*(+3): That's not good enough. I'll call the garage myself and get you one clear answer today.
+C(-10): Please do.
+A: I'll ring you by three.
+--- FAIL
+A*(+3): Garages say lots of things. Policy number?
+C(-25): I want a manager on this.
+A: Policy number.
+--- END
+C(-9): Forget it.
+
+@@pair id=ts_esc_009 check=escalation industry=credit_card persona=slangy hard=handled_vs_refused
+C(-23): Can I speak to your supervisor please, I've had enough.
+--- PASS
+A*(+6): Sure thing, I'm getting her for you now, and I've put the whole thing in the notes.
+C(-10): Thanks.
+A: She's on her way.
+--- FAIL
+A*(+4): Nah, no point, she'll tell you the same as me, honestly.
+C(-25): I still want her.
+A: Waste of time, mate.
+--- END
+C(-9): Unbelievable.
+
+@@pair id=ts_esc_010 check=escalation industry=rental_portal persona=overly_polite hard=callback_vs_faked
+C(-23): I wish to escalate this to the company's complaints officer.
+--- PASS
+A*(+5): Certainly. I shall escalate to the complaints officer today, and she will call you tomorrow morning. Your reference is C-7712.
+C(-10): Thank you.
+A: A confirmation email is on its way.
+--- FAIL
+A*(+5): Certainly. One moment, please. ... I am afraid the complaints officer is not available, and I cannot say when she will be.
+C(-24): Then arrange a callback.
+A: I regret I cannot promise that.
+--- END
+C(-9): That is unacceptable.
+
+@@pair id=ts_esc_011 check=escalation industry=water_utility persona=warm hard=no_request_vs_discourage
+C(-22): We've had no water for three days and I'm really not happy.
+--- PASS
+A*(+7): Three days is far too long, and I'm sorry. I'll take this on myself, get a crew confirmed, and call you back this afternoon.
+C(-10): Okay, thank you.
+A: I'll keep you posted.
+--- FAIL
+A*(+5): Three days isn't unusual after a main break, so I wouldn't be too upset. I'll make a note.
+C(-25): Can I speak to a manager?
+A: I wouldn't, honestly, they'd say the same.
+--- END
+C(-9): Hm.
+
+@@pair id=ts_esc_012 check=escalation industry=hotel_booking persona=sleepy hard=handled_vs_ignored
+C(-24): I want the duty manager, right now.
+--- PASS
+A*(+3): Okay... getting the duty manager now, and I'll stay on until she's here.
+C(-10): Good.
+A: She's coming.
+--- FAIL
+A*(+3): Okay... so what room are you in?
+C(-26): I said I want the duty manager!
+A: Which room, please.
+--- END
+C(-9): Forget it.
