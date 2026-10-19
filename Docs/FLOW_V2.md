@@ -47,3 +47,6 @@ The extractor hash in `laya-training/data/frozen/checks_frozen.json` now also co
 
 ## Result folders
 `inputs/Test (results)/<suite> (laya-ft-v2b)` is the final flow v2 run reported above. `(laya-ft-v2)` is the first version, kept as the record of the regression (bulk 347 of 372) it caused. `Laya probes/window_lab_*.json` and `empathy_lab_*.json` hold every probability used by the lab reports.
+
+## Moving to another PC
+See `laya-training/docs/NEW_PC_SETUP.md` (in the `laya-finetuning` repo, branch `phase-5-data`).
