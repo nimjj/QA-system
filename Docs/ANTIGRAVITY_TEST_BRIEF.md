@@ -49,7 +49,7 @@ Other Eval50 facts: mean error of the final score was 6.0 (fine-tuned), 12.2 (st
 
 ## 4. Independence rules (important)
 
-1. **Do NOT open** any of these: `laya-training/` (anywhere), `qa-analysis/inputs/Eval50/`, `qa-analysis/inputs/Main tests/`, `qa-analysis/inputs/Bulk tests/`, `qa-analysis/inputs/Tough checks/`, `qa-analysis/inputs/Test (results)/`, `qa-analysis/Docs/EVAL50_RESULTS.md`, `qa-analysis/Docs/LAYA_*`. They contain the earlier calls, keys and results. Reading them would copy their style and spoil the test.
+1. **Do NOT open** any of these: `laya-finetuning/` (anywhere), `qa-analysis/inputs/Eval50/`, `qa-analysis/inputs/Main tests/`, `qa-analysis/inputs/Bulk tests/`, `qa-analysis/inputs/Tough checks/`, `qa-analysis/inputs/Test (results)/`, `qa-analysis/Docs/EVAL50_RESULTS.md`, `qa-analysis/Docs/LAYA_*`. They contain the earlier calls, keys and results. Reading them would copy their style and spoil the test.
 2. **Do NOT read** `src/services/dynamic_evaluator.py`, `laya_*`, or any model code to decide how to grade the 7 judged criteria. Grade those **as a human QA expert would**, from the criteria below.
 3. You **may** read `src/services/rule_engine.py` (functions `evaluate_branding`, `evaluate_hold_and_dead_air`, `evaluate_verified_customer`, `evaluate_personalized_call`) and `resources/criteria_config.json`, **only** to double-check the 4 rule-based items. They are deterministic, so the key must match the code exactly.
 4. Do not write calls to be easy or hard for any particular engine. You will never see their outputs.

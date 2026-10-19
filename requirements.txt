@@ -4,5 +4,5 @@ pydantic
 python-dotenv
 psycopg2-binary
 httpx
-# Laya decision engine, installed from the local checkout (path is relative to this repo's root)
--e ../laya-test/laya
+# Laya decision engine, installed from GitHub at a pinned commit (v0.4.0). No local checkout is needed.
+laya @ git+https://github.com/NandhaKishorM/laya.git@3cf26cbcb18725dbc2d127bb8bb2c4c43243ae63

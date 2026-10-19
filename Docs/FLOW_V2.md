@@ -38,7 +38,7 @@ Versus Ollama on AG50: judged items 80.3% against 78.6%, a difference of +1.7 po
 - Every number is against an AI-written key (Antigravity for AG50, Claude for Main and bulk). None is human-reviewed.
 
 ## Freeze
-The extractor hash in `laya-training/data/frozen/checks_frozen.json` now also covers `laya_windows.py` (tag `laya-inputs-frozen-v2`). Training rows built before this still match the v1 extractors, which are unchanged and still used when `LAYA_FLOW=v1`. New training data for the v2 windows must be built with `LAYA_FLOW=v2`.
+The extractor hash in `laya-finetuning/data/frozen/checks_frozen.json` covers `laya_inputs.py`, `rule_engine.py` and `laya_windows.py` (tag `laya-inputs-frozen-v3`; `inputs_sha256` `49e61755fdb6...`). Training rows built before this still match the v1 extractors, which are unchanged and still used when `LAYA_FLOW=v1`. New training data for the v2 windows must be built with `LAYA_FLOW=v2`. The earlier tag `laya-inputs-frozen-v2` points at a commit whose `laya_inputs.py` lacked the v2 switch (a sync tool reverted the edit before it was committed; fixed in commit 91aea83), so use v3.
 
 ## Next steps
 1. Antigravity briefs for **AG-T** (training calls) and **AG-B** (sealed test): agent sentiment absent, customer sentiment noisy, late acknowledgements, benign near-repeats in good calls, rude lines hidden in long polite calls.
@@ -49,4 +49,4 @@ The extractor hash in `laya-training/data/frozen/checks_frozen.json` now also co
 `inputs/Test (results)/<suite> (laya-ft-v2b)` is the final flow v2 run reported above. `(laya-ft-v2)` is the first version, kept as the record of the regression (bulk 347 of 372) it caused. `Laya probes/window_lab_*.json` and `empathy_lab_*.json` hold every probability used by the lab reports.
 
 ## Moving to another PC
-See `laya-training/docs/NEW_PC_SETUP.md` (in the `laya-finetuning` repo, branch `phase-5-data`).
+See `laya-finetuning/docs/NEW_PC_SETUP.md`.

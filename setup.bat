@@ -1,12 +1,6 @@
 @echo off
 echo Setting up the QA Analysis System...
 
-IF NOT EXIST "..\laya-test\laya" (
-    echo ERROR: the Laya checkout is expected at ..\laya-test\laya ^(next to this repo^).
-    pause
-    exit /b 1
-)
-
 IF NOT EXIST ".venv" (
     echo Creating Python virtual environment...
     python -m venv .venv
@@ -15,7 +9,7 @@ IF NOT EXIST ".venv" (
 echo Activating virtual environment...
 call .venv\Scripts\activate.bat
 
-echo Installing requirements (includes Laya from ..\laya-test\laya)...
+echo Installing requirements (includes Laya from GitHub, pinned commit)...
 python -m pip install --upgrade pip
 pip install -r requirements.txt
 

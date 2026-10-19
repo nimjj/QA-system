@@ -36,17 +36,15 @@ FastAPI QA service (src/api/web_app.py :8006)       ◄── API Gateway (run_g
 ## Prerequisites
 
 * **Python 3.10+** (developed on 3.14).
-* **The Laya checkout next to this repo**, at `../laya-test/laya`: a clone of [github.com/NandhaKishorM/laya](https://github.com/NandhaKishorM/laya), tested at commit `3cf26cb`. `requirements.txt` installs it from there in editable mode. The engine is not vendored into this repo.
-* **The Laya model weights** (about 1.5 GB). By default they are read from `../laya-test/hf_home`. If that folder is missing, set `LAYA_HF_HOME`, or let Hugging Face download them on first use.
+* **The Laya library**, installed by `requirements.txt` from [github.com/NandhaKishorM/laya](https://github.com/NandhaKishorM/laya) at the pinned commit `3cf26cb` (v0.4.0). No local checkout is needed, and the engine is not vendored into this repo. (To work on the library itself, `pip install -e` a clone instead.)
+* **The stock Laya weights** (about 1.5 GB), needed only for stock-Laya runs and for the training-data tools. They are read from `LAYA_HF_HOME`, else `../laya-test/hf_home` if that folder exists, else Hugging Face's default cache. A fine-tuned checkpoint (`LAYA_CHECKPOINT`, see `laya-finetuning/`) is self-contained and does not need them.
 * **PostgreSQL**, only if criteria come from the database. Requests that include `criteria_data` don't need it.
 
-Expected folder layout:
+Folder layout (one repository):
 ```
-QA 2/
-├── qa-analysis/        ← this repo
-└── laya-test/
-    ├── laya/           ← Laya source (pip install -e)
-    └── hf_home/        ← downloaded Laya weights
+<repo root>/            the QA application (src/, Scripts/, inputs/, Docs/ ...)
+└── laya-finetuning/    fine-tuning work: data, tools, Colab notebook, run notes
+    └── checkpoints/    fine-tuned weights (git-ignored, copy them in; see laya-finetuning/docs/NEW_PC_SETUP.md)
 ```
 
 ---
@@ -58,7 +56,7 @@ Windows: run `setup.bat`. Linux/macOS: run `./setup.sh`. Or do it by hand:
 python -m venv .venv
 .venv\Scripts\activate            # Windows
 source .venv/bin/activate         # Linux/macOS
-pip install -r requirements.txt   # FastAPI stack, psycopg2-binary, and Laya from ../laya-test/laya
+pip install -r requirements.txt   # FastAPI stack, psycopg2-binary, and Laya from GitHub (pinned commit)
 copy .env.example .env            # Windows  (cp on Linux/macOS)
 ```
 
@@ -66,7 +64,7 @@ copy .env.example .env            # Windows  (cp on Linux/macOS)
 | Variable | Default | Purpose |
 |---|---|---|
 | `LAYA_MODEL` | `english` | Laya checkpoint for every check (the English one tested best) |
-| `LAYA_HF_HOME` | empty → `../laya-test/hf_home` | Folder holding the Laya weights |
+| `LAYA_HF_HOME` | empty → `../laya-test/hf_home` if it exists, else Hugging Face's default cache | Folder holding the stock Laya weights |
 | `LAYA_DEVICE` | empty (automatic) | `cpu` or `cuda` |
 | `SERVER_HOST` / `SERVER_PORT` | `0.0.0.0` / `8006` | QA service (the gateway and frontend expect 8006) |
 | `DB_HOST` `DB_PORT` `DB_NAME` `DB_USER` `DB_PASSWORD` | see `.env.example` | PostgreSQL |
@@ -176,6 +174,14 @@ Next step: Laya training on Active listening, Resolved, Paraphrasing, Rapport an
 
 ---
 
+## Fine-tuned Laya and the test results
+The fine-tuning work lives in this repo, in [`laya-finetuning/`](laya-finetuning/README.md): training data and tools, the Colab notebook, run notes, and the setup guide for a new machine ([`docs/NEW_PC_SETUP.md`](laya-finetuning/docs/NEW_PC_SETUP.md)). The weights are not in git.
+
+* **Serve the fine-tuned model:** set `LAYA_CHECKPOINT` to the checkpoint folder (`laya-finetuning/checkpoints/final-softce-3`). That also switches on the fine-tuned cutoffs and "flow v2" (`Docs/FLOW_V2.md`). `LAYA_FLOW=v1|v2` overrides the flow.
+* **Latest results** (AI-written answer keys, not human-reviewed): on 50 independent 10-20 minute calls (`inputs/AG50`), the 7 model-judged items match the key 72.0% with the original flow and 80.3% with flow v2 (Ollama 78.6%; a development set, so optimistic). The 4 golden calls: 42 of 44 items. Details: `Docs/AG50_REPORT.md`, `Docs/AG50_DASHBOARD.html`, `Docs/FLOW_V2.md`, `Docs/LAYA_TEST_LOG.md`.
+
+---
+
 ## Testing
 
 ```bash
@@ -200,7 +206,7 @@ python Scripts/laya_cutoffs.py out.json         # best cutoff per check from the
 qa-analysis/
 ├── main.py                      # QA service launcher (:8006)
 ├── run_gateway.py               # API gateway launcher (:8005)
-├── requirements.txt             # FastAPI stack + psycopg2-binary + Laya (../laya-test/laya)
+├── requirements.txt             # FastAPI stack + psycopg2-binary + Laya (pinned GitHub commit)
 ├── .env.example                 # Laya, server, Postgres and gateway settings
 ├── setup.bat / setup.sh         # venv + install + .env
 ├── docker-compose.yml           # Postgres, QA service, gateway, frontend (no Ollama; QA image lacks Laya)
