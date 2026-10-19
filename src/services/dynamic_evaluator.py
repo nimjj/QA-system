@@ -194,7 +194,8 @@ def evaluate_interaction(
         rule_ratings.append(emp_rating)
 
     if "paraphrasing" in selected_criteria:
-        para_rating = _laya_verdict("paraphrasing", inp.paraphrasing, "verify_paraphrasing")
+        # flow v2: no restatement cue in the first minutes -> FAIL without asking the model (inp.paraphrasing is None)
+        para_rating = "FAIL" if inp.paraphrasing is None else _laya_verdict("paraphrasing", inp.paraphrasing, "verify_paraphrasing")
         rule_ratings.append({
             "category": "Technical Knowledge",
             "name": "Paraphrasing",

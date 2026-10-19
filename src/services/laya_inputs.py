@@ -7,6 +7,7 @@ must be regenerated.
 
 No model is loaded here; this module only turns a transcript into text.
 """
+import os
 import re
 from dataclasses import dataclass, field
 from typing import Any, List, Optional, Tuple, Union
@@ -33,7 +34,7 @@ class LayaInputs:
     customer_name: str
     agent_text: str = ""                                   # every agent line, "Agent: ..." per line (profanity check)
     empathy: List[str] = field(default_factory=list)       # one Laya call per snippet
-    paraphrasing: str = ""
+    paraphrasing: Optional[str] = ""                       # flow v2: None = no restatement cue found, the item fails without a model call
     active_listening: str = ""
     ownership: str = ""
     rapport: List[str] = field(default_factory=list)       # every agent line, in chunks; one Laya call per chunk
@@ -88,6 +89,18 @@ def parse_transcript(transcript_data: Union[str, List[dict]], caller: Optional[s
     return turns, parsed_times, clean_lines, agent_lines, customer_lines, customer_name, sentiment_scores
 
 
+def flow_version() -> str:
+    """"v2" (windows chosen by call structure, see laya_windows.py) or "v1" (the original extractors).
+
+    LAYA_FLOW sets it explicitly. Left unset, a fine-tuned checkpoint (LAYA_CHECKPOINT) uses v2, the same way it uses
+    FINETUNED_CUTOFFS, and the stock model keeps v1. Tested on AG50, Main and bulk: Docs/FLOW_V2_LAB.md and
+    Docs/FLOW_V2_REGRESSION.md."""
+    explicit = os.getenv("LAYA_FLOW", "").strip().lower()
+    if explicit in ("v1", "v2"):
+        return explicit
+    return "v2" if os.getenv("LAYA_CHECKPOINT") else "v1"
+
+
 def build_laya_inputs(transcript_data: Union[str, List[dict]], caller: Optional[str] = None) -> LayaInputs:
     turns, parsed_times, clean_lines, agent_lines, customer_lines, customer_name, sentiment_scores = \
         parse_transcript(transcript_data, caller)
@@ -117,6 +130,14 @@ def build_laya_inputs(transcript_data: Union[str, List[dict]], caller: Optional[
             turns, problem_lines, PROBING_PROBLEM_MAX_WORDS, PROBING_QUESTIONS_MAX_WORDS)
         q_txt = "\n".join(f"- {q}" for q in probe_questions)
         out.probing = f"CUSTOMER PROBLEM: {problem_text}\n\nThe agent asked these questions during the call:\n{q_txt}"
+
+    if flow_version() == "v2":
+        # Flow v2: windows chosen by call structure. See laya_windows.py and Docs/FLOW_V2.md.
+        from src.services import laya_windows as W
+        # strict rubric (owner's decision): every distinct outburst must be handled, so one window per outburst
+        out.empathy = W.empathy_episode_windows(turns, sentiment_scores, n_after=4, calm_customer_turns=4)
+        out.paraphrasing = W.paraphrase_window(turns, parsed_times)
+        out.ownership = W.ownership_candidates(turns)
 
     out.resolved = "\n".join(clean_lines[-RESOLVED_TAIL_LINES:])
     out.batch_agent_only = f"CUSTOMER PROBLEM CONTEXT:\n{first_10_cust}\n\n" + agent_only_transcript
