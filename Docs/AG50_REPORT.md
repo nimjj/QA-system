@@ -85,7 +85,7 @@ Laya never reads a whole call. The app builds a snippet per check, and the model
 
 Findings, from opening the actual snippets (so sample sizes are small and stated):
 
-1. **Active listening: the app is looking for a different kind of repeat than the key.** The app pairs one *agent question* with a similar later *agent question*. Antigravity's faults are mostly "the customer volunteered the router model in the first minute, and the agent asked for it again 8 minutes later". No earlier question exists, so no pair is built. Of the four snippets I opened where a snippet was built, three showed the wrong pair and one was the right pair that the model missed. The model cannot catch what it is not shown.
+1. **Active listening: two separate problems.** (a) 6 of the 15 faults never reach the model. The app pairs one *agent question* with a similar later *agent question*, and these are cases such as "the customer volunteered the router model in the first minute, and the agent asked for it again 8 minutes later", where no earlier question exists. (b) For the other 9, the snippet *was* built, 8 of them with the correct pair, and the fine-tuned model still said PASS every time: its probability of "this is a repeat" was only 0.05 to 0.12 on all nine (stock Laya gave 0.20 to 0.65). So the model itself, not only the snippet, misses reworded repeats that are minutes apart. *(An earlier version of this report said most snippets showed the wrong pair. That came from reading four examples and was wrong; the full count is above.)*
 2. **Ownership: the phrase check blocks 6 of 17 faults.** When the model gets the snippet, it is excellent (10 of 11). The ceiling is set by the phrase list.
 3. **Empathy: the app and the key use different definitions.** The app checks each upset customer moment on its own and flags it if no apology appears within the next 3 turns. The key (and the QA definition I gave Antigravity) says one acknowledgement anywhere in the call is enough. In the 3 false alarms I opened, the agent had already acknowledged the customer in the first 30 seconds; the snippet shown was a later upset moment. Fine-tuned Laya caught all 17 real faults but raised 25 false alarms in 33 good calls. That is a spec mismatch, not a model weakness.
 4. **Rapport: the rule compounds small errors.** A call fails if any chunk looks rude. These calls have 7 to 13 chunks (10.2 on average). A per-chunk false-alarm rate of about 3.6% gives roughly 31% of good calls failing, which is what we saw (11 of 35). The cutoff of 0.20 was tuned on four calls with fewer chunks.
@@ -105,7 +105,7 @@ AUC is the chance that the model ranks a faulty call as worse than a good call, 
 | Probing | 0.88 | 0.73 | +0.14 (-0.01 to +0.33) probable gain | 0.65 | **0.79** |
 | Resolved | 0.85 | 0.92 | -0.07 (-0.22 to +0.06) no clear change | 0.77 | 0.77 |
 
-\*Only 9 and 11 calls reached the model; these AUCs mostly reflect the snippet rule.
+\*Only 9 and 11 calls reached the model; these AUCs mostly reflect the snippet rule. For Active listening all 9 snippets came from faulty calls (no good call produced one), so the model's false-alarm control cannot be assessed on this data.
 
 What it means:
 - **Training clearly improved ranking on one item: Rapport.** Probing probably improved. For Empathy, Paraphrasing and Resolved the change is not distinguishable from zero, and Resolved trends worse.
@@ -120,7 +120,7 @@ What it means:
 |---|---|---|---|
 | Retune the Probing cutoff (and check Rapport's rule) | AUC 0.88 vs balanced accuracy 0.65; Rapport 31% false alarms | No | High, cheap (hours) |
 | Make Empathy call-level (acknowledged anywhere = pass, or send the first upset moment plus the agent's reply) | 25 false alarms, all 17 faults already caught | Probably yes, to re-train on the new snippet | High |
-| Rebuild Active-listening pairing (customer statement vs later agent question) | 15 faults, 0 caught, only 9 reached the model, most with the wrong pair | Yes | High (largest single weakness) |
+| Active listening: add a second candidate source (customer statement vs later agent question) and train on reworded, far-apart repeats | 15 faults, 0 caught; 6 never reach the model; on the 9 that do (8 right pair) the fine-tuned model gives P(repeat) 0.05-0.12 | Yes, mainly for the model | Medium (worth 10 points of the score, but 0 of 15 caught today) |
 | Widen the Ownership gate (semantic, not a fixed phrase list) | 6 of 17 faults blocked | Yes | Medium |
 | Longer windows for Paraphrasing / Resolved (Laya has a 512-token limit, so use several windows and combine) | sees ~200 of 1,900 words | Yes | Medium |
 | More fine-tuning on the existing snippets | Training effect on AUC is only clear for Rapport | n/a | Low |
@@ -146,7 +146,9 @@ Yes. The calls went through `/api/evaluate`, the same route production uses. The
 - **One key author, 50 calls.** Item-level numbers are noisy.
 - **Cutoffs for the fine-tuned model were tuned earlier on Claude data.** That penalises it a little on a new author's calls; the re-tuned numbers in section 7 are upper bounds because the same key is used.
 - **Ollama ran through an older copy of the app** with an older Dead-air rule. This does not affect the judged items.
-- **The Empathy and Active-listening explanations are from opening 3 and 4 examples**, not from a full audit. The counts in the "never reached the model" column are complete.
+- **The Empathy explanation is from opening 3 examples**, not from a full audit. The counts in the "never reached the model" column and the Active-listening probabilities are complete.
+- **AG50 is now a development set.** After writing this report I studied all 50 calls to find where each criterion's evidence sits. Design choices made from that cannot be fairly tested on the same calls, so the final verdict needs a new, sealed set.
+- **Agent sentiment in AG50 is an artifact.** My brief told Antigravity to give rude agent lines negative sentiment. Production has customer-side sentiment only, so nothing may rely on agent sentiment.
 - **Not a production test.** No real calls, no real speech-to-text noise beyond what Antigravity wrote in.
 
 ## 11. Recommended next steps
