@@ -35,6 +35,8 @@ def _get_router():
         os.environ.setdefault("HF_HUB_DISABLE_SYMLINKS_WARNING", "1")
         from laya import Router
         checkpoint = os.getenv("LAYA_CHECKPOINT")
+        if checkpoint and not os.path.isabs(checkpoint):
+            checkpoint = os.path.join(_ROOT, checkpoint)       # a relative path is read from the repo root
         if checkpoint and not os.path.isdir(checkpoint):
             raise FileNotFoundError(f"LAYA_CHECKPOINT is not a folder: {checkpoint}")
         # a built-in name pointed at a folder serves that fine-tune in place of the stock checkpoint
