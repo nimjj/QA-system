@@ -92,7 +92,7 @@ A `harmless_recheck` should resemble a real repeat: same topic, similar wording,
 2. **No trigger-word tells.** Words that appear in faults ("again", "obviously", "as I said", "sorry", "billing team", "I understand") must also appear in clean lines.
 3. **No templates.** Every call reads as its own call. Do not rotate nouns in the same skeleton. Different agent personalities (warm, brisk, scripted, new, chatty, impatient), customer types (angry, anxious, elderly, hurried, chatty, confused, technical, polite-but-upset) and outcomes (fixed, escalated, unresolved). 100 different customer first names (agents may repeat, at most twice).
 4. **Speech-to-text roughness** in about 30% of calls: fillers, false starts, numbers said as words, occasional homophone slips.
-5. **Length comes from real support work** (troubleshooting, account checks, holds, side topics), never filler.
+5. **Length comes from real support work** (troubleshooting, account checks, holds, side topics), never filler. **Never pad**: no stock clauses appended to lines, no repeated or copy-pasted turns, no generator that inflates dialogue. The validator rejects all three. For AG-T the minimum is 700 words, so there is no reason to pad.
 
 ## 6. How to work
 

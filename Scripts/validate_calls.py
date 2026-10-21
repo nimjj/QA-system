@@ -72,7 +72,13 @@ SUITES = {
     "agt": dict(dir="inputs/AG-T", prefix="agt_", n=100, width=3, min_words=700, groups={"excellent": 20, "1-2": 30, "3-4": 25, "5+": 20, "auto_fail": 5},
                 group_tol=3, min_fail=AGT_MIN_FAIL, min_pass=40, borderline_max=10, names_min=90, markers="required",
                 agent_sentiment=False, hard_ratio=False),
+    # 12 sealed calls that fill AG-B's gaps (Docs/ANTIGRAVITY_AGB2_BRIEF.md); its own mix targets are checked below
+    "agb2": dict(dir="inputs/AG-B2", prefix="agb2_", n=12, width=2, groups={}, group_tol=0, min_fail={}, min_pass=0,
+                 borderline_max=2, names_min=12, markers="required", agent_sentiment=False, hard_ratio=False),
 }
+AGB2_MIX = {"long excellent calls (15+ min, every item PASS)": 4, "short poor calls (10-12 min, 5+ failed items, not auto-fail)": 3,
+            "calls with 2+ outbursts": 5, "calls where a handled outburst is followed by an unhandled one": 3,
+            "outbursts in the last third of the call": 3}
 
 # marker kinds per check, and the minimum totals over a full AG-T set
 MARKER_KINDS = {
@@ -415,6 +421,16 @@ def main():
         # ---- coverage numbers
         nfail = sum(1 for it in scorecard if it["rating"] == "FAIL")
         groups["auto_fail" if af else "excellent" if nfail == 0 else "1-2" if nfail <= 2 else "3-4" if nfail <= 4 else "5+"] += 1
+        if args.suite == "agb2":
+            emp = sorted((m for m in (grader.get("markers") or {}).get("empathy", []) if isinstance(m, dict)
+                          and m.get("kind") in ("handled", "unhandled") and is_int(m.get("customer_turn"))), key=lambda m: m["customer_turn"])
+            mix = tally
+            mix["long excellent calls (15+ min, every item PASS)"] += last_end >= 900 and nfail == 0 and not af
+            mix["short poor calls (10-12 min, 5+ failed items, not auto-fail)"] += last_end <= 720 and nfail >= 5 and not af
+            mix["calls with 2+ outbursts"] += len(emp) >= 2
+            mix["calls where a handled outburst is followed by an unhandled one"] += any(
+                a["kind"] == "handled" and b["kind"] == "unhandled" for k, a in enumerate(emp) for b in emp[k + 1:])
+            mix["outbursts in the last third of the call"] += sum(m["customer_turn"] / len(turns) >= 0.66 for m in emp)
         for it in scorecard:
             if it["rating"] == "FAIL":
                 fails[it["name"]] += 1
@@ -453,6 +469,10 @@ def main():
                 err("coverage", f"hard FAILs are {hard_f}/{tot_f}, need at least 40%")
             if tot_p and not 0.22 <= hard_p / tot_p <= 0.40:
                 err("coverage", f"hard PASSes are {hard_p}/{tot_p}, need about 30%")
+        if args.suite == "agb2":
+            for key, mn in AGB2_MIX.items():
+                if tally[key] < mn:
+                    err("coverage", f"{key}: {tally[key]} found, minimum {mn}")
         if args.suite == "agt":
             for key, mn in AGT_MARKER_MIN.items():
                 if tally[key] < mn:
@@ -510,7 +530,7 @@ def main():
         print(f"Lengths: 10-12m={b[0]}  12-15m={b[1]}  15-18m={b[2]}  18-20m={b[3]}   Groups: {dict(groups)}")
         print("Per criterion (FAIL / PASS):")
         for nm in NAMES:
-            print(f"  {nm:45s} {fails[nm]:3d} / {passes[nm]:3d}   (minimum FAIL {cfg['min_fail'][nm]}, PASS {cfg['min_pass']})")
+            print(f"  {nm:45s} {fails[nm]:3d} / {passes[nm]:3d}   (minimum FAIL {cfg['min_fail'].get(nm, 0)}, PASS {cfg['min_pass']})")
         if tally:
             print("Markers: " + ", ".join(f"{k[0]}/{k[1]}={v}" for k, v in sorted(tally.items(), key=str) if isinstance(k, tuple)))
             print("Tags   : " + ", ".join(f"{k}={v}" for k, v in sorted(tally.items(), key=str) if isinstance(k, str) and not k.startswith("_")))

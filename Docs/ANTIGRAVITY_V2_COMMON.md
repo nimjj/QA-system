@@ -12,6 +12,7 @@ You already wrote 50 calls for us (`inputs/AG50/`) from `Docs/ANTIGRAVITY_TEST_B
 ## 1. What is the same as the rulebook
 
 - Payload shape, field rules, timing and length: rulebook sections 6 and 6.1 (10 to 20 minute calls, 30 s per turn at most, the dead-air formula). **One change: sentiment, see section 2 below.**
+- **Never pad a call to reach a length.** No stock clauses appended to lines, no repeated or copy-pasted turns, no generator that inflates the dialogue. If a call is too short, write more real support work. The validator rejects padding.
 - The 11 criteria, deductions and final-score formula: rulebook section 7. **Changes: Empathy is stricter, and four judged criteria are sharpened, see section 3.**
 - The key format: rulebook section 8 (scorecard, coaching, `grader.items` with evidence). **One addition: `grader.markers`, see section 4.**
 - Scenario variety, speech-to-text roughness, style traps: rulebook sections 9.4 and 9.5. All S-Net calls, 30% with roughness, quality must not show in style.
@@ -124,7 +125,7 @@ You can see the whole repo. Please **do not use all of it**. We want natural cal
 |---|---|
 | `laya-finetuning/`, `src/services/laya_*.py`, `src/services/dynamic_evaluator.py`, everything in `Scripts/` except `validate_calls.py`, `CLAUDE.md`, `README.md`, `Docs/AI_HANDOVER.md`, `Docs/ARCHITECTURE.md` | model code, training data and notes about where the model is weak. Writing calls to fit how snippets are cut would fake the result |
 | `inputs/Eval50/`, `inputs/Main tests/`, `inputs/Bulk tests/`, `inputs/Tough checks/`, `inputs/Test (results)/`, `Docs/LAYA_*`, `Docs/FLOW_*`, `Docs/AG50_*`, `Docs/EVAL50_*` | earlier calls, keys and results |
-| `inputs/AG-T/` while writing AG-B, and `inputs/AG-B/` while writing AG-T | the two sets must not know about each other |
+| Every call set other than the one you are writing: `inputs/AG-T/`, `inputs/AG-B/`, `inputs/AG-B2/`, and any folder whose name starts with an underscore | the sets must not know about each other |
 
 Do not write a call to be easy or hard for any engine; you will never see their results.
 
