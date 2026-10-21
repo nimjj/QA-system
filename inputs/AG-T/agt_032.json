@@ -1,0 +1,440 @@
+{
+  "tenant_id": "tenant-abc",
+  "customer_name": "Fatima",
+  "transcript": [
+    {
+      "speaker": "Agent",
+      "start_time": "[00:00]",
+      "end_time": "[00:07]",
+      "start_time_sec": 0,
+      "text": "Thank you for calling S-Net billing customer services, my name is Chloe. How can I help you today?"
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[00:11]",
+      "end_time": "[00:28]",
+      "start_time_sec": 11,
+      "text": "Hello Chloe, my name is Fatima Begum. I am calling because my latest monthly broadband bill has an extra three pounds fifty charge for paper billing, but I am registered partially sighted and cannot read digital bills on a smartphone screen!",
+      "sentiment_score": -34.5
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[00:32]",
+      "end_time": "[00:45]",
+      "start_time_sec": 32,
+      "text": "Good morning Fatima. I can review your billing fees and account accessibility flags. Before we access your billing records, could you confirm your full postal address and your account security PIN?"
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[00:49]",
+      "end_time": "[00:58]",
+      "start_time_sec": 49,
+      "text": "Yes, it is 19 Wellington Street, Leeds, LS1 4EQ, and my security PIN is 7731. My customer account number is SN-551029.",
+      "sentiment_score": -6.2
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[01:02]",
+      "end_time": "[01:11]",
+      "start_time_sec": 62,
+      "text": "Thank you Fatima, that confirms your account details. When did you first notice the paper invoice charge on your monthly bill?"
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[01:15]",
+      "end_time": "[01:31]",
+      "start_time_sec": 75,
+      "text": "I opened my large print paper bill yesterday morning, and right below my broadband charge it says 'Paper Invoice Administration Charge: £3.50' because having a reliable home broadband connection is absolutely essential for our daily household work.",
+      "sentiment_score": -22.1
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[01:35]",
+      "end_time": "[01:57]",
+      "start_time_sec": 95,
+      "text": "So what has occurred is that a three pound fifty paper invoice administration fee was applied to your monthly statement, and you are requesting an accessibility fee waiver and refund because you require printed large-print correspondence due to visual impairment, is that right in accordance with our standard telecommunications network diagnostic procedures."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[02:01]",
+      "end_time": "[02:19]",
+      "start_time_sec": 121,
+      "text": "Yes, that is exactly right! I was promised when I signed up three years ago that large-print paper bills would always be free for disabled customers so I really appreciate you taking the time to look into these technical details with me today.",
+      "sentiment_score": -16.8
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[02:23]",
+      "end_time": "[02:37]",
+      "start_time_sec": 143,
+      "text": "Bear with me for a couple of minutes while I inspect your billing profile and accessibility concession registers on our database across all your connected household devices including laptops, mobile phones, and streaming hardware."
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[04:02]",
+      "end_time": "[04:20]",
+      "start_time_sec": 242,
+      "text": "Thank you for waiting, Fatima. Our billing platform underwent an automated tariff upgrade last month, and accounts without a refreshed Equality Concession Flag had the standard paper fee automatically applied to maintain optimal throughput and low latency across the regional distribution network."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[04:24]",
+      "end_time": "[04:48]",
+      "start_time_sec": 264,
+      "text": "It makes me so angry and humiliated to be penalised financially just because I cannot see well enough to use an online app! Three pounds fifty might not seem like much to S-Net, but for an elderly pensioner on a fixed disability pension, every pound matters! It is so distressing so I really appreciate you taking the time to look into these technical details with me today.",
+      "sentiment_score": -56.4
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[04:52]",
+      "end_time": "[05:02]",
+      "start_time_sec": 292,
+      "text": "The fee was applied uniformly across all legacy paper-billing subscribers by our automated financial batch run in accordance with our standard telecommunications network diagnostic procedures."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[05:06]",
+      "end_time": "[05:20]",
+      "start_time_sec": 306,
+      "text": "Can you refund that three pounds fifty immediately and make sure S-Net never charges it to me again since we depend heavily on this service for remote working and family communications every day.",
+      "sentiment_score": -28.2
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[05:24]",
+      "end_time": "[05:34]",
+      "start_time_sec": 324,
+      "text": "Yes, I am opening our accessibility concessions management module right now across all your connected household devices including laptops, mobile phones, and streaming hardware."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[05:38]",
+      "end_time": "[05:51]",
+      "start_time_sec": 338,
+      "text": "What details do you need to add to my account so the computer stops adding the fee because having a reliable home broadband connection is absolutely essential for our daily household work.",
+      "sentiment_score": -12.4
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[05:55]",
+      "end_time": "[06:06]",
+      "start_time_sec": 355,
+      "text": "I am applying the formal RNIB Accessibility Exemption flag to your billing account to ensure your S-Net service operates reliably without unexpected dropped packets or connection faults."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[06:10]",
+      "end_time": "[06:13]",
+      "start_time_sec": 370,
+      "text": "Does that cover large print format permanently?",
+      "sentiment_score": 12.1
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[06:17]",
+      "end_time": "[06:30]",
+      "start_time_sec": 377,
+      "text": "Yes, it attaches a permanent zero-cost waiver to all physical correspondence and locks your invoice template to eighteen-point large print format in accordance with our standard telecommunications network diagnostic procedures."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[06:34]",
+      "end_time": "[06:40]",
+      "start_time_sec": 394,
+      "text": "Eighteen-point font is so much easier for me to read with my magnifying glass.",
+      "sentiment_score": 24.5
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[06:44]",
+      "end_time": "[06:51]",
+      "start_time_sec": 404,
+      "text": "Obviously automated billing systems execute standard charges unless an active concession code is populated in the master ledger."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[06:55]",
+      "end_time": "[07:14]",
+      "start_time_sec": 415,
+      "text": "I understand that, as long as the exemption code is permanently attached now. Chloe, it has been deeply distressing and humiliating having to fight for basic accessibility as a blind pensioner! Managing alone on a disability pension is already terrifying without S-Net penalising me!",
+      "sentiment_score": -58.4
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[07:18]",
+      "end_time": "[07:24]",
+      "start_time_sec": 438,
+      "text": "I have submitted a credit adjustment of three pounds fifty directly onto your current ledger balance."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[07:28]",
+      "end_time": "[07:31]",
+      "start_time_sec": 448,
+      "text": "Will that reduce my next direct debit payment automatically?",
+      "sentiment_score": 14.5
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[07:35]",
+      "end_time": "[07:44]",
+      "start_time_sec": 455,
+      "text": "Yes, your next monthly collection will be discounted by three pounds fifty, reducing it to twenty-six pounds fifty instead of thirty pounds."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[07:48]",
+      "end_time": "[07:51]",
+      "start_time_sec": 468,
+      "text": "That is wonderful, thank you Chloe.",
+      "sentiment_score": 28.4
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[07:55]",
+      "end_time": "[08:05]",
+      "start_time_sec": 475,
+      "text": "I have also set a high-contrast text flag on your customer file so any written notices or letters arrive in eighteen-point high-contrast typeface."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[08:09]",
+      "end_time": "[08:13]",
+      "start_time_sec": 489,
+      "text": "That will make such a massive difference to my daily independence.",
+      "sentiment_score": 34.2
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[08:17]",
+      "end_time": "[08:25]",
+      "start_time_sec": 497,
+      "text": "You can also request audio CD format or braille statements in the future if your visual needs ever change, Fatima."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[08:29]",
+      "end_time": "[08:35]",
+      "start_time_sec": 509,
+      "text": "Large print is perfect for now, but it is comforting to know audio format is available.",
+      "sentiment_score": 22.1
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[08:39]",
+      "end_time": "[08:45]",
+      "start_time_sec": 519,
+      "text": "Before we conclude our call, that account contact telephone number was 0113 496 0882, correct?"
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[08:49]",
+      "end_time": "[08:52]",
+      "start_time_sec": 529,
+      "text": "Yes, 0113 496 0882 is my landline.",
+      "sentiment_score": 16.5
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[08:56]",
+      "end_time": "[09:05]",
+      "start_time_sec": 536,
+      "text": "We have waived the three pound fifty fee, credited your ledger, and attached the permanent large-print accessibility exemption to your profile."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[09:09]",
+      "end_time": "[09:15]",
+      "start_time_sec": 549,
+      "text": "You have sorted out everything I needed. Thank you so much for your help.",
+      "sentiment_score": 32.1
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[09:19]",
+      "end_time": "[09:26]",
+      "start_time_sec": 559,
+      "text": "Is there any other aspect of your S-Net billing or services I can assist you with today, Fatima?"
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[09:30]",
+      "end_time": "[09:37]",
+      "start_time_sec": 570,
+      "text": "Your next monthly paper statement will dispatch on the twelfth of next month in your large print format."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[09:41]",
+      "end_time": "[09:47]",
+      "start_time_sec": 581,
+      "text": "I will look out for the postman bringing the large print envelope next month.",
+      "sentiment_score": 16.4
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[09:51]",
+      "end_time": "[09:57]",
+      "start_time_sec": 591,
+      "text": "Our customer care team remains available seven days a week for any future accessibility adjustments."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[10:01]",
+      "end_time": "[10:05]",
+      "start_time_sec": 601,
+      "text": "It is very reassuring to know S-Net has dedicated accessibility support.",
+      "sentiment_score": 19.5
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[10:09]",
+      "end_time": "[10:16]",
+      "start_time_sec": 609,
+      "text": "Your next monthly paper statement will dispatch on the twelfth of next month in your large print format."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[10:20]",
+      "end_time": "[10:26]",
+      "start_time_sec": 620,
+      "text": "I will look out for the postman bringing the large print envelope next month.",
+      "sentiment_score": 16.4
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[10:30]",
+      "end_time": "[10:36]",
+      "start_time_sec": 630,
+      "text": "Our customer care team remains available seven days a week for any future accessibility adjustments."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[10:40]",
+      "end_time": "[10:44]",
+      "start_time_sec": 640,
+      "text": "It is very reassuring to know S-Net has dedicated accessibility support.",
+      "sentiment_score": 19.5
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[10:48]",
+      "end_time": "[10:55]",
+      "start_time_sec": 648,
+      "text": "Your next monthly paper statement will dispatch on the twelfth of next month in your large print format."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[10:59]",
+      "end_time": "[11:05]",
+      "start_time_sec": 659,
+      "text": "I will look out for the postman bringing the large print envelope next month.",
+      "sentiment_score": 16.4
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[11:09]",
+      "end_time": "[11:15]",
+      "start_time_sec": 669,
+      "text": "Our customer care team remains available seven days a week for any future accessibility adjustments."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[11:19]",
+      "end_time": "[11:23]",
+      "start_time_sec": 679,
+      "text": "It is very reassuring to know S-Net has dedicated accessibility support.",
+      "sentiment_score": 19.5
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[11:27]",
+      "end_time": "[11:34]",
+      "start_time_sec": 687,
+      "text": "Your next monthly paper statement will dispatch on the twelfth of next month in your large print format."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[11:38]",
+      "end_time": "[11:44]",
+      "start_time_sec": 698,
+      "text": "I will look out for the postman bringing the large print envelope next month.",
+      "sentiment_score": 16.4
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[11:48]",
+      "end_time": "[11:54]",
+      "start_time_sec": 708,
+      "text": "Our customer care team remains available seven days a week for any future accessibility adjustments."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[11:58]",
+      "end_time": "[12:02]",
+      "start_time_sec": 718,
+      "text": "It is very reassuring to know S-Net has dedicated accessibility support.",
+      "sentiment_score": 19.5
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[12:06]",
+      "end_time": "[12:13]",
+      "start_time_sec": 726,
+      "text": "Your next monthly paper statement will dispatch on the twelfth of next month in your large print format."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[12:17]",
+      "end_time": "[12:23]",
+      "start_time_sec": 737,
+      "text": "I will look out for the postman bringing the large print envelope next month.",
+      "sentiment_score": 16.4
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[12:27]",
+      "end_time": "[12:33]",
+      "start_time_sec": 747,
+      "text": "Our customer care team remains available seven days a week for any future accessibility adjustments."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[12:37]",
+      "end_time": "[12:41]",
+      "start_time_sec": 757,
+      "text": "It is very reassuring to know S-Net has dedicated accessibility support.",
+      "sentiment_score": 19.5
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[12:45]",
+      "end_time": "[12:48]",
+      "start_time_sec": 765,
+      "text": "No thank you Chloe, everything is completely resolved.",
+      "sentiment_score": 24.5
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[12:52]",
+      "end_time": "[12:58]",
+      "start_time_sec": 772,
+      "text": "Thank you for choosing S-Net billing customer services, Fatima. Have a lovely and peaceful afternoon. Goodbye."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[13:01]",
+      "end_time": "[13:04]",
+      "start_time_sec": 781,
+      "text": "Goodbye Chloe.",
+      "sentiment_score": 6.5
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[13:07]",
+      "end_time": "[13:12]",
+      "start_time_sec": 787,
+      "text": "Thank you for choosing S-Net. Goodbye."
+    }
+  ]
+}

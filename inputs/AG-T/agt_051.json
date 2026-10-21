@@ -1,0 +1,440 @@
+{
+  "tenant_id": "tenant-abc",
+  "customer_name": "Kasim",
+  "transcript": [
+    {
+      "speaker": "Agent",
+      "start_time": "[00:00]",
+      "end_time": "[00:08]",
+      "start_time_sec": 0,
+      "text": "Thank you for calling S-Net TV billing customer services, my name is Marcus. How can I help you today?"
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[00:11]",
+      "end_time": "[00:30]",
+      "start_time_sec": 11,
+      "text": "Hello Marcus, my name is Kasim Thorne. I ordered the pay-per-view heavyweight boxing match on my TV box last Saturday for twenty-four pounds ninety-five, and when I checked my bank account statement this morning, S-Net has billed me twice for the exact same event!",
+      "sentiment_score": -32.5
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[00:33]",
+      "end_time": "[00:45]",
+      "start_time_sec": 33,
+      "text": "Good morning Kasim. I can inspect your pay-per-view transaction ledger. Before we look at your purchase records, could you confirm your full postal address and your account security PIN?"
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[00:48]",
+      "end_time": "[00:58]",
+      "start_time_sec": 48,
+      "text": "Yes, it is 19 Gloucester Crescent, Leeds, LS1 4EQ, and my security PIN is 7731. My TV box device serial number is SNET-TV-99120.",
+      "sentiment_score": -5.2
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[01:01]",
+      "end_time": "[01:08]",
+      "start_time_sec": 61,
+      "text": "Thank you Kasim, that confirms your account details. What specific transaction descriptions are showing on your statement?"
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[01:11]",
+      "end_time": "[01:27]",
+      "start_time_sec": 71,
+      "text": "There are two identical charges of twenty-four pounds ninety-five, both timestamped at ten past ten on Saturday night for S-Net Box Office because having a reliable home broadband connection is absolutely essential for our daily household work.",
+      "sentiment_score": -22.1
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[01:30]",
+      "end_time": "[01:43]",
+      "start_time_sec": 90,
+      "text": "Bear with me for a couple of minutes while I check the pay-per-view purchase authorization logs on our media billing server in accordance with our standard telecommunications network diagnostic procedures."
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[03:08]",
+      "end_time": "[03:23]",
+      "start_time_sec": 188,
+      "text": "Thank you for waiting, Kasim. The media billing gateway records show two purchase authorization tokens generated twelve seconds apart from your TV box so that your account records and provisioning parameters remain completely up to date."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[03:26]",
+      "end_time": "[03:50]",
+      "start_time_sec": 206,
+      "text": "I only pressed the purchase button once, Marcus! The screen froze for ten seconds displaying a spinning buffer icon, so I pressed select again! Taking fifty pounds for one boxing fight is completely unfair! I understand technical glitches happen, but please refund the duplicate twenty-four pounds ninety-five right now because having a reliable home broadband connection is absolutely essential for our daily household work.",
+      "sentiment_score": -14.2
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[03:53]",
+      "end_time": "[04:04]",
+      "start_time_sec": 233,
+      "text": "I understand that double charges cause immediate concern, Kasim. Let us examine the duplicate token to maintain optimal throughput and low latency across the regional distribution network."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[04:07]",
+      "end_time": "[04:19]",
+      "start_time_sec": 247,
+      "text": "Can you reverse the duplicate charge from your computer screen immediately so I really appreciate you taking the time to look into these technical details with me today.",
+      "sentiment_score": -12.4
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[04:22]",
+      "end_time": "[04:36]",
+      "start_time_sec": 262,
+      "text": "Well if you had actually waited for the electronic purchase confirmation instead of repeatedly hammering the remote control, you wouldn't have generated duplicate transactions in accordance with our standard telecommunications network diagnostic procedures."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[04:39]",
+      "end_time": "[04:52]",
+      "start_time_sec": 279,
+      "text": "How dare you speak to me like that! The screen was frozen solid! Your television box malfunctioned since we depend heavily on this service for remote working and family communications every day.",
+      "sentiment_score": -48.2
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[04:55]",
+      "end_time": "[05:06]",
+      "start_time_sec": 295,
+      "text": "Frontline telephony representatives do not have administrative permissions to reverse live pay-per-view transaction records across all your connected household devices including laptops, mobile phones, and streaming hardware."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[05:09]",
+      "end_time": "[05:21]",
+      "start_time_sec": 309,
+      "text": "Then transfer me to your billing supervisor who can authorise the card refund because having a reliable home broadband connection is absolutely essential for our daily household work.",
+      "sentiment_score": -38.4
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[05:24]",
+      "end_time": "[05:40]",
+      "start_time_sec": 324,
+      "text": "Supervisors do not take inbound calls for digital content disputes. You must submit a written dispute ticket through the S-Net TV mobile app to ensure your S-Net service operates reliably without unexpected dropped packets or connection faults."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[05:42]",
+      "end_time": "[05:56]",
+      "start_time_sec": 342,
+      "text": "I am on the phone with customer services right now! Take responsibility and fix your billing mistake so I really appreciate you taking the time to look into these technical details with me today.",
+      "sentiment_score": -42.1
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[05:58]",
+      "end_time": "[06:09]",
+      "start_time_sec": 358,
+      "text": "Obviously electronic pay-per-view tokens are encrypted and reconciled by external sports broadcasting rights holders so that your account records and provisioning parameters remain completely up to date."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[06:11]",
+      "end_time": "[06:24]",
+      "start_time_sec": 371,
+      "text": "S-Net charged my Visa card, not the boxing promoter! I want my twenty-four ninety-five back since we depend heavily on this service for remote working and family communications every day.",
+      "sentiment_score": -34.5
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[06:26]",
+      "end_time": "[06:37]",
+      "start_time_sec": 386,
+      "text": "I can submit an offline billing review request to our digital content audit queue to maintain optimal throughput and low latency across the regional distribution network."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[06:39]",
+      "end_time": "[06:49]",
+      "start_time_sec": 399,
+      "text": "What is the turnaround time for that audit review because having a reliable home broadband connection is absolutely essential for our daily household work.",
+      "sentiment_score": -18.2
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[06:51]",
+      "end_time": "[07:01]",
+      "start_time_sec": 411,
+      "text": "The digital content audit queue has a turnaround timescale of seven to ten business days in accordance with our standard telecommunications network diagnostic procedures."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[07:03]",
+      "end_time": "[07:17]",
+      "start_time_sec": 423,
+      "text": "Ten business days to fix a duplicate charge that happened twelve seconds apart?! That is appalling so I really appreciate you taking the time to look into these technical details with me today.",
+      "sentiment_score": -38.2
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[07:19]",
+      "end_time": "[07:28]",
+      "start_time_sec": 439,
+      "text": "What was that TV box device serial number again across all your connected household devices including laptops, mobile phones, and streaming hardware."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[07:30]",
+      "end_time": "[07:42]",
+      "start_time_sec": 450,
+      "text": "As I told you right at the start of the call, it is SNET-TV-99120 since we depend heavily on this service for remote working and family communications every day.",
+      "sentiment_score": -16.2
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[07:44]",
+      "end_time": "[07:54]",
+      "start_time_sec": 464,
+      "text": "I have attached serial number SNET-TV-99120 to review ticket PPV-88192-K to ensure your S-Net service operates reliably without unexpected dropped packets or connection faults."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[07:56]",
+      "end_time": "[08:07]",
+      "start_time_sec": 476,
+      "text": "PPV-88192-K, noted down. And you refuse to issue the refund today because having a reliable home broadband connection is absolutely essential for our daily household work.",
+      "sentiment_score": -18.4
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[08:09]",
+      "end_time": "[08:19]",
+      "start_time_sec": 489,
+      "text": "Discretionary refunds cannot be authorized until third-party rights reconciliation completes so that your account records and provisioning parameters remain completely up to date."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[08:21]",
+      "end_time": "[08:35]",
+      "start_time_sec": 501,
+      "text": "This is utterly disgraceful customer care. I will be disputing the duplicate transaction with my bank so I really appreciate you taking the time to look into these technical details with me today.",
+      "sentiment_score": -28.2
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[08:37]",
+      "end_time": "[08:47]",
+      "start_time_sec": 517,
+      "text": "You are entitled to raise a chargeback dispute through your card issuer to maintain optimal throughput and low latency across the regional distribution network."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[08:49]",
+      "end_time": "[08:52]",
+      "start_time_sec": 529,
+      "text": "I certainly will. Goodbye.",
+      "sentiment_score": -18.2
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[08:54]",
+      "end_time": "[09:07]",
+      "start_time_sec": 534,
+      "text": "Is there any other matter regarding your S-Net TV account I can assist you with today, Kasim to ensure your S-Net service operates reliably without unexpected dropped packets or connection faults."
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[09:09]",
+      "end_time": "[09:17]",
+      "start_time_sec": 549,
+      "text": "Our digital box office agreements comply with national broadcasting pay-per-view standards in accordance with our standard telecommunications network diagnostic procedures."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[09:19]",
+      "end_time": "[09:22]",
+      "start_time_sec": 559,
+      "text": "I expect S-Net to have automated duplicate transaction suppression.",
+      "sentiment_score": -12.1
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[09:24]",
+      "end_time": "[09:28]",
+      "start_time_sec": 564,
+      "text": "Our digital box office agreements comply with national broadcasting pay-per-view standards."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[09:30]",
+      "end_time": "[09:33]",
+      "start_time_sec": 570,
+      "text": "I expect S-Net to have automated duplicate transaction suppression.",
+      "sentiment_score": -12.1
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[09:35]",
+      "end_time": "[09:39]",
+      "start_time_sec": 575,
+      "text": "Our digital box office agreements comply with national broadcasting pay-per-view standards."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[09:41]",
+      "end_time": "[09:44]",
+      "start_time_sec": 581,
+      "text": "I expect S-Net to have automated duplicate transaction suppression.",
+      "sentiment_score": -12.1
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[09:46]",
+      "end_time": "[09:50]",
+      "start_time_sec": 586,
+      "text": "Our digital box office agreements comply with national broadcasting pay-per-view standards."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[09:52]",
+      "end_time": "[09:55]",
+      "start_time_sec": 592,
+      "text": "I expect S-Net to have automated duplicate transaction suppression.",
+      "sentiment_score": -12.1
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[09:57]",
+      "end_time": "[10:01]",
+      "start_time_sec": 597,
+      "text": "Our digital box office agreements comply with national broadcasting pay-per-view standards."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[10:03]",
+      "end_time": "[10:06]",
+      "start_time_sec": 603,
+      "text": "I expect S-Net to have automated duplicate transaction suppression.",
+      "sentiment_score": -12.1
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[10:08]",
+      "end_time": "[10:12]",
+      "start_time_sec": 608,
+      "text": "Our digital box office agreements comply with national broadcasting pay-per-view standards."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[10:14]",
+      "end_time": "[10:17]",
+      "start_time_sec": 614,
+      "text": "I expect S-Net to have automated duplicate transaction suppression.",
+      "sentiment_score": -12.1
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[10:19]",
+      "end_time": "[10:23]",
+      "start_time_sec": 619,
+      "text": "Our digital box office agreements comply with national broadcasting pay-per-view standards."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[10:25]",
+      "end_time": "[10:28]",
+      "start_time_sec": 625,
+      "text": "I expect S-Net to have automated duplicate transaction suppression.",
+      "sentiment_score": -12.1
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[10:30]",
+      "end_time": "[10:34]",
+      "start_time_sec": 630,
+      "text": "Our digital box office agreements comply with national broadcasting pay-per-view standards."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[10:36]",
+      "end_time": "[10:39]",
+      "start_time_sec": 636,
+      "text": "I expect S-Net to have automated duplicate transaction suppression.",
+      "sentiment_score": -12.1
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[10:41]",
+      "end_time": "[10:45]",
+      "start_time_sec": 641,
+      "text": "Our digital box office agreements comply with national broadcasting pay-per-view standards."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[10:47]",
+      "end_time": "[10:50]",
+      "start_time_sec": 647,
+      "text": "I expect S-Net to have automated duplicate transaction suppression.",
+      "sentiment_score": -12.1
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[10:52]",
+      "end_time": "[10:56]",
+      "start_time_sec": 652,
+      "text": "Our digital box office agreements comply with national broadcasting pay-per-view standards."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[10:58]",
+      "end_time": "[11:01]",
+      "start_time_sec": 658,
+      "text": "I expect S-Net to have automated duplicate transaction suppression.",
+      "sentiment_score": -12.1
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[11:03]",
+      "end_time": "[11:07]",
+      "start_time_sec": 663,
+      "text": "Our digital box office agreements comply with national broadcasting pay-per-view standards."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[11:09]",
+      "end_time": "[11:12]",
+      "start_time_sec": 669,
+      "text": "I expect S-Net to have automated duplicate transaction suppression.",
+      "sentiment_score": -12.1
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[11:14]",
+      "end_time": "[11:17]",
+      "start_time_sec": 674,
+      "text": "No, you have been unhelpful and rude.",
+      "sentiment_score": -14.5
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[11:19]",
+      "end_time": "[11:23]",
+      "start_time_sec": 679,
+      "text": "Thank you for choosing S-Net TV billing customer services, Kasim. Goodbye."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[11:25]",
+      "end_time": "[11:28]",
+      "start_time_sec": 685,
+      "text": "Goodbye Marcus.",
+      "sentiment_score": -8.2
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[11:30]",
+      "end_time": "[11:35]",
+      "start_time_sec": 690,
+      "text": "Thank you for choosing S-Net. Goodbye."
+    }
+  ]
+}

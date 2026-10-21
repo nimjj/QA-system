@@ -1,0 +1,455 @@
+{
+  "tenant_id": "tenant-abc",
+  "customer_name": "Elijah",
+  "transcript": [
+    {
+      "speaker": "Agent",
+      "start_time": "[00:00]",
+      "end_time": "[00:07]",
+      "start_time_sec": 0,
+      "text": "Thank you for calling S-Net mobile customer care, my name is Sophie. How can I help you today?"
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[00:15]",
+      "end_time": "[00:33]",
+      "start_time_sec": 15,
+      "text": "Hello Sophie, my name is Elijah Ward. My mobile internet connection stopped working this morning, and when I opened the S-Net app it says I have used one hundred percent of my forty-gigabyte monthly data allowance just five days into my billing cycle!",
+      "sentiment_score": -31.4
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[00:41]",
+      "end_time": "[00:54]",
+      "start_time_sec": 41,
+      "text": "Good afternoon Elijah. I can inspect your data usage breakdown and cellular network provisioning. Before we access your mobile account, could you confirm your full postal address and your account security PIN?"
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[01:02]",
+      "end_time": "[01:11]",
+      "start_time_sec": 62,
+      "text": "Yes, it is 12 Cambridge Road, Bristol, BS6 6ST, and my security PIN is 5519. My mobile number is 07700 900823.",
+      "sentiment_score": -4.5
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[01:19]",
+      "end_time": "[01:32]",
+      "start_time_sec": 79,
+      "text": "Thank you Elijah, that verifies your account details. What happens on your phone right now when you attempt to browse a website or load a web page over mobile data?"
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[01:40]",
+      "end_time": "[01:57]",
+      "start_time_sec": 100,
+      "text": "A web redirect screen pops up stating 'You have consumed your forty gigabytes monthly data allowance. Please purchase a data booster to resume high-speed mobile internet.' because having a reliable home broadband connection is absolutely essential for our daily household work.",
+      "sentiment_score": -22.1
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[02:05]",
+      "end_time": "[02:26]",
+      "start_time_sec": 125,
+      "text": "So what has occurred is that your monthly forty-gigabyte mobile data allowance was fully exhausted within five days of your billing cycle start, causing the network gateway to redirect your web traffic to our booster landing page, is that right in accordance with our standard telecommunications network diagnostic procedures."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[02:34]",
+      "end_time": "[02:54]",
+      "start_time_sec": 154,
+      "text": "Yes, that is exactly what happened! But there is no way I used forty gigabytes of data in five days! I only browse social media and read news articles so I really appreciate you taking the time to look into these technical details with me today.",
+      "sentiment_score": -18.4
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[03:01]",
+      "end_time": "[03:11]",
+      "start_time_sec": 181,
+      "text": "Bear with me for a couple of minutes while I pull up your granular mobile data session logs from our mobile packet gateway."
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[04:36]",
+      "end_time": "[04:48]",
+      "start_time_sec": 276,
+      "text": "Thank you for waiting, Elijah. The data session logs show a single continuous background data transmission of thirty-eight point six gigabytes between two o'clock and four o'clock this morning."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[04:55]",
+      "end_time": "[05:10]",
+      "start_time_sec": 295,
+      "text": "I was sound asleep between two and four in the morning! I need my mobile data restored right now for client video deliveries, and I want S-Net to credit a free 50GB booster pack immediately!",
+      "sentiment_score": -52.4
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[05:17]",
+      "end_time": "[05:41]",
+      "start_time_sec": 317,
+      "text": "I completely understand how stressful it is to run out of mobile data when you have urgent client deliveries pending, Elijah. However, because our cellular network logs confirm that the full forty gigabytes were uploaded by your handset to Google Drive, our billing terms do not permit issuing a free discretionary data booster; what I can do right now is activate our emergency ten-gigabyte bolt-on at a half-price concession of five pounds, and walk you through restricting your cloud synchronization app to Wi-Fi only so this never recurs."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[05:48]",
+      "end_time": "[06:03]",
+      "start_time_sec": 348,
+      "text": "Wait... Google Drive? Oh good heavens! I plugged my 4K drone camera memory card into my phone last night and told Google Drive to back up the footage! My home Wi-Fi must have disconnected overnight!",
+      "sentiment_score": 18.2
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[06:10]",
+      "end_time": "[06:20]",
+      "start_time_sec": 370,
+      "text": "That would explain the entire thirty-eight-point-six-gigabyte transfer. Mobile handsets automatically fail over to cellular data when Wi-Fi drops out unless cloud apps are strictly restricted."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[06:27]",
+      "end_time": "[06:38]",
+      "start_time_sec": 387,
+      "text": "I am so relieved to know what actually happened. I thought my phone had been hacked. That half-price ten-gigabyte bolt-on for five pounds sounds very reasonable.",
+      "sentiment_score": 26.5
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[06:45]",
+      "end_time": "[06:54]",
+      "start_time_sec": 405,
+      "text": "I have applied the emergency ten-gigabyte high-speed data bolt-on to your mobile line right now at the discounted rate of five pounds."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[07:01]",
+      "end_time": "[07:06]",
+      "start_time_sec": 421,
+      "text": "Let me toggle aeroplane mode on and off to refresh the data connection...",
+      "sentiment_score": 14.2
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[07:13]",
+      "end_time": "[07:19]",
+      "start_time_sec": 433,
+      "text": "Yes, toggling aeroplane mode forces your SIM card to re-attach to our 5G data bearer."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[07:26]",
+      "end_time": "[07:33]",
+      "start_time_sec": 446,
+      "text": "Aeroplane mode toggled... The 5G icon is back! And my email just pinged with incoming client messages!",
+      "sentiment_score": 48.6
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[07:40]",
+      "end_time": "[07:49]",
+      "start_time_sec": 460,
+      "text": "Now let us configure your Google Drive settings immediately so your phone never uploads large video files over cellular data again."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[07:56]",
+      "end_time": "[08:00]",
+      "start_time_sec": 476,
+      "text": "Opening Google Drive app now. Where do I find the setting?",
+      "sentiment_score": 12.1
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[08:07]",
+      "end_time": "[08:14]",
+      "start_time_sec": 487,
+      "text": "Tap the three horizontal menu lines in the top left, tap 'Settings', and scroll to the bottom."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[08:21]",
+      "end_time": "[08:27]",
+      "start_time_sec": 501,
+      "text": "Scrolled to the bottom. I see an option called 'Transfer files only over Wi-Fi'.",
+      "sentiment_score": 18.4
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[08:34]",
+      "end_time": "[08:39]",
+      "start_time_sec": 514,
+      "text": "Obviously background cloud services continue uploading high-resolution video whenever mobile data is enabled."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[08:46]",
+      "end_time": "[08:56]",
+      "start_time_sec": 526,
+      "text": "I have toggled 'Transfer files only over Wi-Fi' to ON. A prompt says 'Data usage warning: Uploading and updating will pause when Wi-Fi is unavailable.'",
+      "sentiment_score": 32.1
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[09:03]",
+      "end_time": "[09:11]",
+      "start_time_sec": 543,
+      "text": "That ensures that future drone 4K footage will strictly pause until your phone connects to your home wireless network."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[09:18]",
+      "end_time": "[09:24]",
+      "start_time_sec": 558,
+      "text": "That gives me total peace of mind that I won't chew through data unexpectedly again.",
+      "sentiment_score": 38.2
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[09:31]",
+      "end_time": "[09:40]",
+      "start_time_sec": 571,
+      "text": "You can also set a monthly data warning and hard data limit directly in your Android settings menu under 'Network & Internet'."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[09:47]",
+      "end_time": "[09:53]",
+      "start_time_sec": 587,
+      "text": "Opening Network and Internet... Data warning and limit... I have set a warning at thirty-five gigabytes.",
+      "sentiment_score": 28.4
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[10:00]",
+      "end_time": "[10:06]",
+      "start_time_sec": 600,
+      "text": "That gives you an early warning five gigabytes before your monthly billing threshold is reached."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[10:13]",
+      "end_time": "[10:20]",
+      "start_time_sec": 613,
+      "text": "This ten-gigabyte bolt-on will easily last me the remaining three weeks now that Drive is locked to Wi-Fi.",
+      "sentiment_score": 34.5
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[10:27]",
+      "end_time": "[10:33]",
+      "start_time_sec": 627,
+      "text": "Your standard forty-gigabyte monthly allowance will renew automatically on the first of next month."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[10:40]",
+      "end_time": "[10:44]",
+      "start_time_sec": 640,
+      "text": "That is perfect. You have been incredibly helpful and knowledgeable, Sophie.",
+      "sentiment_score": 42.1
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[10:51]",
+      "end_time": "[10:57]",
+      "start_time_sec": 651,
+      "text": "Before we conclude our call, that registered mobile phone number was 07700 900823, correct?"
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[11:04]",
+      "end_time": "[11:07]",
+      "start_time_sec": 664,
+      "text": "Yes, 07700 900823.",
+      "sentiment_score": 6.5
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[11:14]",
+      "end_time": "[11:24]",
+      "start_time_sec": 674,
+      "text": "We have identified the 4K cloud backup cause, activated the emergency ten-gigabyte bolt-on, verified 5G restoration, and secured your upload settings to Wi-Fi only."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[11:31]",
+      "end_time": "[11:34]",
+      "start_time_sec": 691,
+      "text": "Everything is completely sorted. Thank you so much Sophie.",
+      "sentiment_score": 36.4
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[11:41]",
+      "end_time": "[11:49]",
+      "start_time_sec": 701,
+      "text": "You can track your real-time daily data usage at any time by logging into the My S-Net mobile application."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[11:56]",
+      "end_time": "[12:02]",
+      "start_time_sec": 716,
+      "text": "I have the app installed on my home screen and will check it regularly.",
+      "sentiment_score": 16.5
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[12:09]",
+      "end_time": "[12:16]",
+      "start_time_sec": 729,
+      "text": "Is there any other matter regarding your mobile plan or billing I can assist you with today, Elijah?"
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[12:23]",
+      "end_time": "[12:28]",
+      "start_time_sec": 743,
+      "text": "Remember that unused bolt-on data does not roll over into subsequent billing cycles."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[12:35]",
+      "end_time": "[12:41]",
+      "start_time_sec": 755,
+      "text": "That is fine, I will easily use this bolt-on over the next two weeks.",
+      "sentiment_score": 14.2
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[12:48]",
+      "end_time": "[12:54]",
+      "start_time_sec": 768,
+      "text": "Our 5G network coverage has recently expanded with two new cellular base stations in central Bristol."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[13:01]",
+      "end_time": "[13:05]",
+      "start_time_sec": 781,
+      "text": "I noticed the speeds have been significantly faster around Clifton lately.",
+      "sentiment_score": 19.5
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[13:12]",
+      "end_time": "[13:17]",
+      "start_time_sec": 792,
+      "text": "Remember that unused bolt-on data does not roll over into subsequent billing cycles."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[13:24]",
+      "end_time": "[13:30]",
+      "start_time_sec": 804,
+      "text": "That is fine, I will easily use this bolt-on over the next two weeks.",
+      "sentiment_score": 14.2
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[13:37]",
+      "end_time": "[13:43]",
+      "start_time_sec": 817,
+      "text": "Our 5G network coverage has recently expanded with two new cellular base stations in central Bristol."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[13:50]",
+      "end_time": "[13:54]",
+      "start_time_sec": 830,
+      "text": "I noticed the speeds have been significantly faster around Clifton lately.",
+      "sentiment_score": 19.5
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[14:01]",
+      "end_time": "[14:06]",
+      "start_time_sec": 841,
+      "text": "Remember that unused bolt-on data does not roll over into subsequent billing cycles."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[14:13]",
+      "end_time": "[14:19]",
+      "start_time_sec": 853,
+      "text": "That is fine, I will easily use this bolt-on over the next two weeks.",
+      "sentiment_score": 14.2
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[14:26]",
+      "end_time": "[14:32]",
+      "start_time_sec": 866,
+      "text": "Our 5G network coverage has recently expanded with two new cellular base stations in central Bristol."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[14:39]",
+      "end_time": "[14:43]",
+      "start_time_sec": 879,
+      "text": "I noticed the speeds have been significantly faster around Clifton lately.",
+      "sentiment_score": 19.5
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[14:50]",
+      "end_time": "[14:55]",
+      "start_time_sec": 890,
+      "text": "Remember that unused bolt-on data does not roll over into subsequent billing cycles."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[15:02]",
+      "end_time": "[15:08]",
+      "start_time_sec": 902,
+      "text": "That is fine, I will easily use this bolt-on over the next two weeks.",
+      "sentiment_score": 14.2
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[15:15]",
+      "end_time": "[15:21]",
+      "start_time_sec": 915,
+      "text": "Our 5G network coverage has recently expanded with two new cellular base stations in central Bristol."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[15:28]",
+      "end_time": "[15:32]",
+      "start_time_sec": 928,
+      "text": "I noticed the speeds have been significantly faster around Clifton lately.",
+      "sentiment_score": 19.5
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[15:39]",
+      "end_time": "[15:42]",
+      "start_time_sec": 939,
+      "text": "No thank you, everything is crystal clear.",
+      "sentiment_score": 22.1
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[15:49]",
+      "end_time": "[15:55]",
+      "start_time_sec": 949,
+      "text": "Thank you for choosing S-Net mobile customer care, Elijah. Have a wonderful and creative afternoon. Goodbye."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[16:02]",
+      "end_time": "[16:05]",
+      "start_time_sec": 962,
+      "text": "Goodbye Sophie.",
+      "sentiment_score": 6.5
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[16:12]",
+      "end_time": "[16:17]",
+      "start_time_sec": 972,
+      "text": "Thank you for choosing S-Net. Goodbye."
+    }
+  ]
+}

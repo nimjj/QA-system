@@ -1,0 +1,196 @@
+{
+  "call_id": "agt_029",
+  "tenant_id": "tenant-abc",
+  "status": "completed",
+  "result": {
+    "final_score": 100.0,
+    "is_auto_fail": false,
+    "auto_fail_reason": null,
+    "scorecard": [
+      {
+        "category": "Soft Skills",
+        "name": "Branding and Survey Check",
+        "rating": "PASS",
+        "coaching": ""
+      },
+      {
+        "category": "Soft Skills",
+        "name": "Hold time and Dead Air",
+        "rating": "PASS",
+        "coaching": ""
+      },
+      {
+        "category": "Technical Knowledge",
+        "name": "Verified customer",
+        "rating": "PASS",
+        "coaching": ""
+      },
+      {
+        "category": "Soft Skills",
+        "name": "Personalized the call/ticket appropriately",
+        "rating": "PASS",
+        "coaching": ""
+      },
+      {
+        "category": "Soft Skills",
+        "name": "Empathy & Acknowledgment Statement",
+        "rating": "PASS",
+        "coaching": ""
+      },
+      {
+        "category": "Technical Knowledge",
+        "name": "Paraphrasing",
+        "rating": "PASS",
+        "coaching": ""
+      },
+      {
+        "category": "Technical Knowledge",
+        "name": "Active listening",
+        "rating": "PASS",
+        "coaching": ""
+      },
+      {
+        "category": "Technical Knowledge",
+        "name": "Took ownership of the problem",
+        "rating": "PASS",
+        "coaching": ""
+      },
+      {
+        "category": "Soft Skills",
+        "name": "Build rapport and observed professionalism",
+        "rating": "PASS",
+        "coaching": ""
+      },
+      {
+        "category": "Technical Knowledge",
+        "name": "Probing",
+        "rating": "PASS",
+        "coaching": ""
+      },
+      {
+        "category": "Technical Knowledge",
+        "name": "Confirmed the issue is resolved",
+        "rating": "PASS",
+        "coaching": ""
+      }
+    ]
+  },
+  "grader": {
+    "graded_by": "Antigravity (gemini-3.8-flash)",
+    "graded_on": "2026-10-21",
+    "scenario": "Mobile 40GB data allowance exhausted five days into billing cycle due to 4K cloud sync",
+    "tier": "excellent",
+    "duration_sec": 977,
+    "notes": "Exemplary demonstration of acknowledgment-then-refusal where the agent validated customer stress, firmly upheld billing terms regarding verified data usage, and offered a discounted commercial compromise with practical prevention guidance.",
+    "hard_cases": [
+      "Empathy & Acknowledgment Statement",
+      "Took ownership of the problem"
+    ],
+    "items": [
+      {
+        "name": "Branding and Survey Check",
+        "rating": "PASS",
+        "confidence": "clear",
+        "evidence": "Agent opened with 'Thank you for calling S-Net mobile customer care' at [00:00] and closed with 'Thank you for choosing S-Net' in final lines."
+      },
+      {
+        "name": "Hold time and Dead Air",
+        "rating": "PASS",
+        "confidence": "clear",
+        "evidence": "Hold was announced with bear with me and thanked upon return without unmanaged dead air."
+      },
+      {
+        "name": "Verified customer",
+        "rating": "PASS",
+        "confidence": "clear",
+        "evidence": "Verified full postal address and security PIN within the first 240 seconds."
+      },
+      {
+        "name": "Personalized the call/ticket appropriately",
+        "rating": "PASS",
+        "confidence": "clear",
+        "evidence": "Agent addressed customer as Elijah warmly throughout the call."
+      },
+      {
+        "name": "Empathy & Acknowledgment Statement",
+        "rating": "PASS",
+        "confidence": "clear",
+        "evidence": "Agent acknowledged customer distress while politely refusing free credit at [03:45]: 'I completely understand how stressful it is... However, because our cellular network logs confirm... our billing terms do not permit issuing a free discretionary data booster; what I can do right now is activate our emergency ten-gigabyte bolt-on at a half-price concession...'"
+      },
+      {
+        "name": "Paraphrasing",
+        "rating": "PASS",
+        "confidence": "clear",
+        "evidence": "Agent restated the 40GB allowance exhaustion and landing page redirect accurately at [01:30]."
+      },
+      {
+        "name": "Active listening",
+        "rating": "PASS",
+        "confidence": "clear",
+        "evidence": "Agent confirmed mobile number accurately without asking for previously supplied information."
+      },
+      {
+        "name": "Took ownership of the problem",
+        "rating": "PASS",
+        "confidence": "clear",
+        "evidence": "Agent identified root cause in Google Drive sync, provisioned bolt-on, and guided customer to lock app to Wi-Fi."
+      },
+      {
+        "name": "Build rapport and observed professionalism",
+        "rating": "PASS",
+        "confidence": "clear",
+        "evidence": "Agent maintained an exemplary, empathetic, and constructive tone throughout."
+      },
+      {
+        "name": "Probing",
+        "rating": "PASS",
+        "confidence": "clear",
+        "evidence": "Agent asked effective diagnostic questions regarding device redirect prompts and app behavior."
+      },
+      {
+        "name": "Confirmed the issue is resolved",
+        "rating": "PASS",
+        "confidence": "clear",
+        "evidence": "Customer toggled aeroplane mode, verified 5G restored, confirmed email received, and locked Google Drive to Wi-Fi."
+      }
+    ],
+    "markers": {
+      "active_listening": [
+        {
+          "kind": "harmless_recheck",
+          "premise_turn": 3,
+          "agent_turn": 33
+        },
+        {
+          "kind": "harmless_recheck",
+          "premise_turn": 3,
+          "agent_turn": 33
+        }
+      ],
+      "paraphrasing": [
+        {
+          "kind": "restatement",
+          "agent_turn": 6
+        },
+        {
+          "kind": "not_a_restatement",
+          "agent_turn": 4
+        }
+      ],
+      "rapport": [
+        {
+          "kind": "blunt_but_ok",
+          "agent_turn": 23
+        }
+      ],
+      "empathy": [
+        {
+          "kind": "handled",
+          "customer_turn": 10,
+          "agent_turn": 11,
+          "with_refusal": true
+        }
+      ]
+    }
+  }
+}

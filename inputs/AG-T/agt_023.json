@@ -1,0 +1,492 @@
+{
+  "tenant_id": "tenant-abc",
+  "customer_name": "Declan",
+  "transcript": [
+    {
+      "speaker": "Agent",
+      "start_time": "[00:00]",
+      "end_time": "[00:07]",
+      "start_time_sec": 0,
+      "text": "Thank you for calling S-Net billing customer services, my name is Jason. How can I help you today?"
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[00:13]",
+      "end_time": "[00:26]",
+      "start_time_sec": 13,
+      "text": "Hello Jason. My name is Declan Walsh. I cancelled my broadband contract three months ago in August, returned all equipment, and S-Net is still withdrawing fifty-four pounds from my bank every month!",
+      "sentiment_score": -34.5
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[00:32]",
+      "end_time": "[00:44]",
+      "start_time_sec": 32,
+      "text": "Good morning Declan. I can check your billing account ledger. Before we inspect your transaction history, could you confirm your full postal address and your account security PIN?"
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[00:50]",
+      "end_time": "[00:59]",
+      "start_time_sec": 50,
+      "text": "Yes, it is 28 Lansdowne Crescent, Cheltenham, GL50 2LF, and my security PIN is 9043. My customer account number is SN-991204.",
+      "sentiment_score": -8.2
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[01:05]",
+      "end_time": "[01:12]",
+      "start_time_sec": 65,
+      "text": "Thank you Declan, that confirms your account details. What specific bank transactions are you seeing on your statement?"
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[01:18]",
+      "end_time": "[01:38]",
+      "start_time_sec": 78,
+      "text": "Fifty-four pounds was taken on September 15th, October 15th, and again yesterday on November 15th! That is one hundred and sixty-two pounds stolen from my bank account after an agreed cancellation because having a reliable home broadband connection is absolutely essential for our daily household work.",
+      "sentiment_score": -52.4
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[01:44]",
+      "end_time": "[01:59]",
+      "start_time_sec": 104,
+      "text": "Your account shows cancellation was submitted on the 10th of August, but the automated recurring direct debit mandate remained in active status on our central payment gateway in accordance with our standard telecommunications network diagnostic procedures."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[02:05]",
+      "end_time": "[02:25]",
+      "start_time_sec": 125,
+      "text": "I sent the router back in your pre-paid tracked bag, and Royal Mail delivered it to your warehouse on the 18th of August! Why was the direct debit not terminated immediately so I really appreciate you taking the time to look into these technical details with me today.",
+      "sentiment_score": -44.2
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[02:31]",
+      "end_time": "[02:36]",
+      "start_time_sec": 151,
+      "text": "Equipment returns and recurring payment schedules run on separate backend financial databases."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[02:42]",
+      "end_time": "[02:50]",
+      "start_time_sec": 162,
+      "text": "I don't care how your internal databases work! You have unlawfully taken one hundred and sixty-two pounds of my money!",
+      "sentiment_score": -48.1
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[02:56]",
+      "end_time": "[03:04]",
+      "start_time_sec": 176,
+      "text": "Bear with me for a couple of minutes while I retrieve your billing ledger archive from our legacy records system."
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[04:29]",
+      "end_time": "[04:39]",
+      "start_time_sec": 269,
+      "text": "Thank you for waiting, Declan. The archive indicates your final bill was generated with an outstanding pro-rata charge that prevented automatic closure of the mandate."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[04:45]",
+      "end_time": "[05:01]",
+      "start_time_sec": 285,
+      "text": "I was told my final balance was zero pounds by your telephone agent in August! Now you take money without authorization! I have been pushed into an unarranged bank overdraft because of this, and Barclays charged me overdraft fees!",
+      "sentiment_score": -58.4
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[05:07]",
+      "end_time": "[05:18]",
+      "start_time_sec": 307,
+      "text": "Well if you had actually checked your monthly bank statements in September, you would have noticed the first collection and contacted us before three cycles ran."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[05:24]",
+      "end_time": "[05:33]",
+      "start_time_sec": 324,
+      "text": "How dare you blame me for your illegal direct debit collections! You shouldn't be raiding my bank account in the first place!",
+      "sentiment_score": -55.2
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[05:39]",
+      "end_time": "[05:52]",
+      "start_time_sec": 339,
+      "text": "Under banking rules, if you want immediate reimbursement, you need to contact Barclays directly to raise a direct debit indemnity claim rather than expecting customer services to issue manual refunds."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[05:58]",
+      "end_time": "[06:07]",
+      "start_time_sec": 358,
+      "text": "Are you telling me that S-Net took my money erroneously and you refuse to refund it from your own billing terminal?!",
+      "sentiment_score": -49.6
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[06:13]",
+      "end_time": "[06:19]",
+      "start_time_sec": 373,
+      "text": "Frontline customer service agents do not have direct electronic bank transfer permissions for closed accounts."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[06:25]",
+      "end_time": "[06:32]",
+      "start_time_sec": 385,
+      "text": "Then transfer me to your accounts manager who can authorize a direct refund to my debit card!",
+      "sentiment_score": -38.4
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[06:38]",
+      "end_time": "[06:46]",
+      "start_time_sec": 398,
+      "text": "Floor supervisors cannot execute direct bank refunds either. You must file a written dispute with our executive billing office."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[06:52]",
+      "end_time": "[07:01]",
+      "start_time_sec": 412,
+      "text": "This is the most appalling customer service I have ever experienced. I returned your property and you continue taking my money.",
+      "sentiment_score": -42.1
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[07:07]",
+      "end_time": "[07:14]",
+      "start_time_sec": 427,
+      "text": "Before checking the mandate cancellation status, that registered mobile number ending in 204 was 07700 900204, correct?"
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[07:20]",
+      "end_time": "[07:23]",
+      "start_time_sec": 440,
+      "text": "Yes, 07700 900204 is my mobile.",
+      "sentiment_score": -11.2
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[07:29]",
+      "end_time": "[07:37]",
+      "start_time_sec": 449,
+      "text": "Obviously automated direct debit sweeps process according to bank clearing schedules, so manual interventions require formal supervisor ticket escalation."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[07:43]",
+      "end_time": "[07:51]",
+      "start_time_sec": 463,
+      "text": "Then escalate the ticket right now to cancel the mandate permanently so you cannot take another penny in December!",
+      "sentiment_score": -29.4
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[07:57]",
+      "end_time": "[08:07]",
+      "start_time_sec": 477,
+      "text": "I am submitting the mandate revocation command to Bacs right now. The electronic collection mandate will be purged from the clearing system within twenty-four hours."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[08:13]",
+      "end_time": "[08:18]",
+      "start_time_sec": 493,
+      "text": "Can you give me a formal cancellation reference code for my bank?",
+      "sentiment_score": -12.5
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[08:24]",
+      "end_time": "[08:27]",
+      "start_time_sec": 504,
+      "text": "Yes, the direct debit mandate cancellation identifier is DDC-88419-X."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[08:33]",
+      "end_time": "[08:38]",
+      "start_time_sec": 513,
+      "text": "DDC-88419-X, written down. And what about my one hundred and sixty-two pounds refund?",
+      "sentiment_score": -22.4
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[08:44]",
+      "end_time": "[08:51]",
+      "start_time_sec": 524,
+      "text": "Bear with me for two minutes while I submit an exceptional refund request to our finance ledger desk."
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[10:16]",
+      "end_time": "[10:28]",
+      "start_time_sec": 616,
+      "text": "Thank you for waiting, Declan. My duty operations manager has authorized an exceptional automated card refund of one hundred and sixty-two pounds back to your registered Visa debit card."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[10:34]",
+      "end_time": "[10:39]",
+      "start_time_sec": 634,
+      "text": "Will that include compensation for my thirty pounds bank overdraft penalty charges?",
+      "sentiment_score": -24.1
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[10:45]",
+      "end_time": "[10:50]",
+      "start_time_sec": 645,
+      "text": "We do not reimburse third-party banking overdraft fees under standard billing terms."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[10:56]",
+      "end_time": "[11:02]",
+      "start_time_sec": 656,
+      "text": "Well, at least refunding the hundred and sixty-two pounds gets my principal money back.",
+      "sentiment_score": 12.4
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[11:08]",
+      "end_time": "[11:16]",
+      "start_time_sec": 668,
+      "text": "The refund transaction has been posted. The funds will credit your Barclays current account within three to five business days."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[11:22]",
+      "end_time": "[11:28]",
+      "start_time_sec": 682,
+      "text": "I see the email notification confirming the credit of one hundred and sixty-two pounds right now.",
+      "sentiment_score": 26.5
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[11:34]",
+      "end_time": "[11:41]",
+      "start_time_sec": 694,
+      "text": "Your direct debit mandate is cancelled, your final balance is confirmed zero, and the refund has been authorized."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[11:47]",
+      "end_time": "[11:54]",
+      "start_time_sec": 707,
+      "text": "Thank goodness that is finally sorted. I will monitor my bank account to ensure the money arrives.",
+      "sentiment_score": 18.2
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[12:00]",
+      "end_time": "[12:06]",
+      "start_time_sec": 720,
+      "text": "You can also instruct Barclays to reject any future collection requests quoting reference SN-991204."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[12:12]",
+      "end_time": "[12:17]",
+      "start_time_sec": 732,
+      "text": "I have already told my bank to block any future mandates from S-Net.",
+      "sentiment_score": 8.5
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[12:23]",
+      "end_time": "[12:29]",
+      "start_time_sec": 743,
+      "text": "Is there any other matter regarding your closed account I can assist with today, Declan?"
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[12:35]",
+      "end_time": "[12:42]",
+      "start_time_sec": 755,
+      "text": "Your account profile will officially transition to permanent archived status once the card refund clears the banking network."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[12:48]",
+      "end_time": "[12:56]",
+      "start_time_sec": 768,
+      "text": "Understood, please ensure all marketing and promotional communications are suppressed as well so I do not receive junk letters.",
+      "sentiment_score": 6.2
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[13:02]",
+      "end_time": "[13:08]",
+      "start_time_sec": 782,
+      "text": "All marketing permissions have been revoked and your address is flagged on our suppression register."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[13:14]",
+      "end_time": "[13:17]",
+      "start_time_sec": 794,
+      "text": "Thank you, that ensures total closure of this account.",
+      "sentiment_score": 8.4
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[13:23]",
+      "end_time": "[13:30]",
+      "start_time_sec": 803,
+      "text": "Your account profile will officially transition to permanent archived status once the card refund clears the banking network."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[13:36]",
+      "end_time": "[13:44]",
+      "start_time_sec": 816,
+      "text": "Understood, please ensure all marketing and promotional communications are suppressed as well so I do not receive junk letters.",
+      "sentiment_score": 6.2
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[13:50]",
+      "end_time": "[13:56]",
+      "start_time_sec": 830,
+      "text": "All marketing permissions have been revoked and your address is flagged on our suppression register."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[14:02]",
+      "end_time": "[14:05]",
+      "start_time_sec": 842,
+      "text": "Thank you, that ensures total closure of this account.",
+      "sentiment_score": 8.4
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[14:11]",
+      "end_time": "[14:18]",
+      "start_time_sec": 851,
+      "text": "Your account profile will officially transition to permanent archived status once the card refund clears the banking network."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[14:24]",
+      "end_time": "[14:32]",
+      "start_time_sec": 864,
+      "text": "Understood, please ensure all marketing and promotional communications are suppressed as well so I do not receive junk letters.",
+      "sentiment_score": 6.2
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[14:38]",
+      "end_time": "[14:44]",
+      "start_time_sec": 878,
+      "text": "All marketing permissions have been revoked and your address is flagged on our suppression register."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[14:50]",
+      "end_time": "[14:53]",
+      "start_time_sec": 890,
+      "text": "Thank you, that ensures total closure of this account.",
+      "sentiment_score": 8.4
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[14:58]",
+      "end_time": "[15:05]",
+      "start_time_sec": 898,
+      "text": "Your account profile will officially transition to permanent archived status once the card refund clears the banking network."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[15:10]",
+      "end_time": "[15:18]",
+      "start_time_sec": 910,
+      "text": "Understood, please ensure all marketing and promotional communications are suppressed as well so I do not receive junk letters.",
+      "sentiment_score": 6.2
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[15:23]",
+      "end_time": "[15:29]",
+      "start_time_sec": 923,
+      "text": "All marketing permissions have been revoked and your address is flagged on our suppression register."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[15:34]",
+      "end_time": "[15:37]",
+      "start_time_sec": 934,
+      "text": "Thank you, that ensures total closure of this account.",
+      "sentiment_score": 8.4
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[15:42]",
+      "end_time": "[15:49]",
+      "start_time_sec": 942,
+      "text": "Your account profile will officially transition to permanent archived status once the card refund clears the banking network."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[15:54]",
+      "end_time": "[16:02]",
+      "start_time_sec": 954,
+      "text": "Understood, please ensure all marketing and promotional communications are suppressed as well so I do not receive junk letters.",
+      "sentiment_score": 6.2
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[16:07]",
+      "end_time": "[16:13]",
+      "start_time_sec": 967,
+      "text": "All marketing permissions have been revoked and your address is flagged on our suppression register."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[16:18]",
+      "end_time": "[16:21]",
+      "start_time_sec": 978,
+      "text": "Thank you, that ensures total closure of this account.",
+      "sentiment_score": 8.4
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[16:26]",
+      "end_time": "[16:32]",
+      "start_time_sec": 986,
+      "text": "No, as long as the money arrives in five days, this matter is closed.",
+      "sentiment_score": 11.2
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[16:37]",
+      "end_time": "[16:40]",
+      "start_time_sec": 997,
+      "text": "Thank you for choosing S-Net customer services, Declan. Goodbye."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[16:45]",
+      "end_time": "[16:48]",
+      "start_time_sec": 1005,
+      "text": "Goodbye Jason.",
+      "sentiment_score": 5.1
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[16:53]",
+      "end_time": "[16:58]",
+      "start_time_sec": 1013,
+      "text": "Thank you for choosing S-Net. Goodbye."
+    }
+  ]
+}

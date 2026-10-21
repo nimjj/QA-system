@@ -1,0 +1,447 @@
+{
+  "tenant_id": "tenant-abc",
+  "customer_name": "Elena",
+  "transcript": [
+    {
+      "speaker": "Agent",
+      "start_time": "[00:00]",
+      "end_time": "[00:08]",
+      "start_time_sec": 0,
+      "text": "Thank you for calling S-Net broadband cancellations and billing, my name is Ryan. How can I help you today?"
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[00:12]",
+      "end_time": "[00:29]",
+      "start_time_sec": 12,
+      "text": "Hello Ryan, my name is Elena Rostova. I am calling to claim my speed guarantee compensation credit and penalty-free contract exit because my broadband download speed has been twenty-eight megabits for two weeks when my contract guarantees a minimum of forty-five!",
+      "sentiment_score": -34.8
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[00:33]",
+      "end_time": "[00:46]",
+      "start_time_sec": 33,
+      "text": "Good afternoon Elena. I can look into your line speed profile. Before we inspect your broadband circuit telemetry, could you confirm your full postal address and your account security PIN?"
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[00:50]",
+      "end_time": "[01:01]",
+      "start_time_sec": 50,
+      "text": "Yes, it is 51 Victoria Road, Oxford, OX2 7TA, and my security PIN is 8014. My router model is the Hub 4 with serial number SNET-44018.",
+      "sentiment_score": -5.2
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[01:05]",
+      "end_time": "[01:13]",
+      "start_time_sec": 65,
+      "text": "Thank you Elena, that confirms your account details. What speed testing tool have you been running to record twenty-eight megabits?"
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[01:17]",
+      "end_time": "[01:33]",
+      "start_time_sec": 77,
+      "text": "I used the official S-Net broadband speed checker app on my desktop computer via a direct Ethernet cable, as instructed in your welcome pack because having a reliable home broadband connection is absolutely essential for our daily household work.",
+      "sentiment_score": -16.4
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[01:37]",
+      "end_time": "[01:47]",
+      "start_time_sec": 97,
+      "text": "And how many speed tests have you registered through the desktop application over those two weeks in accordance with our standard telecommunications network diagnostic procedures."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[01:51]",
+      "end_time": "[02:07]",
+      "start_time_sec": 111,
+      "text": "I ran fourteen separate tests across morning, afternoon, and night, and every single test clocked between twenty-six and twenty-eight megabits per second so I really appreciate you taking the time to look into these technical details with me today.",
+      "sentiment_score": -22.1
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[02:11]",
+      "end_time": "[02:27]",
+      "start_time_sec": 131,
+      "text": "Bear with me for a couple of minutes while I check the Openreach copper loop length and sync rate telemetry from our exchange test head across all your connected household devices including laptops, mobile phones, and streaming hardware."
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[03:52]",
+      "end_time": "[04:06]",
+      "start_time_sec": 232,
+      "text": "Thank you for waiting, Elena. The line sync history shows an automated profile cap of thirty megabits applied following multiple line retrains to maintain optimal throughput and low latency across the regional distribution network."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[04:10]",
+      "end_time": "[04:34]",
+      "start_time_sec": 250,
+      "text": "I am an architect working with thirty-gigabyte BIM rendering files! I have missed two major client planning deadlines because file downloads are taking hours! Your contract explicitly promises twenty pounds automatic credit or penalty-free cancellation if speeds stay below forty-five megabits! It is outrageous being misled like this so I really appreciate you taking the time to look into these technical details with me today.",
+      "sentiment_score": -62.4
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[04:38]",
+      "end_time": "[04:49]",
+      "start_time_sec": 278,
+      "text": "Residential speed guarantee terms require thirty consecutive days of diagnostic observation before contract exit clauses can be considered in accordance with our standard telecommunications network diagnostic procedures."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[04:53]",
+      "end_time": "[05:09]",
+      "start_time_sec": 293,
+      "text": "Your website and welcome leaflet say three consecutive days below minimum guaranteed speed! Don't invent thirty-day rules to avoid paying my credit since we depend heavily on this service for remote working and family communications every day.",
+      "sentiment_score": -51.2
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[05:13]",
+      "end_time": "[05:32]",
+      "start_time_sec": 313,
+      "text": "Well if you had actually bothered to read section 8 of our terms and conditions, speed guarantees require consecutive engineer visits before credits apply, so don't accuse customer service of misleading you across all your connected household devices including laptops, mobile phones, and streaming hardware."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[05:36]",
+      "end_time": "[05:50]",
+      "start_time_sec": 336,
+      "text": "How dare you speak to me like that! I am quoting the exact wording from your speed guarantee charter because having a reliable home broadband connection is absolutely essential for our daily household work.",
+      "sentiment_score": -56.8
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[05:54]",
+      "end_time": "[06:08]",
+      "start_time_sec": 354,
+      "text": "If you wish to dispute contractual speed terms, you must submit a written dispute ticket through our online web portal to ensure your S-Net service operates reliably without unexpected dropped packets or connection faults."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[06:12]",
+      "end_time": "[06:29]",
+      "start_time_sec": 372,
+      "text": "I am on the phone with customer services right now! Open a speed dispute ticket and book an engineer to inspect the line so I really appreciate you taking the time to look into these technical details with me today.",
+      "sentiment_score": -42.1
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[06:33]",
+      "end_time": "[06:44]",
+      "start_time_sec": 393,
+      "text": "Frontline telephony agents do not submit engineer dispatch requests or speed guarantee compensation credits so that your account records and provisioning parameters remain completely up to date."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[06:48]",
+      "end_time": "[06:56]",
+      "start_time_sec": 408,
+      "text": "Then transfer me immediately to a manager who has the authority to book an engineer and credit my account!",
+      "sentiment_score": -38.4
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[07:00]",
+      "end_time": "[07:10]",
+      "start_time_sec": 420,
+      "text": "Team supervisors do not take speed guarantee dispute calls. You need to log into your online account and fill out the automated speed claim form."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[07:14]",
+      "end_time": "[07:25]",
+      "start_time_sec": 434,
+      "text": "You refuse to book an engineer, you refuse to issue the contract credit, and you refuse to let me speak to a supervisor! This is appalling service!",
+      "sentiment_score": -46.2
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[07:29]",
+      "end_time": "[07:34]",
+      "start_time_sec": 449,
+      "text": "I am informing you of the mandatory administrative procedure for speed guarantee disputes."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[07:38]",
+      "end_time": "[07:48]",
+      "start_time_sec": 458,
+      "text": "Can you at least reset the automated profile cap on the exchange port to see if my speed increases back to forty-five megabits right now?",
+      "sentiment_score": -24.5
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[07:52]",
+      "end_time": "[08:00]",
+      "start_time_sec": 472,
+      "text": "Bear with me for two minutes while I send a remote profile reset command to the DSLAM port card."
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[09:25]",
+      "end_time": "[09:31]",
+      "start_time_sec": 565,
+      "text": "Thank you for waiting, Elena. The DSLAM port has been re-initialized and the speed cap removed."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[09:35]",
+      "end_time": "[09:45]",
+      "start_time_sec": 575,
+      "text": "Let me run another speed test on the desktop app right now... It is syncing at forty-six megabits! Forty-six point two megabits download!",
+      "sentiment_score": 24.5
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[09:49]",
+      "end_time": "[09:54]",
+      "start_time_sec": 589,
+      "text": "Which model of Hub router is currently plugged into the master socket?"
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[09:58]",
+      "end_time": "[10:04]",
+      "start_time_sec": 598,
+      "text": "As I said right at the start of the call, it is the Hub 4 router.",
+      "sentiment_score": -14.2
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[10:08]",
+      "end_time": "[10:13]",
+      "start_time_sec": 608,
+      "text": "Obviously copper attenuation increases significantly over long line runs from the street cabinet."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[10:17]",
+      "end_time": "[10:24]",
+      "start_time_sec": 617,
+      "text": "Well, the remote line reset has brought the speed above the forty-five megabit threshold for the moment.",
+      "sentiment_score": 12.4
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[10:28]",
+      "end_time": "[10:36]",
+      "start_time_sec": 628,
+      "text": "Now that your download speed has recovered to forty-six megabits, the speed guarantee exit clause is no longer applicable."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[10:40]",
+      "end_time": "[10:48]",
+      "start_time_sec": 640,
+      "text": "I will monitor it closely over the weekend. What is the ticket reference for the line reset you performed?",
+      "sentiment_score": -4.2
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[10:52]",
+      "end_time": "[10:55]",
+      "start_time_sec": 652,
+      "text": "The reference code for the port reset is TKT-77019-S."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[10:59]",
+      "end_time": "[11:02]",
+      "start_time_sec": 659,
+      "text": "TKT-77019-S, noted down.",
+      "sentiment_score": 8.2
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[11:06]",
+      "end_time": "[11:10]",
+      "start_time_sec": 666,
+      "text": "I have logged the diagnostic results on your customer profile."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[11:14]",
+      "end_time": "[11:22]",
+      "start_time_sec": 674,
+      "text": "If the speed drops below forty-five megabits again, I will be straight back on the phone demanding an engineer visit.",
+      "sentiment_score": 2.1
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[11:26]",
+      "end_time": "[11:31]",
+      "start_time_sec": 686,
+      "text": "The line profile is set to dynamic rate adaptation to maintain stability."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[11:35]",
+      "end_time": "[11:39]",
+      "start_time_sec": 695,
+      "text": "Very well, thank you for at least resetting the port.",
+      "sentiment_score": 11.2
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[11:43]",
+      "end_time": "[11:49]",
+      "start_time_sec": 703,
+      "text": "Is there any other aspect of your broadband connection I can help you with today, Elena?"
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[11:53]",
+      "end_time": "[11:59]",
+      "start_time_sec": 713,
+      "text": "Our automated network management systems will monitor your line stability parameters over the next forty-eight hours."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[12:03]",
+      "end_time": "[12:08]",
+      "start_time_sec": 723,
+      "text": "Please make sure those automated monitoring logs are retained on my customer file.",
+      "sentiment_score": 8.4
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[12:12]",
+      "end_time": "[12:16]",
+      "start_time_sec": 732,
+      "text": "All telemetry readings are permanently attached to ticket reference TKT-77019-S."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[12:20]",
+      "end_time": "[12:24]",
+      "start_time_sec": 740,
+      "text": "That provides a clear audit trail if speeds degrade again.",
+      "sentiment_score": 12.1
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[12:28]",
+      "end_time": "[12:34]",
+      "start_time_sec": 748,
+      "text": "Our automated network management systems will monitor your line stability parameters over the next forty-eight hours."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[12:38]",
+      "end_time": "[12:43]",
+      "start_time_sec": 758,
+      "text": "Please make sure those automated monitoring logs are retained on my customer file.",
+      "sentiment_score": 8.4
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[12:47]",
+      "end_time": "[12:51]",
+      "start_time_sec": 767,
+      "text": "All telemetry readings are permanently attached to ticket reference TKT-77019-S."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[12:55]",
+      "end_time": "[12:59]",
+      "start_time_sec": 775,
+      "text": "That provides a clear audit trail if speeds degrade again.",
+      "sentiment_score": 12.1
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[13:03]",
+      "end_time": "[13:09]",
+      "start_time_sec": 783,
+      "text": "Our automated network management systems will monitor your line stability parameters over the next forty-eight hours."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[13:13]",
+      "end_time": "[13:18]",
+      "start_time_sec": 793,
+      "text": "Please make sure those automated monitoring logs are retained on my customer file.",
+      "sentiment_score": 8.4
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[13:22]",
+      "end_time": "[13:26]",
+      "start_time_sec": 802,
+      "text": "All telemetry readings are permanently attached to ticket reference TKT-77019-S."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[13:30]",
+      "end_time": "[13:34]",
+      "start_time_sec": 810,
+      "text": "That provides a clear audit trail if speeds degrade again.",
+      "sentiment_score": 12.1
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[13:38]",
+      "end_time": "[13:44]",
+      "start_time_sec": 818,
+      "text": "Our automated network management systems will monitor your line stability parameters over the next forty-eight hours."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[13:48]",
+      "end_time": "[13:53]",
+      "start_time_sec": 828,
+      "text": "Please make sure those automated monitoring logs are retained on my customer file.",
+      "sentiment_score": 8.4
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[13:57]",
+      "end_time": "[14:01]",
+      "start_time_sec": 837,
+      "text": "All telemetry readings are permanently attached to ticket reference TKT-77019-S."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[14:05]",
+      "end_time": "[14:09]",
+      "start_time_sec": 845,
+      "text": "That provides a clear audit trail if speeds degrade again.",
+      "sentiment_score": 12.1
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[14:12]",
+      "end_time": "[14:18]",
+      "start_time_sec": 852,
+      "text": "No, as long as forty-six megabits holds, I can finish my architectural uploads today.",
+      "sentiment_score": 14.5
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[14:21]",
+      "end_time": "[14:25]",
+      "start_time_sec": 861,
+      "text": "Thank you for choosing S-Net broadband cancellations and billing, Elena. Goodbye."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[14:28]",
+      "end_time": "[14:31]",
+      "start_time_sec": 868,
+      "text": "Goodbye Ryan.",
+      "sentiment_score": 8.2
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[14:34]",
+      "end_time": "[14:39]",
+      "start_time_sec": 874,
+      "text": "Thank you for choosing S-Net. Goodbye."
+    }
+  ]
+}

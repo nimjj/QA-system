@@ -1,0 +1,462 @@
+{
+  "tenant_id": "tenant-abc",
+  "customer_name": "Dominic",
+  "transcript": [
+    {
+      "speaker": "Agent",
+      "start_time": "[00:00]",
+      "end_time": "[00:08]",
+      "start_time_sec": 0,
+      "text": "Thank you for calling S-Net gaming and broadband support, my name is Greg. How can I help you today?"
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[00:17]",
+      "end_time": "[00:33]",
+      "start_time_sec": 17,
+      "text": "Hello Greg, my name is Dominic Fletcher. I am paying for your top-tier Fibre 900 package, but for the past four days my latency jitter and packet loss to competitive online game servers has made gaming completely unplayable.",
+      "sentiment_score": -28.4
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[00:42]",
+      "end_time": "[00:55]",
+      "start_time_sec": 42,
+      "text": "Good morning Dominic. I can check your broadband line statistics and gateway diagnostics. Before we access your connection, could you confirm your full postal address and your account security PIN?"
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[01:04]",
+      "end_time": "[01:13]",
+      "start_time_sec": 64,
+      "text": "Yes, it is 74 St Andrew's Lane, Nottingham, NG3 5EZ, and my security PIN is 6619. My account reference is SN-440192.",
+      "sentiment_score": 1.2
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[01:22]",
+      "end_time": "[01:31]",
+      "start_time_sec": 82,
+      "text": "Thank you Dominic, that confirms your account details. What ping times and packet loss figures are you observing on your gaming rig?"
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[01:40]",
+      "end_time": "[01:59]",
+      "start_time_sec": 100,
+      "text": "Normally my ping to Frankfurt and London servers is twelve milliseconds with zero loss. Now it spikes randomly to two hundred milliseconds every thirty seconds with eight percent packet loss because having a reliable home broadband connection is absolutely essential for our daily household work.",
+      "sentiment_score": -24.5
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[02:08]",
+      "end_time": "[02:17]",
+      "start_time_sec": 128,
+      "text": "How is your gaming computer physically connected to the Hub 5 router in accordance with our standard telecommunications network diagnostic procedures."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[02:26]",
+      "end_time": "[02:42]",
+      "start_time_sec": 146,
+      "text": "It is connected directly into gigabit LAN port 1 with a brand new Cat 7 shielded Ethernet cable. No Wi-Fi involved whatsoever so I really appreciate you taking the time to look into these technical details with me today.",
+      "sentiment_score": -8.2
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[02:51]",
+      "end_time": "[03:04]",
+      "start_time_sec": 171,
+      "text": "Have you run an MTR trace route to see which autonomous network hop is introducing the latency spikes across all your connected household devices including laptops, mobile phones, and streaming hardware."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[03:13]",
+      "end_time": "[03:26]",
+      "start_time_sec": 193,
+      "text": "Yes, the packet loss begins at your second gateway hop, 82.132.240.1, inside the S-Net core distribution network since we depend heavily on this service for remote working and family communications every day.",
+      "sentiment_score": -14.2
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[03:34]",
+      "end_time": "[03:50]",
+      "start_time_sec": 214,
+      "text": "Bear with me for a couple of minutes while I query our core routing BGP tables and inspect your optical ONT power telemetry to ensure your S-Net service operates reliably without unexpected dropped packets or connection faults."
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[05:15]",
+      "end_time": "[05:31]",
+      "start_time_sec": 315,
+      "text": "Thank you for waiting, Dominic. Your optical link downstream power is minus eighteen dBm and upstream is plus two dBm, which are well within standard GPON operational boundaries in accordance with our standard telecommunications network diagnostic procedures."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[05:39]",
+      "end_time": "[06:03]",
+      "start_time_sec": 339,
+      "text": "I know the physical light levels are fine! The problem is peering congestion and buffer bloat at your Manchester gateway router! I am competing in the UK regional esports finals this weekend, and if this jitter isn't fixed I will be disqualified! It is driving me absolutely insane since we depend heavily on this service for remote working and family communications every day.",
+      "sentiment_score": -58.2
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[06:11]",
+      "end_time": "[06:22]",
+      "start_time_sec": 371,
+      "text": "Our residential broadband service agreements do not include dedicated esports latency service level guarantees across all your connected household devices including laptops, mobile phones, and streaming hardware."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[06:30]",
+      "end_time": "[06:49]",
+      "start_time_sec": 390,
+      "text": "I am paying sixty-five pounds a month for your Gigabit Gaming tier! You advertise ultra-low latency for competitive esports right on your front webpage! Don't quote residential disclaimers at me because having a reliable home broadband connection is absolutely essential for our daily household work.",
+      "sentiment_score": -48.4
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[06:57]",
+      "end_time": "[07:10]",
+      "start_time_sec": 417,
+      "text": "The advertising states typical latency, which is an average figure rather than a legally enforceable SLA to ensure your S-Net service operates reliably without unexpected dropped packets or connection faults."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[07:18]",
+      "end_time": "[07:31]",
+      "start_time_sec": 438,
+      "text": "Can you reroute my IP traffic through the London peering exchange instead of Manchester so I really appreciate you taking the time to look into these technical details with me today.",
+      "sentiment_score": -22.1
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[07:39]",
+      "end_time": "[07:51]",
+      "start_time_sec": 459,
+      "text": "Before checking BGP routing options, that contact telephone number on file was 0115 960 4419, correct so that your account records and provisioning parameters remain completely up to date."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[07:59]",
+      "end_time": "[08:09]",
+      "start_time_sec": 479,
+      "text": "Yes, 0115 960 4419, that is my home landline since we depend heavily on this service for remote working and family communications every day.",
+      "sentiment_score": -6.5
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[08:17]",
+      "end_time": "[08:29]",
+      "start_time_sec": 497,
+      "text": "Obviously individual subscriber dynamic IP sessions cannot be manually steered across specific regional BGP transit links to maintain optimal throughput and low latency across the regional distribution network."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[08:37]",
+      "end_time": "[08:50]",
+      "start_time_sec": 517,
+      "text": "Then what can you actually do to stop this packet loss before my tournament on Saturday because having a reliable home broadband connection is absolutely essential for our daily household work.",
+      "sentiment_score": -29.4
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[08:58]",
+      "end_time": "[09:10]",
+      "start_time_sec": 538,
+      "text": "I can perform an automated port bounce and request a fresh dynamic WAN IP lease from our DHCP pool in accordance with our standard telecommunications network diagnostic procedures."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[09:18]",
+      "end_time": "[09:21]",
+      "start_time_sec": 558,
+      "text": "Go ahead and try that.",
+      "sentiment_score": -11.2
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[09:29]",
+      "end_time": "[09:36]",
+      "start_time_sec": 569,
+      "text": "Bear with me for two minutes while I re-initialize your broadband session from the regional line card."
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[11:01]",
+      "end_time": "[11:07]",
+      "start_time_sec": 661,
+      "text": "Thank you for waiting, Dominic. The session has been refreshed and assigned new IP address 82.132.248.91."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[11:15]",
+      "end_time": "[11:24]",
+      "start_time_sec": 675,
+      "text": "Running pingplotter now... Wait, the packet loss just jumped to twelve percent! It is even worse than before! This is completely unacceptable!",
+      "sentiment_score": -55.6
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[11:32]",
+      "end_time": "[11:36]",
+      "start_time_sec": 692,
+      "text": "The network logs show your upstream throughput is operating normally."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[11:44]",
+      "end_time": "[11:55]",
+      "start_time_sec": 704,
+      "text": "Throughput is irrelevant for esports, it is jitter and packet loss that destroy gameplay! Are you even listening to me?! You clearly know nothing about network latency!",
+      "sentiment_score": -52.4
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[12:03]",
+      "end_time": "[12:12]",
+      "start_time_sec": 723,
+      "text": "You are acting like an idiot if you expect a residential broadband provider to guarantee five millisecond ping to international gaming servers."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[12:20]",
+      "end_time": "[12:31]",
+      "start_time_sec": 740,
+      "text": "Did you just call me an idiot?! I am recording this call and I will report you to the communications ombudsman and your executive complaints director!",
+      "sentiment_score": -64.2
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[12:39]",
+      "end_time": "[12:43]",
+      "start_time_sec": 759,
+      "text": "I am stating the technical reality of consumer internet architecture."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[12:51]",
+      "end_time": "[12:57]",
+      "start_time_sec": 771,
+      "text": "I demand to speak to your team manager immediately! Give me your staff ID number!",
+      "sentiment_score": -54.1
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[13:05]",
+      "end_time": "[13:11]",
+      "start_time_sec": 785,
+      "text": "My staff identifier is GR-8821. Supervisors are not available to discuss consumer online gaming latency."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[13:19]",
+      "end_time": "[13:25]",
+      "start_time_sec": 799,
+      "text": "I will be sending this entire recording to your head office in London today.",
+      "sentiment_score": -41.2
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[13:33]",
+      "end_time": "[13:38]",
+      "start_time_sec": 813,
+      "text": "You are entitled to submit written feedback via our standard web contact portal."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[13:46]",
+      "end_time": "[13:49]",
+      "start_time_sec": 826,
+      "text": "Unbelievable arrogance and rudeness.",
+      "sentiment_score": -35.2
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[13:57]",
+      "end_time": "[14:01]",
+      "start_time_sec": 837,
+      "text": "I have documented your MTR trace logs on ticket SN-991280."
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[14:09]",
+      "end_time": "[14:14]",
+      "start_time_sec": 849,
+      "text": "Your line diagnostics remain open for automated network engineering telemetry observation overnight."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[14:22]",
+      "end_time": "[14:27]",
+      "start_time_sec": 862,
+      "text": "I have zero confidence that anyone in your department will actually review it.",
+      "sentiment_score": -18.4
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[14:35]",
+      "end_time": "[14:40]",
+      "start_time_sec": 875,
+      "text": "The overnight automated diagnostics will poll packet loss counters every thirty minutes."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[14:48]",
+      "end_time": "[14:52]",
+      "start_time_sec": 888,
+      "text": "Fine, I will review the packet loss graph tomorrow morning.",
+      "sentiment_score": -12.1
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[15:00]",
+      "end_time": "[15:05]",
+      "start_time_sec": 900,
+      "text": "Your line diagnostics remain open for automated network engineering telemetry observation overnight."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[15:13]",
+      "end_time": "[15:18]",
+      "start_time_sec": 913,
+      "text": "I have zero confidence that anyone in your department will actually review it.",
+      "sentiment_score": -18.4
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[15:26]",
+      "end_time": "[15:31]",
+      "start_time_sec": 926,
+      "text": "The overnight automated diagnostics will poll packet loss counters every thirty minutes."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[15:39]",
+      "end_time": "[15:43]",
+      "start_time_sec": 939,
+      "text": "Fine, I will review the packet loss graph tomorrow morning.",
+      "sentiment_score": -12.1
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[15:51]",
+      "end_time": "[15:56]",
+      "start_time_sec": 951,
+      "text": "Your line diagnostics remain open for automated network engineering telemetry observation overnight."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[16:04]",
+      "end_time": "[16:09]",
+      "start_time_sec": 964,
+      "text": "I have zero confidence that anyone in your department will actually review it.",
+      "sentiment_score": -18.4
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[16:17]",
+      "end_time": "[16:22]",
+      "start_time_sec": 977,
+      "text": "The overnight automated diagnostics will poll packet loss counters every thirty minutes."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[16:30]",
+      "end_time": "[16:34]",
+      "start_time_sec": 990,
+      "text": "Fine, I will review the packet loss graph tomorrow morning.",
+      "sentiment_score": -12.1
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[16:42]",
+      "end_time": "[16:47]",
+      "start_time_sec": 1002,
+      "text": "Your line diagnostics remain open for automated network engineering telemetry observation overnight."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[16:55]",
+      "end_time": "[17:00]",
+      "start_time_sec": 1015,
+      "text": "I have zero confidence that anyone in your department will actually review it.",
+      "sentiment_score": -18.4
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[17:08]",
+      "end_time": "[17:13]",
+      "start_time_sec": 1028,
+      "text": "The overnight automated diagnostics will poll packet loss counters every thirty minutes."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[17:21]",
+      "end_time": "[17:25]",
+      "start_time_sec": 1041,
+      "text": "Fine, I will review the packet loss graph tomorrow morning.",
+      "sentiment_score": -12.1
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[17:33]",
+      "end_time": "[17:38]",
+      "start_time_sec": 1053,
+      "text": "Your line diagnostics remain open for automated network engineering telemetry observation overnight."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[17:46]",
+      "end_time": "[17:51]",
+      "start_time_sec": 1066,
+      "text": "I have zero confidence that anyone in your department will actually review it.",
+      "sentiment_score": -18.4
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[17:59]",
+      "end_time": "[18:04]",
+      "start_time_sec": 1079,
+      "text": "The overnight automated diagnostics will poll packet loss counters every thirty minutes."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[18:12]",
+      "end_time": "[18:16]",
+      "start_time_sec": 1092,
+      "text": "Fine, I will review the packet loss graph tomorrow morning.",
+      "sentiment_score": -12.1
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[18:24]",
+      "end_time": "[18:27]",
+      "start_time_sec": 1104,
+      "text": "Goodbye.",
+      "sentiment_score": -6.5
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[18:35]",
+      "end_time": "[18:38]",
+      "start_time_sec": 1115,
+      "text": "Thank you for choosing S-Net customer services, Dominic. Goodbye."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[18:46]",
+      "end_time": "[18:49]",
+      "start_time_sec": 1126,
+      "text": "Goodbye.",
+      "sentiment_score": -6.5
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[18:57]",
+      "end_time": "[19:02]",
+      "start_time_sec": 1137,
+      "text": "Thank you for choosing S-Net. Goodbye."
+    }
+  ]
+}

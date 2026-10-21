@@ -1,0 +1,193 @@
+{
+  "call_id": "agt_055",
+  "tenant_id": "tenant-abc",
+  "status": "completed",
+  "result": {
+    "final_score": 90.0,
+    "is_auto_fail": false,
+    "auto_fail_reason": null,
+    "scorecard": [
+      {
+        "category": "Soft Skills",
+        "name": "Branding and Survey Check",
+        "rating": "PASS",
+        "coaching": ""
+      },
+      {
+        "category": "Soft Skills",
+        "name": "Hold time and Dead Air",
+        "rating": "PASS",
+        "coaching": ""
+      },
+      {
+        "category": "Technical Knowledge",
+        "name": "Verified customer",
+        "rating": "PASS",
+        "coaching": ""
+      },
+      {
+        "category": "Soft Skills",
+        "name": "Personalized the call/ticket appropriately",
+        "rating": "PASS",
+        "coaching": ""
+      },
+      {
+        "category": "Soft Skills",
+        "name": "Empathy & Acknowledgment Statement",
+        "rating": "PASS",
+        "coaching": ""
+      },
+      {
+        "category": "Technical Knowledge",
+        "name": "Paraphrasing",
+        "rating": "FAIL",
+        "coaching": "Failed to paraphrase customer's equipment return dispute in own words, proceeding directly to warehouse barcode lookups."
+      },
+      {
+        "category": "Technical Knowledge",
+        "name": "Active listening",
+        "rating": "PASS",
+        "coaching": ""
+      },
+      {
+        "category": "Technical Knowledge",
+        "name": "Took ownership of the problem",
+        "rating": "PASS",
+        "coaching": ""
+      },
+      {
+        "category": "Soft Skills",
+        "name": "Build rapport and observed professionalism",
+        "rating": "PASS",
+        "coaching": ""
+      },
+      {
+        "category": "Technical Knowledge",
+        "name": "Probing",
+        "rating": "PASS",
+        "coaching": ""
+      },
+      {
+        "category": "Technical Knowledge",
+        "name": "Confirmed the issue is resolved",
+        "rating": "PASS",
+        "coaching": ""
+      }
+    ]
+  },
+  "grader": {
+    "graded_by": "Antigravity (gemini-3.8-flash)",
+    "graded_on": "2026-10-21",
+    "scenario": "Billing dispute regarding Ã‚Â£65 non-return equipment charge for returned router",
+    "tier": "good",
+    "duration_sec": 1132,
+    "notes": "Exemplary billing dispute handling where the agent demonstrated outstanding empathy, verified warehouse receipt, cleared Ã‚Â£65 fee, and emailed zero-balance statement, achieving 10 passing criteria while cleanly omitting a paraphrasing restatement.",
+    "hard_cases": [
+      "Active listening",
+      "Empathy & Acknowledgment Statement",
+      "Took ownership of the problem"
+    ],
+    "items": [
+      {
+        "name": "Branding and Survey Check",
+        "rating": "PASS",
+        "confidence": "clear",
+        "evidence": "Agent opened with 'Thank you for calling S-Net billing customer services' at [00:00] and closed with 'Thank you for choosing S-Net' in final lines."
+      },
+      {
+        "name": "Hold time and Dead Air",
+        "rating": "PASS",
+        "confidence": "clear",
+        "evidence": "Hold was announced with bear with me and thanked upon return without unmanaged dead air."
+      },
+      {
+        "name": "Verified customer",
+        "rating": "PASS",
+        "confidence": "clear",
+        "evidence": "Verified full postal address and security PIN within the first 240 seconds."
+      },
+      {
+        "name": "Personalized the call/ticket appropriately",
+        "rating": "PASS",
+        "confidence": "clear",
+        "evidence": "Agent addressed customer as Leila warmly throughout the call."
+      },
+      {
+        "name": "Empathy & Acknowledgment Statement",
+        "rating": "PASS",
+        "confidence": "clear",
+        "evidence": "Agent demonstrated warm empathy at [02:50] ('I completely understand that unexpected equipment fees cause genuine financial anxiety, Leila... Let us make sure this charge is cancelled and refunded immediately.') and customer had no unhandled outbursts."
+      },
+      {
+        "name": "Paraphrasing",
+        "rating": "FAIL",
+        "confidence": "clear",
+        "evidence": "Agent never restated the Ã‚Â£65 equipment return fee dispute in her own words."
+      },
+      {
+        "name": "Active listening",
+        "rating": "PASS",
+        "confidence": "clear",
+        "evidence": "Agent confirmed student landline number accurately without repeating questions."
+      },
+      {
+        "name": "Took ownership of the problem",
+        "rating": "PASS",
+        "confidence": "clear",
+        "evidence": "Agent cleared Ã‚Â£65 fee, verified Bacs direct debit was arrested, and emailed updated zero-balance PDF."
+      },
+      {
+        "name": "Build rapport and observed professionalism",
+        "rating": "PASS",
+        "confidence": "clear",
+        "evidence": "Agent maintained an exemplary, warm, and congratulatory tone throughout."
+      },
+      {
+        "name": "Probing",
+        "rating": "PASS",
+        "confidence": "clear",
+        "evidence": "Agent asked relevant questions regarding delivery tracking and return dates."
+      },
+      {
+        "name": "Confirmed the issue is resolved",
+        "rating": "PASS",
+        "confidence": "clear",
+        "evidence": "Customer confirmed receipt of zero-balance PDF statement and verified direct debit sweep halted."
+      }
+    ],
+    "markers": {
+      "active_listening": [
+        {
+          "kind": "harmless_recheck",
+          "premise_turn": 3,
+          "agent_turn": 35
+        },
+        {
+          "kind": "harmless_recheck",
+          "premise_turn": 3,
+          "agent_turn": 23
+        }
+      ],
+      "paraphrasing": [
+        {
+          "kind": "not_a_restatement",
+          "agent_turn": 4
+        }
+      ],
+      "rapport": [
+        {
+          "kind": "blunt_but_ok",
+          "agent_turn": 21
+        }
+      ],
+      "empathy": [
+        {
+          "kind": "handled",
+          "customer_turn": 8,
+          "agent_turn": 9,
+          "with_refusal": false
+        }
+      ]
+    }
+  }
+}

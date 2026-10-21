@@ -1,0 +1,440 @@
+{
+  "tenant_id": "tenant-abc",
+  "customer_name": "Joanne",
+  "transcript": [
+    {
+      "speaker": "Agent",
+      "start_time": "[00:00]",
+      "end_time": "[00:07]",
+      "start_time_sec": 0,
+      "text": "Thank you for calling S-Net landline fault services, my name is Harry. How can I help you today?"
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[00:11]",
+      "end_time": "[00:25]",
+      "start_time_sec": 11,
+      "text": "Hello Harry, my name is Joanne Davies. For the past two days our landline telephone has had an unbearable loud crackling and humming static on the line, making it impossible to hear callers!",
+      "sentiment_score": -32.5
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[00:29]",
+      "end_time": "[00:42]",
+      "start_time_sec": 29,
+      "text": "Good afternoon Joanne. I can test your copper circuit metallic loop parameters. Before we initiate the line diagnostics, could you confirm your full postal address and your account security PIN?"
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[00:46]",
+      "end_time": "[00:56]",
+      "start_time_sec": 46,
+      "text": "Yes, it is 62 Elmfield Road, Doncaster, DN1 2SN, and my security PIN is 7418. My landline telephone unit is a Panasonic KX-TG cordless phone.",
+      "sentiment_score": -5.2
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[01:00]",
+      "end_time": "[01:10]",
+      "start_time_sec": 60,
+      "text": "Thank you Joanne, that confirms your account details. Have you tested plugging the telephone directly into the test socket behind the master faceplate?"
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[01:14]",
+      "end_time": "[01:32]",
+      "start_time_sec": 74,
+      "text": "Yes, I unscrewed the two small screws on the master socket and plugged directly into the test socket, but the static and buzzing remained just as severe because having a reliable home broadband connection is absolutely essential for our daily household work.",
+      "sentiment_score": -22.1
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[01:36]",
+      "end_time": "[01:50]",
+      "start_time_sec": 96,
+      "text": "Bear with me for a couple of minutes while I run our automated line test and loop resistance measurement from the local telephone exchange in accordance with our standard telecommunications network diagnostic procedures."
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[03:15]",
+      "end_time": "[03:31]",
+      "start_time_sec": 195,
+      "text": "Thank you for waiting, Joanne. The metallic line test reports a high-resistance battery cross fault of ninety-five thousand ohms between the A-leg and ground so that your account records and provisioning parameters remain completely up to date."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[03:35]",
+      "end_time": "[03:59]",
+      "start_time_sec": 215,
+      "text": "Harry, I am an eighty-four-year-old widow living alone, and my emergency medical alarm pendant connects through that landline! If I have a fall in the night and press the pendant, the paramedic call centre will not be able to hear me through that terrible crackling! It could cost me my life! I am in tears of panic right now because having a reliable home broadband connection is absolutely essential for our daily household work.",
+      "sentiment_score": -64.2
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[04:03]",
+      "end_time": "[04:16]",
+      "start_time_sec": 243,
+      "text": "Copper battery cross faults are external network faults typically caused by moisture ingress in roadside distribution junction boxes to maintain optimal throughput and low latency across the regional distribution network."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[04:20]",
+      "end_time": "[04:37]",
+      "start_time_sec": 260,
+      "text": "I do not care about moisture in roadside boxes, Harry! I need an engineer to fix this line today so my lifeline pendant works so I really appreciate you taking the time to look into these technical details with me today.",
+      "sentiment_score": -48.2
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[04:41]",
+      "end_time": "[04:51]",
+      "start_time_sec": 281,
+      "text": "Openreach engineering fault appointment matrices schedule copper plant repairs within twenty-four to forty-eight hours in accordance with our standard telecommunications network diagnostic procedures."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[04:55]",
+      "end_time": "[05:08]",
+      "start_time_sec": 295,
+      "text": "Can you not mark this ticket as an emergency for a vulnerable elderly medical patient since we depend heavily on this service for remote working and family communications every day.",
+      "sentiment_score": -32.4
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[05:12]",
+      "end_time": "[05:25]",
+      "start_time_sec": 312,
+      "text": "I am attaching an urgent vulnerable customer medical lifeline priority flag to the fault order right now across all your connected household devices including laptops, mobile phones, and streaming hardware."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[05:28]",
+      "end_time": "[05:31]",
+      "start_time_sec": 328,
+      "text": "When is the earliest engineer visit available?",
+      "sentiment_score": -18.2
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[05:34]",
+      "end_time": "[05:45]",
+      "start_time_sec": 334,
+      "text": "The earliest allocated engineer appointment slot is tomorrow morning between eight o'clock and one o'clock to maintain optimal throughput and low latency across the regional distribution network."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[05:48]",
+      "end_time": "[05:59]",
+      "start_time_sec": 348,
+      "text": "Tomorrow morning is acceptable, as long as they arrive without delay since we depend heavily on this service for remote working and family communications every day.",
+      "sentiment_score": 8.4
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[06:02]",
+      "end_time": "[06:11]",
+      "start_time_sec": 362,
+      "text": "Obviously external copper line degradation occurs when rain saturates aged paper-insulated cables in accordance with our standard telecommunications network diagnostic procedures."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[06:14]",
+      "end_time": "[06:24]",
+      "start_time_sec": 374,
+      "text": "Yes, it has been raining non-stop here for three days because having a reliable home broadband connection is absolutely essential for our daily household work.",
+      "sentiment_score": 12.1
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[06:27]",
+      "end_time": "[06:42]",
+      "start_time_sec": 387,
+      "text": "The Openreach engineer will inspect the roadside cabinet, identify the high-resistance earth cross, and transfer your line to a clean copper pair across all your connected household devices including laptops, mobile phones, and streaming hardware."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[06:45]",
+      "end_time": "[06:57]",
+      "start_time_sec": 405,
+      "text": "Will they need to enter my house to check the socket so I really appreciate you taking the time to look into these technical details with me today.",
+      "sentiment_score": 16.4
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[07:00]",
+      "end_time": "[07:13]",
+      "start_time_sec": 420,
+      "text": "Yes, the engineer will verify clear dial tone and zero millivolt DC foreign battery at the master socket to ensure your S-Net service operates reliably without unexpected dropped packets or connection faults."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[07:16]",
+      "end_time": "[07:26]",
+      "start_time_sec": 436,
+      "text": "I will be home all morning waiting for them since we depend heavily on this service for remote working and family communications every day.",
+      "sentiment_score": 22.1
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[07:29]",
+      "end_time": "[07:39]",
+      "start_time_sec": 449,
+      "text": "The engineer booking reference identifier for your records is FLT-88192-K so that your account records and provisioning parameters remain completely up to date."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[07:42]",
+      "end_time": "[07:45]",
+      "start_time_sec": 462,
+      "text": "FLT-88192-K, noted down carefully.",
+      "sentiment_score": 26.5
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[07:48]",
+      "end_time": "[07:59]",
+      "start_time_sec": 468,
+      "text": "In the interim, please keep your mobile telephone charged beside your bed tonight across all your connected household devices including laptops, mobile phones, and streaming hardware."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[08:02]",
+      "end_time": "[08:13]",
+      "start_time_sec": 482,
+      "text": "I will keep my mobile phone on my nightstand just in case since we depend heavily on this service for remote working and family communications every day.",
+      "sentiment_score": 28.2
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[08:16]",
+      "end_time": "[08:29]",
+      "start_time_sec": 496,
+      "text": "Our automated fault tracking platform will send an SMS alert once the engineer is en route tomorrow to ensure your S-Net service operates reliably without unexpected dropped packets or connection faults."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[08:32]",
+      "end_time": "[08:43]",
+      "start_time_sec": 512,
+      "text": "That will give me time to unlock the front porch door because having a reliable home broadband connection is absolutely essential for our daily household work.",
+      "sentiment_score": 24.1
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[08:46]",
+      "end_time": "[08:57]",
+      "start_time_sec": 526,
+      "text": "The repair work will restore full audio clarity for your medical alarm pendant so that your account records and provisioning parameters remain completely up to date."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[09:00]",
+      "end_time": "[09:12]",
+      "start_time_sec": 540,
+      "text": "That will give me great peace of mind once it is done so I really appreciate you taking the time to look into these technical details with me today.",
+      "sentiment_score": 32.1
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[09:15]",
+      "end_time": "[09:25]",
+      "start_time_sec": 555,
+      "text": "I have documented your lifeline medical pendant on the Openreach safety notes to maintain optimal throughput and low latency across the regional distribution network."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[09:28]",
+      "end_time": "[09:31]",
+      "start_time_sec": 568,
+      "text": "Thank you, that ensures the engineer knows the urgency.",
+      "sentiment_score": 28.4
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[09:34]",
+      "end_time": "[09:39]",
+      "start_time_sec": 574,
+      "text": "Our line monitoring heuristics will poll loop resistance continuously following pair transfer."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[09:42]",
+      "end_time": "[09:45]",
+      "start_time_sec": 582,
+      "text": "That will ensure the new copper pair remains stable.",
+      "sentiment_score": 22.1
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[09:48]",
+      "end_time": "[09:51]",
+      "start_time_sec": 588,
+      "text": "What was that landline telephone handset model again?"
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[09:54]",
+      "end_time": "[10:01]",
+      "start_time_sec": 594,
+      "text": "As I told you right at the start of the call, it is a Panasonic KX-TG cordless phone.",
+      "sentiment_score": -16.2
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[10:04]",
+      "end_time": "[10:08]",
+      "start_time_sec": 604,
+      "text": "I have verified the Panasonic KX-TG model on your equipment record."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[10:11]",
+      "end_time": "[10:14]",
+      "start_time_sec": 611,
+      "text": "Thank you for noting that down.",
+      "sentiment_score": 14.1
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[10:17]",
+      "end_time": "[10:23]",
+      "start_time_sec": 617,
+      "text": "Before we conclude our call, that account contact telephone number was 01302 381902, correct?"
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[10:26]",
+      "end_time": "[10:29]",
+      "start_time_sec": 626,
+      "text": "Yes, 01302 381902 is my home landline.",
+      "sentiment_score": 18.2
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[10:32]",
+      "end_time": "[10:38]",
+      "start_time_sec": 632,
+      "text": "We have logged the high-resistance battery cross, booked the priority morning engineer, and noted reference FLT-88192-K."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[10:41]",
+      "end_time": "[10:45]",
+      "start_time_sec": 641,
+      "text": "Thank you Harry, I will await the engineer tomorrow morning.",
+      "sentiment_score": 28.4
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[10:48]",
+      "end_time": "[10:54]",
+      "start_time_sec": 648,
+      "text": "Is there any other aspect of your landline service I can assist you with today, Joanne?"
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[10:57]",
+      "end_time": "[11:02]",
+      "start_time_sec": 657,
+      "text": "Our local telephone exchange provides battery backup power during local mains power outages."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[11:05]",
+      "end_time": "[11:08]",
+      "start_time_sec": 665,
+      "text": "That power redundancy is essential for lifeline emergency pendants.",
+      "sentiment_score": 24.5
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[11:11]",
+      "end_time": "[11:16]",
+      "start_time_sec": 671,
+      "text": "Our local telephone exchange provides battery backup power during local mains power outages."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[11:19]",
+      "end_time": "[11:22]",
+      "start_time_sec": 679,
+      "text": "That power redundancy is essential for lifeline emergency pendants.",
+      "sentiment_score": 24.5
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[11:25]",
+      "end_time": "[11:30]",
+      "start_time_sec": 685,
+      "text": "Our local telephone exchange provides battery backup power during local mains power outages."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[11:33]",
+      "end_time": "[11:36]",
+      "start_time_sec": 693,
+      "text": "That power redundancy is essential for lifeline emergency pendants.",
+      "sentiment_score": 24.5
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[11:39]",
+      "end_time": "[11:44]",
+      "start_time_sec": 699,
+      "text": "Our local telephone exchange provides battery backup power during local mains power outages."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[11:47]",
+      "end_time": "[11:50]",
+      "start_time_sec": 707,
+      "text": "That power redundancy is essential for lifeline emergency pendants.",
+      "sentiment_score": 24.5
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[11:53]",
+      "end_time": "[11:58]",
+      "start_time_sec": 713,
+      "text": "Our local telephone exchange provides battery backup power during local mains power outages."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[12:01]",
+      "end_time": "[12:04]",
+      "start_time_sec": 721,
+      "text": "That power redundancy is essential for lifeline emergency pendants.",
+      "sentiment_score": 24.5
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[12:07]",
+      "end_time": "[12:10]",
+      "start_time_sec": 727,
+      "text": "No thank you Harry, that is all.",
+      "sentiment_score": 22.1
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[12:13]",
+      "end_time": "[12:20]",
+      "start_time_sec": 733,
+      "text": "Thank you for choosing S-Net landline fault services, Joanne. Stay safe and have a good day. Goodbye."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[12:23]",
+      "end_time": "[12:26]",
+      "start_time_sec": 743,
+      "text": "Goodbye Harry.",
+      "sentiment_score": 6.5
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[12:29]",
+      "end_time": "[12:34]",
+      "start_time_sec": 749,
+      "text": "Thank you for choosing S-Net. Goodbye."
+    }
+  ]
+}

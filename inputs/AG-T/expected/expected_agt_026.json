@@ -1,0 +1,188 @@
+{
+  "call_id": "agt_026",
+  "tenant_id": "tenant-abc",
+  "status": "completed",
+  "result": {
+    "final_score": 88.3,
+    "is_auto_fail": false,
+    "auto_fail_reason": null,
+    "scorecard": [
+      {
+        "category": "Soft Skills",
+        "name": "Branding and Survey Check",
+        "rating": "PASS",
+        "coaching": ""
+      },
+      {
+        "category": "Soft Skills",
+        "name": "Hold time and Dead Air",
+        "rating": "PASS",
+        "coaching": ""
+      },
+      {
+        "category": "Technical Knowledge",
+        "name": "Verified customer",
+        "rating": "PASS",
+        "coaching": ""
+      },
+      {
+        "category": "Soft Skills",
+        "name": "Personalized the call/ticket appropriately",
+        "rating": "PASS",
+        "coaching": ""
+      },
+      {
+        "category": "Soft Skills",
+        "name": "Empathy & Acknowledgment Statement",
+        "rating": "FAIL",
+        "coaching": "Failed to acknowledge customer distress at [02:50] when she expressed severe panic about family movie night being ruined."
+      },
+      {
+        "category": "Technical Knowledge",
+        "name": "Paraphrasing",
+        "rating": "PASS",
+        "coaching": ""
+      },
+      {
+        "category": "Technical Knowledge",
+        "name": "Active listening",
+        "rating": "PASS",
+        "coaching": ""
+      },
+      {
+        "category": "Technical Knowledge",
+        "name": "Took ownership of the problem",
+        "rating": "PASS",
+        "coaching": ""
+      },
+      {
+        "category": "Soft Skills",
+        "name": "Build rapport and observed professionalism",
+        "rating": "PASS",
+        "coaching": ""
+      },
+      {
+        "category": "Technical Knowledge",
+        "name": "Probing",
+        "rating": "PASS",
+        "coaching": ""
+      },
+      {
+        "category": "Technical Knowledge",
+        "name": "Confirmed the issue is resolved",
+        "rating": "PASS",
+        "coaching": ""
+      }
+    ]
+  },
+  "grader": {
+    "graded_by": "Antigravity (gemini-3.8-flash)",
+    "graded_on": "2026-10-21",
+    "scenario": "S-Net Stream TV puck stuck on remote pairing screen after factory reset",
+    "tier": "good",
+    "duration_sec": 655,
+    "notes": "Solid technical resolution of Bluetooth remote pairing on Stream puck, but agent failed to acknowledge customer's family movie night distress.",
+    "hard_cases": [
+      "Empathy & Acknowledgment Statement"
+    ],
+    "items": [
+      {
+        "name": "Branding and Survey Check",
+        "rating": "PASS",
+        "confidence": "clear",
+        "evidence": "Agent opened with 'Thank you for calling S-Net TV customer support' at [00:00] and closed with 'Thank you for choosing S-Net' in final lines."
+      },
+      {
+        "name": "Hold time and Dead Air",
+        "rating": "PASS",
+        "confidence": "clear",
+        "evidence": "Hold was announced with bear with me and thanked upon return without unmanaged dead air."
+      },
+      {
+        "name": "Verified customer",
+        "rating": "PASS",
+        "confidence": "clear",
+        "evidence": "Verified full postal address and security PIN within the first 240 seconds."
+      },
+      {
+        "name": "Personalized the call/ticket appropriately",
+        "rating": "PASS",
+        "confidence": "clear",
+        "evidence": "Agent addressed customer as Dorothy throughout the call."
+      },
+      {
+        "name": "Empathy & Acknowledgment Statement",
+        "rating": "FAIL",
+        "confidence": "clear",
+        "evidence": "Customer expressed acute worry and distress about impending family movie night; agent ignored feelings and moved directly to TV stand clearance."
+      },
+      {
+        "name": "Paraphrasing",
+        "rating": "PASS",
+        "confidence": "clear",
+        "evidence": "Agent restated the remote unpairing and flashing red light accurately at [01:25]."
+      },
+      {
+        "name": "Active listening",
+        "rating": "PASS",
+        "confidence": "clear",
+        "evidence": "Agent maintained accurate details and confirmed contact phone number without repetition."
+      },
+      {
+        "name": "Took ownership of the problem",
+        "rating": "PASS",
+        "confidence": "clear",
+        "evidence": "Agent guided customer step-by-step through remote reset and pairing commands."
+      },
+      {
+        "name": "Build rapport and observed professionalism",
+        "rating": "PASS",
+        "confidence": "clear",
+        "evidence": "Agent maintained a calm, polite, and helpful tone throughout."
+      },
+      {
+        "name": "Probing",
+        "rating": "PASS",
+        "confidence": "clear",
+        "evidence": "Agent asked targeted diagnostic questions regarding LED status, battery health, and infrared obstruction."
+      },
+      {
+        "name": "Confirmed the issue is resolved",
+        "rating": "PASS",
+        "confidence": "clear",
+        "evidence": "Customer confirmed remote paired, home screen loaded, BBC One stream played, and volume control worked."
+      }
+    ],
+    "markers": {
+      "active_listening": [
+        {
+          "kind": "harmless_recheck",
+          "premise_turn": 3,
+          "agent_turn": 39
+        }
+      ],
+      "paraphrasing": [
+        {
+          "kind": "restatement",
+          "agent_turn": 6
+        },
+        {
+          "kind": "not_a_restatement",
+          "agent_turn": 4
+        }
+      ],
+      "rapport": [
+        {
+          "kind": "blunt_but_ok",
+          "agent_turn": 23
+        }
+      ],
+      "empathy": [
+        {
+          "kind": "unhandled",
+          "customer_turn": 12
+        }
+      ]
+    }
+  }
+}

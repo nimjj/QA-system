@@ -1,0 +1,440 @@
+{
+  "tenant_id": "tenant-abc",
+  "customer_name": "Dorothy",
+  "transcript": [
+    {
+      "speaker": "Agent",
+      "start_time": "[00:00]",
+      "end_time": "[00:07]",
+      "start_time_sec": 0,
+      "text": "Thank you for calling S-Net TV customer support, my name is Toby. How can I help you today?"
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[00:09]",
+      "end_time": "[00:24]",
+      "start_time_sec": 9,
+      "text": "Hello Toby, my name is Dorothy Evans. My S-Net Stream TV puck is stuck on a screen with a spinning circle telling me to pair the remote control, and nothing happens when I press the buttons!",
+      "sentiment_score": -28.5
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[00:26]",
+      "end_time": "[00:40]",
+      "start_time_sec": 26,
+      "text": "Good morning Dorothy. I can certainly help you pair your remote control and get your TV puck working. Before we begin troubleshooting, could you confirm your full postal address and your account security PIN?"
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[00:42]",
+      "end_time": "[00:50]",
+      "start_time_sec": 42,
+      "text": "Yes, it is 14 Meadow View, Harrogate, HG1 4QW, and my security PIN is 7150. My account reference is SN-302918.",
+      "sentiment_score": -4.2
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[00:52]",
+      "end_time": "[01:03]",
+      "start_time_sec": 52,
+      "text": "Thank you Dorothy, that confirms your account details. What color is the small light on the front of the remote flashing when you press any key?"
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[01:05]",
+      "end_time": "[01:21]",
+      "start_time_sec": 65,
+      "text": "It flashes a fast red light three times and then turns off, and the TV screen just keeps showing the remote pairing instruction graphic because having a reliable home broadband connection is absolutely essential for our daily household work.",
+      "sentiment_score": -24.1
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[01:23]",
+      "end_time": "[01:43]",
+      "start_time_sec": 83,
+      "text": "So what is happening is that your Stream puck is stuck on the remote pairing screen displaying the setup graphic, and the remote LED is flashing red three times indicating Bluetooth unpairing rather than solid blue, is that right in accordance with our standard telecommunications network diagnostic procedures."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[01:45]",
+      "end_time": "[02:03]",
+      "start_time_sec": 105,
+      "text": "Yes, that is exactly what it is doing! My twelve-year-old grandson reset the TV box before school, and now I have no television at all so I really appreciate you taking the time to look into these technical details with me today.",
+      "sentiment_score": -18.4
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[02:05]",
+      "end_time": "[02:20]",
+      "start_time_sec": 125,
+      "text": "Let us check the remote hardware first. Have you tried putting a brand new pair of AAA alkaline batteries into the remote across all your connected household devices including laptops, mobile phones, and streaming hardware."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[02:22]",
+      "end_time": "[02:36]",
+      "start_time_sec": 142,
+      "text": "Yes, I put two fresh Duracell batteries in just ten minutes ago, but it made no difference whatsoever since we depend heavily on this service for remote working and family communications every day.",
+      "sentiment_score": -12.2
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[02:38]",
+      "end_time": "[02:54]",
+      "start_time_sec": 158,
+      "text": "Bear with me for a couple of minutes while I check the firmware version registered to your Stream puck on our device management server to ensure your S-Net service operates reliably without unexpected dropped packets or connection faults."
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[04:19]",
+      "end_time": "[04:33]",
+      "start_time_sec": 259,
+      "text": "Thank you for waiting, Dorothy. Your puck is on the latest TVOS 4.2 firmware build, so the issue is simply an unlinked Bluetooth pairing profile in accordance with our standard telecommunications network diagnostic procedures."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[04:35]",
+      "end_time": "[04:58]",
+      "start_time_sec": 275,
+      "text": "I am having my daughter and grandchildren over in less than an hour for our weekly family movie night, and having a blank television is driving me to tears! I am so frantic that the evening will be ruined since we depend heavily on this service for remote working and family communications every day.",
+      "sentiment_score": -54.2
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[05:00]",
+      "end_time": "[05:16]",
+      "start_time_sec": 300,
+      "text": "Check if the small plastic infrared sensor window on the front edge of the puck is physically blocked by any books or photo frames across all your connected household devices including laptops, mobile phones, and streaming hardware."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[05:18]",
+      "end_time": "[05:31]",
+      "start_time_sec": 318,
+      "text": "No, the puck sits completely clear on the wooden TV stand directly underneath the screen because having a reliable home broadband connection is absolutely essential for our daily household work.",
+      "sentiment_score": -18.5
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[05:33]",
+      "end_time": "[05:47]",
+      "start_time_sec": 333,
+      "text": "We are going to perform a hard hardware reset on the remote control itself to clear its Bluetooth memory cache to ensure your S-Net service operates reliably without unexpected dropped packets or connection faults."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[05:49]",
+      "end_time": "[06:00]",
+      "start_time_sec": 349,
+      "text": "Alright Toby, tell me what buttons I need to press so I really appreciate you taking the time to look into these technical details with me today.",
+      "sentiment_score": -6.2
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[06:02]",
+      "end_time": "[06:17]",
+      "start_time_sec": 362,
+      "text": "Press and hold the number seven and number nine buttons together simultaneously until the light at the top flashes red four times so that your account records and provisioning parameters remain completely up to date."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[06:19]",
+      "end_time": "[06:25]",
+      "start_time_sec": 379,
+      "text": "Holding seven and nine down now... one, two, three... Yes, it just flashed red four times!",
+      "sentiment_score": 14.5
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[06:27]",
+      "end_time": "[06:32]",
+      "start_time_sec": 387,
+      "text": "Excellent. That has completely wiped the old pairing connection from the remote control."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[06:33]",
+      "end_time": "[06:36]",
+      "start_time_sec": 393,
+      "text": "Now what is the next step?",
+      "sentiment_score": 8.2
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[06:37]",
+      "end_time": "[06:44]",
+      "start_time_sec": 397,
+      "text": "Now pick up the remote and point it directly at the S-Net puck from about one metre away."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[06:45]",
+      "end_time": "[06:49]",
+      "start_time_sec": 405,
+      "text": "Pointing it directly at the front of the puck now.",
+      "sentiment_score": 12.1
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[06:50]",
+      "end_time": "[06:55]",
+      "start_time_sec": 410,
+      "text": "Obviously consumer remotes cannot bind while Bluetooth discovery mode is timed out."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[06:56]",
+      "end_time": "[07:00]",
+      "start_time_sec": 416,
+      "text": "I am standing right in front of the TV unit.",
+      "sentiment_score": 15.4
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[07:01]",
+      "end_time": "[07:07]",
+      "start_time_sec": 421,
+      "text": "Now press and hold the number one and number three buttons together simultaneously for three seconds."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[07:08]",
+      "end_time": "[07:16]",
+      "start_time_sec": 428,
+      "text": "Holding one and three together... The light is flashing blue! And the screen just popped up saying 'Remote Connected'!",
+      "sentiment_score": 56.8
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[07:17]",
+      "end_time": "[07:23]",
+      "start_time_sec": 437,
+      "text": "Brilliant! Now use the directional arrow buttons to highlight 'Continue' on your TV screen."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[07:24]",
+      "end_time": "[07:30]",
+      "start_time_sec": 444,
+      "text": "Pressing Continue... The home screen has loaded! All my apps and channel tiles are visible!",
+      "sentiment_score": 64.2
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[07:31]",
+      "end_time": "[07:38]",
+      "start_time_sec": 451,
+      "text": "Let us select BBC iPlayer or live broadcast to make sure video and audio stream with perfect synchronization."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[07:39]",
+      "end_time": "[07:46]",
+      "start_time_sec": 459,
+      "text": "I have clicked on BBC One... Yes, the midday news is playing with clear picture and perfect sound!",
+      "sentiment_score": 48.6
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[07:47]",
+      "end_time": "[07:54]",
+      "start_time_sec": 467,
+      "text": "And does the volume rocker on the right side of the remote control adjust your television volume properly?"
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[07:55]",
+      "end_time": "[08:01]",
+      "start_time_sec": 475,
+      "text": "Yes, turning it up and down works seamlessly. It controls my TV set volume directly.",
+      "sentiment_score": 32.4
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[08:02]",
+      "end_time": "[08:07]",
+      "start_time_sec": 482,
+      "text": "That confirms the infrared TV CEC volume code was retained successfully during pairing."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[08:08]",
+      "end_time": "[08:14]",
+      "start_time_sec": 488,
+      "text": "That is such a relief. My movie night with my family is completely saved now.",
+      "sentiment_score": 28.5
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[08:15]",
+      "end_time": "[08:25]",
+      "start_time_sec": 495,
+      "text": "Just remember that if your grandson ever triggers a factory reset in the future, pressing one and three together will immediately re-pair the remote."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[08:26]",
+      "end_time": "[08:34]",
+      "start_time_sec": 506,
+      "text": "I have written that down on a piece of paper stuck behind the TV: press one and three together.",
+      "sentiment_score": 19.4
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[08:35]",
+      "end_time": "[08:40]",
+      "start_time_sec": 515,
+      "text": "That is a very sensible place to keep the instruction note, Dorothy."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[08:41]",
+      "end_time": "[08:45]",
+      "start_time_sec": 521,
+      "text": "Thank you Toby, you explained everything so clearly and patiently.",
+      "sentiment_score": 24.1
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[08:46]",
+      "end_time": "[08:52]",
+      "start_time_sec": 526,
+      "text": "Before we complete our call, that account contact telephone number was 01423 884190, correct?"
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[08:53]",
+      "end_time": "[08:56]",
+      "start_time_sec": 533,
+      "text": "Yes, 01423 884190 is my home landline.",
+      "sentiment_score": 14.2
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[08:57]",
+      "end_time": "[09:04]",
+      "start_time_sec": 537,
+      "text": "We have cleared the remote memory, re-established Bluetooth pairing, and confirmed live TV and volume control function normally."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[09:05]",
+      "end_time": "[09:10]",
+      "start_time_sec": 545,
+      "text": "Everything is working like new. I am so grateful for your help.",
+      "sentiment_score": 31.2
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[09:11]",
+      "end_time": "[09:21]",
+      "start_time_sec": 551,
+      "text": "You can also control your Stream puck using the S-Net TV companion app on an iPad if the physical remote ever runs out of batteries."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[09:22]",
+      "end_time": "[09:29]",
+      "start_time_sec": 562,
+      "text": "My daughter has an iPad, so I will ask her to download that app tonight as a backup.",
+      "sentiment_score": 16.5
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[09:30]",
+      "end_time": "[09:38]",
+      "start_time_sec": 570,
+      "text": "Is there anything else regarding your S-Net Stream TV service or broadband I can help you with today, Dorothy?"
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[09:39]",
+      "end_time": "[09:45]",
+      "start_time_sec": 579,
+      "text": "Your Stream puck will perform automatic software maintenance checks at three o'clock every morning."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[09:46]",
+      "end_time": "[09:51]",
+      "start_time_sec": 586,
+      "text": "That is very reassuring to know it updates itself while we are sleeping.",
+      "sentiment_score": 11.2
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[09:52]",
+      "end_time": "[09:58]",
+      "start_time_sec": 592,
+      "text": "You can always leave the puck in low-power standby mode when you finish watching television."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[09:59]",
+      "end_time": "[10:05]",
+      "start_time_sec": 599,
+      "text": "I will be sure to put it into standby with the power button tonight.",
+      "sentiment_score": 14.6
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[10:06]",
+      "end_time": "[10:12]",
+      "start_time_sec": 606,
+      "text": "Your Stream puck will perform automatic software maintenance checks at three o'clock every morning."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[10:13]",
+      "end_time": "[10:18]",
+      "start_time_sec": 613,
+      "text": "That is very reassuring to know it updates itself while we are sleeping.",
+      "sentiment_score": 11.2
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[10:19]",
+      "end_time": "[10:25]",
+      "start_time_sec": 619,
+      "text": "You can always leave the puck in low-power standby mode when you finish watching television."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[10:26]",
+      "end_time": "[10:32]",
+      "start_time_sec": 626,
+      "text": "I will be sure to put it into standby with the power button tonight.",
+      "sentiment_score": 14.6
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[10:33]",
+      "end_time": "[10:37]",
+      "start_time_sec": 633,
+      "text": "No thank you Toby, you have resolved my problem completely.",
+      "sentiment_score": 22.4
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[10:38]",
+      "end_time": "[10:45]",
+      "start_time_sec": 638,
+      "text": "Thank you for choosing S-Net customer services, Dorothy. Have a fantastic movie night with your grandchildren. Goodbye."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[10:46]",
+      "end_time": "[10:49]",
+      "start_time_sec": 646,
+      "text": "Goodbye Toby.",
+      "sentiment_score": 6.5
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[10:50]",
+      "end_time": "[10:55]",
+      "start_time_sec": 650,
+      "text": "Thank you for choosing S-Net. Goodbye."
+    }
+  ]
+}

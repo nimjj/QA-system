@@ -1,0 +1,191 @@
+{
+  "call_id": "agt_038",
+  "tenant_id": "tenant-abc",
+  "status": "completed",
+  "result": {
+    "final_score": 71.7,
+    "is_auto_fail": false,
+    "auto_fail_reason": null,
+    "scorecard": [
+      {
+        "category": "Soft Skills",
+        "name": "Branding and Survey Check",
+        "rating": "PASS",
+        "coaching": ""
+      },
+      {
+        "category": "Soft Skills",
+        "name": "Hold time and Dead Air",
+        "rating": "PASS",
+        "coaching": ""
+      },
+      {
+        "category": "Technical Knowledge",
+        "name": "Verified customer",
+        "rating": "PASS",
+        "coaching": ""
+      },
+      {
+        "category": "Soft Skills",
+        "name": "Personalized the call/ticket appropriately",
+        "rating": "PASS",
+        "coaching": ""
+      },
+      {
+        "category": "Soft Skills",
+        "name": "Empathy & Acknowledgment Statement",
+        "rating": "FAIL",
+        "coaching": "Failed to show empathy at [03:20] and [06:40] when customer voiced extreme panic regarding NHS midwife labor triage calls."
+      },
+      {
+        "category": "Technical Knowledge",
+        "name": "Paraphrasing",
+        "rating": "FAIL",
+        "coaching": "Failed to paraphrase customer's indoor signal loss issue in own words."
+      },
+      {
+        "category": "Technical Knowledge",
+        "name": "Active listening",
+        "rating": "FAIL",
+        "coaching": "Asked customer at [08:50] for her handset model which had already been verified at [00:45]."
+      },
+      {
+        "category": "Technical Knowledge",
+        "name": "Took ownership of the problem",
+        "rating": "PASS",
+        "coaching": ""
+      },
+      {
+        "category": "Soft Skills",
+        "name": "Build rapport and observed professionalism",
+        "rating": "PASS",
+        "coaching": ""
+      },
+      {
+        "category": "Technical Knowledge",
+        "name": "Probing",
+        "rating": "PASS",
+        "coaching": ""
+      },
+      {
+        "category": "Technical Knowledge",
+        "name": "Confirmed the issue is resolved",
+        "rating": "PASS",
+        "coaching": ""
+      }
+    ]
+  },
+  "grader": {
+    "graded_by": "Antigravity (gemini-3.8-flash)",
+    "graded_on": "2026-10-21",
+    "scenario": "Mobile handset dropping from 4G to No Service indoors; Wi-Fi Calling setup required",
+    "tier": "okay",
+    "duration_sec": 739,
+    "notes": "Good technical walk-through of Samsung Wi-Fi Calling setup during a local mast outage, but agent failed empathy regarding on-call NHS midwife labor emergencies, offered no paraphrase, and repeated a question about handset model in the last third of the call.",
+    "hard_cases": [
+      "Active listening",
+      "Empathy & Acknowledgment Statement",
+      "Paraphrasing"
+    ],
+    "items": [
+      {
+        "name": "Branding and Survey Check",
+        "rating": "PASS",
+        "confidence": "clear",
+        "evidence": "Agent opened with 'Thank you for calling S-Net mobile customer care' at [00:00] and closed with 'Thank you for choosing S-Net' in final lines."
+      },
+      {
+        "name": "Hold time and Dead Air",
+        "rating": "PASS",
+        "confidence": "clear",
+        "evidence": "Hold was announced with bear with me and thanked upon return without unmanaged dead air."
+      },
+      {
+        "name": "Verified customer",
+        "rating": "PASS",
+        "confidence": "clear",
+        "evidence": "Verified full postal address and security PIN within the first 240 seconds."
+      },
+      {
+        "name": "Personalized the call/ticket appropriately",
+        "rating": "PASS",
+        "confidence": "clear",
+        "evidence": "Agent addressed customer as Grace throughout the call."
+      },
+      {
+        "name": "Empathy & Acknowledgment Statement",
+        "rating": "FAIL",
+        "confidence": "clear",
+        "evidence": "Customer voiced acute anxiety regarding on-call maternity labor emergencies; agent offered no empathy and recited technical protocols."
+      },
+      {
+        "name": "Paraphrasing",
+        "rating": "FAIL",
+        "confidence": "clear",
+        "evidence": "Agent never restated the indoor mobile signal problem in his own words."
+      },
+      {
+        "name": "Active listening",
+        "rating": "FAIL",
+        "confidence": "clear",
+        "evidence": "Agent asked for handset model at turn 42 despite customer stating Samsung Galaxy S23 at turn 3."
+      },
+      {
+        "name": "Took ownership of the problem",
+        "rating": "PASS",
+        "confidence": "clear",
+        "evidence": "Agent guided customer step-by-step through Samsung settings to enable Wi-Fi Calling."
+      },
+      {
+        "name": "Build rapport and observed professionalism",
+        "rating": "PASS",
+        "confidence": "clear",
+        "evidence": "Agent maintained a courteous instructional tone throughout."
+      },
+      {
+        "name": "Probing",
+        "rating": "PASS",
+        "confidence": "clear",
+        "evidence": "Agent asked relevant questions regarding outage timing and indoor signal behavior."
+      },
+      {
+        "name": "Confirmed the issue is resolved",
+        "rating": "PASS",
+        "confidence": "clear",
+        "evidence": "Customer confirmed Wi-Fi Calling icon active, set Wi-Fi preferred, and verified test call with husband."
+      }
+    ],
+    "markers": {
+      "active_listening": [
+        {
+          "kind": "repeat",
+          "premise_turn": 3,
+          "agent_turn": 42,
+          "reworded": true
+        }
+      ],
+      "paraphrasing": [
+        {
+          "kind": "not_a_restatement",
+          "agent_turn": 4
+        }
+      ],
+      "rapport": [
+        {
+          "kind": "blunt_but_ok",
+          "agent_turn": 13
+        }
+      ],
+      "empathy": [
+        {
+          "kind": "unhandled",
+          "customer_turn": 8
+        },
+        {
+          "kind": "unhandled",
+          "customer_turn": 19
+        }
+      ]
+    }
+  }
+}

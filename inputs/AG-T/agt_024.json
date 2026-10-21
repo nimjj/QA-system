@@ -1,0 +1,455 @@
+{
+  "tenant_id": "tenant-abc",
+  "customer_name": "Deena",
+  "transcript": [
+    {
+      "speaker": "Agent",
+      "start_time": "[00:00]",
+      "end_time": "[00:07]",
+      "start_time_sec": 0,
+      "text": "Thank you for calling S-Net mobile customer care, my name is Nathan. How can I help you today?"
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[00:12]",
+      "end_time": "[00:29]",
+      "start_time_sec": 12,
+      "text": "Hello Nathan, my name is Deena Miller. I am in a state of sheer panic. My mobile voicemail PIN has locked after three wrong attempts, and I am expecting an urgent call from St George's Hospital regarding my daughter's biopsy results!",
+      "sentiment_score": -48.2
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[00:33]",
+      "end_time": "[00:50]",
+      "start_time_sec": 33,
+      "text": "Good morning Deena. Please take a deep breath. I can certainly help you unlock your voicemail and ensure you can access your messages. Before we access your mobile profile, could you confirm your full postal address and your account security PIN?"
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[00:54]",
+      "end_time": "[01:03]",
+      "start_time_sec": 54,
+      "text": "Yes, it is 19 Merton High Street, London, SW19 1DF, and my security PIN is 3391. My mobile number is 07700 900512.",
+      "sentiment_score": -12.1
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[01:07]",
+      "end_time": "[01:16]",
+      "start_time_sec": 67,
+      "text": "Thank you Deena, that verifies your account details. What happens when you dial 121 right now to access your voicemail mailbox?"
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[01:20]",
+      "end_time": "[01:40]",
+      "start_time_sec": 80,
+      "text": "A recorded voice says 'This mailbox is temporarily locked due to repeated invalid PIN entries. Please contact customer services.' Nathan, I'm terrified the consultant called and I'll miss the surgical update because having a reliable home broadband connection is absolutely essential for our daily household work.",
+      "sentiment_score": -32.4
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[01:44]",
+      "end_time": "[02:06]",
+      "start_time_sec": 104,
+      "text": "So what has happened is that your mobile voicemail mailbox was security-locked following three consecutive incorrect passcode attempts, and we need to reset your PIN and verify your message inbox immediately so you can retrieve your daughter's hospital update, is that right in accordance with our standard telecommunications network diagnostic procedures."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[02:10]",
+      "end_time": "[02:27]",
+      "start_time_sec": 130,
+      "text": "Yes, that is exactly right! The hospital consultant said she would leave a detailed voicemail message if I couldn't answer during surgery rounds so I really appreciate you taking the time to look into these technical details with me today.",
+      "sentiment_score": -16.8
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[02:31]",
+      "end_time": "[02:44]",
+      "start_time_sec": 151,
+      "text": "I understand how crucial and distressing this is, Deena. Let us get this unlocked without any delay across all your connected household devices including laptops, mobile phones, and streaming hardware."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[02:48]",
+      "end_time": "[02:58]",
+      "start_time_sec": 168,
+      "text": "Thank you Nathan, I truly appreciate your help since we depend heavily on this service for remote working and family communications every day.",
+      "sentiment_score": 8.5
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[03:02]",
+      "end_time": "[03:16]",
+      "start_time_sec": 182,
+      "text": "Bear with me for a couple of minutes while I open your voicemail provisioning profile on our mobile network gateway to ensure your S-Net service operates reliably without unexpected dropped packets or connection faults."
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[04:41]",
+      "end_time": "[04:55]",
+      "start_time_sec": 281,
+      "text": "Thank you for waiting, Deena. I have pulled up your mailbox settings. The security lockout flag is currently active on mailbox profile 07700 900512 in accordance with our standard telecommunications network diagnostic procedures."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[04:59]",
+      "end_time": "[05:10]",
+      "start_time_sec": 299,
+      "text": "Can you clear the lockout flag from your computer right now since we depend heavily on this service for remote working and family communications every day.",
+      "sentiment_score": -14.2
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[05:14]",
+      "end_time": "[05:26]",
+      "start_time_sec": 314,
+      "text": "Yes, I am executing the administrative PIN wipe and unlock command directly on our voicemail server across all your connected household devices including laptops, mobile phones, and streaming hardware."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[05:30]",
+      "end_time": "[05:42]",
+      "start_time_sec": 330,
+      "text": "Does that delete any existing voice recordings or messages stored in the mailbox because having a reliable home broadband connection is absolutely essential for our daily household work.",
+      "sentiment_score": -19.5
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[05:46]",
+      "end_time": "[05:58]",
+      "start_time_sec": 346,
+      "text": "No, Deena. An administrative PIN reset preserves all unread and archived voice recordings intact to ensure your S-Net service operates reliably without unexpected dropped packets or connection faults."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[06:02]",
+      "end_time": "[06:13]",
+      "start_time_sec": 362,
+      "text": "That is such a relief to hear, thank goodness so I really appreciate you taking the time to look into these technical details with me today.",
+      "sentiment_score": 16.2
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[06:17]",
+      "end_time": "[06:32]",
+      "start_time_sec": 377,
+      "text": "I have cleared the security lockout flag. Now we need to establish a fresh temporary four-digit PIN so you can log in so that your account records and provisioning parameters remain completely up to date."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[06:36]",
+      "end_time": "[06:49]",
+      "start_time_sec": 396,
+      "text": "Can you set the temporary PIN to something simple that I can change once I log in since we depend heavily on this service for remote working and family communications every day.",
+      "sentiment_score": 4.1
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[06:53]",
+      "end_time": "[07:03]",
+      "start_time_sec": 413,
+      "text": "I have configured the temporary PIN as 9922 on your mobile profile to maintain optimal throughput and low latency across the regional distribution network."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[07:07]",
+      "end_time": "[07:10]",
+      "start_time_sec": 427,
+      "text": "9922, noted down carefully.",
+      "sentiment_score": 8.2
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[07:14]",
+      "end_time": "[07:20]",
+      "start_time_sec": 434,
+      "text": "Before I commit the new security passcode, that mobile phone number was 07700 900512, correct?"
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[07:24]",
+      "end_time": "[07:27]",
+      "start_time_sec": 444,
+      "text": "Yes, 07700 900512.",
+      "sentiment_score": 4.5
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[07:31]",
+      "end_time": "[07:37]",
+      "start_time_sec": 451,
+      "text": "Obviously telecom fraud regulations require immediate forced PIN update upon first login after an administrative wipe."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[07:41]",
+      "end_time": "[07:48]",
+      "start_time_sec": 461,
+      "text": "Yes, I will change it to a private permanent number as soon as I access the mailbox.",
+      "sentiment_score": 12.1
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[07:52]",
+      "end_time": "[07:57]",
+      "start_time_sec": 472,
+      "text": "Please pick up your mobile phone, open the dialler, and dial 121 now."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[08:01]",
+      "end_time": "[08:06]",
+      "start_time_sec": 481,
+      "text": "Dialling 121 now... The system is asking for the temporary PIN. Entering 9922...",
+      "sentiment_score": 6.4
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[08:10]",
+      "end_time": "[08:15]",
+      "start_time_sec": 490,
+      "text": "What does the automated system prompt say once you enter 9922, Deena?"
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[08:19]",
+      "end_time": "[08:25]",
+      "start_time_sec": 499,
+      "text": "It says 'PIN accepted. Please enter a new four-digit security PIN followed by the hash key.'",
+      "sentiment_score": 14.5
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[08:29]",
+      "end_time": "[08:33]",
+      "start_time_sec": 509,
+      "text": "Go ahead and enter your chosen new four-digit PIN now."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[08:37]",
+      "end_time": "[08:44]",
+      "start_time_sec": 517,
+      "text": "Entering my new PIN now... and pressing hash. It says 'Your new PIN has been saved successfully!'",
+      "sentiment_score": 24.2
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[08:48]",
+      "end_time": "[08:51]",
+      "start_time_sec": 528,
+      "text": "Splendid! Now listen to the message playback prompt."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[08:55]",
+      "end_time": "[09:01]",
+      "start_time_sec": 535,
+      "text": "It says: 'You have one new urgent message received at 10:14 AM.' Playing message now...",
+      "sentiment_score": 18.5
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[09:05]",
+      "end_time": "[09:08]",
+      "start_time_sec": 545,
+      "text": "Please go ahead and listen to your message, Deena."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[09:12]",
+      "end_time": "[09:26]",
+      "start_time_sec": 552,
+      "text": "It is Sister Patricia from St George's Hospital! She says the biopsy came back completely clear and benign! My daughter is going to be completely fine! Oh thank God! Thank you so much Nathan!",
+      "sentiment_score": 62.4
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[09:30]",
+      "end_time": "[09:37]",
+      "start_time_sec": 570,
+      "text": "That is truly wonderful news, Deena! I am so very happy and relieved for you and your daughter!"
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[09:41]",
+      "end_time": "[09:49]",
+      "start_time_sec": 581,
+      "text": "I was in such a state of terror walking around the kitchen. You resolved this so quickly and calmly.",
+      "sentiment_score": 48.2
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[09:53]",
+      "end_time": "[10:02]",
+      "start_time_sec": 593,
+      "text": "It was my absolute pleasure to help. Let us make sure your voicemail notifications appear properly on your screen as well."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[10:06]",
+      "end_time": "[10:11]",
+      "start_time_sec": 606,
+      "text": "Yes, I see the little cassette voicemail icon cleared on my notification bar.",
+      "sentiment_score": 18.4
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[10:15]",
+      "end_time": "[10:22]",
+      "start_time_sec": 615,
+      "text": "And just to verify before we finish, your mobile outgoing calls and mobile data are functioning normally?"
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[10:26]",
+      "end_time": "[10:32]",
+      "start_time_sec": 626,
+      "text": "Yes, I just received a text from my husband and sent a reply without any delay.",
+      "sentiment_score": 14.2
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[10:36]",
+      "end_time": "[10:42]",
+      "start_time_sec": 636,
+      "text": "We have unlocked your voicemail, updated your security PIN, and confirmed your hospital message was retrieved."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[10:46]",
+      "end_time": "[10:50]",
+      "start_time_sec": 646,
+      "text": "Everything is working perfectly. You have been an angel today, Nathan.",
+      "sentiment_score": 28.5
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[10:54]",
+      "end_time": "[11:04]",
+      "start_time_sec": 654,
+      "text": "You can also access your voicemail when travelling abroad by dialling plus four four seven seven zero zero nine zero zero five one two."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[11:08]",
+      "end_time": "[11:13]",
+      "start_time_sec": 668,
+      "text": "That is very handy to know for when we visit relatives in Ireland.",
+      "sentiment_score": 9.4
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[11:17]",
+      "end_time": "[11:24]",
+      "start_time_sec": 677,
+      "text": "Is there any other matter on your S-Net mobile subscription I can assist you with today, Deena?"
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[11:28]",
+      "end_time": "[11:32]",
+      "start_time_sec": 688,
+      "text": "No, everything has been resolved with complete perfection. Thank you Nathan.",
+      "sentiment_score": 22.1
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[11:36]",
+      "end_time": "[11:40]",
+      "start_time_sec": 696,
+      "text": "Please give your daughter our warmest wishes for a speedy recovery."
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[11:44]",
+      "end_time": "[11:51]",
+      "start_time_sec": 704,
+      "text": "Remember that your voicemail messages remain stored on the network server for thirty days before automatic archiving."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[11:55]",
+      "end_time": "[12:00]",
+      "start_time_sec": 715,
+      "text": "That gives me plenty of time to save any important doctor details.",
+      "sentiment_score": 8.2
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[12:04]",
+      "end_time": "[12:10]",
+      "start_time_sec": 724,
+      "text": "You can press three during playback to save the message permanently to your saved archive."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[12:14]",
+      "end_time": "[12:19]",
+      "start_time_sec": 734,
+      "text": "I have pressed three and saved the doctor's message to my permanent archive.",
+      "sentiment_score": 14.1
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[12:23]",
+      "end_time": "[12:30]",
+      "start_time_sec": 743,
+      "text": "Remember that your voicemail messages remain stored on the network server for thirty days before automatic archiving."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[12:34]",
+      "end_time": "[12:39]",
+      "start_time_sec": 754,
+      "text": "That gives me plenty of time to save any important doctor details.",
+      "sentiment_score": 8.2
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[12:43]",
+      "end_time": "[12:49]",
+      "start_time_sec": 763,
+      "text": "You can press three during playback to save the message permanently to your saved archive."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[12:53]",
+      "end_time": "[12:58]",
+      "start_time_sec": 773,
+      "text": "I have pressed three and saved the doctor's message to my permanent archive.",
+      "sentiment_score": 14.1
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[13:02]",
+      "end_time": "[13:05]",
+      "start_time_sec": 782,
+      "text": "I certainly will, thank you so much.",
+      "sentiment_score": 19.5
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[13:09]",
+      "end_time": "[13:15]",
+      "start_time_sec": 789,
+      "text": "Thank you for choosing S-Net mobile customer care, Deena. Have a wonderful and blessed day. Goodbye."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[13:19]",
+      "end_time": "[13:22]",
+      "start_time_sec": 799,
+      "text": "Goodbye Nathan.",
+      "sentiment_score": 6.5
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[13:26]",
+      "end_time": "[13:31]",
+      "start_time_sec": 806,
+      "text": "Thank you for choosing S-Net. Goodbye."
+    }
+  ]
+}

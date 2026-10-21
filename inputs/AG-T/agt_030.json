@@ -1,0 +1,484 @@
+{
+  "tenant_id": "tenant-abc",
+  "customer_name": "Elisha",
+  "transcript": [
+    {
+      "speaker": "Agent",
+      "start_time": "[00:00]",
+      "end_time": "[00:08]",
+      "start_time_sec": 0,
+      "text": "Thank you for calling S-Net order provisioning and technical services, my name is Hannah. How can I help you today?"
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[00:17]",
+      "end_time": "[00:35]",
+      "start_time_sec": 17,
+      "text": "Hello Hannah, my name is Elisha Bennett. I had my full-fibre broadband installed yesterday, but the engineer told me my landline telephone number of twenty-five years has been completely terminated and lost! My eighty-eight-year-old mother and my cardiology clinic rely on that number!",
+      "sentiment_score": -44.2
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[00:44]",
+      "end_time": "[00:57]",
+      "start_time_sec": 44,
+      "text": "Good afternoon Elisha. I can investigate your optical order and voice porting record. Before we access your provisioning profile, could you confirm your full postal address and your account security PIN?"
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[01:06]",
+      "end_time": "[01:16]",
+      "start_time_sec": 66,
+      "text": "Yes, it is 64 Highfield Way, Rickmansworth, WD3 2PP, and my security PIN is 9182. The landline number that was cut off is 01923 774019.",
+      "sentiment_score": -8.4
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[01:25]",
+      "end_time": "[01:35]",
+      "start_time_sec": 85,
+      "text": "Thank you Elisha, that confirms your account details. What happens right now if you dial 01923 774019 from an outside line like a mobile phone?"
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[01:44]",
+      "end_time": "[02:08]",
+      "start_time_sec": 104,
+      "text": "It plays a dead automated recording saying 'The number you have dialled has not been recognized. Please check the number and try again.' Hannah, I am shaking with anxiety! My mother has dementia and cannot remember any other number, and the hospital calls that number for my heart prescriptions! If they can't reach me, it could literally be life-threatening!",
+      "sentiment_score": -64.5
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[02:17]",
+      "end_time": "[02:26]",
+      "start_time_sec": 137,
+      "text": "Bear with me for a couple of minutes while I inspect your Openreach order migration asset records on the national porting portal."
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[03:51]",
+      "end_time": "[04:09]",
+      "start_time_sec": 231,
+      "text": "Thank you for waiting, Elisha. The migration order notes show that when the full-fibre switchover order was placed, the digital voice porting flag was left unticked by the automated sales form, causing the copper circuit to be marked as stopped rather than ported."
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[04:17]",
+      "end_time": "[04:32]",
+      "start_time_sec": 257,
+      "text": "I completely appreciate how precious that family number is to you after twenty-five years, Elisha, and how deeply worrying it is for your mother and hospital clinic. Let us get this investigated and recovered without delay."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[04:40]",
+      "end_time": "[04:49]",
+      "start_time_sec": 280,
+      "text": "Thank you Hannah, hearing you say that gives me hope. Can you get that number back on my new fibre router?",
+      "sentiment_score": 12.4
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[04:57]",
+      "end_time": "[05:07]",
+      "start_time_sec": 297,
+      "text": "Yes, because the number was ceased less than twenty-four hours ago, it sits in an Openreach quarantine reservation pool and has not been re-allocated."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[05:15]",
+      "end_time": "[05:20]",
+      "start_time_sec": 315,
+      "text": "Thank goodness! How do we pull it back from the quarantine pool?",
+      "sentiment_score": 18.2
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[05:28]",
+      "end_time": "[05:35]",
+      "start_time_sec": 328,
+      "text": "We need to submit an Emergency Orphaned Number Porting Recovery ticket directly to the national telecommunications routing desk."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[05:43]",
+      "end_time": "[05:49]",
+      "start_time_sec": 343,
+      "text": "Can you submit that recovery ticket right now while I am on the phone?",
+      "sentiment_score": 8.5
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[05:57]",
+      "end_time": "[06:07]",
+      "start_time_sec": 357,
+      "text": "Yes, I am populating the recovery request form right now. It requires the original CLI, which is 01923 774019, and the ONT optical serial number."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[06:15]",
+      "end_time": "[06:20]",
+      "start_time_sec": 375,
+      "text": "The ONT box on the wall has a barcode sticker that says ONT-SN-998124.",
+      "sentiment_score": 14.1
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[06:28]",
+      "end_time": "[06:38]",
+      "start_time_sec": 388,
+      "text": "ONT-SN-998124, entered. And we need to assign your voice service to Digital Voice Port 1 on the rear of your Hub 5 router."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[06:46]",
+      "end_time": "[06:55]",
+      "start_time_sec": 406,
+      "text": "Yes, my analogue cordless phone base station is plugged directly into the green telephone port on the Hub 5 router right now.",
+      "sentiment_score": 16.4
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[07:03]",
+      "end_time": "[07:10]",
+      "start_time_sec": 423,
+      "text": "Bear with me for two minutes while I submit the emergency porting file through the industry gateway."
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[08:35]",
+      "end_time": "[08:45]",
+      "start_time_sec": 515,
+      "text": "Thank you for waiting, Elisha. The emergency porting request has been successfully transmitted and accepted by the central routing desk with reference PRT-88192-K."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[08:53]",
+      "end_time": "[08:59]",
+      "start_time_sec": 533,
+      "text": "That is wonderful! When will the number actually start ringing again in my house?",
+      "sentiment_score": 22.1
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[09:07]",
+      "end_time": "[09:18]",
+      "start_time_sec": 547,
+      "text": "The central routing desk has an industry turnaround service level agreement of up to five business days to complete routing table propagation across all UK telecom networks."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[09:26]",
+      "end_time": "[09:46]",
+      "start_time_sec": 566,
+      "text": "Five business days?! I cannot wait five days without my cardiology clinic or my vulnerable mother being able to reach me! That is completely unacceptable! I am breaking down with stress! What am I supposed to do if there is a medical emergency over the weekend?!",
+      "sentiment_score": -58.4
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[09:54]",
+      "end_time": "[10:00]",
+      "start_time_sec": 594,
+      "text": "Five business days is the standard industry timeframe mandated by Openreach regulations for orphaned number re-allocation."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[10:08]",
+      "end_time": "[10:17]",
+      "start_time_sec": 608,
+      "text": "You have to do something right now to connect incoming calls to my mobile phone while we wait for the five days!",
+      "sentiment_score": -34.2
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[10:25]",
+      "end_time": "[10:31]",
+      "start_time_sec": 625,
+      "text": "Obviously legacy copper line routing is permanently decommissioned once full fibre optical service activates."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[10:39]",
+      "end_time": "[10:45]",
+      "start_time_sec": 639,
+      "text": "Can you apply an automated network divert from 01923 774019 to my mobile phone 07700 900341?",
+      "sentiment_score": -18.5
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[10:53]",
+      "end_time": "[11:02]",
+      "start_time_sec": 653,
+      "text": "Because the number is currently in quarantine status, automated network call diverts cannot be attached until the digital voice porting completes."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[11:10]",
+      "end_time": "[11:16]",
+      "start_time_sec": 670,
+      "text": "So anyone who calls my landline gets a dead number tone for five days?",
+      "sentiment_score": -22.4
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[11:24]",
+      "end_time": "[11:32]",
+      "start_time_sec": 684,
+      "text": "What I can do immediately is place a temporary automated recorded announcement on the number stating your mobile contact number."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[11:40]",
+      "end_time": "[11:48]",
+      "start_time_sec": 700,
+      "text": "Can you really do that?! That would solve everything! My clinic and mother's carers will hear the mobile number!",
+      "sentiment_score": 38.4
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[11:56]",
+      "end_time": "[12:06]",
+      "start_time_sec": 716,
+      "text": "Yes, I am configuring the network interception message on 01923 774019 right now to state: 'Please call 07700 900341 to reach Elisha Bennett.'"
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[12:14]",
+      "end_time": "[12:25]",
+      "start_time_sec": 734,
+      "text": "Let me dial my landline from my neighbour's phone right now... Calling 01923 774019... It says: 'Please call 07700 900341 to reach Elisha Bennett'! It works perfectly!",
+      "sentiment_score": 64.2
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[12:33]",
+      "end_time": "[12:40]",
+      "start_time_sec": 753,
+      "text": "The interception message will remain active until the full digital voice service ports to your Hub 5 router."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[12:48]",
+      "end_time": "[12:55]",
+      "start_time_sec": 768,
+      "text": "That gives me immense peace of mind. The hospital clinic will hear the message and call my mobile.",
+      "sentiment_score": 48.6
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[13:03]",
+      "end_time": "[13:10]",
+      "start_time_sec": 783,
+      "text": "I have also set an automated high-priority flag on ticket PRT-88192-K with our offline voice engineering queue."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[13:18]",
+      "end_time": "[13:23]",
+      "start_time_sec": 798,
+      "text": "Thank you Hannah, you found a practical workaround that keeps me safe.",
+      "sentiment_score": 34.2
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[13:31]",
+      "end_time": "[13:38]",
+      "start_time_sec": 811,
+      "text": "Before we close our call, that mobile telephone number for the divert notification was 07700 900341, correct?"
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[13:46]",
+      "end_time": "[13:49]",
+      "start_time_sec": 826,
+      "text": "Yes, 07700 900341.",
+      "sentiment_score": 6.5
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[13:57]",
+      "end_time": "[14:04]",
+      "start_time_sec": 837,
+      "text": "We have submitted the emergency porting recovery ticket, confirmed reference PRT-88192-K, and established the network interception announcement."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[14:12]",
+      "end_time": "[14:16]",
+      "start_time_sec": 852,
+      "text": "I am so grateful for the interception message. Thank you Hannah.",
+      "sentiment_score": 29.5
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[14:24]",
+      "end_time": "[14:32]",
+      "start_time_sec": 864,
+      "text": "We will send an automated SMS confirmation to your mobile as soon as the permanent port completes next week."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[14:40]",
+      "end_time": "[14:43]",
+      "start_time_sec": 880,
+      "text": "I will look out for that text message.",
+      "sentiment_score": 16.4
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[14:51]",
+      "end_time": "[14:58]",
+      "start_time_sec": 891,
+      "text": "Is there any other matter regarding your broadband or landline order I can assist with today, Elisha?"
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[15:06]",
+      "end_time": "[15:13]",
+      "start_time_sec": 906,
+      "text": "Your full-fibre gigabit internet connection will continue operating with maximum throughput and stability throughout the porting window."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[15:21]",
+      "end_time": "[15:26]",
+      "start_time_sec": 921,
+      "text": "Yes, the broadband itself has been remarkably fast since the engineer left yesterday.",
+      "sentiment_score": 24.1
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[15:34]",
+      "end_time": "[15:39]",
+      "start_time_sec": 934,
+      "text": "Our automated network management systems will monitor the voice SIP registration continuously."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[15:47]",
+      "end_time": "[15:50]",
+      "start_time_sec": 947,
+      "text": "Thank you, that ensures total continuity for our household.",
+      "sentiment_score": 18.5
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[15:58]",
+      "end_time": "[16:05]",
+      "start_time_sec": 958,
+      "text": "Your full-fibre gigabit internet connection will continue operating with maximum throughput and stability throughout the porting window."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[16:13]",
+      "end_time": "[16:18]",
+      "start_time_sec": 973,
+      "text": "Yes, the broadband itself has been remarkably fast since the engineer left yesterday.",
+      "sentiment_score": 24.1
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[16:26]",
+      "end_time": "[16:31]",
+      "start_time_sec": 986,
+      "text": "Our automated network management systems will monitor the voice SIP registration continuously."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[16:39]",
+      "end_time": "[16:42]",
+      "start_time_sec": 999,
+      "text": "Thank you, that ensures total continuity for our household.",
+      "sentiment_score": 18.5
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[16:50]",
+      "end_time": "[16:57]",
+      "start_time_sec": 1010,
+      "text": "Your full-fibre gigabit internet connection will continue operating with maximum throughput and stability throughout the porting window."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[17:05]",
+      "end_time": "[17:10]",
+      "start_time_sec": 1025,
+      "text": "Yes, the broadband itself has been remarkably fast since the engineer left yesterday.",
+      "sentiment_score": 24.1
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[17:18]",
+      "end_time": "[17:23]",
+      "start_time_sec": 1038,
+      "text": "Our automated network management systems will monitor the voice SIP registration continuously."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[17:31]",
+      "end_time": "[17:34]",
+      "start_time_sec": 1051,
+      "text": "Thank you, that ensures total continuity for our household.",
+      "sentiment_score": 18.5
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[17:42]",
+      "end_time": "[17:49]",
+      "start_time_sec": 1062,
+      "text": "Your full-fibre gigabit internet connection will continue operating with maximum throughput and stability throughout the porting window."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[17:57]",
+      "end_time": "[18:02]",
+      "start_time_sec": 1077,
+      "text": "Yes, the broadband itself has been remarkably fast since the engineer left yesterday.",
+      "sentiment_score": 24.1
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[18:10]",
+      "end_time": "[18:15]",
+      "start_time_sec": 1090,
+      "text": "Our automated network management systems will monitor the voice SIP registration continuously."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[18:23]",
+      "end_time": "[18:26]",
+      "start_time_sec": 1103,
+      "text": "Thank you, that ensures total continuity for our household.",
+      "sentiment_score": 18.5
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[18:34]",
+      "end_time": "[18:39]",
+      "start_time_sec": 1114,
+      "text": "No thank you Hannah, you have taken care of the most important thing.",
+      "sentiment_score": 22.1
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[18:47]",
+      "end_time": "[18:53]",
+      "start_time_sec": 1127,
+      "text": "Thank you for choosing S-Net order provisioning and technical services, Elisha. Take care and goodbye."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[19:01]",
+      "end_time": "[19:04]",
+      "start_time_sec": 1141,
+      "text": "Goodbye Hannah.",
+      "sentiment_score": 6.5
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[19:12]",
+      "end_time": "[19:17]",
+      "start_time_sec": 1152,
+      "text": "Thank you for choosing S-Net. Goodbye."
+    }
+  ]
+}

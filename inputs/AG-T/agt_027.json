@@ -1,0 +1,485 @@
+{
+  "tenant_id": "tenant-abc",
+  "customer_name": "Dylan",
+  "transcript": [
+    {
+      "speaker": "Agent",
+      "start_time": "[00:00]",
+      "end_time": "[00:07]",
+      "start_time_sec": 0,
+      "text": "Thank you for calling S-Net broadband technical support, my name is Marcus. How can I help you today?"
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[00:13]",
+      "end_time": "[00:27]",
+      "start_time_sec": 13,
+      "text": "Hello Marcus, my name is Dylan Price. My desktop Outlook application has completely stopped sending and receiving emails for my S-Net account, and keeps throwing an invalid password error prompt every thirty seconds!",
+      "sentiment_score": -32.5
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[00:33]",
+      "end_time": "[00:46]",
+      "start_time_sec": 33,
+      "text": "Good afternoon Dylan. I can inspect your email mailbox routing and IMAP authentication parameters. Before we access your mailbox configuration, could you confirm your full postal address and your account security PIN?"
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[00:52]",
+      "end_time": "[01:01]",
+      "start_time_sec": 52,
+      "text": "Yes, it is 83 Castle Street, Cardiff, CF10 1BS, and my security PIN is 4429. My S-Net email address is dylan.accountant@snet-mail.co.uk.",
+      "sentiment_score": -6.4
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[01:07]",
+      "end_time": "[01:15]",
+      "start_time_sec": 67,
+      "text": "Thank you Dylan, that confirms your account details. What specific error message or diagnostic code appears in Microsoft Outlook?"
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[01:21]",
+      "end_time": "[01:42]",
+      "start_time_sec": 81,
+      "text": "A pop-up window keeps appearing saying 'Enter your user name and password for the following server: imap.snet-mail.co.uk.' I type my regular webmail password, click OK, and the exact same box immediately pops up again because having a reliable home broadband connection is absolutely essential for our daily household work.",
+      "sentiment_score": -28.2
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[01:48]",
+      "end_time": "[02:00]",
+      "start_time_sec": 108,
+      "text": "Can you still log into your webmail account through an internet browser on our website using that exact password in accordance with our standard telecommunications network diagnostic procedures."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[02:06]",
+      "end_time": "[02:24]",
+      "start_time_sec": 126,
+      "text": "Yes, I logged into webmail on Google Chrome ten minutes ago without any problem using that password, but Outlook on my desktop keeps rejecting it so I really appreciate you taking the time to look into these technical details with me today.",
+      "sentiment_score": -14.5
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[02:30]",
+      "end_time": "[02:46]",
+      "start_time_sec": 150,
+      "text": "Bear with me for a couple of minutes while I check your email account status and modern authentication security flags on our mail cluster across all your connected household devices including laptops, mobile phones, and streaming hardware."
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[04:11]",
+      "end_time": "[04:27]",
+      "start_time_sec": 251,
+      "text": "Thank you for waiting, Dylan. Your mailbox account is active, but our mail system completed an automated security migration to mandatory dedicated application passwords last weekend to maintain optimal throughput and low latency across the regional distribution network."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[04:33]",
+      "end_time": "[04:57]",
+      "start_time_sec": 273,
+      "text": "I am a chartered accountant with corporation tax filings due to HMRC before five o'clock this evening! If I cannot send client tax returns through Outlook, I will incur substantial financial and professional penalties! I am frantic with worry so I really appreciate you taking the time to look into these technical details with me today.",
+      "sentiment_score": -58.4
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[05:03]",
+      "end_time": "[05:15]",
+      "start_time_sec": 303,
+      "text": "When third-party desktop mail applications connect to S-Net mailboxes, they can no longer authenticate using your primary webmail login password in accordance with our standard telecommunications network diagnostic procedures."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[05:21]",
+      "end_time": "[05:36]",
+      "start_time_sec": 321,
+      "text": "Why wasn't I informed of this change before my email abruptly stopped working during my busiest tax week of the quarter since we depend heavily on this service for remote working and family communications every day.",
+      "sentiment_score": -44.2
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[05:42]",
+      "end_time": "[05:54]",
+      "start_time_sec": 342,
+      "text": "Notification emails were dispatched to all primary mailbox accounts thirty days prior to security protocol enforcement across all your connected household devices including laptops, mobile phones, and streaming hardware."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[06:00]",
+      "end_time": "[06:15]",
+      "start_time_sec": 360,
+      "text": "I never received any such email! What do I actually need to do in Outlook right now to fix this because having a reliable home broadband connection is absolutely essential for our daily household work.",
+      "sentiment_score": -32.1
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[06:21]",
+      "end_time": "[06:33]",
+      "start_time_sec": 381,
+      "text": "You must generate an encrypted sixteen-character application password within your webmail account security settings to ensure your S-Net service operates reliably without unexpected dropped packets or connection faults."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[06:39]",
+      "end_time": "[06:54]",
+      "start_time_sec": 399,
+      "text": "I have my webmail open in Chrome right now. Where do I click to generate this app password so I really appreciate you taking the time to look into these technical details with me today.",
+      "sentiment_score": -12.4
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[07:00]",
+      "end_time": "[07:06]",
+      "start_time_sec": 420,
+      "text": "Obviously older desktop clients do not support OAuth modern authentication without generating dedicated app passwords."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[07:12]",
+      "end_time": "[07:18]",
+      "start_time_sec": 432,
+      "text": "I understand that, Marcus, but please guide me through the menu on the screen.",
+      "sentiment_score": -18.2
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[07:24]",
+      "end_time": "[07:31]",
+      "start_time_sec": 444,
+      "text": "Click on the gear icon in the top right corner of the webmail window to access Settings."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[07:37]",
+      "end_time": "[07:40]",
+      "start_time_sec": 457,
+      "text": "Clicked on Settings. Now what?",
+      "sentiment_score": -4.1
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[07:46]",
+      "end_time": "[07:50]",
+      "start_time_sec": 466,
+      "text": "On the left navigation sidebar, select 'Security & Connected Devices'."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[07:56]",
+      "end_time": "[08:01]",
+      "start_time_sec": 476,
+      "text": "Selected Security and Connected Devices. I see a section called 'Application Passwords'.",
+      "sentiment_score": 12.4
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[08:07]",
+      "end_time": "[08:11]",
+      "start_time_sec": 487,
+      "text": "Click on the blue button that says 'Generate New App Password'."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[08:17]",
+      "end_time": "[08:21]",
+      "start_time_sec": 497,
+      "text": "Clicked it. It asks for a label name for the application.",
+      "sentiment_score": 14.2
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[08:27]",
+      "end_time": "[08:31]",
+      "start_time_sec": 507,
+      "text": "Enter 'Desktop Outlook' in the label box and click 'Generate'."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[08:37]",
+      "end_time": "[08:43]",
+      "start_time_sec": 517,
+      "text": "Entered Desktop Outlook and clicked Generate. A sixteen-character password has appeared in bold text.",
+      "sentiment_score": 22.1
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[08:49]",
+      "end_time": "[08:56]",
+      "start_time_sec": 529,
+      "text": "Do not close that web browser tab because that password is only displayed once for security reasons."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[09:02]",
+      "end_time": "[09:08]",
+      "start_time_sec": 542,
+      "text": "Keeping the browser tab open. Now how do I put it into Microsoft Outlook?",
+      "sentiment_score": 16.4
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[09:14]",
+      "end_time": "[09:18]",
+      "start_time_sec": 554,
+      "text": "Open Microsoft Outlook and bring up that server password pop-up prompt."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[09:24]",
+      "end_time": "[09:28]",
+      "start_time_sec": 564,
+      "text": "The pop-up box is in front of me right now.",
+      "sentiment_score": 8.2
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[09:34]",
+      "end_time": "[09:38]",
+      "start_time_sec": 574,
+      "text": "Clear whatever password is currently typed into the password field."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[09:44]",
+      "end_time": "[09:47]",
+      "start_time_sec": 584,
+      "text": "Cleared the password box completely.",
+      "sentiment_score": 4.5
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[09:53]",
+      "end_time": "[09:56]",
+      "start_time_sec": 593,
+      "text": "What was that S-Net email address again?"
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[10:02]",
+      "end_time": "[10:05]",
+      "start_time_sec": 602,
+      "text": "As I told you earlier, it's dylan.accountant@snet-mail.co.uk.",
+      "sentiment_score": -16.2
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[10:11]",
+      "end_time": "[10:18]",
+      "start_time_sec": 611,
+      "text": "Copy the sixteen-character application password from your webmail screen and paste it into the Outlook password box."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[10:24]",
+      "end_time": "[10:27]",
+      "start_time_sec": 624,
+      "text": "Pasting the sixteen-character password now... It filled with asterisks.",
+      "sentiment_score": 18.2
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[10:33]",
+      "end_time": "[10:40]",
+      "start_time_sec": 633,
+      "text": "Make sure the checkbox labeled 'Save this password in your password list' or 'Remember password' is ticked."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[10:46]",
+      "end_time": "[10:49]",
+      "start_time_sec": 646,
+      "text": "Ticked Remember password.",
+      "sentiment_score": 6.5
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[10:55]",
+      "end_time": "[10:58]",
+      "start_time_sec": 655,
+      "text": "Now click the 'OK' button."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[11:04]",
+      "end_time": "[11:12]",
+      "start_time_sec": 664,
+      "text": "Clicked OK... The pop-up box vanished! And in the bottom right corner of Outlook it says 'Connected' and 'Updating Inbox'!",
+      "sentiment_score": 58.4
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[11:18]",
+      "end_time": "[11:25]",
+      "start_time_sec": 678,
+      "text": "Click 'Send / Receive All Folders' at the top of Outlook to ensure the message queue processes."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[11:31]",
+      "end_time": "[11:42]",
+      "start_time_sec": 691,
+      "text": "Clicking Send and Receive now... Yes! Forty-two new emails just flooded into my inbox, and the outgoing HMRC submission email in my Outbox just sent successfully!",
+      "sentiment_score": 66.8
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[11:48]",
+      "end_time": "[11:54]",
+      "start_time_sec": 708,
+      "text": "Let us verify your outgoing SMTP port parameters to ensure outgoing dispatch remains completely stable."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[12:00]",
+      "end_time": "[12:06]",
+      "start_time_sec": 720,
+      "text": "I opened Account Settings: outgoing server is smtp.snet-mail.co.uk on port 587 with STARTTLS encryption.",
+      "sentiment_score": 24.5
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[12:11]",
+      "end_time": "[12:14]",
+      "start_time_sec": 731,
+      "text": "Those are our exact recommended secure port specifications, Dylan."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[12:19]",
+      "end_time": "[12:25]",
+      "start_time_sec": 739,
+      "text": "What a massive relief! My client tax return is officially delivered to HMRC on time.",
+      "sentiment_score": 42.1
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[12:30]",
+      "end_time": "[12:40]",
+      "start_time_sec": 750,
+      "text": "If you also synchronize S-Net email on a mobile smartphone mail app, you will need to generate a separate app password labeled 'Mobile Phone'."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[12:45]",
+      "end_time": "[12:52]",
+      "start_time_sec": 765,
+      "text": "I only access business email on this desktop workstation, so this single app password is all I need.",
+      "sentiment_score": 18.2
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[12:57]",
+      "end_time": "[13:06]",
+      "start_time_sec": 777,
+      "text": "We have generated a dedicated sixteen-character app password, saved it in Microsoft Outlook, and confirmed both inbound and outbound synchronization work."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[13:11]",
+      "end_time": "[13:14]",
+      "start_time_sec": 791,
+      "text": "Yes, everything is working flawlessly now. Thank you Marcus.",
+      "sentiment_score": 26.5
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[13:19]",
+      "end_time": "[13:27]",
+      "start_time_sec": 799,
+      "text": "Is there any other technical matter regarding your broadband connection or email accounts I can assist you with today, Dylan?"
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[13:32]",
+      "end_time": "[13:40]",
+      "start_time_sec": 812,
+      "text": "You can revoke that application password at any time from your webmail security dashboard if you ever replace your computer."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[13:45]",
+      "end_time": "[13:51]",
+      "start_time_sec": 825,
+      "text": "That is good to know for when I upgrade my office PC next year.",
+      "sentiment_score": 12.1
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[13:56]",
+      "end_time": "[14:03]",
+      "start_time_sec": 836,
+      "text": "Our mail server spam filtering heuristics will continue operating transparently in the background across all your devices."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[14:08]",
+      "end_time": "[14:13]",
+      "start_time_sec": 848,
+      "text": "Excellent, the junk mail filter does a very reliable job with accounting spam.",
+      "sentiment_score": 15.4
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[14:18]",
+      "end_time": "[14:26]",
+      "start_time_sec": 858,
+      "text": "You can revoke that application password at any time from your webmail security dashboard if you ever replace your computer."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[14:31]",
+      "end_time": "[14:37]",
+      "start_time_sec": 871,
+      "text": "That is good to know for when I upgrade my office PC next year.",
+      "sentiment_score": 12.1
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[14:42]",
+      "end_time": "[14:49]",
+      "start_time_sec": 882,
+      "text": "Our mail server spam filtering heuristics will continue operating transparently in the background across all your devices."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[14:54]",
+      "end_time": "[14:59]",
+      "start_time_sec": 894,
+      "text": "Excellent, the junk mail filter does a very reliable job with accounting spam.",
+      "sentiment_score": 15.4
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[15:04]",
+      "end_time": "[15:10]",
+      "start_time_sec": 904,
+      "text": "No, that was the only critical issue. Thank you for walking me through the setup.",
+      "sentiment_score": 19.4
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[15:15]",
+      "end_time": "[15:21]",
+      "start_time_sec": 915,
+      "text": "Thank you for choosing S-Net broadband customer services, Dylan. Have a successful and productive afternoon. Goodbye."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[15:26]",
+      "end_time": "[15:29]",
+      "start_time_sec": 926,
+      "text": "Goodbye Marcus.",
+      "sentiment_score": 6.5
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[15:34]",
+      "end_time": "[15:39]",
+      "start_time_sec": 934,
+      "text": "Thank you for choosing S-Net. Goodbye."
+    }
+  ]
+}

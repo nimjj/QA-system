@@ -1,0 +1,190 @@
+{
+  "call_id": "agt_023",
+  "tenant_id": "tenant-abc",
+  "status": "completed",
+  "result": {
+    "final_score": 38.3,
+    "is_auto_fail": false,
+    "auto_fail_reason": null,
+    "scorecard": [
+      {
+        "category": "Soft Skills",
+        "name": "Branding and Survey Check",
+        "rating": "PASS",
+        "coaching": ""
+      },
+      {
+        "category": "Soft Skills",
+        "name": "Hold time and Dead Air",
+        "rating": "PASS",
+        "coaching": ""
+      },
+      {
+        "category": "Technical Knowledge",
+        "name": "Verified customer",
+        "rating": "PASS",
+        "coaching": ""
+      },
+      {
+        "category": "Soft Skills",
+        "name": "Personalized the call/ticket appropriately",
+        "rating": "PASS",
+        "coaching": ""
+      },
+      {
+        "category": "Soft Skills",
+        "name": "Empathy & Acknowledgment Statement",
+        "rating": "FAIL",
+        "coaching": "Ignored customer fury and overdraft stress at [03:20] when three post-cancellation direct debits were collected."
+      },
+      {
+        "category": "Technical Knowledge",
+        "name": "Paraphrasing",
+        "rating": "FAIL",
+        "coaching": "Failed to paraphrase customer's dispute, merely echoing that cancellation was submitted in August."
+      },
+      {
+        "category": "Technical Knowledge",
+        "name": "Active listening",
+        "rating": "PASS",
+        "coaching": ""
+      },
+      {
+        "category": "Technical Knowledge",
+        "name": "Took ownership of the problem",
+        "rating": "FAIL",
+        "coaching": "Deflected responsibility at [04:45] by telling customer to raise an indemnity claim with Barclays rather than resolving refund directly."
+      },
+      {
+        "category": "Soft Skills",
+        "name": "Build rapport and observed professionalism",
+        "rating": "FAIL",
+        "coaching": "Spoke rudely at [04:10] by stating customer should have checked his bank statements rather than taking accountability."
+      },
+      {
+        "category": "Technical Knowledge",
+        "name": "Probing",
+        "rating": "FAIL",
+        "coaching": "Failed to ask probing questions regarding return tracking receipts or cancellation email records."
+      },
+      {
+        "category": "Technical Knowledge",
+        "name": "Confirmed the issue is resolved",
+        "rating": "PASS",
+        "coaching": ""
+      }
+    ]
+  },
+  "grader": {
+    "graded_by": "Antigravity (gemini-3.8-flash)",
+    "graded_on": "2026-10-21",
+    "scenario": "Direct debit billed three months after cancelling contract and returning equipment",
+    "tier": "poor",
+    "duration_sec": 1018,
+    "notes": "Agent exhibited serious customer service failures including blaming the customer for not checking his bank statements, deflecting responsibility to the customer's bank, and failing to show empathy, though eventual supervisor refund authorization resolved the monetary dispute.",
+    "hard_cases": [
+      "Empathy & Acknowledgment Statement",
+      "Build rapport and observed professionalism",
+      "Took ownership of the problem"
+    ],
+    "items": [
+      {
+        "name": "Branding and Survey Check",
+        "rating": "PASS",
+        "confidence": "clear",
+        "evidence": "Agent opened with 'Thank you for calling S-Net billing customer services' at [00:00] and closed with 'Thank you for choosing S-Net' in final lines."
+      },
+      {
+        "name": "Hold time and Dead Air",
+        "rating": "PASS",
+        "confidence": "clear",
+        "evidence": "Holds announced with bear with me and thanked upon return without unmanaged dead air."
+      },
+      {
+        "name": "Verified customer",
+        "rating": "PASS",
+        "confidence": "clear",
+        "evidence": "Verified full postal address and security PIN within the first 240 seconds."
+      },
+      {
+        "name": "Personalized the call/ticket appropriately",
+        "rating": "PASS",
+        "confidence": "clear",
+        "evidence": "Agent addressed customer as Declan throughout the call."
+      },
+      {
+        "name": "Empathy & Acknowledgment Statement",
+        "rating": "FAIL",
+        "confidence": "clear",
+        "evidence": "Customer expressed severe frustration over £162 taken and overdraft charges; agent offered no acknowledgment or apology."
+      },
+      {
+        "name": "Paraphrasing",
+        "rating": "FAIL",
+        "confidence": "clear",
+        "evidence": "Agent never restated the dispute in his own words."
+      },
+      {
+        "name": "Active listening",
+        "rating": "PASS",
+        "confidence": "clear",
+        "evidence": "Agent maintained accurate details and did not ask for previously supplied information again."
+      },
+      {
+        "name": "Took ownership of the problem",
+        "rating": "FAIL",
+        "confidence": "clear",
+        "evidence": "[04:45] Agent: 'Under banking rules, if you want immediate reimbursement, you need to contact Barclays directly to raise a direct debit indemnity claim rather than expecting customer services to issue manual refunds.'"
+      },
+      {
+        "name": "Build rapport and observed professionalism",
+        "rating": "FAIL",
+        "confidence": "clear",
+        "evidence": "[04:10] Agent: 'Well if you had actually checked your monthly bank statements in September, you would have noticed the first collection and contacted us before three cycles ran.'"
+      },
+      {
+        "name": "Probing",
+        "rating": "FAIL",
+        "confidence": "clear",
+        "evidence": "Agent did not probe into warehouse return logs or prior cancellation notes."
+      },
+      {
+        "name": "Confirmed the issue is resolved",
+        "rating": "PASS",
+        "confidence": "clear",
+        "evidence": "Customer confirmed receipt of refund email confirmation for £162 and accepted mandate cancellation."
+      }
+    ],
+    "markers": {
+      "active_listening": [
+        {
+          "kind": "harmless_recheck",
+          "premise_turn": 3,
+          "agent_turn": 21
+        }
+      ],
+      "paraphrasing": [
+        {
+          "kind": "not_a_restatement",
+          "agent_turn": 4
+        }
+      ],
+      "rapport": [
+        {
+          "kind": "rude",
+          "agent_turn": 13
+        },
+        {
+          "kind": "blunt_but_ok",
+          "agent_turn": 23
+        }
+      ],
+      "empathy": [
+        {
+          "kind": "unhandled",
+          "customer_turn": 12
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,440 @@
+{
+  "tenant_id": "tenant-abc",
+  "customer_name": "Imogen",
+  "transcript": [
+    {
+      "speaker": "Agent",
+      "start_time": "[00:00]",
+      "end_time": "[00:08]",
+      "start_time_sec": 0,
+      "text": "Thank you for calling S-Net international roaming customer care, my name is Darren. How can I help you today?"
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[00:13]",
+      "end_time": "[00:31]",
+      "start_time_sec": 13,
+      "text": "Hello Darren, my name is Imogen Cross. I am currently in Dubai on business, and my S-Net mobile phone has completely blocked all incoming SMS messages, meaning I cannot receive the two-factor authentication codes from HSBC to authorise my corporate hotel payment!",
+      "sentiment_score": -34.8
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[00:36]",
+      "end_time": "[00:49]",
+      "start_time_sec": 36,
+      "text": "Good afternoon Imogen. I can inspect your international roaming profile and barring flags. Before we access your overseas account, could you confirm your full postal address and your account security PIN?"
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[00:54]",
+      "end_time": "[01:03]",
+      "start_time_sec": 54,
+      "text": "Yes, it is 82 Kensington Church Street, London, W8 4DB, and my security PIN is 9104. My mobile number is 07700 900742.",
+      "sentiment_score": -5.2
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[01:08]",
+      "end_time": "[01:17]",
+      "start_time_sec": 68,
+      "text": "Thank you Imogen, that confirms your account details. What network operator name is currently displayed at the top of your phone screen?"
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[01:22]",
+      "end_time": "[01:36]",
+      "start_time_sec": 82,
+      "text": "It is connected to 'du' or 'Etisalat' with three bars of 4G, but text messages are completely blocked because having a reliable home broadband connection is absolutely essential for our daily household work.",
+      "sentiment_score": -22.4
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[01:41]",
+      "end_time": "[01:55]",
+      "start_time_sec": 101,
+      "text": "Bear with me for a couple of minutes while I query your international roaming ledger and spend cap thresholds on our roaming clearinghouse gateway in accordance with our standard telecommunications network diagnostic procedures."
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[03:20]",
+      "end_time": "[03:35]",
+      "start_time_sec": 200,
+      "text": "Thank you for waiting, Imogen. Your profile has an automated zero-pound international roaming spend cap activated, which suspends roaming services once triggered so that your account records and provisioning parameters remain completely up to date."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[03:40]",
+      "end_time": "[04:04]",
+      "start_time_sec": 220,
+      "text": "I am standing in the hotel reception in Dubai with my business luggage, and the desk clerk is threatening to cancel my room reservation because my corporate credit card requires an SMS verification code! I have important client executive meetings tomorrow morning! If I get locked out on the street in a foreign country, it will be a professional catastrophe! I am frantic with panic because having a reliable home broadband connection is absolutely essential for our daily household work.",
+      "sentiment_score": -64.2
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[04:09]",
+      "end_time": "[04:21]",
+      "start_time_sec": 249,
+      "text": "International spend caps are statutory consumer protections mandated by telecom regulatory frameworks to prevent bill shock to maintain optimal throughput and low latency across the regional distribution network."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[04:26]",
+      "end_time": "[04:45]",
+      "start_time_sec": 266,
+      "text": "I do not care about bill shock, Darren! I want you to lift that spend cap right now so the HSBC security code can reach my phone so I really appreciate you taking the time to look into these technical details with me today.",
+      "sentiment_score": -52.1
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[04:50]",
+      "end_time": "[05:04]",
+      "start_time_sec": 290,
+      "text": "Well if you had actually checked international roaming spend caps before flying to the Middle East, you wouldn't be locked out of your banking app in accordance with our standard telecommunications network diagnostic procedures."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[05:09]",
+      "end_time": "[05:25]",
+      "start_time_sec": 309,
+      "text": "How dare you speak to me like that! I told S-Net last week that I was travelling to the UAE on business since we depend heavily on this service for remote working and family communications every day.",
+      "sentiment_score": -58.4
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[05:30]",
+      "end_time": "[05:41]",
+      "start_time_sec": 330,
+      "text": "Frontline telephony representatives cannot manually override statutory roaming spend cap bars exceeding forty-five pounds across all your connected household devices including laptops, mobile phones, and streaming hardware."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[05:46]",
+      "end_time": "[05:59]",
+      "start_time_sec": 346,
+      "text": "Then transfer me immediately to your overseas duty manager who can authorize the temporary cap lift because having a reliable home broadband connection is absolutely essential for our daily household work.",
+      "sentiment_score": -44.2
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[06:04]",
+      "end_time": "[06:20]",
+      "start_time_sec": 364,
+      "text": "Duty managers do not handle consumer international roaming spend cap disputes over the phone. You must log into the web portal to modify spend limits to ensure your S-Net service operates reliably without unexpected dropped packets or connection faults."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[06:25]",
+      "end_time": "[06:43]",
+      "start_time_sec": 385,
+      "text": "I cannot log into the web portal because the portal also requires an SMS two-factor code! You have trapped me in an impossible circular nightmare so I really appreciate you taking the time to look into these technical details with me today.",
+      "sentiment_score": -62.4
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[06:48]",
+      "end_time": "[06:58]",
+      "start_time_sec": 408,
+      "text": "Obviously automated security protocols require SMS authentication for portal profile alterations so that your account records and provisioning parameters remain completely up to date."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[07:03]",
+      "end_time": "[07:21]",
+      "start_time_sec": 423,
+      "text": "You refuse to lift the bar, you refuse to let me speak to a supervisor, and you blame me for company security rules! This is disgraceful customer care since we depend heavily on this service for remote working and family communications every day.",
+      "sentiment_score": -48.2
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[07:26]",
+      "end_time": "[07:37]",
+      "start_time_sec": 446,
+      "text": "I am informing you of the mandatory security boundaries enforced by our backend platforms to maintain optimal throughput and low latency across the regional distribution network."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[07:42]",
+      "end_time": "[07:55]",
+      "start_time_sec": 462,
+      "text": "Can you at least whitelist incoming SMS traffic from UK shortcodes so banking texts are free because having a reliable home broadband connection is absolutely essential for our daily household work.",
+      "sentiment_score": -28.4
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[08:00]",
+      "end_time": "[08:10]",
+      "start_time_sec": 480,
+      "text": "Technical systems do not differentiate between incoming commercial SMS and transactional bank security tokens in accordance with our standard telecommunications network diagnostic procedures."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[08:15]",
+      "end_time": "[08:18]",
+      "start_time_sec": 495,
+      "text": "This is utterly unacceptable.",
+      "sentiment_score": -34.5
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[08:23]",
+      "end_time": "[08:35]",
+      "start_time_sec": 503,
+      "text": "I can submit an exceptional spend cap override ticket to our international roaming operations desk so that your account records and provisioning parameters remain completely up to date."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[08:40]",
+      "end_time": "[08:50]",
+      "start_time_sec": 520,
+      "text": "What is the turnaround time on that override ticket because having a reliable home broadband connection is absolutely essential for our daily household work.",
+      "sentiment_score": -18.2
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[08:55]",
+      "end_time": "[09:06]",
+      "start_time_sec": 535,
+      "text": "The international roaming operations desk operates on an SLA of four to six hours to maintain optimal throughput and low latency across the regional distribution network."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[09:11]",
+      "end_time": "[09:27]",
+      "start_time_sec": 551,
+      "text": "Four to six hours?! I will be sleeping in the hotel lobby by then! Give me the ticket reference number so I really appreciate you taking the time to look into these technical details with me today.",
+      "sentiment_score": -42.1
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[09:32]",
+      "end_time": "[09:35]",
+      "start_time_sec": 572,
+      "text": "The ticket reference identifier is ROAM-88192-D."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[09:40]",
+      "end_time": "[09:43]",
+      "start_time_sec": 580,
+      "text": "ROAM-88192-D, noted down.",
+      "sentiment_score": -8.2
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[09:48]",
+      "end_time": "[09:56]",
+      "start_time_sec": 588,
+      "text": "I have attached a high-priority flag indicating business travel urgency in accordance with our standard telecommunications network diagnostic procedures."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[10:01]",
+      "end_time": "[10:06]",
+      "start_time_sec": 601,
+      "text": "I will have to plead with hotel reception to hold the room.",
+      "sentiment_score": -14.5
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[10:11]",
+      "end_time": "[10:17]",
+      "start_time_sec": 611,
+      "text": "The roaming clearance team will process the profile directly on the Etisalat clearing gateway."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[10:22]",
+      "end_time": "[10:26]",
+      "start_time_sec": 622,
+      "text": "I hope they do so much faster than four hours.",
+      "sentiment_score": -6.2
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[10:31]",
+      "end_time": "[10:34]",
+      "start_time_sec": 631,
+      "text": "All roaming communications will be logged under case ROAM-88192-D."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[10:39]",
+      "end_time": "[10:42]",
+      "start_time_sec": 639,
+      "text": "Very well. I will monitor my phone continuously.",
+      "sentiment_score": 4.2
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[10:47]",
+      "end_time": "[10:52]",
+      "start_time_sec": 647,
+      "text": "Our corporate roaming support team reviews all overseas spend cap blocks daily."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[10:57]",
+      "end_time": "[11:01]",
+      "start_time_sec": 657,
+      "text": "They need to fix this circular SMS verification trap permanently.",
+      "sentiment_score": 8.4
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[11:06]",
+      "end_time": "[11:09]",
+      "start_time_sec": 666,
+      "text": "What was that mobile phone number again?"
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[11:14]",
+      "end_time": "[11:20]",
+      "start_time_sec": 674,
+      "text": "As I told you right at the start of the call, it is 07700 900742.",
+      "sentiment_score": -16.2
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[11:25]",
+      "end_time": "[11:30]",
+      "start_time_sec": 685,
+      "text": "I have confirmed 07700 900742 as the primary MSISDN on the override ticket."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[11:35]",
+      "end_time": "[11:39]",
+      "start_time_sec": 695,
+      "text": "Thank you, please expedite it as fast as humanly possible.",
+      "sentiment_score": 12.1
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[11:44]",
+      "end_time": "[11:50]",
+      "start_time_sec": 704,
+      "text": "Is there any other matter regarding your roaming profile I can assist you with today, Imogen?"
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[11:55]",
+      "end_time": "[11:59]",
+      "start_time_sec": 715,
+      "text": "Our international roaming carrier agreements comply with GSMA telecommunications standards."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[12:04]",
+      "end_time": "[12:08]",
+      "start_time_sec": 724,
+      "text": "I expect S-Net to provide functional service for business travelers abroad.",
+      "sentiment_score": -8.2
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[12:13]",
+      "end_time": "[12:17]",
+      "start_time_sec": 733,
+      "text": "Our international roaming carrier agreements comply with GSMA telecommunications standards."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[12:22]",
+      "end_time": "[12:26]",
+      "start_time_sec": 742,
+      "text": "I expect S-Net to provide functional service for business travelers abroad.",
+      "sentiment_score": -8.2
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[12:30]",
+      "end_time": "[12:34]",
+      "start_time_sec": 750,
+      "text": "Our international roaming carrier agreements comply with GSMA telecommunications standards."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[12:38]",
+      "end_time": "[12:42]",
+      "start_time_sec": 758,
+      "text": "I expect S-Net to provide functional service for business travelers abroad.",
+      "sentiment_score": -8.2
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[12:46]",
+      "end_time": "[12:50]",
+      "start_time_sec": 766,
+      "text": "Our international roaming carrier agreements comply with GSMA telecommunications standards."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[12:54]",
+      "end_time": "[12:58]",
+      "start_time_sec": 774,
+      "text": "I expect S-Net to provide functional service for business travelers abroad.",
+      "sentiment_score": -8.2
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[13:02]",
+      "end_time": "[13:06]",
+      "start_time_sec": 782,
+      "text": "Our international roaming carrier agreements comply with GSMA telecommunications standards."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[13:10]",
+      "end_time": "[13:14]",
+      "start_time_sec": 790,
+      "text": "I expect S-Net to provide functional service for business travelers abroad.",
+      "sentiment_score": -8.2
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[13:18]",
+      "end_time": "[13:22]",
+      "start_time_sec": 798,
+      "text": "Our international roaming carrier agreements comply with GSMA telecommunications standards."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[13:26]",
+      "end_time": "[13:30]",
+      "start_time_sec": 806,
+      "text": "I expect S-Net to provide functional service for business travelers abroad.",
+      "sentiment_score": -8.2
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[13:34]",
+      "end_time": "[13:37]",
+      "start_time_sec": 814,
+      "text": "No, you have been unhelpful and rude.",
+      "sentiment_score": -14.5
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[13:41]",
+      "end_time": "[13:45]",
+      "start_time_sec": 821,
+      "text": "Thank you for choosing S-Net international roaming customer care, Imogen. Goodbye."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[13:49]",
+      "end_time": "[13:52]",
+      "start_time_sec": 829,
+      "text": "Goodbye Darren.",
+      "sentiment_score": -6.2
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[13:56]",
+      "end_time": "[14:01]",
+      "start_time_sec": 836,
+      "text": "Thank you for choosing S-Net. Goodbye."
+    }
+  ]
+}

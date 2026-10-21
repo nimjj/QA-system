@@ -1,0 +1,440 @@
+{
+  "tenant_id": "tenant-abc",
+  "customer_name": "Keira",
+  "transcript": [
+    {
+      "speaker": "Agent",
+      "start_time": "[00:00]",
+      "end_time": "[00:07]",
+      "start_time_sec": 0,
+      "text": "Thank you for calling S-Net mobile technical support, my name is Chloe. How can I help you today?"
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[00:12]",
+      "end_time": "[00:30]",
+      "start_time_sec": 12,
+      "text": "Hello Chloe, my name is Keira Hughes. I received my new Samsung Galaxy S24 this morning, but when I scan the QR code to install my S-Net eSIM profile, the phone keeps throwing an error saying 'eSIM profile invalid or already redeemed'!",
+      "sentiment_score": -32.4
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[00:35]",
+      "end_time": "[00:51]",
+      "start_time_sec": 35,
+      "text": "Good morning Keira. I can certainly assist you with generating a fresh eSIM profile and verifying your cellular attachment. Before we access your mobile subscription, could you confirm your full postal address and your account security PIN?"
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[00:56]",
+      "end_time": "[01:05]",
+      "start_time_sec": 56,
+      "text": "Yes, it is 83 Victoria Road, Swindon, SN1 3BD, and my security PIN is 4491. My mobile phone number is 07700 900518.",
+      "sentiment_score": -5.2
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[01:10]",
+      "end_time": "[01:18]",
+      "start_time_sec": 70,
+      "text": "Thank you Keira, that confirms your account details. What happens when you tap 'Retry' on the Samsung SIM manager screen?"
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[01:23]",
+      "end_time": "[01:39]",
+      "start_time_sec": 83,
+      "text": "It attempts to connect to the profile server for five seconds and then displays the exact same error: 'Profile invalid or already redeemed' because having a reliable home broadband connection is absolutely essential for our daily household work.",
+      "sentiment_score": -22.1
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[01:44]",
+      "end_time": "[01:57]",
+      "start_time_sec": 104,
+      "text": "Bear with me for a couple of minutes while I query your digital SIM reservation token on our GSMA subscription manager data center in accordance with our standard telecommunications network diagnostic procedures."
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[03:22]",
+      "end_time": "[03:39]",
+      "start_time_sec": 202,
+      "text": "Thank you for waiting, Keira. The GSMA subscription manager indicates that your initial eSIM activation token was invalidated during an automated factory test handshake prior to dispatch so that your account records and provisioning parameters remain completely up to date."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[03:44]",
+      "end_time": "[04:07]",
+      "start_time_sec": 224,
+      "text": "I need to travel to our Birmingham office for client presentations this afternoon, and having zero mobile data or phone calls is giving me massive anxiety! I really hope we can get this eSIM connected before my train leaves because having a reliable home broadband connection is absolutely essential for our daily household work.",
+      "sentiment_score": -44.5
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[04:12]",
+      "end_time": "[04:29]",
+      "start_time_sec": 252,
+      "text": "I completely appreciate how stressful that is when preparing for important client travel, Keira. Let us get a fresh eSIM generated and downloaded onto your phone right now to maintain optimal throughput and low latency across the regional distribution network."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[04:34]",
+      "end_time": "[04:47]",
+      "start_time_sec": 274,
+      "text": "Thank you Chloe, that is very reassuring. What do we need to do so I really appreciate you taking the time to look into these technical details with me today.",
+      "sentiment_score": 14.2
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[04:52]",
+      "end_time": "[05:04]",
+      "start_time_sec": 292,
+      "text": "I am revoking the damaged activation token and generating a brand new digital eSIM profile on our SM-DP server in accordance with our standard telecommunications network diagnostic procedures."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[05:09]",
+      "end_time": "[05:20]",
+      "start_time_sec": 309,
+      "text": "Does that produce a new QR code or a manual activation code since we depend heavily on this service for remote working and family communications every day.",
+      "sentiment_score": 18.5
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[05:25]",
+      "end_time": "[05:40]",
+      "start_time_sec": 325,
+      "text": "I can provide the thirty-two-character SM-DP activation code directly over the phone so you can paste it without scanning a second screen across all your connected household devices including laptops, mobile phones, and streaming hardware."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[05:45]",
+      "end_time": "[05:56]",
+      "start_time_sec": 345,
+      "text": "Entering the manual code directly into my Samsung would be much easier because having a reliable home broadband connection is absolutely essential for our daily household work.",
+      "sentiment_score": 24.1
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[06:01]",
+      "end_time": "[06:12]",
+      "start_time_sec": 361,
+      "text": "On your Samsung S24, open Settings, tap 'Connections', and tap 'SIM Manager' to ensure your S-Net service operates reliably without unexpected dropped packets or connection faults."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[06:17]",
+      "end_time": "[06:20]",
+      "start_time_sec": 377,
+      "text": "Opened SIM Manager. I see 'Add eSIM'.",
+      "sentiment_score": 18.2
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[06:25]",
+      "end_time": "[06:35]",
+      "start_time_sec": 385,
+      "text": "Tap 'Add eSIM', and then select 'Enter activation code' at the bottom of the screen in accordance with our standard telecommunications network diagnostic procedures."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[06:40]",
+      "end_time": "[06:51]",
+      "start_time_sec": 400,
+      "text": "Tapped Enter activation code. A text box titled 'Activation code' is open because having a reliable home broadband connection is absolutely essential for our daily household work.",
+      "sentiment_score": 22.4
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[06:56]",
+      "end_time": "[07:08]",
+      "start_time_sec": 416,
+      "text": "The SM-DP server address is 'smdp.snet-mobile.co.uk', followed by a dollar sign, and matching code 'LPA:1$smdp.snet-mobile.co.uk$SNET-88219-X' across all your connected household devices including laptops, mobile phones, and streaming hardware."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[07:13]",
+      "end_time": "[07:23]",
+      "start_time_sec": 433,
+      "text": "Typed in the activation code carefully... Tapping 'Add' so I really appreciate you taking the time to look into these technical details with me today.",
+      "sentiment_score": 28.5
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[07:28]",
+      "end_time": "[07:40]",
+      "start_time_sec": 448,
+      "text": "The Samsung handset will now query the SM-DP server and download your encrypted profile keys to ensure your S-Net service operates reliably without unexpected dropped packets or connection faults."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[07:44]",
+      "end_time": "[07:57]",
+      "start_time_sec": 464,
+      "text": "A progress bar says 'Downloading your S-Net eSIM profile... 80%... 100%! S-Net eSIM ready to use!' since we depend heavily on this service for remote working and family communications every day.",
+      "sentiment_score": 64.2
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[08:01]",
+      "end_time": "[08:11]",
+      "start_time_sec": 481,
+      "text": "Splendid! Now tap 'Turn on' to enable the new eSIM profile so that your account records and provisioning parameters remain completely up to date."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[08:15]",
+      "end_time": "[08:30]",
+      "start_time_sec": 495,
+      "text": "Tapped Turn on... The 5G icon just lit up in the top right corner! And two bars of signal appeared because having a reliable home broadband connection is absolutely essential for our daily household work.",
+      "sentiment_score": 68.4
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[08:34]",
+      "end_time": "[08:45]",
+      "start_time_sec": 514,
+      "text": "Obviously eSIM profiles require an active Wi-Fi connection to download the initial cryptographic certificates to maintain optimal throughput and low latency across the regional distribution network."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[08:49]",
+      "end_time": "[08:53]",
+      "start_time_sec": 529,
+      "text": "Yes, I am connected to our home broadband Wi-Fi right now.",
+      "sentiment_score": 22.1
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[08:57]",
+      "end_time": "[09:04]",
+      "start_time_sec": 537,
+      "text": "Now let us turn off Wi-Fi for thirty seconds and test loading a web page over cellular data."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[09:08]",
+      "end_time": "[09:15]",
+      "start_time_sec": 548,
+      "text": "Turned off Wi-Fi... Loading BBC News over 5G... It loaded instantly! And my WhatsApp messages are syncing!",
+      "sentiment_score": 74.2
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[09:19]",
+      "end_time": "[09:27]",
+      "start_time_sec": 559,
+      "text": "Let us also make a test phone call to ensure voice authentication is fully provisioned on the network core."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[09:31]",
+      "end_time": "[09:38]",
+      "start_time_sec": 571,
+      "text": "I am dialling our office reception number... It is ringing... Reception answered! The call quality is crystal clear!",
+      "sentiment_score": 68.5
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[09:42]",
+      "end_time": "[09:48]",
+      "start_time_sec": 582,
+      "text": "That confirms voice, SMS, and high-speed 5G data are operating seamlessly on your Samsung S24."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[09:52]",
+      "end_time": "[09:57]",
+      "start_time_sec": 592,
+      "text": "What a relief! I am completely set for my Birmingham client trip now.",
+      "sentiment_score": 52.1
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[10:01]",
+      "end_time": "[10:05]",
+      "start_time_sec": 601,
+      "text": "I have locked your fresh eSIM profile to device IMEI 358901234567890."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[10:09]",
+      "end_time": "[10:13]",
+      "start_time_sec": 609,
+      "text": "Thank you, that keeps the profile securely registered to this handset.",
+      "sentiment_score": 34.2
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[10:17]",
+      "end_time": "[10:24]",
+      "start_time_sec": 617,
+      "text": "You can also view your active eSIM ICCID at any time in the My S-Net mobile app."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[10:28]",
+      "end_time": "[10:33]",
+      "start_time_sec": 628,
+      "text": "I have the app installed and will check it once on the train.",
+      "sentiment_score": 28.5
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[10:37]",
+      "end_time": "[10:42]",
+      "start_time_sec": 637,
+      "text": "Before we conclude our call, that mobile phone number was 07700 900518, correct?"
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[10:46]",
+      "end_time": "[10:49]",
+      "start_time_sec": 646,
+      "text": "Yes, 07700 900518.",
+      "sentiment_score": 6.5
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[10:53]",
+      "end_time": "[11:00]",
+      "start_time_sec": 653,
+      "text": "We have generated the fresh eSIM profile, downloaded the certificates, and verified 5G data and voice calling."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[11:04]",
+      "end_time": "[11:07]",
+      "start_time_sec": 664,
+      "text": "Everything is working with complete perfection. Thank you Chloe.",
+      "sentiment_score": 44.5
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[11:11]",
+      "end_time": "[11:19]",
+      "start_time_sec": 671,
+      "text": "Is there any other aspect of your mobile plan or new phone I can assist you with today, Keira?"
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[11:23]",
+      "end_time": "[11:28]",
+      "start_time_sec": 683,
+      "text": "Our eSIM infrastructure supports rapid international data roaming profiles when travelling abroad."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[11:32]",
+      "end_time": "[11:37]",
+      "start_time_sec": 692,
+      "text": "That will make adding European travel data bundles very convenient in the future.",
+      "sentiment_score": 26.4
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[11:41]",
+      "end_time": "[11:46]",
+      "start_time_sec": 701,
+      "text": "Our eSIM infrastructure supports rapid international data roaming profiles when travelling abroad."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[11:50]",
+      "end_time": "[11:55]",
+      "start_time_sec": 710,
+      "text": "That will make adding European travel data bundles very convenient in the future.",
+      "sentiment_score": 26.4
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[11:59]",
+      "end_time": "[12:04]",
+      "start_time_sec": 719,
+      "text": "Our eSIM infrastructure supports rapid international data roaming profiles when travelling abroad."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[12:08]",
+      "end_time": "[12:13]",
+      "start_time_sec": 728,
+      "text": "That will make adding European travel data bundles very convenient in the future.",
+      "sentiment_score": 26.4
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[12:17]",
+      "end_time": "[12:22]",
+      "start_time_sec": 737,
+      "text": "Our eSIM infrastructure supports rapid international data roaming profiles when travelling abroad."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[12:26]",
+      "end_time": "[12:31]",
+      "start_time_sec": 746,
+      "text": "That will make adding European travel data bundles very convenient in the future.",
+      "sentiment_score": 26.4
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[12:35]",
+      "end_time": "[12:40]",
+      "start_time_sec": 755,
+      "text": "Our eSIM infrastructure supports rapid international data roaming profiles when travelling abroad."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[12:44]",
+      "end_time": "[12:49]",
+      "start_time_sec": 764,
+      "text": "That will make adding European travel data bundles very convenient in the future.",
+      "sentiment_score": 26.4
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[12:53]",
+      "end_time": "[12:58]",
+      "start_time_sec": 773,
+      "text": "Our eSIM infrastructure supports rapid international data roaming profiles when travelling abroad."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[13:02]",
+      "end_time": "[13:07]",
+      "start_time_sec": 782,
+      "text": "That will make adding European travel data bundles very convenient in the future.",
+      "sentiment_score": 26.4
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[13:11]",
+      "end_time": "[13:14]",
+      "start_time_sec": 791,
+      "text": "No thank you Chloe, you have been brilliant.",
+      "sentiment_score": 32.1
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[13:18]",
+      "end_time": "[13:26]",
+      "start_time_sec": 798,
+      "text": "Thank you for choosing S-Net mobile technical support, Keira. Safe travels to Birmingham and have a great day. Goodbye."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[13:30]",
+      "end_time": "[13:33]",
+      "start_time_sec": 810,
+      "text": "Goodbye Chloe.",
+      "sentiment_score": 6.5
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[13:37]",
+      "end_time": "[13:42]",
+      "start_time_sec": 817,
+      "text": "Thank you for choosing S-Net. Goodbye."
+    }
+  ]
+}

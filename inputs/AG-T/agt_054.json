@@ -1,0 +1,439 @@
+{
+  "tenant_id": "tenant-abc",
+  "customer_name": "Lara",
+  "transcript": [
+    {
+      "speaker": "Agent",
+      "start_time": "[00:00]",
+      "end_time": "[00:07]",
+      "start_time_sec": 0,
+      "text": "Thank you for calling S-Net broadband network faults, my name is Ryan. How can I help you today?"
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[00:11]",
+      "end_time": "[00:27]",
+      "start_time_sec": 11,
+      "text": "Hello Ryan, my name is Lara Croft. Ever since the intense electrical thunderstorm yesterday evening, my broadband download speed has plummeted from seventy megabits down to twenty-eight megabits, and the connection drops every time the wind blows!",
+      "sentiment_score": -32.5
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[00:31]",
+      "end_time": "[00:45]",
+      "start_time_sec": 31,
+      "text": "Good afternoon Lara. I can test your copper loop electrical parameters and DSLAM line card telemetry. Before we initiate the diagnostic tests, could you confirm your full postal address and your account security PIN?"
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[00:49]",
+      "end_time": "[01:01]",
+      "start_time_sec": 49,
+      "text": "Yes, it is 41 St Anne's Well Road, Nottingham, NG3 3EW, and my security PIN is 5502. My Hub router model is the Hub 4 with serial number SN-88210.",
+      "sentiment_score": -5.2
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[01:05]",
+      "end_time": "[01:14]",
+      "start_time_sec": 65,
+      "text": "Thank you Lara, that confirms your account details. Have you noticed any physical damage or scorching around your master telephone socket?"
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[01:18]",
+      "end_time": "[01:32]",
+      "start_time_sec": 78,
+      "text": "No physical scorching, but the broadband synchronization light on the Hub router keeps cycling between amber and white because having a reliable home broadband connection is absolutely essential for our daily household work.",
+      "sentiment_score": -22.1
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[01:36]",
+      "end_time": "[01:49]",
+      "start_time_sec": 96,
+      "text": "Bear with me for a couple of minutes while I query the local Openreach street cabinet telemetry and line retrain logs in accordance with our standard telecommunications network diagnostic procedures."
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[03:14]",
+      "end_time": "[03:31]",
+      "start_time_sec": 194,
+      "text": "Thank you for waiting, Lara. The street cabinet test head confirms that cabinet 14 suffered a direct lightning surge yesterday, tripping line cards into emergency high-attenuation protective profiles so that your account records and provisioning parameters remain completely up to date."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[03:35]",
+      "end_time": "[03:59]",
+      "start_time_sec": 215,
+      "text": "I understand electrical storms happen, Ryan, but I run an online accounting business from home and my quarterly tax client deadlines are this Friday! Twenty-eight megabits with continuous drops makes running client accounting portals impossible! Please tell me when an engineer will repair the cabinet card because having a reliable home broadband connection is absolutely essential for our daily household work.",
+      "sentiment_score": -18.2
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[04:03]",
+      "end_time": "[04:18]",
+      "start_time_sec": 243,
+      "text": "I completely understand that speed drops during busy tax accounting periods cause immediate stress, Lara. Let us see what repair schedule Openreach has established to maintain optimal throughput and low latency across the regional distribution network."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[04:22]",
+      "end_time": "[04:34]",
+      "start_time_sec": 262,
+      "text": "When will the cabinet engineer arrive to restore full seventy-megabit speeds so I really appreciate you taking the time to look into these technical details with me today.",
+      "sentiment_score": -12.4
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[04:38]",
+      "end_time": "[04:51]",
+      "start_time_sec": 278,
+      "text": "Well if you had actually installed a surge protector plug on your modem power supply, your router wouldn't be retraining every fifteen minutes in accordance with our standard telecommunications network diagnostic procedures."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[04:55]",
+      "end_time": "[05:14]",
+      "start_time_sec": 295,
+      "text": "How dare you blame my power plug, Ryan! You just told me the Openreach cabinet in the street was struck by lightning! My internal power has zero surge damage since we depend heavily on this service for remote working and family communications every day.",
+      "sentiment_score": -52.4
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[05:18]",
+      "end_time": "[05:28]",
+      "start_time_sec": 318,
+      "text": "Frontline technical agents do not oversee wholesale external cabinet civil repairs across all your connected household devices including laptops, mobile phones, and streaming hardware."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[05:32]",
+      "end_time": "[05:45]",
+      "start_time_sec": 332,
+      "text": "Then transfer me to your network operations manager who can escalate the street cabinet repair because having a reliable home broadband connection is absolutely essential for our daily household work.",
+      "sentiment_score": -38.4
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[05:49]",
+      "end_time": "[06:05]",
+      "start_time_sec": 349,
+      "text": "Network operations supervisors do not take customer phone calls. You need to wait for the wholesale engineering teams to clear the storm queue to ensure your S-Net service operates reliably without unexpected dropped packets or connection faults."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[06:09]",
+      "end_time": "[06:23]",
+      "start_time_sec": 369,
+      "text": "You refuse to escalate the repair and you blame my surge protector! This is appalling service so I really appreciate you taking the time to look into these technical details with me today.",
+      "sentiment_score": -46.2
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[06:27]",
+      "end_time": "[06:38]",
+      "start_time_sec": 387,
+      "text": "Obviously electrical surge transients travel across underground copper pairs regardless of subscriber equipment so that your account records and provisioning parameters remain completely up to date."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[06:42]",
+      "end_time": "[06:54]",
+      "start_time_sec": 402,
+      "text": "Then what can S-Net actually do to support my home business connection today since we depend heavily on this service for remote working and family communications every day.",
+      "sentiment_score": -28.4
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[06:58]",
+      "end_time": "[07:09]",
+      "start_time_sec": 418,
+      "text": "I can submit an automated profile reset to attempt clearing the protective line card profile to maintain optimal throughput and low latency across the regional distribution network."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[07:13]",
+      "end_time": "[07:16]",
+      "start_time_sec": 433,
+      "text": "Go ahead and try the reset.",
+      "sentiment_score": -14.2
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[07:20]",
+      "end_time": "[07:33]",
+      "start_time_sec": 440,
+      "text": "Bear with me for two minutes while I push the profile reset command to cabinet 14 to ensure your S-Net service operates reliably without unexpected dropped packets or connection faults."
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[08:58]",
+      "end_time": "[09:13]",
+      "start_time_sec": 538,
+      "text": "Thank you for waiting, Lara. The DSLAM port has been reset, but sync speed remains locked at thirty-two megabits due to upstream copper pair capacitance imbalance in accordance with our standard telecommunications network diagnostic procedures."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[09:17]",
+      "end_time": "[09:29]",
+      "start_time_sec": 557,
+      "text": "So speeds remain halved and unstable until an engineer visits the cabinet so I really appreciate you taking the time to look into these technical details with me today.",
+      "sentiment_score": -22.1
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[09:33]",
+      "end_time": "[09:44]",
+      "start_time_sec": 573,
+      "text": "The estimated resolution timeframe for the storm backlog is three to five business days across all your connected household devices including laptops, mobile phones, and streaming hardware."
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[09:48]",
+      "end_time": "[09:56]",
+      "start_time_sec": 588,
+      "text": "What was that Hub router serial number again to maintain optimal throughput and low latency across the regional distribution network."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[10:00]",
+      "end_time": "[10:11]",
+      "start_time_sec": 600,
+      "text": "As I told you during verification, it is SN-88210 so I really appreciate you taking the time to look into these technical details with me today.",
+      "sentiment_score": -16.2
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[10:15]",
+      "end_time": "[10:23]",
+      "start_time_sec": 615,
+      "text": "I have attached serial number SN-88210 to monitoring ticket TKT-44019-L in accordance with our standard telecommunications network diagnostic procedures."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[10:27]",
+      "end_time": "[10:38]",
+      "start_time_sec": 627,
+      "text": "TKT-44019-L, noted down. And you cannot dispatch an engineer any faster since we depend heavily on this service for remote working and family communications every day.",
+      "sentiment_score": -18.4
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[10:42]",
+      "end_time": "[10:47]",
+      "start_time_sec": 642,
+      "text": "Cabinet lightning repairs are handled strictly according to regional Openreach queue priorities."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[10:50]",
+      "end_time": "[10:56]",
+      "start_time_sec": 650,
+      "text": "I will have to tether my laptop to my mobile phone to finish my accounting work.",
+      "sentiment_score": -12.1
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[10:59]",
+      "end_time": "[11:03]",
+      "start_time_sec": 659,
+      "text": "I have documented your business usage on the fault record."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[11:06]",
+      "end_time": "[11:10]",
+      "start_time_sec": 666,
+      "text": "Very well. I will monitor the line over the coming days.",
+      "sentiment_score": -8.2
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[11:13]",
+      "end_time": "[11:19]",
+      "start_time_sec": 673,
+      "text": "Is there any other aspect of your broadband connection I can assist you with today, Lara?"
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[11:22]",
+      "end_time": "[11:28]",
+      "start_time_sec": 682,
+      "text": "Our automated fault tracking system will poll sync speeds every morning at six o'clock."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[11:31]",
+      "end_time": "[11:34]",
+      "start_time_sec": 691,
+      "text": "I will check the router connection lights each morning.",
+      "sentiment_score": 8.4
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[11:37]",
+      "end_time": "[11:43]",
+      "start_time_sec": 697,
+      "text": "Our automated fault tracking system will poll sync speeds every morning at six o'clock."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[11:46]",
+      "end_time": "[11:49]",
+      "start_time_sec": 706,
+      "text": "I will check the router connection lights each morning.",
+      "sentiment_score": 8.4
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[11:52]",
+      "end_time": "[11:58]",
+      "start_time_sec": 712,
+      "text": "Our automated fault tracking system will poll sync speeds every morning at six o'clock."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[12:01]",
+      "end_time": "[12:04]",
+      "start_time_sec": 721,
+      "text": "I will check the router connection lights each morning.",
+      "sentiment_score": 8.4
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[12:07]",
+      "end_time": "[12:13]",
+      "start_time_sec": 727,
+      "text": "Our automated fault tracking system will poll sync speeds every morning at six o'clock."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[12:16]",
+      "end_time": "[12:19]",
+      "start_time_sec": 736,
+      "text": "I will check the router connection lights each morning.",
+      "sentiment_score": 8.4
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[12:22]",
+      "end_time": "[12:28]",
+      "start_time_sec": 742,
+      "text": "Our automated fault tracking system will poll sync speeds every morning at six o'clock."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[12:31]",
+      "end_time": "[12:34]",
+      "start_time_sec": 751,
+      "text": "I will check the router connection lights each morning.",
+      "sentiment_score": 8.4
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[12:37]",
+      "end_time": "[12:43]",
+      "start_time_sec": 757,
+      "text": "Our automated fault tracking system will poll sync speeds every morning at six o'clock."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[12:46]",
+      "end_time": "[12:49]",
+      "start_time_sec": 766,
+      "text": "I will check the router connection lights each morning.",
+      "sentiment_score": 8.4
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[12:52]",
+      "end_time": "[12:58]",
+      "start_time_sec": 772,
+      "text": "Our automated fault tracking system will poll sync speeds every morning at six o'clock."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[13:01]",
+      "end_time": "[13:04]",
+      "start_time_sec": 781,
+      "text": "I will check the router connection lights each morning.",
+      "sentiment_score": 8.4
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[13:07]",
+      "end_time": "[13:13]",
+      "start_time_sec": 787,
+      "text": "Our automated fault tracking system will poll sync speeds every morning at six o'clock."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[13:16]",
+      "end_time": "[13:19]",
+      "start_time_sec": 796,
+      "text": "I will check the router connection lights each morning.",
+      "sentiment_score": 8.4
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[13:22]",
+      "end_time": "[13:28]",
+      "start_time_sec": 802,
+      "text": "Our automated fault tracking system will poll sync speeds every morning at six o'clock."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[13:31]",
+      "end_time": "[13:34]",
+      "start_time_sec": 811,
+      "text": "I will check the router connection lights each morning.",
+      "sentiment_score": 8.4
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[13:37]",
+      "end_time": "[13:43]",
+      "start_time_sec": 817,
+      "text": "Our automated fault tracking system will poll sync speeds every morning at six o'clock."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[13:46]",
+      "end_time": "[13:49]",
+      "start_time_sec": 826,
+      "text": "I will check the router connection lights each morning.",
+      "sentiment_score": 8.4
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[13:52]",
+      "end_time": "[13:55]",
+      "start_time_sec": 832,
+      "text": "No, you have been unhelpful and rude.",
+      "sentiment_score": -14.5
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[13:58]",
+      "end_time": "[14:02]",
+      "start_time_sec": 838,
+      "text": "Thank you for choosing S-Net broadband network faults, Lara. Goodbye."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[14:05]",
+      "end_time": "[14:08]",
+      "start_time_sec": 845,
+      "text": "Goodbye Ryan.",
+      "sentiment_score": -8.2
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[14:11]",
+      "end_time": "[14:16]",
+      "start_time_sec": 851,
+      "text": "Thank you for choosing S-Net. Goodbye."
+    }
+  ]
+}

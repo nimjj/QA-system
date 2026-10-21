@@ -1,0 +1,440 @@
+{
+  "tenant_id": "tenant-abc",
+  "customer_name": "Gemma",
+  "transcript": [
+    {
+      "speaker": "Agent",
+      "start_time": "[00:00]",
+      "end_time": "[00:08]",
+      "start_time_sec": 0,
+      "text": "Thank you for calling S-Net fault reporting customer services, my name is Callum. How can I help you today?"
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[00:11]",
+      "end_time": "[00:28]",
+      "start_time_sec": 11,
+      "text": "Hello Callum, my name is Gemma Sutherland. A severe gale last night brought a heavy oak tree branch down across our lane, and it has physically torn down our overhead telephone cable and left the wire dangling across our fence!",
+      "sentiment_score": -34.2
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[00:31]",
+      "end_time": "[00:45]",
+      "start_time_sec": 31,
+      "text": "Good afternoon Gemma. I can log an emergency Openreach engineering repair ticket for external plant damage. Before we raise the infrastructure fault, could you confirm your full postal address and your account security PIN?"
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[00:48]",
+      "end_time": "[00:57]",
+      "start_time_sec": 48,
+      "text": "Yes, it is Highfield Farm, Bwlchgwyn, Wrexham, LL11 5UH, and my security PIN is 8402. Our landline circuit identifier is SN-661024.",
+      "sentiment_score": -6.1
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[01:00]",
+      "end_time": "[01:10]",
+      "start_time_sec": 60,
+      "text": "Thank you Gemma, that confirms your account details. Is the severed wire creating any physical obstruction across a public highway or vehicle carriageway?"
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[01:13]",
+      "end_time": "[01:29]",
+      "start_time_sec": 73,
+      "text": "It is hanging about three feet above our farm access track, dangling over the wooden gate post and touching the grass verge because having a reliable home broadband connection is absolutely essential for our daily household work.",
+      "sentiment_score": -22.4
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[01:32]",
+      "end_time": "[01:53]",
+      "start_time_sec": 92,
+      "text": "So what has occurred is that storm damage and a fallen tree limb have physically severed your overhead subscriber drop cable, leaving the line detached from your premises and causing total loss of broadband and telephony service, is that right in accordance with our standard telecommunications network diagnostic procedures."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[01:56]",
+      "end_time": "[02:11]",
+      "start_time_sec": 116,
+      "text": "Yes, that is exactly what happened! Our Hub router is completely dead with a flashing red broadband indicator light so I really appreciate you taking the time to look into these technical details with me today.",
+      "sentiment_score": -18.2
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[02:14]",
+      "end_time": "[02:29]",
+      "start_time_sec": 134,
+      "text": "Bear with me for a couple of minutes while I query the local Openreach copper loop topology and external line card telemetry across all your connected household devices including laptops, mobile phones, and streaming hardware."
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[03:54]",
+      "end_time": "[04:10]",
+      "start_time_sec": 234,
+      "text": "Thank you for waiting, Gemma. Our metallic line test detects a complete galvanic open circuit zero metres from the local distribution pole, confirming the physical cable severance to maintain optimal throughput and low latency across the regional distribution network."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[04:12]",
+      "end_time": "[04:24]",
+      "start_time_sec": 252,
+      "text": "Can you get an emergency engineer out to re-string the cable today so I really appreciate you taking the time to look into these technical details with me today.",
+      "sentiment_score": -12.4
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[04:26]",
+      "end_time": "[04:38]",
+      "start_time_sec": 266,
+      "text": "Under standard network repair guidelines, external overhead tree damage requires a planned Openreach overhead engineering team dispatch within forty-eight hours in accordance with our standard telecommunications network diagnostic procedures."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[04:40]",
+      "end_time": "[05:04]",
+      "start_time_sec": 280,
+      "text": "Forty-eight hours?! Callum, I am an organic sheep farmer in the middle of our autumn lambing season! I live completely alone on this hillside, and my electric boundary fence alarms, lambing barn cameras, and veterinary telemetry are all completely down! If an animal gets sick or escapes, I have zero mobile signal up here to call our vet! I am frantic with worry since we depend heavily on this service for remote working and family communications every day.",
+      "sentiment_score": -64.2
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[05:06]",
+      "end_time": "[05:17]",
+      "start_time_sec": 306,
+      "text": "Engineering dispatch priority queues are governed strictly by national Openreach infrastructure scheduling matrices across all your connected household devices including laptops, mobile phones, and streaming hardware."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[05:19]",
+      "end_time": "[05:34]",
+      "start_time_sec": 319,
+      "text": "This is an emergency safety issue with live livestock on a hill farm! You have to escalate this ticket as urgent because having a reliable home broadband connection is absolutely essential for our daily household work.",
+      "sentiment_score": -48.2
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[05:36]",
+      "end_time": "[05:48]",
+      "start_time_sec": 336,
+      "text": "I am populating the engineer booking request right now with a safety hazard tag to ensure your S-Net service operates reliably without unexpected dropped packets or connection faults."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[05:50]",
+      "end_time": "[06:02]",
+      "start_time_sec": 350,
+      "text": "When is the earliest appointment slot the system is giving you so I really appreciate you taking the time to look into these technical details with me today.",
+      "sentiment_score": -22.1
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[06:04]",
+      "end_time": "[06:16]",
+      "start_time_sec": 364,
+      "text": "Obviously high-level overhead wire repairs require specialist cherry-picker hydraulic lift equipment rather than standard roadside vans so that your account records and provisioning parameters remain completely up to date."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[06:18]",
+      "end_time": "[06:29]",
+      "start_time_sec": 378,
+      "text": "I have plenty of turning space for a cherry-picker in our farmyard since we depend heavily on this service for remote working and family communications every day.",
+      "sentiment_score": -14.2
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[06:31]",
+      "end_time": "[06:37]",
+      "start_time_sec": 391,
+      "text": "The earliest available specialist hoist slot is tomorrow morning between eight o'clock and one o'clock."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[06:39]",
+      "end_time": "[06:45]",
+      "start_time_sec": 399,
+      "text": "Tomorrow morning is much better than forty-eight hours. What will the engineer need to do?",
+      "sentiment_score": 8.4
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[06:47]",
+      "end_time": "[07:00]",
+      "start_time_sec": 407,
+      "text": "The engineer will clear the snagged limb, inspect the distribution pole bracket, pull fresh drop wire from the pole to your house eaves, and terminate into a new master socket."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[07:02]",
+      "end_time": "[07:08]",
+      "start_time_sec": 422,
+      "text": "Do I need to be present on the farm for them to carry out the work?",
+      "sentiment_score": 12.1
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[07:10]",
+      "end_time": "[07:17]",
+      "start_time_sec": 430,
+      "text": "Yes, an adult must be on site to allow internal access to verify sync at the master socket."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[07:19]",
+      "end_time": "[07:24]",
+      "start_time_sec": 439,
+      "text": "I will stay in the farmhouse tomorrow morning to let them in.",
+      "sentiment_score": 18.5
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[07:26]",
+      "end_time": "[07:32]",
+      "start_time_sec": 446,
+      "text": "I have confirmed the engineer booking for tomorrow morning between eight and one, appointment reference ENG-44019-W."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[07:34]",
+      "end_time": "[07:37]",
+      "start_time_sec": 454,
+      "text": "ENG-44019-W, noted down.",
+      "sentiment_score": 6.5
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[07:39]",
+      "end_time": "[07:46]",
+      "start_time_sec": 459,
+      "text": "I have also activated a temporary unlimited emergency data bundle on your registered S-Net mobile SIM card."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[07:48]",
+      "end_time": "[07:55]",
+      "start_time_sec": 468,
+      "text": "That will help if I walk up the ridge where there is a bit of mobile reception.",
+      "sentiment_score": 32.1
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[07:57]",
+      "end_time": "[08:03]",
+      "start_time_sec": 477,
+      "text": "Please take care around the dangling cable and do not attempt to handle the wire yourself."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[08:05]",
+      "end_time": "[08:09]",
+      "start_time_sec": 485,
+      "text": "I will leave the wire completely alone until the engineer arrives.",
+      "sentiment_score": 24.1
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[08:11]",
+      "end_time": "[08:17]",
+      "start_time_sec": 491,
+      "text": "The Openreach engineer will send an automated SMS update thirty minutes prior to arrival tomorrow morning."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[08:19]",
+      "end_time": "[08:26]",
+      "start_time_sec": 499,
+      "text": "That will give me time to put our working sheepdogs into their kennels before the van arrives.",
+      "sentiment_score": 24.5
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[08:28]",
+      "end_time": "[08:34]",
+      "start_time_sec": 508,
+      "text": "Our automated fault tracking system will monitor circuit continuity once the new drop wire is spliced."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[08:36]",
+      "end_time": "[08:40]",
+      "start_time_sec": 516,
+      "text": "That will confirm the broadband signal reaches all our barn devices.",
+      "sentiment_score": 28.1
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[08:42]",
+      "end_time": "[08:48]",
+      "start_time_sec": 522,
+      "text": "The replacement heavy-duty drop cable includes steel tensile support wire designed to resist branch impacts."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[08:50]",
+      "end_time": "[08:54]",
+      "start_time_sec": 530,
+      "text": "That will give us much greater resilience during future winter storms.",
+      "sentiment_score": 22.4
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[08:56]",
+      "end_time": "[09:02]",
+      "start_time_sec": 536,
+      "text": "We also recommend trimming back tree branches that encroach within two metres of the overhead span."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[09:04]",
+      "end_time": "[09:10]",
+      "start_time_sec": 544,
+      "text": "I will ask our local tree surgeon to prune back those oak branches next week.",
+      "sentiment_score": 18.2
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[09:12]",
+      "end_time": "[09:18]",
+      "start_time_sec": 552,
+      "text": "The engineer will also replace the external drop bracket anchored to your farmhouse brickwork."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[09:20]",
+      "end_time": "[09:27]",
+      "start_time_sec": 560,
+      "text": "The old mortar around the chimney was getting a bit loose, so a fresh bracket is very welcome.",
+      "sentiment_score": 24.5
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[09:29]",
+      "end_time": "[09:35]",
+      "start_time_sec": 569,
+      "text": "Before we complete our call, that account contact telephone number was 01978 752109, correct?"
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[09:37]",
+      "end_time": "[09:40]",
+      "start_time_sec": 577,
+      "text": "Yes, 01978 752109 is our farm landline.",
+      "sentiment_score": 16.2
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[09:42]",
+      "end_time": "[09:50]",
+      "start_time_sec": 582,
+      "text": "We have confirmed the severed line fault, scheduled the specialist overhead engineer for tomorrow morning, and issued appointment reference ENG-44019-W."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[09:52]",
+      "end_time": "[09:56]",
+      "start_time_sec": 592,
+      "text": "Thank you Callum, I appreciate you securing tomorrow morning's slot.",
+      "sentiment_score": 34.5
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[09:58]",
+      "end_time": "[10:04]",
+      "start_time_sec": 598,
+      "text": "Your account will automatically receive a statutory service credit under Ofcom automatic compensation rules."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[10:06]",
+      "end_time": "[10:11]",
+      "start_time_sec": 606,
+      "text": "That compensation credit will help offset the disruption to our farm routine.",
+      "sentiment_score": 22.1
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[10:13]",
+      "end_time": "[10:18]",
+      "start_time_sec": 613,
+      "text": "The credit will appear on your next monthly billing statement following fault closure."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[10:20]",
+      "end_time": "[10:24]",
+      "start_time_sec": 620,
+      "text": "I will look out for that on next month's invoice.",
+      "sentiment_score": 18.4
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[10:26]",
+      "end_time": "[10:33]",
+      "start_time_sec": 626,
+      "text": "Is there any other aspect of your broadband or farm service I can assist you with today, Gemma?"
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[10:35]",
+      "end_time": "[10:40]",
+      "start_time_sec": 635,
+      "text": "Our engineering field coordination centre will monitor road conditions across Wrexham overnight."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[10:42]",
+      "end_time": "[10:47]",
+      "start_time_sec": 642,
+      "text": "The main roads are clear, only our farm track has minor debris.",
+      "sentiment_score": 18.2
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[10:49]",
+      "end_time": "[10:54]",
+      "start_time_sec": 649,
+      "text": "Our engineering field coordination centre will monitor road conditions across Wrexham overnight."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[10:56]",
+      "end_time": "[11:01]",
+      "start_time_sec": 656,
+      "text": "The main roads are clear, only our farm track has minor debris.",
+      "sentiment_score": 18.2
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[11:03]",
+      "end_time": "[11:07]",
+      "start_time_sec": 663,
+      "text": "No thank you Callum, you have booked what was needed.",
+      "sentiment_score": 28.2
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[11:09]",
+      "end_time": "[11:18]",
+      "start_time_sec": 669,
+      "text": "Thank you for choosing S-Net fault reporting customer services, Gemma. Stay safe on the farm and have a good day. Goodbye."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[11:20]",
+      "end_time": "[11:23]",
+      "start_time_sec": 680,
+      "text": "Goodbye Callum.",
+      "sentiment_score": 6.5
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[11:25]",
+      "end_time": "[11:30]",
+      "start_time_sec": 685,
+      "text": "Thank you for choosing S-Net. Goodbye."
+    }
+  ]
+}

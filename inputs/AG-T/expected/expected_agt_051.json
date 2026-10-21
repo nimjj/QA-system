@@ -1,0 +1,194 @@
+{
+  "call_id": "agt_051",
+  "tenant_id": "tenant-abc",
+  "status": "completed",
+  "result": {
+    "final_score": 50.0,
+    "is_auto_fail": false,
+    "auto_fail_reason": null,
+    "scorecard": [
+      {
+        "category": "Soft Skills",
+        "name": "Branding and Survey Check",
+        "rating": "PASS",
+        "coaching": ""
+      },
+      {
+        "category": "Soft Skills",
+        "name": "Hold time and Dead Air",
+        "rating": "PASS",
+        "coaching": ""
+      },
+      {
+        "category": "Technical Knowledge",
+        "name": "Verified customer",
+        "rating": "PASS",
+        "coaching": ""
+      },
+      {
+        "category": "Soft Skills",
+        "name": "Personalized the call/ticket appropriately",
+        "rating": "PASS",
+        "coaching": ""
+      },
+      {
+        "category": "Soft Skills",
+        "name": "Empathy & Acknowledgment Statement",
+        "rating": "PASS",
+        "coaching": ""
+      },
+      {
+        "category": "Technical Knowledge",
+        "name": "Paraphrasing",
+        "rating": "FAIL",
+        "coaching": "Failed to paraphrase customer's duplicate pay-per-view billing dispute in own words."
+      },
+      {
+        "category": "Technical Knowledge",
+        "name": "Active listening",
+        "rating": "FAIL",
+        "coaching": "Asked customer at [07:20] for his TV box serial number which had already been verified at [00:45]."
+      },
+      {
+        "category": "Technical Knowledge",
+        "name": "Took ownership of the problem",
+        "rating": "FAIL",
+        "coaching": "Deflected responsibility at [04:40] by telling customer to use app forms or raise a bank chargeback rather than resolving refund directly."
+      },
+      {
+        "category": "Soft Skills",
+        "name": "Build rapport and observed professionalism",
+        "rating": "FAIL",
+        "coaching": "Spoke rudely and condescendingly at [03:40] stating 'Well if you had actually waited... instead of repeatedly hammering the remote control...'"
+      },
+      {
+        "category": "Technical Knowledge",
+        "name": "Probing",
+        "rating": "PASS",
+        "coaching": ""
+      },
+      {
+        "category": "Technical Knowledge",
+        "name": "Confirmed the issue is resolved",
+        "rating": "FAIL",
+        "coaching": "Failed to resolve duplicate charge, leaving £24.95 unresolved while customer stated intention to dispute with bank."
+      }
+    ]
+  },
+  "grader": {
+    "graded_by": "Antigravity (gemini-3.8-flash)",
+    "graded_on": "2026-10-21",
+    "scenario": "Double charge for pay-per-view boxing match on TV set-top box bill",
+    "tier": "poor",
+    "duration_sec": 695,
+    "notes": "Poor customer service call marked by agent rudeness, victim-blaming, deflection of ownership, repeated questioning, and failure to resolve monetary dispute, while maintaining baseline empathy acknowledgment.",
+    "hard_cases": [
+      "Active listening",
+      "Build rapport and observed professionalism",
+      "Confirmed the issue is resolved",
+      "Took ownership of the problem"
+    ],
+    "items": [
+      {
+        "name": "Branding and Survey Check",
+        "rating": "PASS",
+        "confidence": "clear",
+        "evidence": "Agent opened with 'Thank you for calling S-Net TV billing customer services' at [00:00] and closed with 'Thank you for choosing S-Net' in final lines."
+      },
+      {
+        "name": "Hold time and Dead Air",
+        "rating": "PASS",
+        "confidence": "clear",
+        "evidence": "Hold was announced with bear with me and thanked upon return without unmanaged dead air."
+      },
+      {
+        "name": "Verified customer",
+        "rating": "PASS",
+        "confidence": "clear",
+        "evidence": "Verified full postal address and security PIN within the first 240 seconds."
+      },
+      {
+        "name": "Personalized the call/ticket appropriately",
+        "rating": "PASS",
+        "confidence": "clear",
+        "evidence": "Agent addressed customer as Kasim throughout the call."
+      },
+      {
+        "name": "Empathy & Acknowledgment Statement",
+        "rating": "PASS",
+        "confidence": "clear",
+        "evidence": "Agent acknowledged double-charge concern at [02:40] ('I understand that double charges cause immediate concern, Kasim. Let us examine the duplicate token.') and customer had no unhandled outbursts."
+      },
+      {
+        "name": "Paraphrasing",
+        "rating": "FAIL",
+        "confidence": "clear",
+        "evidence": "Agent never restated the duplicate charge problem in his own words."
+      },
+      {
+        "name": "Active listening",
+        "rating": "FAIL",
+        "confidence": "clear",
+        "evidence": "Agent asked for TV box serial number at turn 23 despite customer providing SNET-TV-99120 at turn 3."
+      },
+      {
+        "name": "Took ownership of the problem",
+        "rating": "FAIL",
+        "confidence": "clear",
+        "evidence": "Agent repeatedly deflected ownership telling customer to use mobile app or file chargeback with his bank."
+      },
+      {
+        "name": "Build rapport and observed professionalism",
+        "rating": "FAIL",
+        "confidence": "clear",
+        "evidence": "Agent insulted customer at [03:40]: 'Well if you had actually waited... instead of repeatedly hammering the remote control, you wouldn't have generated duplicate transactions.'"
+      },
+      {
+        "name": "Probing",
+        "rating": "PASS",
+        "confidence": "clear",
+        "evidence": "Agent asked relevant questions regarding statement descriptions and purchase timestamps."
+      },
+      {
+        "name": "Confirmed the issue is resolved",
+        "rating": "FAIL",
+        "confidence": "clear",
+        "evidence": "Duplicate charge was not refunded, customer disconnected expressing intention to dispute through bank."
+      }
+    ],
+    "markers": {
+      "active_listening": [
+        {
+          "kind": "repeat",
+          "premise_turn": 3,
+          "agent_turn": 23,
+          "reworded": true
+        }
+      ],
+      "paraphrasing": [
+        {
+          "kind": "not_a_restatement",
+          "agent_turn": 4
+        }
+      ],
+      "rapport": [
+        {
+          "kind": "rude",
+          "agent_turn": 11
+        },
+        {
+          "kind": "blunt_but_ok",
+          "agent_turn": 17
+        }
+      ],
+      "empathy": [
+        {
+          "kind": "handled",
+          "customer_turn": 8,
+          "agent_turn": 9,
+          "with_refusal": false
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,187 @@
+{
+  "call_id": "agt_048",
+  "tenant_id": "tenant-abc",
+  "status": "completed",
+  "result": {
+    "final_score": 71.7,
+    "is_auto_fail": false,
+    "auto_fail_reason": null,
+    "scorecard": [
+      {
+        "category": "Soft Skills",
+        "name": "Branding and Survey Check",
+        "rating": "PASS",
+        "coaching": ""
+      },
+      {
+        "category": "Soft Skills",
+        "name": "Hold time and Dead Air",
+        "rating": "PASS",
+        "coaching": ""
+      },
+      {
+        "category": "Technical Knowledge",
+        "name": "Verified customer",
+        "rating": "PASS",
+        "coaching": ""
+      },
+      {
+        "category": "Soft Skills",
+        "name": "Personalized the call/ticket appropriately",
+        "rating": "PASS",
+        "coaching": ""
+      },
+      {
+        "category": "Soft Skills",
+        "name": "Empathy & Acknowledgment Statement",
+        "rating": "FAIL",
+        "coaching": "Failed to show empathy at [02:50] when customer voiced extreme panic regarding her emergency medical lifeline pendant and vulnerable living conditions."
+      },
+      {
+        "category": "Technical Knowledge",
+        "name": "Paraphrasing",
+        "rating": "FAIL",
+        "coaching": "Failed to paraphrase customer's severe landline static fault in own words."
+      },
+      {
+        "category": "Technical Knowledge",
+        "name": "Active listening",
+        "rating": "FAIL",
+        "coaching": "Asked customer at [08:40] for her telephone handset model which had already been verified at [00:45]."
+      },
+      {
+        "category": "Technical Knowledge",
+        "name": "Took ownership of the problem",
+        "rating": "PASS",
+        "coaching": ""
+      },
+      {
+        "category": "Soft Skills",
+        "name": "Build rapport and observed professionalism",
+        "rating": "PASS",
+        "coaching": ""
+      },
+      {
+        "category": "Technical Knowledge",
+        "name": "Probing",
+        "rating": "PASS",
+        "coaching": ""
+      },
+      {
+        "category": "Technical Knowledge",
+        "name": "Confirmed the issue is resolved",
+        "rating": "PASS",
+        "coaching": ""
+      }
+    ]
+  },
+  "grader": {
+    "graded_by": "Antigravity (gemini-3.8-flash)",
+    "graded_on": "2026-10-21",
+    "scenario": "Landline crackling noise and static interference on master test socket",
+    "tier": "okay",
+    "duration_sec": 754,
+    "notes": "Good technical fault logging and vulnerable customer priority booking, but agent failed empathy regarding life-critical medical alarm pendant, offered no paraphrase, and repeated a question about handset model in the last third of the call.",
+    "hard_cases": [
+      "Active listening",
+      "Empathy & Acknowledgment Statement",
+      "Paraphrasing"
+    ],
+    "items": [
+      {
+        "name": "Branding and Survey Check",
+        "rating": "PASS",
+        "confidence": "clear",
+        "evidence": "Agent opened with 'Thank you for calling S-Net landline fault services' at [00:00] and closed with 'Thank you for choosing S-Net' in final lines."
+      },
+      {
+        "name": "Hold time and Dead Air",
+        "rating": "PASS",
+        "confidence": "clear",
+        "evidence": "Hold was announced with bear with me and thanked upon return without unmanaged dead air."
+      },
+      {
+        "name": "Verified customer",
+        "rating": "PASS",
+        "confidence": "clear",
+        "evidence": "Verified full postal address and security PIN within the first 240 seconds."
+      },
+      {
+        "name": "Personalized the call/ticket appropriately",
+        "rating": "PASS",
+        "confidence": "clear",
+        "evidence": "Agent addressed customer as Joanne throughout the call."
+      },
+      {
+        "name": "Empathy & Acknowledgment Statement",
+        "rating": "FAIL",
+        "confidence": "clear",
+        "evidence": "Customer expressed acute fear and panic regarding emergency medical lifeline pendant; agent offered zero empathy and quoted technical fault causes."
+      },
+      {
+        "name": "Paraphrasing",
+        "rating": "FAIL",
+        "confidence": "clear",
+        "evidence": "Agent never restated the landline static problem in his own words."
+      },
+      {
+        "name": "Active listening",
+        "rating": "FAIL",
+        "confidence": "clear",
+        "evidence": "Agent asked for telephone handset model at turn 36 despite customer providing Panasonic KX-TG at turn 3."
+      },
+      {
+        "name": "Took ownership of the problem",
+        "rating": "PASS",
+        "confidence": "clear",
+        "evidence": "Agent attached vulnerable medical priority flag, booked next-morning engineer, and provided reference FLT-88192-K."
+      },
+      {
+        "name": "Build rapport and observed professionalism",
+        "rating": "PASS",
+        "confidence": "clear",
+        "evidence": "Agent maintained a courteous instructional tone throughout."
+      },
+      {
+        "name": "Probing",
+        "rating": "PASS",
+        "confidence": "clear",
+        "evidence": "Agent asked relevant questions regarding test socket checks and noise characteristics."
+      },
+      {
+        "name": "Confirmed the issue is resolved",
+        "rating": "PASS",
+        "confidence": "clear",
+        "evidence": "Customer confirmed next-morning priority engineer booking agreed and noted reference code."
+      }
+    ],
+    "markers": {
+      "active_listening": [
+        {
+          "kind": "repeat",
+          "premise_turn": 3,
+          "agent_turn": 35,
+          "reworded": true
+        }
+      ],
+      "paraphrasing": [
+        {
+          "kind": "not_a_restatement",
+          "agent_turn": 4
+        }
+      ],
+      "rapport": [
+        {
+          "kind": "blunt_but_ok",
+          "agent_turn": 17
+        }
+      ],
+      "empathy": [
+        {
+          "kind": "unhandled",
+          "customer_turn": 8
+        }
+      ]
+    }
+  }
+}

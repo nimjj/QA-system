@@ -1,0 +1,196 @@
+{
+  "call_id": "agt_037",
+  "tenant_id": "tenant-abc",
+  "status": "completed",
+  "result": {
+    "final_score": 48.3,
+    "is_auto_fail": false,
+    "auto_fail_reason": null,
+    "scorecard": [
+      {
+        "category": "Soft Skills",
+        "name": "Branding and Survey Check",
+        "rating": "PASS",
+        "coaching": ""
+      },
+      {
+        "category": "Soft Skills",
+        "name": "Hold time and Dead Air",
+        "rating": "PASS",
+        "coaching": ""
+      },
+      {
+        "category": "Technical Knowledge",
+        "name": "Verified customer",
+        "rating": "PASS",
+        "coaching": ""
+      },
+      {
+        "category": "Soft Skills",
+        "name": "Personalized the call/ticket appropriately",
+        "rating": "PASS",
+        "coaching": ""
+      },
+      {
+        "category": "Soft Skills",
+        "name": "Empathy & Acknowledgment Statement",
+        "rating": "FAIL",
+        "coaching": "Failed to show empathy at [03:15] and [07:10] when customer expressed acute financial hardship and overdraft distress."
+      },
+      {
+        "category": "Technical Knowledge",
+        "name": "Paraphrasing",
+        "rating": "FAIL",
+        "coaching": "Failed to paraphrase customer's moving and early termination dispute in own words."
+      },
+      {
+        "category": "Technical Knowledge",
+        "name": "Active listening",
+        "rating": "FAIL",
+        "coaching": "Asked customer at [09:40] to repeat his previous address which had already been verified at [00:45]."
+      },
+      {
+        "category": "Technical Knowledge",
+        "name": "Took ownership of the problem",
+        "rating": "FAIL",
+        "coaching": "Deflected responsibility at [05:20] by refusing to process refund or transfer to manager, telling customer to use web portal."
+      },
+      {
+        "category": "Soft Skills",
+        "name": "Build rapport and observed professionalism",
+        "rating": "FAIL",
+        "coaching": "Spoke rudely and condescendingly at [04:15] stating 'Well if you actually paid attention to your contract terms... you wouldn't be shocked by legitimate early termination fees.'"
+      },
+      {
+        "category": "Technical Knowledge",
+        "name": "Probing",
+        "rating": "PASS",
+        "coaching": ""
+      },
+      {
+        "category": "Technical Knowledge",
+        "name": "Confirmed the issue is resolved",
+        "rating": "PASS",
+        "coaching": ""
+      }
+    ]
+  },
+  "grader": {
+    "graded_by": "Antigravity (gemini-3.8-flash)",
+    "graded_on": "2026-10-21",
+    "scenario": "Erroneous £220 early termination fee charged after moving to non-serviceable rural area",
+    "tier": "poor",
+    "duration_sec": 974,
+    "notes": "Poor customer service call featuring agent rudeness, deflection of ownership, failure of empathy regarding bank overdraft charges, and repeated questioning regarding previous address in the last third of the call.",
+    "hard_cases": [
+      "Active listening",
+      "Build rapport and observed professionalism",
+      "Empathy & Acknowledgment Statement",
+      "Took ownership of the problem"
+    ],
+    "items": [
+      {
+        "name": "Branding and Survey Check",
+        "rating": "PASS",
+        "confidence": "clear",
+        "evidence": "Agent opened with 'Thank you for calling S-Net billing and collections' at [00:00] and closed with 'Thank you for choosing S-Net' in final lines."
+      },
+      {
+        "name": "Hold time and Dead Air",
+        "rating": "PASS",
+        "confidence": "clear",
+        "evidence": "Hold was announced with bear with me and thanked upon return without unmanaged dead air."
+      },
+      {
+        "name": "Verified customer",
+        "rating": "PASS",
+        "confidence": "clear",
+        "evidence": "Verified full postal address and security PIN within the first 240 seconds."
+      },
+      {
+        "name": "Personalized the call/ticket appropriately",
+        "rating": "PASS",
+        "confidence": "clear",
+        "evidence": "Agent addressed customer as George throughout the call."
+      },
+      {
+        "name": "Empathy & Acknowledgment Statement",
+        "rating": "FAIL",
+        "confidence": "clear",
+        "evidence": "Customer expressed acute distress over £220 taken and bank overdraft fees; agent completely ignored feelings."
+      },
+      {
+        "name": "Paraphrasing",
+        "rating": "FAIL",
+        "confidence": "clear",
+        "evidence": "Agent never restated the contractual moving dispute in his own words."
+      },
+      {
+        "name": "Active listening",
+        "rating": "FAIL",
+        "confidence": "clear",
+        "evidence": "Agent asked for previous address at turn 42 despite customer providing it at turn 3."
+      },
+      {
+        "name": "Took ownership of the problem",
+        "rating": "FAIL",
+        "confidence": "clear",
+        "evidence": "Agent refused to process refund or escalate to manager, stating frontline staff cannot waive fees."
+      },
+      {
+        "name": "Build rapport and observed professionalism",
+        "rating": "FAIL",
+        "confidence": "clear",
+        "evidence": "Agent insulted customer at [04:15]: 'Well if you actually paid attention to your contract terms... you wouldn't be shocked by legitimate early termination fees.'"
+      },
+      {
+        "name": "Probing",
+        "rating": "PASS",
+        "confidence": "clear",
+        "evidence": "Agent asked relevant questions regarding statement invoice descriptions and dates."
+      },
+      {
+        "name": "Confirmed the issue is resolved",
+        "rating": "PASS",
+        "confidence": "clear",
+        "evidence": "Customer noted dispute ticket TKT-88192-M and ombudsman complaint reference CMP-99021-G."
+      }
+    ],
+    "markers": {
+      "active_listening": [
+        {
+          "kind": "repeat",
+          "premise_turn": 3,
+          "agent_turn": 41,
+          "reworded": true
+        }
+      ],
+      "paraphrasing": [
+        {
+          "kind": "not_a_restatement",
+          "agent_turn": 4
+        }
+      ],
+      "rapport": [
+        {
+          "kind": "rude",
+          "agent_turn": 11
+        },
+        {
+          "kind": "blunt_but_ok",
+          "agent_turn": 17
+        }
+      ],
+      "empathy": [
+        {
+          "kind": "unhandled",
+          "customer_turn": 8
+        },
+        {
+          "kind": "unhandled",
+          "customer_turn": 20
+        }
+      ]
+    }
+  }
+}

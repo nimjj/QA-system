@@ -1,0 +1,440 @@
+{
+  "tenant_id": "tenant-abc",
+  "customer_name": "Ian",
+  "transcript": [
+    {
+      "speaker": "Agent",
+      "start_time": "[00:00]",
+      "end_time": "[00:07]",
+      "start_time_sec": 0,
+      "text": "Thank you for calling S-Net mobile customer care, my name is Megan. How can I help you today?"
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[00:14]",
+      "end_time": "[00:29]",
+      "start_time_sec": 14,
+      "text": "Hello Megan, my name is Ian Fletcher. I pay for your Family Share eighty-gigabyte multi-SIM plan, but my fourteen-year-old son's secondary SIM card has zero mobile data active today and cannot access the shared pool!",
+      "sentiment_score": -32.4
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[00:36]",
+      "end_time": "[00:50]",
+      "start_time_sec": 36,
+      "text": "Good afternoon Ian. I can inspect your family data sharing group and SIM card provisioning. Before we access your mobile account, could you confirm your full postal address and your account security PIN?"
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[00:57]",
+      "end_time": "[01:06]",
+      "start_time_sec": 57,
+      "text": "Yes, it is 73 Queens Road, Bristol, BS8 1QP, and my security PIN is 4491. My primary mobile account number is SN-220194.",
+      "sentiment_score": -5.2
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[01:13]",
+      "end_time": "[01:24]",
+      "start_time_sec": 73,
+      "text": "Thank you Ian, that confirms your account details. What happens on your son's mobile phone when he attempts to open an internet web page or app?"
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[01:31]",
+      "end_time": "[01:46]",
+      "start_time_sec": 91,
+      "text": "It displays a network splash banner stating 'Your line has no active data allowance assigned. Please contact the primary account holder.' because having a reliable home broadband connection is absolutely essential for our daily household work.",
+      "sentiment_score": -22.1
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[01:53]",
+      "end_time": "[02:14]",
+      "start_time_sec": 113,
+      "text": "So what has occurred is that while your Family Share account holds eighty gigabytes of pooled cellular data, your son's secondary mobile line was omitted from the automated bucket distribution, leaving his handset without mobile internet access, is that right in accordance with our standard telecommunications network diagnostic procedures."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[02:21]",
+      "end_time": "[02:45]",
+      "start_time_sec": 141,
+      "text": "Yes, that is exactly what happened! Megan, my fourteen-year-old son is stranded alone at Bristol Temple Meads train station right now in the pouring rain! His train was cancelled, his digital train ticket is locked in his phone wallet app that requires data to refresh, and he cannot call an Uber to get home! I am beside myself with panic so I really appreciate you taking the time to look into these technical details with me today.",
+      "sentiment_score": -64.2
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[02:52]",
+      "end_time": "[03:05]",
+      "start_time_sec": 172,
+      "text": "Bear with me for a couple of minutes while I query our mobile virtual network operator group pooling module across all your connected household devices including laptops, mobile phones, and streaming hardware."
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[04:30]",
+      "end_time": "[04:48]",
+      "start_time_sec": 270,
+      "text": "Thank you for waiting, Ian. I have pulled up your family group hierarchy. The monthly shared data replenishment script failed to allocate a secondary allowance quota to SIM profile 07700 900518 to maintain optimal throughput and low latency across the regional distribution network."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[04:55]",
+      "end_time": "[05:10]",
+      "start_time_sec": 295,
+      "text": "Can you allocate twenty gigabytes to his line right now so he can load his ticket and message me so I really appreciate you taking the time to look into these technical details with me today.",
+      "sentiment_score": -28.4
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[05:17]",
+      "end_time": "[05:25]",
+      "start_time_sec": 317,
+      "text": "Yes, I am opening the manual quota redistribution tool right now in accordance with our standard telecommunications network diagnostic procedures."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[05:32]",
+      "end_time": "[05:42]",
+      "start_time_sec": 332,
+      "text": "How quickly does the data become usable on his handset since we depend heavily on this service for remote working and family communications every day.",
+      "sentiment_score": -14.2
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[05:49]",
+      "end_time": "[06:01]",
+      "start_time_sec": 349,
+      "text": "The network data bearer attaches to the handset within sixty seconds of committing the quota command across all your connected household devices including laptops, mobile phones, and streaming hardware."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[06:08]",
+      "end_time": "[06:11]",
+      "start_time_sec": 368,
+      "text": "Please execute it immediately.",
+      "sentiment_score": -8.5
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[06:18]",
+      "end_time": "[06:29]",
+      "start_time_sec": 378,
+      "text": "I have allocated a thirty-gigabyte dedicated share allowance directly to SIM profile 07700 900518 to maintain optimal throughput and low latency across the regional distribution network."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[06:36]",
+      "end_time": "[06:49]",
+      "start_time_sec": 396,
+      "text": "Let me call him on his mobile right now to see if his 5G icon connects since we depend heavily on this service for remote working and family communications every day.",
+      "sentiment_score": 14.2
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[06:56]",
+      "end_time": "[07:06]",
+      "start_time_sec": 416,
+      "text": "Ask him to toggle aeroplane mode on and off to refresh the cellular data attachment in accordance with our standard telecommunications network diagnostic procedures."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[07:13]",
+      "end_time": "[07:31]",
+      "start_time_sec": 433,
+      "text": "He is toggling aeroplane mode now... Megan! He says the 5G icon just popped up! His digital ticket refreshed and he was able to book his train home because having a reliable home broadband connection is absolutely essential for our daily household work.",
+      "sentiment_score": 68.4
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[07:38]",
+      "end_time": "[07:49]",
+      "start_time_sec": 458,
+      "text": "That confirms the cellular data bearer is fully active and authenticated on his handset across all your connected household devices including laptops, mobile phones, and streaming hardware."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[07:56]",
+      "end_time": "[08:09]",
+      "start_time_sec": 476,
+      "text": "What a tremendous relief! He is getting on the five-forty train now. Thank goodness so I really appreciate you taking the time to look into these technical details with me today.",
+      "sentiment_score": 52.1
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[08:16]",
+      "end_time": "[08:28]",
+      "start_time_sec": 496,
+      "text": "Obviously family sharing pools require active device quota flags assigned in the primary billing container to ensure your S-Net service operates reliably without unexpected dropped packets or connection faults."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[08:35]",
+      "end_time": "[08:47]",
+      "start_time_sec": 515,
+      "text": "Why did your automated monthly script omit his SIM in the first place since we depend heavily on this service for remote working and family communications every day.",
+      "sentiment_score": -18.2
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[08:54]",
+      "end_time": "[09:01]",
+      "start_time_sec": 534,
+      "text": "A billing platform batch migration occurred last weekend which caused secondary SIM flags to default to zero quota."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[09:08]",
+      "end_time": "[09:14]",
+      "start_time_sec": 548,
+      "text": "Please ensure that bug does not strip his data again on the next billing date.",
+      "sentiment_score": 12.1
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[09:21]",
+      "end_time": "[09:27]",
+      "start_time_sec": 561,
+      "text": "I have locked the recurring monthly allocation to thirty gigabytes for his line permanently."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[09:34]",
+      "end_time": "[09:40]",
+      "start_time_sec": 574,
+      "text": "That will ensure he always has thirty gigabytes ready on the first of every month.",
+      "sentiment_score": 28.4
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[09:47]",
+      "end_time": "[09:53]",
+      "start_time_sec": 587,
+      "text": "The remaining fifty gigabytes of your eighty-gigabyte pool will remain assigned to your primary line."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[10:00]",
+      "end_time": "[10:03]",
+      "start_time_sec": 600,
+      "text": "That distribution is ideal for our family needs.",
+      "sentiment_score": 32.1
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[10:10]",
+      "end_time": "[10:17]",
+      "start_time_sec": 610,
+      "text": "You can also adjust individual member data limits dynamically at any time using the My S-Net mobile application."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[10:24]",
+      "end_time": "[10:30]",
+      "start_time_sec": 624,
+      "text": "I will use the app if we ever need to reallocate data during school holidays.",
+      "sentiment_score": 24.5
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[10:36]",
+      "end_time": "[10:42]",
+      "start_time_sec": 636,
+      "text": "I have applied a ten-pound goodwill credit to your mobile account for the disruption caused today."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[10:48]",
+      "end_time": "[10:51]",
+      "start_time_sec": 648,
+      "text": "Thank you Megan, that is very generous and appreciated.",
+      "sentiment_score": 34.2
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[10:57]",
+      "end_time": "[11:01]",
+      "start_time_sec": 657,
+      "text": "The ten-pound credit will automatically discount your next direct debit invoice."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[11:07]",
+      "end_time": "[11:11]",
+      "start_time_sec": 667,
+      "text": "I will look out for that on next month's bill.",
+      "sentiment_score": 22.1
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[11:17]",
+      "end_time": "[11:23]",
+      "start_time_sec": 677,
+      "text": "Our mobile customer care team is available twenty-four hours a day for any emergency account issues."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[11:29]",
+      "end_time": "[11:33]",
+      "start_time_sec": 689,
+      "text": "It is reassuring to know support is open around the clock.",
+      "sentiment_score": 26.4
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[11:39]",
+      "end_time": "[11:44]",
+      "start_time_sec": 699,
+      "text": "The secondary SIM profile will maintain full UK roaming and EU data access."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[11:50]",
+      "end_time": "[11:55]",
+      "start_time_sec": 710,
+      "text": "That will be useful when he visits relatives in France next summer.",
+      "sentiment_score": 28.2
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[12:01]",
+      "end_time": "[12:07]",
+      "start_time_sec": 721,
+      "text": "Before we conclude our call, that son's secondary mobile phone number was 07700 900518, correct?"
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[12:13]",
+      "end_time": "[12:16]",
+      "start_time_sec": 733,
+      "text": "Yes, 07700 900518.",
+      "sentiment_score": 6.5
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[12:22]",
+      "end_time": "[12:31]",
+      "start_time_sec": 742,
+      "text": "We have allocated the thirty-gigabyte share allowance, verified his 5G restoration, locked the recurring quota, and applied the ten-pound goodwill credit."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[12:37]",
+      "end_time": "[12:42]",
+      "start_time_sec": 757,
+      "text": "Everything is completely sorted. My son is safe and on his way home.",
+      "sentiment_score": 44.5
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[12:48]",
+      "end_time": "[12:56]",
+      "start_time_sec": 768,
+      "text": "Is there any other aspect of your mobile plan or family bundle I can help you with today, Ian?"
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[13:02]",
+      "end_time": "[13:08]",
+      "start_time_sec": 782,
+      "text": "Our automated network provisioning systems monitor shared data usage across family groups in real time."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[13:14]",
+      "end_time": "[13:19]",
+      "start_time_sec": 794,
+      "text": "That real-time monitoring will ensure neither of our lines runs out unexpectedly.",
+      "sentiment_score": 24.5
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[13:25]",
+      "end_time": "[13:31]",
+      "start_time_sec": 805,
+      "text": "Our automated network provisioning systems monitor shared data usage across family groups in real time."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[13:37]",
+      "end_time": "[13:42]",
+      "start_time_sec": 817,
+      "text": "That real-time monitoring will ensure neither of our lines runs out unexpectedly.",
+      "sentiment_score": 24.5
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[13:48]",
+      "end_time": "[13:54]",
+      "start_time_sec": 828,
+      "text": "Our automated network provisioning systems monitor shared data usage across family groups in real time."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[14:00]",
+      "end_time": "[14:05]",
+      "start_time_sec": 840,
+      "text": "That real-time monitoring will ensure neither of our lines runs out unexpectedly.",
+      "sentiment_score": 24.5
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[14:11]",
+      "end_time": "[14:17]",
+      "start_time_sec": 851,
+      "text": "Our automated network provisioning systems monitor shared data usage across family groups in real time."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[14:23]",
+      "end_time": "[14:28]",
+      "start_time_sec": 863,
+      "text": "That real-time monitoring will ensure neither of our lines runs out unexpectedly.",
+      "sentiment_score": 24.5
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[14:34]",
+      "end_time": "[14:40]",
+      "start_time_sec": 874,
+      "text": "Our automated network provisioning systems monitor shared data usage across family groups in real time."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[14:46]",
+      "end_time": "[14:51]",
+      "start_time_sec": 886,
+      "text": "That real-time monitoring will ensure neither of our lines runs out unexpectedly.",
+      "sentiment_score": 24.5
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[14:57]",
+      "end_time": "[15:00]",
+      "start_time_sec": 897,
+      "text": "No thank you Megan, you resolved the urgent issue.",
+      "sentiment_score": 28.2
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[15:06]",
+      "end_time": "[15:13]",
+      "start_time_sec": 906,
+      "text": "Thank you for choosing S-Net mobile customer care, Ian. Have a wonderful evening with your son. Goodbye."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[15:19]",
+      "end_time": "[15:22]",
+      "start_time_sec": 919,
+      "text": "Goodbye Megan.",
+      "sentiment_score": 6.5
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[15:28]",
+      "end_time": "[15:33]",
+      "start_time_sec": 928,
+      "text": "Thank you for choosing S-Net. Goodbye."
+    }
+  ]
+}

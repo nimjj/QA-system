@@ -1,0 +1,440 @@
+{
+  "tenant_id": "tenant-abc",
+  "customer_name": "Leila",
+  "transcript": [
+    {
+      "speaker": "Agent",
+      "start_time": "[00:00]",
+      "end_time": "[00:07]",
+      "start_time_sec": 0,
+      "text": "Thank you for calling S-Net billing customer services, my name is Gemma. How can I help you today?"
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[00:17]",
+      "end_time": "[00:33]",
+      "start_time_sec": 17,
+      "text": "Hello Gemma, my name is Leila Rossi. I cancelled my broadband contract two months ago and returned my Hub router in your pre-paid tracked bag, but my final invoice has billed me sixty-five pounds for a non-returned equipment fee!",
+      "sentiment_score": -32.5
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[00:43]",
+      "end_time": "[00:56]",
+      "start_time_sec": 43,
+      "text": "Good afternoon Leila. I can inspect your equipment return records and billing ledger. Before we access your closed account, could you confirm your full postal address and your account security PIN?"
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[01:06]",
+      "end_time": "[01:16]",
+      "start_time_sec": 66,
+      "text": "Yes, it is 12 Lansdowne Road, Cardiff, CF5 1PS, and my security PIN is 9184. My return Royal Mail tracking number was RM-440192-GB.",
+      "sentiment_score": -5.2
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[01:26]",
+      "end_time": "[01:33]",
+      "start_time_sec": 86,
+      "text": "Thank you Leila, that confirms your account details. When was the router scanned as delivered by Royal Mail?"
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[01:43]",
+      "end_time": "[01:59]",
+      "start_time_sec": 103,
+      "text": "Royal Mail tracking confirms it was delivered and signed for at your Northampton returns warehouse on October 12th at nine in the morning because having a reliable home broadband connection is absolutely essential for our daily household work.",
+      "sentiment_score": -22.1
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[02:09]",
+      "end_time": "[02:21]",
+      "start_time_sec": 129,
+      "text": "Bear with me for a couple of minutes while I query our warehouse barcode scan database and returns intake ledger in accordance with our standard telecommunications network diagnostic procedures."
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[03:46]",
+      "end_time": "[04:05]",
+      "start_time_sec": 226,
+      "text": "Thank you for waiting, Leila. I have located warehouse intake scan RM-440192-GB. The Hub 4 router was received on October 12th, but the warehouse barcode scanner registered an incomplete asset clearance flag so that your account records and provisioning parameters remain completely up to date."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[04:15]",
+      "end_time": "[04:39]",
+      "start_time_sec": 255,
+      "text": "I was so worried when I saw that sixty-five pound direct debit charge, Gemma! I am a university student on a tight maintenance budget, and an unexpected sixty-five pound deduction causes major financial stress! I really appreciate you locating the package so quickly because having a reliable home broadband connection is absolutely essential for our daily household work.",
+      "sentiment_score": 14.2
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[04:49]",
+      "end_time": "[05:07]",
+      "start_time_sec": 289,
+      "text": "I completely understand that unexpected equipment fees cause genuine financial anxiety, Leila, especially when you returned the hardware responsibly. Let us make sure this charge is cancelled and refunded immediately to maintain optimal throughput and low latency across the regional distribution network."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[05:17]",
+      "end_time": "[05:29]",
+      "start_time_sec": 317,
+      "text": "Thank you so much Gemma, that is a huge relief to hear so I really appreciate you taking the time to look into these technical details with me today.",
+      "sentiment_score": 28.5
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[05:39]",
+      "end_time": "[05:49]",
+      "start_time_sec": 339,
+      "text": "I am submitting an immediate fee waiver command to clear the sixty-five pound non-return equipment charge in accordance with our standard telecommunications network diagnostic procedures."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[05:59]",
+      "end_time": "[06:11]",
+      "start_time_sec": 359,
+      "text": "Has the direct debit already pulled the sixty-five pounds from my Santander account since we depend heavily on this service for remote working and family communications every day.",
+      "sentiment_score": -12.4
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[06:21]",
+      "end_time": "[06:33]",
+      "start_time_sec": 381,
+      "text": "The direct debit collection mandate was cancelled yesterday, so no funds left your bank account across all your connected household devices including laptops, mobile phones, and streaming hardware."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[06:43]",
+      "end_time": "[06:46]",
+      "start_time_sec": 403,
+      "text": "So my bank account was never debited?",
+      "sentiment_score": 24.1
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[06:56]",
+      "end_time": "[07:09]",
+      "start_time_sec": 416,
+      "text": "That is correct. The sixty-five pound charge existed on the generated invoice, but the payment collection was successfully arrested to maintain optimal throughput and low latency across the regional distribution network."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[07:19]",
+      "end_time": "[07:32]",
+      "start_time_sec": 439,
+      "text": "That is fantastic news, so I do not have to wait for a refund to clear since we depend heavily on this service for remote working and family communications every day.",
+      "sentiment_score": 38.2
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[07:42]",
+      "end_time": "[07:49]",
+      "start_time_sec": 462,
+      "text": "I have updated your ledger balance to zero pounds in accordance with our standard telecommunications network diagnostic procedures."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[07:59]",
+      "end_time": "[08:10]",
+      "start_time_sec": 479,
+      "text": "Will you send me an updated zero-balance statement for my records because having a reliable home broadband connection is absolutely essential for our daily household work.",
+      "sentiment_score": 18.5
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[08:20]",
+      "end_time": "[08:34]",
+      "start_time_sec": 500,
+      "text": "Yes, I am generating an updated PDF statement showing zero balance and dispatching it to your email address right now across all your connected household devices including laptops, mobile phones, and streaming hardware."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[08:44]",
+      "end_time": "[08:59]",
+      "start_time_sec": 524,
+      "text": "Let me check my email on my phone... Yes, 'S-Net Final Statement - Balance Due: £0.00' just arrived so I really appreciate you taking the time to look into these technical details with me today.",
+      "sentiment_score": 68.4
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[09:09]",
+      "end_time": "[09:22]",
+      "start_time_sec": 549,
+      "text": "Obviously warehouse returns scanning systems reconcile thousands of customer parcels daily and occasional barcode misreads occur to ensure your S-Net service operates reliably without unexpected dropped packets or connection faults."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[09:32]",
+      "end_time": "[09:44]",
+      "start_time_sec": 572,
+      "text": "I understand that, as long as it has been cleared up promptly today since we depend heavily on this service for remote working and family communications every day.",
+      "sentiment_score": 24.1
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[09:54]",
+      "end_time": "[10:06]",
+      "start_time_sec": 594,
+      "text": "Your equipment return record is officially marked 'Returned - Complete' in our national asset database so that your account records and provisioning parameters remain completely up to date."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[10:16]",
+      "end_time": "[10:27]",
+      "start_time_sec": 616,
+      "text": "That gives me confidence that no future collection letters will be sent because having a reliable home broadband connection is absolutely essential for our daily household work.",
+      "sentiment_score": 32.1
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[10:37]",
+      "end_time": "[10:47]",
+      "start_time_sec": 637,
+      "text": "The fee waiver reference code for your personal records is EQ-88192-W to maintain optimal throughput and low latency across the regional distribution network."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[10:57]",
+      "end_time": "[11:00]",
+      "start_time_sec": 657,
+      "text": "EQ-88192-W, noted down.",
+      "sentiment_score": 6.5
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[11:10]",
+      "end_time": "[11:21]",
+      "start_time_sec": 670,
+      "text": "Your closed account profile will transition to permanent archived status within thirty days to ensure your S-Net service operates reliably without unexpected dropped packets or connection faults."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[11:31]",
+      "end_time": "[11:43]",
+      "start_time_sec": 691,
+      "text": "That is completely fine since I no longer live at that student address because having a reliable home broadband connection is absolutely essential for our daily household work.",
+      "sentiment_score": 28.5
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[11:53]",
+      "end_time": "[12:05]",
+      "start_time_sec": 713,
+      "text": "All marketing permissions and direct debit mandates have been formally purged from our clearing registers so that your account records and provisioning parameters remain completely up to date."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[12:15]",
+      "end_time": "[12:26]",
+      "start_time_sec": 735,
+      "text": "Thank you, that ensures total closure of this account so I really appreciate you taking the time to look into these technical details with me today.",
+      "sentiment_score": 34.2
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[12:36]",
+      "end_time": "[12:49]",
+      "start_time_sec": 756,
+      "text": "Our billing care department is open seven days a week if you ever need any historical tax invoices to maintain optimal throughput and low latency across the regional distribution network."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[12:59]",
+      "end_time": "[13:02]",
+      "start_time_sec": 779,
+      "text": "Good to know.",
+      "sentiment_score": 6.5
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[13:12]",
+      "end_time": "[13:16]",
+      "start_time_sec": 792,
+      "text": "Our warehouse returns protocol complies with WEEE environmental recycling standards."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[13:26]",
+      "end_time": "[13:30]",
+      "start_time_sec": 806,
+      "text": "I am glad the returned equipment will be recycled responsibly.",
+      "sentiment_score": 24.1
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[13:40]",
+      "end_time": "[13:46]",
+      "start_time_sec": 820,
+      "text": "Before we conclude our call, that account contact telephone number was 029 2038 9184, correct?"
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[13:56]",
+      "end_time": "[13:59]",
+      "start_time_sec": 836,
+      "text": "Yes, 029 2038 9184 was my student flat landline.",
+      "sentiment_score": 18.2
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[14:09]",
+      "end_time": "[14:19]",
+      "start_time_sec": 849,
+      "text": "We have waived the sixty-five pound equipment charge, arrested the direct debit sweep, updated your balance to zero, and dispatched your final zero-balance statement."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[14:29]",
+      "end_time": "[14:33]",
+      "start_time_sec": 869,
+      "text": "Everything has been resolved with complete perfection. Thank you Gemma.",
+      "sentiment_score": 48.2
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[14:43]",
+      "end_time": "[14:49]",
+      "start_time_sec": 883,
+      "text": "Is there any other aspect of your closed account I can assist you with today, Leila?"
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[14:59]",
+      "end_time": "[15:04]",
+      "start_time_sec": 899,
+      "text": "Our automated direct debit suppression ensures no residual payment collection sweeps execute."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[15:14]",
+      "end_time": "[15:17]",
+      "start_time_sec": 914,
+      "text": "That provides total reassurance for my student banking records.",
+      "sentiment_score": 26.4
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[15:27]",
+      "end_time": "[15:32]",
+      "start_time_sec": 927,
+      "text": "Our automated direct debit suppression ensures no residual payment collection sweeps execute."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[15:42]",
+      "end_time": "[15:45]",
+      "start_time_sec": 942,
+      "text": "That provides total reassurance for my student banking records.",
+      "sentiment_score": 26.4
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[15:55]",
+      "end_time": "[16:00]",
+      "start_time_sec": 955,
+      "text": "Our automated direct debit suppression ensures no residual payment collection sweeps execute."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[16:09]",
+      "end_time": "[16:12]",
+      "start_time_sec": 969,
+      "text": "That provides total reassurance for my student banking records.",
+      "sentiment_score": 26.4
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[16:21]",
+      "end_time": "[16:26]",
+      "start_time_sec": 981,
+      "text": "Our automated direct debit suppression ensures no residual payment collection sweeps execute."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[16:35]",
+      "end_time": "[16:38]",
+      "start_time_sec": 995,
+      "text": "That provides total reassurance for my student banking records.",
+      "sentiment_score": 26.4
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[16:47]",
+      "end_time": "[16:52]",
+      "start_time_sec": 1007,
+      "text": "Our automated direct debit suppression ensures no residual payment collection sweeps execute."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[17:01]",
+      "end_time": "[17:04]",
+      "start_time_sec": 1021,
+      "text": "That provides total reassurance for my student banking records.",
+      "sentiment_score": 26.4
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[17:13]",
+      "end_time": "[17:18]",
+      "start_time_sec": 1033,
+      "text": "Our automated direct debit suppression ensures no residual payment collection sweeps execute."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[17:27]",
+      "end_time": "[17:30]",
+      "start_time_sec": 1047,
+      "text": "That provides total reassurance for my student banking records.",
+      "sentiment_score": 26.4
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[17:39]",
+      "end_time": "[17:44]",
+      "start_time_sec": 1059,
+      "text": "Our automated direct debit suppression ensures no residual payment collection sweeps execute."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[17:53]",
+      "end_time": "[17:56]",
+      "start_time_sec": 1073,
+      "text": "That provides total reassurance for my student banking records.",
+      "sentiment_score": 26.4
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[18:05]",
+      "end_time": "[18:08]",
+      "start_time_sec": 1085,
+      "text": "No thank you Gemma, you have been wonderful.",
+      "sentiment_score": 32.1
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[18:17]",
+      "end_time": "[18:26]",
+      "start_time_sec": 1097,
+      "text": "Thank you for choosing S-Net billing customer services, Leila. Good luck with your university studies and have a lovely day. Goodbye."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[18:35]",
+      "end_time": "[18:38]",
+      "start_time_sec": 1115,
+      "text": "Goodbye Gemma.",
+      "sentiment_score": 6.5
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[18:47]",
+      "end_time": "[18:52]",
+      "start_time_sec": 1127,
+      "text": "Thank you for choosing S-Net. Goodbye."
+    }
+  ]
+}

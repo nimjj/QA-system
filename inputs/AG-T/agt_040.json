@@ -1,0 +1,440 @@
+{
+  "tenant_id": "tenant-abc",
+  "customer_name": "Hannah",
+  "transcript": [
+    {
+      "speaker": "Agent",
+      "start_time": "[00:00]",
+      "end_time": "[00:08]",
+      "start_time_sec": 0,
+      "text": "Thank you for calling S-Net high-speed broadband technical operations, my name is Edward. How can I help you today?"
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[00:20]",
+      "end_time": "[00:36]",
+      "start_time_sec": 20,
+      "text": "Hello Edward, my name is Hannah Morris. I am paying seventy pounds a month for your top-tier Fibre 900 package, but every single evening between eight and eleven o'clock my download speed throttles down to fifteen megabits per second!",
+      "sentiment_score": -34.8
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[00:48]",
+      "end_time": "[01:02]",
+      "start_time_sec": 48,
+      "text": "Good afternoon Hannah. I can inspect your optical gigabit profile and regional distribution gateway telemetry. Before we examine your speed telemetry, could you confirm your full postal address and your account security PIN?"
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[01:14]",
+      "end_time": "[01:24]",
+      "start_time_sec": 74,
+      "text": "Yes, it is 42 Lansdown Crescent, Bath, BA1 5EX, and my security PIN is 6194. My optical ONT unit serial number is SNET-ONT-88419.",
+      "sentiment_score": -5.2
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[01:36]",
+      "end_time": "[01:45]",
+      "start_time_sec": 96,
+      "text": "Thank you Hannah, that confirms your account details. How are your devices connected to the Hub 5 router during these evening slowdowns?"
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[01:57]",
+      "end_time": "[02:14]",
+      "start_time_sec": 117,
+      "text": "I have an Apple TV 4K connected directly via a Cat 6 Ethernet cable, and three laptops connected via five gigahertz Wi-Fi in the same room because having a reliable home broadband connection is absolutely essential for our daily household work.",
+      "sentiment_score": -16.4
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[02:26]",
+      "end_time": "[02:46]",
+      "start_time_sec": 146,
+      "text": "So what has occurred is that while your Fibre 900 subscription delivers gigabit throughput during daytime hours, severe congestion or traffic management reduces your speeds to fifteen megabits during peak evening hours between eight and eleven, is that right in accordance with our standard telecommunications network diagnostic procedures."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[02:58]",
+      "end_time": "[03:14]",
+      "start_time_sec": 178,
+      "text": "Yes, that is exactly what happens every single night! My family cannot stream 4K movies or play games, and everything buffers continuously so I really appreciate you taking the time to look into these technical details with me today.",
+      "sentiment_score": -24.2
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[03:26]",
+      "end_time": "[03:42]",
+      "start_time_sec": 206,
+      "text": "Bear with me for a couple of minutes while I query our core optical line terminal and regional BGP aggregation routers in the Bath exchange across all your connected household devices including laptops, mobile phones, and streaming hardware."
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[05:07]",
+      "end_time": "[05:27]",
+      "start_time_sec": 307,
+      "text": "Thank you for waiting, Hannah. The OLT telemetry indicates your physical GPON optical light budget is pristine at minus nineteen dBm, but our regional aggregation edge router is experiencing high capacity utilization during peak streaming hours to maintain optimal throughput and low latency across the regional distribution network."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[05:39]",
+      "end_time": "[06:03]",
+      "start_time_sec": 339,
+      "text": "I am sick and tired of paying seventy pounds a month for gigabit speeds that turn into dial-up speeds every night! I demand an immediate penalty-free contract exit and a full refund of all broadband fees paid for the past six months right now so I really appreciate you taking the time to look into these technical details with me today.",
+      "sentiment_score": -64.2
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[06:15]",
+      "end_time": "[06:39]",
+      "start_time_sec": 375,
+      "text": "I completely understand how deeply disappointing and frustrating it is to experience evening speed degradation when relaxing with family 4K streaming, Hannah. However, because our diagnostic records show your physical connection syncs at full gigabit capacity and the slowdown stems from regional transit node congestion, our service terms require opening an engineering capacity ticket rather than immediate penalty-free termination or full retrospective refunds; what I can do right now is apply an immediate twenty-pound goodwill credit to your bill, re-route your WAN session to our low-latency London peering node, and book a priority node upgrade ticket in accordance with our standard telecommunications network diagnostic procedures."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[06:51]",
+      "end_time": "[07:13]",
+      "start_time_sec": 411,
+      "text": "Well... at least you acknowledged the problem honestly instead of blaming my home Wi-Fi like the last agent did. Twenty pounds credit and re-routing the session is a fair temporary compromise while you fix the node since we depend heavily on this service for remote working and family communications every day.",
+      "sentiment_score": 18.4
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[07:25]",
+      "end_time": "[07:37]",
+      "start_time_sec": 445,
+      "text": "I have applied the twenty-pound goodwill credit adjustment directly to your account ledger right now across all your connected household devices including laptops, mobile phones, and streaming hardware."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[07:49]",
+      "end_time": "[07:53]",
+      "start_time_sec": 469,
+      "text": "Thank you Edward. How do we execute the WAN session re-routing?",
+      "sentiment_score": 22.1
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[08:05]",
+      "end_time": "[08:11]",
+      "start_time_sec": 485,
+      "text": "I am sending a remote session termination command to the local broadband remote access server."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[08:23]",
+      "end_time": "[08:29]",
+      "start_time_sec": 503,
+      "text": "The internet light on the Hub 5 router just went amber for a moment.",
+      "sentiment_score": 14.5
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[08:41]",
+      "end_time": "[08:48]",
+      "start_time_sec": 521,
+      "text": "Yes, that forces your router to re-negotiate a dynamic IP lease on our alternative low-congestion peering ring."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[09:00]",
+      "end_time": "[09:07]",
+      "start_time_sec": 540,
+      "text": "The light is back to solid white. Let me run a speed test on my Ethernet Apple TV...",
+      "sentiment_score": 28.4
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[09:18]",
+      "end_time": "[09:24]",
+      "start_time_sec": 558,
+      "text": "What speed result does the Apple TV speed test application report right now, Hannah?"
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[09:35]",
+      "end_time": "[09:42]",
+      "start_time_sec": 575,
+      "text": "It is showing four hundred and eighty megabits per second! That is thirty times faster than fifteen megabits!",
+      "sentiment_score": 54.2
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[09:53]",
+      "end_time": "[09:58]",
+      "start_time_sec": 593,
+      "text": "That confirms your traffic is successfully traversing our London secondary aggregation core."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[10:09]",
+      "end_time": "[10:12]",
+      "start_time_sec": 609,
+      "text": "That is a massive improvement for tonight.",
+      "sentiment_score": 42.1
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[10:23]",
+      "end_time": "[10:29]",
+      "start_time_sec": 623,
+      "text": "Obviously regional bandwidth capacity upgrades require physical line card installation in the telephone exchange."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[10:40]",
+      "end_time": "[10:46]",
+      "start_time_sec": 640,
+      "text": "When will the permanent line card upgrade in the Bath exchange actually be completed?",
+      "sentiment_score": 16.4
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[10:57]",
+      "end_time": "[11:08]",
+      "start_time_sec": 657,
+      "text": "Our core network engineering department has scheduled the Bath optical node backhaul expansion for completion within fourteen business days, installing two fresh 100-gigabit DWDM uplink transceivers."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[11:19]",
+      "end_time": "[11:23]",
+      "start_time_sec": 679,
+      "text": "That extra backhaul capacity will permanently solve the evening peak bottleneck.",
+      "sentiment_score": 24.1
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[11:34]",
+      "end_time": "[11:38]",
+      "start_time_sec": 694,
+      "text": "I have attached your account to automated monitoring ticket NET-44019-B."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[11:49]",
+      "end_time": "[11:52]",
+      "start_time_sec": 709,
+      "text": "What does that automated monitoring ticket do?",
+      "sentiment_score": 8.5
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[12:03]",
+      "end_time": "[12:13]",
+      "start_time_sec": 723,
+      "text": "It will poll your evening speed tests automatically every thirty minutes and trigger an SMS alert if speeds drop below two hundred megabits."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[12:24]",
+      "end_time": "[12:27]",
+      "start_time_sec": 744,
+      "text": "That will keep S-Net accountable for maintaining throughput.",
+      "sentiment_score": 22.1
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[12:38]",
+      "end_time": "[12:45]",
+      "start_time_sec": 758,
+      "text": "You can track the Bath exchange engineering progress via your My S-Net mobile app under Network Status."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[12:56]",
+      "end_time": "[13:00]",
+      "start_time_sec": 776,
+      "text": "I will keep an eye on the network status page.",
+      "sentiment_score": 22.1
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[13:11]",
+      "end_time": "[13:16]",
+      "start_time_sec": 791,
+      "text": "Your Hub 5 router features Wi-Fi 6 technology with multi-user MIMO capabilities."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[13:27]",
+      "end_time": "[13:31]",
+      "start_time_sec": 807,
+      "text": "Yes, all our laptops connect with high wireless link speeds.",
+      "sentiment_score": 24.5
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[13:42]",
+      "end_time": "[13:46]",
+      "start_time_sec": 822,
+      "text": "Our gigabit fiber infrastructure supports ultra-low latency ideal for cloud gaming."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[13:57]",
+      "end_time": "[14:02]",
+      "start_time_sec": 837,
+      "text": "The ping times have been under ten milliseconds when speeds are fast.",
+      "sentiment_score": 28.2
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[14:13]",
+      "end_time": "[14:18]",
+      "start_time_sec": 853,
+      "text": "We also recommend enabling Smart Wi-Fi band steering to optimize device frequency allocation."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[14:29]",
+      "end_time": "[14:34]",
+      "start_time_sec": 869,
+      "text": "I will ensure band steering remains active on all our mobile handsets.",
+      "sentiment_score": 22.1
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[14:45]",
+      "end_time": "[14:50]",
+      "start_time_sec": 885,
+      "text": "The router will intelligently assign five gigahertz channels to eliminate domestic wireless contention."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[15:01]",
+      "end_time": "[15:20]",
+      "start_time_sec": 901,
+      "text": "Edward, fourteen business days is nearly three more weeks of potential evening buffering! I can't believe S-Net sells gigabit packages when your exchange hardware is oversubscribed! It makes me furious to have to wait three weeks for hardware you should have installed months ago!",
+      "sentiment_score": -58.4
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[15:31]",
+      "end_time": "[15:35]",
+      "start_time_sec": 931,
+      "text": "Exchange equipment upgrades are managed according to scheduled engineering maintenance windows."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[15:46]",
+      "end_time": "[15:50]",
+      "start_time_sec": 946,
+      "text": "I hope your engineering team adheres strictly to that fourteen-day deadline.",
+      "sentiment_score": -18.2
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[16:01]",
+      "end_time": "[16:05]",
+      "start_time_sec": 961,
+      "text": "Our engineering field supervision team oversees all overnight exchange maintenance cutovers."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[16:16]",
+      "end_time": "[16:20]",
+      "start_time_sec": 976,
+      "text": "That gives me confidence the work will actually complete on schedule.",
+      "sentiment_score": 14.2
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[16:31]",
+      "end_time": "[16:37]",
+      "start_time_sec": 991,
+      "text": "Before we conclude our call, that account contact telephone number was 01225 440192, correct?"
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[16:48]",
+      "end_time": "[16:51]",
+      "start_time_sec": 1008,
+      "text": "Yes, 01225 440192 is my home landline.",
+      "sentiment_score": 18.2
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[17:02]",
+      "end_time": "[17:12]",
+      "start_time_sec": 1022,
+      "text": "We have applied the twenty-pound credit, re-routed your WAN session to the London peering ring, verified 480 Mbps throughput, and logged engineering ticket NET-44019-B."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[17:23]",
+      "end_time": "[17:26]",
+      "start_time_sec": 1043,
+      "text": "Thank you Edward, the speed is vastly better tonight.",
+      "sentiment_score": 32.4
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[17:37]",
+      "end_time": "[17:44]",
+      "start_time_sec": 1057,
+      "text": "Is there any other aspect of your gigabit broadband service I can assist you with today, Hannah?"
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[17:55]",
+      "end_time": "[17:59]",
+      "start_time_sec": 1075,
+      "text": "Our automated network management systems will monitor line jitter continuously."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[18:10]",
+      "end_time": "[18:14]",
+      "start_time_sec": 1090,
+      "text": "That continuous monitoring will ensure packet loss remains at zero percent.",
+      "sentiment_score": 22.4
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[18:25]",
+      "end_time": "[18:29]",
+      "start_time_sec": 1105,
+      "text": "Our automated network management systems will monitor line jitter continuously."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[18:40]",
+      "end_time": "[18:44]",
+      "start_time_sec": 1120,
+      "text": "That continuous monitoring will ensure packet loss remains at zero percent.",
+      "sentiment_score": 22.4
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[18:55]",
+      "end_time": "[19:00]",
+      "start_time_sec": 1135,
+      "text": "No thank you Edward, you have done what you could for now.",
+      "sentiment_score": 26.5
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[19:11]",
+      "end_time": "[19:17]",
+      "start_time_sec": 1151,
+      "text": "Thank you for choosing S-Net high-speed broadband technical operations, Hannah. Have a wonderful evening. Goodbye."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[19:28]",
+      "end_time": "[19:31]",
+      "start_time_sec": 1168,
+      "text": "Goodbye Edward.",
+      "sentiment_score": 6.5
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[19:42]",
+      "end_time": "[19:47]",
+      "start_time_sec": 1182,
+      "text": "Thank you for choosing S-Net. Goodbye."
+    }
+  ]
+}

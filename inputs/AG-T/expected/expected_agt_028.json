@@ -1,0 +1,192 @@
+{
+  "call_id": "agt_028",
+  "tenant_id": "tenant-abc",
+  "status": "completed",
+  "result": {
+    "final_score": 48.3,
+    "is_auto_fail": false,
+    "auto_fail_reason": null,
+    "scorecard": [
+      {
+        "category": "Soft Skills",
+        "name": "Branding and Survey Check",
+        "rating": "PASS",
+        "coaching": ""
+      },
+      {
+        "category": "Soft Skills",
+        "name": "Hold time and Dead Air",
+        "rating": "PASS",
+        "coaching": ""
+      },
+      {
+        "category": "Technical Knowledge",
+        "name": "Verified customer",
+        "rating": "PASS",
+        "coaching": ""
+      },
+      {
+        "category": "Soft Skills",
+        "name": "Personalized the call/ticket appropriately",
+        "rating": "PASS",
+        "coaching": ""
+      },
+      {
+        "category": "Soft Skills",
+        "name": "Empathy & Acknowledgment Statement",
+        "rating": "FAIL",
+        "coaching": "Ignored customer distress and deadline frustration at [03:15] regarding architect file upload failures."
+      },
+      {
+        "category": "Technical Knowledge",
+        "name": "Paraphrasing",
+        "rating": "FAIL",
+        "coaching": "Failed to paraphrase customer's speed dispute in own words."
+      },
+      {
+        "category": "Technical Knowledge",
+        "name": "Active listening",
+        "rating": "FAIL",
+        "coaching": "Asked customer at [08:40] for her router model which had already been stated at [00:40]."
+      },
+      {
+        "category": "Technical Knowledge",
+        "name": "Took ownership of the problem",
+        "rating": "FAIL",
+        "coaching": "Deflected responsibility at [05:20] by refusing to process engineer booking or claim and insisting customer use web form."
+      },
+      {
+        "category": "Soft Skills",
+        "name": "Build rapport and observed professionalism",
+        "rating": "FAIL",
+        "coaching": "Spoke defensively and aggressively at [04:20] stating 'Well if you had actually bothered to read section 8... don't accuse customer service of misleading you.'"
+      },
+      {
+        "category": "Technical Knowledge",
+        "name": "Probing",
+        "rating": "PASS",
+        "coaching": ""
+      },
+      {
+        "category": "Technical Knowledge",
+        "name": "Confirmed the issue is resolved",
+        "rating": "PASS",
+        "coaching": ""
+      }
+    ]
+  },
+  "grader": {
+    "graded_by": "Antigravity (gemini-3.8-flash)",
+    "graded_on": "2026-10-21",
+    "scenario": "Broadband speed guarantee credit claim after sync speed remained below 45 Mbps minimum",
+    "tier": "poor",
+    "duration_sec": 879,
+    "notes": "Poor customer service call marked by agent rudeness, deflection of contractual ownership, failure of empathy, and repeated questioning, despite port reset temporarily resolving speed.",
+    "hard_cases": [
+      "Active listening",
+      "Build rapport and observed professionalism",
+      "Empathy & Acknowledgment Statement",
+      "Took ownership of the problem"
+    ],
+    "items": [
+      {
+        "name": "Branding and Survey Check",
+        "rating": "PASS",
+        "confidence": "clear",
+        "evidence": "Agent opened with 'Thank you for calling S-Net broadband cancellations and billing' at [00:00] and closed with 'Thank you for choosing S-Net' in final lines."
+      },
+      {
+        "name": "Hold time and Dead Air",
+        "rating": "PASS",
+        "confidence": "clear",
+        "evidence": "Holds announced with bear with me and thanked upon return without unmanaged dead air."
+      },
+      {
+        "name": "Verified customer",
+        "rating": "PASS",
+        "confidence": "clear",
+        "evidence": "Verified full postal address and security PIN within the first 240 seconds."
+      },
+      {
+        "name": "Personalized the call/ticket appropriately",
+        "rating": "PASS",
+        "confidence": "clear",
+        "evidence": "Agent addressed customer as Elena throughout the call."
+      },
+      {
+        "name": "Empathy & Acknowledgment Statement",
+        "rating": "FAIL",
+        "confidence": "clear",
+        "evidence": "Customer expressed acute distress over missed architectural deadlines; agent offered no empathy."
+      },
+      {
+        "name": "Paraphrasing",
+        "rating": "FAIL",
+        "confidence": "clear",
+        "evidence": "Agent never restated the customer's speed guarantee dispute in his own words."
+      },
+      {
+        "name": "Active listening",
+        "rating": "FAIL",
+        "confidence": "clear",
+        "evidence": "Agent asked for router model at turn 26 despite customer providing Hub 4 serial number at turn 3."
+      },
+      {
+        "name": "Took ownership of the problem",
+        "rating": "FAIL",
+        "confidence": "clear",
+        "evidence": "Agent refused to book an engineer or raise claim, telling customer frontline staff do not handle disputes."
+      },
+      {
+        "name": "Build rapport and observed professionalism",
+        "rating": "FAIL",
+        "confidence": "clear",
+        "evidence": "Agent insulted customer at [04:20]: 'Well if you had actually bothered to read section 8... don't accuse customer service of misleading you.'"
+      },
+      {
+        "name": "Probing",
+        "rating": "PASS",
+        "confidence": "clear",
+        "evidence": "Agent asked relevant diagnostic questions about speed test methods and test frequency."
+      },
+      {
+        "name": "Confirmed the issue is resolved",
+        "rating": "PASS",
+        "confidence": "clear",
+        "evidence": "Customer confirmed download speed reached 46.2 Mbps following DSLAM port reset and accepted ticket reference."
+      }
+    ],
+    "markers": {
+      "active_listening": [
+        {
+          "kind": "repeat",
+          "premise_turn": 3,
+          "agent_turn": 26,
+          "reworded": true
+        }
+      ],
+      "paraphrasing": [
+        {
+          "kind": "not_a_restatement",
+          "agent_turn": 4
+        }
+      ],
+      "rapport": [
+        {
+          "kind": "rude",
+          "agent_turn": 13
+        },
+        {
+          "kind": "blunt_but_ok",
+          "agent_turn": 28
+        }
+      ],
+      "empathy": [
+        {
+          "kind": "unhandled",
+          "customer_turn": 10
+        }
+      ]
+    }
+  }
+}

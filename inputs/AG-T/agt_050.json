@@ -1,0 +1,447 @@
+{
+  "tenant_id": "tenant-abc",
+  "customer_name": "Judith",
+  "transcript": [
+    {
+      "speaker": "Agent",
+      "start_time": "[00:00]",
+      "end_time": "[00:08]",
+      "start_time_sec": 0,
+      "text": "Thank you for calling S-Net home moving customer care, my name is Jason. How can I help you today?"
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[00:18]",
+      "end_time": "[00:39]",
+      "start_time_sec": 18,
+      "text": "Hello Jason, my name is Judith Holloway. I arranged a home move transfer for our broadband service three weeks ago, but when the moving van arrived at our new house today, the router was disconnected and an email arrived saying my move order had been cancelled without my knowledge!",
+      "sentiment_score": -34.8
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[00:49]",
+      "end_time": "[01:02]",
+      "start_time_sec": 49,
+      "text": "Good afternoon Judith. I can inspect your moving order status and property asset records. Before we look at your account, could you confirm your full postal address and your account security PIN?"
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[01:12]",
+      "end_time": "[01:22]",
+      "start_time_sec": 72,
+      "text": "Yes, our new address is 27 St Jude's Close, Salisbury, SP2 8BN, and my security PIN is 4491. My customer account number is SN-772109.",
+      "sentiment_score": -5.2
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[01:32]",
+      "end_time": "[01:38]",
+      "start_time_sec": 92,
+      "text": "Thank you Judith, that confirms your account details. When was the installation date originally scheduled for?"
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[01:48]",
+      "end_time": "[02:04]",
+      "start_time_sec": 108,
+      "text": "It was booked for today between one o'clock and six o'clock, and the email claiming it was cancelled only arrived at eleven this morning because having a reliable home broadband connection is absolutely essential for our daily household work.",
+      "sentiment_score": -24.2
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[02:14]",
+      "end_time": "[02:27]",
+      "start_time_sec": 134,
+      "text": "Bear with me for a couple of minutes while I query our provisioning order workflow records on our order orchestration database in accordance with our standard telecommunications network diagnostic procedures."
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[03:52]",
+      "end_time": "[04:12]",
+      "start_time_sec": 232,
+      "text": "Thank you for waiting, Judith. The order workflow shows an automated cancellation trigger executed because our address validation department did not receive proof of tenancy for 27 St Jude's Close within fourteen calendar days so that your account records and provisioning parameters remain completely up to date."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[04:22]",
+      "end_time": "[04:46]",
+      "start_time_sec": 262,
+      "text": "I handed the signed tenancy agreement to your sales representative in your Salisbury retail store three weeks ago, and he scanned it right in front of me! Now my family is sitting in a house full of moving boxes with zero broadband, my husband cannot work remotely, and my children cannot do their schoolwork! I am absolutely furious and stressed out! Why did you cancel my order without even telephoning me because having a reliable home broadband connection is absolutely essential for our daily household work.",
+      "sentiment_score": -64.2
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[04:56]",
+      "end_time": "[05:07]",
+      "start_time_sec": 296,
+      "text": "Retail store documentation scans are subject to manual audit review by central provisioning compliance teams to maintain optimal throughput and low latency across the regional distribution network."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[05:17]",
+      "end_time": "[05:34]",
+      "start_time_sec": 317,
+      "text": "I do not care about central compliance audits, Jason! I need my broadband turned on today! Can you reinstate that order right now so I really appreciate you taking the time to look into these technical details with me today.",
+      "sentiment_score": -48.2
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[05:44]",
+      "end_time": "[05:54]",
+      "start_time_sec": 344,
+      "text": "Once a broadband provisioning order enters cancelled status in Openreach systems, it cannot be administratively reinstated in accordance with our standard telecommunications network diagnostic procedures."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[06:04]",
+      "end_time": "[06:14]",
+      "start_time_sec": 364,
+      "text": "Then place a brand new emergency order for today since we depend heavily on this service for remote working and family communications every day.",
+      "sentiment_score": -38.4
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[06:24]",
+      "end_time": "[06:36]",
+      "start_time_sec": 384,
+      "text": "Standard wholesale engineering lead times require a minimum of ten working days for fresh order fulfillment across all your connected household devices including laptops, mobile phones, and streaming hardware."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[06:46]",
+      "end_time": "[07:05]",
+      "start_time_sec": 406,
+      "text": "Ten working days?! We cannot live without internet for two weeks because of your retail store's incompetence! This is totally unacceptable! I demand to speak to your manager immediately because having a reliable home broadband connection is absolutely essential for our daily household work.",
+      "sentiment_score": -58.4
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[07:15]",
+      "end_time": "[07:27]",
+      "start_time_sec": 435,
+      "text": "Team managers do not have access to bypass national Openreach wholesale engineering lead times to ensure your S-Net service operates reliably without unexpected dropped packets or connection faults."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[07:37]",
+      "end_time": "[07:57]",
+      "start_time_sec": 457,
+      "text": "You cancelled our service without warning, took our money, and now refuse to let me speak to a supervisor! This is the most incompetent customer service I have ever witnessed so I really appreciate you taking the time to look into these technical details with me today.",
+      "sentiment_score": -52.4
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[08:07]",
+      "end_time": "[08:17]",
+      "start_time_sec": 487,
+      "text": "Obviously telecommunications provisioning workflows are governed by strict industry-wide wholesale regulations so that your account records and provisioning parameters remain completely up to date."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[08:27]",
+      "end_time": "[08:40]",
+      "start_time_sec": 507,
+      "text": "Stop reciting regulations at me and take responsibility for your company losing my tenancy documents since we depend heavily on this service for remote working and family communications every day.",
+      "sentiment_score": -46.2
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[08:50]",
+      "end_time": "[08:59]",
+      "start_time_sec": 530,
+      "text": "I am stating the procedural reality of wholesale telecommunications ordering to maintain optimal throughput and low latency across the regional distribution network."
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[09:09]",
+      "end_time": "[09:24]",
+      "start_time_sec": 549,
+      "text": "You are acting like a stupid customer if you expect an unverified broadband order to sit active indefinitely without compliance clearance to ensure your S-Net service operates reliably without unexpected dropped packets or connection faults."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[09:34]",
+      "end_time": "[09:51]",
+      "start_time_sec": 574,
+      "text": "Did you just call me stupid?! I am recording this telephone conversation! I will report you to the communications ombudsman and demand your immediate dismissal since we depend heavily on this service for remote working and family communications every day.",
+      "sentiment_score": -68.4
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[10:01]",
+      "end_time": "[10:11]",
+      "start_time_sec": 601,
+      "text": "I am stating the operational requirements of consumer contract verification so that your account records and provisioning parameters remain completely up to date."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[10:21]",
+      "end_time": "[10:31]",
+      "start_time_sec": 621,
+      "text": "Give me your employee ID number right now because having a reliable home broadband connection is absolutely essential for our daily household work.",
+      "sentiment_score": -54.2
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[10:41]",
+      "end_time": "[10:44]",
+      "start_time_sec": 641,
+      "text": "My employee identification code is JS-9912."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[10:54]",
+      "end_time": "[11:07]",
+      "start_time_sec": 654,
+      "text": "JS-9912, noted down. I will be submitting this entire recording to your chief executive officer today since we depend heavily on this service for remote working and family communications every day.",
+      "sentiment_score": -48.2
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[11:17]",
+      "end_time": "[11:22]",
+      "start_time_sec": 677,
+      "text": "You are entitled to submit formal written complaints via our corporate portal."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[11:32]",
+      "end_time": "[11:35]",
+      "start_time_sec": 692,
+      "text": "What is the order cancellation reference number?",
+      "sentiment_score": -22.1
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[11:45]",
+      "end_time": "[11:48]",
+      "start_time_sec": 705,
+      "text": "The cancelled moving order reference is MOV-44019-X."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[11:58]",
+      "end_time": "[12:01]",
+      "start_time_sec": 718,
+      "text": "MOV-44019-X, written down.",
+      "sentiment_score": 4.5
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[12:11]",
+      "end_time": "[12:16]",
+      "start_time_sec": 731,
+      "text": "A fresh order can be raised once you re-upload your tenancy agreement online."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[12:26]",
+      "end_time": "[12:32]",
+      "start_time_sec": 746,
+      "text": "I will never give S-Net another penny of my money after this appalling abuse.",
+      "sentiment_score": -32.1
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[12:42]",
+      "end_time": "[12:45]",
+      "start_time_sec": 762,
+      "text": "I have documented your complaint on customer ticket CMP-88192-J."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[12:55]",
+      "end_time": "[12:58]",
+      "start_time_sec": 775,
+      "text": "CMP-88192-J, noted.",
+      "sentiment_score": -6.5
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[13:08]",
+      "end_time": "[13:11]",
+      "start_time_sec": 788,
+      "text": "What was that new postal address again?"
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[13:21]",
+      "end_time": "[13:29]",
+      "start_time_sec": 801,
+      "text": "As I told you right at the start of the call, it is 27 St Jude's Close, Salisbury, SP2 8BN.",
+      "sentiment_score": -18.2
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[13:39]",
+      "end_time": "[13:43]",
+      "start_time_sec": 819,
+      "text": "I have verified the Salisbury address on the complaint file."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[13:52]",
+      "end_time": "[13:55]",
+      "start_time_sec": 832,
+      "text": "Make sure all executive correspondence goes to that address.",
+      "sentiment_score": -8.2
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[14:04]",
+      "end_time": "[14:10]",
+      "start_time_sec": 844,
+      "text": "Is there any other matter regarding your cancelled order I can assist with today, Judith?"
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[14:19]",
+      "end_time": "[14:24]",
+      "start_time_sec": 859,
+      "text": "Our corporate executive complaints office reviews formal escalation tickets within eight business weeks."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[14:33]",
+      "end_time": "[14:37]",
+      "start_time_sec": 873,
+      "text": "I will be pursuing this matter directly through the Communications Ombudsman.",
+      "sentiment_score": -12.1
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[14:46]",
+      "end_time": "[14:51]",
+      "start_time_sec": 886,
+      "text": "Our corporate executive complaints office reviews formal escalation tickets within eight business weeks."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[15:00]",
+      "end_time": "[15:04]",
+      "start_time_sec": 900,
+      "text": "I will be pursuing this matter directly through the Communications Ombudsman.",
+      "sentiment_score": -12.1
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[15:13]",
+      "end_time": "[15:18]",
+      "start_time_sec": 913,
+      "text": "Our corporate executive complaints office reviews formal escalation tickets within eight business weeks."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[15:27]",
+      "end_time": "[15:31]",
+      "start_time_sec": 927,
+      "text": "I will be pursuing this matter directly through the Communications Ombudsman.",
+      "sentiment_score": -12.1
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[15:40]",
+      "end_time": "[15:45]",
+      "start_time_sec": 940,
+      "text": "Our corporate executive complaints office reviews formal escalation tickets within eight business weeks."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[15:54]",
+      "end_time": "[15:58]",
+      "start_time_sec": 954,
+      "text": "I will be pursuing this matter directly through the Communications Ombudsman.",
+      "sentiment_score": -12.1
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[16:07]",
+      "end_time": "[16:12]",
+      "start_time_sec": 967,
+      "text": "Our corporate executive complaints office reviews formal escalation tickets within eight business weeks."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[16:21]",
+      "end_time": "[16:25]",
+      "start_time_sec": 981,
+      "text": "I will be pursuing this matter directly through the Communications Ombudsman.",
+      "sentiment_score": -12.1
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[16:34]",
+      "end_time": "[16:39]",
+      "start_time_sec": 994,
+      "text": "Our corporate executive complaints office reviews formal escalation tickets within eight business weeks."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[16:48]",
+      "end_time": "[16:52]",
+      "start_time_sec": 1008,
+      "text": "I will be pursuing this matter directly through the Communications Ombudsman.",
+      "sentiment_score": -12.1
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[17:01]",
+      "end_time": "[17:06]",
+      "start_time_sec": 1021,
+      "text": "Our corporate executive complaints office reviews formal escalation tickets within eight business weeks."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[17:15]",
+      "end_time": "[17:19]",
+      "start_time_sec": 1035,
+      "text": "I will be pursuing this matter directly through the Communications Ombudsman.",
+      "sentiment_score": -12.1
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[17:28]",
+      "end_time": "[17:33]",
+      "start_time_sec": 1048,
+      "text": "Our corporate executive complaints office reviews formal escalation tickets within eight business weeks."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[17:42]",
+      "end_time": "[17:46]",
+      "start_time_sec": 1062,
+      "text": "I will be pursuing this matter directly through the Communications Ombudsman.",
+      "sentiment_score": -12.1
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[17:55]",
+      "end_time": "[17:58]",
+      "start_time_sec": 1075,
+      "text": "No, you have been utterly abusive and useless.",
+      "sentiment_score": -24.5
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[18:07]",
+      "end_time": "[18:11]",
+      "start_time_sec": 1087,
+      "text": "Thank you for choosing S-Net home moving customer care, Judith. Goodbye."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[18:20]",
+      "end_time": "[18:23]",
+      "start_time_sec": 1100,
+      "text": "Goodbye.",
+      "sentiment_score": -6.5
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[18:32]",
+      "end_time": "[18:37]",
+      "start_time_sec": 1112,
+      "text": "Thank you for choosing S-Net. Goodbye."
+    }
+  ]
+}

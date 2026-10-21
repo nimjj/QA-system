@@ -1,0 +1,193 @@
+{
+  "call_id": "agt_054",
+  "tenant_id": "tenant-abc",
+  "status": "completed",
+  "result": {
+    "final_score": 60.0,
+    "is_auto_fail": false,
+    "auto_fail_reason": null,
+    "scorecard": [
+      {
+        "category": "Soft Skills",
+        "name": "Branding and Survey Check",
+        "rating": "PASS",
+        "coaching": ""
+      },
+      {
+        "category": "Soft Skills",
+        "name": "Hold time and Dead Air",
+        "rating": "PASS",
+        "coaching": ""
+      },
+      {
+        "category": "Technical Knowledge",
+        "name": "Verified customer",
+        "rating": "PASS",
+        "coaching": ""
+      },
+      {
+        "category": "Soft Skills",
+        "name": "Personalized the call/ticket appropriately",
+        "rating": "PASS",
+        "coaching": ""
+      },
+      {
+        "category": "Soft Skills",
+        "name": "Empathy & Acknowledgment Statement",
+        "rating": "PASS",
+        "coaching": ""
+      },
+      {
+        "category": "Technical Knowledge",
+        "name": "Paraphrasing",
+        "rating": "FAIL",
+        "coaching": "Failed to paraphrase customer's storm-related speed drop and sync instability in own words."
+      },
+      {
+        "category": "Technical Knowledge",
+        "name": "Active listening",
+        "rating": "FAIL",
+        "coaching": "Asked customer at [08:15] for her router serial number which had already been verified at [00:45]."
+      },
+      {
+        "category": "Technical Knowledge",
+        "name": "Took ownership of the problem",
+        "rating": "FAIL",
+        "coaching": "Deflected responsibility at [04:45] by refusing to escalate ticket and telling customer frontline staff cannot assist with wholesale repairs."
+      },
+      {
+        "category": "Soft Skills",
+        "name": "Build rapport and observed professionalism",
+        "rating": "FAIL",
+        "coaching": "Spoke rudely and defensively at [03:45] stating 'Well if you had actually installed a surge protector plug... your router wouldn't be retraining...'"
+      },
+      {
+        "category": "Technical Knowledge",
+        "name": "Probing",
+        "rating": "PASS",
+        "coaching": ""
+      },
+      {
+        "category": "Technical Knowledge",
+        "name": "Confirmed the issue is resolved",
+        "rating": "PASS",
+        "coaching": ""
+      }
+    ]
+  },
+  "grader": {
+    "graded_by": "Antigravity (gemini-3.8-flash)",
+    "graded_on": "2026-10-21",
+    "scenario": "Broadband sync speed dropped by half following Openreach cabinet lightning strike",
+    "tier": "okay",
+    "duration_sec": 856,
+    "notes": "Good demonstration of an 'okay' 4-fault call where the agent demonstrated appropriate empathy regarding tax accounting deadlines, but failed paraphrasing, active listening, rapport, and ownership.",
+    "hard_cases": [
+      "Active listening",
+      "Build rapport and observed professionalism",
+      "Took ownership of the problem"
+    ],
+    "items": [
+      {
+        "name": "Branding and Survey Check",
+        "rating": "PASS",
+        "confidence": "clear",
+        "evidence": "Agent opened with 'Thank you for calling S-Net broadband network faults' at [00:00] and closed with 'Thank you for choosing S-Net' in final lines."
+      },
+      {
+        "name": "Hold time and Dead Air",
+        "rating": "PASS",
+        "confidence": "clear",
+        "evidence": "Holds announced with bear with me and thanked upon return without unmanaged dead air."
+      },
+      {
+        "name": "Verified customer",
+        "rating": "PASS",
+        "confidence": "clear",
+        "evidence": "Verified full postal address and security PIN within the first 240 seconds."
+      },
+      {
+        "name": "Personalized the call/ticket appropriately",
+        "rating": "PASS",
+        "confidence": "clear",
+        "evidence": "Agent addressed customer as Lara throughout the call."
+      },
+      {
+        "name": "Empathy & Acknowledgment Statement",
+        "rating": "PASS",
+        "confidence": "clear",
+        "evidence": "Agent demonstrated empathy at [02:50] ('I completely understand that speed drops during busy tax accounting periods cause immediate stress, Lara.') and customer had no unhandled outbursts."
+      },
+      {
+        "name": "Paraphrasing",
+        "rating": "FAIL",
+        "confidence": "clear",
+        "evidence": "Agent never restated the thunderstorm damage and halved speed in his own words."
+      },
+      {
+        "name": "Active listening",
+        "rating": "FAIL",
+        "confidence": "clear",
+        "evidence": "Agent asked for router serial number at turn 25 despite customer stating SN-88210 at turn 3."
+      },
+      {
+        "name": "Took ownership of the problem",
+        "rating": "FAIL",
+        "confidence": "clear",
+        "evidence": "Agent refused to escalate ticket to management, deflecting responsibility to wholesale queues."
+      },
+      {
+        "name": "Build rapport and observed professionalism",
+        "rating": "FAIL",
+        "confidence": "clear",
+        "evidence": "Agent insulted customer at [03:45]: 'Well if you had actually installed a surge protector plug... your router wouldn't be retraining every fifteen minutes.'"
+      },
+      {
+        "name": "Probing",
+        "rating": "PASS",
+        "confidence": "clear",
+        "evidence": "Agent asked relevant questions regarding physical damage and router sync light status."
+      },
+      {
+        "name": "Confirmed the issue is resolved",
+        "rating": "PASS",
+        "confidence": "clear",
+        "evidence": "Customer noted monitoring ticket TKT-44019-L and agreed to 3-5 day engineering timeframe."
+      }
+    ],
+    "markers": {
+      "active_listening": [
+        {
+          "kind": "repeat",
+          "premise_turn": 3,
+          "agent_turn": 25,
+          "reworded": true
+        }
+      ],
+      "paraphrasing": [
+        {
+          "kind": "not_a_restatement",
+          "agent_turn": 4
+        }
+      ],
+      "rapport": [
+        {
+          "kind": "rude",
+          "agent_turn": 11
+        },
+        {
+          "kind": "blunt_but_ok",
+          "agent_turn": 17
+        }
+      ],
+      "empathy": [
+        {
+          "kind": "handled",
+          "customer_turn": 8,
+          "agent_turn": 9,
+          "with_refusal": false
+        }
+      ]
+    }
+  }
+}
