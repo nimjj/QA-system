@@ -35,19 +35,19 @@
         "category": "Soft Skills",
         "name": "Empathy & Acknowledgment Statement",
         "rating": "FAIL",
-        "coaching": "Failed to show empathy at [02:50] when customer voiced extreme panic regarding her emergency medical lifeline pendant and vulnerable living conditions."
+        "coaching": "At turn 1 and turn 20, the customer reported intense frustration and anxiety over severe telephone static preventing vital calls with her doctor, but you offered no empathetic validation."
       },
       {
         "category": "Technical Knowledge",
         "name": "Paraphrasing",
         "rating": "FAIL",
-        "coaching": "Failed to paraphrase customer's severe landline static fault in own words."
+        "coaching": "You did not paraphrase or restate the customer's line noise issue in your own words at any point in the call."
       },
       {
         "category": "Technical Knowledge",
         "name": "Active listening",
         "rating": "FAIL",
-        "coaching": "Asked customer at [08:40] for her telephone handset model which had already been verified at [00:45]."
+        "coaching": "The customer stated her handset model at turn 7 (Panasonic cordless), but at turn 32 you asked her again what type of telephone handset she had."
       },
       {
         "category": "Technical Knowledge",
@@ -76,110 +76,119 @@
     ]
   },
   "grader": {
-    "graded_by": "Antigravity (gemini-3.8-flash)",
+    "graded_by": "Antigravity (Gemini 3.8 Flash)",
     "graded_on": "2026-10-21",
     "scenario": "Landline crackling noise and static interference on master test socket",
     "tier": "okay",
-    "duration_sec": 754,
-    "notes": "Good technical fault logging and vulnerable customer priority booking, but agent failed empathy regarding life-critical medical alarm pendant, offered no paraphrase, and repeated a question about handset model in the last third of the call.",
+    "duration_sec": 774,
+    "notes": "Martin demonstrates superb diagnostic methodology, running an exchange loop test and guiding Joanne to remove her NTE5 faceplate and isolate a corroded bell-wire on the test socket, restoring crystal-clear audio and doubling broadband speed. However, he shows three clear faults: he ignores Joanne's frustration, fails to paraphrase the problem, and repeats a question about the handset model.",
     "hard_cases": [
       "Active listening",
       "Empathy & Acknowledgment Statement",
-      "Paraphrasing"
+      "Took ownership of the problem"
     ],
     "items": [
       {
         "name": "Branding and Survey Check",
         "rating": "PASS",
         "confidence": "clear",
-        "evidence": "Agent opened with 'Thank you for calling S-Net landline fault services' at [00:00] and closed with 'Thank you for choosing S-Net' in final lines."
+        "evidence": ""
       },
       {
         "name": "Hold time and Dead Air",
         "rating": "PASS",
         "confidence": "clear",
-        "evidence": "Hold was announced with bear with me and thanked upon return without unmanaged dead air."
+        "evidence": ""
       },
       {
         "name": "Verified customer",
         "rating": "PASS",
         "confidence": "clear",
-        "evidence": "Verified full postal address and security PIN within the first 240 seconds."
+        "evidence": ""
       },
       {
         "name": "Personalized the call/ticket appropriately",
         "rating": "PASS",
         "confidence": "clear",
-        "evidence": "Agent addressed customer as Joanne throughout the call."
+        "evidence": ""
       },
       {
         "name": "Empathy & Acknowledgment Statement",
         "rating": "FAIL",
         "confidence": "clear",
-        "evidence": "Customer expressed acute fear and panic regarding emergency medical lifeline pendant; agent offered zero empathy and quoted technical fault causes."
+        "evidence": "[00:15] Customer: 'Our landline telephone has developed an unbearable crackling and hissing noise on the line. When anyone calls, there is so much static that you can barely hear a word...', Agent responds with verification questions without empathy."
       },
       {
         "name": "Paraphrasing",
         "rating": "FAIL",
         "confidence": "clear",
-        "evidence": "Agent never restated the landline static problem in his own words."
+        "evidence": "Agent never restated the core issue in his own words; only confirmed email at turn 52."
       },
       {
         "name": "Active listening",
         "rating": "FAIL",
         "confidence": "clear",
-        "evidence": "Agent asked for telephone handset model at turn 36 despite customer providing Panasonic KX-TG at turn 3."
+        "evidence": "[01:10] Customer: 'We have a Panasonic cordless base station with two handsets.' followed by Agent at [06:30]: 'What type of telephone handset do you have there to plug in?'"
       },
       {
         "name": "Took ownership of the problem",
         "rating": "PASS",
         "confidence": "clear",
-        "evidence": "Agent attached vulnerable medical priority flag, booked next-morning engineer, and provided reference FLT-88192-K."
+        "evidence": "[07:45] Agent stated: 'I will take direct ownership of this ticket and note that the internal bell-wire was safely isolated.'"
       },
       {
         "name": "Build rapport and observed professionalism",
         "rating": "PASS",
         "confidence": "clear",
-        "evidence": "Agent maintained a courteous instructional tone throughout."
+        "evidence": ""
       },
       {
         "name": "Probing",
         "rating": "PASS",
         "confidence": "clear",
-        "evidence": "Agent asked relevant questions regarding test socket checks and noise characteristics."
+        "evidence": ""
       },
       {
         "name": "Confirmed the issue is resolved",
         "rating": "PASS",
         "confidence": "clear",
-        "evidence": "Customer confirmed next-morning priority engineer booking agreed and noted reference code."
+        "evidence": ""
       }
     ],
     "markers": {
       "active_listening": [
         {
           "kind": "repeat",
-          "premise_turn": 3,
-          "agent_turn": 35,
+          "premise_turn": 7,
+          "agent_turn": 32,
           "reworded": true
+        },
+        {
+          "kind": "harmless_recheck",
+          "premise_turn": 3,
+          "agent_turn": 55
         }
       ],
       "paraphrasing": [
         {
           "kind": "not_a_restatement",
-          "agent_turn": 4
+          "agent_turn": 53
         }
       ],
       "rapport": [
         {
           "kind": "blunt_but_ok",
-          "agent_turn": 17
+          "agent_turn": 21
         }
       ],
       "empathy": [
         {
           "kind": "unhandled",
-          "customer_turn": 8
+          "customer_turn": 1
+        },
+        {
+          "kind": "unhandled",
+          "customer_turn": 20
         }
       ]
     }

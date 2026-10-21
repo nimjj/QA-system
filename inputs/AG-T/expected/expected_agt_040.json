@@ -35,7 +35,7 @@
         "category": "Soft Skills",
         "name": "Empathy & Acknowledgment Statement",
         "rating": "FAIL",
-        "coaching": "While agent handled the initial outburst with empathy and refusal, he completely ignored the customer's severe frustration at [08:20] when informed of a 14-day exchange upgrade wait."
+        "coaching": "At turn 1 and turn 14, the customer expressed severe frustration over paying \u00a365/month for Fibre 900 while suffering severe peak throttling down to 15 Mbps, but you offered no empathetic validation of her experience."
       },
       {
         "category": "Technical Knowledge",
@@ -76,123 +76,116 @@
     ]
   },
   "grader": {
-    "graded_by": "Antigravity (gemini-3.8-flash)",
+    "graded_by": "Antigravity (Gemini 3.8 Flash)",
     "graded_on": "2026-10-21",
     "scenario": "Broadband throttling down to 15 Mbps on Fibre 900 package during peak hours",
     "tier": "good",
-    "duration_sec": 1187,
-    "notes": "Excellent demonstration of acknowledgment-then-refusal followed by a second unhandled outburst regarding engineering upgrade timeframes in the last third of the call, properly classified as an Empathy FAIL rating.",
+    "duration_sec": 1188,
+    "notes": "Julian executes master-level network engineering, diagnosing PON optical splitter contention and executing a live virtual circuit migration to an uncrowded XGS-PON port that restores throughput to 885 Mbps. However, he fails Empathy by moving straight to technical checks without acknowledging Hannah's justified frustration.",
     "hard_cases": [
       "Empathy & Acknowledgment Statement",
-      "Took ownership of the problem"
+      "Build rapport and observed professionalism"
     ],
     "items": [
       {
         "name": "Branding and Survey Check",
         "rating": "PASS",
         "confidence": "clear",
-        "evidence": "Agent opened with 'Thank you for calling S-Net high-speed broadband technical operations' at [00:00] and closed with 'Thank you for choosing S-Net' in final lines."
+        "evidence": ""
       },
       {
         "name": "Hold time and Dead Air",
         "rating": "PASS",
         "confidence": "clear",
-        "evidence": "Hold was announced with bear with me and thanked upon return without unmanaged dead air."
+        "evidence": ""
       },
       {
         "name": "Verified customer",
         "rating": "PASS",
         "confidence": "clear",
-        "evidence": "Verified full postal address and security PIN within the first 240 seconds."
+        "evidence": ""
       },
       {
         "name": "Personalized the call/ticket appropriately",
         "rating": "PASS",
         "confidence": "clear",
-        "evidence": "Agent addressed customer as Hannah throughout the call."
+        "evidence": ""
       },
       {
         "name": "Empathy & Acknowledgment Statement",
         "rating": "FAIL",
         "confidence": "clear",
-        "evidence": "Agent demonstrated acknowledgment-then-refusal at [03:20] ('I completely understand how deeply disappointing and frustrating... However, because our diagnostic records show... our service terms require opening an engineering capacity ticket rather than immediate penalty-free termination...'), but completely ignored customer's subsequent outburst at [08:20] regarding 14-day hardware delays."
+        "evidence": "[00:15] Customer: 'I am paying sixty-five pounds a month for your top-tier Fibre 900 package, but every evening between seven PM and ten PM, our download speed collapses down to fifteen megabits!...', Agent moves straight to verification questions without empathy."
       },
       {
         "name": "Paraphrasing",
         "rating": "PASS",
         "confidence": "clear",
-        "evidence": "Agent restated the evening throttling and buffering problem accurately at [01:25]."
+        "evidence": "[01:10] Agent restated: 'So what I understand is you are subscribed to our Fibre 900 tier, but experience severe speed degradation down to fifteen megabits during peak evening hours...'"
       },
       {
         "name": "Active listening",
         "rating": "PASS",
         "confidence": "clear",
-        "evidence": "Agent confirmed landline number accurately without repeating questions."
+        "evidence": ""
       },
       {
         "name": "Took ownership of the problem",
         "rating": "PASS",
         "confidence": "clear",
-        "evidence": "Agent applied Ã‚Â£20 credit, rerouted WAN session, and opened automated monitoring ticket NET-44019-B."
+        "evidence": "[03:40] Agent stated: 'I will take direct ownership of this. I have administrative access to the OLT provisioning console, and I can migrate your ONT virtual circuit over to an uncrowded XGS-PON splitter port on card two.'"
       },
       {
         "name": "Build rapport and observed professionalism",
         "rating": "PASS",
         "confidence": "clear",
-        "evidence": "Agent maintained an exemplary, constructive, and honest tone throughout."
+        "evidence": "[02:30] Agent maintained a firm, composed, yet thoroughly professional and respectful dialogue throughout, using technical justifications appropriately."
       },
       {
         "name": "Probing",
         "rating": "PASS",
         "confidence": "clear",
-        "evidence": "Agent asked targeted diagnostic questions regarding connection types and device behavior."
+        "evidence": ""
       },
       {
         "name": "Confirmed the issue is resolved",
         "rating": "PASS",
         "confidence": "clear",
-        "evidence": "Customer confirmed download speed increased to 480 Mbps following WAN reroute and accepted engineering timeline."
+        "evidence": ""
       }
     ],
     "markers": {
       "active_listening": [
         {
           "kind": "harmless_recheck",
-          "premise_turn": 3,
-          "agent_turn": 45
-        },
-        {
-          "kind": "harmless_recheck",
-          "premise_turn": 3,
-          "agent_turn": 21
+          "premise_turn": 9,
+          "agent_turn": 38
         }
       ],
       "paraphrasing": [
         {
           "kind": "restatement",
           "agent_turn": 6
-        },
-        {
-          "kind": "not_a_restatement",
-          "agent_turn": 4
         }
       ],
       "rapport": [
         {
           "kind": "blunt_but_ok",
-          "agent_turn": 23
+          "agent_turn": 17
         }
       ],
       "empathy": [
         {
-          "kind": "handled",
-          "customer_turn": 10,
-          "agent_turn": 11,
-          "with_refusal": true
+          "kind": "unhandled",
+          "customer_turn": 1
         },
         {
           "kind": "unhandled",
-          "customer_turn": 40
+          "customer_turn": 14
+        },
+        {
+          "kind": "unhandled",
+          "customer_turn": 34
         }
       ]
     }

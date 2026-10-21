@@ -5,7 +5,7 @@
   "result": {
     "final_score": 0.0,
     "is_auto_fail": true,
-    "auto_fail_reason": "Agent used prohibited word 'idiot'",
+    "auto_fail_reason": "Agent used prohibited word 'idiot' at [16:42].",
     "scorecard": [
       {
         "category": "Soft Skills",
@@ -35,13 +35,13 @@
         "category": "Soft Skills",
         "name": "Empathy & Acknowledgment Statement",
         "rating": "FAIL",
-        "coaching": "Ignored customer gaming tournament anxiety and failed to provide any acknowledgment or empathy."
+        "coaching": "You failed to acknowledge the customer's frustration when he reported severe packet loss and connection instability across multiple outbursts."
       },
       {
         "category": "Technical Knowledge",
         "name": "Paraphrasing",
         "rating": "FAIL",
-        "coaching": "Failed to paraphrase customer latency dispute."
+        "coaching": "You did not restate or paraphrase the customer's technical issue at any point in the call."
       },
       {
         "category": "Technical Knowledge",
@@ -59,7 +59,7 @@
         "category": "Soft Skills",
         "name": "Build rapport and observed professionalism",
         "rating": "FAIL",
-        "coaching": "Agent insulted the customer at [08:30] by stating 'You are acting like an idiot if you expect a residential broadband provider to guarantee five millisecond ping' [AUTO-FAIL]."
+        "coaching": "At turn 45, you insulted the customer by calling him an 'idiot', which is an auto-fail violation."
       },
       {
         "category": "Technical Knowledge",
@@ -71,122 +71,124 @@
         "category": "Technical Knowledge",
         "name": "Confirmed the issue is resolved",
         "rating": "FAIL",
-        "coaching": "Failed to resolve packet loss and jitter issue, and closed call while customer remained in distress."
+        "coaching": "The latency and packet loss issue was not resolved, no escalation was raised, and the customer remained with an unresolved fault."
       }
     ]
   },
   "grader": {
-    "graded_by": "Antigravity (gemini-3.8-flash)",
+    "graded_by": "Antigravity (Gemini 3.8 Flash)",
     "graded_on": "2026-10-21",
-    "scenario": "Severe latency jitter and packet loss on gaming PC; agent insults customer [AUTO-FAIL: 'idiot']",
+    "scenario": "Severe latency jitter and packet loss on gaming PC; agent insults customer [AUTO-FAIL]",
     "tier": "auto_fail",
-    "duration_sec": 1142,
-    "notes": "Agent committed an immediate AUTO-FAIL by calling the customer an idiot during a heated dispute regarding gaming latency and BGP routing. Final score is automatically 0.0.",
+    "duration_sec": 1150,
+    "notes": "Carl completes verification and conducts technical telemetry checks, but completely loses professional composure when challenged on network congestion. At turn 45, Carl insults Dominic by calling him an 'idiot', triggering an immediate auto-fail. Empathy and paraphrasing were absent, and the fault was left completely unresolved.",
     "hard_cases": [
-      "Build rapport and observed professionalism",
-      "Empathy & Acknowledgment Statement"
+      "Empathy & Acknowledgment Statement",
+      "Build rapport and observed professionalism"
     ],
     "items": [
       {
         "name": "Branding and Survey Check",
         "rating": "PASS",
         "confidence": "clear",
-        "evidence": "Agent opened with 'Thank you for calling S-Net gaming and broadband support' at [00:00] and closed with 'Thank you for choosing S-Net' in final lines."
+        "evidence": ""
       },
       {
         "name": "Hold time and Dead Air",
         "rating": "PASS",
         "confidence": "clear",
-        "evidence": "Holds announced with bear with me and thanked upon return without unmanaged dead air."
+        "evidence": ""
       },
       {
         "name": "Verified customer",
         "rating": "PASS",
         "confidence": "clear",
-        "evidence": "Verified full postal address and security PIN within the first 240 seconds."
+        "evidence": ""
       },
       {
         "name": "Personalized the call/ticket appropriately",
         "rating": "PASS",
         "confidence": "clear",
-        "evidence": "Agent addressed customer as Dominic throughout the call."
+        "evidence": ""
       },
       {
         "name": "Empathy & Acknowledgment Statement",
         "rating": "FAIL",
         "confidence": "clear",
-        "evidence": "Customer expressed severe frustration over esports tournament stakes; agent dismissed concerns without empathy."
+        "evidence": "[00:15] Customer: 'I've been experiencing terrible packet loss and latency spikes on my broadband connection for the last four days...', Agent ignores emotional state and demands verification."
       },
       {
         "name": "Paraphrasing",
         "rating": "FAIL",
         "confidence": "clear",
-        "evidence": "Agent never restated the customer's latency problem in his own words."
+        "evidence": "Agent offered no restatement of the packet loss and latency problem."
       },
       {
         "name": "Active listening",
         "rating": "PASS",
         "confidence": "clear",
-        "evidence": "Agent maintained accurate details and did not repeat questions."
+        "evidence": ""
       },
       {
         "name": "Took ownership of the problem",
         "rating": "PASS",
         "confidence": "clear",
-        "evidence": "Agent performed WAN IP bounce and logged trace logs."
+        "evidence": ""
       },
       {
         "name": "Build rapport and observed professionalism",
         "rating": "FAIL",
         "confidence": "clear",
-        "evidence": "Agent insulted customer at [08:30]: 'You are acting like an idiot if you expect a residential broadband provider to guarantee five millisecond ping...' [AUTO-FAIL]."
+        "evidence": "[16:42] Agent: 'Only an idiot would blame our core gateway when you're probably running torrents or background updates on your PC!'"
       },
       {
         "name": "Probing",
         "rating": "PASS",
         "confidence": "clear",
-        "evidence": "Agent asked effective diagnostic questions regarding connection type, LAN port, and MTR trace routes."
+        "evidence": ""
       },
       {
         "name": "Confirmed the issue is resolved",
         "rating": "FAIL",
         "confidence": "clear",
-        "evidence": "Packet loss remained unresolved and customer remained highly dissatisfied."
+        "evidence": "Call ended in mutual hostility with packet loss unaddressed and customer declaring an intention to cancel service."
       }
     ],
     "markers": {
       "active_listening": [
         {
           "kind": "harmless_recheck",
-          "premise_turn": 3,
-          "agent_turn": 17
-        },
-        {
-          "kind": "harmless_recheck",
-          "premise_turn": 3,
-          "agent_turn": 17
+          "premise_turn": 9,
+          "agent_turn": 39
         }
       ],
-      "paraphrasing": [
-        {
-          "kind": "not_a_restatement",
-          "agent_turn": 4
-        }
-      ],
+      "paraphrasing": [],
       "rapport": [
         {
           "kind": "rude",
-          "agent_turn": 28
+          "agent_turn": 45
         },
         {
           "kind": "blunt_but_ok",
-          "agent_turn": 19
+          "agent_turn": 30
+        },
+        {
+          "kind": "blunt_but_ok",
+          "agent_turn": 32
         }
       ],
       "empathy": [
         {
           "kind": "unhandled",
-          "customer_turn": 12
+          "customer_turn": 1
+        },
+        {
+          "kind": "unhandled",
+          "customer_turn": 27
+        },
+        {
+          "kind": "unhandled",
+          "customer_turn": 38
         }
       ]
     }

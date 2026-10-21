@@ -5,7 +5,7 @@
   "result": {
     "final_score": 0.0,
     "is_auto_fail": true,
-    "auto_fail_reason": "Agent used prohibited word 'stupid'",
+    "auto_fail_reason": "Agent used prohibited word 'stupid' at [16:15].",
     "scorecard": [
       {
         "category": "Soft Skills",
@@ -35,31 +35,31 @@
         "category": "Soft Skills",
         "name": "Empathy & Acknowledgment Statement",
         "rating": "FAIL",
-        "coaching": "Failed to show empathy at [03:15] when customer expressed acute moving day distress and family upheaval."
+        "coaching": "At turn 1 and turn 14, the customer reported intense shock and distress after taking a day off work for a missed move installation that was cancelled without notice, but you offered no empathetic validation."
       },
       {
         "category": "Technical Knowledge",
         "name": "Paraphrasing",
         "rating": "FAIL",
-        "coaching": "Failed to paraphrase customer's moving order cancellation dispute in own words."
+        "coaching": "You did not paraphrase or restate the customer's cancelled home move issue in your own words at any point in the call."
       },
       {
         "category": "Technical Knowledge",
         "name": "Active listening",
         "rating": "FAIL",
-        "coaching": "Asked customer at [08:50] to repeat her new address which had already been verified at [00:45]."
+        "coaching": "The customer stated her former address in Cheltenham at turn 7 (19 Lansdown Road), but at turn 37 you asked her again what her previous address was."
       },
       {
         "category": "Technical Knowledge",
         "name": "Took ownership of the problem",
         "rating": "FAIL",
-        "coaching": "Deflected responsibility and refused to escalate to supervisor or provide emergency solution."
+        "coaching": "At turn 13, you deflected responsibility by blaming the conveyancer and estate agent for wholesale address classification errors."
       },
       {
         "category": "Soft Skills",
         "name": "Build rapport and observed professionalism",
         "rating": "FAIL",
-        "coaching": "Agent committed an immediate AUTO-FAIL by verbally abusing the customer at [05:40], stating 'You are acting like a stupid customer...'"
+        "coaching": "At turn 43, you used the prohibited abusive word 'stupid' when addressing the customer, triggering an auto-fail."
       },
       {
         "category": "Technical Knowledge",
@@ -71,113 +71,109 @@
         "category": "Technical Knowledge",
         "name": "Confirmed the issue is resolved",
         "rating": "FAIL",
-        "coaching": "Order remained cancelled, broadband was not restored, and customer remained highly distressed following agent abuse."
+        "coaching": "The home move installation was cancelled, no broadband service was provisioned, and the call ended in complete dispute."
       }
     ]
   },
   "grader": {
-    "graded_by": "Antigravity (gemini-3.8-flash)",
+    "graded_by": "Antigravity (Gemini 3.8 Flash)",
     "graded_on": "2026-10-21",
-    "scenario": "Home move order cancelled without customer knowledge; agent becomes abusive [AUTO-FAIL: 'stupid']",
+    "scenario": "Home move order cancelled without customer knowledge; agent becomes abusive [AUTO-FAIL]",
     "tier": "auto_fail",
-    "duration_sec": 1117,
-    "notes": "Immediate AUTO-FAIL call where the agent used the prohibited word 'stupid' against the customer during an escalated dispute over a cancelled home move order, resulting in an automatic final score of 0.0.",
+    "duration_sec": 1104,
+    "notes": "Terry displays egregious customer service failure when dealing with a customer whose home move order was silently cancelled due to a commercial address code mismatch. He fails Empathy, defers blame to external parties, fails to paraphrase, asks Judith to repeat her previous address, and insults her by stating 'It's a stupid question', triggering an immediate auto-fail with the issue completely unresolved.",
     "hard_cases": [
+      "Active listening",
       "Build rapport and observed professionalism",
-      "Empathy & Acknowledgment Statement"
+      "Took ownership of the problem"
     ],
     "items": [
       {
         "name": "Branding and Survey Check",
         "rating": "PASS",
         "confidence": "clear",
-        "evidence": "Agent opened with 'Thank you for calling S-Net home moving customer care' at [00:00] and closed with 'Thank you for choosing S-Net' in final lines."
+        "evidence": ""
       },
       {
         "name": "Hold time and Dead Air",
         "rating": "PASS",
         "confidence": "clear",
-        "evidence": "Hold was announced with bear with me and thanked upon return without unmanaged dead air."
+        "evidence": ""
       },
       {
         "name": "Verified customer",
         "rating": "PASS",
         "confidence": "clear",
-        "evidence": "Verified full postal address and security PIN within the first 240 seconds."
+        "evidence": ""
       },
       {
         "name": "Personalized the call/ticket appropriately",
         "rating": "PASS",
         "confidence": "clear",
-        "evidence": "Agent addressed customer as Judith throughout the call."
+        "evidence": ""
       },
       {
         "name": "Empathy & Acknowledgment Statement",
         "rating": "FAIL",
         "confidence": "clear",
-        "evidence": "Customer expressed acute moving day stress and lack of communication; agent offered zero empathy."
+        "evidence": "[00:15] Customer: 'I am in complete shock. I moved into my new flat yesterday, took the day off work for the broadband installation engineer... and nobody showed up!...', Agent responds with verification questions without empathy."
       },
       {
         "name": "Paraphrasing",
         "rating": "FAIL",
         "confidence": "clear",
-        "evidence": "Agent never restated the cancelled moving order in his own words."
+        "evidence": "Agent never restated the cancelled home move issue in his own words; only confirmed previous address."
       },
       {
         "name": "Active listening",
         "rating": "FAIL",
         "confidence": "clear",
-        "evidence": "Agent asked for address at turn 34 despite customer providing it at turn 3."
+        "evidence": "[01:10] Customer: 'We moved from 19 Lansdown Road, Cheltenham, GL51 6PT.' followed by Agent at [07:20]: 'What was that previous address in Cheltenham?'"
       },
       {
         "name": "Took ownership of the problem",
         "rating": "FAIL",
         "confidence": "clear",
-        "evidence": "Agent refused to assist, book emergency order, or escalate to manager."
+        "evidence": "[01:50] Agent: 'The Openreach automated address bridge rejects residential FTTP orders if the property classification code contains a commercial flag, so that's the conveyancer's and estate agent's fault, not S-Net's.'"
       },
       {
         "name": "Build rapport and observed professionalism",
         "rating": "FAIL",
         "confidence": "clear",
-        "evidence": "Agent insulted customer at [05:40]: 'You are acting like a stupid customer if you expect an unverified broadband order to sit active indefinitely...' [AUTO-FAIL: 'stupid']."
+        "evidence": "[16:15] Agent: 'It's a stupid question to ask why a commercial unit can't have residential broadband without surveyor approval!'"
       },
       {
         "name": "Probing",
         "rating": "PASS",
         "confidence": "clear",
-        "evidence": "Agent asked relevant questions regarding installation dates and moving arrangements."
+        "evidence": ""
       },
       {
         "name": "Confirmed the issue is resolved",
         "rating": "FAIL",
         "confidence": "clear",
-        "evidence": "Broadband remained completely uninstalled and customer was subjected to verbal abuse."
+        "evidence": "Order remained cancelled with zero service provisioned and customer declaring an intention to complain to the ombudsman."
       }
     ],
     "markers": {
       "active_listening": [
         {
           "kind": "repeat",
-          "premise_turn": 3,
-          "agent_turn": 34,
+          "premise_turn": 7,
+          "agent_turn": 19,
           "reworded": true
         },
         {
           "kind": "harmless_recheck",
-          "premise_turn": 3,
-          "agent_turn": 22
+          "premise_turn": 7,
+          "agent_turn": 38
         }
       ],
-      "paraphrasing": [
-        {
-          "kind": "not_a_restatement",
-          "agent_turn": 4
-        }
-      ],
+      "paraphrasing": [],
       "rapport": [
         {
           "kind": "rude",
-          "agent_turn": 20
+          "agent_turn": 45
         },
         {
           "kind": "blunt_but_ok",
@@ -187,7 +183,11 @@
       "empathy": [
         {
           "kind": "unhandled",
-          "customer_turn": 8
+          "customer_turn": 1
+        },
+        {
+          "kind": "unhandled",
+          "customer_turn": 14
         }
       ]
     }

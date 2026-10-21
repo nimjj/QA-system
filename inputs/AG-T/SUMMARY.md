@@ -28,39 +28,39 @@ This document contains the plan for all 100 training calls (`agt_001` to `agt_10
 | `agt_020` | `18:47` (1127s) | Clara | `5+ faults` (`poor`) | International call barring accidentally enabled, blocking calls to family in Australia | Empathy & Acknowledgment Statement, Active listening, Took ownership of the problem, Build rapport and observed professionalism, Probing | **41.7** | Active listening (FAIL); Empathy (FAIL); Rapport (FAIL); Ownership (FAIL) |
 | `agt_021` | `11:25` (685s) | Damian | `1-2 faults` (`good`) | 5G home broadband outdoor antenna misaligned after severe gale force winds | Empathy & Acknowledgment Statement | **88.3** | Active listening (PASS); Empathy (FAIL); Dead Air (PASS) |
 | `agt_022` | `12:57` (777s) | Danica | `3-4 faults` (`okay`) | Smart thermostat and 2.4GHz IoT devices failing to connect due to band-steering | Empathy & Acknowledgment Statement, Active listening, Probing | **65.0** | Active listening (FAIL); Empathy (FAIL) |
-| `agt_023` | `16:58` (1018s) | Declan | `5+ faults` (`poor`) | Direct debit billed three months after cancelling contract and returning equipment | Empathy & Acknowledgment Statement, Paraphrasing, Took ownership of the problem, Build rapport and observed professionalism, Probing | **38.3** | Empathy (FAIL); Rapport (FAIL); Ownership (FAIL) |
-| `agt_024` | `13:31` (811s) | Deena | `excellent` (`excellent`) | Voicemail mailbox PIN locked after repeated incorrect attempts while awaiting medical call | None (All PASS) | **100.0** | Active listening (PASS); Empathy (PASS); Ownership (PASS) |
-| `agt_025` | `19:02` (1142s) | Dominic | `auto_fail` (`auto_fail`) | Severe latency jitter and packet loss on gaming PC; agent insults customer [AUTO-FAIL] | Empathy & Acknowledgment Statement, Paraphrasing, Build rapport and observed professionalism, Confirmed the issue is resolved **[AUTO-FAIL: 'Agent used prohibited word 'idiot'']** | **0.0** | Empathy (FAIL); Rapport (FAIL) |
-| `agt_026` | `10:55` (655s) | Dorothy | `1-2 faults` (`good`) | S-Net Stream TV puck stuck on remote pairing screen after factory reset | Empathy & Acknowledgment Statement | **88.3** | Empathy (FAIL) |
-| `agt_027` | `15:39` (939s) | Dylan | `3-4 faults` (`okay`) | Desktop Outlook client rejecting S-Net webmail password after app-password security migration | Empathy & Acknowledgment Statement, Paraphrasing, Active listening | **71.7** | Active listening (FAIL); Empathy (FAIL) |
-| `agt_028` | `14:39` (879s) | Elena | `5+ faults` (`poor`) | Broadband speed guarantee credit claim after sync speed remained below 45 Mbps minimum | Empathy & Acknowledgment Statement, Paraphrasing, Active listening, Took ownership of the problem, Build rapport and observed professionalism | **48.3** | Active listening (FAIL); Empathy (FAIL); Rapport (FAIL); Ownership (FAIL); Dead Air (PASS) |
-| `agt_029` | `16:17` (977s) | Elijah | `excellent` (`excellent`) | Mobile 40GB data allowance exhausted five days into billing cycle due to 4K cloud sync | None (All PASS) | **100.0** | None |
-| `agt_030` | `19:17` (1157s) | Elisha | `1-2 faults` (`good`) | Landline number of 25 years accidentally terminated during full-fibre switchover | Empathy & Acknowledgment Statement | **88.3** | Active listening (PASS); Empathy (FAIL); Rapport (PASS); Ownership (PASS) |
-| `agt_031` | `10:25` (625s) | Faisal | `3-4 faults` (`okay`) | mDNS client isolation on Hub Pro preventing wireless printer discovery across VLANs | Empathy & Acknowledgment Statement, Paraphrasing, Active listening | **71.7** | Active listening (FAIL); Empathy (FAIL) |
-| `agt_032` | `13:12` (792s) | Fatima | `1-2 faults` (`good`) | Exemption request for £3.50 monthly paper billing fee for visual impairment accessibility | Empathy & Acknowledgment Statement | **88.3** | Empathy (FAIL) |
-| `agt_033` | `17:33` (1053s) | Felix | `5+ faults` (`poor`) | Nuisance marketing calls flood; configuring S-Net Call Guardian VIP whitelist | Empathy & Acknowledgment Statement, Paraphrasing, Active listening, Took ownership of the problem, Build rapport and observed professionalism | **48.3** | Active listening (FAIL); Empathy (FAIL); Rapport (FAIL); Ownership (FAIL) |
-| `agt_034` | `13:46` (826s) | Fiona | `3-4 faults` (`okay`) | TV voice remote Bluetooth pairing failure and dead microphone after firmware patch | Empathy & Acknowledgment Statement, Paraphrasing, Active listening | **71.7** | Active listening (FAIL); Empathy (FAIL) |
-| `agt_035` | `19:32` (1172s) | Gabriel | `excellent` (`excellent`) | Trade-in credit of £150 missing from mobile invoice 30 days post warehouse receipt | None (All PASS) | **100.0** | Rapport (PASS); Dead Air (PASS) |
-| `agt_036` | `11:30` (690s) | Gemma | `1-2 faults` (`good`) | Overhead drop cable severed by falling tree branch on rural lane during storm | Empathy & Acknowledgment Statement | **88.3** | Active listening (PASS); Empathy (FAIL); Ownership (PASS) |
-| `agt_037` | `16:14` (974s) | George | `5+ faults` (`poor`) | Erroneous £220 early termination fee charged after moving to non-serviceable rural area | Empathy & Acknowledgment Statement, Paraphrasing, Active listening, Took ownership of the problem, Build rapport and observed professionalism | **48.3** | Active listening (FAIL); Empathy (FAIL); Rapport (FAIL); Ownership (FAIL) |
-| `agt_038` | `12:19` (739s) | Grace | `3-4 faults` (`okay`) | Mobile handset dropping from 4G to No Service indoors; Wi-Fi Calling setup required | Empathy & Acknowledgment Statement, Paraphrasing, Active listening | **71.7** | Active listening (FAIL); Empathy (FAIL) |
-| `agt_039` | `16:52` (1012s) | Hamza | `5+ faults` (`poor`) | Streaming entertainment bundle (Netflix/Disney+) token link expired before account linking | Empathy & Acknowledgment Statement, Paraphrasing, Active listening, Took ownership of the problem, Build rapport and observed professionalism | **48.3** | Active listening (FAIL); Empathy (FAIL); Rapport (FAIL); Ownership (FAIL) |
-| `agt_040` | `19:47` (1187s) | Hannah | `1-2 faults` (`good`) | Broadband throttling down to 15 Mbps on Fibre 900 package during peak hours | Empathy & Acknowledgment Statement | **88.3** | Empathy (FAIL); Rapport (PASS) |
-| `agt_041` | `11:00` (660s) | Harper | `excellent` (`excellent`) | Direct debit payment date adjustment from 12th to 28th following new employer payday | None (All PASS) | **100.0** | None |
-| `agt_042` | `13:27` (807s) | Heidi | `3-4 faults` (`okay`) | Corporate Cisco AnyConnect VPN dropping every 20 minutes due to IPv6 MTU packet fragmentation | Empathy & Acknowledgment Statement, Paraphrasing, Active listening | **71.7** | Active listening (FAIL); Empathy (FAIL); Ownership (PASS); Dead Air (PASS) |
-| `agt_043` | `15:33` (933s) | Ian | `1-2 faults` (`good`) | Family Share multi-SIM plan: secondary SIM not receiving shared data allowance | Empathy & Acknowledgment Statement | **88.3** | Empathy (FAIL) |
-| `agt_044` | `14:01` (841s) | Imogen | `5+ faults` (`poor`) | Overseas roaming spend cap blocking bank SMS 2FA codes while travelling in Dubai | Empathy & Acknowledgment Statement, Paraphrasing, Active listening, Took ownership of the problem, Build rapport and observed professionalism | **48.3** | Active listening (FAIL); Empathy (FAIL); Rapport (FAIL); Ownership (FAIL) |
-| `agt_045` | `18:22` (1102s) | Isaac | `3-4 faults` (`okay`) | TV mini-box stuck in 'Pending Warehouse Dispatch' status for over two weeks | Empathy & Acknowledgment Statement, Paraphrasing, Active listening | **71.7** | Active listening (FAIL); Empathy (FAIL); Rapport (PASS) |
-| `agt_046` | `10:30` (630s) | Isabel | `1-2 faults` (`good`) | Wi-Fi signal degradation in loft conversion; evaluating mesh booster placement | Empathy & Acknowledgment Statement | **88.3** | Empathy (FAIL) |
-| `agt_047` | `16:49` (1009s) | Jasper | `excellent` (`excellent`) | Fibre ONT optical power levels marginal (-28 dBm) causing intermittent frame drops | None (All PASS) | **100.0** | None |
-| `agt_048` | `12:34` (754s) | Joanne | `3-4 faults` (`okay`) | Landline crackling noise and static interference on master test socket | Empathy & Acknowledgment Statement, Paraphrasing, Active listening | **71.7** | Active listening (FAIL); Empathy (FAIL); Ownership (PASS) |
-| `agt_049` | `17:27` (1047s) | Jonas | `1-2 faults` (`good`) | My S-Net mobile app crashing on iOS 18 when attempting bill payment | Empathy & Acknowledgment Statement | **88.3** | Empathy (FAIL); Dead Air (PASS) |
-| `agt_050` | `18:37` (1117s) | Judith | `auto_fail` (`auto_fail`) | Home move order cancelled without customer knowledge; agent becomes abusive [AUTO-FAIL] | Empathy & Acknowledgment Statement, Paraphrasing, Active listening, Took ownership of the problem, Build rapport and observed professionalism, Confirmed the issue is resolved **[AUTO-FAIL: 'Agent used prohibited word 'stupid'']** | **0.0** | Active listening (FAIL); Rapport (FAIL); Ownership (FAIL) |
-| `agt_051` | `11:35` (695s) | Kasim | `5+ faults` (`poor`) | Double charge for pay-per-view boxing match on TV set-top box bill | Paraphrasing, Active listening, Took ownership of the problem, Build rapport and observed professionalism, Confirmed the issue is resolved | **50.0** | Active listening (FAIL); Rapport (FAIL); Ownership (FAIL); Resolved (FAIL) |
-| `agt_052` | `13:42` (822s) | Keira | `1-2 faults` (`good`) | Mobile eSIM installation failing on new Samsung Galaxy S24 with QR invalid error | Paraphrasing | **90.0** | Empathy (PASS) |
+| `agt_023` | `17:06` (1026s) | Declan | `5+ faults` (`poor`) | Direct debit billed three months after cancelling contract and returning equipment | Empathy & Acknowledgment Statement, Paraphrasing, Took ownership of the problem, Build rapport and observed professionalism, Probing | **38.3** | Empathy (FAIL); Rapport (FAIL); Ownership (FAIL) |
+| `agt_024` | `13:20` (800s) | Deena | `excellent` (`excellent`) | Voicemail mailbox PIN locked after repeated incorrect attempts while awaiting medical call | None (All PASS) | **100.0** | Active listening (PASS); Empathy (PASS); Ownership (PASS) |
+| `agt_025` | `19:10` (1150s) | Dominic | `auto_fail` (`auto_fail`) | Severe latency jitter and packet loss on gaming PC; agent insults customer [AUTO-FAIL] | Empathy & Acknowledgment Statement, Paraphrasing, Build rapport and observed professionalism, Confirmed the issue is resolved **[AUTO-FAIL: 'Agent used prohibited word 'idiot'']** | **0.0** | Empathy (FAIL); Rapport (FAIL) |
+| `agt_026` | `10:44` (644s) | Dorothy | `1-2 faults` (`good`) | S-Net Stream TV puck stuck on remote pairing screen after factory reset | Empathy & Acknowledgment Statement | **88.3** | Empathy (FAIL) |
+| `agt_027` | `15:35` (935s) | Dylan | `3-4 faults` (`okay`) | Desktop Outlook client rejecting S-Net webmail password after app-password security migration | Empathy & Acknowledgment Statement, Paraphrasing, Active listening | **71.7** | Active listening (FAIL); Empathy (FAIL) |
+| `agt_028` | `14:10` (850s) | Elena | `5+ faults` (`poor`) | Broadband speed guarantee credit claim after sync speed remained below 45 Mbps minimum | Empathy & Acknowledgment Statement, Paraphrasing, Active listening, Took ownership of the problem, Build rapport and observed professionalism | **48.3** | Active listening (FAIL); Empathy (FAIL); Rapport (FAIL); Ownership (FAIL); Dead Air (PASS) |
+| `agt_029` | `16:16` (976s) | Elijah | `excellent` (`excellent`) | Mobile 40GB data allowance exhausted five days into billing cycle due to 4K cloud sync | None (All PASS) | **100.0** | None |
+| `agt_030` | `18:57` (1137s) | Elisha | `1-2 faults` (`good`) | Landline number of 25 years accidentally terminated during full-fibre switchover | Empathy & Acknowledgment Statement | **88.3** | Active listening (PASS); Empathy (FAIL); Rapport (PASS); Ownership (PASS) |
+| `agt_031` | `10:04` (604s) | Faisal | `3-4 faults` (`okay`) | mDNS client isolation on Hub Pro preventing wireless printer discovery across VLANs | Empathy & Acknowledgment Statement, Paraphrasing, Active listening | **71.7** | Active listening (FAIL); Empathy (FAIL) |
+| `agt_032` | `13:34` (814s) | Fatima | `1-2 faults` (`good`) | Exemption request for £3.50 monthly paper billing fee for visual impairment accessibility | Empathy & Acknowledgment Statement | **88.3** | Empathy (FAIL) |
+| `agt_033` | `17:36` (1056s) | Felix | `5+ faults` (`poor`) | Nuisance marketing calls flood; configuring S-Net Call Guardian VIP whitelist | Empathy & Acknowledgment Statement, Paraphrasing, Active listening, Took ownership of the problem, Build rapport and observed professionalism | **48.3** | Active listening (FAIL); Empathy (FAIL); Rapport (FAIL); Ownership (FAIL) |
+| `agt_034` | `13:35` (815s) | Fiona | `3-4 faults` (`okay`) | TV voice remote Bluetooth pairing failure and dead microphone after firmware patch | Empathy & Acknowledgment Statement, Paraphrasing, Active listening | **71.7** | Active listening (FAIL); Empathy (FAIL) |
+| `agt_035` | `19:37` (1177s) | Gabriel | `excellent` (`excellent`) | Trade-in credit of £150 missing from mobile invoice 30 days post warehouse receipt | None (All PASS) | **100.0** | Rapport (PASS); Dead Air (PASS) |
+| `agt_036` | `11:33` (693s) | Gemma | `1-2 faults` (`good`) | Overhead drop cable severed by falling tree branch on rural lane during storm | Empathy & Acknowledgment Statement | **88.3** | Active listening (PASS); Empathy (FAIL); Ownership (PASS) |
+| `agt_037` | `15:46` (946s) | George | `5+ faults` (`poor`) | Erroneous £220 early termination fee charged after moving to non-serviceable rural area | Empathy & Acknowledgment Statement, Paraphrasing, Active listening, Took ownership of the problem, Build rapport and observed professionalism | **48.3** | Active listening (FAIL); Empathy (FAIL); Rapport (FAIL); Ownership (FAIL) |
+| `agt_038` | `12:02` (722s) | Grace | `3-4 faults` (`okay`) | Mobile handset dropping from 4G to No Service indoors; Wi-Fi Calling setup required | Empathy & Acknowledgment Statement, Paraphrasing, Active listening | **71.7** | Active listening (FAIL); Empathy (FAIL) |
+| `agt_039` | `17:09` (1029s) | Hamza | `5+ faults` (`poor`) | Streaming entertainment bundle (Netflix/Disney+) token link expired before account linking | Empathy & Acknowledgment Statement, Paraphrasing, Active listening, Took ownership of the problem, Build rapport and observed professionalism | **48.3** | Active listening (FAIL); Empathy (FAIL); Rapport (FAIL); Ownership (FAIL) |
+| `agt_040` | `19:48` (1188s) | Hannah | `1-2 faults` (`good`) | Broadband throttling down to 15 Mbps on Fibre 900 package during peak hours | Empathy & Acknowledgment Statement | **88.3** | Empathy (FAIL); Rapport (PASS) |
+| `agt_041` | `11:15` (675s) | Harper | `excellent` (`excellent`) | Direct debit payment date adjustment from 12th to 28th following new employer payday | None (All PASS) | **100.0** | None |
+| `agt_042` | `13:40` (820s) | Heidi | `3-4 faults` (`okay`) | Corporate Cisco AnyConnect VPN dropping every 20 minutes due to IPv6 MTU packet fragmentation | Empathy & Acknowledgment Statement, Paraphrasing, Active listening | **71.7** | Active listening (FAIL); Empathy (FAIL); Ownership (PASS); Dead Air (PASS) |
+| `agt_043` | `15:26` (926s) | Ian | `1-2 faults` (`good`) | Family Share multi-SIM plan: secondary SIM not receiving shared data allowance | Empathy & Acknowledgment Statement | **88.3** | Empathy (FAIL) |
+| `agt_044` | `13:36` (816s) | Imogen | `5+ faults` (`poor`) | Overseas roaming spend cap blocking bank SMS 2FA codes while travelling in Dubai | Empathy & Acknowledgment Statement, Paraphrasing, Active listening, Took ownership of the problem, Build rapport and observed professionalism | **48.3** | Active listening (FAIL); Empathy (FAIL); Rapport (FAIL); Ownership (FAIL) |
+| `agt_045` | `18:33` (1113s) | Isaac | `3-4 faults` (`okay`) | TV mini-box stuck in 'Pending Warehouse Dispatch' status for over two weeks | Empathy & Acknowledgment Statement, Paraphrasing, Active listening | **71.7** | Active listening (FAIL); Empathy (FAIL); Rapport (PASS) |
+| `agt_046` | `10:39` (639s) | Isabel | `1-2 faults` (`good`) | Wi-Fi signal degradation in loft conversion; evaluating mesh booster placement | Empathy & Acknowledgment Statement | **88.3** | Empathy (FAIL) |
+| `agt_047` | `16:52` (1012s) | Jasper | `excellent` (`excellent`) | Fibre ONT optical power levels marginal (-28 dBm) causing intermittent frame drops | None (All PASS) | **100.0** | None |
+| `agt_048` | `12:54` (774s) | Joanne | `3-4 faults` (`okay`) | Landline crackling noise and static interference on master test socket | Empathy & Acknowledgment Statement, Paraphrasing, Active listening | **71.7** | Active listening (FAIL); Empathy (FAIL); Ownership (PASS) |
+| `agt_049` | `17:23` (1043s) | Jonas | `1-2 faults` (`good`) | My S-Net mobile app crashing on iOS 18 when attempting bill payment | Empathy & Acknowledgment Statement | **88.3** | Empathy (FAIL); Dead Air (PASS) |
+| `agt_050` | `18:24` (1104s) | Judith | `auto_fail` (`auto_fail`) | Home move order cancelled without customer knowledge; agent becomes abusive [AUTO-FAIL] | Empathy & Acknowledgment Statement, Paraphrasing, Active listening, Took ownership of the problem, Build rapport and observed professionalism, Confirmed the issue is resolved **[AUTO-FAIL: 'Agent used prohibited word 'stupid'']** | **0.0** | Active listening (FAIL); Rapport (FAIL); Ownership (FAIL) |
+| `agt_051` | `11:36` (696s) | Kasim | `5+ faults` (`poor`) | Double charge for pay-per-view boxing match on TV set-top box bill | Paraphrasing, Active listening, Took ownership of the problem, Build rapport and observed professionalism, Confirmed the issue is resolved | **50.0** | Active listening (FAIL); Rapport (FAIL); Ownership (FAIL); Resolved (FAIL) |
+| `agt_052` | `14:08` (848s) | Keira | `1-2 faults` (`good`) | Mobile eSIM installation failing on new Samsung Galaxy S24 with QR invalid error | Paraphrasing | **90.0** | Empathy (PASS) |
 | `agt_053` | `16:08` (968s) | Kieran | `excellent` (`excellent`) | Synology NAS external DDNS remote access blocked behind CGNAT carrier IP | None (All PASS) | **100.0** | None |
-| `agt_054` | `14:16` (856s) | Lara | `3-4 faults` (`okay`) | Broadband sync speed dropped by half following Openreach cabinet lightning strike | Paraphrasing, Active listening, Took ownership of the problem, Build rapport and observed professionalism | **60.0** | Active listening (FAIL); Rapport (FAIL); Ownership (FAIL) |
-| `agt_055` | `18:52` (1132s) | Leila | `1-2 faults` (`good`) | Billing dispute regarding £65 non-return equipment charge for returned router | Paraphrasing | **90.0** | Rapport (PASS) |
+| `agt_054` | `14:14` (854s) | Lara | `3-4 faults` (`okay`) | Broadband sync speed dropped by half following Openreach cabinet lightning strike | Paraphrasing, Active listening, Took ownership of the problem, Build rapport and observed professionalism | **60.0** | Active listening (FAIL); Rapport (FAIL); Ownership (FAIL) |
+| `agt_055` | `18:58` (1138s) | Leila | `1-2 faults` (`good`) | Billing dispute regarding £65 non-return equipment charge for returned router | Paraphrasing | **90.0** | Rapport (PASS) |
 | gt_056 | 11:05 (665s) | Leo | 5+ faults (poor) | TV set-top box audio out of sync by 2 seconds over optical soundbar connection | Paraphrasing, Active listening, Build rapport and observed professionalism, Took ownership of the problem, Confirmed the issue is resolved | **50.0** | Active listening (FAIL); Empathy (PASS); Rapport (FAIL); Ownership (FAIL); Resolved (FAIL) |
 | gt_057 | 17:24 (1044s) | Liam | 3-4 faults (okay) | Mobile SIM card randomly displaying 'No SIM' error; resolution via eSIM conversion | Paraphrasing, Active listening, Build rapport and observed professionalism, Took ownership of the problem | **60.0** | Active listening (FAIL); Empathy (PASS); Rapport (FAIL); Ownership (FAIL) |
 | gt_058 | 12:49 (769s) | Linnea | 1-2 faults (good) | International call bar removal on elderly mother's landline; propagation delay prevents live confirmation | Confirmed the issue is resolved | **90.0** | Empathy (PASS); Paraphrasing (PASS); Resolved (FAIL) |
@@ -145,27 +145,27 @@ This document contains the plan for all 100 training calls (`agt_001` to `agt_10
 | Marker Check | Kind | Target Min | Actual Count | Status |
 |---|---|---:|---:|---|
 | Active listening | `repeat` | 30 | 50 | PASS |
-| Active listening | `harmless_recheck` | 70 | 71 | PASS |
+| Active listening | `harmless_recheck` | 70 | 80 | PASS |
 | Paraphrasing | `restatement` | 60 | 61 | PASS |
-| Paraphrasing | `not_a_restatement` | 50 | 108 | PASS |
+| Paraphrasing | `not_a_restatement` | 50 | 100 | PASS |
 | Rapport | `rude` | 30 | 38 | PASS |
-| Rapport | `blunt_but_ok` | 60 | 103 | PASS |
-| Empathy | `handled` | 40 | 79 | PASS |
-| Empathy | `unhandled` | 35 | 47 | PASS |
+| Rapport | `blunt_but_ok` | 60 | 104 | PASS |
+| Empathy | `handled` | 40 | 80 | PASS |
+| Empathy | `unhandled` | 35 | 69 | PASS |
 
 ### 2.5 Tag Targets & Coverage
 | Tag | Target Min | Actual Count | Status |
 |---|---:|---:|---|
-| Acknowledgement then refusal | 15 | 17 | PASS |
-| Calls with 2+ outbursts | 20 | 26 | PASS |
-| Events in the last third of the call | 40 | 62 | PASS |
-| Harmless rechecks 10+ turns after premise | 40 | 65 | PASS |
+| Acknowledgement then refusal | 15 | 15 | PASS |
+| Calls with 2+ outbursts | 20 | 42 | PASS |
+| Events in the last third of the call | 40 | 85 | PASS |
+| Harmless rechecks 10+ turns after premise | 40 | 73 | PASS |
 | Late acknowledgements (3-4 turns after) | 15 | 15 | PASS |
-| Outbursts after first third of call | 40 | 61 | PASS |
-| Repeats 5+ minutes apart | 20 | 49 | PASS |
+| Outbursts after first third of call | 40 | 65 | PASS |
+| Repeats 5+ minutes apart | 20 | 45 | PASS |
 | Reworded repeats | 20 | 47 | PASS |
 | Rude lines in calls of 12+ minutes | 20 | 29 | PASS |
-| Rude lines in the middle third | 8 | 8 | PASS |
+| Rude lines in the middle third | 8 | 9 | PASS |
 
 ---
 

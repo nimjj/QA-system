@@ -35,7 +35,7 @@
         "category": "Soft Skills",
         "name": "Empathy & Acknowledgment Statement",
         "rating": "FAIL",
-        "coaching": "Failed to show empathy at [02:40] when customer voiced extreme panic regarding credit score damage and mortgage application rejection."
+        "coaching": "At turn 1 and turn 13, the customer expressed anxiety and frustration over being unable to pay his bill and facing potential late payment penalties, but you offered no empathetic validation."
       },
       {
         "category": "Technical Knowledge",
@@ -76,111 +76,112 @@
     ]
   },
   "grader": {
-    "graded_by": "Antigravity (gemini-3.8-flash)",
+    "graded_by": "Antigravity (Gemini 3.8 Flash)",
     "graded_on": "2026-10-21",
     "scenario": "My S-Net mobile app crashing on iOS 18 when attempting bill payment",
     "tier": "good",
-    "duration_sec": 1047,
-    "notes": "Solid operational resolution of taking telephone payment to protect credit score and guiding customer through App Store hotfix, but agent failed empathy regarding mortgage application anxiety.",
+    "duration_sec": 1043,
+    "notes": "Laura demonstrates expert knowledge of iOS 18 PassKit SDK incompatibilities, freezes late fee penalties, guides Jonas to force a manual App Store refresh to install patch 4.12.2, and confirms a successful \u00a345 Apple Pay settlement with zero app crash. However, she fails Empathy by moving straight to technical steps without acknowledging Jonas's anxiety about late penalties.",
     "hard_cases": [
-      "Empathy & Acknowledgment Statement"
+      "Empathy & Acknowledgment Statement",
+      "Hold time and Dead Air"
     ],
     "items": [
       {
         "name": "Branding and Survey Check",
         "rating": "PASS",
         "confidence": "clear",
-        "evidence": "Agent opened with 'Thank you for calling S-Net digital application services' at [00:00] and closed with 'Thank you for choosing S-Net' in final lines."
+        "evidence": ""
       },
       {
         "name": "Hold time and Dead Air",
         "rating": "PASS",
         "confidence": "clear",
-        "evidence": "Hold was announced with bear with me and thanked upon return without unmanaged dead air."
+        "evidence": "[02:50] Managed hold announced with 'Bear with me for sixty seconds while I waive any automated late fee flags on your billing account' and resumed within 60s without unmanaged dead air."
       },
       {
         "name": "Verified customer",
         "rating": "PASS",
         "confidence": "clear",
-        "evidence": "Verified full postal address and security PIN within the first 240 seconds."
+        "evidence": ""
       },
       {
         "name": "Personalized the call/ticket appropriately",
         "rating": "PASS",
         "confidence": "clear",
-        "evidence": "Agent addressed customer as Jonas throughout the call."
+        "evidence": ""
       },
       {
         "name": "Empathy & Acknowledgment Statement",
         "rating": "FAIL",
         "confidence": "clear",
-        "evidence": "Customer expressed acute panic regarding high-stakes mortgage application rejection; agent offered zero empathy and moved directly to bug trackers."
+        "evidence": "[00:15] Customer: 'I am trying to pay my monthly broadband bill of forty-five pounds through the My S-Net mobile app... but every time I tap 'Pay with Apple Pay', the app crashes... My bill is due today and I don't want to get hit with a late payment charge!...', Agent responds with verification questions without empathy."
       },
       {
         "name": "Paraphrasing",
         "rating": "PASS",
         "confidence": "clear",
-        "evidence": "Agent restated the iOS 18 app crash and payment failure accurately at [01:25]."
+        "evidence": "[01:10] Agent restated: 'So what I understand is you are attempting to settle your forty-five pound bill via Apple Pay in the My S-Net mobile app on your iPhone, but the app crashes instantly upon initiating the transaction...'"
       },
       {
         "name": "Active listening",
         "rating": "PASS",
         "confidence": "clear",
-        "evidence": "Agent confirmed registered mobile number accurately without repeating questions."
+        "evidence": ""
       },
       {
         "name": "Took ownership of the problem",
         "rating": "PASS",
         "confidence": "clear",
-        "evidence": "Agent took telephone payment immediately, confirmed on-time status, and guided customer to install app build 4.2.2."
+        "evidence": "[02:50] Agent stated: 'I will take direct ownership of this and guide you through clearing the stale PassKit cache and completing your payment.'"
       },
       {
         "name": "Build rapport and observed professionalism",
         "rating": "PASS",
         "confidence": "clear",
-        "evidence": "Agent maintained a courteous and helpful tone throughout."
+        "evidence": ""
       },
       {
         "name": "Probing",
         "rating": "PASS",
         "confidence": "clear",
-        "evidence": "Agent asked relevant questions regarding crash symptoms and iOS versions."
+        "evidence": ""
       },
       {
         "name": "Confirmed the issue is resolved",
         "rating": "PASS",
         "confidence": "clear",
-        "evidence": "Customer confirmed payment cleared, updated app to build 4.2.2, and verified payment history loaded without crashing."
+        "evidence": ""
       }
     ],
     "markers": {
       "active_listening": [
         {
           "kind": "harmless_recheck",
-          "premise_turn": 3,
-          "agent_turn": 37
+          "premise_turn": 9,
+          "agent_turn": 39
         }
       ],
       "paraphrasing": [
         {
           "kind": "restatement",
           "agent_turn": 6
-        },
-        {
-          "kind": "not_a_restatement",
-          "agent_turn": 4
         }
       ],
       "rapport": [
         {
           "kind": "blunt_but_ok",
-          "agent_turn": 19
+          "agent_turn": 16
         }
       ],
       "empathy": [
         {
           "kind": "unhandled",
-          "customer_turn": 7
+          "customer_turn": 1
+        },
+        {
+          "kind": "unhandled",
+          "customer_turn": 13
         }
       ]
     }
