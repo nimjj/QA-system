@@ -40,6 +40,17 @@ SPEC = [  # (category, name, deduction) in the order the scorecard must have
 ]
 NAMES = [n for _, n, _ in SPEC]
 AUTO_FAIL_STRINGS = ["fuck", "shut up", "idiot", "get lost", "stupid", "hang up"]
+# Stock clauses a generator once appended to reach a word count (AG-T, Oct 2026). Length must come from real support work.
+FILLER_PHRASES = [
+    "to ensure your S-Net service operates reliably without unexpected dropped packets or connection faults",
+    "in accordance with our standard telecommunications network diagnostic procedures",
+    "so that your account records and provisioning parameters remain completely up to date",
+    "across all your connected household devices including laptops, mobile phones, and streaming hardware",
+    "to maintain optimal throughput and low latency across the regional distribution network",
+    "because having a reliable home broadband connection is absolutely essential for our daily household work",
+    "since we depend heavily on this service for remote working and family communications every day",
+    "so I really appreciate you taking the time to look into these technical details with me today",
+]
 TIME_RE = re.compile(r"^\[(\d{2}):(\d{2})\]$")
 
 AG50_MIN_FAIL = {"Branding and Survey Check": 8, "Hold time and Dead Air": 8, "Verified customer": 8,
@@ -58,7 +69,7 @@ SUITES = {
     "agb": dict(dir="inputs/AG-B", prefix="agb_", n=50, width=2, groups={"excellent": 8, "1-2": 15, "3-4": 12, "5+": 11, "auto_fail": 4},
                 group_tol=0, min_fail=AG50_MIN_FAIL, min_pass=25, borderline_max=5, names_min=50, markers="required",
                 agent_sentiment=False, hard_ratio=True),
-    "agt": dict(dir="inputs/AG-T", prefix="agt_", n=100, width=3, groups={"excellent": 20, "1-2": 30, "3-4": 25, "5+": 20, "auto_fail": 5},
+    "agt": dict(dir="inputs/AG-T", prefix="agt_", n=100, width=3, min_words=700, groups={"excellent": 20, "1-2": 30, "3-4": 25, "5+": 20, "auto_fail": 5},
                 group_tol=3, min_fail=AGT_MIN_FAIL, min_pass=40, borderline_max=10, names_min=90, markers="required",
                 agent_sentiment=False, hard_ratio=False),
 }
@@ -217,7 +228,8 @@ def main():
         ids = [f"{cfg['prefix']}{i:0{cfg['width']}d}" for i in range(1, cfg["n"] + 1)]
         full = True
 
-    checks = ["files", "turns", "length", "rule_items", "sentiment", "auto_fail", "final_score", "scorecard", "markers", "coverage"]
+    checks = ["files", "turns", "length", "padding", "rule_items", "sentiment", "auto_fail", "final_score", "scorecard", "markers", "coverage"]
+    all_text = {}
     errors = {c: [] for c in checks}
     warns = []
 
@@ -301,8 +313,19 @@ def main():
             durations.append(last_end)
         if not 55 <= len(turns) <= 170:
             err("length", f"{cid}: {len(turns)} turns, expected about 60-160")
-        if not 1100 <= words <= 3000:
-            err("length", f"{cid}: {words} words, expected about 1200-2800")
+        if not cfg.get("min_words", 1100) <= words <= 3000:
+            err("length", f"{cid}: {words} words, expected {cfg.get('min_words', 1100)}-3000. Add real support work, never filler or repeated turns")
+        # ---- padding: repeated turns inside one call, stock filler clauses
+        reps = Counter(t.get("text", "").strip().lower() for t in turns if len(str(t.get("text", "")).split()) >= 8)
+        for text, k in reps.items():
+            if k >= 3:
+                err("padding", f"{cid}: the same {len(text.split())}-word turn appears {k} times (padding by repetition is not allowed)")
+            elif k == 2:
+                warns.append(f"{cid}: one {len(text.split())}-word turn appears twice word for word; fine only if a real agent would repeat it")
+        filler = sum(ph.lower() in t.get("text", "").lower() for t in turns for ph in FILLER_PHRASES)
+        if filler:
+            err("padding", f"{cid}: {filler} turn(s) contain a stock filler clause (length must come from real support work)")
+        all_text[cid] = " ".join(t.get("text", "") for t in turns)
         if len(cust_scores) >= 10 and not cfg["agent_sentiment"]:
             steps = [abs(b[1] - a[1]) for a, b in zip(cust_scores, cust_scores[1:])]
             if sum(1 for d in steps if d >= 3.0) / len(steps) < 0.5:
@@ -403,6 +426,15 @@ def main():
                 hard_p += it["name"] in (hard or [])
 
     # ---- coverage (a full run only)
+    if full and all_text:
+        df = Counter()
+        for text in all_text.values():
+            w = re.findall(r"[a-z0-9']+", text.lower())
+            df.update({" ".join(w[i:i + 12]) for i in range(len(w) - 11)})
+        common = [g for g, k in df.items() if k > 0.4 * len(all_text) and "s-net" not in g]
+        if common:
+            warns.append(f"{len(common)} twelve-word phrase(s) appear in more than 40% of the calls, e.g. '{common[0]}'. "
+                         "Scripted lines are fine; copy-pasted dialogue is not")
     if full:
         if len(set(names)) < cfg["names_min"]:
             err("files", f"only {len(set(names))} different customer names, need at least {cfg['names_min']}")
@@ -451,7 +483,8 @@ def main():
                 warns.append(f"MARKERS: only {tally[kind]} '{label}' markers in {len(ids)} calls (expected about one per call). Mark every such line you wrote")
 
     labels = {"files": "payloads and keys exist, ids and names valid", "turns": "turn fields, time order, no overlaps, turns of 30s or less",
-              "length": "10-20 minute calls, turn and word counts, duration_sec", "rule_items": "four rule items match the application's code",
+              "length": "10-20 minute calls, turn and word counts, duration_sec",
+              "padding": "no repeated turns, no stock filler clauses", "rule_items": "four rule items match the application's code",
               "sentiment": "sentiment rules (customer float on every turn, no agent sentiment)", "auto_fail": "auto-fail words only where intended",
               "final_score": "final score recomputed from the ratings", "scorecard": "11 scorecard and grader entries, coaching, evidence",
               "markers": "markers valid and consistent with the ratings", "coverage": "set-level coverage targets"}
