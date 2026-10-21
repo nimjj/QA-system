@@ -24,6 +24,7 @@ ap = argparse.ArgumentParser()
 ap.add_argument("out", help="output JSON file")
 ap.add_argument("--code-root", default=ROOT, help="checkout whose src/ is probed (default: this repo)")
 ap.add_argument("--suite", default=None, help="probe only this folder of call payloads, e.g. inputs/AG50 (default: Main + Bulk)")
+ap.add_argument("--no-text", action="store_true", help="do not store the snippet text (use for the sealed test sets AG-B / AG-B2)")
 args = ap.parse_args()
 sys.path[:0] = [args.code_root, os.path.join(args.code_root, "src")]
 
@@ -39,7 +40,7 @@ def logged(text, questions, label=None, **kw):
     calls_log[-1]["laya"].append({
         "label": label,
         "words": len(text.split()),
-        "text": text,
+        "text": None if args.no_text else text,
         "questions": {k: (q.get("question") if isinstance(q, dict) else q) for k, q in questions.items()},
         "p_yes": {k: round(float(v), 4) for k, v in res.items()},
         "sec": round(time.perf_counter() - t0, 2),
