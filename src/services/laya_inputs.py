@@ -13,7 +13,7 @@ from dataclasses import dataclass, field
 from typing import Any, List, Optional, Tuple, Union
 
 from src.services.rule_engine import (
-    extract_active_listening_snippets, extract_empathy_snippet_list, extract_ownership_snippets,
+    AL_MAX_PAIRS, extract_active_listening_snippets, extract_empathy_snippet_list, extract_ownership_snippets,
     extract_probing_inputs, extract_rapport_chunks, without_detail_answers, without_setup_lines,
 )
 
@@ -101,6 +101,13 @@ def flow_version() -> str:
     return "v2" if os.getenv("LAYA_CHECKPOINT") else "v1"
 
 
+def al_source2_enabled() -> bool:
+    """Active listening, second candidate source (customer statement vs a later agent question, flow v2 only).
+    Off unless LAYA_AL_SOURCE2 is 1/true/yes/on. Turn it on only with a checkpoint trained on these pairs: it adds
+    candidates to most good calls and relies on the model to reject harmless re-checks (Scripts/al_reach_lab.py)."""
+    return os.getenv("LAYA_AL_SOURCE2", "").strip().lower() in ("1", "true", "yes", "on")
+
+
 def build_laya_inputs(transcript_data: Union[str, List[dict]], caller: Optional[str] = None) -> LayaInputs:
     turns, parsed_times, clean_lines, agent_lines, customer_lines, customer_name, sentiment_scores = \
         parse_transcript(transcript_data, caller)
@@ -138,6 +145,8 @@ def build_laya_inputs(transcript_data: Union[str, List[dict]], caller: Optional[
         out.empathy = W.empathy_episode_windows(turns, sentiment_scores, n_after=4, calm_customer_turns=4)
         out.paraphrasing = W.paraphrase_window(turns, parsed_times)
         out.ownership = W.ownership_candidates(turns)
+        if al_source2_enabled():
+            out.active_listening = W.active_listening_with_customer_pairs(turns, out.active_listening, AL_MAX_PAIRS)
 
     out.resolved = "\n".join(clean_lines[-RESOLVED_TAIL_LINES:])
     out.batch_agent_only = f"CUSTOMER PROBLEM CONTEXT:\n{first_10_cust}\n\n" + agent_only_transcript

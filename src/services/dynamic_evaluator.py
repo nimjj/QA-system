@@ -7,7 +7,7 @@ RATING_SCORES = {"PASS": 100, "FAIL": 0, "YES": 100, "NO": 0}
 
 from src.services.laya_inputs import (  # noqa: F401  (re-exported: other scripts read them from here)
     EMPATHY_MAX_SNIPPETS, PROBING_PROBLEM_MAX_WORDS, PROBING_QUESTIONS_MAX_WORDS, RESOLVED_TAIL_LINES,
-    PARAPHRASE_CUSTOMER_MAX_WORDS, PARAPHRASE_AGENT_MAX_WORDS, build_laya_inputs,
+    PARAPHRASE_CUSTOMER_MAX_WORDS, PARAPHRASE_AGENT_MAX_WORDS, al_source2_enabled, build_laya_inputs,
 )
 
 RULE_BASED_PASS_DESCRIPTIONS = {
@@ -209,7 +209,10 @@ def evaluate_interaction(
         al_snippet = inp.active_listening
         al_rating = "PASS"
         if al_snippet:
-            al_rating = _laya_verdict("active_listening", al_snippet, "verify_al")
+            # LAYA_AL_SOURCE2 on: one model call per pair, so a real repeat is not diluted by harmless ones
+            al_blocks = al_snippet.split("\n\n") if al_source2_enabled() else [al_snippet]
+            if any(_laya_verdict("active_listening", b, "verify_al") == "FAIL" for b in al_blocks):
+                al_rating = "FAIL"
         rule_ratings.append({
             "category": "Technical Knowledge",
             "name": "Active listening",

@@ -221,6 +221,12 @@ def _content_words(text: str) -> set:
     return {w for w in re.findall(r"[a-z0-9£.\-]+", text.lower()) if w not in _STOP and len(w) > 1}
 
 
+# Questions that repeat the customer's words on purpose: confirming, summarising or restating what was said
+_AL_CONFIRM_RE = re.compile(
+    r"\b(have i got that|did i get that|in my own words|just to confirm|to confirm|to summari[sz]e|to recap|"
+    r"let me make sure|let me confirm|so you('re| are) saying|are you saying|you want me to)\b", re.IGNORECASE)
+
+
 def active_listening_pairs_from_customer(turns: Sequence[Turn], top_k: int = 3):
     """Second candidate source: an earlier customer turn sharing at least two content words (numbers and long words
     count extra) with a later agent question. Returns [(score, customer turn index, agent turn index, question)]."""
@@ -229,7 +235,7 @@ def active_listening_pairs_from_customer(turns: Sequence[Turn], top_k: int = 3):
         if not _is_agent(spk):
             continue
         for q in question_sentences(txt):
-            if len(q.split()) < 4 or _AL_IGNORE_RE.search(q):
+            if len(q.split()) < 4 or _AL_IGNORE_RE.search(q) or _AL_CONFIRM_RE.search(q):
                 continue
             qt = _content_words(q)
             if len(qt) < 2:
@@ -249,3 +255,18 @@ def active_listening_pairs_from_customer(turns: Sequence[Turn], top_k: int = 3):
                 out.append(best)
     out.sort(reverse=True)
     return out[:top_k]
+
+
+def active_listening_with_customer_pairs(turns: Sequence[Turn], current: str, max_blocks: int) -> str:
+    """Flow v2, switch LAYA_AL_SOURCE2: the current question-pair blocks first, then up to `max_blocks` in total
+    filled with "customer said X / agent later asked about X" blocks. The same later question can appear twice
+    with different earlier premises: the question-pair extractor often pairs it with an unrelated earlier question,
+    and the customer's own statement is the premise the key means. The word-overlap score cannot tell a real repeat
+    from a harmless re-check (it fires on most good calls), so every block is judged by the model, one at a time
+    (dynamic_evaluator)."""
+    blocks = [b for b in current.split("\n\n") if b]
+    for _, ci, aj, question in active_listening_pairs_from_customer(turns):
+        if len(blocks) >= max_blocks:
+            break
+        blocks.append(f"Turn {ci} Customer said: {_trim(turns[ci][1], 40)}\nTurn {aj} Agent later asked: {question}")
+    return "\n\n".join(blocks)
