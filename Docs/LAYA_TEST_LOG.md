@@ -265,3 +265,23 @@ Full write-up: `Docs/FLOW_V2.md`. Lab reports: `Docs/FLOW_V2_LAB.md`, `Docs/FLOW
 - v2 vs Ollama on AG50 judged items: +1.7 points, 95% CI -3.7 to +7.1, McNemar p = 0.58: not distinguishable. Gain over v1: +8.3 points, p < 0.001, but AG50 was used to design v2.
 - Two regressions on the way (bulk 358 -> 347), both found by rerunning Main and bulk, both fixed: late outbursts with positive sentiment were missed; "you'll have to wait" matched the Ownership phrase.
 - Still weak: Active listening (0 of 15 caught), Rapport (31% false fails), Probing, Resolved. Need training data.
+
+# Round 7: retrained on Antigravity data, sealed exam (2026-10-21/22)
+
+Full write-up: `laya-finetuning/runs/ft5-ag/RESULT.md`. New training data: 100 Antigravity-written calls with turn-level markers
+(AG-T; 77 were found padded with stock filler by the author's generator and were restored or rewritten before training).
+New model `ft5 softce` vs the old `final-softce-3`, each at cutoffs committed before the exam (57304af). Exam: AG-B (50) + AG-B2
+(12, filling AG-B's gaps), sealed, probed once. Keys AI-written, not human-reviewed.
+
+| | Old | New |
+|---|---|---|
+| Judged items right (of 434) | 317 (73.0%) | 323 (74.4%), McNemar p = 0.49 |
+| Rapport | 45/62 | **56/62** (p = 0.003) |
+| Empathy | 39/62 | 33/62 (p = 0.11) |
+| Probing | 51/62 | 47/62 (p = 0.22) |
+| Final-score mean absolute error | 9.8 | 11.9 |
+
+- Overall no significant change; Rapport clearly better; Empathy and Probing worse (not significant).
+- Both models score about 70% on AG-B against about 81% on AG50: the AG50 numbers were optimistic.
+- Resolved (about 50% for both) and Ownership (48/62 for both) are limited by the app's windows and phrase lists, not the model.
+- Ollama was not run on AG-B.
