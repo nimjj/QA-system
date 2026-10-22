@@ -6,6 +6,8 @@ Built with **FastAPI**, a deterministic **Python rule engine** and **Laya**, a l
 
 > **Version 10 (branches `version-10-laya`, and `version-10.1-laya` with the test round fixes):** Ollama / Llama 3.1 and the `nomic-embed-text` embeddings have been **removed** and replaced by Laya. See [Status & known limitations](#status--known-limitations) before relying on the scores.
 
+> **App v3 (branch `app-v3`, opt-in with `LAYA_FLOW=v3`):** a new pipeline in `src/v3/` with fixed rule checks, input validation, one built-in criteria set (no database), a single-worker job queue (`/api/evaluate` waits, `/api/jobs` submit and poll), a readiness endpoint and unit tests. The v2 flow is untouched and stays the default. See [`Docs/V3.md`](Docs/V3.md). Run the tests with `python -m unittest discover -s tests/unit -t .`.
+
 ---
 
 ## How it works

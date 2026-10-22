@@ -12,5 +12,7 @@ Hard rules (details in the handover, section 4):
 - Keep the repo out of Google Drive synced folders; commit right after editing.
 - Owner: Nimithra (they/them), a beginner at ML. Keep replies short and simple; ask only at real decision points.
 
+App v3 (new pipeline in `src/v3/`, `LAYA_FLOW=v3`, built beside the frozen v2 files and never editing them): see `Docs/V3.md`. Tests: `python -m unittest discover -s tests/unit -t .` (no model needed). Real-model checks: `Scripts/v3_compare.py` (v3 vs v2) and `Scripts/v3_service_test.py` (server, load, memory).
+
 Run the fine-tuned model: put the weights in `laya-finetuning/checkpoints/final-softce-3`, add `LAYA_CHECKPOINT=laya-finetuning/checkpoints/final-softce-3` to `.env`, then `python main.py`.
 New machine: `laya-finetuning/docs/NEW_PC_SETUP.md`.

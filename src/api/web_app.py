@@ -13,8 +13,12 @@ for _path in [_ROOT, _SRC]:
     if _path not in sys.path:
         sys.path.insert(0, _path)
 
+import hmac
+import threading
+
 from fastapi import FastAPI, HTTPException, Request, Response
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import JSONResponse
 from pydantic import BaseModel
 
 from src.api.logger import logger
@@ -22,29 +26,85 @@ from src.services.dynamic_evaluator import evaluate_interaction
 
 app = FastAPI(title="Stateless QA Service API")
 
+# CORS_ORIGINS="https://a.example,https://b.example" restricts browsers to those sites; unset keeps the old "any origin" behaviour (no cookies)
+_ORIGINS = [o.strip() for o in os.getenv("CORS_ORIGINS", "*").split(",") if o.strip()] or ["*"]
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
-    allow_credentials=True,
+    allow_origins=_ORIGINS,
+    allow_credentials=_ORIGINS != ["*"],
     allow_methods=["*"],
     allow_headers=["*"],
 )
 
+MAX_REQUEST_BYTES = int(os.getenv("MAX_REQUEST_BYTES", str(2_000_000)))
+LOG_REQUEST_BODIES = os.getenv("LOG_REQUEST_BODIES", "").strip().lower() in ("1", "true", "yes", "on")
+
+
+def _api_key_ok(request: Request) -> bool:
+    """With QA_API_KEY set, every /api/ call must send it in the x-api-key header. Unset keeps the service open, as before."""
+    key = os.getenv("QA_API_KEY", "")
+    if not key or not request.url.path.startswith("/api/"):
+        return True
+    return hmac.compare_digest(request.headers.get("x-api-key", "").encode(), key.encode())
+
+
+def _safe_body(body: Any) -> Any:
+    """What the request log may keep. Transcripts and customer names are personal data: log their size, not their words
+    (LOG_REQUEST_BODIES=1 restores full bodies for debugging on a machine that holds no real calls)."""
+    if LOG_REQUEST_BODIES:
+        return body
+    if not isinstance(body, dict):
+        return {"omitted_chars": len(str(body))} if body else body
+    out = dict(body)
+    tx = out.get("transcript")
+    if isinstance(tx, list):
+        out["transcript"] = {"turns": len(tx), "chars": sum(len(str((t or {}).get("text", ""))) if isinstance(t, dict) else len(str(t)) for t in tx)}
+    elif isinstance(tx, str):
+        out["transcript"] = {"chars": len(tx)}
+    for k in ("customer_name", "customerName", "agent_name"):
+        if out.get(k):
+            out[k] = "[redacted]"
+    return out
+
 
 @app.get("/health")
 def health_check():
+    """Liveness only: the process is up. Use /ready to know whether it can grade."""
     return {
         "status": "healthy",
         "service": "qa-service"
     }
 
 
+@app.get("/ready")
+def readiness_check():
+    """Readiness. Flow v3: the model has loaded. Other flows: the criteria database answers."""
+    out = {"status": "ready", "flow": os.getenv("LAYA_FLOW", "").strip().lower() or "default"}
+    if not _v3_enabled():
+        try:
+            get_all_tenants()
+        except Exception as e:
+            logger.error({"log_type": "APP", "message": f"readiness: database not reachable: {type(e).__name__}"})
+            return JSONResponse(status_code=503, content={"status": "not ready", "database": "unreachable"})
+        out["database"] = "ok"
+    else:
+        worker = _get_jobs().stats()
+        out["worker"] = worker
+        if not worker["ready"]:
+            out["status"] = "model failed to load" if worker["load_error"] else "model loading"
+            return JSONResponse(status_code=503, content=out)
+    return out
+
+
 @app.on_event("startup")
 def on_startup():
-    try:
-        init_db()
-    except Exception as e:
-        logger.error({"log_type": "APP", "message": f"Failed to initialize database: {e}"})
+    if _v3_enabled():
+        _get_jobs()                                               # start the worker; it loads the model in the background. v3 needs no database
+    else:
+        try:
+            init_db()
+        except Exception as e:
+            logger.error({"log_type": "APP", "message": f"Failed to initialize database: {e}"})
     logger.info({
         "log_type": "APP",
         "message": "Stateless QA Service started. Logging live to logs/app.log."
@@ -69,11 +129,18 @@ async def log_requests_middleware(request: Request, call_next):
     path = request.url.path
     query_params = dict(request.query_params)
 
+    if not _api_key_ok(request):
+        return JSONResponse(status_code=401, content={"detail": "missing or wrong x-api-key"})
+    declared = request.headers.get("content-length", "")
+    if declared.isdigit() and int(declared) > MAX_REQUEST_BYTES:
+        return JSONResponse(status_code=413, content={"detail": f"request larger than {MAX_REQUEST_BYTES} bytes"})
     req_body_bytes = await request.body()
+    if len(req_body_bytes) > MAX_REQUEST_BYTES:
+        return JSONResponse(status_code=413, content={"detail": f"request larger than {MAX_REQUEST_BYTES} bytes"})
     try:
-        req_body = json.loads(req_body_bytes)
+        req_body = _safe_body(json.loads(req_body_bytes))
     except Exception:
-        req_body = req_body_bytes.decode("utf-8", errors="replace") if req_body_bytes else {}
+        req_body = _safe_body(req_body_bytes.decode("utf-8", errors="replace") if req_body_bytes else {})
 
     logger.info({
         "timestamp": datetime.now(timezone.utc).isoformat(),
@@ -102,6 +169,8 @@ async def log_requests_middleware(request: Request, call_next):
             res_body = json.loads(res_body_bytes)
         except Exception:
             res_body = res_body_bytes.decode("utf-8", errors="replace") if res_body_bytes else {}
+        if not LOG_REQUEST_BODIES and len(res_body_bytes) > 20_000:       # e.g. /api/samples returns whole transcripts
+            res_body = {"omitted_bytes": len(res_body_bytes)}
 
         latency_ms = round((time.time() - start_time) * 1000, 2)
         outcome = "SUCCESS" if 200 <= response.status_code < 400 else "FAILURE"
@@ -180,10 +249,25 @@ from src.db.database import (
 
 
 class Turn(BaseModel):
+    # seconds may arrive as 12.5, "1:12" or null; sentiment may be null. v3 reads them as sent, v2 gets the old int / float defaults below.
     speaker: str
-    text: str
-    start_time_sec: Optional[int] = 0
+    text: Optional[str] = ""
+    start_time_sec: Optional[Union[float, str]] = 0
+    end_time: Optional[Union[float, str]] = None
+    end_time_sec: Optional[Union[float, str]] = None
     sentiment_score: Optional[float] = 0.0
+
+
+def _v2_turn(t: "Turn") -> Dict[str, Any]:
+    """The turn as v2 has always received it (int start second, 0.0 for a missing score)."""
+    d = t.model_dump()
+    try:
+        d["start_time_sec"] = int(float(d["start_time_sec"] or 0))
+    except (TypeError, ValueError):
+        d["start_time_sec"] = 0
+    d["text"] = d["text"] or ""
+    d["sentiment_score"] = d["sentiment_score"] if d["sentiment_score"] is not None else 0.0
+    return d
 
 
 class EvaluateRequest(BaseModel):
@@ -323,13 +407,105 @@ def list_sample_inputs():
     return samples
 
 
+_jobs = None
+_jobs_lock = threading.Lock()
+
+
+def _v3_enabled() -> bool:
+    return os.getenv("LAYA_FLOW", "").strip().lower() == "v3"
+
+
+def _error_status(exc: BaseException) -> Optional[int]:
+    """HTTP status for the input problems v3 knows about; None for anything else (reported as a generic 500)."""
+    from src.v3.normalise import InvalidTranscript, TranscriptTooLarge
+    from src.v3.scoring import NoCriteria
+    if isinstance(exc, (InvalidTranscript, NoCriteria)):
+        return 422
+    if isinstance(exc, TranscriptTooLarge):
+        return 413
+    return None
+
+
+def _run_job(p: Dict[str, Any]) -> Dict[str, Any]:
+    from src.v3.pipeline import evaluate_v3
+    return evaluate_v3(p["transcript"], p["criteria"], p["tenant_id"], p["channel"], p["caller"])
+
+
+def _warm_model() -> None:
+    """Load the weights and answer one real question, so a bad checkpoint path or a broken install fails at startup, not on the first call.
+    (Building the router alone does not load the weights.)"""
+    from src.services import dynamic_evaluator as de
+    de._laya_verdict("probing", "Agent: Can you tell me when the problem first started?\nCustomer: Yesterday evening.", "warmup")
+
+
+def _get_jobs():
+    """The one worker queue. Created on first use; the worker loads the model at once so a bad checkpoint path shows up at startup."""
+    global _jobs
+    with _jobs_lock:
+        if _jobs is None:
+            from src.v3.jobs import JobQueue
+            _jobs = JobQueue(_run_job, _error_status, max_queue=int(os.getenv("QUEUE_MAX", "50")), warm=_warm_model)
+            _jobs.start()
+    return _jobs
+
+
+def _submit_v3(req: "EvaluateRequest", tenant_id: str, call_id: str):
+    """Check the request is gradable (cheap, so junk never takes a place in line), then queue it. Raises HTTPException.
+    v3 grades every call against the one built-in criteria set: no database, and any criteria_data in the request is ignored."""
+    from src.v3 import load_criteria
+    from src.v3.jobs import QueueFull
+    from src.v3.normalise import normalise
+    criteria_data = load_criteria()
+    payload = [t.model_dump() for t in req.transcript] if isinstance(req.transcript, list) else req.transcript
+    try:
+        normalise(payload, req.get_customer_name())
+    except Exception as e:
+        code = _error_status(e)
+        if code is None:
+            raise
+        raise HTTPException(status_code=code, detail=str(e))
+    try:
+        return _get_jobs().submit({"transcript": payload, "criteria": criteria_data, "tenant_id": tenant_id,
+                                   "channel": req.channel or "Call", "caller": req.get_customer_name()},
+                                  {"call_id": call_id, "tenant_id": tenant_id})
+    except QueueFull as e:
+        raise HTTPException(status_code=503, headers={"Retry-After": "30"}, detail=str(e))
+
+
+@app.post("/api/jobs", status_code=202)
+def submit_job(req: EvaluateRequest):
+    """Queue a call and return at once. Poll GET /api/jobs/{job_id} for the result (flow v3 only)."""
+    if not _v3_enabled():
+        raise HTTPException(status_code=404, detail="job queue is part of flow v3 (LAYA_FLOW=v3)")
+    job = _submit_v3(req, req.get_tenant_id(), req.get_call_id())
+    return job.view(_get_jobs().position(job))
+
+
+@app.get("/api/jobs/{job_id}")
+def get_job(job_id: str):
+    job = _jobs.get(job_id) if _jobs else None
+    if job is None:
+        raise HTTPException(status_code=404, detail="no such job (finished jobs are kept for an hour)")
+    return job.view(_jobs.position(job))
+
+
 @app.post("/api/evaluate")
 def evaluate_tenant_transcript(req: EvaluateRequest):
-    """Synchronous evaluation endpoint using PostgreSQL tenant criteria."""
+    """Synchronous evaluation endpoint. Flow v3 grades against the built-in criteria; v2 uses PostgreSQL tenant criteria."""
     tenant_id = req.get_tenant_id()
     call_id = req.get_call_id()
+
+    if _v3_enabled():
+        job = _submit_v3(req, tenant_id, call_id)
+        if not job.done.wait(float(os.getenv("EVALUATE_TIMEOUT_SEC", "120"))):
+            raise HTTPException(status_code=503, headers={"Retry-After": "30"}, detail={
+                "message": "grading is taking longer than the wait limit; the call is still being graded", "job_id": job.id})
+        if job.status == "failed":
+            raise HTTPException(status_code=job.error["status"], detail=job.error["detail"])
+        return {"call_id": call_id, "tenant_id": tenant_id, "status": "completed", "result": job.result}
+
     criteria_data = req.criteria_data or get_active_criteria_for_evaluation(tenant_id)
-    transcript_payload = [t.dict() for t in req.transcript] if isinstance(req.transcript, list) else req.transcript
+    transcript_payload = [_v2_turn(t) for t in req.transcript] if isinstance(req.transcript, list) else req.transcript
 
     result = evaluate_interaction(
         transcript_data=transcript_payload,

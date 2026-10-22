@@ -30,6 +30,7 @@ class NTurn:
     end: float                     # seconds; estimated from the word count when the input has none
     end_estimated: bool
     sentiment: Optional[float]     # None when the input has no usable score (customer turns only; agents never carry one)
+    source_index: int = -1         # position of this turn in the caller's original list (empty turns are dropped, so it can differ from index)
 
 
 @dataclass
@@ -136,7 +137,7 @@ def normalise(transcript: Union[str, List[Any]], customer_name: Optional[str] = 
     total_chars, turns, warnings = 0, [], []
     prev_start, prev_end = 0.0, 0.0
     sec_per_word = cfg["speech_seconds_per_word"]
-    for raw in raw_turns:
+    for source_index, raw in enumerate(raw_turns):
         text = raw.get("text")
         text = "" if text is None else str(text).strip()
         if len(text) > lim["max_chars_per_turn"]:
@@ -164,7 +165,8 @@ def normalise(transcript: Union[str, List[Any]], customer_name: Optional[str] = 
         label = str(raw.get("speaker") or "")
         role = classify_role(label, cfg["roles"])
         sent = _clean_sentiment(raw.get("sentiment_score")) if role == "customer" else None
-        turns.append(NTurn(index=len(turns), role=role, speaker=label, text=text, start=start, end=end, end_estimated=estimated, sentiment=sent))
+        turns.append(NTurn(index=len(turns), role=role, speaker=label, text=text, start=start, end=end, end_estimated=estimated,
+                           sentiment=sent, source_index=source_index))
         prev_start, prev_end = start, end
     if not turns:
         raise InvalidTranscript("the transcript has no text")

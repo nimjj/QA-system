@@ -7,7 +7,18 @@ import json
 import os
 
 _CONFIG_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)), "config", "v3.json")
+_CRITERIA_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)), "config", "criteria.json")
 _config = None
+_criteria = None
+
+
+def load_criteria() -> dict:
+    """The one set of criteria every call is graded against (11 items, two categories, their deductions and weights). No database."""
+    global _criteria
+    if _criteria is None:
+        with open(_CRITERIA_PATH, encoding="utf-8") as fh:
+            _criteria = json.load(fh)
+    return json.loads(json.dumps(_criteria))                 # a copy, so a caller cannot change the shared default
 
 
 def load_config() -> dict:
