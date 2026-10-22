@@ -116,8 +116,9 @@ def final_score(c, preds):
 
 def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument("--tune", nargs="+", required=True)
+    ap.add_argument("--tune", nargs="+", default=[])
     ap.add_argument("--eval", nargs="+", required=True)
+    ap.add_argument("--cutoffs", default="", help='score at FIXED cutoffs from this JSON ({"cutoffs": {check: value}}); no tuning')
     ap.add_argument("--label", default="")
     ap.add_argument("--out", default="", help="write the tuned cutoffs here (JSON)")
     args = ap.parse_args()
@@ -128,7 +129,12 @@ def main():
         thr = thr or t
         tune_calls.update(c)
     for p in args.eval:
-        ev_calls.update(load(p)[1])
+        t, c = load(p)
+        thr = thr or t
+        ev_calls.update(c)
+    if not args.tune and not args.cutoffs:
+        ap.error("give --tune (tune the cutoffs) or --cutoffs (score at fixed cutoffs)")
+    fixed = json.load(open(args.cutoffs))["cutoffs"] if args.cutoffs else None
     bad = check_consistency(thr, {**tune_calls, **ev_calls})
     print(f"[{args.label}] consistency: ratings recomputed from the probabilities at the cutoffs in force differ from the app's in {bad} of "
           f"{7 * (len(tune_calls) + len(ev_calls))} judged items" + ("" if bad == 0 else "   <-- CHECK before trusting anything below"))
@@ -141,7 +147,10 @@ def main():
         cur = thr[tkey]["pass_threshold"]
         trows = [(c["p"][item], key_for(s)[0][item]) for s, c in tune_calls.items() if key_for(s)[0] and item in key_for(s)[0]]
         erows = [(c["p"][item], key_for(s)[0][item]) for s, c in ev_calls.items() if key_for(s)[0] and item in key_for(s)[0]]
-        best, cut = tune(trows, default, cur) if trows else (float("nan"), cur)
+        if fixed is not None:
+            best, cut = float("nan"), fixed.get(tkey, cur)
+        else:
+            best, cut = tune(trows, default, cur) if trows else (float("nan"), cur)
         tuned[tkey] = cut
 
         def nf(r):
@@ -153,10 +162,10 @@ def main():
         print(f"{item[:36]:36s} {nf(trows):>9s} {cur:9.2f} {cut:7.3f} {best:7.2f} | {nf(erows):>9s} {(f'{a:.2f}' if a is not None else '-'):>5s} "
               f"{ba_at(erows, default, cur):9.2f} {ba_at(erows, default, cut):9.2f}")
     print(f"\nitems matching the key on the evaluation set: cutoffs in force {total['force'][0]}/{total['force'][1]} "
-          f"({total['force'][0] / max(total['force'][1], 1):.1%}); tuned cutoffs {total['tuned'][0]}/{total['tuned'][1]} "
+          f"({total['force'][0] / max(total['force'][1], 1):.1%}); {'fixed' if fixed is not None else 'tuned'} cutoffs {total['tuned'][0]}/{total['tuned'][1]} "
           f"({total['tuned'][0] / max(total['tuned'][1], 1):.1%})")
     for name, cuts in (("in force", {k: v["pass_threshold"] for k, v in thr.items()}),
-                       ("tuned", {**{k: v["pass_threshold"] for k, v in thr.items()}, **tuned})):
+                       ("fixed" if fixed is not None else "tuned", {**{k: v["pass_threshold"] for k, v in thr.items()}, **tuned})):
         errs = []
         for s, c in ev_calls.items():
             fs = key_for(s)[1]
