@@ -340,18 +340,18 @@ This is how Resolved and Ownership were adopted and how Empathy and Paraphrasing
 ```mermaid
 flowchart TD
     A["Spot a gap: the window may be hiding the evidence<br/>e.g. Ownership gate opens on 1 of 14 failing calls"] --> B["Write candidate windows<br/>src/v3/candidates/"]
-    B --> C["laya-finetuning/eval/v3_gate_lab.py scores every candidate with the real model<br/>against the answer keys, answers cached"]
+    B --> C["../laya-finetuning/eval/v3_gate_lab.py scores every candidate with the real model<br/>against the answer keys, answers cached"]
     C --> D["Choose the variant and its cutoff on the DEVELOPMENT sets<br/>AG-T and AG50, 150 calls"]
     D --> E["Confirm on the HOLD-OUT sets<br/>AG-B, AG-B2, AG-C, 112 calls"]
     E --> F{"Better on both,<br/>and not just by luck?"}
     F -->|"no, or mixed"| G["Keep v2 for that check.<br/>Code stays, switch stays off<br/>Empathy, Paraphrasing"]
     F -->|"yes"| H["Add it to gates in src/v3/config/v3.json"]
-    H --> I["laya-finetuning/eval/v3_compare.py runs v2 and v3 end to end<br/>through the real pipeline against the keys"]
+    H --> I["../laya-finetuning/eval/v3_compare.py runs v2 and v3 end to end<br/>through the real pipeline against the keys"]
     I --> J["Count calls only v3 got right against calls only v2 got right<br/>paired test, and mean error of the final score"]
     J --> K["A person reviews the calls where v2 and v3 disagree<br/>still to do: the keys are AI-written"]
 ```
 
-Result of the end-to-end comparison (all figures against AI-written keys; files `laya-finetuning/runs/v3/e2e_*.jsonl`):
+Result of the end-to-end comparison (all figures against AI-written keys; files `../laya-finetuning/runs/v3/e2e_*.jsonl`):
 
 | Set group | Calls | The 11 items matching the key, v2 -> v3 | Better / worse | p | Mean final-score error |
 |---|---|---|---|---|---|
@@ -368,18 +368,18 @@ Where the weights and every set of test calls came from. Every answer key in thi
 
 ```mermaid
 flowchart TD
-    A0["Claude-written call fragments<br/>laya-finetuning/data/fragments/claude<br/>stages 1 to 3, used for final-softce-3"] --> E
+    A0["Claude-written call fragments<br/>../laya-finetuning/data/fragments/claude<br/>stages 1 to 3, used for final-softce-3"] --> E
     A["Briefs for an AI author<br/>rulebook, key format and one task brief per set<br/>(removed from the repo, in git history)"] --> B["The AI author writes calls and answer keys<br/>each key rates the 11 items and marks the key moments"]
-    B --> C["laya-finetuning/eval/validate_calls.py<br/>checks format, recomputes the rule items with the app's own code"]
-    C --> D["laya-finetuning/inputs/AG-T training calls, AG50 development calls,<br/>AG-B, AG-B2, AG-C test calls, each with expected/ keys"]
-    D --> E["laya-finetuning/tools/build_ag_rows.py, build_rows.py<br/>cut the calls with the production windows into training rows"]
+    B --> C["../laya-finetuning/eval/validate_calls.py<br/>checks format, recomputes the rule items with the app's own code"]
+    C --> D["../laya-finetuning/inputs/AG-T training calls, AG50 development calls,<br/>AG-B, AG-B2, AG-C test calls, each with expected/ keys"]
+    D --> E["../laya-finetuning/tools/build_ag_rows.py, build_rows.py<br/>cut the calls with the production windows into training rows"]
     E --> F["make_mix2.py mixes the rows<br/>build_train_notebook.py writes the Colab notebook"]
-    F --> G["Colab GPU: notebooks 01 to 04 in laya-finetuning/<br/>laya_train_cuda.py fine-tunes Laya, saves to Google Drive"]
-    G --> H["Download and install into<br/>laya-finetuning/checkpoints/run-name/"]
-    H --> I["checkpoint_manifest.py records and verifies the file hashes<br/>record kept in laya-finetuning/runs/"]
-    I --> J["laya-finetuning/eval/probe_laya.py records every probability on the development sets<br/>choose_cutoffs.py picks cutoffs, written down BEFORE the exam"]
+    F --> G["Colab GPU: notebooks 01 to 04 in ../laya-finetuning/<br/>laya_train_cuda.py fine-tunes Laya, saves to Google Drive"]
+    G --> H["Download and install into<br/>../laya-finetuning/checkpoints/run-name/"]
+    H --> I["checkpoint_manifest.py records and verifies the file hashes<br/>record kept in ../laya-finetuning/runs/"]
+    I --> J["../laya-finetuning/eval/probe_laya.py records every probability on the development sets<br/>choose_cutoffs.py picks cutoffs, written down BEFORE the exam"]
     J --> K["One exam on a set the model never saw<br/>AG-B plus AG-B2, then AG-C"]
-    K --> L["Paired test, score error, RESULT.md, laya-finetuning/runs/CHECKPOINTS.md<br/>decision recorded"]
+    K --> L["Paired test, score error, RESULT.md, ../laya-finetuning/runs/CHECKPOINTS.md<br/>decision recorded"]
     L --> M["Decision of 2026-10-22: production stays on final-softce-3,<br/>which was trained on Claude-written rows only"]
     Z["export_checks.py --check<br/>every training row records a hash of the question wording and the<br/>window code; if the app's window code changes the data must be rebuilt"] -.-> E
     Z -.-> M
@@ -388,10 +388,10 @@ flowchart TD
 | Step | Where |
 |---|---|
 | Briefs | The rulebook, the key and marker format, worked examples and one task brief per set (AG-T, AG-B, AG-B2, AG-C) were removed on 2026-10-22 once the sets were sealed. They are in git history at commit `a7ace67`; the structure of an answer key is described in `CODEBASE_GUIDE.md` section 5 |
-| Calls and keys | `laya-finetuning/inputs/AG-T`, `laya-finetuning/inputs/AG50`, `laya-finetuning/inputs/AG-B`, `laya-finetuning/inputs/AG-B2`, `laya-finetuning/inputs/AG-C` (`expected/` folders hold the keys) |
-| Row building | `laya-finetuning/tools/build_ag_rows.py`, `build_rows.py`, `make_mix2.py`; rows in `laya-finetuning/data/rows/` |
-| Training | `laya-finetuning/0x_train_eval*.ipynb` on Google Colab; `laya-finetuning/tools/laya_train_cuda.py` |
-| Weights | `laya-finetuning/checkpoints/` (git-ignored, never pushed); catalogue `laya-finetuning/runs/CHECKPOINTS.md` |
-| Freeze check | `laya-finetuning/tools/export_checks.py`; frozen file `laya-finetuning/data/frozen/checks_frozen.json` |
-| Probes and exams | `laya-finetuning/eval/probe_laya.py`, `choose_cutoffs.py`, `cutoff_eval.py`; results under `laya-finetuning/runs/` and `inputs/Test (results)/` |
+| Calls and keys | `../laya-finetuning/inputs/AG-T`, `../laya-finetuning/inputs/AG50`, `../laya-finetuning/inputs/AG-B`, `../laya-finetuning/inputs/AG-B2`, `../laya-finetuning/inputs/AG-C` (`expected/` folders hold the keys) |
+| Row building | `../laya-finetuning/tools/build_ag_rows.py`, `build_rows.py`, `make_mix2.py`; rows in `../laya-finetuning/data/rows/` |
+| Training | `../laya-finetuning/0x_train_eval*.ipynb` on Google Colab; `../laya-finetuning/tools/laya_train_cuda.py` |
+| Weights | `../laya-finetuning/checkpoints/` (git-ignored, never pushed); catalogue `../laya-finetuning/runs/CHECKPOINTS.md` |
+| Freeze check | `../laya-finetuning/tools/export_checks.py`; frozen file `../laya-finetuning/data/frozen/checks_frozen.json` |
+| Probes and exams | `../laya-finetuning/eval/probe_laya.py`, `choose_cutoffs.py`, `cutoff_eval.py`; results under `../laya-finetuning/runs/` and `inputs/Test (results)/` |
 | Why the frozen files must not change | `laya_inputs.py`, `rule_engine.py`, `laya_windows.py` and the question wording are hashed into the training data; v3 imports them and never edits them |

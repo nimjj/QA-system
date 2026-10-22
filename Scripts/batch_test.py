@@ -3,7 +3,7 @@
 Usage (from the repo root):
     python Scripts/batch_test.py                      # inputs/Main tests
     python Scripts/batch_test.py bulk                 # inputs/Bulk tests
-    python Scripts/batch_test.py "laya-finetuning/inputs/Tough checks" --label ollama
+    python Scripts/batch_test.py "../laya-finetuning/inputs/Tough checks" --label ollama
     python Scripts/batch_test.py main --dry-run       # list what would be sent
 
 Every payload gets the tenant's criteria from resources/criteria_config.json as `criteria_data`

@@ -1,6 +1,6 @@
 # Flow v2 window lab on AG50
 
-Old windows: probabilities from the probe files. New windows: scored by `laya-finetuning/eval/window_lab.py`. Key = Antigravity, not human-reviewed. AG50 is a development set, so every number below is for choosing variants, not a final result.
+Old windows: probabilities from the probe files. New windows: scored by `../laya-finetuning/eval/window_lab.py`. Key = Antigravity, not human-reviewed. AG50 is a development set, so every number below is for choosing variants, not a final result.
 
 ## Empathy
 

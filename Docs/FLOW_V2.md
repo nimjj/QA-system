@@ -1,6 +1,6 @@
 # Flow v2: choosing what Laya sees by call structure (2026-10-19)
 
-Status: **implemented, on by default when a fine-tuned checkpoint is served (`LAYA_CHECKPOINT`), off for stock Laya.** Switch explicitly with `LAYA_FLOW=v1|v2`. Code: `src/services/laya_windows.py`, used from `laya_inputs.build_laya_inputs`; one line in `dynamic_evaluator.py` (Paraphrasing fails without a model call when no restatement cue is found). Experiments: `laya-finetuning/eval/window_lab.py`, `laya-finetuning/eval/empathy_lab.py`; lab report `Docs/FLOW_V2_LAB.md`; regression report `Docs/FLOW_V2_REGRESSION.md`.
+Status: **implemented, on by default when a fine-tuned checkpoint is served (`LAYA_CHECKPOINT`), off for stock Laya.** Switch explicitly with `LAYA_FLOW=v1|v2`. Code: `src/services/laya_windows.py`, used from `laya_inputs.build_laya_inputs`; one line in `dynamic_evaluator.py` (Paraphrasing fails without a model call when no restatement cue is found). Experiments: `../laya-finetuning/eval/window_lab.py`, `../laya-finetuning/eval/empathy_lab.py`; lab report `Docs/FLOW_V2_LAB.md`; regression report `Docs/FLOW_V2_REGRESSION.md`.
 
 ## Why
 AG50 (50 calls of 10 to 20 minutes) showed fine-tuned Laya behind Ollama, and much of the loss happened before the model: the app cut small, phrase-gated snippets built for short calls. I measured where each criterion's evidence sits in those calls and rebuilt the windows. No retraining was needed for the gains below. Production has **customer-side sentiment only**, so nothing here uses agent sentiment.
@@ -38,7 +38,7 @@ Versus Ollama on AG50: judged items 80.3% against 78.6%, a difference of +1.7 po
 - Every number is against an AI-written key (Antigravity for AG50, Claude for Main and bulk). None is human-reviewed.
 
 ## Freeze
-The extractor hash in `laya-finetuning/data/frozen/checks_frozen.json` covers `laya_inputs.py`, `rule_engine.py` and `laya_windows.py` (tag `laya-inputs-frozen-v3`; `inputs_sha256` `49e61755fdb6...`). Training rows built before this still match the v1 extractors, which are unchanged and still used when `LAYA_FLOW=v1`. New training data for the v2 windows must be built with `LAYA_FLOW=v2`. The earlier tag `laya-inputs-frozen-v2` points at a commit whose `laya_inputs.py` lacked the v2 switch (a sync tool reverted the edit before it was committed; fixed in commit 91aea83), so use v3.
+The extractor hash in `../laya-finetuning/data/frozen/checks_frozen.json` covers `laya_inputs.py`, `rule_engine.py` and `laya_windows.py` (tag `laya-inputs-frozen-v3`; `inputs_sha256` `49e61755fdb6...`). Training rows built before this still match the v1 extractors, which are unchanged and still used when `LAYA_FLOW=v1`. New training data for the v2 windows must be built with `LAYA_FLOW=v2`. The earlier tag `laya-inputs-frozen-v2` points at a commit whose `laya_inputs.py` lacked the v2 switch (a sync tool reverted the edit before it was committed; fixed in commit 91aea83), so use v3.
 
 ## Next steps
 1. Antigravity briefs for **AG-T** (training calls) and **AG-B** (sealed test): agent sentiment absent, customer sentiment noisy, late acknowledgements, benign near-repeats in good calls, rude lines hidden in long polite calls.
@@ -49,4 +49,4 @@ The extractor hash in `laya-finetuning/data/frozen/checks_frozen.json` covers `l
 `inputs/Test (results)/<suite> (laya-ft-v2b)` is the final flow v2 run reported above. `(laya-ft-v2)` is the first version, kept as the record of the regression (bulk 347 of 372) it caused. `Laya probes/window_lab_*.json` and `empathy_lab_*.json` hold every probability used by the lab reports.
 
 ## Moving to another PC
-See `laya-finetuning/docs/NEW_PC_SETUP.md`.
+See `../laya-finetuning/docs/NEW_PC_SETUP.md`.

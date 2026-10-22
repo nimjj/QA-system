@@ -19,7 +19,7 @@ With that set, the service serves these weights, applies the fine-tuned cutoffs 
 ## Check that your copy is intact
 
 ```
-python laya-finetuning/tools/checkpoint_manifest.py verify models/final-softce-3 --manifest laya-finetuning/runs/ft3-stage3/final-softce-3.manifest.json
+python ../laya-finetuning/tools/checkpoint_manifest.py verify models/final-softce-3 --manifest ../laya-finetuning/runs/ft3-stage3/final-softce-3.manifest.json
 ```
 
 It must print `ALL FILES MATCH`.
@@ -27,5 +27,5 @@ It must print `ALL FILES MATCH`.
 ## Where the other weights are
 
 * The stock Laya model (needed only for stock-model runs and for building training data) is in your Hugging Face cache; see `.env.example` (`LAYA_HF_HOME`).
-* The experiment checkpoints (`ft5-...`, `ft6-...`) are in `laya-finetuning/checkpoints/`, part of the Laya training segment. The catalogue is `laya-finetuning/runs/CHECKPOINTS.md`.
-* The originals of every checkpoint are on Google Drive (the Colab output folders). New machine: `laya-finetuning/docs/NEW_PC_SETUP.md`.
+* The experiment checkpoints (`ft5-...`, `ft6-...`) are in `../laya-finetuning/checkpoints/`, part of the separate Laya project (the folder `laya-finetuning` next to this one, its own repo). The catalogue is `../laya-finetuning/runs/CHECKPOINTS.md`.
+* The originals of every checkpoint are on Google Drive (the Colab output folders). New machine: `../laya-finetuning/docs/NEW_PC_SETUP.md`.
