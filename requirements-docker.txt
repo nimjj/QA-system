@@ -1,0 +1,16 @@
+# Exact versions of the tested v3 setup (Python 3.14), used by Dockerfile.v3.
+# torch is installed separately there, from the CPU wheel index (torch==2.14.1).
+fastapi==0.150.0
+uvicorn==0.54.0
+starlette==1.9.0
+pydantic==2.14.1
+python-dotenv==1.2.4
+httpx==0.28.1
+psycopg2-binary==2.9.13
+transformers==5.16.1
+tokenizers==0.23.3
+huggingface_hub==1.33.0
+safetensors==0.8.0
+numpy==2.5.4
+# Laya decision engine from GitHub at a pinned commit (v0.4.0). Needs git at build time.
+laya @ git+https://github.com/NandhaKishorM/laya.git@3cf26cbcb18725dbc2d127bb8bb2c4c43243ae63

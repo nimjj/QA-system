@@ -10,6 +10,65 @@ Built with **FastAPI**, a deterministic **Python rule engine** and **Laya**, a l
 
 ---
 
+## Quick start (pipeline v3)
+
+Everything here uses pipeline v3: no database, one model, one worker. **All scores are measured against AI-written answer keys, not human-labelled ones, and real call transcripts have not been tried yet.**
+
+**1. Get the code**
+```bash
+git clone -b app-v3 https://github.com/nimjj/QA-system.git
+cd QA-system
+```
+
+**2. Get the model weights (separately, once per machine).** The weights (808 MB) are **not in git**, so a fresh clone cannot grade anything until they are in `models/final-softce-3/`. Ask the project owner for the zip, unzip it there and check it: `python Scripts/verify_weights.py` must end with `ALL FILES MATCH`. How sharing works and why: [`models/README.md`](models/README.md).
+
+**3a. Run it in Docker** (needs Docker with at least 4 GB of memory; the first build downloads about 1 GB)
+```bash
+docker compose -f docker-compose.v3.yml up -d --build
+curl http://localhost:8006/ready        # "status":"ready" after about 10 s
+```
+Step-by-step guide, optional settings (API key, queue size) and troubleshooting: [`Docs/DOCKER.md`](Docs/DOCKER.md). Note: the files are prepared, but the image has not been built and tried by us yet, so tell the owner if the first build hits a problem.
+
+**3b. Or run it without Docker** (Python 3.10+, developed on 3.14)
+```bash
+python -m venv .venv && source .venv/bin/activate       # Windows: .venv\Scripts\activate
+pip install -r requirements.txt
+cp .env.example .env                                    # Windows: copy .env.example .env
+# in .env set:  LAYA_FLOW=v3   and   LAYA_CHECKPOINT=models/final-softce-3
+python main.py                                          # http://localhost:8006  (Swagger at /docs)
+```
+
+**4. Try it**
+```bash
+python Scripts/try_call.py "inputs/Main tests/gold_01_excellent_22min.json"   # one call, plain-language scorecard (expect 100.0)
+python Scripts/send_folder.py "inputs/Main tests"        # every call in a folder; one JSON reply per call in outputs/ (git-ignored) + outputs/_summary.csv
+```
+The same endpoint works from any tool: `POST http://localhost:8006/api/evaluate` (examples in [API](#api), `requests.http` and `Docs/postman_collection.json`). The four golden calls should score 100.0, 88.3, 50.0 and 30.0; saved replies to compare with are in `inputs/Test (results)/Main tests (app-v3)/`. Around 380 more AI-written test calls are in `inputs/` (AG50, AG-T, AG-B, AG-B2, AG-C, Eval50, Tough checks, Bulk tests); their answer keys are in the Laya repo.
+
+### Where the documentation is
+
+| I want to... | Read |
+|---|---|
+| Set up and run the Docker container | [`Docs/DOCKER.md`](Docs/DOCKER.md) |
+| Get the weights, verify them, share them with a colleague | [`models/README.md`](models/README.md) |
+| Understand what everything is and how the code fits together (plain language) | [`Docs/CODEBASE_GUIDE.md`](Docs/CODEBASE_GUIDE.md), then [`Docs/FLOW_DIAGRAMS.md`](Docs/FLOW_DIAGRAMS.md) (11 diagrams) |
+| Understand v3: what it does, settings (`src/v3/config/v3.json`), results, what is not done | [`Docs/V3.md`](Docs/V3.md) |
+| See the current status, the rules of the project and the next steps | [`Docs/AI_HANDOVER.md`](Docs/AI_HANDOVER.md) (also `CLAUDE.md` for AI assistants) |
+| Find any other document | [`Docs/README.md`](Docs/README.md) (index) |
+
+### Testing it
+* **Unit tests (no model, seconds):** `python -m unittest discover -s tests/unit -t .` (106 tests; they must all pass before any change is merged).
+* **Real model, whole service:** start it as above, then `Scripts/send_folder.py` or `Scripts/try_call.py`, and compare with the saved replies in `inputs/Test (results)/`. Scripts for comparing result folders: `Scripts/compare_results.py` (see [Testing](#testing)).
+* **Heavier checks** (v3 against v2 on all test sets, load and memory test of the server) live in the separate Laya repo `nimjj/laya-finetuning`, cloned next to this one as `../laya-finetuning`: `eval/v3_compare.py`, `eval/v3_service_test.py`, `eval/golden.py`. Run them with this repo's Python. Not needed just to run or try the service.
+
+### Making changes
+* Read [`Docs/CODEBASE_GUIDE.md`](Docs/CODEBASE_GUIDE.md) first: section 4 is the runtime architecture and settings, section 5 the map of every folder and file, section 9 how to run and test. v3 lives in `src/v3/` and its switches are in `src/v3/config/v3.json`; the API is `src/api/web_app.py`.
+* **Four files are frozen and must not be edited casually:** `src/services/laya_inputs.py`, `rule_engine.py`, `laya_windows.py` and the question wording in `dynamic_evaluator.py`. The model was trained on exactly those questions, so a change silently breaks it. If you must change one, re-freeze with the Laya repo: `python ../laya-finetuning/tools/export_checks.py --check` (details in [`Docs/AI_HANDOVER.md`](Docs/AI_HANDOVER.md) section 4).
+* Never commit `.env` or any weights. Production uses customer-side sentiment only. A change counts as better only if it improves results on the test calls without hurting the others, and say that results are against AI-written keys.
+* Code changes to the container: edit `src/`, then `docker compose -f docker-compose.v3.yml up -d --build`.
+
+---
+
 ## How it works
 
 ```
@@ -86,7 +145,7 @@ cd frontend && npm install && npm run dev   # optional: React dashboard
 * The first evaluation loads Laya, which takes about a minute on CPU. After that each Laya check takes about 1 s on CPU.
 * Evaluations run one at a time.
 
-> **Docker:** `docker-compose.yml` no longer contains Ollama. The QA-service image does **not** yet include Laya, because the local `../laya-test` path is outside the Docker build context. Run the service locally as above; use compose only for Postgres if needed (`docker compose up -d postgres`).
+> **Docker:** for pipeline v3 (no database) use `docker-compose.v3.yml` and follow [`Docs/DOCKER.md`](Docs/DOCKER.md); the files are prepared but the image has not been built yet. The older `docker-compose.yml` is the v2 stack (Postgres, gateway, frontend) and its QA-service image does **not** include Laya; run v2 locally as above and use that compose file only for Postgres if needed (`docker compose up -d postgres`).
 
 ---
 
@@ -215,8 +274,9 @@ QA-system/                       # THIS repo: the QA application
 ├── requirements.txt             # FastAPI stack + psycopg2-binary + Laya (pinned GitHub commit)
 ├── .env.example                 # every setting, documented (copy to .env, which is git-ignored)
 ├── setup.bat / setup.sh         # venv + install + .env
-├── docker-compose.yml           # Postgres, QA service, gateway, frontend (v2 stack; no v3 image yet)
+├── docker-compose.yml           # Postgres, QA service, gateway, frontend (v2 stack)
 ├── Dockerfile / Dockerfile.base / Dockerfile.gateway
+├── docker-compose.v3.yml / Dockerfile.v3 / requirements-docker.txt / .dockerignore   # v3 container, see Docs/DOCKER.md
 ├── requests.http                # REST-client requests
 ├── CLAUDE.md                    # rules for AI assistants working in the repo
 ├── resources/criteria_config.json   # reference criteria for tenant-abc

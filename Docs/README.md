@@ -10,6 +10,7 @@ These are the documents of the **QA application** repo. Everything about the Lay
 | Show me the flow as diagrams (Mermaid) | [`FLOW_DIAGRAMS.md`](FLOW_DIAGRAMS.md) |
 | What is the app and how does a call flow through it? What does the database look like? | [`ARCHITECTURE.md`](ARCHITECTURE.md) (original version-10 specification; the schema is only here) |
 | What is the new v3 pipeline, how do I run and test it? | [`V3.md`](V3.md) |
+| How do I set up the v3 service as a Docker container? | [`DOCKER.md`](DOCKER.md) |
 | How are calls cut into snippets for the model (flow v2)? | [`FLOW_V2.md`](FLOW_V2.md), [`FLOW_V2_LAB.md`](FLOW_V2_LAB.md), [`FLOW_V2_REGRESSION.md`](FLOW_V2_REGRESSION.md) (cited by comments in the frozen `src/services/laya_inputs.py`, so they stay) |
 | What did each test round find, and which model is in production? | `LAYA_TEST_LOG.md` (`../laya-finetuning/docs/LAYA_TEST_LOG.md`, in the Laya repo), `CHECKPOINTS.md` (`../laya-finetuning/runs/CHECKPOINTS.md`, in the Laya repo) |
 | The independent AG50 test: why the model errs | `AG50_REPORT.md` (`../laya-finetuning/docs/AG50_REPORT.md`, in the Laya repo) |
