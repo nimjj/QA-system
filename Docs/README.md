@@ -6,6 +6,7 @@ These are the documents of the **QA application** repo. Everything about the Lay
 
 | Question | Read |
 |---|---|
+| Master overview: architecture, Flow v2 lifecycle, criteria, and two-repo guide | [`SYSTEM_AND_FLOW_V2_GUIDE.md`](SYSTEM_AND_FLOW_V2_GUIDE.md) |
 | I am new. What is all this, and where is everything? | [`CODEBASE_GUIDE.md`](CODEBASE_GUIDE.md) |
 | Show me the flow as diagrams (Mermaid) | [`FLOW_DIAGRAMS.md`](FLOW_DIAGRAMS.md) |
 | What is the app and how does a call flow through it? What does the database look like? | [`ARCHITECTURE.md`](ARCHITECTURE.md) (original version-10 specification; the schema is only here) |
