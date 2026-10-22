@@ -15,7 +15,7 @@ Raw numbers (generated, no longer kept in the repo): `Docs/ag50_stats.json` and 
 
 ## 2. What was tested
 
-- 50 customer-support calls for S-Net, 10 to 20 minutes each, with a sentiment score on every turn. **Written and graded by Antigravity**, a different AI from the one that wrote the training data. The brief is `Docs/ANTIGRAVITY_TEST_BRIEF.md`; the files are in `inputs/AG50/`.
+- 50 customer-support calls for S-Net, 10 to 20 minutes each, with a sentiment score on every turn. **Written and graded by Antigravity**, a different AI from the one that wrote the training data. The brief (`ANTIGRAVITY_TEST_BRIEF.md`, removed on 2026-10-22; read it with `git show a7ace67:Docs/<name>`); the files are in `inputs/AG50/`.
 - Mix: 8 excellent calls, 15 with 1-2 faults, 12 with 3-4, 11 with 5 or more, 4 auto-fails. 65% of the keyed FAILs and 34% of the keyed PASSes were tagged "hard cases".
 - I re-checked the four rule-based items, the auto-fail detection and the final-score maths against the app's own code: **0 mismatches**.
 - Every engine received the same payloads through the normal app (`/api/evaluate`), so the whole pipeline ran: rules, snippet extraction, then the model. Settings: stock Laya with its original cutoffs, fine-tuned Laya (`final-softce-3`) with its tuned cutoffs, Ollama through the older copy of the app (`qa-analysis-ollama`).

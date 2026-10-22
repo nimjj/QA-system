@@ -85,8 +85,10 @@ Engine labels: `laya-stock`, `laya-ft` (fine-tuned, flow v1), `laya-ft-v2b` (fin
 - **Laya checks** (`LAYA_CHECKS`, one yes/no question each, a cutoff on P(pass)): Empathy, Paraphrasing, Active listening, Ownership, Rapport, Probing, Resolved. Laya reads about 340 words per question, so each check gets a short, purpose-built snippet. Flow v1 cut fixed windows; **flow v2** (`laya_windows.py`, used when a fine-tuned checkpoint is served) changes three checks: **Empathy** one window per distinct customer outburst (strict rubric, the owner's decision: every new outburst must be handled), **Paraphrasing** a restatement-cue gate then a tight window (no cue means FAIL without a model call), **Ownership** a wider deflection-phrase list. Probing, Resolved, Active listening and Rapport are unchanged.
 - Fine-tuned cutoffs: Empathy 0.49, Paraphrasing 0.47, Active listening 0.50, Resolved 0.42, Rapport 0.20 (call level: any chunk below fails; tuned on Main/bulk, so those are not independent for Rapport). Probing 0.70 and Ownership 0.52 unchanged. A Probing cutoff tuned on AG50 was **rejected** (12 false fails on bulk).
 
-## 10. Next steps (the plan the owner approved; nothing below has started)
-1. Antigravity briefs for **AG-T** (about 100 training calls) and **AG-B** (50 sealed test calls): agent sentiment absent, customer sentiment noisy as RoBERTa would give, late acknowledgements and confirmations, benign near-repeats in good calls, rude or deflecting lines buried in long polite calls. Reuse `Docs/ANTIGRAVITY_TEST_BRIEF.md` with those changes.
+## 10. Next steps (the plan approved on 2026-10-20; SUPERSEDED)
+> **Status 2026-10-22:** steps 1 and 2 were carried out (AG-T, AG-B, AG-B2 and AG-C were written, ft4 to ft6 were trained and tested; see `laya-finetuning/runs/CHECKPOINTS.md`). Step 3 was dropped: shadow mode is impossible for a new application. What came next is in `Docs/V3.md`. The text below is kept as the record of the plan.
+
+1. Antigravity briefs for **AG-T** (about 100 training calls) and **AG-B** (50 sealed test calls): agent sentiment absent, customer sentiment noisy as RoBERTa would give, late acknowledgements and confirmations, benign near-repeats in good calls, rude or deflecting lines buried in long polite calls. (The brief `ANTIGRAVITY_TEST_BRIEF.md` was reused with those changes and later removed on 2026-10-22; read it with `git show a7ace67:Docs/<name>`.)
 2. Build training rows with the v2 extractors (`LAYA_FLOW=v2`) via `laya-finetuning/tools/build_calls.py`, `build_rows.py`, `make_manifest.py`; retrain on Colab (`01_train_eval.ipynb`, the owner runs it) for Active listening, Paraphrasing (echo versus real restatement), Rapport (long polite calls) and Empathy ("acknowledgement plus refusal"). Keep the replay rows (drift guard).
 3. Run stock, fine-tuned and Ollama on AG-B; a human reviews about 30 disagreements; then shadow mode beside Ollama on real calls.
 
@@ -96,7 +98,7 @@ Engine labels: `laya-stock`, `laya-ft` (fine-tuned, flow v1), `laya-ft-v2b` (fin
   {"speaker": "Agent", "text": "Thank you for calling S-Net, my name is Alex. How can I help?", "start_time_sec": 0, "start_time": "[00:00]", "end_time": "[00:06]", "sentiment_score": 10.0},
   {"speaker": "Customer", "text": "My internet is completely down.", "start_time_sec": 10, "start_time": "[00:10]", "end_time": "[00:14]", "sentiment_score": -18.0}]}
 ```
-`sentiment_score` goes on each turn (a top-level array is ignored); speakers are exactly `Agent` / `Customer`; keep turns under 30 s (the dead-air rule assumes 10 s); sentiment moves gradually. Remember production has customer sentiment only, so agent turns should carry no meaningful score. Full brief: `Docs/ANTIGRAVITY_TEST_BRIEF.md`.
+`sentiment_score` goes on each turn (a top-level array is ignored); speakers are exactly `Agent` / `Customer`; keep turns under 30 s (the dead-air rule assumes 10 s); sentiment moves gradually. Remember production has customer sentiment only, so agent turns should carry no meaningful score. Full brief (removed on 2026-10-22; read it with `git show a7ace67:Docs/<name>`): `ANTIGRAVITY_TEST_BRIEF.md`.
 
 ## 12. Lessons and pitfalls
 - Windows: Python cannot read `/tmp`; keep scripts in files (heredocs mangle backslashes); a scratch file named `dis.py` shadows the standard library; run report scripts with `PYTHONIOENCODING=utf-8`.

@@ -11,16 +11,15 @@ Start with [`AI_HANDOVER.md`](AI_HANDOVER.md) (status, rules, how to run), then 
 | How are calls cut into snippets for the model (flow v2)? | [`FLOW_V2.md`](FLOW_V2.md), [`FLOW_V2_LAB.md`](FLOW_V2_LAB.md), [`FLOW_V2_REGRESSION.md`](FLOW_V2_REGRESSION.md) (cited by comments in the frozen `src/services/laya_inputs.py`, so they stay) |
 | What did each test round find, and which model is in production? | [`LAYA_TEST_LOG.md`](LAYA_TEST_LOG.md), `../laya-finetuning/runs/CHECKPOINTS.md` |
 | The independent AG50 test: why the model errs | [`AG50_REPORT.md`](AG50_REPORT.md) |
-| How do I commission a new AI-written test set? (the author kit) | [`ANTIGRAVITY_TEST_BRIEF.md`](ANTIGRAVITY_TEST_BRIEF.md) (rulebook), [`ANTIGRAVITY_V2_COMMON.md`](ANTIGRAVITY_V2_COMMON.md) (key and marker format), [`ANTIGRAVITY_V2_EXAMPLES.md`](ANTIGRAVITY_V2_EXAMPLES.md) (worked examples), then write a task brief for the new set (the old ones, listed below, are good templates) |
 | API calls for Postman | [`postman_collection.json`](postman_collection.json) |
 
 All results in these documents are measured against AI-written answer keys, not human-labelled ones.
 
 ## Removed on 2026-10-22
 
-These were removed because the task they described is finished, or because a script regenerates them from data that stays in the repo. Nothing is lost: each file is in git history at commit `8a6842b`.
+These were removed because the task they described is finished, or because a script regenerates them from data that stays in the repo. Nothing is lost: each file is in git history (the first ten at commit `8a6842b`, the last three at commit `a7ace67`).
 
-Read one without restoring it: `git show 8a6842b:Docs/<file name>`. Restore one: `git checkout 8a6842b -- Docs/<file name>`.
+Read one without restoring it: `git show 8a6842b:Docs/<file name>` (or `a7ace67` for the last three). Restore one: `git checkout 8a6842b -- Docs/<file name>`.
 
 | File | Why it was removed | To regenerate it |
 |---|---|---|
@@ -34,3 +33,6 @@ Read one without restoring it: `git show 8a6842b:Docs/<file name>`. Restore one:
 | `EVAL50_RESULTS.md` | Generated per-call comparison for Eval50 | `python Scripts/compare_eval.py Eval50 laya-ft laya-stock ollama --out Docs/EVAL50_RESULTS.md`; verified identical |
 | `LAYA_ROUND4_COMPARISON.md` | Generated per-call tables for test round 4 (the round's story stays in `LAYA_TEST_LOG.md`) | `python Scripts/compare_results.py ollama laya-v2 laya-v3.1 laya-ft --out Docs/LAYA_ROUND4_COMPARISON.md` (on Windows set `PYTHONIOENCODING=utf-8` first); verified identical |
 | `PIPELINE_FLOWCHART_LAYA.md` | Ollama-era analysis of what Laya could replace; superseded by `FLOW_DIAGRAMS.md` | not needed |
+| `ANTIGRAVITY_TEST_BRIEF.md` | Rulebook for the AI author of the first test set and the base of every later brief; not needed to run or maintain the app. Read it before commissioning a new AI-written set | not needed; read it from commit `a7ace67` |
+| `ANTIGRAVITY_V2_COMMON.md` | Label rules and the key and marker format for AG-T and AG-B. The structure of a key is now described in `CODEBASE_GUIDE.md` section 5; `validate_calls.py` enforces the rules in code | read it from commit `a7ace67` |
+| `ANTIGRAVITY_V2_EXAMPLES.md` | Worked examples of the labels | read it from commit `a7ace67` |

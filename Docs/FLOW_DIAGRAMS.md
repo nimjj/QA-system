@@ -369,7 +369,7 @@ Where the weights and every set of test calls came from. Every answer key in thi
 ```mermaid
 flowchart TD
     A0["Claude-written call fragments<br/>laya-finetuning/data/fragments/claude<br/>stages 1 to 3, used for final-softce-3"] --> E
-    A["Briefs for an AI author<br/>rulebook and format in Docs/ANTIGRAVITY_TEST_BRIEF.md and ANTIGRAVITY_V2_COMMON.md,<br/>one task brief per set (in git history)"] --> B["The AI author writes calls and answer keys<br/>each key rates the 11 items and marks the key moments"]
+    A["Briefs for an AI author<br/>rulebook, key format and one task brief per set<br/>(removed from the repo, in git history)"] --> B["The AI author writes calls and answer keys<br/>each key rates the 11 items and marks the key moments"]
     B --> C["Scripts/validate_calls.py<br/>checks format, recomputes the rule items with the app's own code"]
     C --> D["inputs/AG-T training calls, AG50 development calls,<br/>AG-B, AG-B2, AG-C test calls, each with expected/ keys"]
     D --> E["laya-finetuning/tools/build_ag_rows.py, build_rows.py<br/>cut the calls with the production windows into training rows"]
@@ -387,7 +387,7 @@ flowchart TD
 
 | Step | Where |
 |---|---|
-| Briefs | Author kit in `Docs/ANTIGRAVITY_TEST_BRIEF.md`, `ANTIGRAVITY_V2_COMMON.md`, `ANTIGRAVITY_V2_EXAMPLES.md`. The task brief of each finished set (AG-T, AG-B, AG-B2, AG-C) was removed on 2026-10-22 and is in git history at commit `8a6842b` |
+| Briefs | The rulebook, the key and marker format, worked examples and one task brief per set (AG-T, AG-B, AG-B2, AG-C) were removed on 2026-10-22 once the sets were sealed. They are in git history at commit `a7ace67`; the structure of an answer key is described in `CODEBASE_GUIDE.md` section 5 |
 | Calls and keys | `inputs/AG-T`, `inputs/AG50`, `inputs/AG-B`, `inputs/AG-B2`, `inputs/AG-C` (`expected/` folders hold the keys) |
 | Row building | `laya-finetuning/tools/build_ag_rows.py`, `build_rows.py`, `make_mix2.py`; rows in `laya-finetuning/data/rows/` |
 | Training | `laya-finetuning/0x_train_eval*.ipynb` on Google Colab; `laya-finetuning/tools/laya_train_cuda.py` |

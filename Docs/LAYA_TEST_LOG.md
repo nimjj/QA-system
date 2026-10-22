@@ -236,7 +236,7 @@ Caveats that matter:
 
 # Round 5: AG50, an independent test (2026-10-18)
 
-50 calls of 10 to 20 minutes with sentiment scores, **written and graded by Antigravity** (not Claude, not human-reviewed; brief in `Docs/ANTIGRAVITY_TEST_BRIEF.md`, files in `inputs/AG50/`). The four rule items, auto-fail detection and score maths of the key were re-checked against the app's code: 0 mismatches. Full report: `Docs/AG50_REPORT.md`. Its charts page, numbers file and per-call tables (`AG50_DASHBOARD.html`, `ag50_stats.json`, `AG50_RESULTS.md`) are generated on demand and were removed from the repo on 2026-10-22; how to regenerate them is in `Docs/README.md`.
+50 calls of 10 to 20 minutes with sentiment scores, **written and graded by Antigravity** (not Claude, not human-reviewed; brief `ANTIGRAVITY_TEST_BRIEF.md`, removed on 2026-10-22; read it with `git show a7ace67:Docs/<name>`, files in `inputs/AG50/`). The four rule items, auto-fail detection and score maths of the key were re-checked against the app's code: 0 mismatches. Full report: `Docs/AG50_REPORT.md`. Its charts page, numbers file and per-call tables (`AG50_DASHBOARD.html`, `ag50_stats.json`, `AG50_RESULTS.md`) are generated on demand and were removed from the repo on 2026-10-22; how to regenerate them is in `Docs/README.md`.
 
 | | Stock Laya | Fine-tuned Laya | Ollama |
 |---|---|---|---|

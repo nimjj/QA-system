@@ -6,7 +6,7 @@
     python Scripts/validate_calls.py --suite agt --subset agt_001,agt_002    # a batch while you are still writing
 
 Run it from the repo root after every batch and fix every error before writing more. WARN lines do not fail the run.
-Exit code 0 = no errors. The format is described in Docs/ANTIGRAVITY_V2_COMMON.md; the coverage targets in the brief.
+Exit code 0 = no errors. The key format is described in Docs/CODEBASE_GUIDE.md (section 5); the original brief and format document are in git history.
 
 The four rule-based items are recomputed with the application's own functions (src/services/rule_engine.py), so the key
 must match the code exactly. Judged items are your reading of the call; the markers must agree with your ratings.

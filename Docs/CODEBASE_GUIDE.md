@@ -209,6 +209,28 @@ All are AI-written; none has been reviewed by a human.
 | `AG-B/`, `AG-B2/`, `AG-C/` | 50, 12, 50 | Antigravity test calls written without sight of the models | **Hold-out sets.** Used for the model exams and now looked at repeatedly, so no longer clean tests |
 | `Test (results)/` | 924 files | Every result of every earlier round, by engine label (`AG50 (laya-ft-v2b)`, `Main tests (ollama)`, ...) and the probe files | History |
 
+### What an answer key looks like
+
+One file per call, `inputs/<set>/expected/expected_<call>.json`, written by the AI author. Turn numbers below are 0-based positions in the call's `transcript` list.
+
+| Part | Contents |
+|---|---|
+| `call_id`, `tenant_id`, `status` | identifiers; `status` is always `completed` |
+| `result` | What the app should return: `final_score`, `is_auto_fail`, `auto_fail_reason`, and `scorecard`, the 11 items each with `category`, `name`, `rating` (PASS or FAIL) and `coaching` |
+| `grader` | The author's working: `graded_by`, `graded_on`, `scenario`, `tier` (a quality label; its wording differs between sets), `duration_sec`, `notes`, `hard_cases`, and `items` (the 11 items again, each with a one-line `evidence` and a `confidence`) |
+| `grader.markers` | **Where the key moments are** (present in AG-T, AG-B, AG-B2 and AG-C; AG50 has none), so training rows and checks can find them without re-reading the call |
+
+The marker kinds, as found in the 212 keys that have markers:
+
+| Check | Kinds | Fields |
+|---|---|---|
+| Active listening | `repeat` (a fault), `harmless_recheck` (looks like a repeat, is not) | `premise_turn`, `agent_turn`, optional `reworded` |
+| Paraphrasing | `restatement`, `not_a_restatement` | `agent_turn` |
+| Rapport | `rude`, `blunt_but_ok` (curt or using words like "obviously", but respectful) | `agent_turn` |
+| Empathy | `handled`, `unhandled`, `no_outburst` (looks upset, is not) | `customer_turn`, `agent_turn`, `with_refusal` |
+
+Two tools read the markers: `Scripts/validate_calls.py` checks that a key is well formed, that its markers agree with its ratings and that the four rule items match what the app's own rule code computes; `laya-finetuning/tools/build_ag_rows.py` turns the markers into labelled training rows. The original label rules, with worked examples, are in git history (`git show a7ace67:Docs/ANTIGRAVITY_V2_COMMON.md`).
+
 ### `laya-finetuning/`: training the model
 
 | Folder | Contents |
@@ -222,7 +244,7 @@ All are AI-written; none has been reviewed by a human.
 
 ### `Docs/`
 
-Start from [`Docs/README.md`](README.md) (the index). The ones to know: this guide and [`FLOW_DIAGRAMS.md`](FLOW_DIAGRAMS.md); [`V3.md`](V3.md) (pipeline v3 status and results); [`AI_HANDOVER.md`](AI_HANDOVER.md) (rules and context for whoever continues); [`LAYA_TEST_LOG.md`](LAYA_TEST_LOG.md) (every test round); [`FLOW_V2.md`](FLOW_V2.md) (what flow v2 changed). [`ARCHITECTURE.md`](ARCHITECTURE.md) is the original version-10 specification and does not describe flow v2 or v3; it is still the only place with the database schema. The author kit for commissioning a new AI-written test set is [`ANTIGRAVITY_TEST_BRIEF.md`](ANTIGRAVITY_TEST_BRIEF.md) (rulebook), [`ANTIGRAVITY_V2_COMMON.md`](ANTIGRAVITY_V2_COMMON.md) (key and marker format, read by `validate_calls.py` and `build_ag_rows.py`) and [`ANTIGRAVITY_V2_EXAMPLES.md`](ANTIGRAVITY_V2_EXAMPLES.md). The task briefs of the finished sets and the generated report files were removed on 2026-10-22; the index lists them and how to get each back.
+Start from [`Docs/README.md`](README.md) (the index). The ones to know: this guide and [`FLOW_DIAGRAMS.md`](FLOW_DIAGRAMS.md); [`V3.md`](V3.md) (pipeline v3 status and results); [`AI_HANDOVER.md`](AI_HANDOVER.md) (rules and context for whoever continues); [`LAYA_TEST_LOG.md`](LAYA_TEST_LOG.md) (every test round); [`FLOW_V2.md`](FLOW_V2.md) (what flow v2 changed). [`ARCHITECTURE.md`](ARCHITECTURE.md) is the original version-10 specification and does not describe flow v2 or v3; it is still the only place with the database schema. The instructions that were written for the AI authors of the test sets (the rulebook, the key and marker format, worked examples, and one task brief per set) were removed on 2026-10-22 once the sets were sealed, together with some generated report files; the index lists each one and how to get it back. The structure of an answer key is described in section 5 below.
 
 ---
 
@@ -248,7 +270,7 @@ Start from [`Docs/README.md`](README.md) (the index). The ones to know: this gui
 ## 7. How the model got here
 
 1. **Starting point.** Stock Laya was clearly worse than the old Ollama (Llama 3.1) setup (64.6% against 78.6% of judged items on AG50).
-2. **Training data.** An AI writes calls and answer keys (the rulebook and format are the author kit, `Docs/ANTIGRAVITY_TEST_BRIEF.md` and `Docs/ANTIGRAVITY_V2_COMMON.md`; the task briefs of the finished sets are in git history); `validate_calls.py` checks them; the row builders cut them with the **same window code the app uses**, so the model trains on exactly what it will see. The hash in `data/frozen/` makes sure the app and the data stay in step.
+2. **Training data.** An AI writes calls and answer keys (the briefs that told the author what to write, including the rulebook and the key format, are in git history; see the index in `Docs/README.md`); `validate_calls.py` checks them; the row builders cut them with the **same window code the app uses**, so the model trains on exactly what it will see. The hash in `data/frozen/` makes sure the app and the data stay in step.
 3. **Training.** A Colab notebook fine-tunes Laya on a GPU and saves the checkpoint to Google Drive; it is downloaded into `checkpoints/` and its hashes recorded.
 4. **Exams.** Cutoffs are chosen on development data and written down **before** a test set is opened; then one exam on calls the model never saw, scored with a paired test (McNemar).
 5. **Result.** Flow v2 plus fine-tuning brought the model level with Ollama on AG50 (80.3% against 78.6%, not statistically different). Two further retrains (ft5, ft6) did not beat `final-softce-3` (round 8 on AG-C: `final-softce-3` 78.0%, ft5 78.9%, ft6 77.7% of judged items, no significant differences); ft4 was rejected earlier because its training data was padded. **Decision 2026-10-22: production stays on `final-softce-3`.**
@@ -322,7 +344,7 @@ Audited and tidied on 2026-10-22.
 * Deleted generated or empty leftovers: the root `__pycache__/` and an empty `tests/golden/`.
 * Moved the side folders that sat next to the repo (`_incoming`, `_quarantine`, the earlier clean-up archive) under one `D:\CIAP\QA\_archive\`. The quarantined paste is untouched.
 * Refreshed the README folder map, `.env.example` (v3 settings), the stale paths in `laya-finetuning/README.md`, added a banner to `Docs/ARCHITECTURE.md`, and indexed the new documents.
-* Removed ten finished-task or regenerable documents from `Docs/` (the four AI-author task briefs for AG-T, AG-B, AG-B2 and AG-C; the AG50 dashboard, stats and results table; the Eval50 and Round 4 result tables; the Ollama-era flowchart). The index in `Docs/README.md` lists each one with the command that regenerates it and `git show 8a6842b:Docs/<name>` to read the original.
+* Removed thirteen finished-task or regenerable documents from `Docs/` in two steps: ten first, then the author rulebook, key format and worked examples (the four AI-author task briefs for AG-T, AG-B, AG-B2 and AG-C; the AG50 dashboard, stats and results table; the Eval50 and Round 4 result tables; the Ollama-era flowchart). The index in `Docs/README.md` lists each one with the command that regenerates it and `git show 8a6842b:Docs/<name>` to read the original.
 * Earlier the same day: 56 loose helper scripts and 29 run logs were moved out of the repo root into the archive, and the repo was pushed to a new branch `app-v3`.
 
 **Left as they are on purpose:** `inputs/Test (results)/` (history; scripts and docs point into it), `laya_eval/` (evidence behind the starting cutoffs), the experiment labs in `Scripts/`, the v2 database code and tenant endpoints (v2 and the dashboard still use them), the Docker files (v3 image still to do), and ft5 / ft6 weights (the docs and probe commands use those paths).
