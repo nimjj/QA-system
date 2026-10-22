@@ -1,9 +1,9 @@
-"""Statistics for the AG50 test (50 long calls, answer keys written by Antigravity) -> Docs/ag50_stats.json.
+"""Statistics for the AG50 test (50 long calls, answer keys written by Antigravity) -> laya-finetuning/docs/ag50_stats.json.
 
-Run from the repo root after the three engines have run and (optionally) after Scripts/probe_laya.py has been run
-on inputs/AG50 for the fine-tuned and stock checkpoints:
+Run from the repo root after the three engines have run and (optionally) after laya-finetuning/eval/probe_laya.py has been run
+on laya-finetuning/inputs/AG50 for the fine-tuned and stock checkpoints:
 
-    python Scripts/ag50_analysis.py        (needs scipy and scikit-learn, which are not in requirements.txt: pip install scipy scikit-learn)
+    python laya-finetuning/eval/ag50_analysis.py        (needs scipy and scikit-learn, which are not in requirements.txt: pip install scipy scikit-learn)
 
 What it computes (all confidence intervals resample whole calls, 5000 times, seed 0):
   - items matching the key per engine, overall and for the 7 model-judged items
@@ -25,11 +25,12 @@ import numpy as np
 from scipy.stats import binomtest, spearmanr
 from sklearn.metrics import roc_auc_score
 
-ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
+import _roots  # noqa: E402  (finds the QA app root; see _roots.py)
+ROOT = _roots.QA_ROOT
 sys.path.insert(0, ROOT)
 from src.services.laya_inputs import build_laya_inputs  # noqa: E402
 
-INPUTS = os.path.join(ROOT, "inputs")
+INPUTS = _roots.DATA
 RES = os.path.join(INPUTS, "Test (results)")
 ENGINES = ["laya-stock", "laya-ft", "laya-ft-v2b", "ollama"]
 NICE = {"laya-stock": "Stock Laya", "laya-ft": "Fine-tuned Laya", "laya-ft-v2b": "Fine-tuned Laya + flow v2", "ollama": "Ollama"}
@@ -330,7 +331,7 @@ if "laya-ft" in _arr and "laya-stock" in _arr:
         probe_out["laya-ft"][s_name]["auc_minus_stock_ci"] = ci(d)
 out["probe"] = probe_out
 
-path = os.path.join(ROOT, "Docs", "ag50_stats.json")
+path = os.path.join(ROOT, "laya-finetuning", "docs", "ag50_stats.json")
 with open(path, "w", encoding="utf-8") as f:
     json.dump(out, f, indent=1)
 print("wrote", path)

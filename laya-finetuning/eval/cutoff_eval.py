@@ -1,8 +1,8 @@
 """Tune the call-level pass cutoffs of a checkpoint on one set of calls, then score it on a different set.
 
-    python Scripts/cutoff_eval.py --tune "<probe agtdev>" "<probe mainbulk>" --eval "<probe ag50>" --label softce --out cutoffs.json
+    python laya-finetuning/eval/cutoff_eval.py --tune "<probe agtdev>" "<probe mainbulk>" --eval "<probe ag50>" --label softce --out cutoffs.json
 
-Inputs are probe files from Scripts/probe_laya.py (every Laya probability of every call, plus the ratings the app gave at the cutoffs
+Inputs are probe files from laya-finetuning/eval/probe_laya.py (every Laya probability of every call, plus the ratings the app gave at the cutoffs
 in force). The call-level value for a check is the lowest P(pass) over its windows (one weak window fails the call), exactly as
 dynamic_evaluator does. Where the model is never asked, the app's fixed answer is used (no restatement cue or no question: FAIL; no
 upset moment, no repeat candidate, no deflection: PASS).
@@ -16,7 +16,8 @@ import os
 import statistics
 import sys
 
-ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
+import _roots  # noqa: E402  (finds the QA app root; see _roots.py)
+ROOT = _roots.QA_ROOT
 sys.path.insert(0, os.path.join(ROOT, "Scripts"))
 from compare_results import bulk_labels  # noqa: E402
 
@@ -38,7 +39,7 @@ def key_for(stem):
     """(item -> rating, final_score or None) for a call, or (None, None)."""
     for prefix, folder in (("agc_", "AG-C"), ("agb2_", "AG-B2"), ("agb_", "AG-B"), ("agt_", "AG-T"), ("ag_", "AG50"), ("gold_", "Main tests")):
         if stem.startswith(prefix):
-            p = os.path.join(ROOT, "inputs", folder, "expected", f"expected_{stem}.json")
+            p = os.path.join(_roots.suite_dir(folder), "expected", f"expected_{stem}.json")
             if os.path.exists(p):
                 k = json.load(open(p, encoding="utf-8"))
                 return {s["name"]: s["rating"] for s in k["result"]["scorecard"]}, k["result"]["final_score"]

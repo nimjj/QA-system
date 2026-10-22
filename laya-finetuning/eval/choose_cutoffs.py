@@ -1,6 +1,6 @@
 """Choose a model's call-level cutoffs with a split-half check, and report cross-validated accuracy.
 
-    python Scripts/choose_cutoffs.py --label ft6-softce --base laya-finetuning/runs/ft5-ag/exam_cutoffs_old.json \
+    python laya-finetuning/eval/choose_cutoffs.py --label ft6-softce --base laya-finetuning/runs/ft5-ag/exam_cutoffs_old.json \
         --half-a <probe agtdev> <probe ag50> --half-b <probe agb> <probe agb2> --out cutoffs.json
 
 For each check: tune on half A and score on half B, then the reverse. A cutoff tuned on the whole pool replaces the base cutoff only

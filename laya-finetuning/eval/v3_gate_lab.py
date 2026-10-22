@@ -1,7 +1,7 @@
 """Window lab: which lines should the model be shown for one check? Scores every candidate window against the AI-written answer keys.
 
-    python Scripts/v3_gate_lab.py resolved                      # all variants, all sets
-    python Scripts/v3_gate_lab.py resolved --variants tail10,cue
+    python laya-finetuning/eval/v3_gate_lab.py resolved                      # all variants, all sets
+    python laya-finetuning/eval/v3_gate_lab.py resolved --variants tail10,cue
 
 tail10 is today's v2 behaviour. Development sets (AG-T, AG50) are where a variant and its cutoff are chosen; the hold-out sets (AG-B, AG-B2,
 AG-C) are looked at only to confirm, and are never used to pick anything. Model answers are cached by a hash of the window text, so a
@@ -16,7 +16,8 @@ import os
 import sys
 import time
 
-ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
+import _roots  # noqa: E402  (finds the QA app root; see _roots.py)
+ROOT = _roots.QA_ROOT
 sys.path.insert(0, ROOT)
 from dotenv import load_dotenv  # noqa: E402
 
@@ -37,7 +38,7 @@ CHECKS = {"resolved": {"item": "Confirmed the issue is resolved", "key": "resolv
           "empathy": {"item": "Empathy & Acknowledgment Statement", "key": "empathy", "label": "verify_empathy", "variants": EMP.VARIANTS, "combine": "min", "empty_score": 1.0}}
 DEV = ["AG-T", "AG50"]
 HOLD = ["AG-B", "AG-B2", "AG-C"]
-FOLDERS = {"AG-T": "inputs/AG-T", "AG50": "inputs/AG50", "AG-B": "inputs/AG-B", "AG-B2": "inputs/AG-B2", "AG-C": "inputs/AG-C"}
+FOLDERS = {"AG-T": "laya-finetuning/inputs/AG-T", "AG50": "laya-finetuning/inputs/AG50", "AG-B": "laya-finetuning/inputs/AG-B", "AG-B2": "laya-finetuning/inputs/AG-B2", "AG-C": "laya-finetuning/inputs/AG-C"}
 CACHE_PATH = os.path.join(ROOT, "laya-finetuning", "runs", "v3", "lab_cache.json")
 
 
@@ -77,11 +78,16 @@ def main():
     cache = json.load(open(CACHE_PATH, encoding="utf-8")) if os.path.exists(CACHE_PATH) else {}
     stats = {"model": 0, "cached": 0, "sec": 0.0}
 
+    ckpt = os.path.basename((os.getenv("LAYA_CHECKPOINT") or "").replace("\\", "/").rstrip("/"))      # the model's folder name, wherever it lives
+
     def p_pass(text):
-        key = hashlib.sha1(f"{args.check}|{de.LAYA_CHECKS[cfg['key']]['question']['instructions']}|{os.getenv('LAYA_CHECKPOINT')}|{text}".encode()).hexdigest()
-        if key in cache:
+        question = de.LAYA_CHECKS[cfg["key"]]["question"]["instructions"]
+        key = hashlib.sha1(f"{args.check}|{question}|{ckpt}|{text}".encode()).hexdigest()
+        # answers cached before 2026-10-22 were keyed with the old location of the production weights; still honour them
+        legacy = hashlib.sha1(f"{args.check}|{question}|laya-finetuning/checkpoints/{ckpt}|{text}".encode()).hexdigest()
+        if key in cache or legacy in cache:
             stats["cached"] += 1
-            return cache[key]
+            return cache[key] if key in cache else cache[legacy]
         t0 = time.perf_counter()
         p = de._p_pass(check, de.predict_yes(text, {"q": check["question"]}, label=cfg["label"])["q"])
         stats["sec"] += time.perf_counter() - t0

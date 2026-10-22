@@ -140,7 +140,7 @@ It was picked on the 35 `b_*` bulk calls, whose filenames name the missing confi
 | 0.80 (old) | 0/31 | 4/4 | 0.50 | 0/3 | 1/1 |
 
 ## Results
-Result folders: `Main tests (laya-v2)` and `Bulk tests (laya-v2)`. The bulk "before" run is `Bulk tests (laya)`. Run `python Scripts/compare_results.py ollama laya laya-v2` for the full tables. The raw Laya probabilities are in `inputs/Test (results)/Laya probes/` (`probe_laya.json` before, `probe_laya-v2.json` after); rebuild them with `python Scripts/probe_laya.py <out.json>` and the cutoff tables with `python Scripts/laya_cutoffs.py <probe.json>`.
+Result folders: `Main tests (laya-v2)` and `Bulk tests (laya-v2)`. The bulk "before" run is `Bulk tests (laya)`. Run `python Scripts/compare_results.py ollama laya laya-v2` for the full tables. The raw Laya probabilities are in `laya-finetuning/inputs/Test (results)/Laya probes/` (`probe_laya.json` before, `probe_laya-v2.json` after); rebuild them with `python laya-finetuning/eval/probe_laya.py <out.json>` and the cutoff tables with `python laya-finetuning/eval/laya_cutoffs.py <probe.json>`.
 
 | | Ollama | Laya before | Laya v2 |
 |---|---|---|---|
@@ -236,7 +236,7 @@ Caveats that matter:
 
 # Round 5: AG50, an independent test (2026-10-18)
 
-50 calls of 10 to 20 minutes with sentiment scores, **written and graded by Antigravity** (not Claude, not human-reviewed; brief `ANTIGRAVITY_TEST_BRIEF.md`, removed on 2026-10-22; read it with `git show a7ace67:Docs/<name>`, files in `inputs/AG50/`). The four rule items, auto-fail detection and score maths of the key were re-checked against the app's code: 0 mismatches. Full report: `Docs/AG50_REPORT.md`. Its charts page, numbers file and per-call tables (`AG50_DASHBOARD.html`, `ag50_stats.json`, `AG50_RESULTS.md`) are generated on demand and were removed from the repo on 2026-10-22; how to regenerate them is in `Docs/README.md`.
+50 calls of 10 to 20 minutes with sentiment scores, **written and graded by Antigravity** (not Claude, not human-reviewed; brief `ANTIGRAVITY_TEST_BRIEF.md`, removed on 2026-10-22; read it with `git show a7ace67:Docs/<name>`, files in `laya-finetuning/inputs/AG50/`). The four rule items, auto-fail detection and score maths of the key were re-checked against the app's code: 0 mismatches. Full report: `laya-finetuning/docs/AG50_REPORT.md`. Its charts page, numbers file and per-call tables (`AG50_DASHBOARD.html`, `ag50_stats.json`, `AG50_RESULTS.md`) are generated on demand and were removed from the repo on 2026-10-22; how to regenerate them is in `Docs/README.md`.
 
 | | Stock Laya | Fine-tuned Laya | Ollama |
 |---|---|---|---|
@@ -248,7 +248,7 @@ Caveats that matter:
 - Ollama beats fine-tuned Laya on the judged items by 6.6 points (95% CI 0.9 to 12.3, McNemar p = 0.014); fine-tuning beat stock by 7.4 points (p = 0.005). The 92% on Eval50 (same author as the training data) was optimistic.
 - Pipeline: on long calls the snippets often miss the evidence. 6 of 15 Active-listening faults and 6 of 17 Ownership faults never reach the model; Empathy is checked per upset moment but the key (and the QA definition) is call-level, giving 25 false alarms; Rapport's any-chunk rule on about 10 chunks per call gives 31% false fails; Paraphrasing and Resolved see about 200 of about 1,900 words.
 - Training clearly raised ranking quality (AUC) only for Rapport (+0.24, CI 0.08 to 0.42). A Probing cutoff tuned on AG50 (balanced accuracy 0.65 -> 0.79) was tested on the bulk set and rejected: it raises false fails from 1 to 12 of 33 good calls.
-- `Scripts/probe_laya.py` gained `--suite <folder>` (default behaviour unchanged). `Scripts/ag50_analysis.py` and `Scripts/build_ag50_dashboard.py` regenerate the statistics and the dashboard.
+- `laya-finetuning/eval/probe_laya.py` gained `--suite <folder>` (default behaviour unchanged). `laya-finetuning/eval/ag50_analysis.py` and `laya-finetuning/eval/build_ag50_dashboard.py` regenerate the statistics and the dashboard.
 
 # Round 6: flow v2, windows chosen by call structure (2026-10-19)
 

@@ -1,6 +1,6 @@
 """Run v2 and v3 side by side on a folder of calls with the real model, and list every item where they disagree.
 
-    python Scripts/v3_compare.py inputs/AG-T --out runs/v3_compare_agt.jsonl --limit 20
+    python laya-finetuning/eval/v3_compare.py laya-finetuning/inputs/AG-T --out runs/v3_compare_agt.jsonl --limit 20
 
 Model results are memoised by (window text, question), so v3 only pays for windows that differ from v2's. Output is one JSON line per call
 (resumable: calls already in --out are skipped). Sealed-style sets (AG-B, AG-B2, AG-C) are summarised by id only, never dialogue.
@@ -16,7 +16,8 @@ import os
 import sys
 import time
 
-ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
+import _roots  # noqa: E402  (finds the QA app root; see _roots.py)
+ROOT = _roots.QA_ROOT
 sys.path.insert(0, ROOT)
 from dotenv import load_dotenv  # noqa: E402
 

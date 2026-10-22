@@ -4,7 +4,7 @@ This is the out-of-the-box benchmark behind the starting `pass_threshold` values
 
 The gold set has 8 criteria × 40 short snippets, each with an intended PASS/FAIL. **I wrote the labels; no human has reviewed them.**
 
-For checks on full-length calls, see `Docs/LAYA_TEST_LOG.md`, `inputs/Main tests` and `inputs/Bulk tests`.
+For checks on full-length calls, see `laya-finetuning/docs/LAYA_TEST_LOG.md`, `inputs/Main tests` and `inputs/Bulk tests`.
 
 | File | What it does |
 |---|---|

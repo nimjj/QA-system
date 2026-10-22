@@ -7,9 +7,9 @@ the key's evidence names) is inside them:
   union    either source
 
 Run (from the repo root):
-    python Scripts/al_reach_lab.py inputs/AG50            # reach on faults + snippets on good calls (AG50 key)
-    python Scripts/al_reach_lab.py "inputs/Bulk tests"    # snippet counts only (bulk keys are in the file names)
-    python Scripts/al_reach_lab.py "inputs/Main tests"
+    python laya-finetuning/eval/al_reach_lab.py laya-finetuning/inputs/AG50            # reach on faults + snippets on good calls (AG50 key)
+    python laya-finetuning/eval/al_reach_lab.py "inputs/Bulk tests"    # snippet counts only (bulk keys are in the file names)
+    python laya-finetuning/eval/al_reach_lab.py "inputs/Main tests"
 
 Keys are AI-written (Antigravity for AG50), not human-reviewed. AG50 is a development set.
 """
@@ -20,7 +20,8 @@ import os
 import re
 import sys
 
-ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
+import _roots  # noqa: E402  (finds the QA app root; see _roots.py)
+ROOT = _roots.QA_ROOT
 sys.path.insert(0, ROOT)
 
 TS = re.compile(r"\[(\d{1,2}):(\d{2})\]")

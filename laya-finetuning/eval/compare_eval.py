@@ -1,8 +1,8 @@
 """Compare batch_test.py result folders for a suite against that suite's expected scorecards.
 
 Usage (from the repo root):
-    python Scripts/compare_eval.py Eval50 laya-ft laya-stock ollama
-    python Scripts/compare_eval.py Eval50 laya-ft ollama --out Docs/EVAL50_RESULTS.md
+    python laya-finetuning/eval/compare_eval.py Eval50 laya-ft laya-stock ollama
+    python laya-finetuning/eval/compare_eval.py Eval50 laya-ft ollama --out laya-finetuning/docs/EVAL50_RESULTS.md
 
 Expected files: inputs/<suite>/expected/expected_<call>.json. Results: inputs/Test (results)/<suite> (<label>)/result_*.json.
 Reports per engine: items matching the expected rating (overall and per item), balanced accuracy per item
@@ -16,9 +16,8 @@ import os
 import re
 import sys
 
-ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
-INPUTS = os.path.join(ROOT, "inputs")
-RESULTS = os.path.join(INPUTS, "Test (results)")
+import _roots  # noqa: E402  (finds the QA app root; see _roots.py)
+ROOT = _roots.QA_ROOT
 ITEMS = [
     "Branding and Survey Check", "Hold time and Dead Air", "Verified customer",
     "Personalized the call/ticket appropriately", "Empathy & Acknowledgment Statement", "Paraphrasing",
@@ -45,7 +44,7 @@ def ratings(doc):
 
 def load_results(suite, label):
     out = {}
-    for fp in sorted(glob.glob(os.path.join(RESULTS, f"{suite} ({label})", "result_*.json"))):
+    for fp in sorted(glob.glob(os.path.join(_roots.results_root(suite), f"{suite} ({label})", "result_*.json"))):
         stem = re.sub(r"^result_\d{8}_\d{6}_", "", os.path.basename(fp))[:-len(".json")]
         out[stem] = load(fp)
     return out
@@ -67,7 +66,7 @@ def main():
     ap.add_argument("--out")
     args = ap.parse_args()
     exp = {os.path.basename(f)[len("expected_"):-len(".json")]: load(f)
-           for f in sorted(glob.glob(os.path.join(INPUTS, args.suite, "expected", "expected_*.json")))}
+           for f in sorted(glob.glob(os.path.join(_roots.suite_dir(args.suite), "expected", "expected_*.json")))}
     res = {lb: load_results(args.suite, lb) for lb in args.labels}
     L = []
     author = "Antigravity" if args.suite.upper().startswith("AG") else "Claude"      # who wrote the keys of this suite

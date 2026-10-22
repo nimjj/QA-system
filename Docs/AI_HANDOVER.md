@@ -19,7 +19,7 @@ All numbers are measured against **AI-written answer keys, not human-labelled on
 - Flow v2 versus Ollama on AG50: +1.7 points, 95% interval -3.7 to +7.1, McNemar p = 0.58: **not distinguishable**.
 - **AG50 is now a development set** (flow v2 was designed after studying its 50 calls), so its 80.3% is optimistic. Main and bulk were not used to design flow v2 and did not regress.
 - Verdict: **not ready to replace Ollama**; suitable for a shadow-mode trial beside it. No number here has been checked by a human.
-- **Update 2026-10-22 (rounds 4-8, details in `Docs/LAYA_TEST_LOG.md` and `laya-finetuning/runs/CHECKPOINTS.md`):** two retrains on Antigravity-written data (ft5, ft6) were tested on sealed exams (AG-B + AG-B2, then AG-C) and are statistically tied with the current model (77.7% to 78.9% of judged items on AG-C; the only significant gain was Rapport for ft5, 56 vs 45 of 62). **Production choice: keep `final-softce-3`.** The biggest remaining errors are in the app (Resolved reads only the last 10 lines, the Ownership phrase gate, Empathy windows opening on any upset-looking line), not the model. Ollama was never run on the sealed sets. AG-B, AG-B2 and AG-C are spent as tests. Next step: shadow mode, then app fixes.
+- **Update 2026-10-22 (rounds 4-8, details in `laya-finetuning/docs/LAYA_TEST_LOG.md` and `laya-finetuning/runs/CHECKPOINTS.md`):** two retrains on Antigravity-written data (ft5, ft6) were tested on sealed exams (AG-B + AG-B2, then AG-C) and are statistically tied with the current model (77.7% to 78.9% of judged items on AG-C; the only significant gain was Rapport for ft5, 56 vs 45 of 62). **Production choice: keep `final-softce-3`.** The biggest remaining errors are in the app (Resolved reads only the last 10 lines, the Ownership phrase gate, Empathy windows opening on any upset-looking line), not the model. Ollama was never run on the sealed sets. AG-B, AG-B2 and AG-C are spent as tests. Next step: shadow mode, then app fixes.
 - **Update 2026-10-22 (App v3, branch `app-v3`, `Docs/V3.md`):** shadow mode is not possible (new application), so the owner chose to fix the app instead of retraining. A new pipeline `src/v3/` (opt-in `LAYA_FLOW=v3`; v2 untouched) adds fixed rules, input validation, one built-in criteria set (no database), a single-worker job queue, a readiness endpoint, per-check window gates and 105 unit tests. Real-model checks: the server handled 56 simultaneous submissions (51 queued, 5 refused, 0 failed), a worst-case 1,500-turn call in 56 s, peak 2.7 GB. **Accuracy fixes (stage S4), measured against the AI-written keys:** Resolved (window skips goodbyes, blended with the customer's end-of-call mood relative to the call, cutoff 0.65) and Ownership (wider deflection wordings) are ON; Paraphrasing and Empathy alternatives were worse or mixed and are OFF (config `gates` in `src/v3/config/v3.json`). On the 112 hold-out calls the 11 items matching the key went 1031 -> 1056 (46 better / 21 worse, p = 0.003), mean final-score error 11.0 -> 9.0 points; on the 150 development calls 1389 -> 1407 (p = 0.044). Almost all of the gain is Resolved. Not human-checked; the mood signal rests on AI-written sentiment and may not transfer to real calls. Next: human review of the disagreeing calls, Docker for v3, then retraining only for the checks that remain model-limited (Empathy, Active listening, Resolved).
 - Still weak (need training data, not tuning): **Active listening** (0 of 15 faults caught; the fine-tuned model scores true repeats at only 5-12% likelihood), **Rapport** (31% of good AG50 calls fail), **Probing**, **Resolved**.
 
@@ -38,8 +38,8 @@ The owner (Nimithra, a business analyst at Adept Technologies; **use they/them**
 
 ## 5. Running it with the fine-tuned model
 1. Python 3.14 environment: `pip install -r requirements.txt` (installs Laya from GitHub at the pinned commit `3cf26cb`, v0.4.0) and `pip install "transformers==5.16.1"`.
-2. **Weights** (not in git): put the folder `final-softce-3` (from Google Drive; `model.safetensors`, `rl_agent_config.json`, `questions.json`, `tokenizer/`, `encoder/`) at `laya-finetuning/checkpoints/final-softce-3`. Verify: `python laya-finetuning/tools/checkpoint_manifest.py verify laya-finetuning/checkpoints/final-softce-3 --manifest laya-finetuning/runs/ft3-stage3/final-softce-3.manifest.json` must print `ALL FILES MATCH` (`model.safetensors` starts `fc6a3f1b793a`).
-3. `.env` (git-ignored; copy `.env.example`): add `LAYA_CHECKPOINT=laya-finetuning/checkpoints/final-softce-3` (a relative path is read from the repo root). When this is set the app (a) serves the fine-tuned weights, (b) applies `FINETUNED_CUTOFFS` in `dynamic_evaluator.py`, and (c) uses flow v2. `LAYA_FLOW=v1|v2` overrides (c). Stock Laya (variable unset) keeps v1 and the stock cutoffs.
+2. **Weights** (not in git): put the folder `final-softce-3` (from Google Drive; `model.safetensors`, `rl_agent_config.json`, `questions.json`, `tokenizer/`, `encoder/`) at `models/final-softce-3`. Verify: `python laya-finetuning/tools/checkpoint_manifest.py verify models/final-softce-3 --manifest laya-finetuning/runs/ft3-stage3/final-softce-3.manifest.json` must print `ALL FILES MATCH` (`model.safetensors` starts `fc6a3f1b793a`).
+3. `.env` (git-ignored; copy `.env.example`): add `LAYA_CHECKPOINT=models/final-softce-3` (a relative path is read from the repo root). When this is set the app (a) serves the fine-tuned weights, (b) applies `FINETUNED_CUTOFFS` in `dynamic_evaluator.py`, and (c) uses flow v2. `LAYA_FLOW=v1|v2` overrides (c). Stock Laya (variable unset) keeps v1 and the stock cutoffs.
 4. Start: `python main.py` (service on 8006; first call loads the model, about a minute). Optional: `python run_gateway.py` (8005), `cd frontend && npm install && npm run dev`. PostgreSQL is only needed when criteria come from the database; `/api/evaluate` accepts inline `criteria_data`.
 5. Smoke test (about 2 minutes): `python Scripts/batch_test.py main --label check`, then `python Scripts/compare_results.py laya-ft-v2b check`. Expect **42 of 44** items and scores about 100 / 88.3 / 50.0 / 30.0 (key 100 / 88.3 / 56.7 / 13.3). 41 of 44 with 76.7 on the second call means flow v2 is **not** active (the checkpoint variable is not being read).
 6. Stock weights (1.5 GB, Hugging Face `convaiinnovations/laya` revision `7b928d828b7b0e022f929d9bd2e44165aa270148`) are only needed for stock-Laya runs and for rebuilding training data. Set `LAYA_HF_HOME` to their cache folder.
@@ -47,22 +47,24 @@ Details and the new-PC procedure: `laya-finetuning/docs/NEW_PC_SETUP.md`.
 
 ## 6. Repository map
 ```
-(repo root)             the application
+(repo root)             SEGMENT 1, the QA application
   main.py, run_gateway.py, requirements.txt, .env.example, setup.bat/.sh, docker-compose.yml
   src/api/              FastAPI service (web_app.py)      src/gateway/   API gateway     src/db/   PostgreSQL
   src/services/         rule_engine.py (rules + pre-filters), laya_inputs.py (what Laya is shown), laya_windows.py (flow v2),
                         dynamic_evaluator.py (LAYA_CHECKS, FINETUNED_CUTOFFS, scoring), laya_adapter.py (predict_yes)
+  src/v3/               pipeline v3 (Docs/V3.md)
   resources/criteria_config.json   reference criteria for tenant-abc
-  Scripts/              batch_test.py, compare_results.py, compare_eval.py, probe_laya.py, window_lab.py, empathy_lab.py,
-                        ag50_analysis.py, build_ag50_dashboard.py, check_prompt_sizes.py
-  inputs/               test calls and answer keys (section 7) and Test (results)/ (every engine's raw results, Laya probes)
-  Docs/                 reports and logs (section 8)
+  models/final-softce-3 the PRODUCTION Laya weights (git-ignored; models/README.md)
+  Scripts/              the app's own tools: batch_test.py, compare_results.py, check_prompt_sizes.py, dump_laya_inputs.py
+  inputs/               the app's sample calls: Main tests/, Bulk tests/ and their result folders in Test (results)/
+  Docs/                 the app's docs (index in Docs/README.md)
   frontend/             React dashboard
-  laya-finetuning/      fine-tuning work: README.md, data/, tools/, 01_train_eval.ipynb (Colab), runs/, docs/NEW_PC_SETUP.md,
-                        checkpoints/ (git-ignored weights)
+  laya-finetuning/      SEGMENT 2, everything about Laya: README.md, data/, tools/, eval/ (testing and evaluation scripts),
+                        inputs/ (AG50, AG-T, AG-B, AG-B2, AG-C, Eval50, Tough checks, their results and probes), laya_eval/,
+                        runs/, docs/ (test log, AG50 report, NEW_PC_SETUP.md), 0x_*.ipynb (Colab), checkpoints/ (experiment weights, git-ignored)
 ```
 
-## 7. Test sets (all in `inputs/`; results in `inputs/Test (results)/<set> (<engine label>)/`)
+## 7. Test sets (Main and Bulk in the app's `inputs/`; all others in `laya-finetuning/inputs/`; results in `Test (results)/<set> (<engine label>)/` beside each)
 | Set | What | Key written by |
 |---|---|---|
 | `Main tests/` | 4 golden calls, 16-22 min, tiers excellent / good / okay / bad | Claude (not human-reviewed) |
@@ -70,12 +72,12 @@ Details and the new-PC procedure: `laya-finetuning/docs/NEW_PC_SETUP.md`.
 | `Eval50/` | 50 short calls (1-5 min) | Claude |
 | `AG50/` | 50 calls of 10-20 min with sentiment, **independent author** | Antigravity (not human-reviewed) |
 
-Engine labels: `laya-stock`, `laya-ft` (fine-tuned, flow v1), `laya-ft-v2b` (fine-tuned, flow v2), `ollama` (an older copy of the app at commit `3035269`, port 8007; recreate with `git worktree add ../qa-analysis-ollama 3035269`). `Scripts/compare_eval.py AG50 <labels...>` compares engines to a key; `Scripts/ag50_analysis.py` then `build_ag50_dashboard.py` regenerate the statistics and dashboard.
+Engine labels: `laya-stock`, `laya-ft` (fine-tuned, flow v1), `laya-ft-v2b` (fine-tuned, flow v2), `ollama` (an older copy of the app at commit `3035269`, port 8007; recreate with `git worktree add ../qa-analysis-ollama 3035269`). `laya-finetuning/eval/compare_eval.py AG50 <labels...>` compares engines to a key; `laya-finetuning/eval/ag50_analysis.py` then `build_ag50_dashboard.py` regenerate the statistics and dashboard.
 
 ## 8. Documents to read, in order
 1. `Docs/FLOW_V2.md`: what flow v2 changed, results, limits, next steps.
-2. `Docs/AG50_REPORT.md`: the independent test, statistics, why the model errs (its charts page is generated by `Scripts/build_ag50_dashboard.py`).
-3. `Docs/LAYA_TEST_LOG.md`: every test round (1 to 6). `Docs/FLOW_V2_LAB.md`, `Docs/FLOW_V2_REGRESSION.md`: the lab evidence.
+2. `laya-finetuning/docs/AG50_REPORT.md`: the independent test, statistics, why the model errs (its charts page is generated by `laya-finetuning/eval/build_ag50_dashboard.py`).
+3. `laya-finetuning/docs/LAYA_TEST_LOG.md`: every test round (1 to 6). `Docs/FLOW_V2_LAB.md`, `Docs/FLOW_V2_REGRESSION.md`: the lab evidence.
 4. `laya-finetuning/README.md` and `runs/*/RESULT.md`: how the model was trained (data built by Claude through the same extractors the app uses; Colab L4; `tools/laya_train_cuda.py` only, because `laya-train` crashes on GPU).
 5. `Docs/ARCHITECTURE.md`, `README.md`: pipeline detail and setup.
 

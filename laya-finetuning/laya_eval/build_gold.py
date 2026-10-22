@@ -1,7 +1,7 @@
 """Build and validate the synthetic gold set.
 
-Run:  python laya_eval/build_gold.py
-Writes laya_eval/data/<criterion>.jsonl and prints validation + a real-vs-synthetic snippet length check.
+Run:  python laya-finetuning/laya_eval/build_gold.py
+Writes laya-finetuning/laya_eval/data/<criterion>.jsonl and prints validation + a real-vs-synthetic snippet length check.
 
 Snippets for Empathy / Ownership / Rapport are produced by the REAL extractors in
 src/services/rule_engine.py, so format matches what the pipeline sends to the LLM, and any
@@ -18,7 +18,7 @@ from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE))
-QA_ROOT = HERE.parent  # repo root
+QA_ROOT = HERE.parents[1]  # repo root (the QA app); this folder is laya-finetuning/laya_eval
 
 import gold_a, gold_b, gold_c, gold_d  # noqa: E402
 
@@ -145,7 +145,8 @@ print("total items:", sum(s[1] for s in summary))
 # --- real-vs-synthetic snippet length check on the repo's real inputs (list-style transcripts with sentiment) ---
 real = {"empathy": [], "ownership": [], "rapport": []}
 n_files = 0
-for fp in sorted(glob.glob(str(QA_ROOT / "inputs" / "**" / "*.json"), recursive=True)):
+for fp in sorted(glob.glob(str(QA_ROOT / "inputs" / "**" / "*.json"), recursive=True)
+                 + glob.glob(str(QA_ROOT / "laya-finetuning" / "inputs" / "**" / "*.json"), recursive=True)):
     if "result" in Path(fp).name.lower() or "results" in fp.lower():
         continue
     try:

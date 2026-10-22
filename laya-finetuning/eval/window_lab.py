@@ -4,12 +4,12 @@ Two steps, so the slow one (the model) runs once per checkpoint:
 
   1. Score the NEW windows with a checkpoint (stock when LAYA_CHECKPOINT is unset):
          set LAYA_CHECKPOINT=<folder>      (fine-tuned)   or leave it unset (stock)
-         python Scripts/window_lab.py score "inputs/Test (results)/Laya probes/window_lab_laya-ft.json" --suite inputs/AG50
+         python laya-finetuning/eval/window_lab.py score "laya-finetuning/inputs/Test (results)/Laya probes/window_lab_laya-ft.json" --suite laya-finetuning/inputs/AG50
   2. Report old vs new (coverage of the keyed evidence, AUC, balanced accuracy, passes per call):
-         python Scripts/window_lab.py report --suite AG50 --ft "inputs/Test (results)/Laya probes/window_lab_laya-ft.json" \
-                --stock "inputs/Test (results)/Laya probes/window_lab_laya-stock.json" --out Docs/FLOW_V2_LAB.md
+         python laya-finetuning/eval/window_lab.py report --suite AG50 --ft "laya-finetuning/inputs/Test (results)/Laya probes/window_lab_laya-ft.json" \
+                --stock "laya-finetuning/inputs/Test (results)/Laya probes/window_lab_laya-stock.json" --out Docs/FLOW_V2_LAB.md
 
-The OLD windows are not rescored: their probabilities come from the probe files made by Scripts/probe_laya.py.
+The OLD windows are not rescored: their probabilities come from the probe files made by laya-finetuning/eval/probe_laya.py.
 Answer keys: inputs/<suite>/expected/expected_<call>.json (rating plus timestamped evidence per item).
 Keys are AI-written (Antigravity), not human-reviewed. AG50 is a development set: choose variants on the odd-numbered
 calls, confirm on the even-numbered ones, and never call the numbers a final result.
@@ -24,7 +24,8 @@ import sys
 
 import numpy as np
 
-ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
+import _roots  # noqa: E402  (finds the QA app root; see _roots.py)
+ROOT = _roots.QA_ROOT
 sys.path.insert(0, ROOT)
 
 TS = re.compile(r"\[(\d{1,2}):(\d{2})\]")
@@ -173,17 +174,17 @@ def evidence_turn_text(turns, ts, speaker):
 
 def cmd_report(args):
     suite = args.suite
-    calls = suite_calls(os.path.join("inputs", suite))
+    calls = suite_calls(os.path.relpath(_roots.suite_dir(suite), ROOT))
     keys, payloads = {}, {}
     for c in calls:
-        e = load(os.path.join(ROOT, "inputs", suite, "expected", f"expected_{c}.json"))
+        e = load(os.path.join(_roots.suite_dir(suite), "expected", f"expected_{c}.json"))
         keys[c] = {i["name"]: (i["rating"], i.get("evidence", "")) for i in e["grader"]["items"]}
-        payloads[c] = load(os.path.join(ROOT, "inputs", suite, f"{c}.json"))
+        payloads[c] = load(os.path.join(_roots.suite_dir(suite), f"{c}.json"))
     models = {"fine-tuned": (load(os.path.join(ROOT, args.ft)), load(os.path.join(ROOT, args.ft_probe))),
               "stock": (load(os.path.join(ROOT, args.stock)), load(os.path.join(ROOT, args.stock_probe)))}
     odd = np.array([int(re.sub(r"\D", "", c)) % 2 == 1 for c in calls])
     L = [f"# Flow v2 window lab on {suite}", "",
-         "Old windows: probabilities from the probe files. New windows: scored by `Scripts/window_lab.py`. Key = Antigravity, not human-reviewed. "
+         "Old windows: probabilities from the probe files. New windows: scored by `laya-finetuning/eval/window_lab.py`. Key = Antigravity, not human-reviewed. "
          "AG50 is a development set, so every number below is for choosing variants, not a final result.", ""]
     for check in KEY_NAME:
         full = KEY_NAME[check]
@@ -260,13 +261,13 @@ def main():
     sub = ap.add_subparsers(dest="cmd", required=True)
     s = sub.add_parser("score")
     s.add_argument("out")
-    s.add_argument("--suite", default="inputs/AG50")
+    s.add_argument("--suite", default="laya-finetuning/inputs/AG50")
     r = sub.add_parser("report")
     r.add_argument("--suite", default="AG50")
     r.add_argument("--ft", required=True)
     r.add_argument("--stock", required=True)
-    r.add_argument("--ft-probe", default="inputs/Test (results)/Laya probes/probe_AG50_laya-ft.json")
-    r.add_argument("--stock-probe", default="inputs/Test (results)/Laya probes/probe_AG50_laya-stock.json")
+    r.add_argument("--ft-probe", default="laya-finetuning/inputs/Test (results)/Laya probes/probe_AG50_laya-ft.json")
+    r.add_argument("--stock-probe", default="laya-finetuning/inputs/Test (results)/Laya probes/probe_AG50_laya-stock.json")
     r.add_argument("--out")
     a = ap.parse_args()
     if a.cmd == "score":

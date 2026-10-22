@@ -1,6 +1,6 @@
 """End-to-end, load and memory test of the v3 service with the REAL model.
 
-    python Scripts/v3_service_test.py --out laya-finetuning/runs/v3/service_test.json
+    python laya-finetuning/eval/v3_service_test.py --out laya-finetuning/runs/v3/service_test.json
 
 It starts `python main.py` with LAYA_FLOW=v3 on a spare port, then:
   A. sends 3 calls to /api/evaluate and checks the scores equal the ones the offline comparison got (compare_agt.jsonl);
@@ -25,7 +25,8 @@ import urllib.request
 from concurrent.futures import ThreadPoolExecutor
 from ctypes import wintypes
 
-ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
+import _roots  # noqa: E402  (finds the QA app root; see _roots.py)
+ROOT = _roots.QA_ROOT
 
 
 class _PMC(ctypes.Structure):
@@ -132,7 +133,7 @@ def main():
     ap.add_argument("--log", default=None)
     args = ap.parse_args()
     base = f"http://127.0.0.1:{args.port}"
-    calls = load_calls("inputs/AG-T", 100)
+    calls = load_calls("laya-finetuning/inputs/AG-T", 100)
     offline = {}
     cmp_path = os.path.join(ROOT, "laya-finetuning", "runs", "v3", "compare_agt.jsonl")
     if os.path.exists(cmp_path):

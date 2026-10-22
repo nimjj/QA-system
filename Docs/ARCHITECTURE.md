@@ -92,12 +92,12 @@ Laya cannot generate text, so the scorecard text is static:
 10. **Active listening** (Laya): possible repeats are sent to Laya as *first question / the customer's answer / second question* (at most 3 pairs, answer cut to 40 words). There are two sources:
     * pairs of agent question *sentences* with a `difflib` similarity above 0.55 (check-ins like "Is that right?" are ignored);
     * agent questions the customer answers with "like I said" / "I mentioned", paired with the most similar earlier question. These pairs go first. The customer's "like I said" reply itself is not sent: it made Laya read the pair as a status re-check.
-11. **Confirmed the issue is resolved** (Laya batch): the **last 10 lines** of the call. Its cutoff is 0.73, chosen on the `b_*` bulk calls (see `Docs/LAYA_TEST_LOG.md`).
+11. **Confirmed the issue is resolved** (Laya batch): the **last 10 lines** of the call. Its cutoff is 0.73, chosen on the `b_*` bulk calls (see `laya-finetuning/docs/LAYA_TEST_LOG.md`).
 
 Escalation, Hostility and custom criteria (if a tenant adds them) are rated in Laya batches. Escalation and Hostility use the full call, which goes through Laya's windowed `predict_long` when it is longer than one window.
 
 ### Thresholds
-Each Laya check has a `pass_threshold` in `LAYA_CHECKS` (`dynamic_evaluator.py`). The starting values come from a synthetic out-of-the-box test (`laya_eval/RESULTS.md`). Tests on full-length calls (`Docs/LAYA_TEST_LOG.md`) show several do **not** transfer yet: Resolved barely separates (its cutoff was re-picked on the `b_*` calls), Rapport is inverted, and Paraphrasing doesn't separate. Version 10.2 moved Probing's cutoff from 0.60 to 0.70 (it then separates all `b_*` and Main calls), and with the Rapport chunk scan the old 0.81 cutoff fails most polite calls (`Docs/LAYA_TEST_LOG.md`, Round 3), so it is set to an interim 0.50 (never fails) until the model is fine-tuned and the cutoff can be tuned at call level. Treat them as starting values to re-tune on human-reviewed calls; `Scripts/probe_laya.py` and `Scripts/laya_cutoffs.py` show the raw probabilities and the best cutoff per check.
+Each Laya check has a `pass_threshold` in `LAYA_CHECKS` (`dynamic_evaluator.py`). The starting values come from a synthetic out-of-the-box test (`laya-finetuning/laya_eval/RESULTS.md`). Tests on full-length calls (`laya-finetuning/docs/LAYA_TEST_LOG.md`) show several do **not** transfer yet: Resolved barely separates (its cutoff was re-picked on the `b_*` calls), Rapport is inverted, and Paraphrasing doesn't separate. Version 10.2 moved Probing's cutoff from 0.60 to 0.70 (it then separates all `b_*` and Main calls), and with the Rapport chunk scan the old 0.81 cutoff fails most polite calls (`laya-finetuning/docs/LAYA_TEST_LOG.md`, Round 3), so it is set to an interim 0.50 (never fails) until the model is fine-tuned and the cutoff can be tuned at call level. Treat them as starting values to re-tune on human-reviewed calls; `laya-finetuning/eval/probe_laya.py` and `laya-finetuning/eval/laya_cutoffs.py` show the raw probabilities and the best cutoff per check.
 
 ### Category 3: Auto-Fail Circuit Breakers
 * **Profanity & abuse:** a fixed word list (`"fuck"`, `"shut up"`, `"idiot"`, …) in any agent line forces a score of 0. Customer lines are not checked, so a customer swearing never fails the agent.
@@ -183,8 +183,8 @@ erDiagram
 | `Scripts/check_prompt_sizes.py` | Verifies input sizes and scorecards over all sample calls (`--live` runs real Laya). |
 | `Scripts/batch_test.py` | Posts `inputs/Main tests` (default) or `inputs/Bulk tests` to `/api/evaluate` with inline criteria and saves results. |
 | `Scripts/compare_results.py` | Compares result folders (by label) with the Main tests expected grades and the defects named in the `b_*` filenames. |
-| `Scripts/probe_laya.py` | Runs the Main and Bulk calls in-process and records every Laya input and probability. |
-| `Scripts/laya_cutoffs.py` | Best balanced-accuracy cutoff per Laya check from a probe file and the `b_*` filename defects. |
-| `laya_eval/` | Synthetic 320-item gold set and the Laya vs Ollama benchmark behind the starting cutoffs (`RESULTS.md`). |
-| `Docs/LAYA_TEST_LOG.md` | Ollama vs Laya test rounds on full-length calls, and the Laya training focus. |
+| `laya-finetuning/eval/probe_laya.py` | Runs the Main and Bulk calls in-process and records every Laya input and probability. |
+| `laya-finetuning/eval/laya_cutoffs.py` | Best balanced-accuracy cutoff per Laya check from a probe file and the `b_*` filename defects. |
+| `laya-finetuning/laya_eval/` | Synthetic 320-item gold set and the Laya vs Ollama benchmark behind the starting cutoffs (`RESULTS.md`). |
+| `laya-finetuning/docs/LAYA_TEST_LOG.md` | Ollama vs Laya test rounds on full-length calls, and the Laya training focus. |
 | `Docs/postman_collection.json` | Postman collection for the API. |

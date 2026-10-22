@@ -21,6 +21,7 @@ Contents: [1 In one minute](#1-in-one-minute) · [2 Untangling the names](#2-unt
 
 **Where we are today.**
 
+* **The repo has two segments** (since 2026-10-22): the QA application at the repo root, with its production weights in `models/`; and everything about training, fine-tuning and testing the Laya model in `laya-finetuning/` (section 5 has the map).
 * The original grading pipeline (**pipeline v2**) is still the default and still works.
 * This session added a new pipeline (**pipeline v3**) beside it, switched on with `LAYA_FLOW=v3`. It adds safer rules, input checks, a job queue so one slow call cannot freeze the service, no database, tests, and better windows for two checks (Resolved and Ownership).
 * On the AI-written test calls v3 agrees with the answer keys more often than v2 (section 8). A person has not yet reviewed the calls where they disagree.
@@ -114,7 +115,7 @@ Request body (both pipelines): `transcript` (a list of turns `{speaker, text, st
 
 | Variable | Default | Meaning |
 |---|---|---|
-| `LAYA_CHECKPOINT` | unset = stock model | Folder of the fine-tuned weights, e.g. `laya-finetuning/checkpoints/final-softce-3`. Also switches on the fine-tuned cutoffs and flow v2 |
+| `LAYA_CHECKPOINT` | unset = stock model | Folder of the fine-tuned weights, e.g. `models/final-softce-3`. Also switches on the fine-tuned cutoffs and flow v2 |
 | `LAYA_FLOW` | unset | `v3` = new pipeline. `v1` / `v2` force the snippet-cutting rule |
 | `LAYA_AL_SOURCE2` | off | Extra Active-listening candidates; only for ft5 / ft6, off in production |
 | `LAYA_MODEL` | `english` | Which Laya variant name to serve |
@@ -133,8 +134,12 @@ Request body (both pipelines): `transcript` (a list of turns `{speaker, text, st
 
 ## 5. Codebase map
 
+The repository has **two segments**. Segment 1 is the QA application, which sits at the repo root. Segment 2 is everything about the Laya model (training, fine-tuning, testing, evaluation), which sits in one folder, `laya-finetuning/`. The only things the app needs from the Laya side are the production weights in `models/` and two folders of sample calls.
+
 ```
 QA-system/                     the repository (GitHub nimjj/QA-system, working branch app-v3)
+│
+│  ══════════════ SEGMENT 1: the QA application ══════════════
 ├── main.py                    starts the QA service (port 8006)
 ├── run_gateway.py             starts the gateway (port 8005)
 ├── requirements.txt           Python dependencies (Laya is installed from GitHub at a pinned commit)
@@ -164,21 +169,43 @@ QA-system/                     the repository (GitHub nimjj/QA-system, working b
 │       ├── candidates/            alternative windows per check: resolved.py, ownership.py (adopted); paraphrase.py, empathy.py (tried, off); common.py
 │       └── config/                v3.json (limits, role words, rule settings, the gate switches), criteria.json (the built-in 11 criteria)
 │
+├── models/final-softce-3/     the PRODUCTION Laya weights (git-ignored; models/README.md explains)
 ├── tests/
 │   ├── unit/                  106 automated tests, no model needed (v3 rules, normaliser, scoring, queue, API, gates)
 │   └── scoring_test/          a few small raw-text calls used by Scripts/check_prompt_sizes.py
-│
-├── Scripts/                   command-line tools, see the table below
-├── inputs/                    all test calls, see the table below
+├── Scripts/                   the app's own command-line tools (table below)
+├── inputs/                    the app's sample calls: Main tests/ (4), Bulk tests/ (64) and the Main/Bulk result folders in Test (results)/
 ├── resources/criteria_config.json   reference criteria for the demo tenant
 ├── frontend/                  the React dashboard
-├── laya_eval/                 the first synthetic benchmark of Laya vs Ollama (evidence behind the starting cutoffs)
-├── laya-finetuning/           everything about training the model, see below
-├── Docs/                      documentation, index in Docs/README.md
-└── logs/                      runtime logs (git-ignored)
+├── Docs/                      the app's documentation, index in Docs/README.md
+├── logs/                      runtime logs (git-ignored)
+│
+│  ══════════════ SEGMENT 2: everything about Laya ══════════════
+└── laya-finetuning/
+    ├── README.md              the training project: plan, status, results, a "where did it move" table
+    ├── 00_smoke_test.ipynb ... 04_train_eval_ft6.ipynb    Colab notebooks that train a checkpoint on a GPU
+    ├── data/                  training material: fragments, rows, the frozen questions and hashes, review sheets
+    ├── tools/                 row builders, the notebook builder, the trainer, manifests, the freeze check (paths.py finds the app)
+    ├── eval/                  testing and evaluation scripts: probes, labs, comparisons, the validator, v3 compare and gate lab
+    ├── inputs/                the test sets AG50, AG-T, AG-B, AG-B2, AG-C, Eval50, Tough checks, and their results and probes
+    ├── laya_eval/             the first synthetic benchmark of Laya vs Ollama (evidence behind the starting cutoffs)
+    ├── runs/                  one folder per training round or test: results, probe files, hash records; CHECKPOINTS.md is the catalogue
+    ├── checkpoints/           the EXPERIMENT weights ft5, ft6 (git-ignored)
+    └── docs/                  data plan, labelling guide, new-PC setup, the test log (LAYA_TEST_LOG.md), the AG50 report
 ```
 
-### `Scripts/`: which tool, when
+### `Scripts/`: the app's own tools
+
+| Script | Use it to | Needs the model? |
+|---|---|---|
+| `batch_test.py` | Post a folder of sample calls (Main or Bulk) to a running service and save each scorecard | the service |
+| `compare_results.py` | Compare those saved scorecards with the expected grades (the smoke test: production should score 42 of 44 on Main) | no |
+| `check_prompt_sizes.py` | Check what each model call receives and that the evaluator still produces valid scorecards | no (or `--live`) |
+| `dump_laya_inputs.py` | See exactly what the model is sent for each sample call | no |
+
+### `laya-finetuning/eval/`: testing and evaluation scripts
+
+Run them from the repo root, for example `python laya-finetuning/eval/v3_compare.py ...`. They import the app code through `laya-finetuning/eval/_roots.py`, which finds the repo root, and read the test sets from `laya-finetuning/inputs/`.
 
 | Script | Use it to | Needs the model? |
 |---|---|---|
@@ -189,25 +216,25 @@ QA-system/                     the repository (GitHub nimjj/QA-system, working b
 | `validate_calls.py` | Check a set of AI-written calls and their keys for format errors | no |
 | `probe_laya.py` | Record every model probability on a set of calls (the raw material for choosing cutoffs) | yes |
 | `choose_cutoffs.py`, `cutoff_eval.py`, `laya_cutoffs.py` | Pick and score per-check cutoffs from probe files | no |
-| `dump_laya_inputs.py`, `check_prompt_sizes.py` | See exactly what the model is sent for each call | no (or stub) |
-| `batch_test.py`, `compare_results.py`, `compare_eval.py` | Post a folder of calls to a running service and compare with expected scorecards | service |
+| `compare_eval.py` | Compare saved result folders of a suite (AG50, Eval50) with the expected scorecards | no |
 | `window_lab.py`, `empathy_lab.py`, `al_reach_lab.py` | The labs that designed flow v2 (kept as evidence) | mostly no |
 | `ag50_analysis.py`, `build_ag50_dashboard.py` | Statistics and dashboard page for the AG50 set | no |
 
-### `inputs/`: the test calls
+### The test calls
 
 All are AI-written; none has been reviewed by a human.
 
 | Folder | Calls | What it is | Role |
 |---|---|---|---|
-| `Main tests/` | 4 | Long calls (16 to 22 min) of tiers excellent, good, okay, bad, with expected scorecards | Smoke test: production should score 42 of 44 items |
-| `Bulk tests/` | 64 | Calls whose file names say the defect (`b_*`); no keys | Regression checks |
-| `Eval50/` | 50 | Short calls (1 to 5 min), keys written by Claude | First Laya vs Ollama rounds |
-| `Tough checks/` | 3 | Long raw call transcripts (28 min) | Early stress samples |
-| `AG50/` | 50 | 10 to 20 min calls by Antigravity with sentiment, keys in `expected/` | **Development set.** Flow v2 was designed on it. Never train on it |
-| `AG-T/` | 100 | Antigravity training calls with `markers` (where each key moment is) | Training data for ft5 / ft6; **development set for v3 gates** (not used to train `final-softce-3`) |
-| `AG-B/`, `AG-B2/`, `AG-C/` | 50, 12, 50 | Antigravity test calls written without sight of the models | **Hold-out sets.** Used for the model exams and now looked at repeatedly, so no longer clean tests |
-| `Test (results)/` | 924 files | Every result of every earlier round, by engine label (`AG50 (laya-ft-v2b)`, `Main tests (ollama)`, ...) and the probe files | History |
+| `inputs/Main tests/` (app) | 4 | Long calls (16 to 22 min) of tiers excellent, good, okay, bad, with expected scorecards | Dashboard samples and the smoke test: production should score 42 of 44 items |
+| `inputs/Bulk tests/` (app) | 64 | Calls whose file names say the defect (`b_*`); no keys | Dashboard samples and regression checks |
+| `inputs/Test (results)/` (app) | | Result folders of the Main and Bulk runs, by engine label (`Main tests (ollama)`, ...) | History of the smoke tests |
+| `laya-finetuning/inputs/Eval50/` | 50 | Short calls (1 to 5 min), keys written by Claude | First Laya vs Ollama rounds |
+| `laya-finetuning/inputs/Tough checks/` | 3 | Long raw call transcripts (28 min) | Early stress samples |
+| `laya-finetuning/inputs/AG50/` | 50 | 10 to 20 min calls by Antigravity with sentiment, keys in `expected/` | **Development set.** Flow v2 was designed on it. Never train on it |
+| `laya-finetuning/inputs/AG-T/` | 100 | Antigravity training calls with `markers` (where each key moment is) | Training data for ft5 / ft6; **development set for v3 gates** (not used to train `final-softce-3`) |
+| `laya-finetuning/inputs/AG-B/`, `AG-B2/`, `AG-C/` | 50, 12, 50 | Antigravity test calls written without sight of the models | **Hold-out sets.** Used for the model exams and now looked at repeatedly, so no longer clean tests |
+| `laya-finetuning/inputs/Test (results)/` | | Results of the AG50 and Eval50 runs by engine label, and `Laya probes/` (every model probability) | History |
 
 ### What an answer key looks like
 
@@ -229,22 +256,15 @@ The marker kinds, as found in the 212 keys that have markers:
 | Rapport | `rude`, `blunt_but_ok` (curt or using words like "obviously", but respectful) | `agent_turn` |
 | Empathy | `handled`, `unhandled`, `no_outburst` (looks upset, is not) | `customer_turn`, `agent_turn`, `with_refusal` |
 
-Two tools read the markers: `Scripts/validate_calls.py` checks that a key is well formed, that its markers agree with its ratings and that the four rule items match what the app's own rule code computes; `laya-finetuning/tools/build_ag_rows.py` turns the markers into labelled training rows. The original label rules, with worked examples, are in git history (`git show a7ace67:Docs/ANTIGRAVITY_V2_COMMON.md`).
+Two tools read the markers: `laya-finetuning/eval/validate_calls.py` checks that a key is well formed, that its markers agree with its ratings and that the four rule items match what the app's own rule code computes; `laya-finetuning/tools/build_ag_rows.py` turns the markers into labelled training rows. The original label rules, with worked examples, are in git history (`git show a7ace67:Docs/ANTIGRAVITY_V2_COMMON.md`).
 
-### `laya-finetuning/`: training the model
+### `laya-finetuning/`: the Laya segment
 
-| Folder | Contents |
-|---|---|
-| `checkpoints/` | The model weights (git-ignored). See section 6 |
-| `data/` | `fragments/claude/` (Claude-written call fragments), `rows/` (training rows), `frozen/` (the frozen questions and hashes), `review/` (review sheets from the pilot; the completed one was filled in by Claude, so it is not an independent human check), `eval50/` |
-| `tools/` | Row builders (`build_ag_rows.py`, `build_rows.py`, `make_mix2.py`), the Colab notebook builder, the trainer (`laya_train_cuda.py`), `checkpoint_manifest.py` (hash records), `export_checks.py` (the freeze check) |
-| `0x_*.ipynb` | Colab notebooks that train a checkpoint on a GPU (`01` first model, `02` to `04` the Antigravity-data rounds) |
-| `runs/` | One folder per training round with results (`RESULT.md`), probe files and hash records; `CHECKPOINTS.md` is the catalogue and the decision; `runs/v3/` holds the v3 lab and test outputs |
-| `docs/` | Data plan, labelling guide, how to set up a new PC |
+The tree above shows its folders. Its own guide is `laya-finetuning/README.md` (plan, status, results and a table of where things moved on 2026-10-22). The data tools are in `tools/`, the freeze check is `tools/export_checks.py`, the hash records and results are in `runs/`.
 
 ### `Docs/`
 
-Start from [`Docs/README.md`](README.md) (the index). The ones to know: this guide and [`FLOW_DIAGRAMS.md`](FLOW_DIAGRAMS.md); [`V3.md`](V3.md) (pipeline v3 status and results); [`AI_HANDOVER.md`](AI_HANDOVER.md) (rules and context for whoever continues); [`LAYA_TEST_LOG.md`](LAYA_TEST_LOG.md) (every test round); [`FLOW_V2.md`](FLOW_V2.md) (what flow v2 changed). [`ARCHITECTURE.md`](ARCHITECTURE.md) is the original version-10 specification and does not describe flow v2 or v3; it is still the only place with the database schema. The instructions that were written for the AI authors of the test sets (the rulebook, the key and marker format, worked examples, and one task brief per set) were removed on 2026-10-22 once the sets were sealed, together with some generated report files; the index lists each one and how to get it back. The structure of an answer key is described in section 5 below.
+Start from [`Docs/README.md`](README.md) (the index). The ones to know: this guide and [`FLOW_DIAGRAMS.md`](FLOW_DIAGRAMS.md); [`V3.md`](V3.md) (pipeline v3 status and results); [`AI_HANDOVER.md`](AI_HANDOVER.md) (rules and context for whoever continues); [`LAYA_TEST_LOG.md`](../laya-finetuning/docs/LAYA_TEST_LOG.md) (every test round; it moved to the Laya segment); [`FLOW_V2.md`](FLOW_V2.md) (what flow v2 changed). [`ARCHITECTURE.md`](ARCHITECTURE.md) is the original version-10 specification and does not describe flow v2 or v3; it is still the only place with the database schema. The instructions that were written for the AI authors of the test sets (the rulebook, the key and marker format, worked examples, and one task brief per set) were removed on 2026-10-22 once the sets were sealed, together with some generated report files; the index lists each one and how to get it back. The structure of an answer key is described in section 5 below.
 
 ---
 
@@ -252,7 +272,7 @@ Start from [`Docs/README.md`](README.md) (the index). The ones to know: this gui
 
 | What | Where | Size on disk | In git? | Used for |
 |---|---|---|---|---|
-| **Production model** `final-softce-3` | `laya-finetuning/checkpoints/final-softce-3/` (`model.safetensors`, `encoder/`, `tokenizer/`, `questions.json`, `rl_agent_config.json`) | 0.8 GB (about 1.95 GB in RAM) | No | `LAYA_CHECKPOINT` in `.env` points here |
+| **Production model** `final-softce-3` | `models/final-softce-3/` (`model.safetensors`, `encoder/`, `tokenizer/`, `questions.json`, `rl_agent_config.json`) | 0.8 GB (about 1.95 GB in RAM) | No | `LAYA_CHECKPOINT` in `.env` points here |
 | Experiment `ft5` | `laya-finetuning/checkpoints/ft5-20261021-1621/` (`final-softce`, `final-softce_ag3`, `files/`) | 1.6 GB | No | Tested in rounds 7 and 8; the alternative if Rapport false fails become the main complaint |
 | Experiment `ft6` | `laya-finetuning/checkpoints/ft6-20261022-0453/` (`final-softce`, `final-softce_ag2`, `files/`) | 1.6 GB | No | Tested in round 8; not better than `final-softce-3` |
 | `ft4` | **deleted 2026-10-22** | none | | Rejected run (trained on padded data). Its results and hash record stay in `runs/ft4-ag/` |
@@ -262,7 +282,7 @@ Start from [`Docs/README.md`](README.md) (the index). The ones to know: this gui
 
 * **Weights never go to GitHub.** `laya-finetuning/checkpoints/` is git-ignored.
 * Check that the production copy is intact (prints `ALL FILES MATCH`):
-  `python laya-finetuning/tools/checkpoint_manifest.py verify laya-finetuning/checkpoints/final-softce-3 --manifest laya-finetuning/runs/ft3-stage3/final-softce-3.manifest.json`
+  `python laya-finetuning/tools/checkpoint_manifest.py verify models/final-softce-3 --manifest laya-finetuning/runs/ft3-stage3/final-softce-3.manifest.json`
 * Moving to a new PC: copy the `final-softce-3` folder, set `LAYA_CHECKPOINT`, verify. See `laya-finetuning/docs/NEW_PC_SETUP.md`.
 
 ---
@@ -276,7 +296,7 @@ Start from [`Docs/README.md`](README.md) (the index). The ones to know: this gui
 5. **Result.** Flow v2 plus fine-tuning brought the model level with Ollama on AG50 (80.3% against 78.6%, not statistically different). Two further retrains (ft5, ft6) did not beat `final-softce-3` (round 8 on AG-C: `final-softce-3` 78.0%, ft5 78.9%, ft6 77.7% of judged items, no significant differences); ft4 was rejected earlier because its training data was padded. **Decision 2026-10-22: production stays on `final-softce-3`.**
 6. **Pivot to the app.** The remaining mistakes were mostly in what the app shows the model, and shadow mode (running beside the old system) was not possible for a new application. So the work moved to the pipeline: v3.
 
-Details: `Docs/LAYA_TEST_LOG.md`, `laya-finetuning/runs/CHECKPOINTS.md`, `laya-finetuning/runs/ft5-ag/RESULT.md`, `runs/ft6/RESULT.md`.
+Details: `laya-finetuning/docs/LAYA_TEST_LOG.md`, `laya-finetuning/runs/CHECKPOINTS.md`, `laya-finetuning/runs/ft5-ag/RESULT.md`, `runs/ft6/RESULT.md`.
 
 ---
 
@@ -309,6 +329,7 @@ All against AI-written keys. "Items matching the key" counts the 11 ratings per 
 Windows PowerShell, from the repo root, after `setup.bat` and filling in `.env`:
 
 ```
+# .env must contain:  LAYA_CHECKPOINT=models/final-softce-3
 python main.py                                  # pipeline v2 (the default)
 $env:LAYA_FLOW = "v3"; python main.py           # pipeline v3
 python run_gateway.py                           # optional gateway on 8005
@@ -316,9 +337,9 @@ cd frontend; npm install; npm run dev           # optional dashboard on 5173
 
 python -m unittest discover -s tests/unit -t .  # 106 tests, no model, about 1 second
 python laya-finetuning/tools/export_checks.py --check          # the frozen files still match
-python Scripts/v3_compare.py inputs/AG-T --out laya-finetuning/runs/v3/e2e_AG-T.jsonl   # v2 vs v3 with the model
-python Scripts/v3_gate_lab.py resolved          # try window variants for one check
-python Scripts/v3_service_test.py --out laya-finetuning/runs/v3/service_test.json       # server, load and memory test
+python laya-finetuning/eval/v3_compare.py laya-finetuning/inputs/AG-T --out laya-finetuning/runs/v3/e2e_AG-T.jsonl   # v2 vs v3 with the model
+python laya-finetuning/eval/v3_gate_lab.py resolved          # try window variants for one check
+python laya-finetuning/eval/v3_service_test.py --out laya-finetuning/runs/v3/service_test.json       # server, load and memory test
 ```
 
 A first call (v3 needs no database):
@@ -345,9 +366,10 @@ Audited and tidied on 2026-10-22.
 * Moved the side folders that sat next to the repo (`_incoming`, `_quarantine`, the earlier clean-up archive) under one `D:\CIAP\QA\_archive\`. The quarantined paste is untouched.
 * Refreshed the README folder map, `.env.example` (v3 settings), the stale paths in `laya-finetuning/README.md`, added a banner to `Docs/ARCHITECTURE.md`, and indexed the new documents.
 * Removed thirteen finished-task or regenerable documents from `Docs/` in two steps: ten first, then the author rulebook, key format and worked examples (the four AI-author task briefs for AG-T, AG-B, AG-B2 and AG-C; the AG50 dashboard, stats and results table; the Eval50 and Round 4 result tables; the Ollama-era flowchart). The index in `Docs/README.md` lists each one with the command that regenerates it and `git show 8a6842b:Docs/<name>` to read the original.
+* **Split the repo into two segments.** Everything about the Laya model moved into `laya-finetuning/`: the 15 testing and evaluation scripts (to `eval/`), the test sets AG50, AG-T, AG-B, AG-B2, AG-C, Eval50 and Tough checks with their results and probes (to `inputs/`), the first benchmark (to `laya_eval/`), and the test log and AG50 report (to `docs/`). The app kept only its own tools in `Scripts/`, its sample calls in `inputs/`, and gained `models/final-softce-3/` for the production weights (moved from `laya-finetuning/checkpoints/`). History is kept: the moves were `git mv`.
 * Earlier the same day: 56 loose helper scripts and 29 run logs were moved out of the repo root into the archive, and the repo was pushed to a new branch `app-v3`.
 
-**Left as they are on purpose:** `inputs/Test (results)/` (history; scripts and docs point into it), `laya_eval/` (evidence behind the starting cutoffs), the experiment labs in `Scripts/`, the v2 database code and tenant endpoints (v2 and the dashboard still use them), the Docker files (v3 image still to do), and ft5 / ft6 weights (the docs and probe commands use those paths).
+**Left as they are on purpose:** `inputs/Test (results)/` (history; scripts and docs point into it), `laya-finetuning/laya_eval/` (evidence behind the starting cutoffs), the experiment labs in `Scripts/`, the v2 database code and tenant endpoints (v2 and the dashboard still use them), the Docker files (v3 image still to do), and ft5 / ft6 weights (the docs and probe commands use those paths).
 
 **Known loose ends:** `laya-finetuning/docs/DATA_PLAN.md` mentions files that no longer exist; it is a partly superseded plan and was not rewritten. `Docs/ARCHITECTURE.md` predates flow v2 and v3.
 

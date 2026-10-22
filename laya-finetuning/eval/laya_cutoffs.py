@@ -1,11 +1,11 @@
 """Pick a pass cutoff per Laya check from the defects named in the b_* filenames.
 
-Reads a probe file from Scripts/probe_laya.py. For each check, a b_* call whose filename names that defect
+Reads a probe file from laya-finetuning/eval/probe_laya.py. For each check, a b_* call whose filename names that defect
 (b_15_noconfirm -> Resolved) should FAIL and every other b_* call should PASS. Prints the spread of P(pass)
 for both groups and the cutoff with the best balanced accuracy. Auto-fail calls are skipped.
 
 Usage:
-    python Scripts/laya_cutoffs.py "inputs/Test (results)/Laya probes/probe_laya-v2.json"
+    python laya-finetuning/eval/laya_cutoffs.py "laya-finetuning/inputs/Test (results)/Laya probes/probe_laya-v2.json"
 """
 import argparse
 import json
@@ -19,7 +19,7 @@ LABEL_TO_TOKEN = {"batch_end": {"noconfirm"}, "verify_empathy": {"empathy"}, "ve
 YES_MEANS_PASS = {"batch_end", "verify_empathy", "verify_paraphrasing", "verify_probing"}
 
 ap = argparse.ArgumentParser()
-ap.add_argument("probe", help="probe JSON from Scripts/probe_laya.py")
+ap.add_argument("probe", help="probe JSON from laya-finetuning/eval/probe_laya.py")
 ap.add_argument("--list", default="batch_end", help="label whose calls are listed one by one (default: batch_end)")
 args = ap.parse_args()
 

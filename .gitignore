@@ -49,3 +49,8 @@ logs/*.log*
 
 # Run logs next to probe results (the .json beside each log is the record)
 inputs/Test (results)/**/*.log
+
+# Production Laya weights (never pushed; models/README.md says where they go)
+models/*
+!models/README.md
+laya-finetuning/inputs/Test (results)/**/*.log

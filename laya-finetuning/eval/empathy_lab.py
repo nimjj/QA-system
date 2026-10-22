@@ -5,7 +5,7 @@ AG50, the Main calls and the bulk b_* calls, and reports balanced accuracy per s
 Keys: AG50 and Main from their expected files; bulk from the defect named in the file name ("empathy" -> FAIL).
 The AG50 key was written with a lenient rule (acknowledging once is enough), so its FAIL/PASS can disagree with the strict rubric.
 
-    set LAYA_CHECKPOINT=<folder> ; python Scripts/empathy_lab.py out.json
+    set LAYA_CHECKPOINT=<folder> ; python laya-finetuning/eval/empathy_lab.py out.json
 """
 import glob
 import json
@@ -15,7 +15,8 @@ import sys
 
 import numpy as np
 
-ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
+import _roots  # noqa: E402  (finds the QA app root; see _roots.py)
+ROOT = _roots.QA_ROOT
 sys.path.insert(0, ROOT)
 from src.services import dynamic_evaluator as de            # noqa: E402
 from src.services import laya_windows as W                  # noqa: E402
@@ -41,9 +42,9 @@ def load(p):
 
 
 sets = {"AG50": [], "bulk": [], "Main": []}
-for fp in sorted(glob.glob(os.path.join(ROOT, "inputs", "AG50", "ag_*.json"))):
+for fp in sorted(glob.glob(os.path.join(ROOT, "laya-finetuning", "inputs", "AG50", "ag_*.json"))):
     c = os.path.basename(fp)[:-5]
-    k = {i["name"]: i["rating"] for i in load(os.path.join(ROOT, "inputs", "AG50", "expected", f"expected_{c}.json"))["result"]["scorecard"]}
+    k = {i["name"]: i["rating"] for i in load(os.path.join(ROOT, "laya-finetuning", "inputs", "AG50", "expected", f"expected_{c}.json"))["result"]["scorecard"]}
     sets["AG50"].append((c, fp, k[NAME] == "FAIL"))
 for fp in sorted(glob.glob(os.path.join(ROOT, "inputs", "Bulk tests", "b_*.json"))):
     sets["bulk"].append((os.path.basename(fp)[:-5], fp, "empathy" in os.path.basename(fp).lower()))

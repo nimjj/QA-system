@@ -1,9 +1,9 @@
 """Validate a set of written test or training calls and their answer keys. Prints counts and error messages, never dialogue.
 
-    python Scripts/validate_calls.py --suite agt                 # inputs/AG-T  (100 training calls, with markers)
-    python Scripts/validate_calls.py --suite agb                 # inputs/AG-B  (50 sealed test calls)
-    python Scripts/validate_calls.py --suite ag50                # inputs/AG50  (the first set; checks this script against it)
-    python Scripts/validate_calls.py --suite agt --subset agt_001,agt_002    # a batch while you are still writing
+    python laya-finetuning/eval/validate_calls.py --suite agt                 # laya-finetuning/inputs/AG-T  (100 training calls, with markers)
+    python laya-finetuning/eval/validate_calls.py --suite agb                 # laya-finetuning/inputs/AG-B  (50 sealed test calls)
+    python laya-finetuning/eval/validate_calls.py --suite ag50                # laya-finetuning/inputs/AG50  (the first set; checks this script against it)
+    python laya-finetuning/eval/validate_calls.py --suite agt --subset agt_001,agt_002    # a batch while you are still writing
 
 Run it from the repo root after every batch and fix every error before writing more. WARN lines do not fail the run.
 Exit code 0 = no errors. The key format is described in Docs/CODEBASE_GUIDE.md (section 5); the original brief and format document are in git history.
@@ -19,7 +19,8 @@ import re
 import sys
 from collections import Counter
 
-ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
+import _roots  # noqa: E402  (finds the QA app root; see _roots.py)
+ROOT = _roots.QA_ROOT
 sys.path.insert(0, ROOT)
 from src.services.rule_engine import (  # noqa: E402  the application's own rule functions
     _is_managed_hold, evaluate_branding, evaluate_hold_and_dead_air, evaluate_personalized_call, evaluate_verified_customer,
@@ -63,21 +64,21 @@ AGT_MIN_FAIL = {"Branding and Survey Check": 10, "Hold time and Dead Air": 10, "
                 "Build rapport and observed professionalism": 30, "Probing": 15, "Confirmed the issue is resolved": 15}
 
 SUITES = {
-    "ag50": dict(dir="inputs/AG50", prefix="ag_", n=50, width=2, groups={"excellent": 8, "1-2": 15, "3-4": 12, "5+": 11, "auto_fail": 4},
+    "ag50": dict(dir="laya-finetuning/inputs/AG50", prefix="ag_", n=50, width=2, groups={"excellent": 8, "1-2": 15, "3-4": 12, "5+": 11, "auto_fail": 4},
                  group_tol=0, min_fail=AG50_MIN_FAIL, min_pass=25, borderline_max=5, names_min=50, markers="optional",
                  agent_sentiment=True, hard_ratio=True),
-    "agb": dict(dir="inputs/AG-B", prefix="agb_", n=50, width=2, groups={"excellent": 8, "1-2": 15, "3-4": 12, "5+": 11, "auto_fail": 4},
+    "agb": dict(dir="laya-finetuning/inputs/AG-B", prefix="agb_", n=50, width=2, groups={"excellent": 8, "1-2": 15, "3-4": 12, "5+": 11, "auto_fail": 4},
                 group_tol=0, min_fail=AG50_MIN_FAIL, min_pass=25, borderline_max=5, names_min=50, markers="required",
                 agent_sentiment=False, hard_ratio=True),
-    "agt": dict(dir="inputs/AG-T", prefix="agt_", n=100, width=3, min_words=700, groups={"excellent": 20, "1-2": 30, "3-4": 25, "5+": 20, "auto_fail": 5},
+    "agt": dict(dir="laya-finetuning/inputs/AG-T", prefix="agt_", n=100, width=3, min_words=700, groups={"excellent": 20, "1-2": 30, "3-4": 25, "5+": 20, "auto_fail": 5},
                 group_tol=5,  # a writing guide, not a labelling target: honest relabelling moved 2 calls into 5+ (Oct 2026)
                 min_fail=AGT_MIN_FAIL, min_pass=40, borderline_max=10, names_min=90, markers="required",
                 agent_sentiment=False, hard_ratio=False),
     # 12 sealed calls that fill AG-B's gaps (its task brief is in git history); its own mix targets are checked below
-    "agb2": dict(dir="inputs/AG-B2", prefix="agb2_", n=12, width=2, groups={}, group_tol=0, min_fail={}, min_pass=0,
+    "agb2": dict(dir="laya-finetuning/inputs/AG-B2", prefix="agb2_", n=12, width=2, groups={}, group_tol=0, min_fail={}, min_pass=0,
                  borderline_max=2, names_min=12, markers="required", agent_sentiment=False, hard_ratio=False),
 }
-SUITES["agc"] = dict(dir="inputs/AG-C", prefix="agc_", n=50, width=2, groups={"excellent": 8, "1-2": 15, "3-4": 12, "5+": 11, "auto_fail": 4},
+SUITES["agc"] = dict(dir="laya-finetuning/inputs/AG-C", prefix="agc_", n=50, width=2, groups={"excellent": 8, "1-2": 15, "3-4": 12, "5+": 11, "auto_fail": 4},
                      group_tol=1, min_fail=AG50_MIN_FAIL, min_pass=25, borderline_max=5, names_min=50, markers="required",
                      agent_sentiment=False, hard_ratio=True)
 AGB2_MIX = {"long excellent calls (15+ min, every item PASS)": 4, "short poor calls (10-12 min, 5+ failed items, not auto-fail)": 3,

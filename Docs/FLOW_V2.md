@@ -1,6 +1,6 @@
 # Flow v2: choosing what Laya sees by call structure (2026-10-19)
 
-Status: **implemented, on by default when a fine-tuned checkpoint is served (`LAYA_CHECKPOINT`), off for stock Laya.** Switch explicitly with `LAYA_FLOW=v1|v2`. Code: `src/services/laya_windows.py`, used from `laya_inputs.build_laya_inputs`; one line in `dynamic_evaluator.py` (Paraphrasing fails without a model call when no restatement cue is found). Experiments: `Scripts/window_lab.py`, `Scripts/empathy_lab.py`; lab report `Docs/FLOW_V2_LAB.md`; regression report `Docs/FLOW_V2_REGRESSION.md`.
+Status: **implemented, on by default when a fine-tuned checkpoint is served (`LAYA_CHECKPOINT`), off for stock Laya.** Switch explicitly with `LAYA_FLOW=v1|v2`. Code: `src/services/laya_windows.py`, used from `laya_inputs.build_laya_inputs`; one line in `dynamic_evaluator.py` (Paraphrasing fails without a model call when no restatement cue is found). Experiments: `laya-finetuning/eval/window_lab.py`, `laya-finetuning/eval/empathy_lab.py`; lab report `Docs/FLOW_V2_LAB.md`; regression report `Docs/FLOW_V2_REGRESSION.md`.
 
 ## Why
 AG50 (50 calls of 10 to 20 minutes) showed fine-tuned Laya behind Ollama, and much of the loss happened before the model: the app cut small, phrase-gated snippets built for short calls. I measured where each criterion's evidence sits in those calls and rebuilt the windows. No retraining was needed for the gains below. Production has **customer-side sentiment only**, so nothing here uses agent sentiment.

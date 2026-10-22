@@ -1,6 +1,6 @@
 """Golden-set harness: where does pipeline v3 differ from v2, call by call?
 
-    python Scripts/golden.py rules            # the four rule checks + auto-fail, no model, seconds
+    python laya-finetuning/eval/golden.py rules            # the four rule checks + auto-fail, no model, seconds
 
 The AI-written answer keys for the rule items were computed with the v2 rule code (validate_calls.py enforces it), so a key cannot say
 whether a v3 change is right. This script lists every call where v3 and v2 disagree, per rule and direction, so each can be reviewed.
@@ -13,11 +13,12 @@ import json
 import os
 import sys
 
-ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
+import _roots  # noqa: E402  (finds the QA app root; see _roots.py)
+ROOT = _roots.QA_ROOT
 sys.path.insert(0, ROOT)
 
-SETS = [("AG-T", "inputs/AG-T", "agt_*.json"), ("AG50", "inputs/AG50", "ag_*.json"), ("AG-B", "inputs/AG-B", "agb_*.json"),
-        ("AG-B2", "inputs/AG-B2", "agb2_*.json"), ("AG-C", "inputs/AG-C", "agc_*.json"), ("Main", "inputs/Main tests", "gold_*.json"),
+SETS = [("AG-T", "laya-finetuning/inputs/AG-T", "agt_*.json"), ("AG50", "laya-finetuning/inputs/AG50", "ag_*.json"), ("AG-B", "laya-finetuning/inputs/AG-B", "agb_*.json"),
+        ("AG-B2", "laya-finetuning/inputs/AG-B2", "agb2_*.json"), ("AG-C", "laya-finetuning/inputs/AG-C", "agc_*.json"), ("Main", "inputs/Main tests", "gold_*.json"),
         ("Bulk", "inputs/Bulk tests", "*.json")]
 SEALED = {"AG-B", "AG-B2", "AG-C"}
 RULES = ["Branding", "Dead air", "Verified", "Personalized", "Auto-fail"]

@@ -1,9 +1,9 @@
 # AG50 report: three grading engines on 50 independent long calls
 
-Interactive version with charts: generate `Docs/AG50_DASHBOARD.html` with `python Scripts/ag50_analysis.py && python Scripts/build_ag50_dashboard.py` and open it in a browser (one file, works offline). It needs `pip install scipy scikit-learn`. The generated files were removed from the repo on 2026-10-22; the last copies are in commit `8a6842b`. The script rebuilds an earlier three-engine layout; the final page, edited by hand to add the flow-v2 engine, is only in that commit.
+Interactive version with charts: generate `laya-finetuning/docs/AG50_DASHBOARD.html` with `python laya-finetuning/eval/ag50_analysis.py && python laya-finetuning/eval/build_ag50_dashboard.py` and open it in a browser (one file, works offline). It needs `pip install scipy scikit-learn`. The generated files were removed from the repo on 2026-10-22; the last copies are in commit `8a6842b`. The script rebuilds an earlier three-engine layout; the final page, edited by hand to add the flow-v2 engine, is only in that commit.
 > **Update 2026-10-19:** after this report I changed what the model is shown for Empathy, Paraphrasing and Ownership ("flow v2", `Docs/FLOW_V2.md`) and re-ran. With no retraining, fine-tuned Laya reaches 80.3% of the judged items on AG50 (a development set, so optimistic), against Ollama's 78.6% (not distinguishable, p = 0.58), and Main and bulk did not regress (42/44, 359/372). The tables below describe the flow *before* that change.
 
-Raw numbers (generated, no longer kept in the repo): `Docs/ag50_stats.json` and `Docs/AG50_RESULTS.md` (every call and every disagreement). Reproduce with `python Scripts/ag50_analysis.py && python Scripts/build_ag50_dashboard.py` for the first, and `python Scripts/compare_eval.py AG50 laya-stock laya-ft ollama --out Docs/AG50_RESULTS.md` for the second.
+Raw numbers (generated, no longer kept in the repo): `laya-finetuning/docs/ag50_stats.json` and `laya-finetuning/docs/AG50_RESULTS.md` (every call and every disagreement). Reproduce with `python laya-finetuning/eval/ag50_analysis.py && python laya-finetuning/eval/build_ag50_dashboard.py` for the first, and `python laya-finetuning/eval/compare_eval.py AG50 laya-stock laya-ft ollama --out laya-finetuning/docs/AG50_RESULTS.md` for the second.
 
 ## 1. In one minute
 
@@ -15,7 +15,7 @@ Raw numbers (generated, no longer kept in the repo): `Docs/ag50_stats.json` and 
 
 ## 2. What was tested
 
-- 50 customer-support calls for S-Net, 10 to 20 minutes each, with a sentiment score on every turn. **Written and graded by Antigravity**, a different AI from the one that wrote the training data. The brief (`ANTIGRAVITY_TEST_BRIEF.md`, removed on 2026-10-22; read it with `git show a7ace67:Docs/<name>`); the files are in `inputs/AG50/`.
+- 50 customer-support calls for S-Net, 10 to 20 minutes each, with a sentiment score on every turn. **Written and graded by Antigravity**, a different AI from the one that wrote the training data. The brief (`ANTIGRAVITY_TEST_BRIEF.md`, removed on 2026-10-22; read it with `git show a7ace67:Docs/<name>`); the files are in `laya-finetuning/inputs/AG50/`.
 - Mix: 8 excellent calls, 15 with 1-2 faults, 12 with 3-4, 11 with 5 or more, 4 auto-fails. 65% of the keyed FAILs and 34% of the keyed PASSes were tagged "hard cases".
 - I re-checked the four rule-based items, the auto-fail detection and the final-score maths against the app's own code: **0 mismatches**.
 - Every engine received the same payloads through the normal app (`/api/evaluate`), so the whole pipeline ran: rules, snippet extraction, then the model. Settings: stock Laya with its original cutoffs, fine-tuned Laya (`final-softce-3`) with its tuned cutoffs, Ollama through the older copy of the app (`qa-analysis-ollama`).
@@ -155,11 +155,11 @@ Yes. The calls went through `/api/evaluate`, the same route production uses. The
 
 ## 11. Recommended next steps
 
-1. Review the disagreement list (the bottom table of the generated `Docs/AG50_RESULTS.md`, see above) with a person: about 30 items, one hour.
+1. Review the disagreement list (the bottom table of the generated `laya-finetuning/docs/AG50_RESULTS.md`, see above) with a person: about 30 items, one hour.
 2. Adopt the flow-v2 windows that the lab supports (Empathy, Paraphrasing, Ownership) and test them end to end.
 3. Rebuild the Active-listening and Empathy snippets; regenerate their data; retrain; test on sealed AG50.
 4. Run the fine-tuned model in **shadow mode** beside Ollama on real calls, and compare against human QA scores.
 
 ## 12. Files
 
-`Docs/AG50_DASHBOARD.html` (charts), `Docs/ag50_stats.json` (all numbers) and `Docs/AG50_RESULTS.md` (per-call tables), all three generated on demand as described at the top, `inputs/AG50/` (calls and keys), `inputs/Test (results)/AG50 (laya-stock|laya-ft|ollama)/` (raw results), `inputs/Test (results)/Laya probes/probe_AG50_*.json` (every model probability), `Scripts/ag50_analysis.py`, `Scripts/build_ag50_dashboard.py`, `Scripts/probe_laya.py --suite`.
+`laya-finetuning/docs/AG50_DASHBOARD.html` (charts), `laya-finetuning/docs/ag50_stats.json` (all numbers) and `laya-finetuning/docs/AG50_RESULTS.md` (per-call tables), all three generated on demand as described at the top, `laya-finetuning/inputs/AG50/` (calls and keys), `laya-finetuning/inputs/Test (results)/AG50 (laya-stock|laya-ft|ollama)/` (raw results), `laya-finetuning/inputs/Test (results)/Laya probes/probe_AG50_*.json` (every model probability), `laya-finetuning/eval/ag50_analysis.py`, `laya-finetuning/eval/build_ag50_dashboard.py`, `laya-finetuning/eval/probe_laya.py --suite`.
