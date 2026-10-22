@@ -76,9 +76,17 @@ SUITES = {
     "agb2": dict(dir="inputs/AG-B2", prefix="agb2_", n=12, width=2, groups={}, group_tol=0, min_fail={}, min_pass=0,
                  borderline_max=2, names_min=12, markers="required", agent_sentiment=False, hard_ratio=False),
 }
+SUITES["agc"] = dict(dir="inputs/AG-C", prefix="agc_", n=50, width=2, groups={"excellent": 8, "1-2": 15, "3-4": 12, "5+": 11, "auto_fail": 4},
+                     group_tol=1, min_fail=AG50_MIN_FAIL, min_pass=25, borderline_max=5, names_min=50, markers="required",
+                     agent_sentiment=False, hard_ratio=True)
 AGB2_MIX = {"long excellent calls (15+ min, every item PASS)": 4, "short poor calls (10-12 min, 5+ failed items, not auto-fail)": 3,
             "calls with 2+ outbursts": 5, "calls where a handled outburst is followed by an unhandled one": 3,
             "outbursts in the last third of the call": 3}
+AGC_MIX = {"long excellent calls (15+ min, every item PASS)": 3, "short poor calls (10-12 min, 5+ failed items, not auto-fail)": 3,
+           "calls with 2+ outbursts": 8, "calls where a handled outburst is followed by an unhandled one": 4,
+           "outbursts in the last third of the call": 5}
+AGC_NO_OUTBURST_MIN = 15          # upset-looking but fine customer lines, marked no_outburst
+AGC_MAX_LENGTH_QUALITY_R = 0.30   # |correlation| between call length and number of failed items
 
 # marker kinds per check, and the minimum totals over a full AG-T set
 MARKER_KINDS = {
@@ -236,6 +244,7 @@ def main():
 
     checks = ["files", "turns", "length", "padding", "rule_items", "sentiment", "auto_fail", "final_score", "scorecard", "markers", "coverage"]
     all_text = {}
+    dur_fail = []          # (duration, failed items) per call, for the length/quality check
     errors = {c: [] for c in checks}
     warns = []
 
@@ -421,13 +430,13 @@ def main():
         # ---- coverage numbers
         nfail = sum(1 for it in scorecard if it["rating"] == "FAIL")
         groups["auto_fail" if af else "excellent" if nfail == 0 else "1-2" if nfail <= 2 else "3-4" if nfail <= 4 else "5+"] += 1
-        if args.suite == "agb2":
+        dur_fail.append((last_end, nfail))
+        if args.suite in ("agb2", "agc"):
             emp = sorted((m for m in (grader.get("markers") or {}).get("empathy", []) if isinstance(m, dict)
                           and m.get("kind") in ("handled", "unhandled") and is_int(m.get("customer_turn"))), key=lambda m: m["customer_turn"])
             mix = tally
             mix["long excellent calls (15+ min, every item PASS)"] += last_end >= 900 and nfail == 0 and not af
             mix["short poor calls (10-12 min, 5+ failed items, not auto-fail)"] += last_end <= 720 and nfail >= 5 and not af
-            mix["calls with 2+ outbursts"] += len(emp) >= 2
             mix["calls where a handled outburst is followed by an unhandled one"] += any(
                 a["kind"] == "handled" and b["kind"] == "unhandled" for k, a in enumerate(emp) for b in emp[k + 1:])
             mix["outbursts in the last third of the call"] += sum(m["customer_turn"] / len(turns) >= 0.66 for m in emp)
@@ -469,10 +478,22 @@ def main():
                 err("coverage", f"hard FAILs are {hard_f}/{tot_f}, need at least 40%")
             if tot_p and not 0.22 <= hard_p / tot_p <= 0.40:
                 err("coverage", f"hard PASSes are {hard_p}/{tot_p}, need about 30%")
-        if args.suite == "agb2":
-            for key, mn in AGB2_MIX.items():
+        if args.suite in ("agb2", "agc"):
+            for key, mn in (AGB2_MIX if args.suite == "agb2" else AGC_MIX).items():
                 if tally[key] < mn:
                     err("coverage", f"{key}: {tally[key]} found, minimum {mn}")
+        if args.suite == "agc":
+            if tally[("empathy", "no_outburst")] < AGC_NO_OUTBURST_MIN:
+                err("coverage", f"no_outburst markers (upset-looking but fine customer lines): {tally[('empathy', 'no_outburst')]}, "
+                                f"minimum {AGC_NO_OUTBURST_MIN}")
+            if len(dur_fail) >= 10:
+                d, f = [x for x, _ in dur_fail], [y for _, y in dur_fail]
+                md, mf = sum(d) / len(d), sum(f) / len(f)
+                den = (sum((x - md) ** 2 for x in d) * sum((y - mf) ** 2 for y in f)) ** 0.5
+                r = sum((x - md) * (y - mf) for x, y in zip(d, f)) / den if den else 0.0
+                if abs(r) > AGC_MAX_LENGTH_QUALITY_R:
+                    err("coverage", f"call length and number of failed items correlate r = {r:+.2f} (limit +/-{AGC_MAX_LENGTH_QUALITY_R}): "
+                                    "quality must not show in length; give some good calls long durations and some poor calls short ones")
         if args.suite == "agt":
             for key, mn in AGT_MARKER_MIN.items():
                 if tally[key] < mn:
