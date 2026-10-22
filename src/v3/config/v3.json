@@ -1,0 +1,28 @@
+{
+  "version": "v3.0-s1",
+  "brand": "s-net",
+  "limits": {
+    "max_turns": 1500,
+    "max_chars_per_turn": 4000,
+    "max_total_chars": 250000,
+    "max_call_seconds": 14400
+  },
+  "roles": {
+    "agent": ["agent", "rep", "representative", "specialist", "advisor", "adviser", "csr", "consultant", "operator", "support", "associate", "employee"],
+    "customer": ["customer", "client", "caller", "user", "member", "subscriber", "guest", "patient"],
+    "other": ["ivr", "bot", "system", "automated", "recording", "voicemail", "hold", "music", "announcer", "assistant"]
+  },
+  "speech_seconds_per_word": 0.4,
+  "dead_air": {
+    "gap_seconds": 30,
+    "breaches_to_fail": 2,
+    "single_gap_fail_seconds": 120,
+    "managed_hold_max_seconds": 120
+  },
+  "verification": {
+    "window_seconds": 240,
+    "accept_date_of_birth": false,
+    "accept_account_number": false,
+    "accept_postcode": false
+  }
+}
