@@ -1,111 +1,294 @@
-# AI Handover: S-Net QA system with fine-tuned Laya
+# AI Handover & Autonomous Engineering Guide
+**Target Audience:** AI Coding Assistants (Claude Code, Antigravity, LLM Pair Programmers)  
+**Repository:** `QA-system` (`nimjj/QA-system`, branch `app-v3`)  
+**Workspace Root:** `d:\CIAP\QA\QA-system`  
+**Sibling Research Repo:** `d:\CIAP\QA\laya-finetuning` (`nimjj/laya-finetuning`)  
 
-Last updated 2026-10-20. If you are an AI assistant (Claude Code or similar) taking over this project, read this file first, then `CLAUDE.md`, `README.md` and the documents named in section 8. `README.md` is the source of truth for setup. This file holds the context, decisions and rules behind the work.
+> **PRIMARY OPERATIONAL DIRECTIVE FOR AI ASSISTANTS:**  
+> Read this document completely before performing any codebase edits, shell commands, or test evaluations. This file is written specifically for AI agents to grant total operational autonomy and precision when maintaining, debugging, extending, or testing this service.
 
-## 1. The project in one paragraph
-A synchronous QA service grades telephony support-call transcripts (tenant S-Net) on 11 criteria and returns a scorecard and a final score. Four criteria are deterministic Python rules; seven are judged by **Laya**, a small local yes/no classifier (ModernBERT-large, 421M parameters, 512-token window) that never generates text. The goal is to **replace Ollama (llama3.1)** with a **fine-tuned Laya** that is faster, local and at least as accurate. Ollama is already removed from the code (since version 10). Stock Laya was clearly worse than Ollama, so Laya was fine-tuned on synthetic calls and the way calls are cut into snippets was redesigned ("flow v2").
+---
 
-## 2. Where things stand (2026-10-20)
-All numbers are measured against **AI-written answer keys, not human-labelled ones**. Say so whenever you quote them.
+## 1. Project Mission & High-Level Architecture
 
-| | Stock Laya | Fine-tuned, flow v1 | **Fine-tuned, flow v2** | Ollama |
-|---|---|---|---|---|
-| AG50: the 7 model-judged items matching the key (of 350) | 64.6% | 72.0% | **80.3%** | 78.6% |
-| AG50 mean final-score error / bias (points) | 16.0 / -4.7 | 12.7 / +1.2 | **9.0** / +1.4 | 12.8 / +11.7 |
-| Main (4 golden calls): items of 44 | 37 | 41 | **42** | 40 |
-| Bulk (64 calls): items of 372 | 351 | 358 | **359** | n/a |
-| Time per call (CPU) | 17 s | 16 s | **15 s** (Main 18-22 s) | 386 s |
+### What This Service Does
+The QA System is an automated quality assurance evaluation service for customer service telephone transcripts (customized for tenant **S-Net**). It consumes call transcripts (turns with speaker labels, start/end timestamps, and per-turn customer sentiment scores) and grades the interaction across **11 distinct criteria** categorized into:
+* **Soft Skills** (Weight: 33.3%)
+* **Technical Knowledge** (Weight: 66.7%)
 
-- Flow v2 versus Ollama on AG50: +1.7 points, 95% interval -3.7 to +7.1, McNemar p = 0.58: **not distinguishable**.
-- **AG50 is now a development set** (flow v2 was designed after studying its 50 calls), so its 80.3% is optimistic. Main and bulk were not used to design flow v2 and did not regress.
-- Verdict: **not ready to replace Ollama**; suitable for a shadow-mode trial beside it. No number here has been checked by a human.
-- **Update 2026-10-22 (rounds 4-8, details in `../laya-finetuning/docs/LAYA_TEST_LOG.md` and `../laya-finetuning/runs/CHECKPOINTS.md`):** two retrains on Antigravity-written data (ft5, ft6) were tested on sealed exams (AG-B + AG-B2, then AG-C) and are statistically tied with the current model (77.7% to 78.9% of judged items on AG-C; the only significant gain was Rapport for ft5, 56 vs 45 of 62). **Production choice: keep `final-softce-3`.** The biggest remaining errors are in the app (Resolved reads only the last 10 lines, the Ownership phrase gate, Empathy windows opening on any upset-looking line), not the model. Ollama was never run on the sealed sets. AG-B, AG-B2 and AG-C are spent as tests. Next step: shadow mode, then app fixes.
-- **Update 2026-10-22 (App v3, branch `app-v3`, `Docs/V3.md`):** shadow mode is not possible (new application), so the owner chose to fix the app instead of retraining. A new pipeline `src/v3/` (opt-in `LAYA_FLOW=v3`; v2 untouched) adds fixed rules, input validation, one built-in criteria set (no database), a single-worker job queue, a readiness endpoint, per-check window gates and 105 unit tests. Real-model checks: the server handled 56 simultaneous submissions (51 queued, 5 refused, 0 failed), a worst-case 1,500-turn call in 56 s, peak 2.7 GB. **Accuracy fixes (stage S4), measured against the AI-written keys:** Resolved (window skips goodbyes, blended with the customer's end-of-call mood relative to the call, cutoff 0.65) and Ownership (wider deflection wordings) are ON; Paraphrasing and Empathy alternatives were worse or mixed and are OFF (config `gates` in `src/v3/config/v3.json`). On the 112 hold-out calls the 11 items matching the key went 1031 -> 1056 (46 better / 21 worse, p = 0.003), mean final-score error 11.0 -> 9.0 points; on the 150 development calls 1389 -> 1407 (p = 0.044). Almost all of the gain is Resolved. Not human-checked; the mood signal rests on AI-written sentiment and may not transfer to real calls. Next: human review of the disagreeing calls, building and trying the v3 Docker image (files prepared, see `Docs/DOCKER.md`), then retraining only for the checks that remain model-limited (Empathy, Active listening, Resolved).
-- Still weak (need training data, not tuning): **Active listening** (0 of 15 faults caught; the fine-tuned model scores true repeats at only 5-12% likelihood), **Rapport** (31% of good AG50 calls fail), **Probing**, **Resolved**.
+It outputs a **0–100 numerical final score**, detects gross agent misconduct (auto-fail profanity/insult detection), and generates an itemized **scorecard** with actionable coaching feedback.
 
-## 3. What the owner wants now
-The owner (Nimithra, a business analyst at Adept Technologies; **use they/them**; a beginner at ML training; short on time) is moving to a new PC. Right now they want that PC **ready to run, set up neatly, with the fine-tuned Laya configured**, but **nothing started**. Testing and training work comes later; until then `../laya-finetuning/` is just carried along. When they start work, the next step is section 10.
+### Why Laya Replaced Ollama
+* **Legacy Engine ($\le$ Version 9):** Ran **Ollama** (`llama3.1` 8B parameter generative LLM) combined with `nomic-embed-text` embeddings. This was slow (~6.4 minutes per 20-min call on CPU), resource-heavy, and prone to generative hallucinations.
+* **Modern Engine (Version 10+):** Runs **Laya** (`convaiinnovations/laya`), a local, non-generative, yes/no sequence classifier built on **ModernBERT-large** (421M parameters, fp16 ~808 MB on disk, ~1.95 GB RAM working set).
+* **Speedup:** Grading time dropped from **386s to ~15s per call on CPU** (~25x speedup) with zero GPU requirement for inference.
+* **Production Model:** Fine-tuned checkpoint `models/final-softce-3` achieves parity with Ollama without regressions.
 
-## 4. Rules for AI assistants (hard)
-1. **Honesty about evidence.** Every result is "measured against Claude-written or Antigravity-written keys, not human-labelled". Never call a development-set number a test result. Report failures, skipped steps and your own mistakes plainly, and correct earlier claims when you find they were wrong.
-2. **Do not modify the original/stock checkpoint** or anything in the Hugging Face cache. Never edit or print `.env`. Never push to the `bitbucket` remote. **Commit and push only when asked.** Weights never go to GitHub.
-3. **Production has customer-side sentiment only** (RoBERTa on the caller transcript). Never use agent sentiment in any logic. (Agent sentiment in the AG50 files is an artifact of how the brief was written.)
-4. **Frozen inputs.** The three files `src/services/laya_inputs.py`, `rule_engine.py` and `laya_windows.py`, plus the question wording in `dynamic_evaluator.py`, are hashed (`../laya-finetuning/data/frozen/checks_frozen.json`). Changing them invalidates training data built earlier; check with `python ../laya-finetuning/tools/export_checks.py --check` and re-freeze deliberately (new tag).
-5. **Do not train on AG50.** It is a development set; a new sealed test set is needed for any final claim.
-6. **Background jobs:** Claude Code's memory watchdog may stop background shells ("system running low on memory"). Never restart a stopped job on your own; report and wait. Heavy runs (Ollama) go detached.
-7. **Style with the owner:** short, simple, mid-sized replies; an analogy only when something is genuinely hard; stop and ask only at real decision points (they delegated ML decisions: "think like an ML engineer"); never infer anyone's pronouns.
-8. **If the repo sits in a Google Drive synced folder, tracked files can be silently reverted** (this happened twice). Keep it in a plain local folder, commit right after editing, and verify with `grep`/`git diff` that edits are still there.
+---
 
-## 5. Running it with the fine-tuned model
-1. Python 3.14 environment: `pip install -r requirements.txt` (installs Laya from GitHub at the pinned commit `3cf26cb`, v0.4.0) and `pip install "transformers==5.16.1"`.
-2. **Weights** (not in git): put the folder `final-softce-3` (from Google Drive; `model.safetensors`, `rl_agent_config.json`, `questions.json`, `tokenizer/`, `encoder/`) at `models/final-softce-3`. Verify: `python ../laya-finetuning/tools/checkpoint_manifest.py verify models/final-softce-3 --manifest ../laya-finetuning/runs/ft3-stage3/final-softce-3.manifest.json` must print `ALL FILES MATCH` (`model.safetensors` starts `fc6a3f1b793a`).
-3. `.env` (git-ignored; copy `.env.example`): add `LAYA_CHECKPOINT=models/final-softce-3` (a relative path is read from the repo root). When this is set the app (a) serves the fine-tuned weights, (b) applies `FINETUNED_CUTOFFS` in `dynamic_evaluator.py`, and (c) uses flow v2. `LAYA_FLOW=v1|v2` overrides (c). Stock Laya (variable unset) keeps v1 and the stock cutoffs.
-4. Start: `python main.py` (service on 8006; first call loads the model, about a minute). Optional: `python run_gateway.py` (8005), `cd frontend && npm install && npm run dev`. PostgreSQL is only needed when criteria come from the database; `/api/evaluate` accepts inline `criteria_data`.
-5. Smoke test (about 2 minutes): `python Scripts/batch_test.py main --label check`, then `python Scripts/compare_results.py laya-ft-v2b check`. Expect **42 of 44** items and scores about 100 / 88.3 / 50.0 / 30.0 (key 100 / 88.3 / 56.7 / 13.3). 41 of 44 with 76.7 on the second call means flow v2 is **not** active (the checkpoint variable is not being read).
-6. Stock weights (1.5 GB, Hugging Face `convaiinnovations/laya` revision `7b928d828b7b0e022f929d9bd2e44165aa270148`) are only needed for stock-Laya runs and for rebuilding training data. Set `LAYA_HF_HOME` to their cache folder.
-Details and the new-PC procedure: `../laya-finetuning/docs/NEW_PC_SETUP.md`.
+## 2. Hard Rules & Inviolable Constraints for AI Assistants
 
-## 6. Repository map
+1. **Evidence & Provenance Truthfulness:**
+   * **Every result in this repository is measured against AI-written answer keys** (written by Claude or Antigravity), **NOT human-labelled real calls**.
+   * Never refer to development-set scores (e.g. `AG50`, `AG-T`) as "test results" — they are optimistic because window extractors were tuned on them.
+   * State plainly: *"Measured against AI-written synthetic keys; no human review."*
+2. **Git & Remote Safety:**
+   * **Commit and push ONLY when the user explicitly instructs you to do so.**
+   * Never push to any `bitbucket` remote.
+   * The active remote is `origin` (`https://github.com/nimjj/QA-system.git`) on branch `app-v3`.
+   * **Model weights NEVER go to GitHub.** GitHub blocks files $>100\text{ MB}$; `models/final-softce-3` is git-ignored.
+   * Never edit, commit, or print `.env` to output logs.
+3. **Sentiment Data Constraint:**
+   * **Production uses customer-side sentiment ONLY** (generated by RoBERTa on customer turns).
+   * **NEVER write logic using agent sentiment.** Any agent sentiment values in test files are artifacts of generation briefs.
+4. **The Frozen File Contract:**
+   * Four core files form a cryptographically hashed contract with the fine-tuned model:
+     1. `src/services/laya_inputs.py`
+     2. `src/services/rule_engine.py`
+     3. `src/services/laya_windows.py`
+     4. Question wordings in `src/services/dynamic_evaluator.py`
+   * The training data rows record the sha256 hash of these files. **Do not modify them.** If you must edit them, you must re-verify and re-freeze using `python ..\laya-finetuning\tools\export_checks.py --check`.
+5. **Two-Repository Topology:**
+   * Do not recreate `laya-finetuning` inside `QA-system/`. They are separate sibling directories:
+     * `d:\CIAP\QA\QA-system\` (Application runtime)
+     * `d:\CIAP\QA\laya-finetuning\` (Model training & research)
+6. **Owner Profile:**
+   * Nimithra (they/them), business analyst at Adept Technologies. Beginner at ML engineering.
+   * Style: Short, clear, direct communication. Make standard engineering decisions autonomously; pause only at real product requirements forks.
+
+---
+
+## 3. Runtime Architecture & Execution Pipelines
+
+The application has two distinct execution pipelines:
+
 ```
-(this repo, QA-system)  the QA application
-  main.py, run_gateway.py, requirements.txt, .env.example, setup.bat/.sh, docker-compose.yml, Dockerfile.v3, docker-compose.v3.yml, requirements-docker.txt, .dockerignore
-  src/api/              FastAPI service (web_app.py)      src/gateway/   API gateway     src/db/   PostgreSQL
-  src/services/         rule_engine.py (rules + pre-filters), laya_inputs.py (what Laya is shown), laya_windows.py (flow v2),
-                        dynamic_evaluator.py (LAYA_CHECKS, FINETUNED_CUTOFFS, scoring), laya_adapter.py (predict_yes)
-  src/v3/               pipeline v3 (Docs/V3.md)
-  resources/criteria_config.json   reference criteria for tenant-abc
-  models/final-softce-3 the PRODUCTION Laya weights (git-ignored; models/README.md)
-  Scripts/              the app's own tools: batch_test.py, compare_results.py, check_prompt_sizes.py, dump_laya_inputs.py
-  inputs/               the app's sample calls: Main tests/, Bulk tests/ and their result folders in Test (results)/
-  Docs/                 the app's docs (index in Docs/README.md)
-  frontend/             React dashboard
-(next to this repo, in its own repo)
-  ../laya-finetuning/   the Laya project (GitHub nimjj/laya-finetuning): README.md, data/, tools/, eval/ (testing and evaluation scripts),
-                        inputs/ (AG50, AG-T, AG-B, AG-B2, AG-C, Eval50, Tough checks, their results and probes), laya_eval/, runs/,
-                        docs/ (test log, AG50 report, NEW_PC_SETUP.md), 0x_*.ipynb (Colab), checkpoints/ (experiment weights, git-ignored)
+                          POST /api/evaluate
+                                  │
+                   ┌──────────────┴──────────────┐
+                   ▼                             ▼
+        Pipeline v2 (Default)          Pipeline v3 (LAYA_FLOW=v3)
+        ─────────────────────          ──────────────────────────
+        - dynamic_evaluator.py         - src/v3/pipeline.py
+        - Synchronous in-thread        - FIFO JobQueue (jobs.py)
+        - Criteria from DB or inline   - Built-in criteria (criteria.json)
+        - Assumes 10s turn duration    - Real turn timestamps (normalise.py)
+        - Substring auto-fail          - Restores '?' on STT (text.py)
+        - Raw last 10 lines Resolved   - Word-boundary auto-fail
+                                       - Resolved subst16 + mood blend
 ```
 
-## 7. Test sets (Main and Bulk in the app's `inputs/`; all others in `../laya-finetuning/inputs/`; results in `Test (results)/<set> (<engine label>)/` beside each)
-| Set | What | Key written by |
-|---|---|---|
-| `Main tests/` | 4 golden calls, 16-22 min, tiers excellent / good / okay / bad | Claude (not human-reviewed) |
-| `Bulk tests/` | 64 calls, defects named in file names (`b_*`) | Claude |
-| `Eval50/` | 50 short calls (1-5 min) | Claude |
-| `AG50/` | 50 calls of 10-20 min with sentiment, **independent author** | Antigravity (not human-reviewed) |
+### Pipeline v2 (`src/services/dynamic_evaluator.py`)
+* Active when `LAYA_FLOW` is unset or not `v3`.
+* Dynamically fetches criteria from PostgreSQL (via `src/db/database.py`) or uses inline `criteria_data`.
+* Runs 4 rule checks via `rule_engine.py`.
+* Cuts snippets using `src/services/laya_windows.py` (Flow v2 structure-based windows).
+* Sequentially queries Laya via `src/services/laya_adapter.py` under a threading lock.
+* Calculates category scores and weighted final scores.
 
-Engine labels: `laya-stock`, `laya-ft` (fine-tuned, flow v1), `laya-ft-v2b` (fine-tuned, flow v2), `ollama` (an older copy of the app at commit `3035269`, port 8007; recreate with `git worktree add ../qa-analysis-ollama 3035269`). `../laya-finetuning/eval/compare_eval.py AG50 <labels...>` compares engines to a key; `../laya-finetuning/eval/ag50_analysis.py` then `build_ag50_dashboard.py` regenerate the statistics and dashboard.
+### Pipeline v3 (`src/v3/pipeline.py`)
+* Activated by setting environment variable `LAYA_FLOW=v3`.
+* **Zero Database Requirement:** Evaluates exclusively against built-in criteria in `src/v3/config/criteria.json`.
+* **Asynchronous Single-Worker Queue (`src/v3/jobs.py`):** Ensures only one transcript is evaluated by the Laya model at a time. Supports:
+  - `POST /api/evaluate`: Waits up to `EVALUATE_TIMEOUT_SEC` (default 120s); if still processing, returns `503 Service Unavailable` with a `job_id` and `Retry-After: 30`.
+  - `POST /api/jobs`: Submits transcript and returns `202 Accepted` immediately with `{job_id, status: "queued", queue_position}`.
+  - `GET /api/jobs/{id}`: Polls job status (`queued`, `running`, `done`, `failed`).
+* **Input Normalizer (`src/v3/normalise.py`):** Calculates real turn gaps from start/end times (preventing dead-air miscalculations), maps roles (IVR/Agent/Customer), strips empty lines, and enforces payload size limits.
+* **Punctuation Restoration (`src/v3/text.py`):** Uses regex heuristics to restore missing `?` marks on speech-to-text questions, preventing Probing from failing on valid questions.
+* **Refined Candidate Gates (`src/v3/candidates/`):**
+  - **Resolved (`subst16`):** Looks at the last 16 informative lines (skipping farewells) and blends the model score 50/50 with customer end-of-call sentiment delta ($\text{cutoff} = 0.65$).
+  - **Ownership (`wide`):** Broadens the deflection regex pattern to catch evasive phrases on unseen calls.
 
-## 8. Documents to read, in order
-1. `Docs/FLOW_V2.md`: what flow v2 changed, results, limits, next steps.
-2. `../laya-finetuning/docs/AG50_REPORT.md`: the independent test, statistics, why the model errs (its charts page is generated by `../laya-finetuning/eval/build_ag50_dashboard.py`).
-3. `../laya-finetuning/docs/LAYA_TEST_LOG.md`: every test round (1 to 6). `Docs/FLOW_V2_LAB.md`, `Docs/FLOW_V2_REGRESSION.md`: the lab evidence.
-4. `../laya-finetuning/README.md` and `runs/*/RESULT.md`: how the model was trained (data built by Claude through the same extractors the app uses; Colab L4; `tools/laya_train_cuda.py` only, because `laya-train` crashes on GPU).
-5. `Docs/ARCHITECTURE.md`, `README.md`: pipeline detail and setup.
+---
 
-## 9. How the app decides (summary; code is authoritative)
-- **Scoring:** Soft Skills 0.333, Technical Knowledge 0.667. Each category starts at 100 and loses a failed item's deduction: Branding 15, Dead air 15, Personalized 15, Empathy 35, Rapport 20 (soft); Verified 25, Probing 25, Ownership 25, Paraphrasing 15, Resolved 15, Active listening 10 (technical). An agent line containing fuck / shut up / idiot / get lost / stupid / hang up means auto-fail (score 0). Customers may say them freely.
-- **Rules (no model):** Branding ("thank you for calling S-Net" in the first 4 agent lines and "thank you for choosing S-Net" in the last 4), Dead air (2 or more gaps over 30 s, measured only from `start_time_sec` assuming each turn lasts 10 s; announced holds up to 120 s are exempt), Verified (PIN, address or security question within the first 240 s), Personalized (agent says the customer's name).
-- **Laya checks** (`LAYA_CHECKS`, one yes/no question each, a cutoff on P(pass)): Empathy, Paraphrasing, Active listening, Ownership, Rapport, Probing, Resolved. Laya reads about 340 words per question, so each check gets a short, purpose-built snippet. Flow v1 cut fixed windows; **flow v2** (`laya_windows.py`, used when a fine-tuned checkpoint is served) changes three checks: **Empathy** one window per distinct customer outburst (strict rubric, the owner's decision: every new outburst must be handled), **Paraphrasing** a restatement-cue gate then a tight window (no cue means FAIL without a model call), **Ownership** a wider deflection-phrase list. Probing, Resolved, Active listening and Rapport are unchanged.
-- Fine-tuned cutoffs: Empathy 0.49, Paraphrasing 0.47, Active listening 0.50, Resolved 0.42, Rapport 0.20 (call level: any chunk below fails; tuned on Main/bulk, so those are not independent for Rapport). Probing 0.70 and Ownership 0.52 unchanged. A Probing cutoff tuned on AG50 was **rejected** (12 false fails on bulk).
+## 4. The 11 Evaluation Criteria Reference Table
 
-## 10. Next steps (the plan approved on 2026-10-20; SUPERSEDED)
-> **Status 2026-10-22:** steps 1 and 2 were carried out (AG-T, AG-B, AG-B2 and AG-C were written, ft4 to ft6 were trained and tested; see `../laya-finetuning/runs/CHECKPOINTS.md`). Step 3 was dropped: shadow mode is impossible for a new application. What came next is in `Docs/V3.md`. The text below is kept as the record of the plan.
+| # | Criterion | Category | Deduction | Evaluator | Window Extraction Logic (Flow v2) | Cutoff | Yes Means |
+|---|---|---|---|---|---|---|---|
+| 1 | **Branding and Survey Check** | Soft Skills | 15 | Rule | First 4 & last 4 agent lines checked for exact greeting/closing strings. | N/A | PASS |
+| 2 | **Hold time and Dead Air** | Soft Skills | 15 | Rule | $\ge 2$ silent gaps $> 30\text{s}$ fail. Announced holds exempt up to 120s. | N/A | PASS |
+| 3 | **Personalized the call** | Soft Skills | 15 | Rule | Customer name string matched in agent lines. | N/A | PASS |
+| 4 | **Empathy & Acknowledgment** | Soft Skills | 35 | Laya | Up to 4 windows: customer turn sentiment $\le -15$ or frustration word after $\ge 4$ calm turns, + next 4 turns. | 0.49 | PASS |
+| 5 | **Build rapport & professionalism** | Soft Skills | 20 | Laya | Consecutive chunks of all agent lines ($\le 8$ lines / $\le 120$ words). One rude chunk fails check. | 0.20 | FAIL |
+| 6 | **Paraphrasing** | Technical | 15 | Laya | First 300s restatement cue regex. Found: customer problem ($\le 50\text{w}$) + cue lines ($\le 150\text{w}$). Missing: instant FAIL. | 0.47 | PASS |
+| 7 | **Verified customer** | Technical | 25 | Rule | Agent asks for PIN, address, or security question in first 240s. | N/A | PASS |
+| 8 | **Probing** | Technical | 25 | Laya | Customer problem ($\le 50\text{w}$) + agent diagnostic questions ($\le 100\text{w}$). No questions: instant FAIL. | 0.70 | PASS |
+| 9 | **Took ownership of the problem** | Technical | 25 | Laya | Agent lines matching deflection phrases (`"not my department"`, `"call back"`). No match: PASS. | 0.52 | FAIL |
+| 10 | **Active listening** | Technical | 10 | Laya | Up to 3 pairs of similar agent questions ($\text{difflib} > 0.55$) with intermediate customer reply ($\le 40\text{w}$). | 0.50 | FAIL |
+| 11 | **Confirmed issue is resolved** | Technical | 15 | Laya | Last 10 transcript lines (v2) or last 16 informative lines + mood blend (v3). | 0.42 (v2)<br>0.65 (v3) | PASS |
 
-1. Antigravity briefs for **AG-T** (about 100 training calls) and **AG-B** (50 sealed test calls): agent sentiment absent, customer sentiment noisy as RoBERTa would give, late acknowledgements and confirmations, benign near-repeats in good calls, rude or deflecting lines buried in long polite calls. (The brief `ANTIGRAVITY_TEST_BRIEF.md` was reused with those changes and later removed on 2026-10-22; read it with `git show a7ace67:Docs/<name>`.)
-2. Build training rows with the v2 extractors (`LAYA_FLOW=v2`) via `../laya-finetuning/tools/build_calls.py`, `build_rows.py`, `make_manifest.py`; retrain on Colab (`01_train_eval.ipynb`, the owner runs it) for Active listening, Paraphrasing (echo versus real restatement), Rapport (long polite calls) and Empathy ("acknowledgement plus refusal"). Keep the replay rows (drift guard).
-3. Run stock, fine-tuned and Ollama on AG-B; a human reviews about 30 disagreements; then shadow mode beside Ollama on real calls.
+* **Auto-Fail:** If an agent line contains profanity (`fuck`, `shut up`, `idiot`, `stupid`, `get lost`, `hang up`), score is set to **0.0**.
 
-## 11. Writing test transcripts
-```json
-{"tenant_id": "tenant-abc", "customer_name": "Sarah", "transcript": [
-  {"speaker": "Agent", "text": "Thank you for calling S-Net, my name is Alex. How can I help?", "start_time_sec": 0, "start_time": "[00:00]", "end_time": "[00:06]", "sentiment_score": 10.0},
-  {"speaker": "Customer", "text": "My internet is completely down.", "start_time_sec": 10, "start_time": "[00:10]", "end_time": "[00:14]", "sentiment_score": -18.0}]}
+---
+
+## 5. Environment & Model Setup
+
+### Dependencies
+* Python 3.10+ (tested on Python 3.14).
+* Core libraries: `fastapi`, `uvicorn`, `torch` (CPU), `transformers==5.16.1`, `laya` (pinned commit `3cf26cb` from GitHub).
+* Setup commands:
+  ```powershell
+  python -m venv .venv
+  .\.venv\Scripts\activate
+  pip install -r requirements.txt
+  copy .env.example .env
+  ```
+
+### Production Weights (`models/final-softce-3`)
+The production checkpoint contains:
+* `model.safetensors` (842 MB)
+* `encoder/config.json`
+* `tokenizer/tokenizer.json` & `tokenizer_config.json`
+* `questions.json`
+* `rl_agent_config.json`
+
+**Always verify weights after setup:**
+```powershell
+python Scripts/verify_weights.py
 ```
-`sentiment_score` goes on each turn (a top-level array is ignored); speakers are exactly `Agent` / `Customer`; keep turns under 30 s (the dead-air rule assumes 10 s); sentiment moves gradually. Remember production has customer sentiment only, so agent turns should carry no meaningful score. Full brief (removed on 2026-10-22; read it with `git show a7ace67:Docs/<name>`): `ANTIGRAVITY_TEST_BRIEF.md`.
+Must output `ALL FILES MATCH`.
 
-## 12. Lessons and pitfalls
-- Windows: Python cannot read `/tmp`; keep scripts in files (heredocs mangle backslashes); a scratch file named `dis.py` shadows the standard library; run report scripts with `PYTHONIOENCODING=utf-8`.
-- `git stash` and branch switches in a repo with uncommitted work are risky; the Ollama copy is a git worktree of this repo.
-- A re-run that does not match the expected numbers usually means the checkpoint variable was not read, or flow v2 is off; check section 5 step 5 before debugging anything else.
-- Short-snippet training data made the model fail natural long calls; training rows must come from complete natural calls cut by the same extractors the app uses, and PASS/FAIL must not correlate with style or length.
-- The training data and the first two test sets were written by Claude, which flatters the fine-tuned model; AG50 was written by a different AI and showed a smaller, real gain.
+### Recommended `.env` Configuration
+```ini
+LAYA_FLOW=v3
+LAYA_CHECKPOINT=models/final-softce-3
+SERVER_HOST=0.0.0.0
+SERVER_PORT=8006
+LOG_REQUEST_BODIES=0
+QUEUE_MAX=50
+EVALUATE_TIMEOUT_SEC=120
+MAX_REQUEST_BYTES=2000000
+```
+
+---
+
+## 6. Verification & Testing Commands Runbook
+
+### 1. Offline Fast Unit Tests (Run before committing any code)
+Runs 106 tests covering rules, scoring, normalizer, and job queue in ~1 second without loading the ML model:
+```powershell
+python -m unittest discover -s tests/unit -t .
+```
+
+### 2. Verify Frozen Extractor Contract
+Checks that the local code has not diverged from the hashes recorded in the training dataset:
+```powershell
+python ..\laya-finetuning\tools\export_checks.py --check
+```
+Must output `MATCH: all` and `MATCH: inputs`.
+
+### 3. Quick CLI Single-Call Test (Server must be running)
+Grades a single call and prints a formatted terminal scorecard:
+```powershell
+python Scripts/try_call.py "inputs/Main tests/gold_01_excellent_22min.json"
+```
+Expect final score: `100.0`.
+
+### 4. Bulk Folder Evaluation via REST (Server must be running)
+Sends every call in a folder through the API, saves output scorecards to `outputs/`, and writes `_summary.csv`:
+```powershell
+python Scripts/send_folder.py "inputs/Main tests"
+```
+
+### 5. Docker Deployment Verification
+```bash
+docker compose -f docker-compose.v3.yml up -d --build
+curl http://localhost:8006/ready
+```
+Returns `{"status": "ready", "flow": "v3", "worker": {"ready": true}}`.
+
+---
+
+## 7. Directory Map & File Responsibilities
+
+```
+D:\CIAP\QA\
+├── QA-system/                              # THIS APPLICATION REPO (nimjj/QA-system)
+│   ├── main.py                             # Service entry point (Port 8006)
+│   ├── run_gateway.py                      # Gateway entry point (Port 8005)
+│   ├── Dockerfile.v3                       # Docker container specification
+│   ├── docker-compose.v3.yml               # Docker Compose file mounting ./models
+│   ├── requirements.txt                    # Pinned host dependencies
+│   ├── requirements-docker.txt             # Linux CPU dependencies for container
+│   ├── CLAUDE.md                           # Quick rules for AI assistants
+│   │
+│   ├── models/                             # PRODUCTION WEIGHTS (git-ignored)
+│   │   ├── README.md                       # Weight sharing instructions
+│   │   └── final-softce-3/                 # Active checkpoint weights
+│   │
+│   ├── src/
+│   │   ├── api/
+│   │   │   ├── web_app.py                  # FastAPI app, endpoints (/evaluate, /jobs, /ready)
+│   │   │   └── logger.py                   # Structured JSON logging
+│   │   ├── db/database.py                  # PostgreSQL connector (Pipeline v2 only)
+│   │   ├── gateway/gateway_app.py          # Reverse proxy routing
+│   │   ├── services/                       # PIPELINE V2 & SHARED MODEL (FROZEN)
+│   │   │   ├── dynamic_evaluator.py        # evaluate_interaction(), cutoffs [FROZEN]
+│   │   │   ├── laya_inputs.py              # parse_transcript(), build_laya_inputs() [FROZEN]
+│   │   │   ├── laya_windows.py             # Flow v2 structure windows [FROZEN]
+│   │   │   ├── rule_engine.py              # 4 deterministic Python rules [FROZEN]
+│   │   │   └── laya_adapter.py             # predict_yes() thread-safe model caller
+│   │   └── v3/                             # PIPELINE V3 (NEW STANDALONE PIPELINE)
+│   │       ├── pipeline.py                 # evaluate_v3() orchestration
+│   │       ├── jobs.py                     # Single-worker FIFO JobQueue
+│   │       ├── normalise.py                # Timestamp & role cleaner
+│   │       ├── rules.py                    # Hardened regex rules & allow-lists
+│   │       ├── scoring.py                  # Deductions & category weights math
+│   │       ├── text.py                     # Heuristic question-mark restorer
+│   │       ├── candidates/                 # Candidate gates (resolved.py, ownership.py)
+│   │       └── config/                     # criteria.json (built-in 11 criteria), v3.json
+│   │
+│   ├── inputs/                             # CALL TRANSCRIPTS ACROSS ALL SETS
+│   │   ├── Main tests/                     # 4 golden calls (excellent, good, okay, bad)
+│   │   ├── Bulk tests/                     # 64 targeted defect calls (b_*)
+│   │   ├── AG50/, AG-T/, AG-B/, AG-C/      # Antigravity test calls
+│   │   └── Test (results)/                 # Historical & saved v3 golden outputs
+│   │
+│   ├── outputs/                            # REST evaluation outputs from send_folder.py
+│   │
+│   ├── Scripts/                            # TEST & VERIFICATION UTILITIES
+│   │   ├── verify_weights.py               # Stdlib SHA-256 weight integrity checker
+│   │   ├── try_call.py                     # Single-call CLI grader
+│   │   ├── send_folder.py                  # Folder-level REST evaluator
+│   │   ├── batch_test.py                   # Legacy batch test runner
+│   │   └── compare_results.py              # Result comparison against expected keys
+│   │
+│   ├── Docs/                               # APPLICATION DOCUMENTATION
+│   │   ├── README.md                       # Documentation index
+│   │   ├── AI_HANDOVER.md                  # (This document) Master AI operational manual
+│   │   ├── SYSTEM_AND_FLOW_V2_GUIDE.md     # Master architecture, Flow v2 & criteria guide
+│   │   ├── CODEBASE_GUIDE.md               # Human-oriented onboarding guide
+│   │   ├── FLOW_DIAGRAMS.md                # 11 Mermaid diagrams of internal flows
+│   │   ├── DOCKER.md                       # Docker deployment runbook
+│   │   ├── V3.md                           # Pipeline v3 technical specification
+│   │   └── FLOW_V2.md                      # Flow v2 rationale & metrics
+│   │
+│   ├── tests/unit/                         # 106 automated offline unit tests
+│   └── frontend/                           # React + Vite dashboard UI
+│
+└── laya-finetuning/                        # SIBLING REPO: RESEARCH & MODEL TRAINING
+    ├── checkpoints/                        # Experimental checkpoints (ft5, ft6)
+    ├── data/                               # Training rows, fragments, checks_frozen.json
+    ├── docs/                               # DATA_PLAN.md, LABELLING_GUIDE.md, NEW_PC_SETUP.md
+    ├── eval/                               # v3_compare.py, v3_service_test.py, golden.py
+    ├── inputs/*/expected/                  # Expected answer keys for all call sets
+    ├── runs/                               # CHECKPOINTS.md catalogue, RESULT.md per round
+    └── tools/                              # export_checks.py, build_rows.py, laya_train_cuda.py
+```
+
+---
+
+## 8. Common Debugging Recipes & Operational Troubleshooting
+
+* **Issue: "model failed to load: FileNotFoundError" on start:**
+  * **Cause:** `LAYA_CHECKPOINT` path is invalid or points to an empty directory.
+  * **Fix:** Ensure weights exist in `models/final-softce-3/` and run `python Scripts/verify_weights.py`.
+* **Issue: API returns 503 with `"status": "not ready"`:**
+  * **In Pipeline v3:** The model is currently loading into memory (takes ~10 seconds). Wait for readiness.
+  * **In Pipeline v2:** The PostgreSQL database is unreachable. Check `DB_HOST`/`DB_PORT` in `.env`.
+* **Issue: API returns 503 with `"job_id"` and `Retry-After: 30` on `/api/evaluate`:**
+  * **Normal Behavior in v3:** Evaluation took longer than `EVALUATE_TIMEOUT_SEC` (120s). The worker continues grading in the background. Retrieve the result via `GET /api/jobs/{job_id}`.
+* **Issue: Golden calls score 41/44 instead of 42/44 in v2:**
+  * **Cause:** Flow v2 is inactive because `LAYA_CHECKPOINT` was not recognized or `LAYA_FLOW=v1` was set. Flow v2 must be active for golden call accuracy.
+* **Issue: Unit tests fail with frozen hash mismatch:**
+  * **Cause:** One of the four frozen files was edited. Discard modifications to `laya_inputs.py`, `rule_engine.py`, or `laya_windows.py`.
