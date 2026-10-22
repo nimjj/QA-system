@@ -79,7 +79,13 @@ def main():
             t1 = time.perf_counter()
             b = evaluate_v3(payload["transcript"], criteria, "tenant-abc", caller=caller)
             t2 = time.perf_counter()
-            rec = {"call": name, "v2_score": a["final_score"], "v3_score": b["final_score"], "v2_af": a["is_auto_fail"], "v3_af": b["is_auto_fail"],
+            key_path = os.path.join(os.path.dirname(fp), "expected", f"expected_{name}.json")
+            key = None
+            if os.path.exists(key_path):
+                ke = json.load(open(key_path, encoding="utf-8"))
+                key = {i["name"]: i["rating"] for i in ke["result"]["scorecard"]}
+                key_score = ke["result"]["final_score"]
+            rec = {"key": key, "key_score": key_score if key else None, "call": name, "v2_score": a["final_score"], "v3_score": b["final_score"], "v2_af": a["is_auto_fail"], "v3_af": b["is_auto_fail"],
                    "v2": {i["name"]: i["rating"] for i in a["scorecard"]}, "v3": {i["name"]: i["rating"] for i in b["scorecard"]},
                    "v3_rows": b["meta"]["model_rows"], "v3_words": b["meta"]["model_words"], "v2_sec": round(t1 - t0, 1), "v3_sec": round(t2 - t1, 1)}
             out.write(json.dumps(rec) + "\n")
@@ -108,6 +114,23 @@ def summarise(path, folder, show):
     for item, d in sorted(diffs.items()):
         for direction, ids in d.items():
             print(f"  {item[:42]:42s} {direction:20s} {len(ids):3d}  {', '.join(ids[:show])}{' ...' if len(ids) > show else ''}")
+    keyed = [r for r in recs if r.get("key")]
+    if keyed:
+        print(f"\nAgainst the AI-written keys ({len(keyed)} calls): items matching the key, v2 vs v3, and calls only one flow got right (v3 better / v3 worse)")
+        tot = [0, 0, 0, 0]
+        for item in keyed[0]["v2"]:
+            a = sum(r["v2"].get(item) == r["key"].get(item) for r in keyed)
+            b = sum(r["v3"].get(item) == r["key"].get(item) for r in keyed)
+            better = sum(r["v3"].get(item) == r["key"].get(item) and r["v2"].get(item) != r["key"].get(item) for r in keyed)
+            worse = sum(r["v3"].get(item) != r["key"].get(item) and r["v2"].get(item) == r["key"].get(item) for r in keyed)
+            flag = "" if (a, b) == (b, a) and better == worse == 0 else "  <-- differs"
+            print(f"  {item[:44]:44s} v2 {a:3d}  v3 {b:3d}   {better} / {worse}{flag}")
+            tot = [tot[0] + a, tot[1] + b, tot[2] + better, tot[3] + worse]
+        n = len(keyed) * len(keyed[0]["v2"])
+        print(f"  {'ALL ITEMS':44s} v2 {tot[0]:3d}  v3 {tot[1]:3d}  of {n}   {tot[2]} / {tot[3]}")
+        e2 = sum(abs(r["v2_score"] - r["key_score"]) for r in keyed) / len(keyed)
+        e3 = sum(abs(r["v3_score"] - r["key_score"]) for r in keyed) / len(keyed)
+        print(f"  mean |final score - key score|: v2 {e2:.1f}, v3 {e3:.1f}")
 
 
 if __name__ == "__main__":

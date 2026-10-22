@@ -63,10 +63,17 @@ class Pipeline(unittest.TestCase):
         def fake(check_key, text, label):
             self.asked.append((check_key, label, text))
             return "PASS"
+        self.p_yes = 0.9                                                   # what the stand-in model answers when asked for a probability
+        self.asked_p = []
         for p in (mock.patch.object(pipeline.de, "_laya_verdict", side_effect=fake),
+                  mock.patch.object(pipeline.de, "predict_yes", side_effect=self.fake_probability),
                   mock.patch.dict(os.environ, {"LAYA_FLOW": "v2"})):       # the production window flow; importing the web app loads .env
             p.start()
             self.addCleanup(p.stop)
+
+    def fake_probability(self, text, questions, label=""):
+        self.asked_p.append(label)
+        return {"q": self.p_yes}
 
     def run_call(self, transcript=CALL, crit=None, **kw):
         return pipeline.evaluate_v3(transcript, crit or criteria(), "t1", "Call", kw.get("caller", "Alex"))
@@ -88,7 +95,7 @@ class Pipeline(unittest.TestCase):
         m = self.run_call()["meta"]
         self.assertEqual(m["flow"], "v3")
         self.assertGreater(m["model_rows"], 0)
-        self.assertEqual(m["model_rows"], len(self.asked))
+        self.assertEqual(m["model_rows"], len(self.asked) + len(self.asked_p))
         self.assertTrue(m["sentiment_available"])
 
     def test_bare_agent_questions_reach_probing(self):
@@ -139,6 +146,55 @@ class Pipeline(unittest.TestCase):
         v = next(e for e in r["scorecard"] if e["name"] == "Verified customer")
         self.assertEqual(v["rating"], "PASS")
         self.assertEqual(v["evidence_turns"], [4])
+
+    def resolved(self, transcript=CALL):
+        r = self.run_call(transcript)
+        return next(e for e in r["scorecard"] if e["name"] == "Confirmed the issue is resolved")
+
+    def test_resolved_v3_gate_blends_model_and_customer_mood(self):
+        good = self.resolved()
+        self.assertEqual(good["rating"], "PASS")
+        self.assertIn("customer end mood", good["note"])
+        sad_end = [dict(t) for t in CALL]
+        sad_end[-2]["sentiment_score"] = -60                              # the customer ends far below how they spoke on average
+        sad_end[-4]["sentiment_score"] = -55
+        sad_end[-6]["sentiment_score"] = -50
+        self.p_yes = 0.6                                                  # and the model is only lukewarm
+        self.assertEqual(self.resolved(sad_end)["rating"], "FAIL")
+
+    def test_resolved_without_customer_sentiment_uses_the_model_alone(self):
+        flat = [{k: v for k, v in t.items() if k != "sentiment_score"} for t in CALL]
+        self.p_yes = 0.9
+        r = self.resolved(flat)
+        self.assertEqual(r["rating"], "PASS")
+        self.assertIn("no usable customer sentiment", r["note"])
+        self.p_yes = 0.5
+        self.assertEqual(self.resolved(flat)["rating"], "FAIL")           # below the 0.65 cutoff
+
+    def test_the_resolved_gate_can_be_switched_back_to_v2(self):
+        from src.v3 import load_config
+        cfg = dict(load_config(), gates={"resolved": {"mode": "v2"}})
+        with mock.patch.object(pipeline, "load_config", return_value=cfg):
+            r = self.run_call()
+        self.assertIn("resolved", [a[0] for a in self.asked])
+        self.assertEqual(r["meta"]["gates"], {"resolved": "v2"})
+
+    def ownership(self, cfg_gate=None):
+        bad = [dict(t) for t in CALL]
+        bad[6]["text"] = "Anything wrong on the street cabinet is Openreach's responsibility, not ours. What colour are the lights on the router"
+        self.p_yes = 0.9                                                  # the stand-in model says: yes, this agent deflects
+        if cfg_gate is None:
+            r = self.run_call(bad)
+        else:
+            from src.v3 import load_config
+            cfg = dict(load_config(), gates={"ownership": cfg_gate})
+            with mock.patch.object(pipeline, "load_config", return_value=cfg):
+                r = self.run_call(bad)
+        return next(e for e in r["scorecard"] if e["name"] == "Took ownership of the problem")["rating"]
+
+    def test_ownership_wide_gate_shows_the_model_a_deflection_the_v2_phrases_miss(self):
+        self.assertEqual(self.ownership(), "FAIL")
+        self.assertEqual(self.ownership({"mode": "v2"}), "PASS")           # v2 opens no window, so the item passes unseen
 
     def test_null_and_float_times_do_not_crash(self):
         odd = [dict(t) for t in CALL]

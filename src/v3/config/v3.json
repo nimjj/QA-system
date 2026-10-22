@@ -19,6 +19,13 @@
     "single_gap_fail_seconds": 120,
     "managed_hold_max_seconds": 120
   },
+  "gates": {
+    "_note": "Per check: mode 'v2' = the unchanged v2 window, question and cutoff; mode 'v3' = the new window. Chosen with Scripts/v3_gate_lab.py on AI-written calls and keys (Docs/V3.md).",
+    "resolved": {"mode": "v3", "variant": "subst16", "mood_weight": 0.5, "cutoff": 0.65},
+    "ownership": {"mode": "v3", "variant": "wide"},
+    "paraphrasing": {"mode": "v2", "variant": "cue_aff"},
+    "empathy": {"mode": "v2", "variant": "rel_deep"}
+  },
   "verification": {
     "window_seconds": 240,
     "accept_date_of_birth": false,

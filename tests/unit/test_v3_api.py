@@ -32,7 +32,8 @@ class EvaluateEndpoint(unittest.TestCase):
         self.queue = JobQueue(run, web_app._error_status, max_queue=2)
         self.queue.start()
         for p in (mock.patch.dict(os.environ, {"LAYA_FLOW": "v3"}), mock.patch.object(web_app, "_jobs", self.queue),
-                  mock.patch.object(pipeline.de, "_laya_verdict", return_value="PASS")):
+                  mock.patch.object(pipeline.de, "_laya_verdict", return_value="PASS"),
+                  mock.patch.object(pipeline.de, "predict_yes", return_value={"q": 0.9})):
             p.start()
             self.addCleanup(p.stop)
         self.addCleanup(self.gate.set)
