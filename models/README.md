@@ -19,10 +19,19 @@ With that set, the service serves these weights, applies the fine-tuned cutoffs 
 ## Check that your copy is intact
 
 ```
-python ../laya-finetuning/tools/checkpoint_manifest.py verify models/final-softce-3 --manifest ../laya-finetuning/runs/ft3-stage3/final-softce-3.manifest.json
+python Scripts/verify_weights.py
 ```
 
-It must print `ALL FILES MATCH`.
+It needs nothing but Python and must end with `ALL FILES MATCH`. (The same check from the Laya repo, if you have it: `python ../laya-finetuning/tools/checkpoint_manifest.py verify models/final-softce-3 --manifest ../laya-finetuning/runs/ft3-stage3/final-softce-3.manifest.json`.)
+
+## Getting the weights onto a new machine (every clone needs this once)
+
+Git cannot carry the weights: `model.safetensors` is 842 MB and GitHub refuses files over 100 MB. They also must not go to GitHub in any form (including Releases and Git LFS), by project rule. So the code comes from `git clone` and the weights come separately, once per machine:
+
+1. **Owner, once:** zip the folder `models/final-softce-3` (about 800 MB) and put the zip on company storage that the team can already reach and that is not public: SharePoint/OneDrive, Google Drive, S3/Azure Blob, or a shared server folder. Share the link with the people who need it. The originals of every checkpoint are also on the Colab Google Drive folders (see below).
+2. **Everyone else:** download the zip, unzip it so the files sit directly in `models/final-softce-3/` (inside this repo, next to this README), then run `python Scripts/verify_weights.py`.
+3. **Docker:** nothing extra. `docker-compose.v3.yml` mounts the `models/` folder, so the same copy is used. On a server, copy the folder there once and keep it; updating the code does not touch it. (Alternative for a server farm: bake the weights into a private image in your own private registry. Never a public one.)
+4. **If the weights ever change** (a new fine-tune): put the new zip in the same place, update the sizes and hashes in `Scripts/verify_weights.py`, and tell the team to re-download.
 
 ## Where the other weights are
 

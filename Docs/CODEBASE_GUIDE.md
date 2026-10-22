@@ -25,7 +25,7 @@ Contents: [1 In one minute](#1-in-one-minute) · [2 Untangling the names](#2-unt
 * The original grading pipeline (**pipeline v2**) is still the default and still works.
 * This session added a new pipeline (**pipeline v3**) beside it, switched on with `LAYA_FLOW=v3`. It adds safer rules, input checks, a job queue so one slow call cannot freeze the service, no database, tests, and better windows for two checks (Resolved and Ownership).
 * On the AI-written test calls v3 agrees with the answer keys more often than v2 (section 8). A person has not yet reviewed the calls where they disagree.
-* Nothing is deployed yet. There is no Docker image for v3.
+* Nothing is deployed yet. The files for a v3 Docker container are prepared (`Docs/DOCKER.md`) but the image has not been built.
 
 ---
 
@@ -150,7 +150,8 @@ QA-system/                     THIS repo (GitHub nimjj/QA-system, working branch
 ├── requirements.txt           Python dependencies (Laya is installed from GitHub at a pinned commit)
 ├── setup.bat / setup.sh       one-shot environment setup
 ├── .env.example               every setting, documented; copy to .env (git-ignored)
-├── Dockerfile, Dockerfile.base, Dockerfile.gateway, docker-compose.yml   v2 stack; no v3 image yet
+├── Dockerfile, Dockerfile.base, Dockerfile.gateway, docker-compose.yml   v2 stack
+├── Dockerfile.v3, docker-compose.v3.yml, requirements-docker.txt, .dockerignore   v3 container (Docs/DOCKER.md)
 ├── requests.http              sample REST calls
 ├── CLAUDE.md                  rules for AI assistants working in this repo
 │
@@ -289,8 +290,8 @@ Start from [`Docs/README.md`](README.md) (the index). The ones to know: this gui
 | Hash records | `../laya-finetuning/runs/*/…manifest.json` | tiny | **Yes** | Prove a copy is intact |
 
 * **Weights never go to GitHub.** `../laya-finetuning/checkpoints/` is git-ignored.
-* Check that the production copy is intact (prints `ALL FILES MATCH`):
-  `python ../laya-finetuning/tools/checkpoint_manifest.py verify models/final-softce-3 --manifest ../laya-finetuning/runs/ft3-stage3/final-softce-3.manifest.json`
+* Check that the production copy is intact (prints `ALL FILES MATCH`; standard library only, works on a clone without the Laya repo): `python Scripts/verify_weights.py`.
+* Every fresh clone needs the weights copied in once, because git cannot carry them. How to share them: `models/README.md` ("Getting the weights onto a new machine").
 * Moving to a new PC: copy the `final-softce-3` folder, set `LAYA_CHECKPOINT`, verify. See `../laya-finetuning/docs/NEW_PC_SETUP.md`.
 
 ---
@@ -328,7 +329,7 @@ All against AI-written keys. "Items matching the key" counts the 11 ratings per 
 
 **Still weak** (the model, not the windows): Empathy (strict, fails many good calls), Active listening, and the model's own ability on Resolved.
 
-**Not done yet:** a person reviewing the calls where v2 and v3 disagree; a Docker image for v3; pinned dependency versions; testing on real transcripts; the `ft5`-for-Rapport idea (on hold).
+**Not done yet:** a person reviewing the calls where v2 and v3 disagree; building and trying the v3 Docker image (files prepared, pinned versions in `requirements-docker.txt`); testing on real transcripts; the `ft5`-for-Rapport idea (on hold).
 
 ---
 
@@ -377,7 +378,7 @@ Audited and tidied on 2026-10-22.
 * **Split into two separate repos, two folders.** Everything about the Laya model moved out to `D:\CIAP\QA\laya-finetuning` (its own git repo, GitHub `nimjj/laya-finetuning`): the 15 testing and evaluation scripts, the test sets AG50, AG-T, AG-B, AG-B2, AG-C, Eval50 and Tough checks with their results and probes, the first benchmark, the test log, the AG50 report, the training tools and notebooks, and the experiment weights. This repo kept the app, its own tools in `Scripts/` (batch_test, compare_results, check_prompt_sizes, dump_laya_inputs), its sample calls in `inputs/`, and gained `models/final-softce-3/` for the production weights. The Laya repo's history was split out with `git subtree split`, so it continues the original `nimjj/laya-finetuning` history; this repo's older history still contains the Laya files (it was not rewritten, so nothing needed a force-push).
 * Earlier the same day: 56 loose helper scripts and 29 run logs were moved out of the repo root into the archive, and the repo was pushed to a new branch `app-v3`.
 
-**Left as they are on purpose:** `inputs/Test (results)/` (history; scripts and docs point into it), `../laya-finetuning/laya_eval/` (evidence behind the starting cutoffs), the experiment labs in `Scripts/`, the v2 database code and tenant endpoints (v2 and the dashboard still use them), the Docker files (v3 image still to do), and ft5 / ft6 weights (the docs and probe commands use those paths).
+**Left as they are on purpose:** `inputs/Test (results)/` (history; scripts and docs point into it), `../laya-finetuning/laya_eval/` (evidence behind the starting cutoffs), the experiment labs in `Scripts/`, the v2 database code and tenant endpoints (v2 and the dashboard still use them), the v2 Docker files (the v3 container has its own files), and ft5 / ft6 weights (the docs and probe commands use those paths).
 
 **Known loose ends:** `../laya-finetuning/docs/DATA_PLAN.md` mentions files that no longer exist; it is a partly superseded plan and was not rewritten. `Docs/ARCHITECTURE.md` predates flow v2 and v3.
 
@@ -390,4 +391,4 @@ Audited and tidied on 2026-10-22.
 * **What we built this session:** a new pipeline beside the old one: safer rules, input checks, a queue, no database, tests, and better line selection for the two checks where it mattered most.
 * **What we can honestly say:** on AI-written calls graded by AI-written keys, v3 matches the keys better than v2 (hold-out: 1056 against 1031 of 1232 ratings; final-score error 9.0 against 11.0 points).
 * **What we cannot say yet:** how it does on real calls. No human has reviewed the keys or the disagreements, and we have no real recordings.
-* **What is next:** a person reviews the disagreeing calls; a Docker image for v3; try real transcripts when we have them; retrain only for the checks that remain model-limited (Empathy, Active listening).
+* **What is next:** a person reviews the disagreeing calls; someone builds and tries the v3 Docker image (`Docs/DOCKER.md`); try real transcripts when we have them; retrain only for the checks that remain model-limited (Empathy, Active listening).
