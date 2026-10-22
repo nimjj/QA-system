@@ -49,12 +49,13 @@ The same endpoint works from any tool: `POST http://localhost:8006/api/evaluate`
 
 | I want to... | Read |
 |---|---|
+| Master overview: architecture, Flow v2 lifecycle, criteria, and two-repo guide | [`Docs/SYSTEM_AND_FLOW_V2_GUIDE.md`](Docs/SYSTEM_AND_FLOW_V2_GUIDE.md) |
+| Autonomous AI handover guide (for Claude Code, Antigravity, LLM agents) | [`Docs/AI_HANDOVER.md`](Docs/AI_HANDOVER.md) (also `CLAUDE.md`) |
 | Set up and run the Docker container | [`Docs/DOCKER.md`](Docs/DOCKER.md) |
 | Get the weights, verify them, share them with a colleague | [`models/README.md`](models/README.md) |
 | Understand what everything is and how the code fits together (plain language) | [`Docs/CODEBASE_GUIDE.md`](Docs/CODEBASE_GUIDE.md), then [`Docs/FLOW_DIAGRAMS.md`](Docs/FLOW_DIAGRAMS.md) (11 diagrams) |
 | Understand v3: what it does, settings (`src/v3/config/v3.json`), results, what is not done | [`Docs/V3.md`](Docs/V3.md) |
-| See the current status, the rules of the project and the next steps | [`Docs/AI_HANDOVER.md`](Docs/AI_HANDOVER.md) (also `CLAUDE.md` for AI assistants) |
-| Find any other document | [`Docs/README.md`](Docs/README.md) (index) |
+| Detailed index and catalog of all documents | [`Docs/README.md`](Docs/README.md) (index) |
 
 ### Testing it
 * **Unit tests (no model, seconds):** `python -m unittest discover -s tests/unit -t .` (106 tests; they must all pass before any change is merged).

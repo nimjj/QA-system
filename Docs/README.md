@@ -1,41 +1,51 @@
-# Docs index
+# Documentation Directory & Sitemap
 
-Start with [`AI_HANDOVER.md`](AI_HANDOVER.md) (status, rules, how to run), then the file that matches your question.
+Welcome to the documentation suite for the **Automated QA Analysis System** (`QA-system`). 
 
-These are the documents of the **QA application** repo. Everything about the Laya model (training, fine-tuning, test log, AG50 report, data plan, labelling guide, new-PC setup) is in the separate repo next to it: the folder `../laya-finetuning` (GitHub `nimjj/laya-finetuning`), see its `README.md` and `docs/`.
+> **Quick Orientation:**  
+> • If you are an **AI Assistant** (Claude Code, Antigravity, or other LLMs): Read [`AI_HANDOVER.md`](AI_HANDOVER.md) first.  
+> • If you are a **Human Engineer / Team Member**: Read [`SYSTEM_AND_FLOW_V2_GUIDE.md`](SYSTEM_AND_FLOW_V2_GUIDE.md) or [`CODEBASE_GUIDE.md`](CODEBASE_GUIDE.md).  
+> • If you are looking for **Model Training & Research**: See the sibling repository at `../laya-finetuning/`.
 
-| Question | Read |
-|---|---|
-| I am new. What is all this, and where is everything? | [`CODEBASE_GUIDE.md`](CODEBASE_GUIDE.md) |
-| Show me the flow as diagrams (Mermaid) | [`FLOW_DIAGRAMS.md`](FLOW_DIAGRAMS.md) |
-| What is the app and how does a call flow through it? What does the database look like? | [`ARCHITECTURE.md`](ARCHITECTURE.md) (original version-10 specification; the schema is only here) |
-| What is the new v3 pipeline, how do I run and test it? | [`V3.md`](V3.md) |
-| How do I set up the v3 service as a Docker container? | [`DOCKER.md`](DOCKER.md) |
-| How are calls cut into snippets for the model (flow v2)? | [`FLOW_V2.md`](FLOW_V2.md), [`FLOW_V2_LAB.md`](FLOW_V2_LAB.md), [`FLOW_V2_REGRESSION.md`](FLOW_V2_REGRESSION.md) (cited by comments in the frozen `src/services/laya_inputs.py`, so they stay) |
-| What did each test round find, and which model is in production? | `LAYA_TEST_LOG.md` (`../laya-finetuning/docs/LAYA_TEST_LOG.md`, in the Laya repo), `CHECKPOINTS.md` (`../laya-finetuning/runs/CHECKPOINTS.md`, in the Laya repo) |
-| The independent AG50 test: why the model errs | `AG50_REPORT.md` (`../laya-finetuning/docs/AG50_REPORT.md`, in the Laya repo) |
-| API calls for Postman | [`postman_collection.json`](postman_collection.json) |
+---
 
-All results in these documents are measured against AI-written answer keys, not human-labelled ones.
+## Master Documentation Catalog
 
-## Removed on 2026-10-22
-
-These were removed because the task they described is finished, or because a script regenerates them from data that stays in the repo. Nothing is lost: each file is in git history (the first ten at commit `8a6842b`, the last three at commit `a7ace67`).
-
-Read one without restoring it: `git show 8a6842b:Docs/<file name>` (or `a7ace67` for the last three). Restore one: `git checkout 8a6842b -- Docs/<file name>`.
-
-| File | Why it was removed | To regenerate it |
+| Document | Primary Audience | Description & Key Topics Covered |
 |---|---|---|
-| `ANTIGRAVITY_AGT_BRIEF.md` | Task brief for AG-T (100 training calls), finished | not needed; the calls and keys are in `../laya-finetuning/inputs/AG-T/` |
-| `ANTIGRAVITY_AGB_BRIEF.md` | Task brief for AG-B (50 sealed test calls), finished | `../laya-finetuning/inputs/AG-B/` |
-| `ANTIGRAVITY_AGB2_BRIEF.md` | Task brief for AG-B2 (12 gap-filling calls), finished | `../laya-finetuning/inputs/AG-B2/` |
-| `ANTIGRAVITY_AGC_BRIEF.md` | Task brief for AG-C (50 sealed test calls), finished | `../laya-finetuning/inputs/AG-C/` |
-| `AG50_DASHBOARD.html` | Generated charts page for AG50 | `python ../laya-finetuning/eval/ag50_analysis.py && python ../laya-finetuning/eval/build_ag50_dashboard.py` (needs `pip install scipy scikit-learn`). **Caveat:** the committed page had been edited by hand after it was generated (flow-v2 engine colours and wording), so the script rebuilds an earlier three-engine layout; the final page is only in git history |
-| `ag50_stats.json` | Generated statistics for AG50 | `python ../laya-finetuning/eval/ag50_analysis.py` (needs `pip install scipy scikit-learn`); verified to reproduce the removed file exactly |
-| `AG50_RESULTS.md` | Generated per-call comparison for AG50 | `python ../laya-finetuning/eval/compare_eval.py AG50 laya-stock laya-ft ollama --out ../laya-finetuning/docs/AG50_RESULTS.md`; reproduces the removed file exactly, except the last column header now reads "Antigravity's note" (the script used to print "Claude's") |
-| `EVAL50_RESULTS.md` | Generated per-call comparison for Eval50 | `python ../laya-finetuning/eval/compare_eval.py Eval50 laya-ft laya-stock ollama --out ../laya-finetuning/docs/EVAL50_RESULTS.md`; verified identical |
-| `LAYA_ROUND4_COMPARISON.md` | Generated per-call tables for test round 4 (the round's story stays in `LAYA_TEST_LOG.md`) | `python Scripts/compare_results.py ollama laya-v2 laya-v3.1 laya-ft --out Docs/LAYA_ROUND4_COMPARISON.md` (on Windows set `PYTHONIOENCODING=utf-8` first); verified identical |
-| `PIPELINE_FLOWCHART_LAYA.md` | Ollama-era analysis of what Laya could replace; superseded by `FLOW_DIAGRAMS.md` | not needed |
-| `ANTIGRAVITY_TEST_BRIEF.md` | Rulebook for the AI author of the first test set and the base of every later brief; not needed to run or maintain the app. Read it before commissioning a new AI-written set | not needed; read it from commit `a7ace67` |
-| `ANTIGRAVITY_V2_COMMON.md` | Label rules and the key and marker format for AG-T and AG-B. The structure of a key is now described in `CODEBASE_GUIDE.md` section 5; `validate_calls.py` enforces the rules in code | read it from commit `a7ace67` |
-| `ANTIGRAVITY_V2_EXAMPLES.md` | Worked examples of the labels | read it from commit `a7ace67` |
+| [`AI_HANDOVER.md`](AI_HANDOVER.md) | **AI Assistants & Autonomous Agents** | **Comprehensive AI Operational Manual.** Detailed instructions on hard constraints (no agent sentiment, never commit weights, AI provenance disclosure), the frozen file contract, deep code-level architecture of Pipeline v2 & v3, single-worker job queue, the 11 criteria reference table, exact shell verification commands, and debugging recipes. |
+| [`SYSTEM_AND_FLOW_V2_GUIDE.md`](SYSTEM_AND_FLOW_V2_GUIDE.md) | **Engineers & Architects** | **Master System Architecture & Flow Guide.** Includes high-level Mermaid system architecture, the complete Flow v2 call grading lifecycle diagram, side-by-side evolution to Pipeline v3, the 11 QA criteria breakdown, the two-repository map (`QA-system` vs `laya-finetuning`), and deployment runbooks. |
+| [`CODEBASE_GUIDE.md`](CODEBASE_GUIDE.md) | **New Team Members** | **Plain-Language Onboarding Guide.** Walkthrough explaining the system in simple terms, untangling terminology (v1 vs v2 vs v3, Flow v1 vs Flow v2, model checkpoints), the runtime architecture, and file locations. |
+| [`FLOW_DIAGRAMS.md`](FLOW_DIAGRAMS.md) | **Developers & Designers** | **Visual Process Maps.** Contains 11 Mermaid diagrams detailing the whole stack: system map, pipeline selection logic, pipeline v2 vs v3 requests, one model call, side-by-side check comparisons, scoring math, candidate gates, and model provenance. |
+| [`DOCKER.md`](DOCKER.md) | **DevOps & Infrastructure** | **Pipeline v3 Containerization Guide.** Step-by-step runbook for launching the single-container, database-free v3 service via `docker-compose.v3.yml`, mounting local weights from `models/`, environment settings, and health/readiness probes. |
+| [`V3.md`](V3.md) | **Developers & Reviewers** | **Pipeline v3 Technical Specification.** Implementation details of `src/v3/` (job queue, input normalizer, question mark restoration, schema-driven scoring), plus accuracy findings on Candidate Gates (Resolved and Ownership). |
+| [`FLOW_V2.md`](FLOW_V2.md) | **ML Engineers & QA** | **Flow v2 Window Selection Rationale.** Documents why call-structure snippet windowing replaced fixed line counts, the owner's decision on strict per-outburst Empathy, and benchmark accuracy lifts on `AG50`. |
+| [`FLOW_V2_LAB.md`](FLOW_V2_LAB.md) & [`FLOW_V2_REGRESSION.md`](FLOW_V2_REGRESSION.md) | **ML Engineers** | **Laboratory Findings & Regression Safety.** Detailed logs of candidate window experiments and regression safety checks on bulk calls ensuring Flow v2 caused no regressions. |
+| [`ARCHITECTURE.md`](ARCHITECTURE.md) | **Database & Legacy Specs** | **Historical Version-10 Specification.** Original system architecture document; the sole location containing the PostgreSQL database schema and tenant table layout. |
+| [`postman_collection.json`](postman_collection.json) | **API Testers** | **Postman Collection.** Ready-to-import REST requests for `POST /api/evaluate`, `POST /api/jobs`, `GET /api/jobs/{id}`, `/health`, and `/ready`. |
+
+---
+
+## Sibling Research Repository Documentation (`../laya-finetuning/`)
+
+All documentation regarding model fine-tuning, training datasets, and experimental runs lives in the sibling repository `../laya-finetuning`:
+
+| Sibling Document | Path | Description |
+|---|---|---|
+| **Data Plan** | `../laya-finetuning/docs/DATA_PLAN.md` | The synthetic data generation roadmap, industry/persona matrix, and 3-stage volume ramp. |
+| **Labelling Guide** | `../laya-finetuning/docs/LABELLING_GUIDE.md` | Ground-truth rubrics for all criteria ("tone beats words", snippet-level judging). |
+| **Generation Notes** | `../laya-finetuning/docs/GENERATION_NOTES.md` | Discovery of synthetic shortcuts (length & word markers) and mandatory countermeasure rules. |
+| **New PC Setup** | `../laya-finetuning/docs/NEW_PC_SETUP.md` | Cloning both repositories side-by-side, setting up environments, and Google Drive weights setup. |
+| **Phase 0 Answer Key** | `../laya-finetuning/docs/PHASE0_ANSWER_KEY.md` | Provenance disclosure and resolution of contested verdicts for the 4 Main golden calls. |
+| **Laya Test Log** | `../laya-finetuning/docs/LAYA_TEST_LOG.md` | Historical test logs across all model rounds (Rounds 1–8). |
+| **AG50 Report** | `../laya-finetuning/docs/AG50_REPORT.md` | Analysis of the independent 50-call benchmark evaluated against Ollama. |
+| **Checkpoints Catalogue** | `../laya-finetuning/runs/CHECKPOINTS.md` | Catalogue and status of all trained checkpoints (`final-softce-3`, `ft5`, `ft6`). |
+
+---
+
+## Archival Record (Cleaned up 2026-10-22)
+
+Task-specific briefs whose goals are completed were archived to git history (available via `git show 8a6842b:Docs/<name>` or `a7ace67`):
+* `ANTIGRAVITY_AGT_BRIEF.md`, `ANTIGRAVITY_AGB_BRIEF.md`, `ANTIGRAVITY_AGB2_BRIEF.md`, `ANTIGRAVITY_AGC_BRIEF.md` (AI call-writing task briefs).
+* `ANTIGRAVITY_TEST_BRIEF.md`, `ANTIGRAVITY_V2_COMMON.md`, `ANTIGRAVITY_V2_EXAMPLES.md` (AI authoring rulebooks).
+* `AG50_RESULTS.md`, `EVAL50_RESULTS.md`, `LAYA_ROUND4_COMPARISON.md` (Regenerable per-call result tables).
