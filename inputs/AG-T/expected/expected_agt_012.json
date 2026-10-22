@@ -166,6 +166,18 @@
           "kind": "repeat",
           "premise_turn": 9,
           "agent_turn": 32
+        },
+        {
+          "kind": "repeat",
+          "premise_turn": 9,
+          "agent_turn": 30,
+          "reworded": true
+        },
+        {
+          "kind": "repeat",
+          "premise_turn": 9,
+          "agent_turn": 30,
+          "reworded": true
         }
       ],
       "paraphrasing": [

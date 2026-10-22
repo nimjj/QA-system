@@ -131,4 +131,6 @@ Do not write a call to be easy or hard for any engine; you will never see their 
 
 ## 7. Done means
 
-`python Scripts/validate_calls.py --suite <agt|agb>` on the full set prints **PASS on every line** and exits with code 0. Then send us the validator output and a short list of anything you were unsure about (borderline gradings, scenarios you were not happy with). An honest, clear key is worth more than a flattering one.
+`python Scripts/validate_calls.py --suite <agt|agb>` on the full set prints **PASS on every line** and exits with code 0.
+
+**Never choose a label to meet a count.** The counts in the briefs guide what you write; they never decide how you grade. If an honest label makes a count fail, keep the label and tell us. A label bent to fit a quota teaches the model the wrong lesson. Then send us the validator output and a short list of anything you were unsure about (borderline gradings, scenarios you were not happy with). An honest, clear key is worth more than a flattering one.

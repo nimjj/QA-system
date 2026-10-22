@@ -35,7 +35,7 @@
         "category": "Soft Skills",
         "name": "Empathy & Acknowledgment Statement",
         "rating": "FAIL",
-        "coaching": "At turn 1 and turn 11, the customer reported intense anger over an erroneous \u00a3220 termination fee charged after moving to an unserviceable area, but you offered no acknowledgment of his distress."
+        "coaching": "At turn 1 and turn 11, the customer reported intense anger over an erroneous £220 termination fee charged after moving to an unserviceable area, but you offered no acknowledgment of his distress."
       },
       {
         "category": "Technical Knowledge",
@@ -78,10 +78,10 @@
   "grader": {
     "graded_by": "Antigravity (Gemini 3.8 Flash)",
     "graded_on": "2026-10-21",
-    "scenario": "Erroneous \u00a3220 early termination fee charged after moving to non-serviceable rural area",
+    "scenario": "Erroneous £220 early termination fee charged after moving to non-serviceable rural area",
     "tier": "poor",
     "duration_sec": 946,
-    "notes": "Craig verifies the unserviceable rural address and processes a \u00a3220 waiver and BACS refund, resolving the financial charge. However, his interpersonal approach contains multiple severe faults: he fails Empathy by ignoring George's outrage, abdicates responsibility to automated debt batching, insults George's relocation to rural Northumberland ('middle of nowhere'), fails to paraphrase, and repeats a question about the customer's new postcode.",
+    "notes": "Craig verifies the unserviceable rural address and processes a £220 waiver and BACS refund, resolving the financial charge. However, his interpersonal approach contains multiple severe faults: he fails Empathy by ignoring George's outrage, abdicates responsibility to automated debt batching, insults George's relocation to rural Northumberland ('middle of nowhere'), fails to paraphrase, and repeats a question about the customer's new postcode.",
     "hard_cases": [
       "Active listening",
       "Empathy & Acknowledgment Statement",
@@ -168,6 +168,16 @@
           "kind": "harmless_recheck",
           "premise_turn": 3,
           "agent_turn": 47
+        },
+        {
+          "kind": "harmless_recheck",
+          "premise_turn": 1,
+          "agent_turn": 6
+        },
+        {
+          "kind": "harmless_recheck",
+          "premise_turn": 39,
+          "agent_turn": 49
         }
       ],
       "paraphrasing": [

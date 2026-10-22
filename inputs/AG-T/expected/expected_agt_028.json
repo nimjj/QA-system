@@ -81,7 +81,7 @@
     "scenario": "Broadband speed guarantee credit claim after sync speed remained below 45 Mbps minimum",
     "tier": "poor",
     "duration_sec": 850,
-    "notes": "Nathan performs technical troubleshooting and successfully reprofiles the line to 53 Mbps while applying a \u00a330 guarantee credit. However, his customer service shows multiple severe faults: he fails Empathy by ignoring Elena's frustration, defers responsibility to Openreach ('take it up with Openreach directly'), insults her reading comprehension, fails to paraphrase, and repeats a hardware question already answered.",
+    "notes": "Nathan performs technical troubleshooting and successfully reprofiles the line to 53 Mbps while applying a £30 guarantee credit. However, his customer service shows multiple severe faults: he fails Empathy by ignoring Elena's frustration, defers responsibility to Openreach ('take it up with Openreach directly'), insults her reading comprehension, fails to paraphrase, and repeats a hardware question already answered.",
     "hard_cases": [
       "Active listening",
       "Empathy & Acknowledgment Statement",
@@ -169,6 +169,12 @@
           "kind": "harmless_recheck",
           "premise_turn": 3,
           "agent_turn": 52
+        },
+        {
+          "kind": "repeat",
+          "premise_turn": 1,
+          "agent_turn": 6,
+          "reworded": true
         }
       ],
       "paraphrasing": [
@@ -199,6 +205,10 @@
         {
           "kind": "unhandled",
           "customer_turn": 22
+        },
+        {
+          "kind": "no_outburst",
+          "customer_turn": 37
         }
       ]
     }

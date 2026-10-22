@@ -168,6 +168,11 @@
           "kind": "harmless_recheck",
           "premise_turn": 3,
           "agent_turn": 22
+        },
+        {
+          "kind": "harmless_recheck",
+          "premise_turn": 51,
+          "agent_turn": 52
         }
       ],
       "paraphrasing": [
@@ -190,6 +195,10 @@
         {
           "kind": "unhandled",
           "customer_turn": 21
+        },
+        {
+          "kind": "no_outburst",
+          "customer_turn": 1
         }
       ]
     }

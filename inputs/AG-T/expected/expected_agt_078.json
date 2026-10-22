@@ -164,6 +164,12 @@
           "premise_turn": 3,
           "agent_turn": 42,
           "reworded": true
+        },
+        {
+          "kind": "repeat",
+          "premise_turn": 1,
+          "agent_turn": 2,
+          "reworded": true
         }
       ],
       "paraphrasing": [
@@ -188,6 +194,10 @@
           "customer_turn": 21,
           "agent_turn": 22,
           "with_refusal": false
+        },
+        {
+          "kind": "no_outburst",
+          "customer_turn": 1
         }
       ]
     }

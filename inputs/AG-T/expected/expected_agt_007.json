@@ -183,6 +183,12 @@
           "customer_turn": 9,
           "agent_turn": 10,
           "with_refusal": false
+        },
+        {
+          "kind": "handled",
+          "customer_turn": 1,
+          "agent_turn": 2,
+          "with_refusal": false
         }
       ]
     }

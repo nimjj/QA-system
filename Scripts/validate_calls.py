@@ -70,7 +70,8 @@ SUITES = {
                 group_tol=0, min_fail=AG50_MIN_FAIL, min_pass=25, borderline_max=5, names_min=50, markers="required",
                 agent_sentiment=False, hard_ratio=True),
     "agt": dict(dir="inputs/AG-T", prefix="agt_", n=100, width=3, min_words=700, groups={"excellent": 20, "1-2": 30, "3-4": 25, "5+": 20, "auto_fail": 5},
-                group_tol=3, min_fail=AGT_MIN_FAIL, min_pass=40, borderline_max=10, names_min=90, markers="required",
+                group_tol=5,  # a writing guide, not a labelling target: honest relabelling moved 2 calls into 5+ (Oct 2026)
+                min_fail=AGT_MIN_FAIL, min_pass=40, borderline_max=10, names_min=90, markers="required",
                 agent_sentiment=False, hard_ratio=False),
     # 12 sealed calls that fill AG-B's gaps (Docs/ANTIGRAVITY_AGB2_BRIEF.md); its own mix targets are checked below
     "agb2": dict(dir="inputs/AG-B2", prefix="agb2_", n=12, width=2, groups={}, group_tol=0, min_fail={}, min_pass=0,

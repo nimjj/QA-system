@@ -179,6 +179,10 @@
           "customer_turn": 1,
           "agent_turn": 4,
           "with_refusal": false
+        },
+        {
+          "kind": "no_outburst",
+          "customer_turn": 50
         }
       ]
     }

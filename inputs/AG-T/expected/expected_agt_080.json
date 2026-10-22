@@ -3,7 +3,7 @@
   "tenant_id": "tenant-abc",
   "status": "completed",
   "result": {
-    "final_score": 73.3,
+    "final_score": 61.7,
     "is_auto_fail": false,
     "auto_fail_reason": null,
     "scorecard": [
@@ -34,8 +34,8 @@
       {
         "category": "Soft Skills",
         "name": "Empathy & Acknowledgment Statement",
-        "rating": "PASS",
-        "coaching": ""
+        "rating": "FAIL",
+        "coaching": "Acknowledge the customer's frustration before carrying on with the explanation, especially after they object to how they were spoken to."
       },
       {
         "category": "Technical Knowledge",
@@ -114,9 +114,9 @@
       },
       {
         "name": "Empathy & Acknowledgment Statement",
-        "rating": "PASS",
+        "rating": "FAIL",
         "confidence": "clear",
-        "evidence": "Agent demonstrated empathy at turn 22 ('I completely understand how devastating and stressful that was for your daughter and your entire family, Rory...') and customer had no unhandled outbursts."
+        "evidence": "At [05:31] the customer angrily rejected the claim that her new microwave was a hazard; the agent kept lecturing about magnetrons and never acknowledged her frustration."
       },
       {
         "name": "Paraphrasing",
@@ -189,6 +189,18 @@
           "customer_turn": 21,
           "agent_turn": 22,
           "with_refusal": true
+        },
+        {
+          "kind": "no_outburst",
+          "customer_turn": 1
+        },
+        {
+          "kind": "no_outburst",
+          "customer_turn": 33
+        },
+        {
+          "kind": "unhandled",
+          "customer_turn": 12
         }
       ]
     }

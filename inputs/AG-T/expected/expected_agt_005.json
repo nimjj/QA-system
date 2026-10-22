@@ -187,6 +187,10 @@
         {
           "kind": "unhandled",
           "customer_turn": 9
+        },
+        {
+          "kind": "unhandled",
+          "customer_turn": 1
         }
       ]
     }

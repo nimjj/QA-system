@@ -204,6 +204,10 @@
         {
           "kind": "unhandled",
           "customer_turn": 21
+        },
+        {
+          "kind": "no_outburst",
+          "customer_turn": 1
         }
       ]
     }

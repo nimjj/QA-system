@@ -3,7 +3,7 @@
   "tenant_id": "tenant-abc",
   "status": "completed",
   "result": {
-    "final_score": 66.7,
+    "final_score": 55.0,
     "is_auto_fail": false,
     "auto_fail_reason": null,
     "scorecard": [
@@ -34,8 +34,8 @@
       {
         "category": "Soft Skills",
         "name": "Empathy & Acknowledgment Statement",
-        "rating": "PASS",
-        "coaching": ""
+        "rating": "FAIL",
+        "coaching": "When the customer expressed sharp frustration at [09:24] after being spoken to dismissively, you moved straight to quoting RMA courier details without acknowledging her feelings or apologising."
       },
       {
         "category": "Technical Knowledge",
@@ -116,9 +116,9 @@
       },
       {
         "name": "Empathy & Acknowledgment Statement",
-        "rating": "PASS",
+        "rating": "FAIL",
         "confidence": "clear",
-        "evidence": "Handled customer's opening frustration with TV being unwatchable at [00:22] ('I understand how frustrating it is when the TV box won't boot up and the family can't watch their shows')."
+        "evidence": "Customer experienced an outburst of frustration at turn 60 ([09:24]) ('Excuse me? I had no idea what error CS-104 meant until I rang you! That's what technical support is for!'), but Agent never acknowledged it, moving directly to booking a courier at turn 61 ([09:34])."
       },
       {
         "name": "Paraphrasing",
@@ -188,6 +188,14 @@
           "customer_turn": 1,
           "agent_turn": 2,
           "with_refusal": false
+        },
+        {
+          "kind": "no_outburst",
+          "customer_turn": 31
+        },
+        {
+          "kind": "unhandled",
+          "customer_turn": 60
         }
       ]
     }

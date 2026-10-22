@@ -3,7 +3,7 @@
   "tenant_id": "tenant-abc",
   "status": "completed",
   "result": {
-    "final_score": 86.7,
+    "final_score": 75.0,
     "is_auto_fail": false,
     "auto_fail_reason": null,
     "scorecard": [
@@ -34,8 +34,8 @@
       {
         "category": "Soft Skills",
         "name": "Empathy & Acknowledgment Statement",
-        "rating": "PASS",
-        "coaching": ""
+        "rating": "FAIL",
+        "coaching": "When the customer reacted with frustration at [04:56] after being spoken to condescendingly, you responded with a lecture on physics rather than acknowledging her feelings or apologising."
       },
       {
         "category": "Technical Knowledge",
@@ -112,9 +112,9 @@
       },
       {
         "name": "Empathy & Acknowledgment Statement",
-        "rating": "PASS",
+        "rating": "FAIL",
         "confidence": "clear",
-        "evidence": "Agent demonstrated empathy at turn 22 ('I completely understand the intense pressure and high stakes of your product launch presentation today, Olivia...') and customer had no unhandled outbursts."
+        "evidence": "Customer experienced an outburst of frustration at turn 12 ([04:56]) ('I am a marketing coordinator, not a wireless radio engineer! How am I supposed to know about radio frequency interference?!'), but Agent offered no empathy or acknowledgment, lecturing her on physics at turn 13 ([05:16])."
       },
       {
         "name": "Paraphrasing",
@@ -165,6 +165,11 @@
           "kind": "harmless_recheck",
           "premise_turn": 3,
           "agent_turn": 24
+        },
+        {
+          "kind": "harmless_recheck",
+          "premise_turn": 1,
+          "agent_turn": 4
         }
       ],
       "paraphrasing": [
@@ -193,6 +198,14 @@
           "customer_turn": 21,
           "agent_turn": 22,
           "with_refusal": false
+        },
+        {
+          "kind": "no_outburst",
+          "customer_turn": 1
+        },
+        {
+          "kind": "unhandled",
+          "customer_turn": 12
         }
       ]
     }

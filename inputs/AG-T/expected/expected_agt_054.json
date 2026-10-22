@@ -3,7 +3,7 @@
   "tenant_id": "tenant-abc",
   "status": "completed",
   "result": {
-    "final_score": 60.0,
+    "final_score": 48.3,
     "is_auto_fail": false,
     "auto_fail_reason": null,
     "scorecard": [
@@ -34,8 +34,8 @@
       {
         "category": "Soft Skills",
         "name": "Empathy & Acknowledgment Statement",
-        "rating": "PASS",
-        "coaching": ""
+        "rating": "FAIL",
+        "coaching": "Acknowledge the customer's frustration before carrying on with the explanation, especially after they object to how they were spoken to."
       },
       {
         "category": "Technical Knowledge",
@@ -114,9 +114,9 @@
       },
       {
         "name": "Empathy & Acknowledgment Statement",
-        "rating": "PASS",
+        "rating": "FAIL",
         "confidence": "clear",
-        "evidence": ""
+        "evidence": "At [08:01] the customer called the agent's remark rude and said full fibre is not available on her street; the agent replied 'As I said, copper lines pick up...' with no acknowledgement of her frustration."
       },
       {
         "name": "Paraphrasing",
@@ -197,6 +197,10 @@
           "customer_turn": 11,
           "agent_turn": 14,
           "with_refusal": false
+        },
+        {
+          "kind": "unhandled",
+          "customer_turn": 33
         }
       ]
     }

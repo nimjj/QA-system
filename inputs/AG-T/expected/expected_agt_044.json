@@ -81,7 +81,7 @@
     "scenario": "Overseas roaming spend cap blocking bank SMS 2FA codes while travelling in Dubai",
     "tier": "poor",
     "duration_sec": 816,
-    "notes": "Glen diagnoses the zero-pound roaming spend cap blocking international network registration and successfully adjusts the cap to \u00a325, allowing Imogen to receive her urgent bank 2FA code and authorize her hotel booking. However, his customer service displays multiple severe faults: he ignores Imogen's panic at being stranded abroad, blames the local carrier, blames the customer condescendingly for her cap settings, fails to paraphrase, and repeats an irrelevant reservation question.",
+    "notes": "Glen diagnoses the zero-pound roaming spend cap blocking international network registration and successfully adjusts the cap to £25, allowing Imogen to receive her urgent bank 2FA code and authorize her hotel booking. However, his customer service displays multiple severe faults: he ignores Imogen's panic at being stranded abroad, blames the local carrier, blames the customer condescendingly for her cap settings, fails to paraphrase, and repeats an irrelevant reservation question.",
     "hard_cases": [
       "Active listening",
       "Empathy & Acknowledgment Statement",
@@ -168,6 +168,11 @@
           "kind": "harmless_recheck",
           "premise_turn": 3,
           "agent_turn": 50
+        },
+        {
+          "kind": "harmless_recheck",
+          "premise_turn": 1,
+          "agent_turn": 6
         }
       ],
       "paraphrasing": [

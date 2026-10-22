@@ -187,6 +187,18 @@
           "customer_turn": 20,
           "agent_turn": 23,
           "with_refusal": true
+        },
+        {
+          "kind": "no_outburst",
+          "customer_turn": 1
+        },
+        {
+          "kind": "no_outburst",
+          "customer_turn": 13
+        },
+        {
+          "kind": "no_outburst",
+          "customer_turn": 37
         }
       ]
     }

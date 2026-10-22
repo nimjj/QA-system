@@ -3,7 +3,7 @@
   "tenant_id": "tenant-abc",
   "status": "completed",
   "result": {
-    "final_score": 50.0,
+    "final_score": 38.3,
     "is_auto_fail": false,
     "auto_fail_reason": null,
     "scorecard": [
@@ -34,8 +34,8 @@
       {
         "category": "Soft Skills",
         "name": "Empathy & Acknowledgment Statement",
-        "rating": "PASS",
-        "coaching": ""
+        "rating": "FAIL",
+        "coaching": "When the customer expressed outrage at [07:17] over duplicate billing and being told S-Net would not handle it, you made an accusatory remark about mashing buttons without acknowledging his frustration or validating the financial discrepancy."
       },
       {
         "category": "Technical Knowledge",
@@ -71,7 +71,7 @@
         "category": "Technical Knowledge",
         "name": "Confirmed the issue is resolved",
         "rating": "FAIL",
-        "coaching": "The duplicate \u00a324.95 charge was not refunded or credited on the call, the customer was directed to wait 5-7 days for an email determination, and the issue was left unresolved."
+        "coaching": "The duplicate £24.95 charge was not refunded or credited on the call, the customer was directed to wait 5-7 days for an email determination, and the issue was left unresolved."
       }
     ]
   },
@@ -81,7 +81,7 @@
     "scenario": "Double charge for pay-per-view boxing match on TV set-top box bill",
     "tier": "poor",
     "duration_sec": 696,
-    "notes": "Neil handles security verification and acknowledges Kasim's frustration over a duplicate \u00a324.95 pay-per-view charge. However, he exhibits multiple severe technical and soft skill faults: he fails to paraphrase, abdicates ownership to third-party clearinghouses, accuses the customer of 'mashing the red button', repeats an order question already answered, and leaves the financial dispute unresolved with a 5-7 day waiting period.",
+    "notes": "Neil handles security verification and acknowledges Kasim's frustration over a duplicate £24.95 pay-per-view charge. However, he exhibits multiple severe technical and soft skill faults: he fails to paraphrase, abdicates ownership to third-party clearinghouses, accuses the customer of 'mashing the red button', repeats an order question already answered, and leaves the financial dispute unresolved with a 5-7 day waiting period.",
     "hard_cases": [
       "Active listening",
       "Build rapport and observed professionalism",
@@ -115,9 +115,9 @@
       },
       {
         "name": "Empathy & Acknowledgment Statement",
-        "rating": "PASS",
+        "rating": "FAIL",
         "confidence": "clear",
-        "evidence": ""
+        "evidence": "Customer experienced an outburst of frustration at turn 34 ([07:17]) ('What do you mean it's not handled by your team? You are S-Net, you send me the bill, and you took fifty pounds instead of twenty-five!'), but Agent never acknowledged it, responding defensively at turn 35 ([07:33]) with an accusatory remark."
       },
       {
         "name": "Paraphrasing",
@@ -153,7 +153,7 @@
         "name": "Confirmed the issue is resolved",
         "rating": "FAIL",
         "confidence": "clear",
-        "evidence": "[09:15] The \u00a324.95 duplicate charge remained on the account; customer was told to wait 5-7 business days for an email review and ended the call dissatisfied."
+        "evidence": "[09:15] The £24.95 duplicate charge remained on the account; customer was told to wait 5-7 business days for an email review and ended the call dissatisfied."
       }
     ],
     "markers": {
@@ -168,6 +168,11 @@
           "kind": "harmless_recheck",
           "premise_turn": 3,
           "agent_turn": 51
+        },
+        {
+          "kind": "harmless_recheck",
+          "premise_turn": 1,
+          "agent_turn": 6
         }
       ],
       "paraphrasing": [
@@ -198,6 +203,10 @@
           "customer_turn": 12,
           "agent_turn": 13,
           "with_refusal": true
+        },
+        {
+          "kind": "unhandled",
+          "customer_turn": 34
         }
       ]
     }

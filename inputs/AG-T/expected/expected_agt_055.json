@@ -78,10 +78,10 @@
   "grader": {
     "graded_by": "Antigravity (Gemini 3.8 Flash)",
     "graded_on": "2026-10-21",
-    "scenario": "Billing dispute regarding \u00a365 non-return equipment charge for returned router",
+    "scenario": "Billing dispute regarding £65 non-return equipment charge for returned router",
     "tier": "good",
     "duration_sec": 1138,
-    "notes": "Nathan provides exemplary empathetic customer service and complete ownership. He validates Leila's anger warmly across multiple outbursts, tracks down the un-scanned equipment barcode in the Rugby warehouse records, reverses the \u00a365 fee, triggers an automated BACS refund, and confirms the amended statement showing zero balance and pending refund. However, he misses Paraphrasing by never restating the issue in his own words.",
+    "notes": "Nathan provides exemplary empathetic customer service and complete ownership. He validates Leila's anger warmly across multiple outbursts, tracks down the un-scanned equipment barcode in the Rugby warehouse records, reverses the £65 fee, triggers an automated BACS refund, and confirms the amended statement showing zero balance and pending refund. However, he misses Paraphrasing by never restating the issue in his own words.",
     "hard_cases": [
       "Build rapport and observed professionalism"
     ],
@@ -150,7 +150,7 @@
         "name": "Confirmed the issue is resolved",
         "rating": "PASS",
         "confidence": "clear",
-        "evidence": "[08:15] Customer confirmed: ''Amended Final Statement - Account Balance: \u00a30.00. Refund Dispatched: \u00a365.00'.' with equipment return status marked as Verified Delivered."
+        "evidence": "[08:15] Customer confirmed: ''Amended Final Statement - Account Balance: £0.00. Refund Dispatched: £65.00'.' with equipment return status marked as Verified Delivered."
       }
     ],
     "markers": {
@@ -190,6 +190,10 @@
           "customer_turn": 16,
           "agent_turn": 17,
           "with_refusal": false
+        },
+        {
+          "kind": "no_outburst",
+          "customer_turn": 49
         }
       ]
     }

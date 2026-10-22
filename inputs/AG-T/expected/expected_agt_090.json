@@ -160,6 +160,11 @@
           "premise_turn": 3,
           "agent_turn": 44,
           "reworded": true
+        },
+        {
+          "kind": "harmless_recheck",
+          "premise_turn": 49,
+          "agent_turn": 50
         }
       ],
       "paraphrasing": [
@@ -184,6 +189,10 @@
           "customer_turn": 21,
           "agent_turn": 24,
           "with_refusal": true
+        },
+        {
+          "kind": "no_outburst",
+          "customer_turn": 1
         }
       ]
     }
