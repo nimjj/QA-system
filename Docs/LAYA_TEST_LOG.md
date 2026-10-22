@@ -285,3 +285,19 @@ New model `ft5 softce` vs the old `final-softce-3`, each at cutoffs committed be
 - Both models score about 70% on AG-B against about 81% on AG50: the AG50 numbers were optimistic.
 - Resolved (about 50% for both) and Ownership (48/62 for both) are limited by the app's windows and phrase lists, not the model.
 - Ollama was not run on AG-B.
+
+# Round 8: ft6 (targeted retrain) on a fresh sealed exam, AG-C (2026-10-22)
+
+Full write-up: `laya-finetuning/runs/ft6/RESULT.md`. ft6 added 141 labelled moments to AG-T (85 "upset-looking but fine"),
+Probing rows, and an Empathy length balance. Old, ft5 and ft6 were each scored once on AG-C (50 sealed calls, AI-written keys) at
+cutoffs committed beforehand.
+
+| | old | ft5 | ft6 |
+|---|---|---|---|
+| Judged items right (of 350) | 273 (78.0%) | 276 (78.9%) | 272 (77.7%) |
+| Final-score mean absolute error | 11.5 | 10.9 | 10.8 |
+| Empathy good calls wrongly failed | 12 | 12 | 9 |
+
+- No difference is statistically significant (McNemar p 0.60 to 1.00). ft6 does not meet its pre-declared "better" criteria.
+- Further training on AI-written data has plateaued; the remaining errors are mainly in the app's windows and phrase lists
+  (Resolved, Ownership, Empathy triggers), which affect every model equally.

@@ -36,7 +36,7 @@ RULE_DED = {"Branding and Survey Check": (15, "Soft"), "Hold time and Dead Air":
 
 def key_for(stem):
     """(item -> rating, final_score or None) for a call, or (None, None)."""
-    for prefix, folder in (("agb2_", "AG-B2"), ("agb_", "AG-B"), ("agt_", "AG-T"), ("ag_", "AG50"), ("gold_", "Main tests")):
+    for prefix, folder in (("agc_", "AG-C"), ("agb2_", "AG-B2"), ("agb_", "AG-B"), ("agt_", "AG-T"), ("ag_", "AG50"), ("gold_", "Main tests")):
         if stem.startswith(prefix):
             p = os.path.join(ROOT, "inputs", folder, "expected", f"expected_{stem}.json")
             if os.path.exists(p):
