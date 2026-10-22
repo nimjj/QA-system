@@ -1,3 +1,5 @@
+> **Historical document (version 10).** This is the original specification. It describes pipeline v2 as it was before flow v2 and before pipeline v3, and still mentions `../laya-test/laya`, which is now installed from GitHub. For the system as it is today read [`CODEBASE_GUIDE.md`](CODEBASE_GUIDE.md) and [`FLOW_DIAGRAMS.md`](FLOW_DIAGRAMS.md); for pipeline v3 read [`V3.md`](V3.md).
+
 # System Architecture & Technical Specifications
 
 This document specifies the **Automated QA Analysis System**: the evaluation lifecycle, dynamic multi-tenant criteria selection, the deterministic rules, the Laya decision engine, and score normalization.

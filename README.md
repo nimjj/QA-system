@@ -6,7 +6,7 @@ Built with **FastAPI**, a deterministic **Python rule engine** and **Laya**, a l
 
 > **Version 10 (branches `version-10-laya`, and `version-10.1-laya` with the test round fixes):** Ollama / Llama 3.1 and the `nomic-embed-text` embeddings have been **removed** and replaced by Laya. See [Status & known limitations](#status--known-limitations) before relying on the scores.
 
-> **App v3 (branch `app-v3`, opt-in with `LAYA_FLOW=v3`):** a new pipeline in `src/v3/` with fixed rule checks, input validation, one built-in criteria set (no database), a single-worker job queue (`/api/evaluate` waits, `/api/jobs` submit and poll), a readiness endpoint and unit tests. The v2 flow is untouched and stays the default. See [`Docs/V3.md`](Docs/V3.md). Run the tests with `python -m unittest discover -s tests/unit -t .`.
+> **App v3 (branch `app-v3`, opt-in with `LAYA_FLOW=v3`):** a new pipeline in `src/v3/` with fixed rule checks, input validation, one built-in criteria set (no database), a single-worker job queue (`/api/evaluate` waits, `/api/jobs` submit and poll), a readiness endpoint and unit tests. The v2 flow is untouched and stays the default. See [`Docs/V3.md`](Docs/V3.md). **New to the codebase? Start with [`Docs/CODEBASE_GUIDE.md`](Docs/CODEBASE_GUIDE.md) and [`Docs/FLOW_DIAGRAMS.md`](Docs/FLOW_DIAGRAMS.md).** Run the tests with `python -m unittest discover -s tests/unit -t .`.
 
 ---
 
@@ -204,42 +204,49 @@ python Scripts/laya_cutoffs.py out.json         # best cutoff per check from the
 
 ## Codebase Map
 
+New to the codebase? Read [`Docs/CODEBASE_GUIDE.md`](Docs/CODEBASE_GUIDE.md) (what everything is) and [`Docs/FLOW_DIAGRAMS.md`](Docs/FLOW_DIAGRAMS.md) (the flow as diagrams) first.
+
 ```
-qa-analysis/
+QA-system/
 ├── main.py                      # QA service launcher (:8006)
 ├── run_gateway.py               # API gateway launcher (:8005)
 ├── requirements.txt             # FastAPI stack + psycopg2-binary + Laya (pinned GitHub commit)
-├── .env.example                 # Laya, server, Postgres and gateway settings
+├── .env.example                 # every setting, documented (copy to .env, which is git-ignored)
 ├── setup.bat / setup.sh         # venv + install + .env
-├── docker-compose.yml           # Postgres, QA service, gateway, frontend (no Ollama; QA image lacks Laya)
+├── docker-compose.yml           # Postgres, QA service, gateway, frontend (v2 stack; no v3 image yet)
 ├── Dockerfile / Dockerfile.base / Dockerfile.gateway
 ├── requests.http                # REST-client requests
+├── CLAUDE.md                    # rules for AI assistants working in the repo
 ├── resources/
 │   └── criteria_config.json     # reference criteria for tenant-abc
 ├── src/
-│   ├── api/web_app.py           # FastAPI endpoints
-│   ├── api/logger.py            # structured JSON logger
+│   ├── api/                     # web_app.py (endpoints, middleware, v3 queue wiring), logger.py (structured JSON logs)
 │   ├── gateway/gateway_app.py   # gateway proxy + direct DB criteria routes
-│   ├── db/database.py           # PostgreSQL access
-│   └── services/
-│       ├── dynamic_evaluator.py # orchestration, Laya questions and cutoffs, scoring, static coaching
-│       ├── rule_engine.py       # rules and snippet pre-filters
-│       └── laya_adapter.py      # Laya Router singleton: predict_yes()
-├── Scripts/
-│   ├── check_prompt_sizes.py    # verification (stub or --live)
-│   ├── batch_test.py            # batch runner against the API
-│   ├── compare_results.py       # result folders vs expected grades and b_* defects
-│   ├── probe_laya.py            # records every Laya probability per call
-│   └── laya_cutoffs.py          # cutoff per check from a probe file
+│   ├── db/database.py           # PostgreSQL access (pipeline v2 and the dashboard)
+│   ├── services/                # PIPELINE V2 and model access
+│   │   ├── dynamic_evaluator.py # orchestration, Laya questions and cutoffs, scoring, static coaching
+│   │   ├── laya_inputs.py       # transcript parsing and the window for every check (frozen)
+│   │   ├── laya_windows.py      # flow v2 window builders (frozen)
+│   │   ├── rule_engine.py       # the 4 rules and snippet extractors (frozen)
+│   │   └── laya_adapter.py      # Laya Router singleton: predict_yes()
+│   └── v3/                      # PIPELINE V3 (LAYA_FLOW=v3): pipeline, normaliser, rules, scoring, job queue
+│       ├── candidates/          # alternative windows per check (Resolved, Ownership on; Paraphrasing, Empathy tried, off)
+│       └── config/              # v3.json (limits, rule settings, gate switches), criteria.json (built-in criteria)
+├── tests/
+│   ├── unit/                    # 106 automated tests, no model needed
+│   └── scoring_test/            # small raw-string test calls
+├── Scripts/                     # command-line tools; the table is in Docs/CODEBASE_GUIDE.md
+├── inputs/                      # all test calls: Main, Bulk, Eval50, AG50, AG-T/B/B2/C, and Test (results)
 ├── laya_eval/                   # synthetic gold set + Laya-vs-Ollama benchmark (RESULTS.md)
-├── tests/scoring_test/          # small raw-string test calls
-├── inputs/                      # Main tests, Bulk tests, Tough checks, Test (results)
+├── laya-finetuning/             # training data, tools, Colab notebooks, runs, checkpoints/ (git-ignored weights)
 ├── frontend/                    # Vite + React dashboard
-└── Docs/
-    ├── ARCHITECTURE.md          # pipeline and criteria in detail
+└── Docs/                        # index in Docs/README.md
+    ├── CODEBASE_GUIDE.md        # architecture and codebase, in plain language
+    ├── FLOW_DIAGRAMS.md         # Mermaid diagrams of the flow
+    ├── V3.md                    # pipeline v3: status, gates, results
+    ├── ARCHITECTURE.md          # the original version-10 specification (historical)
     ├── AI_HANDOVER.md           # context and constraints for the next maintainer
-    ├── LAYA_TEST_LOG.md         # Ollama vs Laya test rounds and the Laya training focus
-    ├── PIPELINE_FLOWCHART_LAYA.md   # pre-migration analysis (historical)
+    ├── LAYA_TEST_LOG.md         # every test round
     └── postman_collection.json
 ```
 
