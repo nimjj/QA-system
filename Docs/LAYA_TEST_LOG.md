@@ -301,3 +301,8 @@ cutoffs committed beforehand.
 - No difference is statistically significant (McNemar p 0.60 to 1.00). ft6 does not meet its pre-declared "better" criteria.
 - Further training on AI-written data has plateaued; the remaining errors are mainly in the app's windows and phrase lists
   (Resolved, Ownership, Empathy triggers), which affect every model equally.
+
+## Decision (2026-10-22)
+Production model stays `final-softce-3` (stage 3, flow v2, no Active-listening second source). Over the two sealed exams (AG-B+AG-B2
+and AG-C, 112 calls) it is statistically tied with ft5 (590 vs 599 of 784 judged items) and its final scores are closest to the keys
+(mean error 10.6 vs 11.5). ft5/ft6 remain available (see `laya-finetuning/runs/CHECKPOINTS.md`). Nothing in `.env` or the cutoffs changed.

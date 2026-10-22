@@ -19,6 +19,7 @@ All numbers are measured against **AI-written answer keys, not human-labelled on
 - Flow v2 versus Ollama on AG50: +1.7 points, 95% interval -3.7 to +7.1, McNemar p = 0.58: **not distinguishable**.
 - **AG50 is now a development set** (flow v2 was designed after studying its 50 calls), so its 80.3% is optimistic. Main and bulk were not used to design flow v2 and did not regress.
 - Verdict: **not ready to replace Ollama**; suitable for a shadow-mode trial beside it. No number here has been checked by a human.
+- **Update 2026-10-22 (rounds 4-8, details in `Docs/LAYA_TEST_LOG.md` and `laya-finetuning/runs/CHECKPOINTS.md`):** two retrains on Antigravity-written data (ft5, ft6) were tested on sealed exams (AG-B + AG-B2, then AG-C) and are statistically tied with the current model (77.7% to 78.9% of judged items on AG-C; the only significant gain was Rapport for ft5, 56 vs 45 of 62). **Production choice: keep `final-softce-3`.** The biggest remaining errors are in the app (Resolved reads only the last 10 lines, the Ownership phrase gate, Empathy windows opening on any upset-looking line), not the model. Ollama was never run on the sealed sets. AG-B, AG-B2 and AG-C are spent as tests. Next step: shadow mode, then app fixes.
 - Still weak (need training data, not tuning): **Active listening** (0 of 15 faults caught; the fine-tuned model scores true repeats at only 5-12% likelihood), **Rapport** (31% of good AG50 calls fail), **Probing**, **Resolved**.
 
 ## 3. What the owner wants now
