@@ -1,9 +1,9 @@
 # AG50 report: three grading engines on 50 independent long calls
 
-Interactive version with charts: open `Docs/AG50_DASHBOARD.html` in a browser (one file, works offline).
+Interactive version with charts: generate `Docs/AG50_DASHBOARD.html` with `python Scripts/ag50_analysis.py && python Scripts/build_ag50_dashboard.py` and open it in a browser (one file, works offline). It needs `pip install scipy scikit-learn`. The generated files were removed from the repo on 2026-10-22; the last copies are in commit `8a6842b`. The script rebuilds an earlier three-engine layout; the final page, edited by hand to add the flow-v2 engine, is only in that commit.
 > **Update 2026-10-19:** after this report I changed what the model is shown for Empathy, Paraphrasing and Ownership ("flow v2", `Docs/FLOW_V2.md`) and re-ran. With no retraining, fine-tuned Laya reaches 80.3% of the judged items on AG50 (a development set, so optimistic), against Ollama's 78.6% (not distinguishable, p = 0.58), and Main and bulk did not regress (42/44, 359/372). The tables below describe the flow *before* that change.
 
-Raw numbers: `Docs/ag50_stats.json`, `Docs/AG50_RESULTS.md` (every call and every disagreement). Reproduce with `python Scripts/ag50_analysis.py && python Scripts/build_ag50_dashboard.py`.
+Raw numbers (generated, no longer kept in the repo): `Docs/ag50_stats.json` and `Docs/AG50_RESULTS.md` (every call and every disagreement). Reproduce with `python Scripts/ag50_analysis.py && python Scripts/build_ag50_dashboard.py` for the first, and `python Scripts/compare_eval.py AG50 laya-stock laya-ft ollama --out Docs/AG50_RESULTS.md` for the second.
 
 ## 1. In one minute
 
@@ -155,11 +155,11 @@ Yes. The calls went through `/api/evaluate`, the same route production uses. The
 
 ## 11. Recommended next steps
 
-1. Review the disagreement list (`Docs/AG50_RESULTS.md`, bottom table) with a person: about 30 items, one hour.
+1. Review the disagreement list (the bottom table of the generated `Docs/AG50_RESULTS.md`, see above) with a person: about 30 items, one hour.
 2. Adopt the flow-v2 windows that the lab supports (Empathy, Paraphrasing, Ownership) and test them end to end.
 3. Rebuild the Active-listening and Empathy snippets; regenerate their data; retrain; test on sealed AG50.
 4. Run the fine-tuned model in **shadow mode** beside Ollama on real calls, and compare against human QA scores.
 
 ## 12. Files
 
-`Docs/AG50_DASHBOARD.html` (charts), `Docs/ag50_stats.json` (all numbers), `Docs/AG50_RESULTS.md` (per-call tables), `inputs/AG50/` (calls and keys), `inputs/Test (results)/AG50 (laya-stock|laya-ft|ollama)/` (raw results), `inputs/Test (results)/Laya probes/probe_AG50_*.json` (every model probability), `Scripts/ag50_analysis.py`, `Scripts/build_ag50_dashboard.py`, `Scripts/probe_laya.py --suite`.
+`Docs/AG50_DASHBOARD.html` (charts), `Docs/ag50_stats.json` (all numbers) and `Docs/AG50_RESULTS.md` (per-call tables), all three generated on demand as described at the top, `inputs/AG50/` (calls and keys), `inputs/Test (results)/AG50 (laya-stock|laya-ft|ollama)/` (raw results), `inputs/Test (results)/Laya probes/probe_AG50_*.json` (every model probability), `Scripts/ag50_analysis.py`, `Scripts/build_ag50_dashboard.py`, `Scripts/probe_laya.py --suite`.

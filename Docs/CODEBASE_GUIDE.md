@@ -222,7 +222,7 @@ All are AI-written; none has been reviewed by a human.
 
 ### `Docs/`
 
-Start from [`Docs/README.md`](README.md) (the index). The ones to know: this guide and [`FLOW_DIAGRAMS.md`](FLOW_DIAGRAMS.md); [`V3.md`](V3.md) (pipeline v3 status and results); [`AI_HANDOVER.md`](AI_HANDOVER.md) (rules and context for whoever continues); [`LAYA_TEST_LOG.md`](LAYA_TEST_LOG.md) (every test round); [`FLOW_V2.md`](FLOW_V2.md) (what flow v2 changed). [`ARCHITECTURE.md`](ARCHITECTURE.md) is the original version-10 specification and does not describe flow v2 or v3.
+Start from [`Docs/README.md`](README.md) (the index). The ones to know: this guide and [`FLOW_DIAGRAMS.md`](FLOW_DIAGRAMS.md); [`V3.md`](V3.md) (pipeline v3 status and results); [`AI_HANDOVER.md`](AI_HANDOVER.md) (rules and context for whoever continues); [`LAYA_TEST_LOG.md`](LAYA_TEST_LOG.md) (every test round); [`FLOW_V2.md`](FLOW_V2.md) (what flow v2 changed). [`ARCHITECTURE.md`](ARCHITECTURE.md) is the original version-10 specification and does not describe flow v2 or v3; it is still the only place with the database schema. The author kit for commissioning a new AI-written test set is [`ANTIGRAVITY_TEST_BRIEF.md`](ANTIGRAVITY_TEST_BRIEF.md) (rulebook), [`ANTIGRAVITY_V2_COMMON.md`](ANTIGRAVITY_V2_COMMON.md) (key and marker format, read by `validate_calls.py` and `build_ag_rows.py`) and [`ANTIGRAVITY_V2_EXAMPLES.md`](ANTIGRAVITY_V2_EXAMPLES.md). The task briefs of the finished sets and the generated report files were removed on 2026-10-22; the index lists them and how to get each back.
 
 ---
 
@@ -248,7 +248,7 @@ Start from [`Docs/README.md`](README.md) (the index). The ones to know: this gui
 ## 7. How the model got here
 
 1. **Starting point.** Stock Laya was clearly worse than the old Ollama (Llama 3.1) setup (64.6% against 78.6% of judged items on AG50).
-2. **Training data.** An AI writes calls and answer keys (the briefs are `Docs/ANTIGRAVITY_*.md`); `validate_calls.py` checks them; the row builders cut them with the **same window code the app uses**, so the model trains on exactly what it will see. The hash in `data/frozen/` makes sure the app and the data stay in step.
+2. **Training data.** An AI writes calls and answer keys (the rulebook and format are the author kit, `Docs/ANTIGRAVITY_TEST_BRIEF.md` and `Docs/ANTIGRAVITY_V2_COMMON.md`; the task briefs of the finished sets are in git history); `validate_calls.py` checks them; the row builders cut them with the **same window code the app uses**, so the model trains on exactly what it will see. The hash in `data/frozen/` makes sure the app and the data stay in step.
 3. **Training.** A Colab notebook fine-tunes Laya on a GPU and saves the checkpoint to Google Drive; it is downloaded into `checkpoints/` and its hashes recorded.
 4. **Exams.** Cutoffs are chosen on development data and written down **before** a test set is opened; then one exam on calls the model never saw, scored with a paired test (McNemar).
 5. **Result.** Flow v2 plus fine-tuning brought the model level with Ollama on AG50 (80.3% against 78.6%, not statistically different). Two further retrains (ft5, ft6) did not beat `final-softce-3` (round 8 on AG-C: `final-softce-3` 78.0%, ft5 78.9%, ft6 77.7% of judged items, no significant differences); ft4 was rejected earlier because its training data was padded. **Decision 2026-10-22: production stays on `final-softce-3`.**
@@ -322,11 +322,12 @@ Audited and tidied on 2026-10-22.
 * Deleted generated or empty leftovers: the root `__pycache__/` and an empty `tests/golden/`.
 * Moved the side folders that sat next to the repo (`_incoming`, `_quarantine`, the earlier clean-up archive) under one `D:\CIAP\QA\_archive\`. The quarantined paste is untouched.
 * Refreshed the README folder map, `.env.example` (v3 settings), the stale paths in `laya-finetuning/README.md`, added a banner to `Docs/ARCHITECTURE.md`, and indexed the new documents.
+* Removed ten finished-task or regenerable documents from `Docs/` (the four AI-author task briefs for AG-T, AG-B, AG-B2 and AG-C; the AG50 dashboard, stats and results table; the Eval50 and Round 4 result tables; the Ollama-era flowchart). The index in `Docs/README.md` lists each one with the command that regenerates it and `git show 8a6842b:Docs/<name>` to read the original.
 * Earlier the same day: 56 loose helper scripts and 29 run logs were moved out of the repo root into the archive, and the repo was pushed to a new branch `app-v3`.
 
 **Left as they are on purpose:** `inputs/Test (results)/` (history; scripts and docs point into it), `laya_eval/` (evidence behind the starting cutoffs), the experiment labs in `Scripts/`, the v2 database code and tenant endpoints (v2 and the dashboard still use them), the Docker files (v3 image still to do), and ft5 / ft6 weights (the docs and probe commands use those paths).
 
-**Known loose ends:** some older documents (`Docs/PIPELINE_FLOWCHART_LAYA.md`, `laya-finetuning/docs/DATA_PLAN.md`) mention files that no longer exist; they are historical plans and were not rewritten. `Docs/ARCHITECTURE.md` predates flow v2 and v3.
+**Known loose ends:** `laya-finetuning/docs/DATA_PLAN.md` mentions files that no longer exist; it is a partly superseded plan and was not rewritten. `Docs/ARCHITECTURE.md` predates flow v2 and v3.
 
 ---
 

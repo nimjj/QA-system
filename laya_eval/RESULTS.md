@@ -38,7 +38,7 @@ Laya's AUROC (threshold-free) averages 0.86 for English. It is 0.93 to 1.00 for 
 |---|---|---|
 | Active listening, Rapport, Probing | Ownership, Empathy, Confirmed resolved, Hostility (Ollama is ahead by 0.11-0.17 with intervals that include zero; try wording and agent-only input) | Escalation (tie; also needs the long-transcript test) |
 
-Coaching tips and embeddings stay on Ollama regardless (see `Docs/PIPELINE_FLOWCHART_LAYA.md`).
+Coaching tips and embeddings stay on Ollama regardless (this was the plan before version 10 replaced Ollama; the analysis document `PIPELINE_FLOWCHART_LAYA.md` was removed on 2026-10-22 and is in git history at commit `8a6842b`).
 
 ## Known limits of this test
 - **Synthetic, unreviewed labels** (see top). A 10-15% human spot-check of the gold set is the cheapest next step.

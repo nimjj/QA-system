@@ -3,7 +3,7 @@
 Run from the repo root after the three engines have run and (optionally) after Scripts/probe_laya.py has been run
 on inputs/AG50 for the fine-tuned and stock checkpoints:
 
-    python Scripts/ag50_analysis.py
+    python Scripts/ag50_analysis.py        (needs scipy and scikit-learn, which are not in requirements.txt: pip install scipy scikit-learn)
 
 What it computes (all confidence intervals resample whole calls, 5000 times, seed 0):
   - items matching the key per engine, overall and for the 7 model-judged items

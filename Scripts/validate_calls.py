@@ -73,7 +73,7 @@ SUITES = {
                 group_tol=5,  # a writing guide, not a labelling target: honest relabelling moved 2 calls into 5+ (Oct 2026)
                 min_fail=AGT_MIN_FAIL, min_pass=40, borderline_max=10, names_min=90, markers="required",
                 agent_sentiment=False, hard_ratio=False),
-    # 12 sealed calls that fill AG-B's gaps (Docs/ANTIGRAVITY_AGB2_BRIEF.md); its own mix targets are checked below
+    # 12 sealed calls that fill AG-B's gaps (its task brief is in git history); its own mix targets are checked below
     "agb2": dict(dir="inputs/AG-B2", prefix="agb2_", n=12, width=2, groups={}, group_tol=0, min_fail={}, min_pass=0,
                  borderline_max=2, names_min=12, markers="required", agent_sentiment=False, hard_ratio=False),
 }

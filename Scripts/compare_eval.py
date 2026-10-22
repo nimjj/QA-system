@@ -70,8 +70,9 @@ def main():
            for f in sorted(glob.glob(os.path.join(INPUTS, args.suite, "expected", "expected_*.json")))}
     res = {lb: load_results(args.suite, lb) for lb in args.labels}
     L = []
-    L += [f"# {args.suite}: engines vs Claude's expected scorecards", "",
-          f"{len(exp)} calls. Expected scorecards were written by Claude before any engine ran (not human-reviewed).", ""]
+    author = "Antigravity" if args.suite.upper().startswith("AG") else "Claude"      # who wrote the keys of this suite
+    L += [f"# {args.suite}: engines vs {author}'s expected scorecards", "",
+          f"{len(exp)} calls. Expected scorecards were written by {author}" + (" before any engine ran" if author == "Claude" else "") + " (not human-reviewed).", ""]
     for lb in args.labels:
         missing = [c for c in exp if c not in res[lb]]
         if missing:
@@ -141,7 +142,7 @@ def main():
 
     # disagreements for review
     L += ["## Items where the engines and the expected key do not all agree", "",
-          "| Call | Item | expected | " + " | ".join(args.labels) + " | Claude's note |", "|---|---|---|" + "---|" * len(args.labels) + "---|"]
+          "| Call | Item | expected | " + " | ".join(args.labels) + f" | {author}'s note |", "|---|---|---|" + "---|" * len(args.labels) + "---|"]
     for c, e in exp.items():
         want = ratings(e)
         for it in ITEMS:

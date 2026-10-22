@@ -1,6 +1,6 @@
 # Antigravity V2: rules shared by the training set (AG-T) and the sealed test set (AG-B)
 
-You already wrote 50 calls for us (`inputs/AG50/`) from `Docs/ANTIGRAVITY_TEST_BRIEF.md`. We are now asking for two new sets. This file says **what is the same, what changes, and exactly how to label the calls**. Your task file (`ANTIGRAVITY_AGT_BRIEF.md` or `ANTIGRAVITY_AGB_BRIEF.md`) says how many calls and what mix. Read in this order:
+You already wrote 50 calls for us (`inputs/AG50/`) from `Docs/ANTIGRAVITY_TEST_BRIEF.md`. We are now asking for two new sets. This file says **what is the same, what changes, and exactly how to label the calls**. Your task file says how many calls and what mix. (This file was written for the sets AG-T and AG-B; the task files of every set delivered so far, AG-T, AG-B, AG-B2 and AG-C, were removed from the repo on 2026-10-22 once the sets were sealed. They are in git history at commit `8a6842b` and make good templates for a new one.) Read in this order:
 
 1. `Docs/ANTIGRAVITY_TEST_BRIEF.md`: the rulebook. Everything in it still applies **unless this file overrides it**.
 2. This file.

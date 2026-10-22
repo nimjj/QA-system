@@ -187,5 +187,4 @@ erDiagram
 | `Scripts/laya_cutoffs.py` | Best balanced-accuracy cutoff per Laya check from a probe file and the `b_*` filename defects. |
 | `laya_eval/` | Synthetic 320-item gold set and the Laya vs Ollama benchmark behind the starting cutoffs (`RESULTS.md`). |
 | `Docs/LAYA_TEST_LOG.md` | Ollama vs Laya test rounds on full-length calls, and the Laya training focus. |
-| `Docs/PIPELINE_FLOWCHART_LAYA.md` | Pre-migration analysis of what Laya could replace. |
 | `Docs/postman_collection.json` | Postman collection for the API. |
