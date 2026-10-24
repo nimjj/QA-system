@@ -25,38 +25,6 @@ Accept: application/json
 GET {{gatewayUrl}}/health
 Accept: application/json
 
-### --------------------------------------------------------------------
-### 2. PIPELINE V3 ASYNC JOB QUEUE (PORT 8006)
-### --------------------------------------------------------------------
-
-### Submit Evaluation Job Asynchronously (Returns 202 Accepted + job_id)
-# @name submitJob
-POST {{baseUrl}}/api/jobs
-Content-Type: application/json
-x-api-key: {{apiKey}}
-
-{
-  "call_id": "async_call_001",
-  "tenant_id": "S-NET",
-  "channel": "Call",
-  "customer_name": "Alex",
-  "transcript": [
-    {"speaker": "Agent", "text": "Thank you for calling S-Net, my name is Sam.", "start_time_sec": 0},
-    {"speaker": "Customer", "text": "My internet is down and I am very upset.", "start_time_sec": 5, "sentiment_score": -35},
-    {"speaker": "Agent", "text": "I am so sorry to hear your internet is down. Can you confirm your PIN?", "start_time_sec": 10},
-    {"speaker": "Customer", "text": "It is 1234.", "start_time_sec": 18, "sentiment_score": -10},
-    {"speaker": "Agent", "text": "Thanks Alex. What colour is the light on your router?", "start_time_sec": 24},
-    {"speaker": "Customer", "text": "It is flashing red.", "start_time_sec": 30, "sentiment_score": -5},
-    {"speaker": "Agent", "text": "I have reset the line profile from our end. Is it working now?", "start_time_sec": 45},
-    {"speaker": "Customer", "text": "Yes, it just turned green and works now! Thank you so much.", "start_time_sec": 55, "sentiment_score": 25},
-    {"speaker": "Agent", "text": "Glad to help! Thank you for choosing S-Net, have a great day.", "start_time_sec": 65}
-  ]
-}
-
-### Poll Job Status / Retrieve Completed Scorecard
-GET {{baseUrl}}/api/jobs/{{jobId}}
-Accept: application/json
-x-api-key: {{apiKey}}
 
 ### --------------------------------------------------------------------
 ### 3. SYNCHRONOUS TRANSCRIPT EVALUATION

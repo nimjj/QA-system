@@ -76,6 +76,10 @@ def health_check():
     }
 
 
+_model_ready = False
+_model_load_error: Optional[str] = None
+
+
 @app.get("/ready")
 def readiness_check():
     """Readiness. Flow v3: the model has loaded. Other flows: the criteria database answers."""
@@ -88,34 +92,36 @@ def readiness_check():
             return JSONResponse(status_code=503, content={"status": "not ready", "database": "unreachable"})
         out["database"] = "ok"
     else:
-        worker = _get_jobs().stats()
-        out["worker"] = worker
-        if not worker["ready"]:
-            out["status"] = "model failed to load" if worker["load_error"] else "model loading"
+        if not _model_ready:
+            out["status"] = "model failed to load" if _model_load_error else "model loading"
+            if _model_load_error:
+                out["load_error"] = _model_load_error
             return JSONResponse(status_code=503, content=out)
+        out["model_ready"] = True
     return out
 
 
 @app.on_event("startup")
 def on_startup():
+    global _model_ready, _model_load_error
     if _v3_enabled():
-        jobs = _get_jobs()
-        if not jobs.ready.is_set():
+        logger.info({
+            "log_type": "APP",
+            "message": "Initializing model weights and warming up..."
+        })
+        try:
+            _warm_model()
+            _model_ready = True
             logger.info({
                 "log_type": "APP",
-                "message": "Initializing model weights and warming up worker..."
+                "message": "Model loaded successfully. Service ready."
             })
-            jobs.wait_ready()
-            if jobs.load_error:
-                logger.error({
-                    "log_type": "APP",
-                    "message": f"Model failed to load during startup: {jobs.load_error}"
-                })
-            else:
-                logger.info({
-                    "log_type": "APP",
-                    "message": "Model loaded successfully. Worker ready."
-                })
+        except Exception as e:
+            _model_load_error = f"{type(e).__name__}: {e}"
+            logger.error({
+                "log_type": "APP",
+                "message": f"Model failed to load during startup: {_model_load_error}"
+            })
     else:
         try:
             init_db()
@@ -123,8 +129,10 @@ def on_startup():
             logger.error({"log_type": "APP", "message": f"Failed to initialize database: {e}"})
         try:
             _warm_model()
+            _model_ready = True
         except Exception as e:
             logger.warning({"log_type": "APP", "message": f"Model warmup skipped: {e}"})
+
     logger.info({
         "log_type": "APP",
         "message": "Stateless QA Service started. Logging live to logs/app.log."
@@ -427,10 +435,6 @@ def list_sample_inputs():
     return samples
 
 
-_jobs = None
-_jobs_lock = threading.Lock()
-
-
 def _v3_enabled() -> bool:
     return os.getenv("LAYA_FLOW", "").strip().lower() == "v3"
 
@@ -446,91 +450,48 @@ def _error_status(exc: BaseException) -> Optional[int]:
     return None
 
 
-def _run_job(p: Dict[str, Any]) -> Dict[str, Any]:
-    from src.v3.pipeline import evaluate_v3
-    return evaluate_v3(p["transcript"], p["criteria"], p["tenant_id"], p["channel"], p["caller"])
-
-
 def _warm_model() -> None:
-    """Load the weights and answer one real question, so a bad checkpoint path or a broken install fails at startup, not on the first call.
-    (Building the router alone does not load the weights.)"""
+    """Load the weights and answer one real question, so a bad checkpoint path or a broken install fails at startup, not on the first call."""
     from src.services import dynamic_evaluator as de
     de._laya_verdict("probing", "Agent: Can you tell me when the problem first started?\nCustomer: Yesterday evening.", "warmup")
 
 
-def _get_jobs():
-    """The one worker queue. Created on first use; the worker loads the model at once so a bad checkpoint path shows up at startup."""
-    global _jobs
-    with _jobs_lock:
-        if _jobs is None:
-            from src.v3.jobs import JobQueue
-            _jobs = JobQueue(_run_job, _error_status, max_queue=int(os.getenv("QUEUE_MAX", "50")), warm=_warm_model)
-            _jobs.start()
-    return _jobs
-
-
-def _submit_v3(req: "EvaluateRequest", tenant_id: str, call_id: str):
-    """Check the request is gradable (cheap, so junk never takes a place in line), then queue it. Raises HTTPException.
-    Grades against tenant active criteria from database if available, falling back safely to built-in criteria.json."""
-    from src.v3 import load_criteria
-    from src.v3.jobs import QueueFull
-    from src.v3.normalise import normalise
-
-    criteria_data = None
-    if tenant_id:
-        try:
-            criteria_data = get_active_criteria_for_evaluation(tenant_id)
-        except Exception:
-            criteria_data = None
-    if not criteria_data:
-        criteria_data = load_criteria()
-    payload = [t.model_dump() for t in req.transcript] if isinstance(req.transcript, list) else req.transcript
-    try:
-        normalise(payload, req.get_customer_name())
-    except Exception as e:
-        code = _error_status(e)
-        if code is None:
-            raise
-        raise HTTPException(status_code=code, detail=str(e))
-    try:
-        return _get_jobs().submit({"transcript": payload, "criteria": criteria_data, "tenant_id": tenant_id,
-                                   "channel": req.channel or "Call", "caller": req.get_customer_name()},
-                                  {"call_id": call_id, "tenant_id": tenant_id})
-    except QueueFull as e:
-        raise HTTPException(status_code=503, headers={"Retry-After": "30"}, detail=str(e))
-
-
-@app.post("/api/jobs", status_code=202)
-def submit_job(req: EvaluateRequest):
-    """Queue a call and return at once. Poll GET /api/jobs/{job_id} for the result (flow v3 only)."""
-    if not _v3_enabled():
-        raise HTTPException(status_code=404, detail="job queue is part of flow v3 (LAYA_FLOW=v3)")
-    job = _submit_v3(req, req.get_tenant_id(), req.get_call_id())
-    return job.view(_get_jobs().position(job))
-
-
-@app.get("/api/jobs/{job_id}")
-def get_job(job_id: str):
-    job = _jobs.get(job_id) if _jobs else None
-    if job is None:
-        raise HTTPException(status_code=404, detail="no such job (finished jobs are kept for an hour)")
-    return job.view(_jobs.position(job))
-
-
 @app.post("/api/evaluate")
 def evaluate_tenant_transcript(req: EvaluateRequest):
-    """Synchronous evaluation endpoint. Flow v3 grades against the built-in criteria; v2 uses PostgreSQL tenant criteria."""
+    """Synchronous evaluation endpoint for call interactions."""
     tenant_id = req.get_tenant_id()
     call_id = req.get_call_id()
 
     if _v3_enabled():
-        job = _submit_v3(req, tenant_id, call_id)
-        if not job.done.wait(float(os.getenv("EVALUATE_TIMEOUT_SEC", "120"))):
-            raise HTTPException(status_code=503, headers={"Retry-After": "30"}, detail={
-                "message": "grading is taking longer than the wait limit; the call is still being graded", "job_id": job.id})
-        if job.status == "failed":
-            raise HTTPException(status_code=job.error["status"], detail=job.error["detail"])
-        return {"call_id": call_id, "tenant_id": tenant_id, "status": "completed", "result": job.result}
+        from src.v3.pipeline import evaluate_v3
+        from src.v3.normalise import normalise
+        from src.v3 import load_criteria
+
+        criteria_data = None
+        if tenant_id:
+            try:
+                criteria_data = get_active_criteria_for_evaluation(tenant_id)
+            except Exception:
+                criteria_data = None
+        if not criteria_data:
+            criteria_data = load_criteria()
+
+        payload = [t.model_dump() for t in req.transcript] if isinstance(req.transcript, list) else req.transcript
+        try:
+            normalise(payload, req.get_customer_name())
+        except Exception as e:
+            code = _error_status(e)
+            if code is None:
+                raise
+            raise HTTPException(status_code=code, detail=str(e))
+
+        result = evaluate_v3(payload, criteria_data, tenant_id, req.channel or "Call", req.get_customer_name())
+        return {
+            "call_id": call_id,
+            "tenant_id": tenant_id,
+            "status": "completed",
+            "result": result
+        }
 
     criteria_data = req.criteria_data or get_active_criteria_for_evaluation(tenant_id)
     transcript_payload = [_v2_turn(t) for t in req.transcript] if isinstance(req.transcript, list) else req.transcript
