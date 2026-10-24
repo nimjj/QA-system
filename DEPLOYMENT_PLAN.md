@@ -17,7 +17,7 @@ model cache:
 
 ```bash
 mkdir -p logs models
-docker network create ciap-network
+docker network create ciap-qa-network
 ```
 
 > `models` persists the Laya weights and Hugging Face cache on the host (`./models`). The
@@ -31,12 +31,19 @@ docker network create ciap-network
 cp .env.example .env
 ```
 
-Review the key settings in `.env`:
+Review the settings in `.env` (all variables are documented in `.env.example`):
 - `LAYA_FLOW=v3` — Enables the optimized Pipeline v3 evaluation engine.
-- `LAYA_CHECKPOINT=""` — Leave empty to load the stock Laya model, or specify a custom checkpoint path under `models/`.
-- `SERVER_PORT=8006` — Service port.
-- `SERVER_HOST=0.0.0.0` — Bind host.
+- `LAYA_CHECKPOINT=""` — Leave empty to load the stock Laya decision model, or specify a custom checkpoint path under `models/`.
+- `LAYA_MODEL=english` — Decision engine language model.
+- `LAYA_DEVICE=cpu` — PyTorch device (`cpu` for production container, or `cuda`).
+- `HF_HOME=./models` — Mount path for persistent Hugging Face weights cache.
+- `SERVER_PORT=8006` — Service HTTP port.
+- `SERVER_HOST=0.0.0.0` — Bind host inside container.
 - `DB_HOST`, `DB_PORT`, `DB_NAME`, `DB_USER`, `DB_PASSWORD` — Optional PostgreSQL connection for dynamic tenant criteria toggles (defaults gracefully to built-in `criteria.json` if database is unavailable).
+- `QA_API_KEY=""` — Optional API key enforcement (leave empty to keep endpoints open).
+- `CORS_ORIGINS="*"` — Allowed browser CORS origins.
+- `MAX_REQUEST_BYTES=2000000` — Maximum payload size in bytes (2 MB).
+- `LOG_REQUEST_BODIES=0` — Leave `0` in production to protect personal data (customer names and transcripts are redacted).
 
 ---
 
@@ -60,7 +67,7 @@ docker build -t qa-service:v3 --no-cache .
 ```bash
 docker run -d -t \
   --name qa_service \
-  --network ciap-network \
+  --network ciap-qa-network \
   -p 8006:8006 \
   --env-file .env \
   -v "${PWD}/logs:/app/logs" \
@@ -207,5 +214,5 @@ curl -X PATCH http://localhost:8006/api/tenants/208/criteria/item-branding/toggl
 ```bash
 docker stop qa_service
 docker rm qa_service
-docker network rm ciap-network   # optional
+docker network rm ciap-qa-network   # optional
 ```

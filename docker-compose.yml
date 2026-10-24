@@ -9,6 +9,8 @@ services:
     container_name: qa_service
     ports:
       - "8006:8006"
+    networks:
+      - ciap-qa-network
     env_file:
       - path: .env
         required: false
@@ -16,6 +18,11 @@ services:
       - LAYA_FLOW=v3
       - LAYA_CHECKPOINT=
     volumes:
-      - ./models:/app/models:ro
+      - ./models:/app/models
       - ./logs:/app/logs
     restart: unless-stopped
+
+networks:
+  ciap-qa-network:
+    name: ciap-qa-network
+    driver: bridge
