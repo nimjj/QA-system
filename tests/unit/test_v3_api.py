@@ -10,7 +10,6 @@ try:
     from fastapi.testclient import TestClient
     from src.api import web_app
     from src.v3 import pipeline
-    from src.v3.jobs import JobQueue
 except Exception as e:                                                   # pragma: no cover
     web_app = None
 

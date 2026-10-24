@@ -1,73 +1,21 @@
 version: '3.8'
 
 services:
-  postgres:
-    image: postgres:15
-    container_name: qa_postgres
-    environment:
-      - POSTGRES_DB=ciap
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=your-password
-    ports:
-      - "5432:5432"
-    volumes:
-      - postgres_data:/var/lib/postgresql/data
-    restart: unless-stopped
-
   qa-service:
     build:
       context: .
       dockerfile: Dockerfile
+    image: qa-service:latest
     container_name: qa_service
     ports:
       - "8006:8006"
-    depends_on:
-      - postgres
-    extra_hosts:
-      - "host.docker.internal:host-gateway"
     env_file:
-      - .env
+      - path: .env
+        required: false
     environment:
-      - DB_HOST=postgres
-      - DB_PORT=5432
-      - DB_NAME=ciap
-      - DB_USER=postgres
-      - DB_PASSWORD=your-password
+      - LAYA_FLOW=v3
+      - LAYA_CHECKPOINT=
     volumes:
+      - ./models:/app/models:ro
       - ./logs:/app/logs
-      - ./inputs:/app/inputs
     restart: unless-stopped
-
-  gateway:
-    build:
-      context: .
-      dockerfile: Dockerfile.gateway
-    container_name: qa_gateway
-    ports:
-      - "8005:8005"
-    depends_on:
-      - qa-service
-    extra_hosts:
-      - "host.docker.internal:host-gateway"
-    env_file:
-      - .env
-    environment:
-      - APP_URL=http://qa_service:8006
-    restart: unless-stopped
-
-  frontend:
-    build:
-      context: ./frontend
-      dockerfile: Dockerfile
-    container_name: qa_frontend
-    ports:
-      - "5173:5173"
-    depends_on:
-      - gateway
-    volumes:
-      - ./frontend:/app
-      - /app/node_modules
-    restart: unless-stopped
-
-volumes:
-  postgres_data:
