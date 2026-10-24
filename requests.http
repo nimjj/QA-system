@@ -7,7 +7,7 @@
 @gatewayUrl = http://localhost:8005
 @tenantId = 208
 @apiKey = 
-@jobId = 0d7d5fdd73ee4565bef2fd677eff6e32
+@jobId = 138f1a57b0d44035bde8ebbd309ed33d
 
 ### --------------------------------------------------------------------
 ### 1. SERVICE HEALTH & READINESS CHECKS
@@ -69,7 +69,7 @@ x-api-key: {{apiKey}}
 
 {
   "call_id": "real_36min_good_v1",
-  "tenant_id": "tenant-abc",
+  "tenant_id": "208",
   "channel": "Call",
   "customer_name": "Sir",
   "transcript": "[00:07] Client: Oh, wonderful, a real human. I'm calling to thank you for the hundred dollar roaming charge on my bill. Truly the highlight of my month.\n[00:09] Agent: I'm sorry about the charge, sir. Let me see what happened. Could I have your account number?\n[00:12] Client: Sure. It's 8820-423. And I'll save you some time, I bought the unlimited travel pass before my trip. But apparently that's just decoration.\n[00:17] Agent: I appreciate that, thank you. Let me check when the pass was activated versus when your data usage began.\n[00:22] Client: Take your time. It's not like I have anything better to do than argue over pay-per-megabyte rates I already paid to avoid.\n[00:27] Agent: I see it. The pass was set to activate on the wrong time zone, so it started the day after you landed.\n[00:32] Client: Ah, so the system decided I arrived tomorrow. Fascinating. Maybe I should ask it for next week's lottery numbers.\n[00:37] Agent: I understand the frustration. That was a system error, and I'm crediting the full hundred dollars to your account.\n[00:42] Client: The full hundred? Wow, you're giving me my own money back. How generous.\n[00:47] Agent: I'm also correcting the pass dates so it covers the whole length of your trip.\n[00:52] Client: Great. Because I still have four days left, and I'd hate to accidentally fund your quarterly bonus again.\n[00:57] Agent: Understood. I've added a usage alert so you'll get a text before any charges apply.\n[01:02] Client: A text about charges. From the company that charged me. The irony is delicious, but okay, I'll take it.\n[01:07] Agent: Is there anything else I can help you with today?\n[01:12] Client: No, I think you've done enough. Fine, honestly, thanks for actually fixing it. That part I mean sincerely.\n[01:17] Agent: I appreciate that, sir. Enjoy the rest of your trip."

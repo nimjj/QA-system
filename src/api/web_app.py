@@ -99,12 +99,32 @@ def readiness_check():
 @app.on_event("startup")
 def on_startup():
     if _v3_enabled():
-        _get_jobs()                                               # start the worker; it loads the model in the background. v3 needs no database
+        jobs = _get_jobs()
+        if not jobs.ready.is_set():
+            logger.info({
+                "log_type": "APP",
+                "message": "Initializing model weights and warming up worker..."
+            })
+            jobs.wait_ready()
+            if jobs.load_error:
+                logger.error({
+                    "log_type": "APP",
+                    "message": f"Model failed to load during startup: {jobs.load_error}"
+                })
+            else:
+                logger.info({
+                    "log_type": "APP",
+                    "message": "Model loaded successfully. Worker ready."
+                })
     else:
         try:
             init_db()
         except Exception as e:
             logger.error({"log_type": "APP", "message": f"Failed to initialize database: {e}"})
+        try:
+            _warm_model()
+        except Exception as e:
+            logger.warning({"log_type": "APP", "message": f"Model warmup skipped: {e}"})
     logger.info({
         "log_type": "APP",
         "message": "Stateless QA Service started. Logging live to logs/app.log."
@@ -451,11 +471,19 @@ def _get_jobs():
 
 def _submit_v3(req: "EvaluateRequest", tenant_id: str, call_id: str):
     """Check the request is gradable (cheap, so junk never takes a place in line), then queue it. Raises HTTPException.
-    v3 grades every call against the one built-in criteria set: no database, and any criteria_data in the request is ignored."""
+    Grades against tenant active criteria from database if available, falling back safely to built-in criteria.json."""
     from src.v3 import load_criteria
     from src.v3.jobs import QueueFull
     from src.v3.normalise import normalise
-    criteria_data = load_criteria()
+
+    criteria_data = None
+    if tenant_id:
+        try:
+            criteria_data = get_active_criteria_for_evaluation(tenant_id)
+        except Exception:
+            criteria_data = None
+    if not criteria_data:
+        criteria_data = load_criteria()
     payload = [t.model_dump() for t in req.transcript] if isinstance(req.transcript, list) else req.transcript
     try:
         normalise(payload, req.get_customer_name())

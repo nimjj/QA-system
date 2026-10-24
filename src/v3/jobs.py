@@ -59,6 +59,7 @@ class JobQueue:
         self._ttl, self._max_kept = ttl_seconds, max_kept
         self._thread: Optional[threading.Thread] = None
         self.ready = threading.Event()
+        self.init_done = threading.Event()
         self.load_error: Optional[str] = None
         self.completed = self.failed = 0
 
@@ -68,6 +69,11 @@ class JobQueue:
             return
         self._thread = threading.Thread(target=self._loop, name="v3-worker", daemon=True)
         self._thread.start()
+
+    def wait_ready(self, timeout: Optional[float] = None) -> bool:
+        """Wait until model warming / initialization is finished (or timeout). Returns True if ready."""
+        self.init_done.wait(timeout=timeout)
+        return self.ready.is_set()
 
     def _loop(self) -> None:
         try:
@@ -79,6 +85,8 @@ class JobQueue:
             log.error("model failed to load: %s", self.load_error)
             self._fail_everything_queued()
             return
+        finally:
+            self.init_done.set()
         while True:
             job = self._q.get()
             with self._lock:                                  # cancel() takes the same lock, so a job is either cancelled or started
