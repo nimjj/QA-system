@@ -80,7 +80,7 @@ class Pipeline(unittest.TestCase):
 
     def test_response_shape_matches_v2(self):
         r = self.run_call()
-        self.assertEqual(set(r) - {"meta"}, {"final_score", "scorecard", "is_auto_fail", "auto_fail_reason"})
+        self.assertEqual(set(r) - {"meta"}, {"final_score", "auto_failed_count", "category_summary", "scorecard", "is_auto_fail", "auto_fail_reason"})
         self.assertEqual(len(r["scorecard"]), len(ALL))
         for e in r["scorecard"]:
             self.assertIn(e["rating"], ("PASS", "FAIL"))

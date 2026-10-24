@@ -366,8 +366,29 @@ def evaluate_interaction(
             "coaching": coaching_text
         })
 
+    cat_summary_map: Dict[str, Dict[str, int]] = {}
+    for entry in clean_scorecard:
+        c = entry["category"]
+        if c not in cat_summary_map:
+            cat_summary_map[c] = {"passed": 0, "total": 0}
+        cat_summary_map[c]["total"] += 1
+        if entry.get("rating") == "PASS":
+            cat_summary_map[c]["passed"] += 1
+
+    category_summary = [
+        {
+            "category": cat_name,
+            "passed": stats["passed"],
+            "total": stats["total"],
+            "ratio": f"{stats['passed']:02d}/{stats['total']:02d}"
+        }
+        for cat_name, stats in cat_summary_map.items()
+    ]
+
     return {
         "final_score": b_score,
+        "auto_failed_count": 1 if is_auto_fail else 0,
+        "category_summary": category_summary,
         "scorecard": clean_scorecard,
         "is_auto_fail": is_auto_fail,
         "auto_fail_reason": reason

@@ -209,9 +209,30 @@ def evaluate_v3(transcript_data, criteria_data: Dict[str, Any], tenant_id: str =
             entry["note"] = r["note"]
         scorecard.append(entry)
 
+    cat_summary_map: Dict[str, Dict[str, int]] = {}
+    for entry in scorecard:
+        c = entry["category"]
+        if c not in cat_summary_map:
+            cat_summary_map[c] = {"passed": 0, "total": 0}
+        cat_summary_map[c]["total"] += 1
+        if entry.get("rating") == "PASS":
+            cat_summary_map[c]["passed"] += 1
+
+    category_summary = [
+        {
+            "category": cat_name,
+            "passed": stats["passed"],
+            "total": stats["total"],
+            "ratio": f"{stats['passed']:02d}/{stats['total']:02d}"
+        }
+        for cat_name, stats in cat_summary_map.items()
+    ]
+
     checkpoint = os.getenv("LAYA_CHECKPOINT")
     return {
         "final_score": final,
+        "auto_failed_count": 1 if is_af else 0,
+        "category_summary": category_summary,
         "scorecard": scorecard,
         "is_auto_fail": is_af,
         "auto_fail_reason": af_reason,
