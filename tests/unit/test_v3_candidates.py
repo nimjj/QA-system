@@ -132,6 +132,33 @@ class ParaphraseGate(unittest.TestCase):
                   ("A", "Can I take your full name and date of birth please for the security check"), ("C", "Yes it is Sam Smith"))
         self.assertEqual(paraphrase.cue_aff(c), [])
 
+    def test_context_window_pairs_the_restatement_with_the_lines_just_before_it(self):
+        c = turns(("C", "Hi, I cannot get into my email account at all since this morning, it just says the account is locked"),
+                  ("A", "I can help with that, let me pull up the account"), ("C", "Okay thanks"),
+                  ("C", "The phone asked me to sign in again yesterday and it would not accept my password"),
+                  ("A", "So the phone prompted you yesterday and rejected the password, have I got that right?"))
+        old = paraphrase.v2cue(c)[0]
+        new = paraphrase.v2cue_ctx(c)
+        self.assertNotIn("yesterday", old.split("\nAGENT:")[0])
+        self.assertEqual(len(new), 1)
+        cust, agent = new[0].split("\nAGENT: ")
+        self.assertIn("yesterday", cust)
+        self.assertNotIn("Okay thanks", cust)                       # backchannels are skipped
+        self.assertTrue(agent.startswith("So the phone prompted you"))
+
+    def test_context_windows_one_per_candidate_capped(self):
+        lines = []
+        for i in range(5):
+            lines += [("C", f"The router light number {i} keeps flashing orange every few minutes today"), ("A", f"So light {i} is flashing, is that right?")]
+        w = paraphrase.cue_any_ctx(turns(*lines))
+        self.assertEqual(len(w), paraphrase.MAX_CTX_WINDOWS)
+        self.assertIn("number 0", w[0])
+        self.assertIn("So light 0", w[0])
+
+    def test_context_window_needs_a_customer_line_before_the_candidate(self):
+        c = turns(("A", "So just to confirm, you are calling about your broadband?"), ("C", "Yes"))
+        self.assertEqual(paraphrase.v2cue_ctx(c), [])
+
 
 if __name__ == "__main__":
     unittest.main()

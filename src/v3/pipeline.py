@@ -89,6 +89,12 @@ def _windows_pass(budget: _Budget, check_key: str, label: str, windows: List[str
     return all(budget.p_pass(check_key, w, label) >= cutoff for w in windows)
 
 
+def _any_window_passes(budget: _Budget, check_key: str, label: str, windows: List[str]) -> bool:
+    """True when at least one window clears the check's cutoff (one real restatement is enough). Stops at the first pass. No window = False."""
+    cutoff = de.LAYA_CHECKS[check_key]["pass_threshold"]
+    return any(budget.p_pass(check_key, w, label) >= cutoff for w in windows)
+
+
 def _model_ratings(inp, budget: _Budget, wanted: set, call: NCall, gates: Dict[str, Any]) -> Dict[str, Dict[str, Any]]:
     out: Dict[str, Dict[str, Any]] = {}
 
@@ -110,8 +116,8 @@ def _model_ratings(inp, budget: _Budget, wanted: set, call: NCall, gates: Dict[s
         put("empathy & acknowledgment statement", ok, "Failed to show empathy to customer's frustration.")
     if "paraphrasing" in wanted:
         g = v3("paraphrasing")
-        if g:                                                          # a restatement found anywhere; none found = FAIL without asking the model
-            ok = _windows_pass(budget, "paraphrasing", "verify_paraphrasing", PARA.VARIANTS[g["variant"]](call), False)
+        if g:                                                          # one window per candidate (or one in all); any real restatement = PASS, none found = FAIL
+            ok = _any_window_passes(budget, "paraphrasing", "verify_paraphrasing", PARA.VARIANTS[g["variant"]](call))
         else:
             ok = inp.paraphrasing is not None and budget.ask("paraphrasing", inp.paraphrasing, "verify_paraphrasing") == "PASS"
         put("paraphrasing", ok, "Failed to paraphrase core issue.")
