@@ -1,0 +1,108 @@
+{
+ "result": {
+  "final_score": 40.0,
+  "scorecard": [
+   {
+    "category": "Soft Skills",
+    "name": "Branding and Survey Check",
+    "rating": "PASS",
+    "coaching": "Agent successfully used required opening and closing branding scripts.",
+    "evidence_turns": [
+     0,
+     60
+    ]
+   },
+   {
+    "category": "Soft Skills",
+    "name": "Hold time and Dead Air",
+    "rating": "PASS",
+    "coaching": "Agent maintained active communication without excessive dead air (>30s)."
+   },
+   {
+    "category": "Soft Skills",
+    "name": "Personalized the call/ticket appropriately",
+    "rating": "FAIL",
+    "coaching": "Agent never used the customer's name 'Kofi Mensah' during the call."
+   },
+   {
+    "category": "Soft Skills",
+    "name": "Empathy & Acknowledgment Statement",
+    "rating": "FAIL",
+    "coaching": "Failed to show empathy to customer's frustration."
+   },
+   {
+    "category": "Soft Skills",
+    "name": "Build rapport and observed professionalism",
+    "rating": "FAIL",
+    "coaching": "Agent used rude or condescending language."
+   },
+   {
+    "category": "Technical Knowledge",
+    "name": "Paraphrasing",
+    "rating": "FAIL",
+    "coaching": "Failed to paraphrase core issue."
+   },
+   {
+    "category": "Technical Knowledge",
+    "name": "Verified customer",
+    "rating": "PASS",
+    "coaching": "Agent verified customer identity within the required time window.",
+    "evidence_turns": [
+     10
+    ]
+   },
+   {
+    "category": "Technical Knowledge",
+    "name": "Probing",
+    "rating": "PASS",
+    "coaching": "Agent asked effective diagnostic questions to investigate the root cause."
+   },
+   {
+    "category": "Technical Knowledge",
+    "name": "Took ownership of the problem",
+    "rating": "FAIL",
+    "coaching": "Agent deflected responsibility or blamed another team instead of owning the issue."
+   },
+   {
+    "category": "Technical Knowledge",
+    "name": "Active listening",
+    "rating": "PASS",
+    "coaching": "Agent practiced active listening without repetitive or redundant questions."
+   },
+   {
+    "category": "Technical Knowledge",
+    "name": "Confirmed the issue is resolved",
+    "rating": "FAIL",
+    "coaching": "Before closing, ask the customer to confirm the issue is fixed and state clearly that it is resolved.",
+    "note": "resolved score 0.21 (cutoff 0.65); model 0.24, customer end mood 0.19"
+   }
+  ],
+  "is_auto_fail": false,
+  "auto_fail_reason": null,
+  "meta": {
+   "flow": "v3",
+   "config_version": "v3.0-s1",
+   "model": "final-softce-3",
+   "al_second_source": false,
+   "sentiment_available": true,
+   "warnings": [],
+   "gates": {
+    "resolved": "v3",
+    "ownership": "v3",
+    "paraphrasing": "v3",
+    "empathy": "v2"
+   },
+   "model_rows": 10,
+   "model_words": 1236,
+   "rows_by_check": {
+    "empathy": 1,
+    "paraphrasing": 1,
+    "ownership": 1,
+    "rapport": 5,
+    "probing": 1,
+    "resolved": 1
+   },
+   "seconds": 1.49
+  }
+ }
+}
