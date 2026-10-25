@@ -1,0 +1,593 @@
+{
+  "tenant_id": "tenant-abc",
+  "customer_name": "Eleanor Hughes",
+  "planted_faults": [
+    "nopara",
+    "al",
+    "rapport",
+    "noname",
+    "empathy",
+    "ownership",
+    "noconfirm"
+  ],
+  "fault_notes": "The agent never paraphrases Eleanor's login problem to confirm understanding, repeatedly asks for details she has already provided, including her device, email address, and the error message, and responds impatiently and condescendingly when she becomes frustrated. The agent offers basic app troubleshooting but does not demonstrate effective listening or professional rapport. [On saving, four unlisted faults added: noname (the agent never says \"Eleanor\" or \"Hughes\"); empathy (the customer falls to -72 and the agent never acknowledges the feeling, only \"no need to get annoyed\" / \"no need to be dramatic\"); ownership (\"I'm not the app development team\", then sends her to the app support team and the online form); noconfirm (she still cannot log in when the call ends).]",
+  "transcript": [
+    {
+      "speaker": "Agent",
+      "start_time": "[00:00]",
+      "end_time": "[00:08]",
+      "start_time_sec": 0,
+      "end_time_sec": 8,
+      "text": "Thank you for calling S-Net. You're speaking with Daniel. How can I help you today?"
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[00:10]",
+      "end_time": "[00:23]",
+      "start_time_sec": 10,
+      "end_time_sec": 23,
+      "text": "Hi Daniel. I'm having trouble logging into the S-Net app. It keeps rejecting me even though I'm using the password I normally use.",
+      "sentiment_score": -15
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[00:25]",
+      "end_time": "[00:33]",
+      "start_time_sec": 25,
+      "end_time_sec": 33,
+      "text": "Have you tried uninstalling the app and installing it again?"
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[00:35]",
+      "end_time": "[00:44]",
+      "start_time_sec": 35,
+      "end_time_sec": 44,
+      "text": "Not yet. I thought I'd call first because I don't want to lose anything or make the problem worse.",
+      "sentiment_score": 1
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[00:46]",
+      "end_time": "[00:55]",
+      "start_time_sec": 46,
+      "end_time_sec": 55,
+      "text": "It's just an app. Removing it shouldn't be a big deal. Anyway, what's the email address on your account?"
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[00:57]",
+      "end_time": "[01:04]",
+      "start_time_sec": 57,
+      "end_time_sec": 64,
+      "text": "It's eleanor.hughes@example.com."
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[01:06]",
+      "end_time": "[01:13]",
+      "start_time_sec": 66,
+      "end_time_sec": 73,
+      "text": "And which email address are you using to log in?"
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[01:15]",
+      "end_time": "[01:23]",
+      "start_time_sec": 75,
+      "end_time_sec": 83,
+      "text": "The same one I just gave you, eleanor.hughes@example.com."
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[01:25]",
+      "end_time": "[01:34]",
+      "start_time_sec": 85,
+      "end_time_sec": 94,
+      "text": "Right. I need to verify the account before I can go any further. What's the security answer registered on it?"
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[01:36]",
+      "end_time": "[01:41]",
+      "start_time_sec": 96,
+      "end_time_sec": 101,
+      "text": "It's Bristol."
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[01:43]",
+      "end_time": "[01:50]",
+      "start_time_sec": 103,
+      "end_time_sec": 110,
+      "text": "Okay, that's verified. Now, what device are you using?"
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[01:52]",
+      "end_time": "[02:01]",
+      "start_time_sec": 112,
+      "end_time_sec": 121,
+      "text": "An iPhone 15. I've got the latest version of iOS installed as well.",
+      "sentiment_score": 3
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[02:03]",
+      "end_time": "[02:11]",
+      "start_time_sec": 123,
+      "end_time_sec": 131,
+      "text": "Sorry, which phone are you using again?"
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[02:13]",
+      "end_time": "[02:20]",
+      "start_time_sec": 133,
+      "end_time_sec": 140,
+      "text": "An iPhone 15. I just mentioned that."
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[02:22]",
+      "end_time": "[02:31]",
+      "start_time_sec": 142,
+      "end_time_sec": 151,
+      "text": "Yes, well, I deal with lots of calls. What exactly does the app say when you try to log in?"
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[02:33]",
+      "end_time": "[02:44]",
+      "start_time_sec": 153,
+      "end_time_sec": 164,
+      "text": "It says, 'We couldn't sign you in. Please check your details and try again.' I've checked them several times.",
+      "sentiment_score": -10
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[02:46]",
+      "end_time": "[02:54]",
+      "start_time_sec": 166,
+      "end_time_sec": 174,
+      "text": "And what message are you getting? Is it saying the password is wrong?"
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[02:56]",
+      "end_time": "[03:06]",
+      "start_time_sec": 176,
+      "end_time_sec": 186,
+      "text": "I just read it to you. It says it couldn't sign me in and to check my details. It doesn't specifically say the password is wrong.",
+      "sentiment_score": -25
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[03:08]",
+      "end_time": "[03:17]",
+      "start_time_sec": 188,
+      "end_time_sec": 197,
+      "text": "All right, there's no need to get annoyed. These things take time. Have you tried resetting your password?"
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[03:19]",
+      "end_time": "[03:29]",
+      "start_time_sec": 199,
+      "end_time_sec": 209,
+      "text": "I haven't reset it yet. I can do that, but I'm worried it might be something wrong with the app itself.",
+      "sentiment_score": -12
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[03:31]",
+      "end_time": "[03:40]",
+      "start_time_sec": 211,
+      "end_time_sec": 220,
+      "text": "The simplest thing is to reset the password. Open the login screen and tap 'Forgot password'."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[03:42]",
+      "end_time": "[03:51]",
+      "start_time_sec": 222,
+      "end_time_sec": 231,
+      "text": "Okay, I've tapped it. It's asking me to enter my email address."
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[03:53]",
+      "end_time": "[04:01]",
+      "start_time_sec": 233,
+      "end_time_sec": 241,
+      "text": "Enter the email address you use for your S-Net account."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[04:03]",
+      "end_time": "[04:10]",
+      "start_time_sec": 243,
+      "end_time_sec": 250,
+      "text": "Done. It's the same address I gave you earlier."
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[04:12]",
+      "end_time": "[04:20]",
+      "start_time_sec": 252,
+      "end_time_sec": 260,
+      "text": "Right. Now, which email address did you enter?"
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[04:22]",
+      "end_time": "[04:30]",
+      "start_time_sec": 262,
+      "end_time_sec": 270,
+      "text": "Eleanor dot Hughes at example dot com. This is the third time I've given you that address.",
+      "sentiment_score": -35
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[04:32]",
+      "end_time": "[04:40]",
+      "start_time_sec": 272,
+      "end_time_sec": 280,
+      "text": "You don't need to count how many times you've said it. Just follow the instructions on the screen."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[04:42]",
+      "end_time": "[04:51]",
+      "start_time_sec": 282,
+      "end_time_sec": 291,
+      "text": "I'm trying to. It says an email has been sent, but nothing has arrived yet.",
+      "sentiment_score": -19
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[04:53]",
+      "end_time": "[05:02]",
+      "start_time_sec": 293,
+      "end_time_sec": 302,
+      "text": "Check your junk folder. Password emails often end up there."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[05:04]",
+      "end_time": "[05:12]",
+      "start_time_sec": 304,
+      "end_time_sec": 312,
+      "text": "I've checked junk and spam. There's nothing from S-Net."
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[05:14]",
+      "end_time": "[05:23]",
+      "start_time_sec": 314,
+      "end_time_sec": 323,
+      "text": "Then wait a little longer. Emails don't always arrive instantly. You could also check your inbox again later."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[05:25]",
+      "end_time": "[05:36]",
+      "start_time_sec": 325,
+      "end_time_sec": 336,
+      "text": "All right. It's been about five minutes since I started trying this. I really need to access my account today.",
+      "sentiment_score": -21
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[05:38]",
+      "end_time": "[05:46]",
+      "start_time_sec": 338,
+      "end_time_sec": 346,
+      "text": "Well, waiting is part of the process. There's not much point checking every few seconds."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[05:48]",
+      "end_time": "[05:58]",
+      "start_time_sec": 348,
+      "end_time_sec": 358,
+      "text": "I'm not checking every few seconds. I'm explaining that I need to get into the app to manage my broadband account.",
+      "sentiment_score": -30
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[06:00]",
+      "end_time": "[06:09]",
+      "start_time_sec": 360,
+      "end_time_sec": 369,
+      "text": "You can use the website for account management. The app isn't the only way to do things."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[06:11]",
+      "end_time": "[06:21]",
+      "start_time_sec": 371,
+      "end_time_sec": 381,
+      "text": "I know there's a website, but I prefer using the app. I just want to understand why the login isn't working.",
+      "sentiment_score": -18
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[06:23]",
+      "end_time": "[06:31]",
+      "start_time_sec": 383,
+      "end_time_sec": 391,
+      "text": "Have you tried closing the app completely and opening it again?"
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[06:33]",
+      "end_time": "[06:42]",
+      "start_time_sec": 393,
+      "end_time_sec": 402,
+      "text": "Yes, I did that before I called. I've also restarted my phone once."
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[06:44]",
+      "end_time": "[06:53]",
+      "start_time_sec": 404,
+      "end_time_sec": 413,
+      "text": "Okay, but try closing it again now. Make sure it isn't running in the background."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[06:55]",
+      "end_time": "[07:04]",
+      "start_time_sec": 415,
+      "end_time_sec": 424,
+      "text": "I've closed it. I'm opening it again, and I'm still getting the same message.",
+      "sentiment_score": -24
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[07:06]",
+      "end_time": "[07:15]",
+      "start_time_sec": 426,
+      "end_time_sec": 435,
+      "text": "Then the app may need reinstalling. Delete it, download it again, and try signing in."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[07:17]",
+      "end_time": "[07:28]",
+      "start_time_sec": 437,
+      "end_time_sec": 448,
+      "text": "Before I do that, can you check whether there's a problem with the S-Net app or my account? I don't want to keep trying random things.",
+      "sentiment_score": -34
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[07:30]",
+      "end_time": "[07:39]",
+      "start_time_sec": 450,
+      "end_time_sec": 459,
+      "text": "I'm not the app development team. We don't investigate every login issue from this desk, so reinstalling is the sensible option."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[07:41]",
+      "end_time": "[07:52]",
+      "start_time_sec": 461,
+      "end_time_sec": 472,
+      "text": "I'm not asking you to develop the app. I'm asking for support with an S-Net service that isn't letting me sign in.",
+      "sentiment_score": -40
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[07:54]",
+      "end_time": "[08:03]",
+      "start_time_sec": 474,
+      "end_time_sec": 483,
+      "text": "And I've told you what to try. If you don't want to reinstall it, that's up to you."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[08:05]",
+      "end_time": "[08:16]",
+      "start_time_sec": 485,
+      "end_time_sec": 496,
+      "text": "That's a bit unfair. I've followed your instructions, and the password email hasn't arrived. Can you check if my account is locked?",
+      "sentiment_score": -47
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[08:18]",
+      "end_time": "[08:27]",
+      "start_time_sec": 498,
+      "end_time_sec": 507,
+      "text": "I can't tell from the information you've given me. Are you sure you're entering the correct email address?"
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[08:29]",
+      "end_time": "[08:40]",
+      "start_time_sec": 509,
+      "end_time_sec": 520,
+      "text": "Yes. Eleanor dot Hughes at example dot com. You've got it on the account in front of you, and I've entered it correctly.",
+      "sentiment_score": -52
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[08:42]",
+      "end_time": "[08:51]",
+      "start_time_sec": 522,
+      "end_time_sec": 531,
+      "text": "Fine. And just to confirm, which phone are you using again?"
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[08:53]",
+      "end_time": "[09:03]",
+      "start_time_sec": 533,
+      "end_time_sec": 543,
+      "text": "An iPhone 15. I've told you that twice now. Are you actually writing any of this down?",
+      "sentiment_score": -61
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[09:05]",
+      "end_time": "[09:14]",
+      "start_time_sec": 545,
+      "end_time_sec": 554,
+      "text": "There's no need to be dramatic. I can only work with what you're telling me, and repeating yourself won't make the app work any faster."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[09:16]",
+      "end_time": "[09:27]",
+      "start_time_sec": 556,
+      "end_time_sec": 567,
+      "text": "I'm frustrated because you're asking me the same questions instead of checking anything. I expected a little more help than this.",
+      "sentiment_score": -68
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[09:29]",
+      "end_time": "[09:38]",
+      "start_time_sec": 569,
+      "end_time_sec": 578,
+      "text": "Look, I've already given you the basic steps. If you keep arguing about them, we're not going to get anywhere."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[09:40]",
+      "end_time": "[09:51]",
+      "start_time_sec": 580,
+      "end_time_sec": 591,
+      "text": "I'm not arguing. I'm asking you to help me with the login problem. The app still won't let me in.",
+      "sentiment_score": -63
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[09:53]",
+      "end_time": "[10:02]",
+      "start_time_sec": 593,
+      "end_time_sec": 602,
+      "text": "You can reinstall the app, wait for the password email, or use the website. Those are the options I've provided."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[10:04]",
+      "end_time": "[10:15]",
+      "start_time_sec": 604,
+      "end_time_sec": 615,
+      "text": "The email still hasn't arrived, and I haven't been able to log in. Is there someone who can look into this properly?",
+      "sentiment_score": -59
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[10:17]",
+      "end_time": "[10:26]",
+      "start_time_sec": 617,
+      "end_time_sec": 626,
+      "text": "You could try contacting the app support team through the website. They may be able to give you more specific advice."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[10:28]",
+      "end_time": "[10:39]",
+      "start_time_sec": 628,
+      "end_time_sec": 639,
+      "text": "Isn't this the S-Net support line? I thought you could at least check my account or raise an issue for the app team.",
+      "sentiment_score": -66
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[10:41]",
+      "end_time": "[10:50]",
+      "start_time_sec": 641,
+      "end_time_sec": 650,
+      "text": "This is the general support line. We can't handle every technical issue directly, so you'll need to use the online contact form."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[10:52]",
+      "end_time": "[11:03]",
+      "start_time_sec": 652,
+      "end_time_sec": 663,
+      "text": "I don't think that's a reasonable answer. I've spent almost eleven minutes on the phone and I'm no closer to getting into my account.",
+      "sentiment_score": -72
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[11:05]",
+      "end_time": "[11:14]",
+      "start_time_sec": 665,
+      "end_time_sec": 674,
+      "text": "Well, I can't magically fix it. You have the steps, and the next move is yours."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[11:16]",
+      "end_time": "[11:27]",
+      "start_time_sec": 676,
+      "end_time_sec": 687,
+      "text": "Could you at least make a note that the password reset email never arrived and that I couldn't sign in?",
+      "sentiment_score": -55
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[11:29]",
+      "end_time": "[11:38]",
+      "start_time_sec": 689,
+      "end_time_sec": 698,
+      "text": "I can add a general note that you called about the app. It won't necessarily speed anything up, though."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[11:40]",
+      "end_time": "[11:50]",
+      "start_time_sec": 700,
+      "end_time_sec": 710,
+      "text": "Please do that. I don't want to have to explain the whole thing again if I call back.",
+      "sentiment_score": -43
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[11:52]",
+      "end_time": "[12:01]",
+      "start_time_sec": 712,
+      "end_time_sec": 721,
+      "text": "I've added a note saying you had trouble with the app login. You can use the website for now and contact the app team if needed."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[12:03]",
+      "end_time": "[12:13]",
+      "start_time_sec": 723,
+      "end_time_sec": 733,
+      "text": "All right. I'm still unable to log in, and the reset email hasn't come through. I'm going to have to try another route.",
+      "sentiment_score": -48
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[12:15]",
+      "end_time": "[12:23]",
+      "start_time_sec": 735,
+      "end_time_sec": 743,
+      "text": "That's probably best. Is there anything else you need?"
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[12:25]",
+      "end_time": "[12:32]",
+      "start_time_sec": 745,
+      "end_time_sec": 752,
+      "text": "No, that's everything. Thank you."
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[12:34]",
+      "end_time": "[12:43]",
+      "start_time_sec": 754,
+      "end_time_sec": 763,
+      "text": "All right. Thank you for choosing S-Net. Goodbye."
+    }
+  ]
+}

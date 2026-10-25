@@ -1,0 +1,645 @@
+{
+  "tenant_id": "tenant-abc",
+  "customer_name": "Sofia Bennett",
+  "planted_faults": [
+    "al",
+    "empathy"
+  ],
+  "fault_notes": "The agent repeatedly asks for information the customer has already provided, including the customer's destination, phone model, and whether roaming is enabled. Sofia has to repeat these details multiple times, becoming increasingly frustrated with the lack of active listening. [On saving: empathy added. The customer reaches -58 (\"getting ridiculous\", \"fourth time you've asked me\") and the agent never apologises or acknowledges the frustration; the only replies are \"I understand. I do need to make sure the details are correct\" and \"I understand your point\", both straight back to process. This is a judgement call: a model could read those two \"I understand\" lines as weak empathy.]",
+  "transcript": [
+    {
+      "speaker": "Agent",
+      "start_time": "[00:00]",
+      "end_time": "[00:08]",
+      "start_time_sec": 0,
+      "end_time_sec": 8,
+      "text": "Thank you for calling S-Net. You're speaking with Daniel. How can I help you today?"
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[00:09]",
+      "end_time": "[00:22]",
+      "start_time_sec": 9,
+      "end_time_sec": 22,
+      "text": "Hi Daniel, I'm Sofia. I'm in Spain at the moment, and my mobile data just isn't working at all. I can make calls, but I can't get online unless I'm connected to Wi-Fi.",
+      "sentiment_score": 1
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[00:24]",
+      "end_time": "[00:33]",
+      "start_time_sec": 24,
+      "end_time_sec": 33,
+      "text": "Okay, Sofia, I can look into that for you. Before we start, could I have your mobile number, please?"
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[00:34]",
+      "end_time": "[00:41]",
+      "start_time_sec": 34,
+      "end_time_sec": 41,
+      "text": "Sure, it's 07700 654321.",
+      "sentiment_score": 0
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[00:42]",
+      "end_time": "[00:51]",
+      "start_time_sec": 42,
+      "end_time_sec": 51,
+      "text": "Thanks. For security, can you confirm the first line of your registered address and your account PIN?"
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[00:52]",
+      "end_time": "[01:00]",
+      "start_time_sec": 52,
+      "end_time_sec": 60,
+      "text": "It's 18 Meadow Lane, and my PIN is 4826.",
+      "sentiment_score": 0
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[01:01]",
+      "end_time": "[01:10]",
+      "start_time_sec": 61,
+      "end_time_sec": 70,
+      "text": "Perfect, that's all verified. Now, can you tell me which country you're currently visiting?"
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[01:11]",
+      "end_time": "[01:17]",
+      "start_time_sec": 71,
+      "end_time_sec": 77,
+      "text": "Spain. I'm in Barcelona, and I've been here since yesterday.",
+      "sentiment_score": -1
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[01:19]",
+      "end_time": "[01:28]",
+      "start_time_sec": 79,
+      "end_time_sec": 88,
+      "text": "Right, Spain. And what seems to be happening with the phone when you try to use your data?"
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[01:29]",
+      "end_time": "[01:40]",
+      "start_time_sec": 89,
+      "end_time_sec": 100,
+      "text": "Calls work, and texts seem to be fine, but mobile internet doesn't work. I've tried opening maps and a couple of websites, and nothing loads.",
+      "sentiment_score": 0
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[01:42]",
+      "end_time": "[01:51]",
+      "start_time_sec": 102,
+      "end_time_sec": 111,
+      "text": "Understood. Can I just check which country you're in at the moment?"
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[01:52]",
+      "end_time": "[01:58]",
+      "start_time_sec": 112,
+      "end_time_sec": 118,
+      "text": "Spain, as I just mentioned. Barcelona.",
+      "sentiment_score": -12
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[02:00]",
+      "end_time": "[02:09]",
+      "start_time_sec": 120,
+      "end_time_sec": 129,
+      "text": "Thank you. And are you using an Android phone or an iPhone?"
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[02:10]",
+      "end_time": "[02:16]",
+      "start_time_sec": 130,
+      "end_time_sec": 136,
+      "text": "An iPhone 15.",
+      "sentiment_score": 0
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[02:17]",
+      "end_time": "[02:27]",
+      "start_time_sec": 137,
+      "end_time_sec": 147,
+      "text": "Okay. And have you switched data roaming on in your phone settings?"
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[02:28]",
+      "end_time": "[02:38]",
+      "start_time_sec": 148,
+      "end_time_sec": 158,
+      "text": "Yes, I checked that already. Data roaming is on. I've also turned mobile data off and on again, but it hasn't helped.",
+      "sentiment_score": 2
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[02:40]",
+      "end_time": "[02:49]",
+      "start_time_sec": 160,
+      "end_time_sec": 169,
+      "text": "All right. Could you tell me the model of your phone so I can make a note on the account?"
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[02:50]",
+      "end_time": "[02:56]",
+      "start_time_sec": 170,
+      "end_time_sec": 176,
+      "text": "It's an iPhone 15. I just told you that.",
+      "sentiment_score": -19
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[02:58]",
+      "end_time": "[03:07]",
+      "start_time_sec": 178,
+      "end_time_sec": 187,
+      "text": "Right, an iPhone 15. Thank you. And just to confirm, is data roaming enabled?"
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[03:08]",
+      "end_time": "[03:16]",
+      "start_time_sec": 188,
+      "end_time_sec": 196,
+      "text": "Yes, it's enabled. I've checked it twice. That's not the problem as far as I can tell.",
+      "sentiment_score": -23
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[03:18]",
+      "end_time": "[03:28]",
+      "start_time_sec": 198,
+      "end_time_sec": 208,
+      "text": "Thanks for confirming. I'll check a few things on the account. Can you tell me whether you're in Spain or somewhere else in Europe?"
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[03:29]",
+      "end_time": "[03:38]",
+      "start_time_sec": 209,
+      "end_time_sec": 218,
+      "text": "I'm in Spain, in Barcelona. I've said that a couple of times now.",
+      "sentiment_score": -31
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[03:40]",
+      "end_time": "[03:50]",
+      "start_time_sec": 220,
+      "end_time_sec": 230,
+      "text": "Okay, thank you. I'll have a look at your roaming settings. Are you able to make and receive normal phone calls?"
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[03:51]",
+      "end_time": "[04:01]",
+      "start_time_sec": 231,
+      "end_time_sec": 241,
+      "text": "Yes, calls work and texts work. It's only the data that doesn't. I need it for maps and to contact the people I'm meeting.",
+      "sentiment_score": -8
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[04:03]",
+      "end_time": "[04:12]",
+      "start_time_sec": 243,
+      "end_time_sec": 252,
+      "text": "Got it. And what phone are you using today, Sofia? Is it an iPhone or an Android?"
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[04:13]",
+      "end_time": "[04:22]",
+      "start_time_sec": 253,
+      "end_time_sec": 262,
+      "text": "It's an iPhone 15. Daniel, I don't mind answering questions, but I'm repeating the same things over and over.",
+      "sentiment_score": -38
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[04:24]",
+      "end_time": "[04:34]",
+      "start_time_sec": 264,
+      "end_time_sec": 274,
+      "text": "I understand. I do need to make sure the details are correct. I'll check the roaming service on your account now."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[04:35]",
+      "end_time": "[04:44]",
+      "start_time_sec": 275,
+      "end_time_sec": 284,
+      "text": "Okay, please do. I've been trying to sort this out since I left the airport yesterday.",
+      "sentiment_score": -14
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[04:46]",
+      "end_time": "[04:55]",
+      "start_time_sec": 286,
+      "end_time_sec": 295,
+      "text": "I'll check that for you. Have you received any messages from S-Net about using your phone abroad?"
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[04:56]",
+      "end_time": "[05:05]",
+      "start_time_sec": 296,
+      "end_time_sec": 305,
+      "text": "Yes, I got the welcome text when I arrived in Spain. It said roaming was available and listed the rates.",
+      "sentiment_score": 1
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[05:07]",
+      "end_time": "[05:16]",
+      "start_time_sec": 307,
+      "end_time_sec": 316,
+      "text": "Thanks. Just checking, which country did you say you were visiting?"
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[05:17]",
+      "end_time": "[05:23]",
+      "start_time_sec": 317,
+      "end_time_sec": 323,
+      "text": "Spain. Barcelona, specifically.",
+      "sentiment_score": -35
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[05:25]",
+      "end_time": "[05:35]",
+      "start_time_sec": 325,
+      "end_time_sec": 335,
+      "text": "Right, Spain. Thank you. Are you connected to Wi-Fi at the moment?"
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[05:36]",
+      "end_time": "[05:44]",
+      "start_time_sec": 336,
+      "end_time_sec": 344,
+      "text": "At the hotel, yes. But when I leave the hotel, I have no internet unless I find another Wi-Fi network.",
+      "sentiment_score": -6
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[05:46]",
+      "end_time": "[05:55]",
+      "start_time_sec": 346,
+      "end_time_sec": 355,
+      "text": "Okay. Could you check whether mobile data is switched on in your phone settings?"
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[05:56]",
+      "end_time": "[06:05]",
+      "start_time_sec": 356,
+      "end_time_sec": 365,
+      "text": "Yes. Mobile data is on, and data roaming is on too. I've checked both settings already.",
+      "sentiment_score": -21
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[06:07]",
+      "end_time": "[06:16]",
+      "start_time_sec": 367,
+      "end_time_sec": 376,
+      "text": "Thank you. I'll refresh the service information here. While that's loading, can you tell me your phone model again?"
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[06:17]",
+      "end_time": "[06:25]",
+      "start_time_sec": 377,
+      "end_time_sec": 385,
+      "text": "iPhone 15. Honestly, this is getting ridiculous. I've answered that more than once.",
+      "sentiment_score": -46
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[06:27]",
+      "end_time": "[06:36]",
+      "start_time_sec": 387,
+      "end_time_sec": 396,
+      "text": "I've added that to the notes now. Can you confirm that roaming is turned on?"
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[06:37]",
+      "end_time": "[06:45]",
+      "start_time_sec": 397,
+      "end_time_sec": 405,
+      "text": "Yes, roaming is on. I've told you that several times, and nothing seems to be moving forward.",
+      "sentiment_score": -49
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[06:47]",
+      "end_time": "[06:57]",
+      "start_time_sec": 407,
+      "end_time_sec": 417,
+      "text": "All right. I'll run through the available checks. Does the top of your screen show a mobile network name?"
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[06:58]",
+      "end_time": "[07:08]",
+      "start_time_sec": 418,
+      "end_time_sec": 428,
+      "text": "Yes, it shows a local network. I have signal bars, and calls work. It's just the mobile data that's failing.",
+      "sentiment_score": -4
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[07:10]",
+      "end_time": "[07:20]",
+      "start_time_sec": 430,
+      "end_time_sec": 440,
+      "text": "Okay. And are you currently in Spain, or have you crossed into another country?"
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[07:21]",
+      "end_time": "[07:29]",
+      "start_time_sec": 441,
+      "end_time_sec": 449,
+      "text": "I'm still in Barcelona, Spain. I haven't left the city.",
+      "sentiment_score": -42
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[07:31]",
+      "end_time": "[07:41]",
+      "start_time_sec": 451,
+      "end_time_sec": 461,
+      "text": "Thank you. I'll look at the roaming profile. Have you tried restarting your iPhone since you arrived?"
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[07:42]",
+      "end_time": "[07:52]",
+      "start_time_sec": 462,
+      "end_time_sec": 472,
+      "text": "Yes, I restarted it last night and again this morning. It made no difference.",
+      "sentiment_score": 0
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[07:54]",
+      "end_time": "[08:03]",
+      "start_time_sec": 474,
+      "end_time_sec": 483,
+      "text": "Right. Can you tell me what country you're in so I can select the correct roaming region?"
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[08:04]",
+      "end_time": "[08:13]",
+      "start_time_sec": 484,
+      "end_time_sec": 493,
+      "text": "Spain. Barcelona. That's the fourth time you've asked me, I think. Could you please check the actual service instead?",
+      "sentiment_score": -58
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[08:15]",
+      "end_time": "[08:25]",
+      "start_time_sec": 495,
+      "end_time_sec": 505,
+      "text": "I'll continue with the checks. I'm seeing that international roaming is available on your tariff. I'll review the data allowance next."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[08:26]",
+      "end_time": "[08:35]",
+      "start_time_sec": 506,
+      "end_time_sec": 515,
+      "text": "Thank you. I just need it to work. I'm meeting friends across the city, and I can't keep looking for Wi-Fi.",
+      "sentiment_score": -12
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[08:37]",
+      "end_time": "[08:47]",
+      "start_time_sec": 517,
+      "end_time_sec": 527,
+      "text": "I can see your account has an international roaming allowance. Can you tell me whether mobile data is enabled?"
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[08:48]",
+      "end_time": "[08:56]",
+      "start_time_sec": 528,
+      "end_time_sec": 536,
+      "text": "Yes, it is enabled. Both mobile data and data roaming are switched on.",
+      "sentiment_score": -36
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[08:58]",
+      "end_time": "[09:08]",
+      "start_time_sec": 538,
+      "end_time_sec": 548,
+      "text": "Okay. Have you tried selecting a network manually instead of letting the phone choose automatically?"
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[09:09]",
+      "end_time": "[09:19]",
+      "start_time_sec": 549,
+      "end_time_sec": 559,
+      "text": "No, not yet. I can try that, if you tell me how. At least that's something new to check.",
+      "sentiment_score": 3
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[09:21]",
+      "end_time": "[09:32]",
+      "start_time_sec": 561,
+      "end_time_sec": 572,
+      "text": "Open Settings, then Mobile Service, then Network Selection. Turn Automatic off and wait for the available networks to appear."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[09:33]",
+      "end_time": "[09:43]",
+      "start_time_sec": 573,
+      "end_time_sec": 583,
+      "text": "Okay, I've turned Automatic off. There are three networks showing here. Which one should I choose?"
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[09:45]",
+      "end_time": "[09:56]",
+      "start_time_sec": 585,
+      "end_time_sec": 596,
+      "text": "Choose the network currently showing the strongest signal, then wait a minute or two and test a website."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[09:57]",
+      "end_time": "[10:08]",
+      "start_time_sec": 597,
+      "end_time_sec": 608,
+      "text": "I've selected one. The signal is back, but Safari still says it can't connect to the internet.",
+      "sentiment_score": -13
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[10:10]",
+      "end_time": "[10:20]",
+      "start_time_sec": 610,
+      "end_time_sec": 620,
+      "text": "Thanks for testing that. I'll check whether there are any restrictions on the data service for your account."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[10:21]",
+      "end_time": "[10:31]",
+      "start_time_sec": 621,
+      "end_time_sec": 631,
+      "text": "All right. Please check that, because I've already spent a lot of time on this call and I'm still stuck.",
+      "sentiment_score": -27
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[10:33]",
+      "end_time": "[10:43]",
+      "start_time_sec": 633,
+      "end_time_sec": 643,
+      "text": "I can't see a restriction on your account. I'll refresh the roaming registration from our side. It may take a short while to update."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[10:44]",
+      "end_time": "[10:52]",
+      "start_time_sec": 644,
+      "end_time_sec": 652,
+      "text": "Fine. I'll wait. I really need this sorted before I head out again.",
+      "sentiment_score": -15
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[10:54]",
+      "end_time": "[11:04]",
+      "start_time_sec": 654,
+      "end_time_sec": 664,
+      "text": "The refresh has gone through. Please switch Airplane Mode on for about ten seconds, then turn it off again."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[11:05]",
+      "end_time": "[11:14]",
+      "start_time_sec": 665,
+      "end_time_sec": 674,
+      "text": "Okay, I've done that. The phone has reconnected to the network, but I'm not sure the data is working yet."
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[11:16]",
+      "end_time": "[11:26]",
+      "start_time_sec": 676,
+      "end_time_sec": 686,
+      "text": "No problem. Can you try opening a webpage now and let me know what happens?"
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[11:27]",
+      "end_time": "[11:37]",
+      "start_time_sec": 687,
+      "end_time_sec": 697,
+      "text": "One moment. I'm opening a page now. It seems to be loading this time, although it's taking a few seconds."
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[11:39]",
+      "end_time": "[11:49]",
+      "start_time_sec": 699,
+      "end_time_sec": 709,
+      "text": "That's encouraging. Could you try opening your maps app as well, just to see if it can connect?"
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[11:50]",
+      "end_time": "[12:00]",
+      "start_time_sec": 710,
+      "end_time_sec": 720,
+      "text": "Maps has loaded now. It's working, but this has taken nearly twelve minutes, and I had to repeat basic information so many times.",
+      "sentiment_score": -34
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[12:02]",
+      "end_time": "[12:12]",
+      "start_time_sec": 722,
+      "end_time_sec": 732,
+      "text": "I'm glad the data is connecting now. The roaming refresh and reconnect appear to have restored the service."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[12:13]",
+      "end_time": "[12:22]",
+      "start_time_sec": 733,
+      "end_time_sec": 742,
+      "text": "Yes, it's working at the moment. I just wish we'd got to these steps sooner instead of going over Spain and my phone model again and again.",
+      "sentiment_score": -25
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[12:24]",
+      "end_time": "[12:34]",
+      "start_time_sec": 744,
+      "end_time_sec": 754,
+      "text": "I understand your point. Before we finish, is there anything else you'd like me to check on your mobile service?"
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[12:35]",
+      "end_time": "[12:42]",
+      "start_time_sec": 755,
+      "end_time_sec": 762,
+      "text": "No, that's everything. I'll keep an eye on it when I leave the hotel Wi-Fi.",
+      "sentiment_score": 2
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[12:44]",
+      "end_time": "[12:53]",
+      "start_time_sec": 764,
+      "end_time_sec": 773,
+      "text": "Of course. If it drops again, you can contact us and we can continue from the notes on your account."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[12:54]",
+      "end_time": "[13:02]",
+      "start_time_sec": 774,
+      "end_time_sec": 782,
+      "text": "All right. Thanks for getting the data working, even though the call was more frustrating than it needed to be.",
+      "sentiment_score": -10
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[13:04]",
+      "end_time": "[13:14]",
+      "start_time_sec": 784,
+      "end_time_sec": 794,
+      "text": "You're welcome, Sofia. I'm pleased we got your connection back. Thank you for choosing S-Net, and enjoy the rest of your time in Spain."
+    }
+  ]
+}

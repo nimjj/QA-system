@@ -1,0 +1,531 @@
+{
+  "tenant_id": "tenant-abc",
+  "customer_name": "Aisha Rahman",
+  "planted_faults": [
+    "noprobe",
+    "empathy",
+    "ownership",
+    "noconfirm"
+  ],
+  "fault_notes": "The customer's Wi-Fi connection repeatedly drops on her laptop, while other devices remain connected. The agent does not ask meaningful diagnostic questions about the laptop, its operating system, network settings, or the circumstances of the disconnections, instead providing generic troubleshooting instructions without investigating the cause. [On saving, three unlisted faults added: empathy (the customer says \"really annoying\", \"frustrating\" and \"disappointing\" and the agent never acknowledges any of them); ownership (10:25, the agent sends the customer to the laptop manufacturer); noconfirm (the agent never checks the fix, just \"see whether the issue returns\", and the customer says \"I haven't really got a clear answer\").]",
+  "transcript": [
+    {
+      "speaker": "Agent",
+      "start_time": "[00:00]",
+      "end_time": "[00:09]",
+      "start_time_sec": 0,
+      "end_time_sec": 9,
+      "text": "Thank you for calling S-Net. You're speaking with Mark. How can I help you today?"
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[00:10]",
+      "end_time": "[00:22]",
+      "start_time_sec": 10,
+      "end_time_sec": 22,
+      "text": "Hi Mark, I'm Aisha Rahman. My Wi-Fi keeps disconnecting on my laptop. It's been happening for a few days, and it's getting really annoying.",
+      "sentiment_score": -4
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[00:24]",
+      "end_time": "[00:33]",
+      "start_time_sec": 24,
+      "end_time_sec": 33,
+      "text": "I can help with that. Could you give me your S-Net account number, please?"
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[00:35]",
+      "end_time": "[00:43]",
+      "start_time_sec": 35,
+      "end_time_sec": 43,
+      "text": "It's 619482735. I keep losing my connection when I'm trying to get things done.",
+      "sentiment_score": -3
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[00:45]",
+      "end_time": "[00:55]",
+      "start_time_sec": 45,
+      "end_time_sec": 55,
+      "text": "Thank you. For security, can you confirm the first line of the address registered to the account?"
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[00:57]",
+      "end_time": "[01:04]",
+      "start_time_sec": 57,
+      "end_time_sec": 64,
+      "text": "It's 27 Willow Lane, Manchester.",
+      "sentiment_score": 0
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[01:06]",
+      "end_time": "[01:16]",
+      "start_time_sec": 66,
+      "end_time_sec": 76,
+      "text": "Thanks, Aisha. I've verified your account. I'll take a look at the broadband service details now."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[01:18]",
+      "end_time": "[01:28]",
+      "start_time_sec": 78,
+      "end_time_sec": 88,
+      "text": "Okay. The strange thing is my phone and the smart TV seem fine. It's just the laptop that keeps dropping off.",
+      "sentiment_score": -2
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[01:30]",
+      "end_time": "[01:40]",
+      "start_time_sec": 90,
+      "end_time_sec": 100,
+      "text": "Your broadband package is active, and there are no general outages showing for your area. Let's try refreshing the connection."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[01:42]",
+      "end_time": "[01:51]",
+      "start_time_sec": 102,
+      "end_time_sec": 111,
+      "text": "All right. I've already restarted the laptop once, but it didn't really help.",
+      "sentiment_score": -2
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[01:53]",
+      "end_time": "[02:03]",
+      "start_time_sec": 113,
+      "end_time_sec": 123,
+      "text": "Please restart your router by switching it off, waiting thirty seconds, and turning it back on."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[02:05]",
+      "end_time": "[02:15]",
+      "start_time_sec": 125,
+      "end_time_sec": 135,
+      "text": "I can do that, but I'm not sure why I'd need to restart the router if everything else is connected.",
+      "sentiment_score": -3
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[02:17]",
+      "end_time": "[02:27]",
+      "start_time_sec": 137,
+      "end_time_sec": 147,
+      "text": "A router restart can refresh the wireless connection. Please go ahead and do that now."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[02:29]",
+      "end_time": "[02:39]",
+      "start_time_sec": 149,
+      "end_time_sec": 159,
+      "text": "Okay, I've switched it off. I'll wait a bit and turn it back on.",
+      "sentiment_score": 0
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[02:41]",
+      "end_time": "[02:51]",
+      "start_time_sec": 161,
+      "end_time_sec": 171,
+      "text": "Thank you. Once the router is back on, reconnect your laptop to the Wi-Fi network."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[02:53]",
+      "end_time": "[03:04]",
+      "start_time_sec": 173,
+      "end_time_sec": 184,
+      "text": "It's back on now. I've connected the laptop again, and the internet is working at the moment.",
+      "sentiment_score": 1
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[03:06]",
+      "end_time": "[03:16]",
+      "start_time_sec": 186,
+      "end_time_sec": 196,
+      "text": "Good. Please keep using the laptop as normal and allow the connection to settle."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[03:18]",
+      "end_time": "[03:28]",
+      "start_time_sec": 198,
+      "end_time_sec": 208,
+      "text": "It's connected, yes. But that's what happens after I restart things. It works for a while and then drops again.",
+      "sentiment_score": -3
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[03:30]",
+      "end_time": "[03:40]",
+      "start_time_sec": 210,
+      "end_time_sec": 220,
+      "text": "You can also forget the Wi-Fi network on the laptop and connect to it again using your password."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[03:42]",
+      "end_time": "[03:52]",
+      "start_time_sec": 222,
+      "end_time_sec": 232,
+      "text": "Right, I'll try that too. I just don't want to keep doing the same things every day.",
+      "sentiment_score": -4
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[03:54]",
+      "end_time": "[04:04]",
+      "start_time_sec": 234,
+      "end_time_sec": 244,
+      "text": "Open your Wi-Fi settings, select your home network, choose Forget, and then reconnect to it."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[04:06]",
+      "end_time": "[04:17]",
+      "start_time_sec": 246,
+      "end_time_sec": 257,
+      "text": "I've done that and entered the password again. It says connected now.",
+      "sentiment_score": 1
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[04:19]",
+      "end_time": "[04:29]",
+      "start_time_sec": 259,
+      "end_time_sec": 269,
+      "text": "That's fine. Please make sure your laptop has the latest updates installed."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[04:31]",
+      "end_time": "[04:42]",
+      "start_time_sec": 271,
+      "end_time_sec": 282,
+      "text": "I think it updates automatically. I'm not very technical, so I'm not sure where to look for that.",
+      "sentiment_score": -1
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[04:44]",
+      "end_time": "[04:54]",
+      "start_time_sec": 284,
+      "end_time_sec": 294,
+      "text": "You can open the system settings and check the software update section. Install any updates that are available."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[04:56]",
+      "end_time": "[05:06]",
+      "start_time_sec": 296,
+      "end_time_sec": 306,
+      "text": "Okay, I'll check after this call. The problem is I have online meetings, and the connection drops right in the middle of them.",
+      "sentiment_score": -5
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[05:08]",
+      "end_time": "[05:18]",
+      "start_time_sec": 308,
+      "end_time_sec": 318,
+      "text": "Keeping the operating system updated can help maintain network stability. You should also restart the laptop regularly."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[05:20]",
+      "end_time": "[05:31]",
+      "start_time_sec": 320,
+      "end_time_sec": 331,
+      "text": "I've restarted it several times already. It's frustrating because I can sit beside the router and still lose the connection.",
+      "sentiment_score": -5
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[05:33]",
+      "end_time": "[05:43]",
+      "start_time_sec": 333,
+      "end_time_sec": 343,
+      "text": "Another option is to restart the laptop's network adapter through the network settings."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[05:45]",
+      "end_time": "[05:55]",
+      "start_time_sec": 345,
+      "end_time_sec": 355,
+      "text": "All right, can you tell me what to click? I don't want to accidentally change something important.",
+      "sentiment_score": -1
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[05:57]",
+      "end_time": "[06:08]",
+      "start_time_sec": 357,
+      "end_time_sec": 368,
+      "text": "Open Settings, select Network and Internet, then Advanced Network Settings. You may see an option to disable and re-enable the Wi-Fi adapter."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[06:10]",
+      "end_time": "[06:20]",
+      "start_time_sec": 370,
+      "end_time_sec": 380,
+      "text": "I've found the Wi-Fi adapter option. I'll disable it and enable it again now.",
+      "sentiment_score": 0
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[06:22]",
+      "end_time": "[06:32]",
+      "start_time_sec": 382,
+      "end_time_sec": 392,
+      "text": "Once you've enabled it again, reconnect to your home network and try opening a website."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[06:34]",
+      "end_time": "[06:44]",
+      "start_time_sec": 394,
+      "end_time_sec": 404,
+      "text": "The website opens. It seems fine at the moment, but I can't tell whether it's actually fixed.",
+      "sentiment_score": 0
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[06:46]",
+      "end_time": "[06:56]",
+      "start_time_sec": 406,
+      "end_time_sec": 416,
+      "text": "These steps can refresh the connection. Continue using the laptop and see whether the issue returns."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[06:58]",
+      "end_time": "[07:09]",
+      "start_time_sec": 418,
+      "end_time_sec": 429,
+      "text": "I can do that, but the connection might drop again in ten minutes. That's what keeps happening.",
+      "sentiment_score": -3
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[07:11]",
+      "end_time": "[07:21]",
+      "start_time_sec": 431,
+      "end_time_sec": 441,
+      "text": "If it happens again, repeat the router restart and reconnect the laptop to the network."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[07:23]",
+      "end_time": "[07:33]",
+      "start_time_sec": 443,
+      "end_time_sec": 453,
+      "text": "That doesn't sound like a long-term solution. I can't keep restarting the router during work calls.",
+      "sentiment_score": -5
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[07:35]",
+      "end_time": "[07:45]",
+      "start_time_sec": 455,
+      "end_time_sec": 465,
+      "text": "You could use an Ethernet cable as an alternative if your laptop has a compatible port or adapter."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[07:47]",
+      "end_time": "[07:57]",
+      "start_time_sec": 467,
+      "end_time_sec": 477,
+      "text": "I don't have an Ethernet cable, and my laptop doesn't have that usual port anyway.",
+      "sentiment_score": -2
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[07:59]",
+      "end_time": "[08:09]",
+      "start_time_sec": 479,
+      "end_time_sec": 489,
+      "text": "You could purchase a compatible USB network adapter and use a wired connection that way."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[08:11]",
+      "end_time": "[08:21]",
+      "start_time_sec": 491,
+      "end_time_sec": 501,
+      "text": "I'd rather not buy more equipment when the Wi-Fi should already be working properly.",
+      "sentiment_score": -4
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[08:23]",
+      "end_time": "[08:33]",
+      "start_time_sec": 503,
+      "end_time_sec": 513,
+      "text": "You can also try resetting the laptop's network settings to their defaults."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[08:35]",
+      "end_time": "[08:45]",
+      "start_time_sec": 515,
+      "end_time_sec": 525,
+      "text": "Would that remove my saved networks or passwords? I don't want to lose access to everything.",
+      "sentiment_score": -1
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[08:47]",
+      "end_time": "[08:58]",
+      "start_time_sec": 527,
+      "end_time_sec": 538,
+      "text": "A network reset may remove saved network settings and require you to reconnect to Wi-Fi afterward. You should make sure you have your password first."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[09:00]",
+      "end_time": "[09:10]",
+      "start_time_sec": 540,
+      "end_time_sec": 550,
+      "text": "I've got the password, but I'd prefer not to reset everything unless it's really necessary.",
+      "sentiment_score": -1
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[09:12]",
+      "end_time": "[09:22]",
+      "start_time_sec": 552,
+      "end_time_sec": 562,
+      "text": "That's optional. You can try it later if the other steps don't resolve the problem."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[09:24]",
+      "end_time": "[09:34]",
+      "start_time_sec": 564,
+      "end_time_sec": 574,
+      "text": "Right. I was hoping there'd be a way to find out why only this laptop is affected.",
+      "sentiment_score": -3
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[09:36]",
+      "end_time": "[09:46]",
+      "start_time_sec": 576,
+      "end_time_sec": 586,
+      "text": "The general troubleshooting steps we've tried can sometimes resolve intermittent wireless problems."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[09:48]",
+      "end_time": "[09:58]",
+      "start_time_sec": 588,
+      "end_time_sec": 598,
+      "text": "I understand, but it feels like we're just trying random things. I need something more reliable.",
+      "sentiment_score": -5
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[10:00]",
+      "end_time": "[10:11]",
+      "start_time_sec": 600,
+      "end_time_sec": 611,
+      "text": "At this stage, you can continue using the laptop and monitor the connection. If it continues, you may need assistance with the laptop itself."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[10:13]",
+      "end_time": "[10:23]",
+      "start_time_sec": 613,
+      "end_time_sec": 623,
+      "text": "But the laptop works fine on other Wi-Fi networks. It's only my home network where this keeps happening.",
+      "sentiment_score": -4
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[10:25]",
+      "end_time": "[10:35]",
+      "start_time_sec": 625,
+      "end_time_sec": 635,
+      "text": "You can contact the laptop manufacturer for additional wireless troubleshooting if the issue persists."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[10:37]",
+      "end_time": "[10:47]",
+      "start_time_sec": 637,
+      "end_time_sec": 647,
+      "text": "That's disappointing. I called because I thought S-Net could help me work out what's going on.",
+      "sentiment_score": -5
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[10:49]",
+      "end_time": "[10:59]",
+      "start_time_sec": 649,
+      "end_time_sec": 659,
+      "text": "I've provided the standard connection troubleshooting steps available to me. You can contact us again if the problem continues."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[11:01]",
+      "end_time": "[11:11]",
+      "start_time_sec": 661,
+      "end_time_sec": 671,
+      "text": "Okay. I'll see whether it drops again, but I haven't really got a clear answer.",
+      "sentiment_score": -4
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[11:13]",
+      "end_time": "[11:23]",
+      "start_time_sec": 673,
+      "end_time_sec": 683,
+      "text": "The connection is currently working after the steps we completed. I'll add the troubleshooting details to your account notes."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[11:25]",
+      "end_time": "[11:35]",
+      "start_time_sec": 685,
+      "end_time_sec": 695,
+      "text": "All right. I hope it stays connected because I really need it for work tomorrow.",
+      "sentiment_score": -2
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[11:37]",
+      "end_time": "[11:47]",
+      "start_time_sec": 697,
+      "end_time_sec": 707,
+      "text": "I've recorded the router restart, the Wi-Fi reconnection, and the network adapter reset. Is there anything else you'd like help with today?"
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[11:49]",
+      "end_time": "[11:57]",
+      "start_time_sec": 709,
+      "end_time_sec": 717,
+      "text": "No, that's everything. Thanks for your time.",
+      "sentiment_score": 0
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[11:59]",
+      "end_time": "[12:10]",
+      "start_time_sec": 719,
+      "end_time_sec": 730,
+      "text": "You're welcome, Aisha. The connection is working at the moment, but if the issue returns, please contact us again. Thank you for choosing S-Net."
+    }
+  ]
+}

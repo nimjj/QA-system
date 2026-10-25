@@ -1,0 +1,683 @@
+{
+  "tenant_id": "tenant-abc",
+  "customer_name": "Priya Sharma",
+  "planted_faults": [],
+  "fault_notes": "No planted faults. The agent greets Priya appropriately, completes the security check, clarifies the unexpected charge, investigates the billing details, explains the cause, arranges a credit, and confirms Priya understands the resolution before closing politely.",
+  "transcript": [
+    {
+      "speaker": "Agent",
+      "start_time": "[00:00]",
+      "end_time": "[00:07]",
+      "start_time_sec": 0,
+      "end_time_sec": 7,
+      "text": "Hello, you're through to S-Net. Thank you for calling S-Net, you're speaking to Daniel. How can I help today?"
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[00:09]",
+      "end_time": "[00:17]",
+      "start_time_sec": 9,
+      "end_time_sec": 17,
+      "text": "Hi, Daniel. I'm hoping you can help me with my last bill because it's quite a bit higher than I was expecting, and I can't really work out why.",
+      "sentiment_score": -18
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[00:19]",
+      "end_time": "[00:26]",
+      "start_time_sec": 19,
+      "end_time_sec": 26,
+      "text": "Of course, we'll have a look at that together. I'm sorry it's caused you a bit of a headache. Can I start by getting your full name, please?"
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[00:28]",
+      "end_time": "[00:32]",
+      "start_time_sec": 28,
+      "end_time_sec": 32,
+      "text": "Yeah, it's Priya Sharma."
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[00:34]",
+      "end_time": "[00:41]",
+      "start_time_sec": 34,
+      "end_time_sec": 41,
+      "text": "Thanks, Priya. Before I access the billing details, could you give me the answer to your security question, please?"
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[00:43]",
+      "end_time": "[00:48]",
+      "start_time_sec": 43,
+      "end_time_sec": 48,
+      "text": "Yes, it's the name of my first school. The answer is Greenfield Primary."
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[00:50]",
+      "end_time": "[00:57]",
+      "start_time_sec": 50,
+      "end_time_sec": 57,
+      "text": "Lovely, thank you. That's all verified. Give me just a moment to bring your account up. How's your day going otherwise?"
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[00:59]",
+      "end_time": "[01:06]",
+      "start_time_sec": 59,
+      "end_time_sec": 66,
+      "text": "Not too bad, thanks. Working from home today, so it's been one of those days of meetings, really. I thought I'd sort this out while I had a little break.",
+      "sentiment_score": 3
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[01:08]",
+      "end_time": "[01:15]",
+      "start_time_sec": 68,
+      "end_time_sec": 75,
+      "text": "Oh, I know those days. Hopefully we can get this sorted before your next meeting. Right, I've got your account here. What was the total on your last bill?"
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[01:17]",
+      "end_time": "[01:25]",
+      "start_time_sec": 77,
+      "end_time_sec": 85,
+      "text": "It was ninety-two pounds and fifty pence. I normally pay about sixty-two pounds, so it's an extra thirty pounds or so. I noticed it when the direct debit went out.",
+      "sentiment_score": -20
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[01:27]",
+      "end_time": "[01:35]",
+      "start_time_sec": 87,
+      "end_time_sec": 95,
+      "text": "Right, that's a noticeable jump from what you're used to. So you've had a bill for ninety-two pounds fifty instead of roughly sixty-two, and you'd like to understand the extra charge and get it corrected if it's wrong. Have I got that right?"
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[01:37]",
+      "end_time": "[01:43]",
+      "start_time_sec": 97,
+      "end_time_sec": 103,
+      "text": "Yes, exactly. I'm not saying I shouldn't pay what I owe, obviously, but I don't want to be paying thirty pounds extra for no reason.",
+      "sentiment_score": -17
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[01:45]",
+      "end_time": "[01:51]",
+      "start_time_sec": 105,
+      "end_time_sec": 111,
+      "text": "Absolutely, that's fair enough. I'll go through the itemised bill and check what has changed rather than just guessing. Do you know when the payment was taken?"
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[01:53]",
+      "end_time": "[01:59]",
+      "start_time_sec": 113,
+      "end_time_sec": 119,
+      "text": "It came out on the twenty-first, which was last Wednesday, I think. It usually comes out around the same time every month.",
+      "sentiment_score": -5
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[02:01]",
+      "end_time": "[02:08]",
+      "start_time_sec": 121,
+      "end_time_sec": 128,
+      "text": "Thanks, that helps. And just so I can compare the right things, is this the usual broadband and television package, or do you also have a mobile plan with us?"
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[02:10]",
+      "end_time": "[02:17]",
+      "start_time_sec": 130,
+      "end_time_sec": 137,
+      "text": "I've got broadband and TV, and there's a mobile SIM as well. The mobile is normally included in the amount I pay each month."
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[02:19]",
+      "end_time": "[02:26]",
+      "start_time_sec": 139,
+      "end_time_sec": 146,
+      "text": "Got it. I'll check all three parts so we don't miss something sitting on the mobile side. Have you changed your package, added any channels, or bought anything through the TV service recently?"
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[02:28]",
+      "end_time": "[02:35]",
+      "start_time_sec": 148,
+      "end_time_sec": 155,
+      "text": "No, nothing like that. Same broadband, same TV package. I haven't ordered films or anything, either. That's why the bill looked strange."
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[02:37]",
+      "end_time": "[02:44]",
+      "start_time_sec": 157,
+      "end_time_sec": 164,
+      "text": "Fair enough. If you haven't changed anything, we'll look for a price change or a one-off charge. Just checking the billing history now."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[02:46]",
+      "end_time": "[02:53]",
+      "start_time_sec": 166,
+      "end_time_sec": 173,
+      "text": "I did have an email a while ago saying something about my offer ending, but I thought that was just the usual marketing stuff. I didn't realise it would make that much difference.",
+      "sentiment_score": -12
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[02:55]",
+      "end_time": "[03:02]",
+      "start_time_sec": 175,
+      "end_time_sec": 182,
+      "text": "Ah, that could be relevant. I'll check the package history and the date of any promotional change. There may be an explanation there, but I'll confirm it from the bill itself."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[03:04]",
+      "end_time": "[03:10]",
+      "start_time_sec": 184,
+      "end_time_sec": 190,
+      "text": "Okay. I just wish the emails were a little clearer, to be honest. You get so many of them."
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[03:12]",
+      "end_time": "[03:19]",
+      "start_time_sec": 192,
+      "end_time_sec": 199,
+      "text": "I understand. It's easy for something important to get lost in the noise. I've found the previous bill, and I'm comparing the line items now."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[03:21]",
+      "end_time": "[03:27]",
+      "start_time_sec": 201,
+      "end_time_sec": 207,
+      "text": "The previous one was sixty-two pounds, I'm pretty sure. I checked it because I was trying to work out my monthly budget."
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[03:29]",
+      "end_time": "[03:36]",
+      "start_time_sec": 209,
+      "end_time_sec": 216,
+      "text": "Yes, I can see sixty-two pounds on the previous statement. This latest bill includes a change to the broadband package price and a separate thirty-pound item. I'm checking the details of that second charge."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[03:38]",
+      "end_time": "[03:45]",
+      "start_time_sec": 218,
+      "end_time_sec": 225,
+      "text": "A separate thirty pounds? That's the bit that's worrying me. If the normal price has gone up, that's one thing, but why is there another thirty pounds on top?",
+      "sentiment_score": -32
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[03:47]",
+      "end_time": "[03:54]",
+      "start_time_sec": 227,
+      "end_time_sec": 234,
+      "text": "I can see why that would be concerning, especially when you weren't expecting it. Let me open the charge details and check whether it's a valid fee or something that needs correcting."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[03:56]",
+      "end_time": "[04:02]",
+      "start_time_sec": 236,
+      "end_time_sec": 242,
+      "text": "Thanks. I just don't want to spend an hour on the phone and then find out I have to ring back again."
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[04:04]",
+      "end_time": "[04:12]",
+      "start_time_sec": 244,
+      "end_time_sec": 252,
+      "text": "No, that's not what we want either. I'll take responsibility for getting to the bottom of it and sorting out any adjustment we can make. The charge description is taking a moment to load."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[04:14]",
+      "end_time": "[04:21]",
+      "start_time_sec": 254,
+      "end_time_sec": 261,
+      "text": "All right. I'm just looking at my banking app now, and yes, it's definitely ninety-two pounds fifty. I hadn't imagined the amount."
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[04:23]",
+      "end_time": "[04:30]",
+      "start_time_sec": 263,
+      "end_time_sec": 270,
+      "text": "I can see the same amount here, Priya. You're right to query it. I'll check the account notes as well, because they sometimes explain why a one-off charge has appeared."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[04:32]",
+      "end_time": "[04:38]",
+      "start_time_sec": 272,
+      "end_time_sec": 278,
+      "text": "Okay. I haven't missed a payment, either. The direct debit has always gone through on time."
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[04:40]",
+      "end_time": "[04:47]",
+      "start_time_sec": 280,
+      "end_time_sec": 287,
+      "text": "That's useful to know. The payment history here shows your direct debits have been collected successfully, so there isn't an overdue balance showing on the account."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[04:49]",
+      "end_time": "[04:56]",
+      "start_time_sec": 289,
+      "end_time_sec": 296,
+      "text": "Good, because I was worried they'd added a late payment fee or something, even though I haven't missed anything."
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[04:58]",
+      "end_time": "[05:05]",
+      "start_time_sec": 298,
+      "end_time_sec": 305,
+      "text": "I've ruled out a late payment fee. The item is listed as an activation charge associated with an offer change, so I'm checking whether that was actually meant to be applied."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[05:07]",
+      "end_time": "[05:14]",
+      "start_time_sec": 307,
+      "end_time_sec": 314,
+      "text": "Activation? But I've had the same broadband equipment for ages. Nobody came to the house, and I didn't ask for a new service to be activated.",
+      "sentiment_score": -34
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[05:16]",
+      "end_time": "[05:23]",
+      "start_time_sec": 316,
+      "end_time_sec": 323,
+      "text": "That makes sense, and I can understand why the description doesn't match what you expected. I'll check the order history to see exactly what triggered it."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[05:25]",
+      "end_time": "[05:31]",
+      "start_time_sec": 325,
+      "end_time_sec": 331,
+      "text": "I did renew something online a couple of months ago, actually. It was just a renewal offer, not new equipment or anything."
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[05:33]",
+      "end_time": "[05:40]",
+      "start_time_sec": 333,
+      "end_time_sec": 340,
+      "text": "Ah, that gives us something to work with. I'll compare the renewal record with the charge and check the terms that were recorded when the offer was accepted."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[05:42]",
+      "end_time": "[05:49]",
+      "start_time_sec": 342,
+      "end_time_sec": 349,
+      "text": "I remember it said my monthly price would stay the same for the offer period. I wouldn't have agreed if I knew there was a thirty-pound fee."
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[05:51]",
+      "end_time": "[05:58]",
+      "start_time_sec": 351,
+      "end_time_sec": 358,
+      "text": "Right, I'll look for that wording in the renewal notes. The order record is available, but I need to open the attached offer details to verify it."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[06:00]",
+      "end_time": "[06:07]",
+      "start_time_sec": 360,
+      "end_time_sec": 367,
+      "text": "Okay. Sorry if I'm sounding a bit impatient. It's just that thirty pounds matters, and I'd rather not have to chase it next month."
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[06:09]",
+      "end_time": "[06:16]",
+      "start_time_sec": 369,
+      "end_time_sec": 376,
+      "text": "You don't need to apologise, Priya. It's your money, and it's reasonable to expect the bill to match what you agreed to. I'll make sure we check it properly."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[06:18]",
+      "end_time": "[06:24]",
+      "start_time_sec": 378,
+      "end_time_sec": 384,
+      "text": "Thanks, I appreciate that. I was starting to think I was missing something obvious."
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[06:26]",
+      "end_time": "[06:33]",
+      "start_time_sec": 386,
+      "end_time_sec": 393,
+      "text": "Not at all. I'm looking at the renewal terms now. It shows the monthly package price was agreed, and there's no separate activation fee listed in the offer summary."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[06:35]",
+      "end_time": "[06:42]",
+      "start_time_sec": 395,
+      "end_time_sec": 402,
+      "text": "So the fee shouldn't be there, then? Sorry, I don't want to jump to conclusions, but that's how it sounds."
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[06:44]",
+      "end_time": "[06:52]",
+      "start_time_sec": 404,
+      "end_time_sec": 412,
+      "text": "You're right to ask. The records suggest it was added in error when the renewal was processed. I want to confirm that against the billing notes before I remove it."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[06:54]",
+      "end_time": "[07:00]",
+      "start_time_sec": 414,
+      "end_time_sec": 420,
+      "text": "That's a relief, actually. I was worried I'd somehow clicked the wrong thing when I renewed it."
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[07:02]",
+      "end_time": "[07:09]",
+      "start_time_sec": 422,
+      "end_time_sec": 429,
+      "text": "I can see how you'd wonder that, but the order itself looks correct. I'm checking the billing adjustment options now so I can correct the charge rather than leave you with it."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[07:11]",
+      "end_time": "[07:18]",
+      "start_time_sec": 431,
+      "end_time_sec": 438,
+      "text": "Brilliant. Will the money come back to my bank account, or will it just reduce next month's bill? I'd prefer to know what to expect."
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[07:20]",
+      "end_time": "[07:27]",
+      "start_time_sec": 440,
+      "end_time_sec": 447,
+      "text": "Good question. Because the direct debit has already been collected, the standard correction is a thirty-pound account credit. I'll check whether a refund to the original payment method is available on this bill."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[07:29]",
+      "end_time": "[07:35]",
+      "start_time_sec": 449,
+      "end_time_sec": 455,
+      "text": "An account credit would be okay if it definitely reduces what I owe next month. I just don't want it to disappear into some account balance I can't use."
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[07:37]",
+      "end_time": "[07:44]",
+      "start_time_sec": 457,
+      "end_time_sec": 464,
+      "text": "I understand. I'll make sure it's applied to your billing account and that the adjustment is visible on your next statement. Let me check the refund option as well before I commit to anything."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[07:46]",
+      "end_time": "[07:53]",
+      "start_time_sec": 466,
+      "end_time_sec": 473,
+      "text": "All right. If it comes off the next bill, that's fine. I'm mostly keen to get the mistake fixed and not have the same thing happen again."
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[07:55]",
+      "end_time": "[08:02]",
+      "start_time_sec": 475,
+      "end_time_sec": 482,
+      "text": "That's fair. The refund option isn't available for this particular billing cycle, but I can apply the credit directly. I'll also add a note confirming the activation charge was incorrect."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[08:04]",
+      "end_time": "[08:10]",
+      "start_time_sec": 484,
+      "end_time_sec": 490,
+      "text": "Okay, that's clear. And just to check, does that mean next month's bill will be about thirty pounds lower than it otherwise would have been?"
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[08:12]",
+      "end_time": "[08:20]",
+      "start_time_sec": 492,
+      "end_time_sec": 500,
+      "text": "Yes, the thirty-pound credit will be applied against your next amount due. Your usual monthly package price may be different from the old sixty-two pounds if the promotional period has ended, but the incorrect activation charge won't be repeated."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[08:22]",
+      "end_time": "[08:29]",
+      "start_time_sec": 502,
+      "end_time_sec": 509,
+      "text": "Oh, right. I hadn't realised the promotion might have ended as well. So the monthly price could be a little higher, but not with that extra thirty pounds on top?"
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[08:31]",
+      "end_time": "[08:38]",
+      "start_time_sec": 511,
+      "end_time_sec": 518,
+      "text": "Exactly. The standard package price changed after the promotional period, and that's separate from the erroneous thirty-pound charge. I'll explain both amounts in the confirmation so you can see how the total is made up."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[08:40]",
+      "end_time": "[08:47]",
+      "start_time_sec": 520,
+      "end_time_sec": 527,
+      "text": "That would be really helpful. I think that's where I got confused, because I saw the total and assumed the whole increase was just one thing.",
+      "sentiment_score": 5
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[08:49]",
+      "end_time": "[08:56]",
+      "start_time_sec": 529,
+      "end_time_sec": 536,
+      "text": "That makes sense. I'll put through the thirty-pound credit now and make sure the notes distinguish the package price change from the incorrect fee."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[08:58]",
+      "end_time": "[09:04]",
+      "start_time_sec": 538,
+      "end_time_sec": 544,
+      "text": "Thanks. Do you need anything else from me, or can you do that from your side?"
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[09:06]",
+      "end_time": "[09:13]",
+      "start_time_sec": 546,
+      "end_time_sec": 553,
+      "text": "I've got everything I need, thanks. I'm submitting the adjustment now. It may take a few seconds for the billing screen to refresh."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[09:15]",
+      "end_time": "[09:22]",
+      "start_time_sec": 555,
+      "end_time_sec": 562,
+      "text": "No problem. Actually, while you're doing that, will I get an email or something to show the credit has been applied? I like to keep those things for my records."
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[09:24]",
+      "end_time": "[09:31]",
+      "start_time_sec": 564,
+      "end_time_sec": 571,
+      "text": "Yes, a confirmation will be sent to the email address registered on your account. It will show the thirty-pound adjustment and include a reference number you can keep."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[09:33]",
+      "end_time": "[09:39]",
+      "start_time_sec": 573,
+      "end_time_sec": 579,
+      "text": "Lovely. I can keep that with the bill. I normally save the statements anyway, so that should make things easier."
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[09:41]",
+      "end_time": "[09:48]",
+      "start_time_sec": 581,
+      "end_time_sec": 588,
+      "text": "Absolutely. Right, the adjustment has gone through successfully. The credit is showing on the account, and I've added the note about the incorrect activation fee."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[09:50]",
+      "end_time": "[09:57]",
+      "start_time_sec": 590,
+      "end_time_sec": 597,
+      "text": "Oh, great. That's a weight off my mind. I was getting quite annoyed when I first saw the amount, especially because the direct debit had already gone out.",
+      "sentiment_score": 28
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[09:59]",
+      "end_time": "[10:06]",
+      "start_time_sec": 599,
+      "end_time_sec": 606,
+      "text": "I'm glad we've been able to sort that part out. And I'm sorry again for the confusion it caused. You shouldn't have had to spend time checking an incorrect charge."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[10:08]",
+      "end_time": "[10:15]",
+      "start_time_sec": 608,
+      "end_time_sec": 615,
+      "text": "Thanks, Daniel. You've explained it properly, which is what I wanted. I just needed to know where the extra money had gone and what would happen next."
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[10:17]",
+      "end_time": "[10:24]",
+      "start_time_sec": 617,
+      "end_time_sec": 624,
+      "text": "You're welcome, Priya. Just to recap, the package price increased because the promotion ended, but the separate thirty-pound activation charge was applied incorrectly. I've credited that amount to your account."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[10:26]",
+      "end_time": "[10:33]",
+      "start_time_sec": 626,
+      "end_time_sec": 633,
+      "text": "Yes, that makes sense now. The thirty pounds will come off next month's bill, and I'll get an email confirming the adjustment. Have I understood everything correctly?"
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[10:35]",
+      "end_time": "[10:42]",
+      "start_time_sec": 635,
+      "end_time_sec": 642,
+      "text": "You have, exactly. The credit is already on the account, and the confirmation email will give you a written record. The package price itself will remain at the current rate unless you change your plan."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[10:44]",
+      "end_time": "[10:51]",
+      "start_time_sec": 644,
+      "end_time_sec": 651,
+      "text": "Perfect. And can I ask one last thing? If I wanted to look at a cheaper package later, could I do that online, or would I need to call?"
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[10:53]",
+      "end_time": "[11:00]",
+      "start_time_sec": 653,
+      "end_time_sec": 660,
+      "text": "You can view available packages through your online account, and you can also contact us if you'd like help comparing them. There's no need to decide today, though."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[11:02]",
+      "end_time": "[11:09]",
+      "start_time_sec": 662,
+      "end_time_sec": 669,
+      "text": "That's good to know. I'll have a look when I get a chance. I probably shouldn't be making decisions about my broadband between meetings anyway."
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[11:11]",
+      "end_time": "[11:18]",
+      "start_time_sec": 671,
+      "end_time_sec": 678,
+      "text": "Probably best to give yourself a bit of time for that one. Before we finish, can I check that you're happy with the billing correction we've made today?"
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[11:20]",
+      "end_time": "[11:27]",
+      "start_time_sec": 680,
+      "end_time_sec": 687,
+      "text": "Yes, definitely. I understand the price increase now, and I'm happy that the thirty-pound charge has been credited. That's the main thing I wanted sorted.",
+      "sentiment_score": 38
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[11:29]",
+      "end_time": "[11:36]",
+      "start_time_sec": 689,
+      "end_time_sec": 696,
+      "text": "Brilliant. Just to make sure I've covered everything, is there anything else on the bill or your S-Net services that you'd like me to look at while we're here?"
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[11:38]",
+      "end_time": "[11:44]",
+      "start_time_sec": 698,
+      "end_time_sec": 704,
+      "text": "No, that's everything. Thanks for taking the time to check it all rather than just telling me the price had gone up."
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[11:46]",
+      "end_time": "[11:53]",
+      "start_time_sec": 706,
+      "end_time_sec": 713,
+      "text": "Of course. I'm pleased we could get the incorrect fee removed and explain the rest of the bill. Keep an eye out for that confirmation email, and you'll have the reference if you need it."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[11:55]",
+      "end_time": "[12:01]",
+      "start_time_sec": 715,
+      "end_time_sec": 721,
+      "text": "Will do. Thanks again, Daniel. You've been really helpful. Enjoy the rest of your day."
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[12:03]",
+      "end_time": "[12:10]",
+      "start_time_sec": 723,
+      "end_time_sec": 730,
+      "text": "You're very welcome, Priya. Thanks for your patience today, and I hope the rest of your working day goes smoothly. Thank you for choosing S-Net. Goodbye."
+    }
+  ]
+}

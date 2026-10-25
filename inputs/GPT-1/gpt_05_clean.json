@@ -1,0 +1,663 @@
+{
+  "tenant_id": "tenant-abc",
+  "customer_name": "Fatima Ahmed",
+  "planted_faults": [],
+  "fault_notes": "No planted faults. The agent greets Fatima appropriately, verifies her identity, paraphrases the upstairs Wi-Fi problem, asks diagnostic questions about speeds, devices, router placement and previous troubleshooting, and guides her through practical checks. The customer confirms the upstairs connection has improved after changing the router position and reconnecting the device, and the agent verifies the resolution before closing politely.",
+  "transcript": [
+    {
+      "speaker": "Agent",
+      "start_time": "[00:00]",
+      "end_time": "[00:07]",
+      "start_time_sec": 0,
+      "end_time_sec": 7,
+      "text": "Hello, you're through to S-Net broadband support. Thank you for calling S-Net, my name's James. How can I help today?"
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[00:09]",
+      "end_time": "[00:16]",
+      "start_time_sec": 9,
+      "end_time_sec": 16,
+      "text": "Hi, James. My Wi-Fi's been really slow upstairs lately. Downstairs it's mostly fine, but once I go up to the bedrooms, everything takes ages to load.",
+      "sentiment_score": -20
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[00:18]",
+      "end_time": "[00:25]",
+      "start_time_sec": 18,
+      "end_time_sec": 25,
+      "text": "Ah, that's frustrating, especially if you're trying to use it in your own room. I'll see what we can do. Can I take your full name, please?"
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[00:27]",
+      "end_time": "[00:31]",
+      "start_time_sec": 27,
+      "end_time_sec": 31,
+      "text": "Yes, it's Fatima Ahmed."
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[00:33]",
+      "end_time": "[00:40]",
+      "start_time_sec": 33,
+      "end_time_sec": 40,
+      "text": "Thanks, Fatima. Before I access your broadband account, could you confirm the answer to your security question for me?"
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[00:42]",
+      "end_time": "[00:47]",
+      "start_time_sec": 42,
+      "end_time_sec": 47,
+      "text": "Of course. It's the name of my first school, Green Lane Primary."
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[00:49]",
+      "end_time": "[00:56]",
+      "start_time_sec": 49,
+      "end_time_sec": 56,
+      "text": "Lovely, thank you. That's verified. I'll bring up the broadband details now. Apart from the Wi-Fi, how's your day been?"
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[00:58]",
+      "end_time": "[01:05]",
+      "start_time_sec": 58,
+      "end_time_sec": 65,
+      "text": "Not bad, thanks. I've been working from home, so the Wi-Fi's been getting on my nerves a bit. I keep having to move around the house to get a decent connection.",
+      "sentiment_score": -18
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[01:07]",
+      "end_time": "[01:14]",
+      "start_time_sec": 67,
+      "end_time_sec": 74,
+      "text": "Oh, that's not ideal when you're working. Just to make sure I've understood, the connection works reasonably well downstairs, but upstairs the speed drops and pages or apps take a long time to load. Is that right?"
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[01:16]",
+      "end_time": "[01:23]",
+      "start_time_sec": 76,
+      "end_time_sec": 83,
+      "text": "Yes, exactly. If I'm sitting in the living room, it's fine. But in my bedroom, even a video call can freeze, and sometimes the Wi-Fi disconnects altogether.",
+      "sentiment_score": -22
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[01:25]",
+      "end_time": "[01:32]",
+      "start_time_sec": 85,
+      "end_time_sec": 92,
+      "text": "Right, thanks for explaining that. Let's check whether it's the broadband connection itself or the wireless signal struggling to reach upstairs. When did you first notice the problem?"
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[01:34]",
+      "end_time": "[01:41]",
+      "start_time_sec": 94,
+      "end_time_sec": 101,
+      "text": "Probably about two weeks ago. It wasn't brilliant before, but it's got noticeably worse recently. I don't remember changing anything in the house."
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[01:43]",
+      "end_time": "[01:50]",
+      "start_time_sec": 103,
+      "end_time_sec": 110,
+      "text": "Okay. Has it been slow at particular times, like in the evening when everyone's home, or is it pretty much the same throughout the day?"
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[01:52]",
+      "end_time": "[01:59]",
+      "start_time_sec": 112,
+      "end_time_sec": 119,
+      "text": "It's worse in the evening, definitely, but I notice it during the day too. My daughter uses a tablet upstairs, and she complains about it as well."
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[02:01]",
+      "end_time": "[02:08]",
+      "start_time_sec": 121,
+      "end_time_sec": 128,
+      "text": "Thanks, that helps. Does the problem affect all the devices upstairs, or is it mainly your laptop or your daughter's tablet?"
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[02:10]",
+      "end_time": "[02:17]",
+      "start_time_sec": 130,
+      "end_time_sec": 137,
+      "text": "Both of those, and my phone as well. I can sometimes get a better signal if I stand near the landing, but in the bedroom it's rubbish.",
+      "sentiment_score": -25
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[02:19]",
+      "end_time": "[02:26]",
+      "start_time_sec": 139,
+      "end_time_sec": 146,
+      "text": "That points more towards the Wi-Fi signal than one particular device. Whereabouts is your router at the moment? Is it on the ground floor or upstairs?"
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[02:28]",
+      "end_time": "[02:35]",
+      "start_time_sec": 148,
+      "end_time_sec": 155,
+      "text": "It's downstairs in the living room, on a shelf beside the television. That's where the broadband socket is, so it's always been there."
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[02:37]",
+      "end_time": "[02:44]",
+      "start_time_sec": 157,
+      "end_time_sec": 164,
+      "text": "Got it. Is the router out in the open on that shelf, or is it tucked behind the TV or inside a cabinet?"
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[02:46]",
+      "end_time": "[02:53]",
+      "start_time_sec": 166,
+      "end_time_sec": 173,
+      "text": "It's beside the television, but it's quite close to the wall. There's a big mirror on the wall behind it, and the TV is right next to it."
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[02:55]",
+      "end_time": "[03:02]",
+      "start_time_sec": 175,
+      "end_time_sec": 182,
+      "text": "Okay, that could be worth looking at. The router's signal has to travel through the floor and walls to reach the bedrooms. Can you tell me what the lights on the router look like right now?"
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[03:04]",
+      "end_time": "[03:11]",
+      "start_time_sec": 184,
+      "end_time_sec": 191,
+      "text": "I'm downstairs now, so let me have a look. Power is solid, broadband is solid, and the Wi-Fi light is on. There's no red light or anything flashing strangely."
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[03:13]",
+      "end_time": "[03:20]",
+      "start_time_sec": 193,
+      "end_time_sec": 200,
+      "text": "That's good news. It suggests the router is connected to the broadband service. Have you restarted it recently, or has it been running continuously?"
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[03:22]",
+      "end_time": "[03:29]",
+      "start_time_sec": 202,
+      "end_time_sec": 209,
+      "text": "I restarted it last weekend. I switched it off at the plug, waited maybe half a minute, and turned it back on. It seemed a little better downstairs afterwards."
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[03:31]",
+      "end_time": "[03:38]",
+      "start_time_sec": 211,
+      "end_time_sec": 218,
+      "text": "Thanks for trying that already. There's no need to repeat it just yet. I'll run a line check from here to see whether we're seeing any broadband faults or unusual connection drops."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[03:40]",
+      "end_time": "[03:47]",
+      "start_time_sec": 220,
+      "end_time_sec": 227,
+      "text": "All right. I was wondering if the router was getting old, actually. We've had it for a few years now, so I thought maybe it was on its way out."
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[03:49]",
+      "end_time": "[03:56]",
+      "start_time_sec": 229,
+      "end_time_sec": 236,
+      "text": "It's possible for equipment to age, but the lights and your description don't immediately suggest a failed router. The line check is running now, and I'll look at the speed we're receiving at the property."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[03:58]",
+      "end_time": "[04:05]",
+      "start_time_sec": 238,
+      "end_time_sec": 245,
+      "text": "That's fine. I pay for a pretty decent package, so it's annoying when I can't even sit upstairs and watch something without it buffering.",
+      "sentiment_score": -32
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[04:07]",
+      "end_time": "[04:14]",
+      "start_time_sec": 247,
+      "end_time_sec": 254,
+      "text": "I can understand that, Fatima. You're paying for a service you expect to use throughout your home, and having to move rooms just to get a stable connection is frustrating. I'll check both the line and the Wi-Fi side."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[04:16]",
+      "end_time": "[04:23]",
+      "start_time_sec": 256,
+      "end_time_sec": 263,
+      "text": "Exactly. My desk is upstairs, so I'd rather not have to work at the dining table every time I need a video call."
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[04:25]",
+      "end_time": "[04:32]",
+      "start_time_sec": 265,
+      "end_time_sec": 272,
+      "text": "Of course. The line check is coming back within the expected range, and there aren't any active broadband faults showing. That makes a local Wi-Fi coverage issue more likely."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[04:34]",
+      "end_time": "[04:41]",
+      "start_time_sec": 274,
+      "end_time_sec": 281,
+      "text": "So the internet coming into the house is fine, but the signal isn't reaching upstairs properly? Is that what you mean?"
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[04:43]",
+      "end_time": "[04:50]",
+      "start_time_sec": 283,
+      "end_time_sec": 290,
+      "text": "Yes, that's the most likely explanation based on what we've checked. The router can receive a good broadband connection downstairs while the wireless signal weakens as it travels through floors and walls."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[04:52]",
+      "end_time": "[04:59]",
+      "start_time_sec": 292,
+      "end_time_sec": 299,
+      "text": "Right. Is there anything I can do about it without buying another device? I'd rather not spend more money if I don't have to."
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[05:01]",
+      "end_time": "[05:08]",
+      "start_time_sec": 301,
+      "end_time_sec": 308,
+      "text": "Definitely. Let's start with the free options. The first thing I'd try is moving the router away from the television and wall, somewhere more open and slightly higher if possible."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[05:10]",
+      "end_time": "[05:17]",
+      "start_time_sec": 310,
+      "end_time_sec": 317,
+      "text": "I could move it along the shelf, I suppose. There's a bit more space on the other end, although the broadband cable isn't very long."
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[05:19]",
+      "end_time": "[05:26]",
+      "start_time_sec": 319,
+      "end_time_sec": 326,
+      "text": "That may be enough. You don't need to move it into another room. Even a little distance from the television and other electronics, with the router in the open, can help."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[05:28]",
+      "end_time": "[05:35]",
+      "start_time_sec": 328,
+      "end_time_sec": 335,
+      "text": "Okay, I'll try that. Just give me a second while I move a couple of things around."
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[05:37]",
+      "end_time": "[05:44]",
+      "start_time_sec": 337,
+      "end_time_sec": 344,
+      "text": "No rush. Just make sure the router stays connected to the broadband socket, and leave a little space around it for ventilation."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[05:46]",
+      "end_time": "[05:53]",
+      "start_time_sec": 346,
+      "end_time_sec": 353,
+      "text": "Right, I've moved it to the other end of the shelf. It's more open now and not directly behind the TV. The lights are still on as normal."
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[05:55]",
+      "end_time": "[06:02]",
+      "start_time_sec": 355,
+      "end_time_sec": 362,
+      "text": "Great. Let's see whether that makes a difference upstairs. Before you go up, are you connected to your usual Wi-Fi network on your phone?"
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[06:04]",
+      "end_time": "[06:11]",
+      "start_time_sec": 364,
+      "end_time_sec": 371,
+      "text": "Yes, I'm connected to the usual network. It's the same one I've always used. I've not changed the password or anything."
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[06:13]",
+      "end_time": "[06:20]",
+      "start_time_sec": 373,
+      "end_time_sec": 380,
+      "text": "Perfect. Could you take the phone upstairs now and open a website you've used before? That'll give us a simple comparison without needing to install anything."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[06:22]",
+      "end_time": "[06:29]",
+      "start_time_sec": 382,
+      "end_time_sec": 389,
+      "text": "Okay, I'm walking upstairs. It's showing three bars on the landing. I'm in the bedroom now, and it's dropped to two. I'll open the BBC website."
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[06:31]",
+      "end_time": "[06:38]",
+      "start_time_sec": 391,
+      "end_time_sec": 398,
+      "text": "All right. Does the page load normally, or are you still seeing the spinning symbol and waiting around?"
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[06:40]",
+      "end_time": "[06:47]",
+      "start_time_sec": 400,
+      "end_time_sec": 407,
+      "text": "It's loaded quicker than it normally does, actually. Not instant, but definitely better than before. I'll try another page as well."
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[06:49]",
+      "end_time": "[06:56]",
+      "start_time_sec": 409,
+      "end_time_sec": 416,
+      "text": "Good, that's encouraging. While you're there, can you check whether your phone stays connected for a minute, or does it drop back to mobile data?"
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[06:58]",
+      "end_time": "[07:05]",
+      "start_time_sec": 418,
+      "end_time_sec": 425,
+      "text": "It's still on Wi-Fi. It hasn't switched over, and the second page opened as well. It's not perfect, but it does seem better."
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[07:07]",
+      "end_time": "[07:14]",
+      "start_time_sec": 427,
+      "end_time_sec": 434,
+      "text": "That's a good improvement. Let's check the Wi-Fi settings next. Your router may offer both 2.4 and 5 gigahertz networks, which behave a little differently through walls and floors."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[07:16]",
+      "end_time": "[07:23]",
+      "start_time_sec": 436,
+      "end_time_sec": 443,
+      "text": "I think mine just shows one network name. I've never noticed a separate one for the two bands. Does that matter?"
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[07:25]",
+      "end_time": "[07:32]",
+      "start_time_sec": 445,
+      "end_time_sec": 452,
+      "text": "Not necessarily. Some routers combine the bands under one name and select one automatically. The 2.4 gigahertz band often reaches further, while 5 gigahertz can be faster at shorter distances."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[07:34]",
+      "end_time": "[07:41]",
+      "start_time_sec": 454,
+      "end_time_sec": 461,
+      "text": "Ah, okay. So it might be choosing the faster one downstairs and struggling to keep it upstairs? I'm not sure how clever the router is."
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[07:43]",
+      "end_time": "[07:50]",
+      "start_time_sec": 463,
+      "end_time_sec": 470,
+      "text": "It can happen, although the router's automatic selection also depends on the device. Let's first check the signal where you normally work. How many bars are you seeing at your desk?"
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[07:52]",
+      "end_time": "[07:59]",
+      "start_time_sec": 472,
+      "end_time_sec": 479,
+      "text": "At the desk, it's two bars, sometimes three if I put the phone near the door. That's the annoying bit because I need to sit at the desk, not stand by the door."
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[08:01]",
+      "end_time": "[08:08]",
+      "start_time_sec": 481,
+      "end_time_sec": 488,
+      "text": "Of course, you need it to work where you actually use it. Could you open a video on your phone at the desk and let it play for a short while, just to see whether it buffers?"
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[08:10]",
+      "end_time": "[08:17]",
+      "start_time_sec": 490,
+      "end_time_sec": 497,
+      "text": "I've started one. It's playing so far. The picture looks fine, and it hasn't stopped to load yet. Yesterday it would have buffered at least once by now."
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[08:19]",
+      "end_time": "[08:26]",
+      "start_time_sec": 499,
+      "end_time_sec": 506,
+      "text": "That's promising. The router's new position seems to have helped. I also want to check whether your broadband package and router firmware are up to date, just to rule out anything else."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[08:28]",
+      "end_time": "[08:35]",
+      "start_time_sec": 508,
+      "end_time_sec": 515,
+      "text": "Okay. I haven't touched the router settings since it was installed, so I wouldn't know how to check those myself."
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[08:37]",
+      "end_time": "[08:44]",
+      "start_time_sec": 517,
+      "end_time_sec": 524,
+      "text": "That's absolutely fine. I can check the equipment status from here. Your package is active, the router is online, and there isn't a firmware update waiting for installation."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[08:46]",
+      "end_time": "[08:53]",
+      "start_time_sec": 526,
+      "end_time_sec": 533,
+      "text": "Great. So there's nothing wrong with the line or the router itself, from what you can see?"
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[08:55]",
+      "end_time": "[09:02]",
+      "start_time_sec": 535,
+      "end_time_sec": 542,
+      "text": "Correct. The line is healthy and the router is responding normally. Based on the checks, the main issue appears to be Wi-Fi coverage upstairs, and moving the router has already improved it."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[09:04]",
+      "end_time": "[09:11]",
+      "start_time_sec": 544,
+      "end_time_sec": 551,
+      "text": "That's reassuring. It's a bit surprising that moving it a small distance could make that much difference, but I can see why having it tucked near the TV wasn't ideal."
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[09:13]",
+      "end_time": "[09:20]",
+      "start_time_sec": 553,
+      "end_time_sec": 560,
+      "text": "Yes, wireless signals can be affected by walls, furniture and nearby electronics. Keeping the router in an open position can help it spread the signal more evenly around the house."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[09:22]",
+      "end_time": "[09:29]",
+      "start_time_sec": 562,
+      "end_time_sec": 569,
+      "text": "I'll leave it where it is, then. Is there anything else I can try if the signal still isn't strong enough in the bedroom?"
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[09:31]",
+      "end_time": "[09:38]",
+      "start_time_sec": 571,
+      "end_time_sec": 578,
+      "text": "There are a few options. You could try a different open position closer to the centre of the house, if the cabling allows. If coverage is still poor, a compatible Wi-Fi extender or mesh system may help, but I'd try the free adjustments first."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[09:40]",
+      "end_time": "[09:47]",
+      "start_time_sec": 580,
+      "end_time_sec": 587,
+      "text": "Fair enough. I don't really want to buy something unless I have to. The connection already seems better after moving it."
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[09:49]",
+      "end_time": "[09:56]",
+      "start_time_sec": 589,
+      "end_time_sec": 596,
+      "text": "That sounds sensible. I'd use it in the new position for the rest of today and see how it behaves during your usual busy period this evening."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[09:58]",
+      "end_time": "[10:05]",
+      "start_time_sec": 598,
+      "end_time_sec": 605,
+      "text": "Yes, I'll give that a go. I've got a video meeting later, so that'll be a good test. Hopefully I won't have to sit downstairs for it."
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[10:07]",
+      "end_time": "[10:14]",
+      "start_time_sec": 607,
+      "end_time_sec": 614,
+      "text": "Hopefully not. If the meeting is stable and the video continues playing without buffering, that's a useful sign that the new position is helping. We can look at additional coverage options if it still struggles."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[10:16]",
+      "end_time": "[10:23]",
+      "start_time_sec": 616,
+      "end_time_sec": 623,
+      "text": "Sounds good. It's already much less annoying than it was when I called, to be honest. At least I can browse normally up here now.",
+      "sentiment_score": 28
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[10:25]",
+      "end_time": "[10:32]",
+      "start_time_sec": 625,
+      "end_time_sec": 632,
+      "text": "I'm glad to hear that, Fatima. Before we wrap up, I'd like to check one more thing. Could you try opening a new page now while you're still at your desk?"
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[10:34]",
+      "end_time": "[10:41]",
+      "start_time_sec": 634,
+      "end_time_sec": 641,
+      "text": "I've just opened another one. Yes, that's come up quickly as well. The video is still playing in the background without stopping."
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[10:43]",
+      "end_time": "[10:50]",
+      "start_time_sec": 643,
+      "end_time_sec": 650,
+      "text": "Excellent. So the connection is responding normally at your desk now, and the video has stayed stable. Would you say the upstairs Wi-Fi is working well enough for you at the moment?"
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[10:52]",
+      "end_time": "[10:59]",
+      "start_time_sec": 652,
+      "end_time_sec": 659,
+      "text": "Yes, definitely better than before. It's not showing full bars, but pages are loading and the video isn't buffering. I'm happy with that for now.",
+      "sentiment_score": 38
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[11:01]",
+      "end_time": "[11:08]",
+      "start_time_sec": 661,
+      "end_time_sec": 668,
+      "text": "That's good to hear. Just to recap, the broadband line is healthy, and moving the router away from the television and into a more open position has improved the upstairs connection."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[11:10]",
+      "end_time": "[11:17]",
+      "start_time_sec": 670,
+      "end_time_sec": 677,
+      "text": "Yes, that's right. I'll keep the router there and see how it goes this evening. If it gets bad again, I'll get back in touch."
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[11:19]",
+      "end_time": "[11:26]",
+      "start_time_sec": 679,
+      "end_time_sec": 686,
+      "text": "Absolutely. If the problem returns, let us know what time it happens and which devices are affected. That will help us decide whether any further checks or equipment would be useful."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[11:28]",
+      "end_time": "[11:35]",
+      "start_time_sec": 688,
+      "end_time_sec": 695,
+      "text": "Will do. Thanks for explaining it all without making me feel like I should already know how Wi-Fi works."
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[11:37]",
+      "end_time": "[11:44]",
+      "start_time_sec": 697,
+      "end_time_sec": 704,
+      "text": "You're very welcome. It's not always obvious how these things affect the signal, so I'm happy we could work through it together. Is there anything else I can help you with today?"
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[11:46]",
+      "end_time": "[11:52]",
+      "start_time_sec": 706,
+      "end_time_sec": 712,
+      "text": "No, that's everything. Hopefully my next video call will be a bit less stressful now. Thanks again."
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[11:54]",
+      "end_time": "[12:02]",
+      "start_time_sec": 714,
+      "end_time_sec": 722,
+      "text": "You're welcome, Fatima. I'm glad we've improved the connection today. Thanks for your time, and thank you for choosing S-Net. Enjoy the rest of your day. Goodbye."
+    }
+  ]
+}

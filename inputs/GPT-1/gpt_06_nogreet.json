@@ -1,0 +1,673 @@
+{
+  "tenant_id": "tenant-abc",
+  "customer_name": "Oliver Hughes",
+  "planted_faults": ["nogreet"],
+  "fault_notes": "The agent fails to use the required opening phrase, \"Thank you for calling S-Net\", at the beginning of the call. The agent otherwise handles the email account lockout professionally, verifies the customer's identity, investigates the issue, and confirms that access has been restored.",
+  "transcript": [
+    {
+      "speaker": "Agent",
+      "start_time": "[00:00]",
+      "end_time": "[00:07]",
+      "start_time_sec": 0,
+      "end_time_sec": 7,
+      "text": "Hello, you're speaking with Daniel at S-Net customer support. How can I help you today?"
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[00:09]",
+      "end_time": "[00:17]",
+      "start_time_sec": 9,
+      "end_time_sec": 17,
+      "text": "Hi, yeah, I'm having trouble getting into my email account. It says it's locked, and I can't get past the sign-in screen.",
+      "sentiment_score": -12
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[00:19]",
+      "end_time": "[00:25]",
+      "start_time_sec": 19,
+      "end_time_sec": 25,
+      "text": "I'm sorry you're having trouble with that. I'll take a look and see what we can do to get you back in."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[00:27]",
+      "end_time": "[00:35]",
+      "start_time_sec": 27,
+      "end_time_sec": 35,
+      "text": "Thanks. I've tried a few times now, and it keeps saying the account's been locked for security reasons. I need to check something important."
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[00:37]",
+      "end_time": "[00:44]",
+      "start_time_sec": 37,
+      "end_time_sec": 44,
+      "text": "Of course, I understand. Before I access the account details, I just need to complete a quick security check."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[00:46]",
+      "end_time": "[00:51]",
+      "start_time_sec": 46,
+      "end_time_sec": 51,
+      "text": "Yeah, that's fine. What do you need from me?"
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[00:53]",
+      "end_time": "[01:00]",
+      "start_time_sec": 53,
+      "end_time_sec": 60,
+      "text": "Could you give me your full name and the first line of the address registered to your S-Net account, please?"
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[01:02]",
+      "end_time": "[01:08]",
+      "start_time_sec": 62,
+      "end_time_sec": 68,
+      "text": "It's Oliver Hughes, and the address is 18 Meadow Lane."
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[01:10]",
+      "end_time": "[01:17]",
+      "start_time_sec": 70,
+      "end_time_sec": 77,
+      "text": "Thank you, Oliver. I've matched those details. Could you also confirm the four-digit security PIN on your account?"
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[01:19]",
+      "end_time": "[01:23]",
+      "start_time_sec": 79,
+      "end_time_sec": 83,
+      "text": "Yes, it's 4826."
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[01:25]",
+      "end_time": "[01:31]",
+      "start_time_sec": 85,
+      "end_time_sec": 91,
+      "text": "Perfect, that's all verified. I'll bring up the email service details now."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[01:33]",
+      "end_time": "[01:39]",
+      "start_time_sec": 93,
+      "end_time_sec": 99,
+      "text": "Okay. I haven't changed anything recently, so I'm not sure why it's suddenly locked."
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[01:41]",
+      "end_time": "[01:49]",
+      "start_time_sec": 101,
+      "end_time_sec": 109,
+      "text": "That's understandable. I'll check the account status and then ask a couple of questions to narrow down what triggered it."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[01:51]",
+      "end_time": "[01:57]",
+      "start_time_sec": 111,
+      "end_time_sec": 117,
+      "text": "Right, because I was using it this morning without any problems at all."
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[01:59]",
+      "end_time": "[02:06]",
+      "start_time_sec": 119,
+      "end_time_sec": 126,
+      "text": "I can see the email service is active on your account. The lock appears to be on the mailbox sign-in itself."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[02:08]",
+      "end_time": "[02:15]",
+      "start_time_sec": 128,
+      "end_time_sec": 135,
+      "text": "Right, so it's not that my email service has been cancelled or anything like that?"
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[02:17]",
+      "end_time": "[02:22]",
+      "start_time_sec": 137,
+      "end_time_sec": 142,
+      "text": "No, not at all. Your service is still active, and we'll focus on restoring your access."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[02:24]",
+      "end_time": "[02:31]",
+      "start_time_sec": 144,
+      "end_time_sec": 151,
+      "text": "Good, because I was worried I'd lost all my messages. I've got a few things in there I really need."
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[02:33]",
+      "end_time": "[02:40]",
+      "start_time_sec": 153,
+      "end_time_sec": 160,
+      "text": "I understand why that would be worrying. A sign-in lock doesn't normally mean your stored emails have been deleted."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[02:42]",
+      "end_time": "[02:48]",
+      "start_time_sec": 162,
+      "end_time_sec": 168,
+      "text": "All right. What do you need to know first?"
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[02:50]",
+      "end_time": "[02:58]",
+      "start_time_sec": 170,
+      "end_time_sec": 178,
+      "text": "When you try to sign in, are you using the S-Net webmail page, an app on your phone, or an email programme on a computer?"
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[03:00]",
+      "end_time": "[03:06]",
+      "start_time_sec": 180,
+      "end_time_sec": 186,
+      "text": "Mostly the webmail page on my laptop. I tried the app on my phone afterwards, and that failed too."
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[03:08]",
+      "end_time": "[03:15]",
+      "start_time_sec": 188,
+      "end_time_sec": 195,
+      "text": "Thanks, that helps. And are both devices showing the same locked-account message?"
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[03:17]",
+      "end_time": "[03:23]",
+      "start_time_sec": 197,
+      "end_time_sec": 203,
+      "text": "Pretty much, yes. The laptop says the account is locked, and the phone just says it can't sign in."
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[03:25]",
+      "end_time": "[03:33]",
+      "start_time_sec": 205,
+      "end_time_sec": 213,
+      "text": "Understood. Have you recently changed your password, or had to reset it on another device?"
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[03:35]",
+      "end_time": "[03:42]",
+      "start_time_sec": 215,
+      "end_time_sec": 222,
+      "text": "No, not recently. I did try entering my usual password a few times when it didn't work, though."
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[03:44]",
+      "end_time": "[03:51]",
+      "start_time_sec": 224,
+      "end_time_sec": 231,
+      "text": "That may be relevant. Several unsuccessful attempts can trigger an automatic security lock, even if the password is normally correct."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[03:53]",
+      "end_time": "[04:00]",
+      "start_time_sec": 233,
+      "end_time_sec": 240,
+      "text": "But I'm fairly sure I typed it correctly. Could someone else have tried to get into my account?"
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[04:02]",
+      "end_time": "[04:10]",
+      "start_time_sec": 242,
+      "end_time_sec": 250,
+      "text": "It's possible, although the lock alone doesn't prove that. I'll check the security information available to us before we decide on the next step."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[04:12]",
+      "end_time": "[04:18]",
+      "start_time_sec": 252,
+      "end_time_sec": 258,
+      "text": "Okay, I'd rather be safe than sorry. I just don't want somebody reading my emails."
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[04:20]",
+      "end_time": "[04:27]",
+      "start_time_sec": 260,
+      "end_time_sec": 267,
+      "text": "Absolutely. I'll review the recent access indicators and help you secure the account as part of getting you back in."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[04:29]",
+      "end_time": "[04:35]",
+      "start_time_sec": 269,
+      "end_time_sec": 275,
+      "text": "Thanks. I did notice the phone had been asking me to sign in again yesterday."
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[04:37]",
+      "end_time": "[04:44]",
+      "start_time_sec": 277,
+      "end_time_sec": 284,
+      "text": "That's useful to know. Did you dismiss the prompt at the time, or did you enter your password on the phone?"
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[04:46]",
+      "end_time": "[04:52]",
+      "start_time_sec": 286,
+      "end_time_sec": 292,
+      "text": "I entered it once, and it didn't accept it. I left it alone after that until this morning."
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[04:54]",
+      "end_time": "[05:02]",
+      "start_time_sec": 294,
+      "end_time_sec": 302,
+      "text": "So the phone prompted you yesterday, rejected the password, and now both devices are unable to access the mailbox. Have I got that right?"
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[05:04]",
+      "end_time": "[05:09]",
+      "start_time_sec": 304,
+      "end_time_sec": 309,
+      "text": "Yes, exactly. That's what's happened."
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[05:11]",
+      "end_time": "[05:18]",
+      "start_time_sec": 311,
+      "end_time_sec": 318,
+      "text": "Thanks for confirming. I'm checking the lock status now, and I'll explain what I find before making any changes."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[05:20]",
+      "end_time": "[05:27]",
+      "start_time_sec": 320,
+      "end_time_sec": 327,
+      "text": "All right, but is this going to take ages? I've already spent about half an hour trying to sort it out."
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[05:29]",
+      "end_time": "[05:36]",
+      "start_time_sec": 329,
+      "end_time_sec": 336,
+      "text": "I can appreciate how frustrating that is, especially when you've already tried several times. I'll keep this as straightforward as I can."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[05:38]",
+      "end_time": "[05:43]",
+      "start_time_sec": 338,
+      "end_time_sec": 343,
+      "text": "I appreciate that. I just need to know what caused it."
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[05:45]",
+      "end_time": "[05:53]",
+      "start_time_sec": 345,
+      "end_time_sec": 353,
+      "text": "The account record shows a temporary security lock following repeated unsuccessful sign-in attempts. I can't confirm whether they all came from your devices."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[05:55]",
+      "end_time": "[06:02]",
+      "start_time_sec": 355,
+      "end_time_sec": 362,
+      "text": "That's a bit concerning, to be honest. Can you see where those attempts came from?"
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[06:04]",
+      "end_time": "[06:11]",
+      "start_time_sec": 364,
+      "end_time_sec": 371,
+      "text": "I can see the failed attempts recorded, but I don't have a reliable location detail to share with you from this screen."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[06:13]",
+      "end_time": "[06:19]",
+      "start_time_sec": 373,
+      "end_time_sec": 379,
+      "text": "Right. Well, can we at least unlock it and change the password?"
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[06:21]",
+      "end_time": "[06:29]",
+      "start_time_sec": 381,
+      "end_time_sec": 389,
+      "text": "Yes. I'll guide you through the approved recovery process, then we'll set a new password and check that you can sign in."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[06:31]",
+      "end_time": "[06:37]",
+      "start_time_sec": 391,
+      "end_time_sec": 397,
+      "text": "Okay. Do I need to give you the new password over the phone?"
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[06:39]",
+      "end_time": "[06:46]",
+      "start_time_sec": 399,
+      "end_time_sec": 406,
+      "text": "No, please don't share it with me. You'll enter it yourself through the secure recovery page."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[06:48]",
+      "end_time": "[06:53]",
+      "start_time_sec": 408,
+      "end_time_sec": 413,
+      "text": "Good, that's what I was hoping you'd say."
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[06:55]",
+      "end_time": "[07:03]",
+      "start_time_sec": 415,
+      "end_time_sec": 423,
+      "text": "First, open a new browser tab and go to the official S-Net webmail sign-in page. Don't use any link from an unexpected email."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[07:05]",
+      "end_time": "[07:11]",
+      "start_time_sec": 425,
+      "end_time_sec": 431,
+      "text": "I've got it open now. There's a link saying I've forgotten my password."
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[07:13]",
+      "end_time": "[07:19]",
+      "start_time_sec": 433,
+      "end_time_sec": 439,
+      "text": "That's the one to select. It should take you to the secure account recovery options."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[07:21]",
+      "end_time": "[07:28]",
+      "start_time_sec": 441,
+      "end_time_sec": 448,
+      "text": "Right, it's asking me to confirm my recovery mobile number. The last two digits look correct."
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[07:30]",
+      "end_time": "[07:37]",
+      "start_time_sec": 450,
+      "end_time_sec": 457,
+      "text": "Good. If the number is yours, continue with that option and request the verification code."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[07:39]",
+      "end_time": "[07:45]",
+      "start_time_sec": 459,
+      "end_time_sec": 465,
+      "text": "I've requested it. Just waiting for the text to come through."
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[07:47]",
+      "end_time": "[07:53]",
+      "start_time_sec": 467,
+      "end_time_sec": 473,
+      "text": "No problem. Let me know when it arrives, and enter the code directly into the recovery page."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[07:55]",
+      "end_time": "[08:00]",
+      "start_time_sec": 475,
+      "end_time_sec": 480,
+      "text": "It's just come through. I've entered it, and it's accepted."
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[08:02]",
+      "end_time": "[08:09]",
+      "start_time_sec": 482,
+      "end_time_sec": 489,
+      "text": "Excellent. You should now be able to create a new password. Choose one you haven't used for this account before."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[08:11]",
+      "end_time": "[08:18]",
+      "start_time_sec": 491,
+      "end_time_sec": 498,
+      "text": "Okay, I've entered one and confirmed it. The page says the password has been changed successfully."
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[08:20]",
+      "end_time": "[08:27]",
+      "start_time_sec": 500,
+      "end_time_sec": 507,
+      "text": "Great. Please return to the sign-in page and try logging in with your email address and the new password."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[08:29]",
+      "end_time": "[08:36]",
+      "start_time_sec": 509,
+      "end_time_sec": 516,
+      "text": "I'm doing that now. It's loading... oh, hang on, I'm in. I can see my inbox."
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[08:38]",
+      "end_time": "[08:45]",
+      "start_time_sec": 518,
+      "end_time_sec": 525,
+      "text": "That's good news. Can you see your recent messages, and do the folders appear to be there as expected?"
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[08:47]",
+      "end_time": "[08:53]",
+      "start_time_sec": 527,
+      "end_time_sec": 533,
+      "text": "Yes, everything seems to be there. I've got my inbox and sent items, and the latest emails are showing."
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[08:55]",
+      "end_time": "[09:03]",
+      "start_time_sec": 535,
+      "end_time_sec": 543,
+      "text": "Perfect. That confirms webmail access is working again. We should also make sure the phone isn't still trying to connect with the old password."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[09:05]",
+      "end_time": "[09:11]",
+      "start_time_sec": 545,
+      "end_time_sec": 551,
+      "text": "Yes, I nearly forgot about the phone. Will it update automatically?"
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[09:13]",
+      "end_time": "[09:20]",
+      "start_time_sec": 553,
+      "end_time_sec": 560,
+      "text": "It may prompt you to sign in again. If it does, enter the new password directly into the email app."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[09:22]",
+      "end_time": "[09:29]",
+      "start_time_sec": 562,
+      "end_time_sec": 569,
+      "text": "It's asking me now. I've entered the new one, and the error has disappeared."
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[09:31]",
+      "end_time": "[09:37]",
+      "start_time_sec": 571,
+      "end_time_sec": 577,
+      "text": "Lovely. Can you refresh the inbox on your phone and check whether the latest messages appear?"
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[09:39]",
+      "end_time": "[09:45]",
+      "start_time_sec": 579,
+      "end_time_sec": 585,
+      "text": "Yes, they're coming through now. That's a relief."
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[09:47]",
+      "end_time": "[09:54]",
+      "start_time_sec": 587,
+      "end_time_sec": 594,
+      "text": "I'm glad we've got both devices working again. I'd recommend checking your recovery details are up to date while you're signed in."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[09:56]",
+      "end_time": "[10:03]",
+      "start_time_sec": 596,
+      "end_time_sec": 603,
+      "text": "That's sensible. Is there anything else I should do in case somebody was trying to access it?"
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[10:05]",
+      "end_time": "[10:13]",
+      "start_time_sec": 605,
+      "end_time_sec": 613,
+      "text": "Use that new, unique password, keep it private, and review any recent security notifications. If you spot unfamiliar activity, contact us straight away."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[10:15]",
+      "end_time": "[10:22]",
+      "start_time_sec": 615,
+      "end_time_sec": 622,
+      "text": "All right. I don't see anything unusual in the inbox, but I'll have a proper look at the security notifications later."
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[10:24]",
+      "end_time": "[10:31]",
+      "start_time_sec": 624,
+      "end_time_sec": 631,
+      "text": "That sounds good. And please remember, we won't ask you to tell us your password or read a verification code out over an unsolicited call."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[10:33]",
+      "end_time": "[10:39]",
+      "start_time_sec": 633,
+      "end_time_sec": 639,
+      "text": "Okay, that's helpful. I'm just glad I can get to my emails again."
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[10:41]",
+      "end_time": "[10:49]",
+      "start_time_sec": 641,
+      "end_time_sec": 649,
+      "text": "Absolutely, Oliver. Just to confirm, you can now sign in on both your laptop and your phone, and the messages are loading correctly?"
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[10:51]",
+      "end_time": "[10:57]",
+      "start_time_sec": 651,
+      "end_time_sec": 657,
+      "text": "Yes, both are working. I can see the inbox on each device, and the new password is accepted."
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[10:59]",
+      "end_time": "[11:06]",
+      "start_time_sec": 659,
+      "end_time_sec": 666,
+      "text": "Brilliant. Is there anything else about your email account that you'd like me to check while we're here?"
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[11:08]",
+      "end_time": "[11:14]",
+      "start_time_sec": 668,
+      "end_time_sec": 674,
+      "text": "No, I think that's everything. You've talked me through it clearly, thanks."
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[11:16]",
+      "end_time": "[11:23]",
+      "start_time_sec": 676,
+      "end_time_sec": 683,
+      "text": "You're very welcome. I'm pleased we've restored access, and I'd suggest keeping your recovery mobile number current in case you need it again."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[11:25]",
+      "end_time": "[11:31]",
+      "start_time_sec": 685,
+      "end_time_sec": 691,
+      "text": "Will do. Thanks for your help, Daniel. You've saved me a lot more messing about with it."
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[11:33]",
+      "end_time": "[11:40]",
+      "start_time_sec": 693,
+      "end_time_sec": 700,
+      "text": "It's been a pleasure helping you, Oliver. Thanks for your patience while we worked through the recovery steps."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[11:42]",
+      "end_time": "[11:47]",
+      "start_time_sec": 702,
+      "end_time_sec": 707,
+      "text": "No worries. Have a good evening."
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[11:49]",
+      "end_time": "[11:55]",
+      "start_time_sec": 709,
+      "end_time_sec": 715,
+      "text": "You too, Oliver. Take care, and thank you for choosing S-Net."
+    }
+  ]
+}

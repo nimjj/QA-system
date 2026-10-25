@@ -1,0 +1,676 @@
+{
+  "tenant_id": "tenant-abc",
+  "customer_name": "Grace Mitchell",
+  "planted_faults": [
+    "noname",
+    "nogreet",
+    "noclose",
+    "noconfirm"
+  ],
+  "fault_notes": "The customer is frustrated because an engineer failed to attend a scheduled appointment and no one provided an update. The agent handles the complaint professionally but never uses the customer's name at any point during the call. [Labels added on saving: the agent also never says \"Thank you for calling S-Net\" or \"Thank you for choosing S-Net\", so nogreet and noclose are in this call too. ChatGPT gave agent turns a sentiment_score; those were removed (production has customer sentiment only).] [noconfirm added: the call ends with a new engineer visit booked; the agent never confirms the broadband problem is fixed.]",
+  "transcript": [
+    {
+      "speaker": "Agent",
+      "start_time": "[00:00]",
+      "end_time": "[00:08]",
+      "start_time_sec": 0,
+      "end_time_sec": 8,
+      "text": "Hello, you're through to S-Net customer support. My name is Daniel. How can I help you today?"
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[00:10]",
+      "end_time": "[00:24]",
+      "start_time_sec": 10,
+      "end_time_sec": 24,
+      "text": "Hi. I was supposed to have an engineer come out this morning, between eight and one, and nobody turned up.",
+      "sentiment_score": -28
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[00:26]",
+      "end_time": "[00:35]",
+      "start_time_sec": 26,
+      "end_time_sec": 35,
+      "text": "I'm sorry to hear that. I can check the appointment details and see what happened. Could I have your full name, please?"
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[00:37]",
+      "end_time": "[00:42]",
+      "start_time_sec": 37,
+      "end_time_sec": 42,
+      "text": "It's Grace Mitchell.",
+      "sentiment_score": -5
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[00:44]",
+      "end_time": "[00:53]",
+      "start_time_sec": 44,
+      "end_time_sec": 53,
+      "text": "Thank you. Before I access the account, could you confirm the first line of your registered address and your postcode?"
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[00:55]",
+      "end_time": "[01:03]",
+      "start_time_sec": 55,
+      "end_time_sec": 63,
+      "text": "It's 18 Meadow Close, and the postcode is LS12 4QJ.",
+      "sentiment_score": 0
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[01:05]",
+      "end_time": "[01:12]",
+      "start_time_sec": 65,
+      "end_time_sec": 72,
+      "text": "That's matched, thank you. I'll bring up the service record now. Just bear with me for a moment."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[01:14]",
+      "end_time": "[01:20]",
+      "start_time_sec": 74,
+      "end_time_sec": 80,
+      "text": "Okay. I just want to know why nobody came.",
+      "sentiment_score": -18
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[01:22]",
+      "end_time": "[01:30]",
+      "start_time_sec": 82,
+      "end_time_sec": 90,
+      "text": "Of course. I can see an engineer visit booked for today, with the morning appointment window you mentioned."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[01:32]",
+      "end_time": "[01:42]",
+      "start_time_sec": 92,
+      "end_time_sec": 102,
+      "text": "Right, well, I stayed home all morning. I couldn't go to work because I didn't want to miss them.",
+      "sentiment_score": -38
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[01:44]",
+      "end_time": "[01:53]",
+      "start_time_sec": 104,
+      "end_time_sec": 113,
+      "text": "I understand. I'll check the appointment notes and any updates from the engineer so we can establish what happened."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[01:55]",
+      "end_time": "[02:04]",
+      "start_time_sec": 115,
+      "end_time_sec": 124,
+      "text": "There weren't any updates. No text, no phone call, nothing. I kept checking my phone.",
+      "sentiment_score": -32
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[02:06]",
+      "end_time": "[02:15]",
+      "start_time_sec": 126,
+      "end_time_sec": 135,
+      "text": "I'll look at the visit status and contact history. Was the appointment originally arranged because of a fault with your broadband?"
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[02:17]",
+      "end_time": "[02:27]",
+      "start_time_sec": 137,
+      "end_time_sec": 147,
+      "text": "Yes, the connection keeps dropping out. Someone on the phone said an engineer needed to inspect the line.",
+      "sentiment_score": -12
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[02:29]",
+      "end_time": "[02:37]",
+      "start_time_sec": 149,
+      "end_time_sec": 157,
+      "text": "Thanks for explaining. I'll check whether the visit was marked as completed, cancelled, or delayed."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[02:39]",
+      "end_time": "[02:47]",
+      "start_time_sec": 159,
+      "end_time_sec": 167,
+      "text": "It definitely wasn't completed. I've been sitting right here since before eight.",
+      "sentiment_score": -25
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[02:49]",
+      "end_time": "[02:57]",
+      "start_time_sec": 169,
+      "end_time_sec": 177,
+      "text": "I can see that the appointment is still showing as open on the system. I'm checking the latest field notes now."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[02:59]",
+      "end_time": "[03:08]",
+      "start_time_sec": 179,
+      "end_time_sec": 188,
+      "text": "How can it still be open? The time window has been over for ages. Surely someone should know where the engineer is.",
+      "sentiment_score": -43
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[03:10]",
+      "end_time": "[03:20]",
+      "start_time_sec": 190,
+      "end_time_sec": 200,
+      "text": "You're right that the appointment window has passed, and I'm sorry there's been no communication. I'll continue checking the notes."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[03:22]",
+      "end_time": "[03:30]",
+      "start_time_sec": 202,
+      "end_time_sec": 210,
+      "text": "This is the second time I've had an issue with an appointment. The last one was rearranged at short notice.",
+      "sentiment_score": -34
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[03:32]",
+      "end_time": "[03:41]",
+      "start_time_sec": 212,
+      "end_time_sec": 221,
+      "text": "I'm sorry this has happened again. I'll review the account history as well as today's visit details."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[03:43]",
+      "end_time": "[03:52]",
+      "start_time_sec": 223,
+      "end_time_sec": 232,
+      "text": "I don't mind rearranging if there's a genuine reason, but leaving me with no information is not acceptable.",
+      "sentiment_score": -30
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[03:54]",
+      "end_time": "[04:03]",
+      "start_time_sec": 234,
+      "end_time_sec": 243,
+      "text": "I agree that you should have received an update. I'm checking the dispatch notes to see whether a reason was recorded."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[04:05]",
+      "end_time": "[04:12]",
+      "start_time_sec": 245,
+      "end_time_sec": 252,
+      "text": "All right. Please don't just book another date without finding out what happened today.",
+      "sentiment_score": -18
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[04:14]",
+      "end_time": "[04:23]",
+      "start_time_sec": 254,
+      "end_time_sec": 263,
+      "text": "Understood. I'll look for a recorded reason first, then I'll explain the available options before making any changes."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[04:25]",
+      "end_time": "[04:33]",
+      "start_time_sec": 265,
+      "end_time_sec": 273,
+      "text": "Good, because I need to arrange time off work if someone has to come out again.",
+      "sentiment_score": -10
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[04:35]",
+      "end_time": "[04:44]",
+      "start_time_sec": 275,
+      "end_time_sec": 284,
+      "text": "That makes sense. I'll also check which appointment windows are available so we can choose something practical."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[04:46]",
+      "end_time": "[04:53]",
+      "start_time_sec": 286,
+      "end_time_sec": 293,
+      "text": "If there's an afternoon slot, that would be much easier for me.",
+      "sentiment_score": 4
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[04:55]",
+      "end_time": "[05:04]",
+      "start_time_sec": 295,
+      "end_time_sec": 304,
+      "text": "I'll check for afternoon availability. The system is still loading the engineer's notes, so this may take another minute."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[05:06]",
+      "end_time": "[05:13]",
+      "start_time_sec": 306,
+      "end_time_sec": 313,
+      "text": "Fine, I'll wait. I just hope this doesn't turn into another hour on the phone.",
+      "sentiment_score": -16
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[05:15]",
+      "end_time": "[05:24]",
+      "start_time_sec": 315,
+      "end_time_sec": 324,
+      "text": "I'll keep this focused and come back with what I can confirm. Thank you for your patience while I check."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[05:26]",
+      "end_time": "[05:32]",
+      "start_time_sec": 326,
+      "end_time_sec": 332,
+      "text": "Okay. I appreciate you looking into it.",
+      "sentiment_score": 8
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[05:34]",
+      "end_time": "[05:43]",
+      "start_time_sec": 334,
+      "end_time_sec": 343,
+      "text": "I've found an internal status update. It says the assigned engineer's route was changed, but there's no customer notification recorded."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[05:45]",
+      "end_time": "[05:54]",
+      "start_time_sec": 345,
+      "end_time_sec": 354,
+      "text": "So they changed the route and didn't tell me? That's exactly the problem. I could have done something else with my day.",
+      "sentiment_score": -45
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[05:56]",
+      "end_time": "[06:06]",
+      "start_time_sec": 356,
+      "end_time_sec": 366,
+      "text": "The notes indicate a route change, but they don't explain why the notification wasn't sent. I'm sorry you were left waiting."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[06:08]",
+      "end_time": "[06:16]",
+      "start_time_sec": 368,
+      "end_time_sec": 376,
+      "text": "Can you tell whether the engineer is still coming today, or is that completely off the table?",
+      "sentiment_score": -20
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[06:18]",
+      "end_time": "[06:28]",
+      "start_time_sec": 378,
+      "end_time_sec": 388,
+      "text": "There isn't a confirmed arrival time showing, so I can't promise a visit today. I'll check whether dispatch can provide a clearer update."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[06:30]",
+      "end_time": "[06:38]",
+      "start_time_sec": 390,
+      "end_time_sec": 398,
+      "text": "I would rather you be honest than tell me to keep waiting when nobody is actually on the way.",
+      "sentiment_score": -12
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[06:40]",
+      "end_time": "[06:49]",
+      "start_time_sec": 400,
+      "end_time_sec": 409,
+      "text": "That's fair. I'll avoid giving you an unconfirmed time. I'll check the next available appointment options now."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[06:51]",
+      "end_time": "[06:58]",
+      "start_time_sec": 411,
+      "end_time_sec": 418,
+      "text": "Thank you. I need something definite so I can plan around it.",
+      "sentiment_score": 4
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[07:00]",
+      "end_time": "[07:09]",
+      "start_time_sec": 420,
+      "end_time_sec": 429,
+      "text": "I can offer a new appointment on Thursday, with an afternoon window between one and five. I'll check that the slot is still available."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[07:11]",
+      "end_time": "[07:19]",
+      "start_time_sec": 431,
+      "end_time_sec": 439,
+      "text": "Thursday afternoon could work. Is there any way to make sure they actually come this time?",
+      "sentiment_score": -8
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[07:21]",
+      "end_time": "[07:30]",
+      "start_time_sec": 441,
+      "end_time_sec": 450,
+      "text": "I can't guarantee there won't be an unexpected delay, but I can add a note requesting an update if the engineer's schedule changes."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[07:32]",
+      "end_time": "[07:40]",
+      "start_time_sec": 452,
+      "end_time_sec": 460,
+      "text": "Please do that. And I'd like the notification to come by text if possible.",
+      "sentiment_score": 5
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[07:42]",
+      "end_time": "[07:51]",
+      "start_time_sec": 462,
+      "end_time_sec": 471,
+      "text": "I'll add the request for a text update if the appointment changes. I'll also check that the mobile number on the account is correct."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[07:53]",
+      "end_time": "[08:00]",
+      "start_time_sec": 473,
+      "end_time_sec": 480,
+      "text": "It should be. It's the same number I've had for years.",
+      "sentiment_score": 0
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[08:02]",
+      "end_time": "[08:11]",
+      "start_time_sec": 482,
+      "end_time_sec": 491,
+      "text": "The number is present on the account. I'll confirm the appointment options and add the communication note."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[08:13]",
+      "end_time": "[08:21]",
+      "start_time_sec": 493,
+      "end_time_sec": 501,
+      "text": "Before you book it, can you check whether there are any earlier afternoon appointments?",
+      "sentiment_score": 3
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[08:23]",
+      "end_time": "[08:32]",
+      "start_time_sec": 503,
+      "end_time_sec": 512,
+      "text": "I'll check the calendar for any earlier options. The Thursday afternoon slot is available, but I'll see whether something sooner has opened up."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[08:34]",
+      "end_time": "[08:42]",
+      "start_time_sec": 514,
+      "end_time_sec": 522,
+      "text": "That would be helpful. The broadband problem is making it difficult to work from home.",
+      "sentiment_score": -18
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[08:44]",
+      "end_time": "[08:53]",
+      "start_time_sec": 524,
+      "end_time_sec": 533,
+      "text": "I can see why you'd want it sorted quickly. There is a Wednesday afternoon slot available, between two and six."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[08:55]",
+      "end_time": "[09:02]",
+      "start_time_sec": 535,
+      "end_time_sec": 542,
+      "text": "Wednesday would be better. Could you book that one instead?",
+      "sentiment_score": 8
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[09:04]",
+      "end_time": "[09:13]",
+      "start_time_sec": 544,
+      "end_time_sec": 553,
+      "text": "Certainly. I'll reserve Wednesday between two and six and add the request for a text update if anything changes."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[09:15]",
+      "end_time": "[09:22]",
+      "start_time_sec": 555,
+      "end_time_sec": 562,
+      "text": "Okay. Please make sure the old appointment is cleared so there isn't any confusion.",
+      "sentiment_score": 2
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[09:24]",
+      "end_time": "[09:33]",
+      "start_time_sec": 564,
+      "end_time_sec": 573,
+      "text": "I'll confirm the new booking and check that the previous appointment is no longer active."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[09:35]",
+      "end_time": "[09:42]",
+      "start_time_sec": 575,
+      "end_time_sec": 582,
+      "text": "Thanks. I don't want another engineer turning up on the wrong day.",
+      "sentiment_score": 0
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[09:44]",
+      "end_time": "[09:54]",
+      "start_time_sec": 584,
+      "end_time_sec": 594,
+      "text": "The new appointment is now booked for Wednesday, between two and six in the afternoon. The earlier visit is marked as superseded."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[09:56]",
+      "end_time": "[10:04]",
+      "start_time_sec": 596,
+      "end_time_sec": 604,
+      "text": "All right. Will I get a confirmation message with those details?",
+      "sentiment_score": 5
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[10:06]",
+      "end_time": "[10:15]",
+      "start_time_sec": 606,
+      "end_time_sec": 615,
+      "text": "Yes, a confirmation text should be sent shortly. I've also added the request for a text update if the schedule changes."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[10:17]",
+      "end_time": "[10:24]",
+      "start_time_sec": 617,
+      "end_time_sec": 624,
+      "text": "Good. Is there anything else I need to do before the engineer comes?",
+      "sentiment_score": 3
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[10:26]",
+      "end_time": "[10:36]",
+      "start_time_sec": 626,
+      "end_time_sec": 636,
+      "text": "Please make sure the router and its cables are accessible. You don't need to change any settings before the visit."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[10:38]",
+      "end_time": "[10:46]",
+      "start_time_sec": 638,
+      "end_time_sec": 646,
+      "text": "That's fine. Everything is already plugged in where it normally is.",
+      "sentiment_score": 4
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[10:48]",
+      "end_time": "[10:58]",
+      "start_time_sec": 648,
+      "end_time_sec": 658,
+      "text": "Perfect. The engineer can inspect the line and equipment during the visit. I'll make sure the notes mention the repeated connection drops."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[11:00]",
+      "end_time": "[11:08]",
+      "start_time_sec": 660,
+      "end_time_sec": 668,
+      "text": "I hope they can find the cause. It has been happening for nearly two weeks now.",
+      "sentiment_score": -15
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[11:10]",
+      "end_time": "[11:19]",
+      "start_time_sec": 670,
+      "end_time_sec": 679,
+      "text": "I've added that the issue has been ongoing for nearly two weeks and is affecting your work from home."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[11:21]",
+      "end_time": "[11:29]",
+      "start_time_sec": 681,
+      "end_time_sec": 689,
+      "text": "Thanks. At least the details are being recorded properly this time.",
+      "sentiment_score": 10
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[11:31]",
+      "end_time": "[11:40]",
+      "start_time_sec": 691,
+      "end_time_sec": 700,
+      "text": "You're welcome. I've recorded the missed appointment, the lack of notification, the new visit window, and your request for text updates."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[11:42]",
+      "end_time": "[11:50]",
+      "start_time_sec": 702,
+      "end_time_sec": 710,
+      "text": "I still think the missed visit should be looked into. I don't want this happening to other customers.",
+      "sentiment_score": -12
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[11:52]",
+      "end_time": "[12:02]",
+      "start_time_sec": 712,
+      "end_time_sec": 722,
+      "text": "I can log the missed appointment as a service complaint for review. That will document the issue separately from the new booking."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[12:04]",
+      "end_time": "[12:11]",
+      "start_time_sec": 724,
+      "end_time_sec": 731,
+      "text": "Yes, please log that. I want it on record that I waited all morning.",
+      "sentiment_score": -8
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[12:13]",
+      "end_time": "[12:22]",
+      "start_time_sec": 733,
+      "end_time_sec": 742,
+      "text": "I've logged the complaint with the details you provided. You'll receive a reference number by text once the record is processed."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[12:24]",
+      "end_time": "[12:31]",
+      "start_time_sec": 744,
+      "end_time_sec": 751,
+      "text": "All right. That sounds reasonable. Is the new appointment definitely booked, then?",
+      "sentiment_score": 4
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[12:33]",
+      "end_time": "[12:43]",
+      "start_time_sec": 753,
+      "end_time_sec": 763,
+      "text": "Yes, the system shows Wednesday from two until six in the afternoon as booked. The confirmation text should arrive shortly."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[12:45]",
+      "end_time": "[12:52]",
+      "start_time_sec": 765,
+      "end_time_sec": 772,
+      "text": "Okay, thanks for sorting out the new date and putting in the complaint.",
+      "sentiment_score": 12
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[12:54]",
+      "end_time": "[13:03]",
+      "start_time_sec": 774,
+      "end_time_sec": 783,
+      "text": "You're welcome. Before we finish, is there anything else about the missed appointment or your broadband service that you'd like me to check?"
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[13:05]",
+      "end_time": "[13:12]",
+      "start_time_sec": 785,
+      "end_time_sec": 792,
+      "text": "No, that's everything for now. I'll look out for the confirmation text.",
+      "sentiment_score": 8
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[13:14]",
+      "end_time": "[13:23]",
+      "start_time_sec": 794,
+      "end_time_sec": 803,
+      "text": "Thanks for your time today. I hope the visit goes smoothly and the connection issue gets resolved. Goodbye."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[13:25]",
+      "end_time": "[13:30]",
+      "start_time_sec": 805,
+      "end_time_sec": 810,
+      "text": "Thank you. Goodbye.",
+      "sentiment_score": 10
+    }
+  ]
+}

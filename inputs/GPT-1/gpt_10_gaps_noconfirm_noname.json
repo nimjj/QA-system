@@ -1,0 +1,658 @@
+{
+  "tenant_id": "tenant-abc",
+  "customer_name": "Ibrahim Hassan",
+  "planted_faults": [
+    "gaps",
+    "noconfirm",
+    "noname"
+  ],
+  "fault_notes": "The customer reports persistent crackling on the landline, affecting both incoming and outgoing calls. The agent leaves two separate unexplained silences: the first lasts 55 seconds, and the second begins after the line-fault update, with no hold announcement beforehand and no acknowledgement or thanks afterward. [noconfirm added on saving: the fault is booked for a technician and the agent never confirms it is fixed. This version replaces gpt_10_noconfirm, which had only one silence.] [noname added after grading: the agent never says \"Ibrahim\" or \"Hassan\"; missed when saving.]",
+  "transcript": [
+    {
+      "speaker": "Agent",
+      "start_time": "[00:00]",
+      "end_time": "[00:08]",
+      "start_time_sec": 0,
+      "end_time_sec": 8,
+      "text": "Thank you for calling S-Net. My name is Sophie. How can I help you today?"
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[00:10]",
+      "end_time": "[00:20]",
+      "start_time_sec": 10,
+      "end_time_sec": 20,
+      "text": "Hi, I'm having trouble with my landline. There's a crackling noise whenever I try to make a call.",
+      "sentiment_score": -18
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[00:22]",
+      "end_time": "[00:31]",
+      "start_time_sec": 22,
+      "end_time_sec": 31,
+      "text": "I'm sorry about that. I can check the line and help work out what's causing the noise. Could I have your full name, please?"
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[00:33]",
+      "end_time": "[00:38]",
+      "start_time_sec": 33,
+      "end_time_sec": 38,
+      "text": "It's Ibrahim Hassan.",
+      "sentiment_score": 0
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[00:40]",
+      "end_time": "[00:49]",
+      "start_time_sec": 40,
+      "end_time_sec": 49,
+      "text": "Thank you. For security, could you confirm the first line of your registered address and your postcode?"
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[00:51]",
+      "end_time": "[00:59]",
+      "start_time_sec": 51,
+      "end_time_sec": 59,
+      "text": "It's 24 Willow Road, and the postcode is B12 8LP.",
+      "sentiment_score": 0
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[01:01]",
+      "end_time": "[01:09]",
+      "start_time_sec": 61,
+      "end_time_sec": 69,
+      "text": "That's matched, thank you. I'll open your account and check the landline service details."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[01:11]",
+      "end_time": "[01:18]",
+      "start_time_sec": 71,
+      "end_time_sec": 78,
+      "text": "It's been doing it since yesterday evening. It was fine before that.",
+      "sentiment_score": -8
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[01:20]",
+      "end_time": "[01:29]",
+      "start_time_sec": 80,
+      "end_time_sec": 89,
+      "text": "Thanks for explaining. I'll check whether there are any known faults affecting your telephone line."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[01:31]",
+      "end_time": "[01:39]",
+      "start_time_sec": 91,
+      "end_time_sec": 99,
+      "text": "I've tried a few calls this morning, and the crackling is there every time.",
+      "sentiment_score": -12
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[01:41]",
+      "end_time": "[01:50]",
+      "start_time_sec": 101,
+      "end_time_sec": 110,
+      "text": "Does the noise happen as soon as you pick up the handset, or only after you dial a number?"
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[01:52]",
+      "end_time": "[02:00]",
+      "start_time_sec": 112,
+      "end_time_sec": 120,
+      "text": "It's there as soon as I pick it up. I can hear it before I dial.",
+      "sentiment_score": -8
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[02:02]",
+      "end_time": "[02:10]",
+      "start_time_sec": 122,
+      "end_time_sec": 130,
+      "text": "That helps. Are you using a corded telephone or a cordless handset?"
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[02:12]",
+      "end_time": "[02:19]",
+      "start_time_sec": 132,
+      "end_time_sec": 139,
+      "text": "It's a corded phone. The handset connects directly to the wall socket.",
+      "sentiment_score": 0
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[02:21]",
+      "end_time": "[02:30]",
+      "start_time_sec": 141,
+      "end_time_sec": 150,
+      "text": "Do you have broadband equipment or a microfilter connected to the same telephone socket?"
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[02:32]",
+      "end_time": "[02:41]",
+      "start_time_sec": 152,
+      "end_time_sec": 161,
+      "text": "I've got broadband through a router, and there's a small filter plugged into the socket.",
+      "sentiment_score": 0
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[02:43]",
+      "end_time": "[02:52]",
+      "start_time_sec": 163,
+      "end_time_sec": 172,
+      "text": "Could you check whether the filter or the telephone cable looks loose or damaged?"
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[02:54]",
+      "end_time": "[03:02]",
+      "start_time_sec": 174,
+      "end_time_sec": 182,
+      "text": "I've had a look. Nothing seems damaged, and both plugs feel secure.",
+      "sentiment_score": 2
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[03:04]",
+      "end_time": "[03:13]",
+      "start_time_sec": 184,
+      "end_time_sec": 193,
+      "text": "All right. I'll run a remote line check and see if it reports a fault."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[03:15]",
+      "end_time": "[03:24]",
+      "start_time_sec": 195,
+      "end_time_sec": 204,
+      "text": "Okay, because I need the landline for calls to my family, so I'd like to get it sorted.",
+      "sentiment_score": -10
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[03:26]",
+      "end_time": "[03:35]",
+      "start_time_sec": 206,
+      "end_time_sec": 215,
+      "text": "Of course. I'll check the line test results and the service history."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[03:37]",
+      "end_time": "[03:44]",
+      "start_time_sec": 217,
+      "end_time_sec": 224,
+      "text": "Thanks. It makes conversations quite difficult when the noise gets loud.",
+      "sentiment_score": -12
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[03:46]",
+      "end_time": "[03:55]",
+      "start_time_sec": 226,
+      "end_time_sec": 235,
+      "text": "I can understand that. I'll see what the test can tell us before we decide on the next step."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[03:57]",
+      "end_time": "[04:04]",
+      "start_time_sec": 237,
+      "end_time_sec": 244,
+      "text": "All right. Let me know what it shows.",
+      "sentiment_score": 3
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[04:06]",
+      "end_time": "[04:14]",
+      "start_time_sec": 246,
+      "end_time_sec": 254,
+      "text": "I'm checking that now."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[05:09]",
+      "end_time": "[05:16]",
+      "start_time_sec": 309,
+      "end_time_sec": 316,
+      "text": "Hello? Are you still there? It's been quiet for a while.",
+      "sentiment_score": -35
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[05:18]",
+      "end_time": "[05:27]",
+      "start_time_sec": 318,
+      "end_time_sec": 327,
+      "text": "Yes, I'm here. The check is taking a little longer than expected. I'll continue looking at the results."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[05:29]",
+      "end_time": "[05:37]",
+      "start_time_sec": 329,
+      "end_time_sec": 337,
+      "text": "Right. I wasn't sure whether the call had dropped.",
+      "sentiment_score": -12
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[05:39]",
+      "end_time": "[05:48]",
+      "start_time_sec": 339,
+      "end_time_sec": 348,
+      "text": "The call is still connected, and I'm reviewing the diagnostic information."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[05:50]",
+      "end_time": "[05:57]",
+      "start_time_sec": 350,
+      "end_time_sec": 357,
+      "text": "Okay. I just don't want to have to start all over again.",
+      "sentiment_score": -8
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[05:59]",
+      "end_time": "[06:08]",
+      "start_time_sec": 359,
+      "end_time_sec": 368,
+      "text": "You won't need to repeat the details. I've got the information you've given me, and I'll continue from here."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[06:10]",
+      "end_time": "[06:18]",
+      "start_time_sec": 370,
+      "end_time_sec": 378,
+      "text": "Thanks. The noise is still there now, if that helps.",
+      "sentiment_score": -5
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[06:20]",
+      "end_time": "[06:29]",
+      "start_time_sec": 380,
+      "end_time_sec": 389,
+      "text": "That is useful to know. Is it a steady hiss, a crackle, or more like a buzzing sound?"
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[06:31]",
+      "end_time": "[06:40]",
+      "start_time_sec": 391,
+      "end_time_sec": 400,
+      "text": "It's a crackling sound, almost like paper being crumpled. Sometimes it gets louder and then settles down.",
+      "sentiment_score": -12
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[06:42]",
+      "end_time": "[06:51]",
+      "start_time_sec": 402,
+      "end_time_sec": 411,
+      "text": "Does it happen on incoming calls as well, or have you only noticed it when making outgoing calls?"
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[06:53]",
+      "end_time": "[07:02]",
+      "start_time_sec": 413,
+      "end_time_sec": 422,
+      "text": "Both. My brother called earlier, and I could hear the same crackling while we were talking.",
+      "sentiment_score": -10
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[07:04]",
+      "end_time": "[07:13]",
+      "start_time_sec": 424,
+      "end_time_sec": 433,
+      "text": "That suggests it's not limited to outgoing calls. Have you tried disconnecting the broadband filter and reconnecting it?"
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[07:15]",
+      "end_time": "[07:23]",
+      "start_time_sec": 435,
+      "end_time_sec": 443,
+      "text": "Not yet. I checked that it was secure, but I haven't unplugged it.",
+      "sentiment_score": 1
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[07:25]",
+      "end_time": "[07:34]",
+      "start_time_sec": 445,
+      "end_time_sec": 454,
+      "text": "Let's try that. Unplug the telephone and filter, then reconnect the filter first and the phone afterward."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[07:36]",
+      "end_time": "[07:43]",
+      "start_time_sec": 456,
+      "end_time_sec": 463,
+      "text": "All right, give me a moment. I've unplugged them.",
+      "sentiment_score": 2
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[07:45]",
+      "end_time": "[07:54]",
+      "start_time_sec": 465,
+      "end_time_sec": 474,
+      "text": "Reconnect the filter first, make sure it's seated properly, and then plug the telephone back in."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[07:56]",
+      "end_time": "[08:04]",
+      "start_time_sec": 476,
+      "end_time_sec": 484,
+      "text": "Done. I've plugged everything back in. I'll pick up the handset now.",
+      "sentiment_score": 3
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[08:06]",
+      "end_time": "[08:14]",
+      "start_time_sec": 486,
+      "end_time_sec": 494,
+      "text": "Go ahead. Can you still hear the crackling on the line?"
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[08:16]",
+      "end_time": "[08:24]",
+      "start_time_sec": 496,
+      "end_time_sec": 504,
+      "text": "Yes, it's still there. I can hear it quite clearly.",
+      "sentiment_score": -18
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[08:26]",
+      "end_time": "[08:35]",
+      "start_time_sec": 506,
+      "end_time_sec": 515,
+      "text": "Since reconnecting the filter hasn't helped, I'll check the line test again and see what it reports."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[08:37]",
+      "end_time": "[08:45]",
+      "start_time_sec": 517,
+      "end_time_sec": 525,
+      "text": "Honestly, it's getting frustrating. I've spent most of the morning trying to get a clear call.",
+      "sentiment_score": -38
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[08:47]",
+      "end_time": "[08:56]",
+      "start_time_sec": 527,
+      "end_time_sec": 536,
+      "text": "I'm sorry it's been so disruptive. I'll make sure we follow this through rather than leave you with the same problem."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[08:58]",
+      "end_time": "[09:06]",
+      "start_time_sec": 538,
+      "end_time_sec": 546,
+      "text": "I appreciate that. I just need to know what happens next.",
+      "sentiment_score": -4
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[09:08]",
+      "end_time": "[09:17]",
+      "start_time_sec": 548,
+      "end_time_sec": 557,
+      "text": "The remote check indicates a possible line fault. I'll review the available options for getting the physical line tested."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[10:25]",
+      "end_time": "[10:33]",
+      "start_time_sec": 625,
+      "end_time_sec": 633,
+      "text": "Does that mean someone needs to come out to the house?",
+      "sentiment_score": -5
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[10:35]",
+      "end_time": "[10:45]",
+      "start_time_sec": 635,
+      "end_time_sec": 645,
+      "text": "A technician may need to inspect the line if the remote checks can't isolate the fault. I'll check whether we can arrange a visit."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[10:47]",
+      "end_time": "[10:55]",
+      "start_time_sec": 647,
+      "end_time_sec": 655,
+      "text": "That's fine. I'd rather have it checked properly than keep putting up with the noise.",
+      "sentiment_score": 3
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[10:57]",
+      "end_time": "[11:06]",
+      "start_time_sec": 657,
+      "end_time_sec": 666,
+      "text": "Is the telephone socket easy to access, or is it behind heavy furniture?"
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[11:08]",
+      "end_time": "[11:16]",
+      "start_time_sec": 668,
+      "end_time_sec": 676,
+      "text": "It's easy to reach. The socket is on the wall beside the living room table.",
+      "sentiment_score": 2
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[11:18]",
+      "end_time": "[11:27]",
+      "start_time_sec": 678,
+      "end_time_sec": 687,
+      "text": "That's helpful. I'll check the diary and see what appointment windows are available."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[11:29]",
+      "end_time": "[11:37]",
+      "start_time_sec": 689,
+      "end_time_sec": 697,
+      "text": "Could it be sometime this week? I use the phone quite often.",
+      "sentiment_score": -8
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[11:39]",
+      "end_time": "[11:48]",
+      "start_time_sec": 699,
+      "end_time_sec": 708,
+      "text": "I'll look for the earliest available option. I can see a Thursday morning appointment window at the moment."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[11:50]",
+      "end_time": "[11:57]",
+      "start_time_sec": 710,
+      "end_time_sec": 717,
+      "text": "Thursday morning should be fine. What time would they arrive?",
+      "sentiment_score": 3
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[11:59]",
+      "end_time": "[12:08]",
+      "start_time_sec": 719,
+      "end_time_sec": 728,
+      "text": "The available window is between eight in the morning and midday. The technician will attend within that window."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[12:10]",
+      "end_time": "[12:18]",
+      "start_time_sec": 730,
+      "end_time_sec": 738,
+      "text": "All right, please book that. I can make sure someone is home.",
+      "sentiment_score": 7
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[12:20]",
+      "end_time": "[12:29]",
+      "start_time_sec": 740,
+      "end_time_sec": 749,
+      "text": "I'll arrange the Thursday visit and add the details about the persistent crackling noise and the unsuccessful filter check."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[12:31]",
+      "end_time": "[12:39]",
+      "start_time_sec": 751,
+      "end_time_sec": 759,
+      "text": "Thank you. Please make sure they know it's affecting incoming calls too.",
+      "sentiment_score": 5
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[12:41]",
+      "end_time": "[12:50]",
+      "start_time_sec": 761,
+      "end_time_sec": 770,
+      "text": "I've included that both incoming and outgoing calls are affected, and that the noise is present as soon as you pick up the handset."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[12:52]",
+      "end_time": "[13:00]",
+      "start_time_sec": 772,
+      "end_time_sec": 780,
+      "text": "Good. That should give them a better idea of what to look for.",
+      "sentiment_score": 8
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[13:02]",
+      "end_time": "[13:11]",
+      "start_time_sec": 782,
+      "end_time_sec": 791,
+      "text": "The appointment is booked for Thursday between eight and twelve. Please keep the telephone socket accessible for the technician."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[13:13]",
+      "end_time": "[13:21]",
+      "start_time_sec": 793,
+      "end_time_sec": 801,
+      "text": "No problem. Will I receive a confirmation message?",
+      "sentiment_score": 3
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[13:23]",
+      "end_time": "[13:32]",
+      "start_time_sec": 803,
+      "end_time_sec": 812,
+      "text": "Yes, a confirmation should arrive by text shortly. If anything changes, we'll use the contact details on your account to notify you."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[13:34]",
+      "end_time": "[13:42]",
+      "start_time_sec": 814,
+      "end_time_sec": 822,
+      "text": "All right. I hope the technician can get it fixed because the crackling is really annoying.",
+      "sentiment_score": -10
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[13:44]",
+      "end_time": "[13:53]",
+      "start_time_sec": 824,
+      "end_time_sec": 833,
+      "text": "I understand. We've completed the initial checks and arranged the next step, so the technician can investigate the line fault in person."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[13:55]",
+      "end_time": "[14:03]",
+      "start_time_sec": 835,
+      "end_time_sec": 843,
+      "text": "Thanks for arranging it. Is there anything else I should do before Thursday?",
+      "sentiment_score": 6
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[14:05]",
+      "end_time": "[14:14]",
+      "start_time_sec": 845,
+      "end_time_sec": 854,
+      "text": "There's nothing else you need to change. Keep the phone and filter connected as normal, and let the technician know if the noise changes."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[14:16]",
+      "end_time": "[14:24]",
+      "start_time_sec": 856,
+      "end_time_sec": 864,
+      "text": "Okay, I'll leave everything as it is and explain what I've noticed when they arrive.",
+      "sentiment_score": 5
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[14:26]",
+      "end_time": "[14:35]",
+      "start_time_sec": 866,
+      "end_time_sec": 875,
+      "text": "Before we finish, is there anything else I can help you with today?"
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[14:37]",
+      "end_time": "[14:44]",
+      "start_time_sec": 877,
+      "end_time_sec": 884,
+      "text": "No, that's everything. Hopefully the line will be clear again after the visit.",
+      "sentiment_score": 8
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[14:46]",
+      "end_time": "[14:56]",
+      "start_time_sec": 886,
+      "end_time_sec": 896,
+      "text": "Thank you for choosing S-Net. We've booked the technician for Thursday morning, and I hope we can get the line working clearly again soon. Goodbye."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[14:58]",
+      "end_time": "[15:03]",
+      "start_time_sec": 898,
+      "end_time_sec": 903,
+      "text": "Thanks for your help. Goodbye.",
+      "sentiment_score": 10
+    }
+  ]
+}

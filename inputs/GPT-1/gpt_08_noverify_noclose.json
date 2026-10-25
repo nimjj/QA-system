@@ -1,0 +1,764 @@
+{
+  "tenant_id": "tenant-abc",
+  "customer_name": "Tomasz Kowalski",
+  "planted_faults": ["noverify", "noclose"],
+  "fault_notes": "The agent never verifies the customer's identity using an account PIN, security answer, or registered address before discussing account details and troubleshooting the router. The agent otherwise investigates the repeated overnight reboots professionally, guides the customer through diagnostics, and confirms that the connection is working at the end of the call. [Label added on saving: the agent's last lines also never say \"Thank you for choosing S-Net\", so noclose is in this call too, though ChatGPT did not list it.]",
+  "transcript": [
+    {
+      "speaker": "Agent",
+      "start_time": "[00:00]",
+      "end_time": "[00:07]",
+      "start_time_sec": 0,
+      "end_time_sec": 7,
+      "text": "Thank you for calling S-Net. You're speaking with James. How can I help you today?"
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[00:09]",
+      "end_time": "[00:17]",
+      "start_time_sec": 9,
+      "end_time_sec": 17,
+      "text": "Hi, James. My router keeps rebooting during the night. It's happened almost every night this week, and it's getting really annoying.",
+      "sentiment_score": -24
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[00:19]",
+      "end_time": "[00:26]",
+      "start_time_sec": 19,
+      "end_time_sec": 26,
+      "text": "I'm sorry about that. A connection dropping overnight is frustrating, especially when it keeps happening. I'll help you investigate it."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[00:28]",
+      "end_time": "[00:35]",
+      "start_time_sec": 28,
+      "end_time_sec": 35,
+      "text": "Yeah, I wake up and everything's disconnected. Then I have to wait for the router to start up again before I can use anything.",
+      "sentiment_score": -18
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[00:37]",
+      "end_time": "[00:44]",
+      "start_time_sec": 37,
+      "end_time_sec": 44,
+      "text": "That sounds disruptive. I'll check the service information and ask a few questions about the router's behaviour so we can narrow it down."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[00:46]",
+      "end_time": "[00:52]",
+      "start_time_sec": 46,
+      "end_time_sec": 52,
+      "text": "Okay. It usually happens sometime between one and three in the morning.",
+      "sentiment_score": -5
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[00:54]",
+      "end_time": "[01:01]",
+      "start_time_sec": 54,
+      "end_time_sec": 61,
+      "text": "Thanks, Tomasz. Does the router actually switch itself off and restart, or do you only notice that the internet connection has disappeared?"
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[01:03]",
+      "end_time": "[01:10]",
+      "start_time_sec": 63,
+      "end_time_sec": 70,
+      "text": "The lights go out, then they start flashing again one after another. So it definitely looks like the whole router is restarting.",
+      "sentiment_score": -8
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[01:12]",
+      "end_time": "[01:19]",
+      "start_time_sec": 72,
+      "end_time_sec": 79,
+      "text": "Understood. That suggests a restart rather than just a brief loss of the broadband signal. I'll check the equipment details first."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[01:21]",
+      "end_time": "[01:27]",
+      "start_time_sec": 81,
+      "end_time_sec": 87,
+      "text": "Sure. It's the router S-Net sent me when I renewed my broadband last year.",
+      "sentiment_score": 3
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[01:29]",
+      "end_time": "[01:36]",
+      "start_time_sec": 89,
+      "end_time_sec": 96,
+      "text": "Thanks. I can see the equipment information associated with your service. Let's check a few things about the power supply and where the router is positioned."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[01:38]",
+      "end_time": "[01:44]",
+      "start_time_sec": 98,
+      "end_time_sec": 104,
+      "text": "It's on a shelf in the living room, next to the television. It's been there for months.",
+      "sentiment_score": 2
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[01:46]",
+      "end_time": "[01:53]",
+      "start_time_sec": 106,
+      "end_time_sec": 113,
+      "text": "All right. Is the power adapter plugged directly into a wall socket, or is it connected through an extension lead or power strip?"
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[01:55]",
+      "end_time": "[02:01]",
+      "start_time_sec": 115,
+      "end_time_sec": 121,
+      "text": "It's plugged into an extension lead. The television and a lamp are connected to that as well.",
+      "sentiment_score": 3
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[02:03]",
+      "end_time": "[02:10]",
+      "start_time_sec": 123,
+      "end_time_sec": 130,
+      "text": "Thanks. If it's practical, we'll test the router directly from a wall socket to rule out an issue with the extension lead."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[02:12]",
+      "end_time": "[02:19]",
+      "start_time_sec": 132,
+      "end_time_sec": 139,
+      "text": "I can do that. But why would it only restart in the middle of the night? It works perfectly well during the day.",
+      "sentiment_score": -10
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[02:21]",
+      "end_time": "[02:29]",
+      "start_time_sec": 141,
+      "end_time_sec": 149,
+      "text": "That's a good question. It could be related to power, an automatic firmware update, or an equipment fault. We shouldn't assume the cause until we check further."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[02:31]",
+      "end_time": "[02:37]",
+      "start_time_sec": 151,
+      "end_time_sec": 157,
+      "text": "I wondered about updates. Does the router install those automatically overnight?",
+      "sentiment_score": 4
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[02:39]",
+      "end_time": "[02:46]",
+      "start_time_sec": 159,
+      "end_time_sec": 166,
+      "text": "Some router maintenance can happen automatically, depending on the model and software. I'll check whether we have any recent update information for your equipment."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[02:48]",
+      "end_time": "[02:55]",
+      "start_time_sec": 168,
+      "end_time_sec": 175,
+      "text": "Okay, because if it's just an update, I can live with it. But this has been happening far too often.",
+      "sentiment_score": -9
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[02:57]",
+      "end_time": "[03:04]",
+      "start_time_sec": 177,
+      "end_time_sec": 184,
+      "text": "I understand. A one-off restart can be normal, but repeated restarts every night deserve a proper investigation."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[03:06]",
+      "end_time": "[03:13]",
+      "start_time_sec": 186,
+      "end_time_sec": 193,
+      "text": "Exactly. I've got a smart heating controller and security cameras connected, and they all lose their connection when this happens.",
+      "sentiment_score": -14
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[03:15]",
+      "end_time": "[03:22]",
+      "start_time_sec": 195,
+      "end_time_sec": 202,
+      "text": "That makes it more important to get to the bottom of it. When the router restarts, do all the indicator lights go off together?"
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[03:24]",
+      "end_time": "[03:31]",
+      "start_time_sec": 204,
+      "end_time_sec": 211,
+      "text": "Yes, they all go dark briefly. Then the power light comes on, and the others follow as it starts up.",
+      "sentiment_score": -4
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[03:33]",
+      "end_time": "[03:40]",
+      "start_time_sec": 213,
+      "end_time_sec": 220,
+      "text": "That pattern is consistent with the router rebooting. Have you noticed any unusual heat, a burning smell, or damage to the adapter or cable?"
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[03:42]",
+      "end_time": "[03:48]",
+      "start_time_sec": 222,
+      "end_time_sec": 228,
+      "text": "No burning smell or damage. The router feels a little warm, but not particularly hot.",
+      "sentiment_score": 4
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[03:50]",
+      "end_time": "[03:57]",
+      "start_time_sec": 230,
+      "end_time_sec": 237,
+      "text": "That's useful. Some warmth is normal, but make sure the vents aren't blocked and that the router has space around it for ventilation."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[03:59]",
+      "end_time": "[04:06]",
+      "start_time_sec": 239,
+      "end_time_sec": 246,
+      "text": "It's fairly close to the television, and there's a stack of magazines on the shelf underneath it. Nothing is actually covering the router, though.",
+      "sentiment_score": 1
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[04:08]",
+      "end_time": "[04:16]",
+      "start_time_sec": 248,
+      "end_time_sec": 256,
+      "text": "I'd still recommend giving it a little more space and keeping the ventilation areas clear. We can also check the power connection and software status."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[04:18]",
+      "end_time": "[04:24]",
+      "start_time_sec": 258,
+      "end_time_sec": 264,
+      "text": "Right. Is there anything you can see from your end, or am I going to have to keep guessing?",
+      "sentiment_score": -19
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[04:26]",
+      "end_time": "[04:34]",
+      "start_time_sec": 266,
+      "end_time_sec": 274,
+      "text": "I can check the line status and available equipment diagnostics. I'll use those results alongside what you've observed rather than leave you guessing."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[04:36]",
+      "end_time": "[04:43]",
+      "start_time_sec": 276,
+      "end_time_sec": 283,
+      "text": "Good, because I've already unplugged it and plugged it back in twice this week, and that hasn't stopped it.",
+      "sentiment_score": -16
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[04:45]",
+      "end_time": "[04:52]",
+      "start_time_sec": 285,
+      "end_time_sec": 292,
+      "text": "Thanks for telling me. Since you've already restarted it manually, there's no need to repeat that just yet. I'll check the service readings first."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[04:54]",
+      "end_time": "[05:01]",
+      "start_time_sec": 294,
+      "end_time_sec": 301,
+      "text": "All right. I just don't want to waste another evening doing the same thing again.",
+      "sentiment_score": -11
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[05:03]",
+      "end_time": "[05:10]",
+      "start_time_sec": 303,
+      "end_time_sec": 310,
+      "text": "I understand, Tomasz. I'll focus on the checks that can tell us something new."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[05:12]",
+      "end_time": "[05:18]",
+      "start_time_sec": 312,
+      "end_time_sec": 318,
+      "text": "Thanks. Is there any chance the broadband line itself is causing the router to restart?",
+      "sentiment_score": 2
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[05:20]",
+      "end_time": "[05:28]",
+      "start_time_sec": 320,
+      "end_time_sec": 328,
+      "text": "A line fault can cause a connection drop, but it wouldn't usually make all the router lights go out. I'll check the line for errors anyway."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[05:30]",
+      "end_time": "[05:37]",
+      "start_time_sec": 330,
+      "end_time_sec": 337,
+      "text": "That makes sense. The lights going off completely are what made me think it was the router rather than the connection.",
+      "sentiment_score": 5
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[05:39]",
+      "end_time": "[05:46]",
+      "start_time_sec": 339,
+      "end_time_sec": 346,
+      "text": "Your observation is helpful. The line readings look stable at the moment, and I don't see a current broadband outage affecting the service."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[05:48]",
+      "end_time": "[05:55]",
+      "start_time_sec": 348,
+      "end_time_sec": 355,
+      "text": "So that points more towards the router or its power supply, then?",
+      "sentiment_score": 2
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[05:57]",
+      "end_time": "[06:04]",
+      "start_time_sec": 357,
+      "end_time_sec": 364,
+      "text": "Yes, those are possibilities worth checking. I also want to establish whether the router is running the latest available software."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[06:06]",
+      "end_time": "[06:13]",
+      "start_time_sec": 366,
+      "end_time_sec": 373,
+      "text": "I haven't logged into the router settings in ages. I wouldn't know how to check the software version.",
+      "sentiment_score": 1
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[06:15]",
+      "end_time": "[06:22]",
+      "start_time_sec": 375,
+      "end_time_sec": 382,
+      "text": "That's fine. We can check the version through the router's administration page, if it's accessible, and I can guide you through it."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[06:24]",
+      "end_time": "[06:31]",
+      "start_time_sec": 384,
+      "end_time_sec": 391,
+      "text": "I can get to that page from my laptop. Should I open it now?",
+      "sentiment_score": 5
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[06:33]",
+      "end_time": "[06:40]",
+      "start_time_sec": 393,
+      "end_time_sec": 400,
+      "text": "Yes, please. Open the router settings using the address printed on its label or in the setup guide, rather than trying a random address."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[06:42]",
+      "end_time": "[06:48]",
+      "start_time_sec": 402,
+      "end_time_sec": 408,
+      "text": "I've opened it. It's asking me to sign in with the router administrator details.",
+      "sentiment_score": 1
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[06:50]",
+      "end_time": "[06:57]",
+      "start_time_sec": 410,
+      "end_time_sec": 417,
+      "text": "Use the administrator credentials you set up for the router. Please don't read the password to me; just let me know when you're in."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[06:59]",
+      "end_time": "[07:05]",
+      "start_time_sec": 419,
+      "end_time_sec": 425,
+      "text": "I'm in now. There's a menu with status, wireless settings, maintenance, and a few other options.",
+      "sentiment_score": 4
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[07:07]",
+      "end_time": "[07:14]",
+      "start_time_sec": 427,
+      "end_time_sec": 434,
+      "text": "Select maintenance and look for a section labelled firmware or software version. Don't press any reset option while you're there."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[07:16]",
+      "end_time": "[07:22]",
+      "start_time_sec": 436,
+      "end_time_sec": 442,
+      "text": "Okay, I can see firmware information. There's a version number and a button to check for updates.",
+      "sentiment_score": 4
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[07:24]",
+      "end_time": "[07:31]",
+      "start_time_sec": 444,
+      "end_time_sec": 451,
+      "text": "Please tell me the version number, but leave the update button alone until we know whether an update is available."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[07:33]",
+      "end_time": "[07:39]",
+      "start_time_sec": 453,
+      "end_time_sec": 459,
+      "text": "It says version 3.4.8. I don't remember ever seeing that before.",
+      "sentiment_score": 0
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[07:41]",
+      "end_time": "[07:49]",
+      "start_time_sec": 461,
+      "end_time_sec": 469,
+      "text": "Thanks. I'll compare that with the current version information available for this router model and see whether an update is recommended."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[07:51]",
+      "end_time": "[07:57]",
+      "start_time_sec": 471,
+      "end_time_sec": 477,
+      "text": "Okay. I hope this turns out to be something simple.",
+      "sentiment_score": 3
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[07:59]",
+      "end_time": "[08:06]",
+      "start_time_sec": 479,
+      "end_time_sec": 486,
+      "text": "I hope so too. The available information indicates there's a newer firmware version for this model, so updating may help with stability."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[08:08]",
+      "end_time": "[08:15]",
+      "start_time_sec": 488,
+      "end_time_sec": 495,
+      "text": "Could that really explain why it restarts every night? Or are we just trying things at random?",
+      "sentiment_score": -15
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[08:17]",
+      "end_time": "[08:25]",
+      "start_time_sec": 497,
+      "end_time_sec": 505,
+      "text": "It's a reasonable possibility, but I can't promise it'll fix the issue. The update is a useful next step, and we'll monitor whether the restarts continue."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[08:27]",
+      "end_time": "[08:34]",
+      "start_time_sec": 507,
+      "end_time_sec": 514,
+      "text": "All right, let's do it. I just want a proper solution rather than another temporary fix.",
+      "sentiment_score": -6
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[08:36]",
+      "end_time": "[08:43]",
+      "start_time_sec": 516,
+      "end_time_sec": 523,
+      "text": "That's fair. Before you start, make sure the router stays connected to power and don't interrupt it while the update is running."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[08:45]",
+      "end_time": "[08:52]",
+      "start_time_sec": 525,
+      "end_time_sec": 532,
+      "text": "Understood. I've selected check for updates, and it's showing that an update is available.",
+      "sentiment_score": 5
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[08:54]",
+      "end_time": "[09:01]",
+      "start_time_sec": 534,
+      "end_time_sec": 541,
+      "text": "Please follow the router's update instructions. It may restart automatically once the installation finishes, which is expected."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[09:03]",
+      "end_time": "[09:10]",
+      "start_time_sec": 543,
+      "end_time_sec": 550,
+      "text": "It's started now. The progress bar is moving, and the page says not to close the browser or disconnect the power.",
+      "sentiment_score": 3
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[09:12]",
+      "end_time": "[09:19]",
+      "start_time_sec": 552,
+      "end_time_sec": 559,
+      "text": "That's right. Keep the power connected and let it finish. We'll wait for the router to come back online before checking the connection."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[09:21]",
+      "end_time": "[09:28]",
+      "start_time_sec": 561,
+      "end_time_sec": 568,
+      "text": "It's finished now. The lights have gone through their usual sequence, and the internet light is back on.",
+      "sentiment_score": 8
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[09:30]",
+      "end_time": "[09:37]",
+      "start_time_sec": 570,
+      "end_time_sec": 577,
+      "text": "Excellent. Please check that your laptop can load a website, and then we'll see whether the router reports the new firmware version."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[09:39]",
+      "end_time": "[09:45]",
+      "start_time_sec": 579,
+      "end_time_sec": 585,
+      "text": "The website is loading normally. I've gone back to the maintenance page, and the version number has changed.",
+      "sentiment_score": 9
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[09:47]",
+      "end_time": "[09:54]",
+      "start_time_sec": 587,
+      "end_time_sec": 594,
+      "text": "Good. That confirms the update completed successfully. I'd also recommend moving the router away from the television and plugging it directly into a wall socket for the next few nights."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[09:56]",
+      "end_time": "[10:03]",
+      "start_time_sec": 596,
+      "end_time_sec": 603,
+      "text": "I can move it to the side table and use the wall socket behind the sofa. That should be easy enough.",
+      "sentiment_score": 7
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[10:05]",
+      "end_time": "[10:12]",
+      "start_time_sec": 605,
+      "end_time_sec": 612,
+      "text": "That sounds suitable. Keep the router upright, leave space around the vents, and make sure the cable isn't stretched or loose."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[10:14]",
+      "end_time": "[10:21]",
+      "start_time_sec": 614,
+      "end_time_sec": 621,
+      "text": "Done. It's plugged into the wall now, and I've moved the magazines away so there's more room around it.",
+      "sentiment_score": 8
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[10:23]",
+      "end_time": "[10:30]",
+      "start_time_sec": 623,
+      "end_time_sec": 630,
+      "text": "Great. We've addressed the available software update and checked the power arrangement. The important next step is to see whether the overnight restarts stop."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[10:32]",
+      "end_time": "[10:39]",
+      "start_time_sec": 632,
+      "end_time_sec": 639,
+      "text": "So I won't know for certain until tomorrow morning, then?",
+      "sentiment_score": 1
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[10:41]",
+      "end_time": "[10:48]",
+      "start_time_sec": 641,
+      "end_time_sec": 648,
+      "text": "That's correct. We can confirm the connection is working now, but the overnight pattern needs monitoring to establish whether the changes have resolved it."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[10:50]",
+      "end_time": "[10:57]",
+      "start_time_sec": 650,
+      "end_time_sec": 657,
+      "text": "I understand, but I'm a bit disappointed that we can't tell immediately. I've already lost sleep over this.",
+      "sentiment_score": -13
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[10:59]",
+      "end_time": "[11:06]",
+      "start_time_sec": 659,
+      "end_time_sec": 666,
+      "text": "I understand, and I'm sorry it's been affecting your nights. I don't want to claim it's fixed before we've seen whether it stays stable."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[11:08]",
+      "end_time": "[11:15]",
+      "start_time_sec": 668,
+      "end_time_sec": 675,
+      "text": "That's fair enough. If it restarts again tonight, what should I do?",
+      "sentiment_score": 2
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[11:17]",
+      "end_time": "[11:25]",
+      "start_time_sec": 677,
+      "end_time_sec": 685,
+      "text": "Make a note of roughly when it happens and whether all the lights go out again. Contact us if it recurs, and we can review the equipment diagnostics and arrange a replacement if indicated."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[11:27]",
+      "end_time": "[11:34]",
+      "start_time_sec": 687,
+      "end_time_sec": 694,
+      "text": "Okay, I'll note the time if it happens. Would I need to go through all these checks again?",
+      "sentiment_score": 1
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[11:36]",
+      "end_time": "[11:44]",
+      "start_time_sec": 696,
+      "end_time_sec": 704,
+      "text": "No, I've recorded the troubleshooting we've completed today, including the firmware update and power-socket test. We'll use those results to decide the next step."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[11:46]",
+      "end_time": "[11:53]",
+      "start_time_sec": 706,
+      "end_time_sec": 713,
+      "text": "That's good. I don't want to have to explain the entire thing from the beginning if I call back.",
+      "sentiment_score": 4
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[11:55]",
+      "end_time": "[12:02]",
+      "start_time_sec": 715,
+      "end_time_sec": 722,
+      "text": "Of course. The notes will help us pick up where we've left off. Is the connection still working normally for you right now?"
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[12:04]",
+      "end_time": "[12:11]",
+      "start_time_sec": 724,
+      "end_time_sec": 731,
+      "text": "Yes, it's working fine. My laptop is online, and the other devices have reconnected as well.",
+      "sentiment_score": 9
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[12:13]",
+      "end_time": "[12:21]",
+      "start_time_sec": 733,
+      "end_time_sec": 741,
+      "text": "Good, I'm glad we've restored everything for now. Just to summarise, we've updated the router firmware, moved it to a direct wall socket, and improved ventilation around it."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[12:23]",
+      "end_time": "[12:30]",
+      "start_time_sec": 743,
+      "end_time_sec": 750,
+      "text": "Yes, that's right. I'll keep an eye on it tonight and see whether it stays on.",
+      "sentiment_score": 7
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[12:32]",
+      "end_time": "[12:40]",
+      "start_time_sec": 752,
+      "end_time_sec": 760,
+      "text": "Perfect. Is there anything else about your broadband or router that you'd like me to check before we finish?"
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[12:42]",
+      "end_time": "[12:48]",
+      "start_time_sec": 762,
+      "end_time_sec": 768,
+      "text": "No, that's everything. Hopefully I can get through a full night without the internet disappearing again.",
+      "sentiment_score": 6
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[12:50]",
+      "end_time": "[12:58]",
+      "start_time_sec": 770,
+      "end_time_sec": 778,
+      "text": "I hope so too, Tomasz. Thanks for working through those checks with me today, and please get back in touch if the restarts continue."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[13:00]",
+      "end_time": "[13:06]",
+      "start_time_sec": 780,
+      "end_time_sec": 786,
+      "text": "Thanks for your help, James. I'll see how it goes overnight. Bye.",
+      "sentiment_score": 8
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[13:08]",
+      "end_time": "[13:14]",
+      "start_time_sec": 788,
+      "end_time_sec": 794,
+      "text": "You're welcome, Tomasz. Have a good evening, and I hope the connection stays stable for you."
+    }
+  ]
+}

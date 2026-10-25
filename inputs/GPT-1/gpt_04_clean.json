@@ -1,0 +1,629 @@
+{
+  "tenant_id": "tenant-abc",
+  "customer_name": "Callum Bennett",
+  "planted_faults": [],
+  "fault_notes": "No planted faults. The agent greets Callum correctly, verifies his identity, paraphrases the SIM activation problem, asks diagnostic questions about the SIM, phone, signal and activation steps, and guides him through troubleshooting. The SIM activates successfully, the agent confirms the customer can make a call, and the conversation ends with a clear resolution and professional closing.",
+  "transcript": [
+    {
+      "speaker": "Agent",
+      "start_time": "[00:00]",
+      "end_time": "[00:07]",
+      "start_time_sec": 0,
+      "end_time_sec": 7,
+      "text": "Hi there, you're speaking to Sophie at S-Net. Thank you for calling S-Net. What can I help you with today?"
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[00:09]",
+      "end_time": "[00:16]",
+      "start_time_sec": 9,
+      "end_time_sec": 16,
+      "text": "Hi, Sophie. I've got a new mobile SIM from you lot, but I can't get it to activate. I've been trying since yesterday afternoon and I'm getting nowhere.",
+      "sentiment_score": -25
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[00:18]",
+      "end_time": "[00:25]",
+      "start_time_sec": 18,
+      "end_time_sec": 25,
+      "text": "Ah, that's frustrating, especially when you're trying to get a new SIM working. We'll have a look at it. Can I take your full name first, please?"
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[00:27]",
+      "end_time": "[00:31]",
+      "start_time_sec": 27,
+      "end_time_sec": 31,
+      "text": "Yeah, it's Callum Bennett."
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[00:33]",
+      "end_time": "[00:40]",
+      "start_time_sec": 33,
+      "end_time_sec": 40,
+      "text": "Thanks, Callum. Before I open the account, could you confirm the answer to your security question for me?"
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[00:42]",
+      "end_time": "[00:47]",
+      "start_time_sec": 42,
+      "end_time_sec": 47,
+      "text": "Sure, it's the name of my first school. That was Oakwood Primary."
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[00:49]",
+      "end_time": "[00:56]",
+      "start_time_sec": 49,
+      "end_time_sec": 56,
+      "text": "Lovely, thank you. That's verified. I'll bring up your mobile account now. While that's loading, are you having an okay day apart from the SIM trouble?"
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[00:58]",
+      "end_time": "[01:05]",
+      "start_time_sec": 58,
+      "end_time_sec": 65,
+      "text": "Not too bad, really. I was meant to be heading out this morning, but I wanted to get the new number sorted first. It's taken a bit longer than I thought.",
+      "sentiment_score": -8
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[01:07]",
+      "end_time": "[01:14]",
+      "start_time_sec": 67,
+      "end_time_sec": 74,
+      "text": "Hopefully we can get you moving in a minute. Right, I've got the account. Is this a brand-new S-Net mobile connection, or are you replacing an existing SIM?"
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[01:16]",
+      "end_time": "[01:23]",
+      "start_time_sec": 76,
+      "end_time_sec": 83,
+      "text": "I'm replacing my old SIM because I upgraded my phone. The new SIM came through the post on Monday, and I put it in yesterday."
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[01:25]",
+      "end_time": "[01:33]",
+      "start_time_sec": 85,
+      "end_time_sec": 93,
+      "text": "Okay, so you've received the replacement SIM, inserted it into the new phone, and it still hasn't activated since yesterday. Is that right?"
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[01:35]",
+      "end_time": "[01:41]",
+      "start_time_sec": 95,
+      "end_time_sec": 101,
+      "text": "Yeah, exactly. The phone recognises that there's a SIM in there, but I can't make calls or use mobile data."
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[01:43]",
+      "end_time": "[01:50]",
+      "start_time_sec": 103,
+      "end_time_sec": 110,
+      "text": "Right, we'll work through a few checks before changing anything on the account. First, what phone are you using?"
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[01:52]",
+      "end_time": "[01:57]",
+      "start_time_sec": 112,
+      "end_time_sec": 117,
+      "text": "It's an iPhone 16. Got it last week."
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[01:59]",
+      "end_time": "[02:06]",
+      "start_time_sec": 119,
+      "end_time_sec": 126,
+      "text": "Thanks. And when you look at the top of the screen, what does it show? Does it say No Service, SOS, or something else?"
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[02:08]",
+      "end_time": "[02:15]",
+      "start_time_sec": 128,
+      "end_time_sec": 135,
+      "text": "It says SOS at the moment. Earlier it said No Service, then I restarted it and it changed to SOS. I wasn't sure if that was progress or not.",
+      "sentiment_score": -18
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[02:17]",
+      "end_time": "[02:24]",
+      "start_time_sec": 137,
+      "end_time_sec": 144,
+      "text": "That tells us the phone isn't currently registered on our mobile network. It doesn't necessarily mean the SIM itself is faulty, so let's check its activation status first."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[02:26]",
+      "end_time": "[02:32]",
+      "start_time_sec": 146,
+      "end_time_sec": 152,
+      "text": "Right. I was starting to think they'd sent me a dud SIM, to be honest."
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[02:34]",
+      "end_time": "[02:41]",
+      "start_time_sec": 154,
+      "end_time_sec": 161,
+      "text": "I can see why you'd suspect that after waiting this long. We'll check the account records and then the phone settings, so we can narrow it down."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[02:43]",
+      "end_time": "[02:49]",
+      "start_time_sec": 163,
+      "end_time_sec": 169,
+      "text": "Okay, sounds good. I did follow the instructions on the little card that came with it."
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[02:51]",
+      "end_time": "[02:58]",
+      "start_time_sec": 171,
+      "end_time_sec": 178,
+      "text": "Good to know. Did you activate it through the link in the text message, through your online account, or by calling the activation number?"
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[03:00]",
+      "end_time": "[03:07]",
+      "start_time_sec": 180,
+      "end_time_sec": 187,
+      "text": "I used the link in the text message. It opened a page, I entered the SIM number, and then it said something like the request had been received."
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[03:09]",
+      "end_time": "[03:16]",
+      "start_time_sec": 189,
+      "end_time_sec": 196,
+      "text": "And did it give you an estimated activation time, or did it just confirm the request had been submitted?"
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[03:18]",
+      "end_time": "[03:24]",
+      "start_time_sec": 198,
+      "end_time_sec": 204,
+      "text": "Just said it had been received, I think. There wasn't a proper time on the page. I left it overnight because I assumed that would be enough."
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[03:26]",
+      "end_time": "[03:33]",
+      "start_time_sec": 206,
+      "end_time_sec": 213,
+      "text": "That makes sense. I'm checking the SIM replacement record now. I can see the replacement order, but I want to confirm whether the activation request completed successfully."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[03:35]",
+      "end_time": "[03:42]",
+      "start_time_sec": 215,
+      "end_time_sec": 222,
+      "text": "Honestly, I need this number today. I've got a couple of calls coming in for work, and I've been relying on Wi-Fi to get messages."
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[03:44]",
+      "end_time": "[03:51]",
+      "start_time_sec": 224,
+      "end_time_sec": 231,
+      "text": "I understand. It's not ideal to be without your normal service when you're expecting work calls. I'll take ownership of getting this checked and see what we can do today."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[03:53]",
+      "end_time": "[03:59]",
+      "start_time_sec": 233,
+      "end_time_sec": 239,
+      "text": "Thanks. I don't mind doing a few checks, I just don't want to keep trying random things and making it worse."
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[04:01]",
+      "end_time": "[04:08]",
+      "start_time_sec": 241,
+      "end_time_sec": 248,
+      "text": "Absolutely. We'll keep it simple and I'll explain each step. The record is still loading, so give me a moment to check the status."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[04:10]",
+      "end_time": "[04:16]",
+      "start_time_sec": 250,
+      "end_time_sec": 256,
+      "text": "No worries. While we're waiting, is it normal for the phone to show SOS if the SIM isn't active?"
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[04:18]",
+      "end_time": "[04:26]",
+      "start_time_sec": 258,
+      "end_time_sec": 266,
+      "text": "Yes, that can happen. SOS means the phone may be able to reach emergency services through an available network, but your normal mobile service isn't registered. It doesn't confirm whether the SIM is activated."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[04:28]",
+      "end_time": "[04:34]",
+      "start_time_sec": 268,
+      "end_time_sec": 274,
+      "text": "Right, okay. I hadn't realised it was just about emergency calls. That's useful to know."
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[04:36]",
+      "end_time": "[04:43]",
+      "start_time_sec": 276,
+      "end_time_sec": 283,
+      "text": "I've got the status now. The replacement SIM order is there, but the activation hasn't completed. There's no indication that the SIM has been blocked or reported faulty."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[04:45]",
+      "end_time": "[04:52]",
+      "start_time_sec": 285,
+      "end_time_sec": 292,
+      "text": "Oh, so it hasn't actually finished activating at all? That's annoying, because I thought the message meant it was all done.",
+      "sentiment_score": -31
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[04:54]",
+      "end_time": "[05:01]",
+      "start_time_sec": 294,
+      "end_time_sec": 301,
+      "text": "I can see why that's frustrating. The confirmation you received only shows that the request was submitted, not that the activation finished. Let's check a couple of things on the phone while I review the activation request."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[05:03]",
+      "end_time": "[05:09]",
+      "start_time_sec": 303,
+      "end_time_sec": 309,
+      "text": "All right. What do you want me to do first?"
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[05:11]",
+      "end_time": "[05:18]",
+      "start_time_sec": 311,
+      "end_time_sec": 318,
+      "text": "Open Settings, then Mobile Service. Can you see the new SIM listed there, and does it show your S-Net number or anything saying the line is inactive?"
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[05:20]",
+      "end_time": "[05:27]",
+      "start_time_sec": 320,
+      "end_time_sec": 327,
+      "text": "Yeah, I can see the SIM. It says S-Net, and there's a number underneath, but the line is switched on. There's no message saying inactive."
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[05:29]",
+      "end_time": "[05:36]",
+      "start_time_sec": 329,
+      "end_time_sec": 336,
+      "text": "Good. Leave that line switched on for now. Next, go into General, then About, and wait a few seconds. Sometimes the phone prompts you to update its carrier settings."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[05:38]",
+      "end_time": "[05:44]",
+      "start_time_sec": 338,
+      "end_time_sec": 344,
+      "text": "Right, I'm there. It's showing the software version and a load of other things. Nothing has popped up."
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[05:46]",
+      "end_time": "[05:53]",
+      "start_time_sec": 346,
+      "end_time_sec": 353,
+      "text": "No problem. If there isn't a prompt, don't change anything on that screen. Can you check whether Airplane Mode is off, and then tell me if the signal indicator changes?"
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[05:55]",
+      "end_time": "[06:02]",
+      "start_time_sec": 355,
+      "end_time_sec": 362,
+      "text": "It's off already. I've just turned it on and off again anyway, but it still says SOS. Nothing's changed."
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[06:04]",
+      "end_time": "[06:11]",
+      "start_time_sec": 364,
+      "end_time_sec": 371,
+      "text": "Thanks for checking. That suggests we need to finish the activation on the account side rather than keep changing phone settings. I'm going to review the pending request and see whether it can be completed from here."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[06:13]",
+      "end_time": "[06:20]",
+      "start_time_sec": 373,
+      "end_time_sec": 380,
+      "text": "That's fine. I'm glad it's not just me missing a setting. I've had this phone less than a week, so I'm still getting used to it."
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[06:22]",
+      "end_time": "[06:29]",
+      "start_time_sec": 382,
+      "end_time_sec": 389,
+      "text": "New phones always seem to have a few menus to get used to. I'm looking at the request details now, and I can see it hasn't progressed beyond submission."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[06:31]",
+      "end_time": "[06:37]",
+      "start_time_sec": 391,
+      "end_time_sec": 397,
+      "text": "Can you trigger it again, then? Or will that mess up the number somehow?"
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[06:39]",
+      "end_time": "[06:47]",
+      "start_time_sec": 399,
+      "end_time_sec": 407,
+      "text": "I can submit a fresh activation request against the replacement SIM. It won't change your mobile number, and I'll check that the old SIM remains linked correctly before I send it."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[06:49]",
+      "end_time": "[06:55]",
+      "start_time_sec": 409,
+      "end_time_sec": 415,
+      "text": "Okay, that's what I was worried about. I've had the same number for years and don't want to lose it."
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[06:57]",
+      "end_time": "[07:04]",
+      "start_time_sec": 417,
+      "end_time_sec": 424,
+      "text": "Completely understandable. I've confirmed the existing number is still assigned to your account, and the replacement SIM is the one awaiting activation. I'm submitting the request now."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[07:06]",
+      "end_time": "[07:13]",
+      "start_time_sec": 426,
+      "end_time_sec": 433,
+      "text": "Great. Does it normally happen straight away, or should I leave it for another few hours?"
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[07:15]",
+      "end_time": "[07:22]",
+      "start_time_sec": 435,
+      "end_time_sec": 442,
+      "text": "It can take a little while for the network to register the SIM. The new request has been accepted, so let's give it a moment and then refresh the connection."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[07:24]",
+      "end_time": "[07:31]",
+      "start_time_sec": 444,
+      "end_time_sec": 451,
+      "text": "All right. I'll keep the phone on. Is there anything else I need to do while it catches up?"
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[07:33]",
+      "end_time": "[07:40]",
+      "start_time_sec": 453,
+      "end_time_sec": 460,
+      "text": "Just leave the SIM enabled and stay on that screen for now. The activation system is updating. I can see the request has moved to processing."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[07:42]",
+      "end_time": "[07:48]",
+      "start_time_sec": 462,
+      "end_time_sec": 468,
+      "text": "Oh, hang on, the bars have appeared. I've got a couple of signal bars now. It still says SOS at the moment, though."
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[07:50]",
+      "end_time": "[07:57]",
+      "start_time_sec": 470,
+      "end_time_sec": 477,
+      "text": "That's a promising sign. Let's not assume it's fully active just yet. Give it another moment, then we'll refresh the connection and check whether the network name appears."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[07:59]",
+      "end_time": "[08:05]",
+      "start_time_sec": 479,
+      "end_time_sec": 485,
+      "text": "Okay, I'll wait. There, it's changed. It now says S-Net at the top, with two bars."
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[08:07]",
+      "end_time": "[08:14]",
+      "start_time_sec": 487,
+      "end_time_sec": 494,
+      "text": "Excellent. That looks like the phone has registered on the network. Could you try switching Wi-Fi off briefly and opening a webpage, just to check that mobile data is working too?"
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[08:16]",
+      "end_time": "[08:23]",
+      "start_time_sec": 496,
+      "end_time_sec": 503,
+      "text": "Right, Wi-Fi is off. I'm opening the news site now. It's loading... yeah, there we go. That's working."
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[08:25]",
+      "end_time": "[08:32]",
+      "start_time_sec": 505,
+      "end_time_sec": 512,
+      "text": "Lovely, mobile data is working then. Let's do one last check on calls. Have you got another phone nearby that you can ring?"
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[08:34]",
+      "end_time": "[08:40]",
+      "start_time_sec": 514,
+      "end_time_sec": 520,
+      "text": "Yeah, my partner's phone is here. I'll give that a quick ring. One second... it's ringing now."
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[08:42]",
+      "end_time": "[08:49]",
+      "start_time_sec": 522,
+      "end_time_sec": 529,
+      "text": "Perfect. When they answer, just make sure you can hear each other clearly. There's no need to stay on the call for long."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[08:51]",
+      "end_time": "[08:58]",
+      "start_time_sec": 531,
+      "end_time_sec": 538,
+      "text": "Yep, they've answered. I can hear them, and they can hear me. That's working fine. Finally!"
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[09:00]",
+      "end_time": "[09:07]",
+      "start_time_sec": 540,
+      "end_time_sec": 547,
+      "text": "Brilliant news. You can end that test call now. I'll just refresh the account status to make sure the activation is showing as complete on our side as well."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[09:09]",
+      "end_time": "[09:15]",
+      "start_time_sec": 549,
+      "end_time_sec": 555,
+      "text": "Done. That's a massive relief. I was beginning to think I'd have to go into a shop and get another SIM."
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[09:17]",
+      "end_time": "[09:24]",
+      "start_time_sec": 557,
+      "end_time_sec": 564,
+      "text": "I'm glad we've avoided that. The account is now showing the replacement SIM as active, and the mobile number is still the same as before."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[09:26]",
+      "end_time": "[09:33]",
+      "start_time_sec": 566,
+      "end_time_sec": 573,
+      "text": "Lovely. So calls and data are both working now, and I don't need to do anything else with the activation link?"
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[09:35]",
+      "end_time": "[09:42]",
+      "start_time_sec": 575,
+      "end_time_sec": 582,
+      "text": "That's right. The replacement SIM is active, your number is unchanged, and there's no need to submit the link again. You can keep using the phone as normal."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[09:44]",
+      "end_time": "[09:50]",
+      "start_time_sec": 584,
+      "end_time_sec": 590,
+      "text": "Brilliant. Is there anything I should do if it drops back to SOS later, or should I just give you a ring?"
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[09:52]",
+      "end_time": "[10:00]",
+      "start_time_sec": 592,
+      "end_time_sec": 600,
+      "text": "If it happens briefly in an area with poor coverage, move somewhere with a stronger signal and give it a moment. If it stays on SOS and you can't make calls or use data, restart the phone once and contact us so we can check the network registration."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[10:02]",
+      "end_time": "[10:09]",
+      "start_time_sec": 602,
+      "end_time_sec": 609,
+      "text": "Got it. Hopefully it behaves itself now. I have to say, I was getting pretty fed up with it yesterday."
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[10:11]",
+      "end_time": "[10:18]",
+      "start_time_sec": 611,
+      "end_time_sec": 618,
+      "text": "I don't blame you. You'd already followed the activation instructions and waited overnight, so it shouldn't have been left in that state. I'm pleased we got it sorted while you were on the call."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[10:20]",
+      "end_time": "[10:27]",
+      "start_time_sec": 620,
+      "end_time_sec": 627,
+      "text": "Thanks, Sophie. You've been really helpful. I can get on with my day now without worrying about missing calls."
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[10:29]",
+      "end_time": "[10:37]",
+      "start_time_sec": 629,
+      "end_time_sec": 637,
+      "text": "You're very welcome, Callum. Just to confirm before we finish, are you happy that the SIM is now activated and that both calling and mobile data are working?"
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[10:39]",
+      "end_time": "[10:46]",
+      "start_time_sec": 639,
+      "end_time_sec": 646,
+      "text": "Yes, definitely. I've tested both, and they're working properly now. That's exactly what I needed.",
+      "sentiment_score": 48
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[10:48]",
+      "end_time": "[10:55]",
+      "start_time_sec": 648,
+      "end_time_sec": 655,
+      "text": "Perfect. I've confirmed the activation is complete, so everything looks good from our side too. Is there anything else I can help you with today?"
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[10:57]",
+      "end_time": "[11:03]",
+      "start_time_sec": 657,
+      "end_time_sec": 663,
+      "text": "No, that's everything. Thanks for sorting it out. Have a good one."
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[11:05]",
+      "end_time": "[11:12]",
+      "start_time_sec": 665,
+      "end_time_sec": 672,
+      "text": "You too, Callum. Thanks for your patience while we worked through that. Take care, and thank you for choosing S-Net. Goodbye."
+    }
+  ]
+}

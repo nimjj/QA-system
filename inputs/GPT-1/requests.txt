@@ -1,0 +1,25 @@
+Call 08. File: gpt_08_noverify. Customer first name: Tomasz. Topic: router keeps rebooting at night. PLANTED FAULTS: noverify.
+
+Call 09. File: gpt_09_noname. Customer first name: Grace. Topic: engineer missed appointment. PLANTED FAULTS: noname.
+
+Call 10. File: gpt_10_gaps. Customer first name: Ibrahim. Topic: landline crackling. PLANTED FAULTS: gaps.
+
+Call 11. File: gpt_11_empathy. Customer first name: Chloe. Topic: broadband down for three days, working from home. PLANTED FAULTS: empathy.
+
+Call 12. File: gpt_12_nopara. Customer first name: Daniel. Topic: TV channels missing after update. PLANTED FAULTS: nopara.
+
+Call 13. File: gpt_13_noprobe. Customer first name: Aisha. Topic: intermittent Wi-Fi on laptop only. PLANTED FAULTS: noprobe.
+
+Call 14. File: gpt_14_ownership. Customer first name: George. Topic: streaming app buffering. PLANTED FAULTS: ownership.
+
+Call 15. File: gpt_15_al. Customer first name: Sofia. Topic: mobile data not working abroad. PLANTED FAULTS: al.
+
+Call 16. File: gpt_16_noconfirm. Customer first name: Ravi. Topic: parental controls not applying. PLANTED FAULTS: noconfirm.
+
+Call 17. File: gpt_17_rapport. Customer first name: Emily. Topic: repeated calls about same fault. PLANTED FAULTS: rapport.
+
+Call 18. File: gpt_18_empathy_noconfirm. Customer first name: Molly. Topic: outage during child's online exam. PLANTED FAULTS: empathy, noconfirm.
+
+Call 19. File: gpt_19_noprobe_ownership. Customer first name: Kofi. Topic: speeds far below what was promised. PLANTED FAULTS: noprobe, ownership.
+
+Call 20. File: gpt_20_nopara_al_rapport. Customer first name: Eleanor. Topic: can't log into the S-Net app. PLANTED FAULTS: nopara, al, rapport.

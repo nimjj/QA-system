@@ -1,0 +1,433 @@
+{
+  "tenant_id": "tenant-abc",
+  "customer_name": "Kwame Mensah",
+  "planted_faults": [],
+  "fault_notes": "No faults planted. The agent verifies identity, acknowledges Kwame's frustration, investigates the frozen startup screen, guides a restart with a recently connected USB drive removed, and confirms normal television operation.",
+  "transcript": [
+    {
+      "speaker": "Agent",
+      "start_time": "[00:00]",
+      "end_time": "[00:09]",
+      "start_time_sec": 0,
+      "end_time_sec": 9,
+      "text": "Thank you for calling S-Net. My name's Alex. Could I take your name first, and then we'll look at what's happening?"
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[00:11]",
+      "end_time": "[00:22]",
+      "start_time_sec": 11,
+      "end_time_sec": 22,
+      "text": "Hi, it's Kwame Mensah. The television box won't start properly. It's just sitting on the S-Net logo, and it's been doing that since this morning.",
+      "sentiment_score": -20
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[00:24]",
+      "end_time": "[00:34]",
+      "start_time_sec": 24,
+      "end_time_sec": 34,
+      "text": "Hi Kwame. That's an irritating thing to be stuck with. Before I open the account, could you give me the first line of your address?"
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[00:36]",
+      "end_time": "[00:46]",
+      "start_time_sec": 36,
+      "end_time_sec": 46,
+      "text": "It's 42 Ashfield Road. The account's in my name. We have broadband with you as well, but that's working, at least as far as I can tell.",
+      "sentiment_score": -12
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[00:48]",
+      "end_time": "[00:59]",
+      "start_time_sec": 48,
+      "end_time_sec": 59,
+      "text": "Thank you, that's matched. So the box gets as far as the S-Net startup picture and stays there, while your broadband seems fine. Is that right?"
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[01:01]",
+      "end_time": "[01:13]",
+      "start_time_sec": 61,
+      "end_time_sec": 73,
+      "text": "Exactly. My dad's visiting and he can't watch anything. I've spent half my lunch break fiddling with it. It's getting ridiculous for something that's supposed to just switch on.",
+      "sentiment_score": -43
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[01:15]",
+      "end_time": "[01:27]",
+      "start_time_sec": 75,
+      "end_time_sec": 87,
+      "text": "I understand why you're fed up, especially with your dad waiting and your break disappearing. I'll work through it with you. When did the box last work normally?"
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[01:29]",
+      "end_time": "[01:40]",
+      "start_time_sec": 89,
+      "end_time_sec": 100,
+      "text": "Last night, around eleven. We watched a film and put it in standby afterwards. This morning I pressed the remote and got the logo, nothing after that.",
+      "sentiment_score": -18
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[01:42]",
+      "end_time": "[01:53]",
+      "start_time_sec": 102,
+      "end_time_sec": 113,
+      "text": "Does the picture remain completely still, or does the screen go black and show the logo again? Also, is there any message about installing an update?"
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[01:55]",
+      "end_time": "[02:06]",
+      "start_time_sec": 115,
+      "end_time_sec": 126,
+      "text": "It's completely still. No update message, no percentage or spinning thing. I left it like that while I made breakfast, so it's had plenty of time.",
+      "sentiment_score": -20
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[02:08]",
+      "end_time": "[02:19]",
+      "start_time_sec": 128,
+      "end_time_sec": 139,
+      "text": "Understood. What have you tried so far, including which buttons or power connections you've used? I'd rather build on that than send you through the same steps."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[02:21]",
+      "end_time": "[02:33]",
+      "start_time_sec": 141,
+      "end_time_sec": 153,
+      "text": "Changed the remote batteries, pressed its power button a few times, then switched the television off at the wall. Not the box, though. Its plug is behind the cabinet.",
+      "sentiment_score": -14
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[02:35]",
+      "end_time": "[02:46]",
+      "start_time_sec": 155,
+      "end_time_sec": 166,
+      "text": "Thanks, that means the box itself hasn't had a power restart yet. Before we do one, has anything been connected or moved since it was working yesterday?"
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[02:48]",
+      "end_time": "[02:59]",
+      "start_time_sec": 168,
+      "end_time_sec": 179,
+      "text": "There's a USB stick in the side. My dad brought some holiday photos and we were seeing where to plug it in. Otherwise, no, nothing's moved.",
+      "sentiment_score": -5
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[03:01]",
+      "end_time": "[03:13]",
+      "start_time_sec": 181,
+      "end_time_sec": 193,
+      "text": "We'll leave that disconnected during the restart to rule out an attached device interfering. Can you reach the box's power socket safely without moving the cabinet or pulling any cables?"
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[03:15]",
+      "end_time": "[03:26]",
+      "start_time_sec": 195,
+      "end_time_sec": 206,
+      "text": "The wall plug's awkward, but I can reach the back of the box easily. It's on the shelf above the television, not actually inside the cabinet.",
+      "sentiment_score": -3
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[03:28]",
+      "end_time": "[03:40]",
+      "start_time_sec": 208,
+      "end_time_sec": 220,
+      "text": "That's fine. Find the lead going into the socket marked power. Remove it by the connector, then remove the USB stick. Leave the HDMI lead where it is."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[03:42]",
+      "end_time": "[03:53]",
+      "start_time_sec": 222,
+      "end_time_sec": 233,
+      "text": "Okay, power's out. The little light's gone off and the television says no signal. I've taken the USB stick out as well. It's beside me now.",
+      "sentiment_score": 0
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[03:55]",
+      "end_time": "[04:06]",
+      "start_time_sec": 235,
+      "end_time_sec": 246,
+      "text": "We'll leave the power disconnected for about thirty seconds. While we're waiting, is the box uncovered, with room around its vents, or is anything resting on it?"
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[04:08]",
+      "end_time": "[04:18]",
+      "start_time_sec": 248,
+      "end_time_sec": 258,
+      "text": "Nothing on top. There's quite a bit of space around it. It's slightly warm, but not particularly hot. My dad keeps pointing at the empty screen.",
+      "sentiment_score": 2
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[04:20]",
+      "end_time": "[04:31]",
+      "start_time_sec": 260,
+      "end_time_sec": 271,
+      "text": "You can tell him the empty screen is expected for this part. It's been long enough now; reconnect the power lead, keeping the USB stick out."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[04:33]",
+      "end_time": "[04:42]",
+      "start_time_sec": 273,
+      "end_time_sec": 282,
+      "text": "Right, plugged back in. The light's come on. There's the logo again. I'm trying not to assume we're back where we started.",
+      "sentiment_score": -10
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[04:44]",
+      "end_time": "[04:55]",
+      "start_time_sec": 284,
+      "end_time_sec": 295,
+      "text": "I know seeing the same picture isn't reassuring yet. It should appear initially; we're checking whether startup progresses this time. Please leave the remote untouched for a moment."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[04:57]",
+      "end_time": "[05:07]",
+      "start_time_sec": 297,
+      "end_time_sec": 307,
+      "text": "Oh, it's changed. There's a row of dots now. That wasn't there earlier. Does this restart delete recordings? There are a couple Dad wanted to see.",
+      "sentiment_score": 1
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[05:09]",
+      "end_time": "[05:20]",
+      "start_time_sec": 309,
+      "end_time_sec": 320,
+      "text": "A power restart isn't a factory reset and shouldn't erase saved recordings. We haven't selected any erase option. Once the menu opens, we can check that they're available."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[05:22]",
+      "end_time": "[05:32]",
+      "start_time_sec": 322,
+      "end_time_sec": 332,
+      "text": "Good. Yes, here's the home screen now. It's showing the usual tiles and the time in the corner. That's already further than we've got all morning.",
+      "sentiment_score": 14
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[05:34]",
+      "end_time": "[05:45]",
+      "start_time_sec": 334,
+      "end_time_sec": 345,
+      "text": "That's progress. Please choose a live channel and check both picture and sound. Then try changing channel once, so we know the box is responding to the remote."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[05:47]",
+      "end_time": "[05:58]",
+      "start_time_sec": 347,
+      "end_time_sec": 358,
+      "text": "There's a quiz show. Sound's fine, a bit loud actually. I've turned that down. Changed to the news now, and that came up straight away too.",
+      "sentiment_score": 19
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[06:00]",
+      "end_time": "[06:11]",
+      "start_time_sec": 360,
+      "end_time_sec": 371,
+      "text": "Great. Next, open your recordings list and try a few seconds of one recording. You don't need to delete or move anything; this is just a playback check."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[06:13]",
+      "end_time": "[06:24]",
+      "start_time_sec": 373,
+      "end_time_sec": 384,
+      "text": "They're all listed. I'll try the railway programme. Yes, that's playing. He's pleased about that. He says he's seen it before, but apparently that doesn't matter.",
+      "sentiment_score": 25
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[06:26]",
+      "end_time": "[06:37]",
+      "start_time_sec": 386,
+      "end_time_sec": 397,
+      "text": "Sometimes a favourite deserves another watch. With playback working, let's check a normal standby and wake-up as well, since that's how you first encountered the problem this morning."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[06:39]",
+      "end_time": "[06:49]",
+      "start_time_sec": 399,
+      "end_time_sec": 409,
+      "text": "Okay. Do I just press the power button on the box remote once? I've got both remotes here and keep picking up the wrong one.",
+      "sentiment_score": 7
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[06:51]",
+      "end_time": "[07:01]",
+      "start_time_sec": 411,
+      "end_time_sec": 421,
+      "text": "Yes, the S-Net box remote, one short press. Leave the television on. Once the box is in standby, wait a few seconds before pressing it again."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[07:03]",
+      "end_time": "[07:14]",
+      "start_time_sec": 423,
+      "end_time_sec": 434,
+      "text": "It's in standby now. I'll give it a moment. Right, pressed again, and the home screen's back already. No frozen logo this time. That's much better.",
+      "sentiment_score": 22
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[07:16]",
+      "end_time": "[07:27]",
+      "start_time_sec": 436,
+      "end_time_sec": 447,
+      "text": "Thanks, Kwame. Please put a channel back on while we finish up. We've now checked startup, the remote, live television, recordings, and waking the box from standby."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[07:29]",
+      "end_time": "[07:40]",
+      "start_time_sec": 449,
+      "end_time_sec": 460,
+      "text": "The news is back on and still working. Was it definitely the USB stick then? I don't want to tell Dad he broke it if he didn't.",
+      "sentiment_score": 12
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[07:42]",
+      "end_time": "[07:54]",
+      "start_time_sec": 462,
+      "end_time_sec": 474,
+      "text": "We can't say definitely, because we removed the stick and restarted together. The restart may have cleared a temporary freeze. Leaving the stick out avoids reintroducing that possible factor."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[07:56]",
+      "end_time": "[08:06]",
+      "start_time_sec": 476,
+      "end_time_sec": 486,
+      "text": "Fair enough. We can look at the photos on my laptop instead. I'd rather not start plugging it back in now that he's finally got a picture.",
+      "sentiment_score": 16
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[08:08]",
+      "end_time": "[08:18]",
+      "start_time_sec": 488,
+      "end_time_sec": 498,
+      "text": "That sounds sensible. I'll record the symptoms and the steps that restored it, including that the USB drive remains disconnected, so we have a useful history."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[08:20]",
+      "end_time": "[08:30]",
+      "start_time_sec": 500,
+      "end_time_sec": 510,
+      "text": "Thanks. If it freezes tomorrow even without the stick, am I supposed to keep pulling the power lead out, or should I get back in touch?",
+      "sentiment_score": 3
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[08:32]",
+      "end_time": "[08:44]",
+      "start_time_sec": 512,
+      "end_time_sec": 524,
+      "text": "Get back in touch if it recurs. We'll use today's notes and investigate further; repeated restarts shouldn't become your routine. Note any message or different light pattern if you see one."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[08:46]",
+      "end_time": "[08:56]",
+      "start_time_sec": 526,
+      "end_time_sec": 536,
+      "text": "Okay, I can do that. It's behaving normally now. Dad's changed channels himself, so I think I've lost control of the remote for the afternoon.",
+      "sentiment_score": 23
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[08:58]",
+      "end_time": "[09:09]",
+      "start_time_sec": 538,
+      "end_time_sec": 549,
+      "text": "That's a good practical test. Just to confirm explicitly, is the frozen boot-screen problem resolved now, with the box responding and television picture and sound working normally?"
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[09:11]",
+      "end_time": "[09:21]",
+      "start_time_sec": 551,
+      "end_time_sec": 561,
+      "text": "Yes, it's resolved. The box starts, the channels work, and the recording played properly too. Nothing's frozen since we did that restart. Thank you.",
+      "sentiment_score": 29
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[09:23]",
+      "end_time": "[09:35]",
+      "start_time_sec": 563,
+      "end_time_sec": 575,
+      "text": "You're welcome. We've restored normal operation by restarting with the USB drive disconnected, and your recordings remain available. There's no further setup needed today. Is anything else giving you trouble?"
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[09:37]",
+      "end_time": "[09:47]",
+      "start_time_sec": 577,
+      "end_time_sec": 587,
+      "text": "No, that was it. The internet's been fine throughout. I was imagining we'd need a replacement box and lose everything on this one, so I'm relieved.",
+      "sentiment_score": 24
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[09:49]",
+      "end_time": "[10:00]",
+      "start_time_sec": 589,
+      "end_time_sec": 600,
+      "text": "I can understand that worry. Today's checks don't indicate a replacement is needed. Your notes are saved, and we'll pick up the investigation if the problem returns."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[10:02]",
+      "end_time": "[10:11]",
+      "start_time_sec": 602,
+      "end_time_sec": 611,
+      "text": "Lovely. Thanks for being patient with me. I came into this a bit wound up. At least I can get a sandwich now.",
+      "sentiment_score": 28
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[10:13]",
+      "end_time": "[10:23]",
+      "start_time_sec": 613,
+      "end_time_sec": 623,
+      "text": "No problem at all, Kwame. Enjoy the rest of your break, and I hope your dad enjoys his programme. Thank you for choosing S-Net."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[10:25]",
+      "end_time": "[10:30]",
+      "start_time_sec": 625,
+      "end_time_sec": 630,
+      "text": "He says thank you as well. Take care, Alex. Bye for now.",
+      "sentiment_score": 30
+    }
+  ]
+}

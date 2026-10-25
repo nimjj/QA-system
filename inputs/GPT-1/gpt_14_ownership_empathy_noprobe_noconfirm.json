@@ -1,0 +1,548 @@
+{
+  "tenant_id": "tenant-abc",
+  "customer_name": "George Mitchell",
+  "planted_faults": [
+    "ownership",
+    "empathy",
+    "noprobe",
+    "noconfirm"
+  ],
+  "fault_notes": "The customer's streaming app repeatedly buffers and struggles to play programmes smoothly. The agent deflects responsibility by repeatedly attributing the problem to the streaming provider or the customer's equipment, avoids taking ownership of troubleshooting the broadband connection, and directs the customer elsewhere without properly investigating the issue. [On saving, three unlisted faults added: empathy (the customer says \"fed up\", \"going round in circles\", \"ridiculous\" and \"disappointed\"; the agent only once says \"I understand that you'd like the buffering resolved, but...\" and goes straight back to deflecting); noprobe (the agent asks no diagnostic questions and jumps to a router restart); noconfirm (the fix is never checked; the customer ends with \"I don't feel like I've got a proper answer\"). Address line had no sentiment score; set to 0.]",
+  "transcript": [
+    {
+      "speaker": "Agent",
+      "start_time": "[00:00]",
+      "end_time": "[00:09]",
+      "start_time_sec": 0,
+      "end_time_sec": 9,
+      "text": "Thank you for calling S-Net. You're speaking with Sophie. How can I help you today?"
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[00:10]",
+      "end_time": "[00:21]",
+      "start_time_sec": 10,
+      "end_time_sec": 21,
+      "text": "Hi Sophie, I'm George Mitchell. My streaming app keeps buffering. It's been happening all week, and I'm getting fed up with it.",
+      "sentiment_score": -4
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[00:23]",
+      "end_time": "[00:32]",
+      "start_time_sec": 23,
+      "end_time_sec": 32,
+      "text": "I can check your account. Could you give me your S-Net account number, please?"
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[00:34]",
+      "end_time": "[00:43]",
+      "start_time_sec": 34,
+      "end_time_sec": 43,
+      "text": "It's 817364920. I just want to watch something without it stopping every few minutes.",
+      "sentiment_score": -3
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[00:45]",
+      "end_time": "[00:55]",
+      "start_time_sec": 45,
+      "end_time_sec": 55,
+      "text": "Thank you. For security, can you confirm the first line of your registered address?"
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[00:57]",
+      "end_time": "[01:04]",
+      "start_time_sec": 57,
+      "end_time_sec": 64,
+      "text": "It's 16 Park View, Nottingham.",
+      "sentiment_score": 0
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[01:06]",
+      "end_time": "[01:16]",
+      "start_time_sec": 66,
+      "end_time_sec": 76,
+      "text": "Thanks, George. I've verified your account. I'll have a look at the broadband package details."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[01:18]",
+      "end_time": "[01:29]",
+      "start_time_sec": 78,
+      "end_time_sec": 89,
+      "text": "The app loads, but when I start a film it buffers constantly. Sometimes it plays for a minute, then freezes again.",
+      "sentiment_score": -3
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[01:31]",
+      "end_time": "[01:41]",
+      "start_time_sec": 91,
+      "end_time_sec": 101,
+      "text": "Your broadband package is active. Streaming applications are provided by their respective companies, so buffering is usually something you'll need to raise with the app provider."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[01:43]",
+      "end_time": "[01:53]",
+      "start_time_sec": 103,
+      "end_time_sec": 113,
+      "text": "But the app provider says my internet connection might be the problem. That's why I've called S-Net.",
+      "sentiment_score": -4
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[01:55]",
+      "end_time": "[02:05]",
+      "start_time_sec": 115,
+      "end_time_sec": 125,
+      "text": "We don't control how third-party streaming services deliver their content. You'll need to contact them if their app isn't playing properly."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[02:07]",
+      "end_time": "[02:18]",
+      "start_time_sec": 127,
+      "end_time_sec": 138,
+      "text": "I've already contacted them. They told me to check the internet connection and speak to my broadband provider. I'm going round in circles here.",
+      "sentiment_score": -6
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[02:20]",
+      "end_time": "[02:30]",
+      "start_time_sec": 140,
+      "end_time_sec": 150,
+      "text": "Their support team would be responsible for the app itself. I suggest following their troubleshooting instructions before contacting them again."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[02:32]",
+      "end_time": "[02:42]",
+      "start_time_sec": 152,
+      "end_time_sec": 162,
+      "text": "I've followed their instructions already. I've signed out, signed back in, and reinstalled the app. Nothing has changed.",
+      "sentiment_score": -4
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[02:44]",
+      "end_time": "[02:54]",
+      "start_time_sec": 164,
+      "end_time_sec": 174,
+      "text": "The app's behaviour is outside our control. You may need to ask the streaming company to investigate your account or device."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[02:56]",
+      "end_time": "[03:06]",
+      "start_time_sec": 176,
+      "end_time_sec": 186,
+      "text": "It's not just my account, though. The same app works fine on my phone when I'm using mobile data.",
+      "sentiment_score": -2
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[03:08]",
+      "end_time": "[03:18]",
+      "start_time_sec": 188,
+      "end_time_sec": 198,
+      "text": "If it works on mobile data, that suggests the app itself may be functioning. You should check with the streaming provider about compatibility with your home setup."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[03:20]",
+      "end_time": "[03:30]",
+      "start_time_sec": 200,
+      "end_time_sec": 210,
+      "text": "That's exactly why I think the home internet could be involved. Can you check whether there's a problem with my broadband?",
+      "sentiment_score": -3
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[03:32]",
+      "end_time": "[03:42]",
+      "start_time_sec": 212,
+      "end_time_sec": 222,
+      "text": "The broadband account is active, so there isn't an account issue. Problems with individual streaming services generally need to be handled by their own support teams."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[03:44]",
+      "end_time": "[03:54]",
+      "start_time_sec": 224,
+      "end_time_sec": 234,
+      "text": "An active account doesn't mean the connection is working properly, does it? I'm paying for broadband and I can't stream a film.",
+      "sentiment_score": -6
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[03:56]",
+      "end_time": "[04:06]",
+      "start_time_sec": 236,
+      "end_time_sec": 246,
+      "text": "I can confirm the service is active on the account. Any buffering inside a third-party app would need to be investigated by that provider."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[04:08]",
+      "end_time": "[04:18]",
+      "start_time_sec": 248,
+      "end_time_sec": 258,
+      "text": "Can you at least check if there's a broadband outage or a fault showing on the line?",
+      "sentiment_score": -3
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[04:20]",
+      "end_time": "[04:30]",
+      "start_time_sec": 260,
+      "end_time_sec": 270,
+      "text": "There are no general outage notices showing for your area. If the streaming app is still buffering, the app provider may need to look into it."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[04:32]",
+      "end_time": "[04:42]",
+      "start_time_sec": 272,
+      "end_time_sec": 282,
+      "text": "All right, but the problem only happens when I'm connected to the home Wi-Fi. I don't have the same issue on mobile data.",
+      "sentiment_score": -4
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[04:44]",
+      "end_time": "[04:54]",
+      "start_time_sec": 284,
+      "end_time_sec": 294,
+      "text": "Your Wi-Fi equipment is located in your home, so any wireless coverage issue would relate to the positioning or condition of your equipment."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[04:56]",
+      "end_time": "[05:06]",
+      "start_time_sec": 296,
+      "end_time_sec": 306,
+      "text": "The router is in the same place it's always been. This only started recently, and I've never had this much trouble before.",
+      "sentiment_score": -3
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[05:08]",
+      "end_time": "[05:18]",
+      "start_time_sec": 308,
+      "end_time_sec": 318,
+      "text": "You could move the router closer to the streaming device. Router placement is something you'll need to manage at home."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[05:20]",
+      "end_time": "[05:30]",
+      "start_time_sec": 320,
+      "end_time_sec": 330,
+      "text": "It's already only a few metres away. And other things are connected to the Wi-Fi without any obvious problems.",
+      "sentiment_score": -3
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[05:32]",
+      "end_time": "[05:42]",
+      "start_time_sec": 332,
+      "end_time_sec": 342,
+      "text": "Other devices can use different amounts of bandwidth. Managing which devices are connected and how they're used is something you can adjust in your home network."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[05:44]",
+      "end_time": "[05:54]",
+      "start_time_sec": 344,
+      "end_time_sec": 354,
+      "text": "I haven't added any new devices. It was working perfectly last week, and now I can't get through a programme.",
+      "sentiment_score": -4
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[05:56]",
+      "end_time": "[06:06]",
+      "start_time_sec": 356,
+      "end_time_sec": 366,
+      "text": "You can restart the router to refresh the connection. If the buffering continues afterwards, the streaming provider would need to investigate further."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[06:08]",
+      "end_time": "[06:18]",
+      "start_time_sec": 368,
+      "end_time_sec": 378,
+      "text": "I've already restarted it twice this week. I'll try it again, but I don't see why I should keep repeating the same thing.",
+      "sentiment_score": -5
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[06:20]",
+      "end_time": "[06:30]",
+      "start_time_sec": 380,
+      "end_time_sec": 390,
+      "text": "Please switch the router off for thirty seconds, then turn it back on. This is a standard step for home networking issues."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[06:32]",
+      "end_time": "[06:42]",
+      "start_time_sec": 392,
+      "end_time_sec": 402,
+      "text": "Okay, I've turned it off. I'll give it thirty seconds and switch it on again.",
+      "sentiment_score": 0
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[06:44]",
+      "end_time": "[06:54]",
+      "start_time_sec": 404,
+      "end_time_sec": 414,
+      "text": "Once the lights settle, reconnect the streaming device to your Wi-Fi network and try the app again."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[06:56]",
+      "end_time": "[07:06]",
+      "start_time_sec": 416,
+      "end_time_sec": 426,
+      "text": "The router's back on now. I've opened the app, and the film is playing again for the moment.",
+      "sentiment_score": 1
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[07:08]",
+      "end_time": "[07:18]",
+      "start_time_sec": 428,
+      "end_time_sec": 438,
+      "text": "Good. If it starts buffering again, you'll need to contact the streaming provider because we can't control the app's playback."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[07:20]",
+      "end_time": "[07:30]",
+      "start_time_sec": 440,
+      "end_time_sec": 450,
+      "text": "It's played for a couple of minutes now, but that's happened before. It usually starts buffering again later.",
+      "sentiment_score": -2
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[07:32]",
+      "end_time": "[07:42]",
+      "start_time_sec": 452,
+      "end_time_sec": 462,
+      "text": "The router restart is complete. Any further app-specific playback issues should be raised with the company that provides the streaming service."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[07:44]",
+      "end_time": "[07:54]",
+      "start_time_sec": 464,
+      "end_time_sec": 474,
+      "text": "Can you run a broadband speed test or anything like that? I'd like to know whether the connection is fast enough.",
+      "sentiment_score": -3
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[07:56]",
+      "end_time": "[08:06]",
+      "start_time_sec": 476,
+      "end_time_sec": 486,
+      "text": "Speed tests can be performed using a website or application. You can run one yourself on a connected device and compare the result with the speed your package provides."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[08:08]",
+      "end_time": "[08:18]",
+      "start_time_sec": 488,
+      "end_time_sec": 498,
+      "text": "I was hoping you could help check that from your side. I don't really know what numbers I'm supposed to look for.",
+      "sentiment_score": -4
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[08:20]",
+      "end_time": "[08:30]",
+      "start_time_sec": 500,
+      "end_time_sec": 510,
+      "text": "The speed test provider will display your current download and upload speeds. They can explain what the figures mean if you need assistance interpreting them."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[08:32]",
+      "end_time": "[08:42]",
+      "start_time_sec": 512,
+      "end_time_sec": 522,
+      "text": "This is getting a bit ridiculous. I've called my streaming provider, and now I'm being told to go elsewhere again.",
+      "sentiment_score": -7
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[08:44]",
+      "end_time": "[08:54]",
+      "start_time_sec": 524,
+      "end_time_sec": 534,
+      "text": "I understand that you'd like the buffering resolved, but the app itself isn't an S-Net service. We can only provide guidance for the broadband package and router."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[08:56]",
+      "end_time": "[09:06]",
+      "start_time_sec": 536,
+      "end_time_sec": 546,
+      "text": "Then can you check the router or broadband side properly? That's the part I'm paying S-Net for.",
+      "sentiment_score": -6
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[09:08]",
+      "end_time": "[09:18]",
+      "start_time_sec": 548,
+      "end_time_sec": 558,
+      "text": "The account is active, and there are no area outage notices. If the issue persists, you may need to arrange for someone to inspect your home equipment."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[09:20]",
+      "end_time": "[09:30]",
+      "start_time_sec": 560,
+      "end_time_sec": 570,
+      "text": "Why would I pay someone to inspect it when I don't even know whether the router is the problem?",
+      "sentiment_score": -6
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[09:32]",
+      "end_time": "[09:42]",
+      "start_time_sec": 572,
+      "end_time_sec": 582,
+      "text": "An independent technician could inspect the equipment and home network. S-Net isn't responsible for third-party streaming application performance."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[09:44]",
+      "end_time": "[09:54]",
+      "start_time_sec": 584,
+      "end_time_sec": 594,
+      "text": "But you haven't established that it's the streaming app. It works on mobile data and buffers on my home broadband.",
+      "sentiment_score": -5
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[09:56]",
+      "end_time": "[10:06]",
+      "start_time_sec": 596,
+      "end_time_sec": 606,
+      "text": "The behaviour of third-party services can vary between networks. You'll need to ask the streaming provider why its performance differs."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[10:08]",
+      "end_time": "[10:18]",
+      "start_time_sec": 608,
+      "end_time_sec": 618,
+      "text": "I've told you their support team sent me to S-Net. I don't think anyone is actually looking into the problem.",
+      "sentiment_score": -7
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[10:20]",
+      "end_time": "[10:30]",
+      "start_time_sec": 620,
+      "end_time_sec": 630,
+      "text": "I've provided the standard router restart instructions. The remaining app-related investigation would need to be handled by the streaming provider."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[10:32]",
+      "end_time": "[10:42]",
+      "start_time_sec": 632,
+      "end_time_sec": 642,
+      "text": "All right. I suppose I'll have to contact them again, even though I've already done that.",
+      "sentiment_score": -5
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[10:44]",
+      "end_time": "[10:54]",
+      "start_time_sec": 644,
+      "end_time_sec": 654,
+      "text": "That would be the next step for the streaming application. You can also run an independent speed test if you'd like to check the connection."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[10:56]",
+      "end_time": "[11:06]",
+      "start_time_sec": 656,
+      "end_time_sec": 666,
+      "text": "Can you at least give me a reference number for this call in case I need to explain what we've tried?",
+      "sentiment_score": -2
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[11:08]",
+      "end_time": "[11:18]",
+      "start_time_sec": 668,
+      "end_time_sec": 678,
+      "text": "The reference number is SN-642819. The account notes will show that you restarted the router during this call."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[11:20]",
+      "end_time": "[11:30]",
+      "start_time_sec": 680,
+      "end_time_sec": 690,
+      "text": "I've written it down. I'm disappointed that we haven't got any further with it, to be honest.",
+      "sentiment_score": -5
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[11:32]",
+      "end_time": "[11:42]",
+      "start_time_sec": 692,
+      "end_time_sec": 702,
+      "text": "The router has been restarted, and the streaming app is currently playing. If it happens again, please contact the streaming provider with the reference if they need details from this call."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[11:44]",
+      "end_time": "[11:54]",
+      "start_time_sec": 704,
+      "end_time_sec": 714,
+      "text": "It's playing right now, yes, but I still don't know why it kept buffering. I wanted to get to the bottom of it.",
+      "sentiment_score": -4
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[11:56]",
+      "end_time": "[12:06]",
+      "start_time_sec": 716,
+      "end_time_sec": 726,
+      "text": "There isn't a confirmed fault on the account. Further investigation of the streaming service would need to be carried out by its provider."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[12:08]",
+      "end_time": "[12:17]",
+      "start_time_sec": 728,
+      "end_time_sec": 737,
+      "text": "Okay, that's everything for now. I'll see whether it happens again, but I don't feel like I've got a proper answer.",
+      "sentiment_score": -4
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[12:19]",
+      "end_time": "[12:30]",
+      "start_time_sec": 739,
+      "end_time_sec": 750,
+      "text": "The router restart is recorded, and the connection is currently available. If you need further assistance with the app, please contact its provider. Thank you for choosing S-Net."
+    }
+  ]
+}

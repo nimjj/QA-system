@@ -1,0 +1,529 @@
+{
+  "tenant_id": "tenant-abc",
+  "customer_name": "Daniel Foster",
+  "planted_faults": [
+    "nopara",
+    "empathy"
+  ],
+  "fault_notes": "The customer has lost several TV channels following a recent software update. The agent never paraphrases or restates the customer's issue to confirm understanding, but otherwise follows a professional troubleshooting process and works towards resolving the fault. [On saving: empathy added, the customer says \"quite frustrating\" (00:33) and \"just annoying\" (04:29) and the agent never acknowledges either. Agent sentiment removed.]",
+  "transcript": [
+    {
+      "speaker": "Agent",
+      "start_time": "[00:00]",
+      "end_time": "[00:09]",
+      "start_time_sec": 0,
+      "end_time_sec": 9,
+      "text": "Thank you for calling S-Net. You're speaking with Rachel. How can I help you today?"
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[00:10]",
+      "end_time": "[00:20]",
+      "start_time_sec": 10,
+      "end_time_sec": 20,
+      "text": "Hi Rachel, my name's Daniel Foster. My TV channels have disappeared since the update yesterday evening.",
+      "sentiment_score": -3
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[00:22]",
+      "end_time": "[00:31]",
+      "start_time_sec": 22,
+      "end_time_sec": 31,
+      "text": "I can look into that for you. Could I have your S-Net account number, please?"
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[00:33]",
+      "end_time": "[00:42]",
+      "start_time_sec": 33,
+      "end_time_sec": 42,
+      "text": "It's 583104762. It's quite frustrating because some of the channels I watch every day are just gone.",
+      "sentiment_score": -4
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[00:44]",
+      "end_time": "[00:54]",
+      "start_time_sec": 44,
+      "end_time_sec": 54,
+      "text": "Thank you. For security, could you confirm the first line of your registered address?"
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[00:56]",
+      "end_time": "[01:03]",
+      "start_time_sec": 56,
+      "end_time_sec": 63,
+      "text": "It's 42 Oakfield Road, Bristol.",
+      "sentiment_score": 0
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[01:05]",
+      "end_time": "[01:15]",
+      "start_time_sec": 65,
+      "end_time_sec": 75,
+      "text": "Thank you, Daniel. I've verified the account. I'll check your TV package and the service information first."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[01:17]",
+      "end_time": "[01:28]",
+      "start_time_sec": 77,
+      "end_time_sec": 88,
+      "text": "Sure. I noticed it after the box restarted for the update. A few channels are still there, but quite a lot aren't.",
+      "sentiment_score": -2
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[01:30]",
+      "end_time": "[01:40]",
+      "start_time_sec": 90,
+      "end_time_sec": 100,
+      "text": "Your account shows the Entertainment package with the additional Variety add-on. I'll check whether there are any service notices."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[01:42]",
+      "end_time": "[01:51]",
+      "start_time_sec": 102,
+      "end_time_sec": 111,
+      "text": "I've checked the S-Net website and couldn't see anything about an outage. Is there anything showing on your side?",
+      "sentiment_score": -1
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[01:53]",
+      "end_time": "[02:04]",
+      "start_time_sec": 113,
+      "end_time_sec": 124,
+      "text": "There isn't a general TV service incident listed for your area. I'll check the status of your set-top box next."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[02:06]",
+      "end_time": "[02:16]",
+      "start_time_sec": 126,
+      "end_time_sec": 136,
+      "text": "Okay. The box seems to turn on normally. The menus look different since the update, though.",
+      "sentiment_score": -1
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[02:18]",
+      "end_time": "[02:28]",
+      "start_time_sec": 138,
+      "end_time_sec": 148,
+      "text": "Has the box displayed any error messages, either when it started up or when you selected one of the missing channels?"
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[02:30]",
+      "end_time": "[02:39]",
+      "start_time_sec": 150,
+      "end_time_sec": 159,
+      "text": "Not really. Some channels say they're unavailable, while others don't appear in the guide at all.",
+      "sentiment_score": -2
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[02:41]",
+      "end_time": "[02:51]",
+      "start_time_sec": 161,
+      "end_time_sec": 171,
+      "text": "When you open the TV guide, do the channel numbers remain in place with a blank listing, or have the numbers disappeared as well?"
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[02:53]",
+      "end_time": "[03:03]",
+      "start_time_sec": 173,
+      "end_time_sec": 183,
+      "text": "Both, actually. Some numbers are missing completely, and on a few others the number is there but the programme won't play.",
+      "sentiment_score": -2
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[03:05]",
+      "end_time": "[03:15]",
+      "start_time_sec": 185,
+      "end_time_sec": 195,
+      "text": "Thanks. I'll check the box software version and see whether the update completed successfully."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[03:17]",
+      "end_time": "[03:27]",
+      "start_time_sec": 197,
+      "end_time_sec": 207,
+      "text": "I hope so. It said the update was complete, and then the box restarted on its own.",
+      "sentiment_score": -1
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[03:29]",
+      "end_time": "[03:39]",
+      "start_time_sec": 209,
+      "end_time_sec": 219,
+      "text": "The software version is current. I'm going to check whether the channel list is synchronised with your subscription."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[03:41]",
+      "end_time": "[03:51]",
+      "start_time_sec": 221,
+      "end_time_sec": 231,
+      "text": "All right. I haven't changed my package, so I wouldn't expect those channels to disappear.",
+      "sentiment_score": -3
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[03:53]",
+      "end_time": "[04:03]",
+      "start_time_sec": 233,
+      "end_time_sec": 243,
+      "text": "Your package is still active, and the add-on is showing correctly. I'll refresh the channel entitlements from here."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[04:05]",
+      "end_time": "[04:15]",
+      "start_time_sec": 245,
+      "end_time_sec": 255,
+      "text": "Does that mean I won't need to change anything on the box myself?",
+      "sentiment_score": -1
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[04:17]",
+      "end_time": "[04:27]",
+      "start_time_sec": 257,
+      "end_time_sec": 267,
+      "text": "Let's try the refresh first. It may take a minute or two to reach the box, and then we'll check the channels again."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[04:29]",
+      "end_time": "[04:39]",
+      "start_time_sec": 269,
+      "end_time_sec": 279,
+      "text": "Fine. It's just annoying having to troubleshoot this when everything was working before the update.",
+      "sentiment_score": -4
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[04:41]",
+      "end_time": "[04:51]",
+      "start_time_sec": 281,
+      "end_time_sec": 291,
+      "text": "The refresh has been sent. Please leave the box switched on and tuned to a regular live channel while it processes."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[04:53]",
+      "end_time": "[05:03]",
+      "start_time_sec": 293,
+      "end_time_sec": 303,
+      "text": "I've done that. I'm on channel 101 now, and that one is playing normally.",
+      "sentiment_score": 1
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[05:05]",
+      "end_time": "[05:15]",
+      "start_time_sec": 305,
+      "end_time_sec": 315,
+      "text": "Good. Could you try one of the channels that was unavailable earlier and tell me what appears?"
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[05:17]",
+      "end_time": "[05:27]",
+      "start_time_sec": 317,
+      "end_time_sec": 327,
+      "text": "I'm trying channel 204. It still says the channel is currently unavailable.",
+      "sentiment_score": -3
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[05:29]",
+      "end_time": "[05:39]",
+      "start_time_sec": 329,
+      "end_time_sec": 339,
+      "text": "Understood. I'll check whether channel 204 is included in the current package and whether there's a specific restriction on it."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[05:41]",
+      "end_time": "[05:50]",
+      "start_time_sec": 341,
+      "end_time_sec": 350,
+      "text": "It definitely worked before yesterday. I watch it most evenings.",
+      "sentiment_score": -2
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[05:52]",
+      "end_time": "[06:02]",
+      "start_time_sec": 352,
+      "end_time_sec": 362,
+      "text": "The channel is included in your package. I'll check whether the box has received the latest channel map."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[06:04]",
+      "end_time": "[06:14]",
+      "start_time_sec": 364,
+      "end_time_sec": 374,
+      "text": "Okay. Another one, channel 218, is missing from the guide completely. There are a few like that.",
+      "sentiment_score": -2
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[06:16]",
+      "end_time": "[06:26]",
+      "start_time_sec": 376,
+      "end_time_sec": 386,
+      "text": "I'll send a channel-map update. Once it arrives, the guide may rebuild automatically, so the channel numbers could take a few moments to return."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[06:28]",
+      "end_time": "[06:38]",
+      "start_time_sec": 388,
+      "end_time_sec": 398,
+      "text": "All right, I've got the guide open. Should I leave it there while it updates?",
+      "sentiment_score": 0
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[06:40]",
+      "end_time": "[06:50]",
+      "start_time_sec": 400,
+      "end_time_sec": 410,
+      "text": "Yes, please leave it open for now. I'll confirm when the update has been sent successfully."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[06:52]",
+      "end_time": "[07:02]",
+      "start_time_sec": 412,
+      "end_time_sec": 422,
+      "text": "It's still showing the same thing. This is taking longer than I expected.",
+      "sentiment_score": -3
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[07:04]",
+      "end_time": "[07:14]",
+      "start_time_sec": 424,
+      "end_time_sec": 434,
+      "text": "The system shows the channel-map update as delivered. Please press the Home button on your remote and wait for the menu to appear."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[07:16]",
+      "end_time": "[07:26]",
+      "start_time_sec": 436,
+      "end_time_sec": 446,
+      "text": "I'm on the Home menu now. What do I need to select?",
+      "sentiment_score": 0
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[07:28]",
+      "end_time": "[07:38]",
+      "start_time_sec": 448,
+      "end_time_sec": 458,
+      "text": "Open Settings, then choose TV Setup. Look for an option called Refresh Channels or Channel Scan."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[07:40]",
+      "end_time": "[07:50]",
+      "start_time_sec": 460,
+      "end_time_sec": 470,
+      "text": "I've found Refresh Channels. There's also a full reset option, but I haven't touched that.",
+      "sentiment_score": -1
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[07:52]",
+      "end_time": "[08:02]",
+      "start_time_sec": 472,
+      "end_time_sec": 482,
+      "text": "Please select Refresh Channels. Don't choose the full reset, as that could remove your saved settings and recordings."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[08:04]",
+      "end_time": "[08:14]",
+      "start_time_sec": 484,
+      "end_time_sec": 494,
+      "text": "Okay, I've selected it. It's asking me to confirm that I want to update the channel list.",
+      "sentiment_score": 0
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[08:16]",
+      "end_time": "[08:26]",
+      "start_time_sec": 496,
+      "end_time_sec": 506,
+      "text": "Confirm that prompt. The box should scan the channel list, and the guide may disappear temporarily while it works."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[08:28]",
+      "end_time": "[08:38]",
+      "start_time_sec": 508,
+      "end_time_sec": 518,
+      "text": "It's scanning now. There's a progress bar moving across the screen.",
+      "sentiment_score": 1
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[08:40]",
+      "end_time": "[08:50]",
+      "start_time_sec": 520,
+      "end_time_sec": 530,
+      "text": "That's expected. Let the scan finish without switching the box off."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[08:52]",
+      "end_time": "[09:02]",
+      "start_time_sec": 532,
+      "end_time_sec": 542,
+      "text": "It's finished. The guide has come back, and I can see some of the missing channel numbers again.",
+      "sentiment_score": 2
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[09:04]",
+      "end_time": "[09:14]",
+      "start_time_sec": 544,
+      "end_time_sec": 554,
+      "text": "Please try channel 204 again, then check channel 218 in the guide."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[09:16]",
+      "end_time": "[09:26]",
+      "start_time_sec": 556,
+      "end_time_sec": 566,
+      "text": "Channel 204 is playing now. Channel 218 is back in the guide too, and that one works as well.",
+      "sentiment_score": 4
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[09:28]",
+      "end_time": "[09:38]",
+      "start_time_sec": 568,
+      "end_time_sec": 578,
+      "text": "Good. I'll check the account status once more to make sure the package and channel entitlements are still correct."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[09:40]",
+      "end_time": "[09:50]",
+      "start_time_sec": 580,
+      "end_time_sec": 590,
+      "text": "Thanks. I can see the channels now, which is a relief. I was worried I'd need a replacement box.",
+      "sentiment_score": 3
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[09:52]",
+      "end_time": "[10:02]",
+      "start_time_sec": 592,
+      "end_time_sec": 602,
+      "text": "The package and channel entitlements are showing correctly. There isn't an equipment replacement recommendation on the account."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[10:04]",
+      "end_time": "[10:14]",
+      "start_time_sec": 604,
+      "end_time_sec": 614,
+      "text": "That's good. Do you think the update caused the problem, then?",
+      "sentiment_score": 1
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[10:16]",
+      "end_time": "[10:27]",
+      "start_time_sec": 616,
+      "end_time_sec": 627,
+      "text": "The timing suggests it may have been related to the update, but I can't confirm the exact cause from the information available."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[10:29]",
+      "end_time": "[10:39]",
+      "start_time_sec": 629,
+      "end_time_sec": 639,
+      "text": "Fair enough. At least it's working again. Is there anything else I should do before I finish?",
+      "sentiment_score": 2
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[10:41]",
+      "end_time": "[10:51]",
+      "start_time_sec": 641,
+      "end_time_sec": 651,
+      "text": "You don't need to make any further changes right now. If the channels disappear again, restart the box once and contact us if the issue remains."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[10:53]",
+      "end_time": "[11:03]",
+      "start_time_sec": 653,
+      "end_time_sec": 663,
+      "text": "All right. I'll keep an eye on it tonight. Thanks for walking me through the settings.",
+      "sentiment_score": 3
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[11:05]",
+      "end_time": "[11:15]",
+      "start_time_sec": 665,
+      "end_time_sec": 675,
+      "text": "You're welcome, Daniel. I've recorded the troubleshooting steps and the successful channel refresh in the case notes."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[11:17]",
+      "end_time": "[11:27]",
+      "start_time_sec": 677,
+      "end_time_sec": 687,
+      "text": "Perfect. I can see the channels that were missing, and the ones I tested are playing properly now.",
+      "sentiment_score": 4
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[11:29]",
+      "end_time": "[11:39]",
+      "start_time_sec": 689,
+      "end_time_sec": 699,
+      "text": "That's good to hear. Is there anything else you'd like me to check on your S-Net account today?"
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[11:41]",
+      "end_time": "[11:49]",
+      "start_time_sec": 701,
+      "end_time_sec": 709,
+      "text": "No, that's everything. Hopefully it stays like this.",
+      "sentiment_score": 2
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[11:51]",
+      "end_time": "[12:02]",
+      "start_time_sec": 711,
+      "end_time_sec": 722,
+      "text": "Your channels are available again, and the channel refresh has completed successfully. Thank you for choosing S-Net."
+    }
+  ]
+}

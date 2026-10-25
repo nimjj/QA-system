@@ -1,0 +1,672 @@
+{
+  "tenant_id": "tenant-abc",
+  "customer_name": "Mei Chen",
+  "planted_faults": ["noclose"],
+  "fault_notes": "The agent handles the house move and broadband transfer professionally, verifies the customer's identity, confirms the new address and move date, and explains the transfer arrangements. The agent fails to use the required closing phrase, \"Thank you for choosing S-Net\", at the end of the call.",
+  "transcript": [
+    {
+      "speaker": "Agent",
+      "start_time": "[00:00]",
+      "end_time": "[00:07]",
+      "start_time_sec": 0,
+      "end_time_sec": 7,
+      "text": "Thank you for calling S-Net. You're speaking with Hannah. How can I help you today?"
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[00:09]",
+      "end_time": "[00:17]",
+      "start_time_sec": 9,
+      "end_time_sec": 17,
+      "text": "Hi, Hannah. I'm moving house next month, and I need to arrange for my broadband to be transferred to the new place."
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[00:19]",
+      "end_time": "[00:26]",
+      "start_time_sec": 19,
+      "end_time_sec": 26,
+      "text": "Of course. I can help you arrange the move and check what services are available at your new address."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[00:28]",
+      "end_time": "[00:35]",
+      "start_time_sec": 28,
+      "end_time_sec": 35,
+      "text": "Lovely. I'm hoping it's fairly straightforward because I really don't want to be without internet while I'm settling in."
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[00:37]",
+      "end_time": "[00:44]",
+      "start_time_sec": 37,
+      "end_time_sec": 44,
+      "text": "I completely understand. We'll look at the dates and availability first, then go through any changes to your current package."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[00:46]",
+      "end_time": "[00:52]",
+      "start_time_sec": 46,
+      "end_time_sec": 52,
+      "text": "Okay, great. I'm moving on the fourteenth of November, so I'd ideally like the internet working that day."
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[00:54]",
+      "end_time": "[01:02]",
+      "start_time_sec": 54,
+      "end_time_sec": 62,
+      "text": "Thanks, Mei. Before I access your account, could I confirm your full name and the first line of your current address?"
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[01:04]",
+      "end_time": "[01:10]",
+      "start_time_sec": 64,
+      "end_time_sec": 70,
+      "text": "It's Mei Chen, and I'm currently at 42 Willow Road."
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[01:12]",
+      "end_time": "[01:19]",
+      "start_time_sec": 72,
+      "end_time_sec": 79,
+      "text": "Thank you. Could you also confirm the four-digit security PIN registered on your account?"
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[01:21]",
+      "end_time": "[01:25]",
+      "start_time_sec": 81,
+      "end_time_sec": 85,
+      "text": "Yes, it's 7319."
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[01:27]",
+      "end_time": "[01:33]",
+      "start_time_sec": 87,
+      "end_time_sec": 93,
+      "text": "Perfect, that's verified. I'll bring up your current package and check the details for the move."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[01:35]",
+      "end_time": "[01:42]",
+      "start_time_sec": 95,
+      "end_time_sec": 102,
+      "text": "Thanks. I've got broadband and the landline with you at the moment, although I hardly ever use the landline."
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[01:44]",
+      "end_time": "[01:51]",
+      "start_time_sec": 104,
+      "end_time_sec": 111,
+      "text": "That's useful to know. I'll check both services and make sure we understand what you want to carry over."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[01:53]",
+      "end_time": "[02:00]",
+      "start_time_sec": 113,
+      "end_time_sec": 120,
+      "text": "I definitely want the broadband. I'm not sure about the landline, though. I might keep it if it doesn't cost much."
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[02:02]",
+      "end_time": "[02:09]",
+      "start_time_sec": 122,
+      "end_time_sec": 129,
+      "text": "No problem. We can review that separately. First, could you give me the full postcode and address of the new property?"
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[02:11]",
+      "end_time": "[02:19]",
+      "start_time_sec": 131,
+      "end_time_sec": 139,
+      "text": "It's 16 Birch Close, Flat 2, in Reading. The postcode is RG1 6AB."
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[02:21]",
+      "end_time": "[02:28]",
+      "start_time_sec": 141,
+      "end_time_sec": 148,
+      "text": "Thank you, Mei. I'll check whether the address is serviceable and what connection options are available there."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[02:30]",
+      "end_time": "[02:37]",
+      "start_time_sec": 150,
+      "end_time_sec": 157,
+      "text": "The previous tenant said they had broadband, so I'm hoping that means the connection is already there."
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[02:39]",
+      "end_time": "[02:47]",
+      "start_time_sec": 159,
+      "end_time_sec": 167,
+      "text": "That could help, although I'll need to confirm the actual service availability rather than assume it's ready to use."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[02:49]",
+      "end_time": "[02:56]",
+      "start_time_sec": 169,
+      "end_time_sec": 176,
+      "text": "Yes, that's fair. I just don't want to arrive with boxes everywhere and then find out there's no internet."
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[02:58]",
+      "end_time": "[03:05]",
+      "start_time_sec": 178,
+      "end_time_sec": 185,
+      "text": "Absolutely. I'll check the address now and see whether we can arrange a transfer without needing a new installation."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[03:07]",
+      "end_time": "[03:13]",
+      "start_time_sec": 187,
+      "end_time_sec": 193,
+      "text": "Brilliant. Do you need anything else from me while you're checking?"
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[03:15]",
+      "end_time": "[03:22]",
+      "start_time_sec": 195,
+      "end_time_sec": 202,
+      "text": "Not at the moment. I'll check the property details and the earliest available transfer date."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[03:24]",
+      "end_time": "[03:31]",
+      "start_time_sec": 204,
+      "end_time_sec": 211,
+      "text": "Okay. My current tenancy ends on the thirteenth, and I'll be collecting the new keys that morning."
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[03:33]",
+      "end_time": "[03:41]",
+      "start_time_sec": 213,
+      "end_time_sec": 221,
+      "text": "That's helpful. So you're moving on the fourteenth, with access to the new property from the thirteenth. Is that correct?"
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[03:43]",
+      "end_time": "[03:48]",
+      "start_time_sec": 223,
+      "end_time_sec": 228,
+      "text": "Yes, exactly. I'll probably start moving things over that afternoon."
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[03:50]",
+      "end_time": "[03:57]",
+      "start_time_sec": 230,
+      "end_time_sec": 237,
+      "text": "Great. I'll use the fourteenth as your requested service date, subject to the available transfer arrangements."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[03:59]",
+      "end_time": "[04:06]",
+      "start_time_sec": 239,
+      "end_time_sec": 246,
+      "text": "That sounds good. Would I have to pay anything just to move the service?"
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[04:08]",
+      "end_time": "[04:16]",
+      "start_time_sec": 248,
+      "end_time_sec": 256,
+      "text": "I'll check the transfer terms on your account. Any installation or activation charges depend on the type of connection the new property needs."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[04:18]",
+      "end_time": "[04:25]",
+      "start_time_sec": 258,
+      "end_time_sec": 265,
+      "text": "Right. I thought moving an existing service was usually free, so I don't want any surprises on the bill."
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[04:27]",
+      "end_time": "[04:34]",
+      "start_time_sec": 267,
+      "end_time_sec": 274,
+      "text": "That's a reasonable concern. I'll explain any confirmed costs before we submit the request, so you can decide with the full information."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[04:36]",
+      "end_time": "[04:42]",
+      "start_time_sec": 276,
+      "end_time_sec": 282,
+      "text": "Thanks. I'd much rather know now than see a random charge next month."
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[04:44]",
+      "end_time": "[04:51]",
+      "start_time_sec": 284,
+      "end_time_sec": 291,
+      "text": "Of course. I'm checking the connection type and the transfer conditions together."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[04:53]",
+      "end_time": "[05:00]",
+      "start_time_sec": 293,
+      "end_time_sec": 300,
+      "text": "One other thing, will I need to send my router back and get a different one?"
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[05:02]",
+      "end_time": "[05:10]",
+      "start_time_sec": 302,
+      "end_time_sec": 310,
+      "text": "Usually, you can take your existing router with you if the new connection supports it. I'll confirm that for the service available at your new address."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[05:12]",
+      "end_time": "[05:18]",
+      "start_time_sec": 312,
+      "end_time_sec": 318,
+      "text": "Good, because it's only about a year old, and I'd rather not replace it unnecessarily."
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[05:20]",
+      "end_time": "[05:27]",
+      "start_time_sec": 320,
+      "end_time_sec": 327,
+      "text": "That makes sense. I'll include the equipment question in the checks before finalising the transfer."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[05:29]",
+      "end_time": "[05:36]",
+      "start_time_sec": 329,
+      "end_time_sec": 336,
+      "text": "How long does the actual transfer usually take? Is it just a switch on the day?"
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[05:38]",
+      "end_time": "[05:46]",
+      "start_time_sec": 338,
+      "end_time_sec": 346,
+      "text": "If the property already has a compatible connection, it can be fairly straightforward. If an engineer is needed, we'll arrange an appointment and confirm the timing."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[05:48]",
+      "end_time": "[05:55]",
+      "start_time_sec": 348,
+      "end_time_sec": 355,
+      "text": "I work from home three days a week, so an engineer appointment would need a bit of planning."
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[05:57]",
+      "end_time": "[06:04]",
+      "start_time_sec": 357,
+      "end_time_sec": 364,
+      "text": "Understood. If an appointment is required, I'll check the available slots with you before anything is booked."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[06:06]",
+      "end_time": "[06:13]",
+      "start_time_sec": 366,
+      "end_time_sec": 373,
+      "text": "Okay, that's reassuring. I can take a day off if I know in advance, but it would be difficult at short notice."
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[06:15]",
+      "end_time": "[06:22]",
+      "start_time_sec": 375,
+      "end_time_sec": 382,
+      "text": "I'll bear that in mind. The aim is to give you a clear plan and avoid unnecessary disruption."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[06:24]",
+      "end_time": "[06:30]",
+      "start_time_sec": 384,
+      "end_time_sec": 390,
+      "text": "Have you found anything yet? Sorry, I'm just a little anxious about the timing."
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[06:32]",
+      "end_time": "[06:39]",
+      "start_time_sec": 392,
+      "end_time_sec": 399,
+      "text": "No need to apologise. I understand that having internet ready is important when you're moving, especially when you work from home."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[06:41]",
+      "end_time": "[06:47]",
+      "start_time_sec": 401,
+      "end_time_sec": 407,
+      "text": "Exactly. I can manage a day or two, but not a whole week without it."
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[06:49]",
+      "end_time": "[06:57]",
+      "start_time_sec": 409,
+      "end_time_sec": 417,
+      "text": "I've confirmed that the new address is within our service area. I'm checking the specific connection details now to determine the next step."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[06:59]",
+      "end_time": "[07:05]",
+      "start_time_sec": 419,
+      "end_time_sec": 425,
+      "text": "That's good news. Does that mean I can keep my current broadband package?"
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[07:07]",
+      "end_time": "[07:15]",
+      "start_time_sec": 427,
+      "end_time_sec": 435,
+      "text": "The address supports a broadband service, and your current package appears eligible for transfer. I'll check the speed and any equipment requirements before confirming."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[07:17]",
+      "end_time": "[07:24]",
+      "start_time_sec": 437,
+      "end_time_sec": 444,
+      "text": "My current package is the 150 megabit one. I'd prefer to keep that if it's available."
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[07:26]",
+      "end_time": "[07:33]",
+      "start_time_sec": 446,
+      "end_time_sec": 453,
+      "text": "I'll check that package against the new property's connection. If it isn't available, I'll explain the alternatives rather than change it without your agreement."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[07:35]",
+      "end_time": "[07:42]",
+      "start_time_sec": 455,
+      "end_time_sec": 462,
+      "text": "That's fair. I don't need anything faster, really. I just need it to be reliable."
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[07:44]",
+      "end_time": "[07:51]",
+      "start_time_sec": 464,
+      "end_time_sec": 471,
+      "text": "Understood. I'll prioritise keeping your existing package if the property supports it and check the monthly price as well."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[07:53]",
+      "end_time": "[08:00]",
+      "start_time_sec": 473,
+      "end_time_sec": 480,
+      "text": "Thank you. And what happens to the billing date? Will I get charged twice during the move?"
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[08:02]",
+      "end_time": "[08:10]",
+      "start_time_sec": 482,
+      "end_time_sec": 490,
+      "text": "The transfer should remain under your existing account, so you wouldn't normally need a second broadband subscription. I'll explain any adjustments shown on the order before submitting it."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[08:12]",
+      "end_time": "[08:19]",
+      "start_time_sec": 492,
+      "end_time_sec": 499,
+      "text": "Okay, that helps. I've already got enough moving expenses to think about without paying two broadband bills."
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[08:21]",
+      "end_time": "[08:28]",
+      "start_time_sec": 501,
+      "end_time_sec": 508,
+      "text": "I can imagine. I'll make sure the account details and the transfer date are correct so the billing can be handled properly."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[08:30]",
+      "end_time": "[08:37]",
+      "start_time_sec": 510,
+      "end_time_sec": 517,
+      "text": "What about the landline? If I keep it, will the number come with me?"
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[08:39]",
+      "end_time": "[08:47]",
+      "start_time_sec": 519,
+      "end_time_sec": 527,
+      "text": "That depends on the available telephone service at the new address and the transfer process. I'll check whether your current number can be retained before making any changes."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[08:49]",
+      "end_time": "[08:56]",
+      "start_time_sec": 529,
+      "end_time_sec": 536,
+      "text": "I don't use it often, but my mum still calls that number sometimes, so I'd rather keep it if possible."
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[08:58]",
+      "end_time": "[09:05]",
+      "start_time_sec": 538,
+      "end_time_sec": 545,
+      "text": "That makes sense. I'll check the number-transfer options and make sure we don't disconnect anything prematurely."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[09:07]",
+      "end_time": "[09:14]",
+      "start_time_sec": 547,
+      "end_time_sec": 554,
+      "text": "Great. I was worried the landline would just get cancelled as soon as I moved."
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[09:16]",
+      "end_time": "[09:24]",
+      "start_time_sec": 556,
+      "end_time_sec": 564,
+      "text": "I'll make a note that retaining the number is your preference. We'll confirm the options before completing that part of the request."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[09:26]",
+      "end_time": "[09:33]",
+      "start_time_sec": 566,
+      "end_time_sec": 573,
+      "text": "All right. Are we nearly ready to arrange the move, then?"
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[09:35]",
+      "end_time": "[09:43]",
+      "start_time_sec": 575,
+      "end_time_sec": 583,
+      "text": "Yes, I've got the key details. I'll summarise the request with you now and confirm the date and the outstanding checks."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[09:45]",
+      "end_time": "[09:52]",
+      "start_time_sec": 585,
+      "end_time_sec": 592,
+      "text": "Okay. The move date is the fourteenth of November, and the new address is 16 Birch Close, Flat 2."
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[09:54]",
+      "end_time": "[10:02]",
+      "start_time_sec": 594,
+      "end_time_sec": 602,
+      "text": "Correct. I'll record the fourteenth of November as your requested transfer date, with the new address and your preference to retain the current broadband package."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[10:04]",
+      "end_time": "[10:11]",
+      "start_time_sec": 604,
+      "end_time_sec": 611,
+      "text": "And I want to keep the landline number if that's possible, but I don't want the landline added at a higher price without checking first."
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[10:13]",
+      "end_time": "[10:21]",
+      "start_time_sec": 613,
+      "end_time_sec": 621,
+      "text": "Understood. I'll note that number retention is preferred, and that you want the cost confirmed before agreeing to any landline changes."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[10:23]",
+      "end_time": "[10:30]",
+      "start_time_sec": 623,
+      "end_time_sec": 630,
+      "text": "Perfect. Is there anything I need to do before moving day?"
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[10:32]",
+      "end_time": "[10:40]",
+      "start_time_sec": 632,
+      "end_time_sec": 640,
+      "text": "Keep your router and its power cable with you, and don't cancel the existing service separately. We'll handle the transfer through this request."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[10:42]",
+      "end_time": "[10:49]",
+      "start_time_sec": 642,
+      "end_time_sec": 649,
+      "text": "That's useful. I'll pack the router separately so I don't lose it among all the boxes."
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[10:51]",
+      "end_time": "[10:59]",
+      "start_time_sec": 651,
+      "end_time_sec": 659,
+      "text": "Good idea. Once the transfer arrangements are confirmed, you'll receive the details about the service date and any appointment that may be required."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[11:01]",
+      "end_time": "[11:08]",
+      "start_time_sec": 661,
+      "end_time_sec": 668,
+      "text": "Okay, that's clear. I just want to be sure this has actually been recorded and isn't only a note on the account."
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[11:10]",
+      "end_time": "[11:18]",
+      "start_time_sec": 670,
+      "end_time_sec": 678,
+      "text": "That's a fair question. I've saved the move details and submitted the transfer request for the service team to finalise the connection arrangements."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[11:20]",
+      "end_time": "[11:27]",
+      "start_time_sec": 680,
+      "end_time_sec": 687,
+      "text": "Good, thank you. Will I get an email confirming everything?"
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[11:29]",
+      "end_time": "[11:37]",
+      "start_time_sec": 689,
+      "end_time_sec": 697,
+      "text": "Yes, we'll send the confirmation to the email address registered on your account, including the next steps and any details that still need to be finalised."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[11:39]",
+      "end_time": "[11:46]",
+      "start_time_sec": 699,
+      "end_time_sec": 706,
+      "text": "Brilliant. I'll keep an eye out for that. Thanks for explaining it all without making it too complicated."
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[11:48]",
+      "end_time": "[11:56]",
+      "start_time_sec": 708,
+      "end_time_sec": 716,
+      "text": "You're very welcome, Mei. Just to confirm, we've recorded your requested move date, saved the new address, and submitted the transfer request. Is there anything else you'd like me to check?"
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[11:58]",
+      "end_time": "[12:05]",
+      "start_time_sec": 718,
+      "end_time_sec": 725,
+      "text": "No, that's everything for now. I feel much better knowing the request is in and I'll get the confirmation."
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[12:07]",
+      "end_time": "[12:14]",
+      "start_time_sec": 727,
+      "end_time_sec": 734,
+      "text": "I'm glad I could help. Thanks for taking the time to go through the details with me, and I hope the move goes smoothly."
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[12:16]",
+      "end_time": "[12:21]",
+      "start_time_sec": 736,
+      "end_time_sec": 741,
+      "text": "Thank you, Hannah. Have a lovely day."
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[12:23]",
+      "end_time": "[12:29]",
+      "start_time_sec": 743,
+      "end_time_sec": 749,
+      "text": "You too, Mei. Take care, and I hope everything goes well at the new place."
+    }
+  ]
+}

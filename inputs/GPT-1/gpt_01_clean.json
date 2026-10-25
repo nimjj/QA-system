@@ -1,0 +1,433 @@
+{
+    "tenant_id": "tenant-abc",
+    "customer_name": "Hannah Davies",
+    "planted_faults": [],
+    "fault_notes": "No faults planted. The agent verifies identity, investigates the evening disconnections, acknowledges Hannah's frustration, and confirms that the connection remains working after correcting the scheduled Wi-Fi setting.",
+    "transcript": [
+      {
+        "speaker": "Agent",
+        "start_time": "[00:00]",
+        "end_time": "[00:09]",
+        "start_time_sec": 0,
+        "end_time_sec": 9,
+        "text": "Thank you for calling S-Net. You're speaking with Jo in broadband support. Can I take your name and hear what's been happening?"
+      },
+      {
+        "speaker": "Customer",
+        "start_time": "[00:11]",
+        "end_time": "[00:23]",
+        "start_time_sec": 11,
+        "end_time_sec": 23,
+        "text": "It's Hannah Davies. Our broadband keeps dropping every evening. It's fine during the day, then suddenly nothing works, usually just when we're settling down to watch something.",
+        "sentiment_score": -22
+      },
+      {
+        "speaker": "Agent",
+        "start_time": "[00:25]",
+        "end_time": "[00:35]",
+        "start_time_sec": 25,
+        "end_time_sec": 35,
+        "text": "Hi Hannah. Having it disappear when you finally get time to use it sounds really annoying. Could you give me the first line of your address?"
+      },
+      {
+        "speaker": "Customer",
+        "start_time": "[00:37]",
+        "end_time": "[00:45]",
+        "start_time_sec": 37,
+        "end_time_sec": 45,
+        "text": "It's 18 Willow Crescent. The account should be under my name. We moved here in March, if that makes any difference.",
+        "sentiment_score": -10
+      },
+      {
+        "speaker": "Agent",
+        "start_time": "[00:47]",
+        "end_time": "[00:57]",
+        "start_time_sec": 47,
+        "end_time_sec": 57,
+        "text": "That's matched, thank you. So your connection behaves normally through the day, but cuts out in the evenings across the things you're using. Have I understood?"
+      },
+      {
+        "speaker": "Customer",
+        "start_time": "[00:59]",
+        "end_time": "[01:12]",
+        "start_time_sec": 59,
+        "end_time_sec": 72,
+        "text": "Yes, exactly. And honestly, I'm getting fed up. My daughter lost part of an online lesson yesterday. We're paying for something we can't rely on when we actually need it.",
+        "sentiment_score": -47
+      },
+      {
+        "speaker": "Agent",
+        "start_time": "[01:14]",
+        "end_time": "[01:26]",
+        "start_time_sec": 74,
+        "end_time_sec": 86,
+        "text": "I'm sorry it interrupted her lesson. I understand why you're losing patience with it. I'll work through this with you. When did you first notice the evening pattern?"
+      },
+      {
+        "speaker": "Customer",
+        "start_time": "[01:28]",
+        "end_time": "[01:39]",
+        "start_time_sec": 88,
+        "end_time_sec": 99,
+        "text": "Monday, I think. No, Sunday night was the first time. It's happened every night since. It goes off around eight, though I haven't timed it exactly.",
+        "sentiment_score": -25
+      },
+      {
+        "speaker": "Agent",
+        "start_time": "[01:41]",
+        "end_time": "[01:51]",
+        "start_time_sec": 101,
+        "end_time_sec": 111,
+        "text": "That regular timing is useful. When it happens, what do the router lights do, and does your Wi-Fi name disappear or stay visible without internet?"
+      },
+      {
+        "speaker": "Customer",
+        "start_time": "[01:53]",
+        "end_time": "[02:05]",
+        "start_time_sec": 113,
+        "end_time_sec": 125,
+        "text": "The big light stays white. There's a smaller wireless light that goes out. Our network disappears from my phone, actually. I'd assumed that just meant the broadband was gone.",
+        "sentiment_score": -15
+      },
+      {
+        "speaker": "Agent",
+        "start_time": "[02:07]",
+        "end_time": "[02:18]",
+        "start_time_sec": 127,
+        "end_time_sec": 138,
+        "text": "That's a helpful distinction. It could be the wireless signal switching off while the line stays connected. Which devices are affected, and is anything connected with a cable?"
+      },
+      {
+        "speaker": "Customer",
+        "start_time": "[02:20]",
+        "end_time": "[02:31]",
+        "start_time_sec": 140,
+        "end_time_sec": 151,
+        "text": "Both phones, my daughter's laptop and the television. They're all wireless. There's an old desktop upstairs with a cable, but we hardly ever switch that on.",
+        "sentiment_score": -12
+      },
+      {
+        "speaker": "Agent",
+        "start_time": "[02:33]",
+        "end_time": "[02:43]",
+        "start_time_sec": 153,
+        "end_time_sec": 163,
+        "text": "We can leave the desktop for now. What have you already tried when the wireless disappears? I'll avoid making you repeat steps that haven't helped."
+      },
+      {
+        "speaker": "Customer",
+        "start_time": "[02:45]",
+        "end_time": "[02:57]",
+        "start_time_sec": 165,
+        "end_time_sec": 177,
+        "text": "I've switched the router off at the wall twice. It comes back for a little bit after starting up, then disappears again. I haven't pressed the little reset button.",
+        "sentiment_score": -18
+      },
+      {
+        "speaker": "Agent",
+        "start_time": "[02:59]",
+        "end_time": "[03:10]",
+        "start_time_sec": 179,
+        "end_time_sec": 190,
+        "text": "Thanks, leave that reset button alone for now. Did anything change around Sunday, perhaps a router update, a new device, or someone adjusting settings in the app?"
+      },
+      {
+        "speaker": "Customer",
+        "start_time": "[03:12]",
+        "end_time": "[03:25]",
+        "start_time_sec": 192,
+        "end_time_sec": 205,
+        "text": "My partner was looking at bedtime controls for the children's tablets. He said he'd only been looking, though. We've had no new equipment, and nobody mentioned an update.",
+        "sentiment_score": -8
+      },
+      {
+        "speaker": "Agent",
+        "start_time": "[03:27]",
+        "end_time": "[03:39]",
+        "start_time_sec": 207,
+        "end_time_sec": 219,
+        "text": "There are separate controls for individual devices and the whole wireless network, so we'll check which is set. Are you calling on your mobile, rather than the home phone?"
+      },
+      {
+        "speaker": "Customer",
+        "start_time": "[03:41]",
+        "end_time": "[03:51]",
+        "start_time_sec": 221,
+        "end_time_sec": 231,
+        "text": "Yes, my mobile. I've got mobile data on as well. It's nearly eight now, so we're probably about to see it happen again while we're talking.",
+        "sentiment_score": -19
+      },
+      {
+        "speaker": "Agent",
+        "start_time": "[03:53]",
+        "end_time": "[04:04]",
+        "start_time_sec": 233,
+        "end_time_sec": 244,
+        "text": "We can use that to check the pattern directly. Please open the S-Net app on your mobile and select your home broadband account. What options appear underneath?"
+      },
+      {
+        "speaker": "Customer",
+        "start_time": "[04:06]",
+        "end_time": "[04:16]",
+        "start_time_sec": 246,
+        "end_time_sec": 256,
+        "text": "Right, it's asking for my fingerprint. Okay, I'm in. There's connection status, manage Wi-Fi, connected devices, and something about family controls underneath those.",
+        "sentiment_score": -5
+      },
+      {
+        "speaker": "Agent",
+        "start_time": "[04:18]",
+        "end_time": "[04:29]",
+        "start_time_sec": 258,
+        "end_time_sec": 269,
+        "text": "Choose manage Wi-Fi, please, then look for a schedule or wireless timer. Don't change anything yet; I'd like to establish exactly what's currently enabled before we alter it."
+      },
+      {
+        "speaker": "Customer",
+        "start_time": "[04:31]",
+        "end_time": "[04:41]",
+        "start_time_sec": 271,
+        "end_time_sec": 281,
+        "text": "Oh. There's a schedule switched on. It says pause Wi-Fi, every day, from twenty hundred until six in the morning. That's eight, isn't it?",
+        "sentiment_score": -8
+      },
+      {
+        "speaker": "Agent",
+        "start_time": "[04:43]",
+        "end_time": "[04:55]",
+        "start_time_sec": 283,
+        "end_time_sec": 295,
+        "text": "Yes, eight in the evening. That setting pauses the whole wireless network overnight, which fits the disappearing name and light. Is the schedule labelled all Wi-Fi or selected devices?"
+      },
+      {
+        "speaker": "Customer",
+        "start_time": "[04:57]",
+        "end_time": "[05:09]",
+        "start_time_sec": 297,
+        "end_time_sec": 309,
+        "text": "All Wi-Fi. Oh, there it goes now, the little light's gone out. Honestly, three evenings of this because of one switch. That's really frustrating.",
+        "sentiment_score": -35
+      },
+      {
+        "speaker": "Agent",
+        "start_time": "[05:11]",
+        "end_time": "[05:22]",
+        "start_time_sec": 311,
+        "end_time_sec": 322,
+        "text": "I can understand that, especially after the disrupted lesson and those restarts. The controls are easy to confuse. We'll remove this schedule and check everything reconnects properly."
+      },
+      {
+        "speaker": "Customer",
+        "start_time": "[05:24]",
+        "end_time": "[05:35]",
+        "start_time_sec": 324,
+        "end_time_sec": 335,
+        "text": "Yes, please. I don't want the whole house cut off every night. Will switching this off erase the Wi-Fi password or anything we've already connected?",
+        "sentiment_score": -12
+      },
+      {
+        "speaker": "Agent",
+        "start_time": "[05:37]",
+        "end_time": "[05:48]",
+        "start_time_sec": 337,
+        "end_time_sec": 348,
+        "text": "No, it leaves your network name and password as they are. Turn off that schedule and press save. Let me know whether you get a confirmation or error."
+      },
+      {
+        "speaker": "Customer",
+        "start_time": "[05:50]",
+        "end_time": "[06:00]",
+        "start_time_sec": 350,
+        "end_time_sec": 360,
+        "text": "Done. There's a spinning circle. Right, that's stopped, and a green message says settings saved. The schedule switch is grey now instead of purple.",
+        "sentiment_score": -2
+      },
+      {
+        "speaker": "Agent",
+        "start_time": "[06:02]",
+        "end_time": "[06:12]",
+        "start_time_sec": 362,
+        "end_time_sec": 372,
+        "text": "Good. While that reaches the router, open the Wi-Fi settings on your phone. Watch for your usual network to return; there's no need to restart anything."
+      },
+      {
+        "speaker": "Customer",
+        "start_time": "[06:14]",
+        "end_time": "[06:24]",
+        "start_time_sec": 374,
+        "end_time_sec": 384,
+        "text": "The wireless light's back already. And there's our network, Davies Home. It's connected by itself, but my phone sometimes uses mobile data when the Wi-Fi isn't working.",
+        "sentiment_score": 4
+      },
+      {
+        "speaker": "Agent",
+        "start_time": "[06:26]",
+        "end_time": "[06:37]",
+        "start_time_sec": 386,
+        "end_time_sec": 397,
+        "text": "Exactly, so let's make sure we're testing the home connection. Leave Wi-Fi on, temporarily switch mobile data off, and try opening a webpage you haven't just visited."
+      },
+      {
+        "speaker": "Customer",
+        "start_time": "[06:39]",
+        "end_time": "[06:50]",
+        "start_time_sec": 399,
+        "end_time_sec": 410,
+        "text": "Mobile data's off. I'll try the garden centre website, I've been meaning to check their hours. Yes, that's loaded, and another page opens when I tap it.",
+        "sentiment_score": 9
+      },
+      {
+        "speaker": "Agent",
+        "start_time": "[06:52]",
+        "end_time": "[07:03]",
+        "start_time_sec": 412,
+        "end_time_sec": 423,
+        "text": "That confirms internet access over Wi-Fi on your phone. Could you also try playing something on the television, so we check another device rather than relying on one?"
+      },
+      {
+        "speaker": "Customer",
+        "start_time": "[07:05]",
+        "end_time": "[07:17]",
+        "start_time_sec": 425,
+        "end_time_sec": 437,
+        "text": "The remote's under a cushion, naturally. Here we go. I'll put the news on through the app. It's started straight away, no connection warning this time.",
+        "sentiment_score": 12
+      },
+      {
+        "speaker": "Agent",
+        "start_time": "[07:19]",
+        "end_time": "[07:30]",
+        "start_time_sec": 439,
+        "end_time_sec": 450,
+        "text": "Leave that playing while we check the saved setting once more. You can turn mobile data back on afterwards. Does the app still show the wireless schedule disabled?"
+      },
+      {
+        "speaker": "Customer",
+        "start_time": "[07:32]",
+        "end_time": "[07:43]",
+        "start_time_sec": 452,
+        "end_time_sec": 463,
+        "text": "Yes, it's still off. I went back a screen and opened it again to make sure. The television's still playing behind me. My daughter's laptop has reconnected too.",
+        "sentiment_score": 18
+      },
+      {
+        "speaker": "Agent",
+        "start_time": "[07:45]",
+        "end_time": "[07:56]",
+        "start_time_sec": 465,
+        "end_time_sec": 476,
+        "text": "That's encouraging, Hannah. We've passed the scheduled cutoff and restored the devices without a restart. Would you prefer to leave all bedtime controls off for the moment?"
+      },
+      {
+        "speaker": "Customer",
+        "start_time": "[07:58]",
+        "end_time": "[08:08]",
+        "start_time_sec": 478,
+        "end_time_sec": 488,
+        "text": "Definitely. We can discuss the children's tablets another time. I'd rather have a working connection tonight than start experimenting with more settings while everyone's using it.",
+        "sentiment_score": 10
+      },
+      {
+        "speaker": "Agent",
+        "start_time": "[08:10]",
+        "end_time": "[08:20]",
+        "start_time_sec": 490,
+        "end_time_sec": 500,
+        "text": "That's absolutely fine. We won't change anything else. I'm adding a note that the whole-network evening schedule was disabled and your phone, television and laptop reconnected."
+      },
+      {
+        "speaker": "Customer",
+        "start_time": "[08:22]",
+        "end_time": "[08:33]",
+        "start_time_sec": 502,
+        "end_time_sec": 513,
+        "text": "Thanks. I was worried you'd say we needed an engineer and I'd have to take time off. Is there anything here that suggests the router itself is faulty?",
+        "sentiment_score": 5
+      },
+      {
+        "speaker": "Agent",
+        "start_time": "[08:35]",
+        "end_time": "[08:47]",
+        "start_time_sec": 515,
+        "end_time_sec": 527,
+        "text": "What we've observed points to the schedule: the wireless stopped at its set time and returned when you disabled it. We haven't seen evidence requiring a router replacement today."
+      },
+      {
+        "speaker": "Customer",
+        "start_time": "[08:49]",
+        "end_time": "[09:00]",
+        "start_time_sec": 529,
+        "end_time_sec": 540,
+        "text": "That makes sense. The television hasn't stopped once. My daughter says her lesson recording is playing as well, so she's catching up on the bit she missed.",
+        "sentiment_score": 22
+      },
+      {
+        "speaker": "Agent",
+        "start_time": "[09:02]",
+        "end_time": "[09:13]",
+        "start_time_sec": 542,
+        "end_time_sec": 553,
+        "text": "I'm glad she can catch up. To confirm before we finish, is the connection issue now resolved, with your devices online and no further drops since that change?"
+      },
+      {
+        "speaker": "Customer",
+        "start_time": "[09:15]",
+        "end_time": "[09:26]",
+        "start_time_sec": 555,
+        "end_time_sec": 566,
+        "text": "Yes, it's fixed now. Everything's online and staying connected. We've definitely got past eight, which was when it vanished before. That's a relief, honestly.",
+        "sentiment_score": 32
+      },
+      {
+        "speaker": "Agent",
+        "start_time": "[09:28]",
+        "end_time": "[09:40]",
+        "start_time_sec": 568,
+        "end_time_sec": 580,
+        "text": "Great, the issue is resolved on our checks today. We've removed the daily wireless pause, kept your existing password, and confirmed working internet on several devices after the cutoff."
+      },
+      {
+        "speaker": "Customer",
+        "start_time": "[09:42]",
+        "end_time": "[09:52]",
+        "start_time_sec": 582,
+        "end_time_sec": 592,
+        "text": "Lovely. And that stays off tomorrow as well, doesn't it? I don't need to come back into the app every evening and switch it off again?",
+        "sentiment_score": 16
+      },
+      {
+        "speaker": "Agent",
+        "start_time": "[09:54]",
+        "end_time": "[10:06]",
+        "start_time_sec": 594,
+        "end_time_sec": 606,
+        "text": "Correct, it stays disabled unless someone enables it again. If another drop occurs, contact us and we'll investigate using today's notes. You don't need to make any further changes tonight."
+      },
+      {
+        "speaker": "Customer",
+        "start_time": "[10:08]",
+        "end_time": "[10:19]",
+        "start_time_sec": 608,
+        "end_time_sec": 619,
+        "text": "Brilliant. I'll let my partner know which setting it was, without giving him too much grief. Thanks for sticking with me and explaining what we were actually checking.",
+        "sentiment_score": 28
+      },
+      {
+        "speaker": "Agent",
+        "start_time": "[10:21]",
+        "end_time": "[10:30]",
+        "start_time_sec": 621,
+        "end_time_sec": 630,
+        "text": "You're welcome, Hannah. I hope you all get a peaceful evening with it working again. Thank you for choosing S-Net. Enjoy the rest of your evening."
+      },
+      {
+        "speaker": "Customer",
+        "start_time": "[10:32]",
+        "end_time": "[10:37]",
+        "start_time_sec": 632,
+        "end_time_sec": 637,
+        "text": "Thanks, Jo. You too. I'll finally get back to my programme. Bye.",
+        "sentiment_score": 30
+      }
+    ]
+  }
