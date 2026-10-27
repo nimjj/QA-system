@@ -45,15 +45,36 @@ def _get_router():
     return _router
 
 
+import json
+from functools import lru_cache
+
+
+@lru_cache(maxsize=1024)
+def _predict_cached(text: str, q_key: str) -> str:
+    # ponytail: cache repeated snippet predictions in memory
+    questions = json.loads(q_key)
+    with _lock:
+        router = _get_router()
+        result = router.predict(text, questions, model=LAYA_MODEL)
+        if result.get("usage", {}).get("truncated"):
+            result = router.predict_long(text, questions, model=LAYA_MODEL)
+    return json.dumps({qid: float(result["answers"][qid]["noul"]) for qid in questions})
+
+
 def predict_yes(text: str, questions: Dict[str, Dict[str, Any]], label: str = "") -> Dict[str, float]:
     """Return P(true) for each noul question id, judged against `text`.
 
     A text too long for one window is re-scored with predict_long (overlapping windows, the strongest
     window decides). `label` names the calling check and exists for logging/stubbing.
     """
-    with _lock:
-        router = _get_router()
-        result = router.predict(text, questions, model=LAYA_MODEL)
-        if result.get("usage", {}).get("truncated"):
-            result = router.predict_long(text, questions, model=LAYA_MODEL)
-    return {qid: float(result["answers"][qid]["noul"]) for qid in questions}
+    try:
+        q_key = json.dumps(questions, sort_keys=True)
+        return json.loads(_predict_cached(text, q_key))
+    except (TypeError, ValueError):
+        with _lock:
+            router = _get_router()
+            result = router.predict(text, questions, model=LAYA_MODEL)
+            if result.get("usage", {}).get("truncated"):
+                result = router.predict_long(text, questions, model=LAYA_MODEL)
+        return {qid: float(result["answers"][qid]["noul"]) for qid in questions}
+

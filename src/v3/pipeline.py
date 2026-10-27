@@ -160,26 +160,35 @@ def evaluate_v3(transcript_data, criteria_data: Dict[str, Any], tenant_id: str =
         if key in wanted:
             ratings[key] = fn(call)
 
+    is_af, af_reason, af_turn = rules.check_auto_fail(call)
+
     budget = _Budget()
     want_model = wanted & MODEL_ITEMS
     custom = [k for k in wanted if k not in RULE_ITEMS and k not in MODEL_ITEMS]
-    inp = build_laya_inputs(_v2_transcript(call), call.customer_name) if (want_model or custom) else None
-    if want_model:
-        ratings.update(_model_ratings(inp, budget, want_model, call, cfg.get("gates", {})))
 
-    contexts = {"agent": (inp.batch_agent_only if inp else ""), "end": (inp.resolved if inp else ""), "full": (inp.batch_full if inp else "")}
-    for k in custom:
-        item = item_of[k]
-        check = de.LAYA_CHECKS[LEGACY_ITEMS[k]] if k in LEGACY_ITEMS else _custom_check(item)
-        scope = "full" if k in LEGACY_ITEMS else item.get("scope", "agent")
-        text = contexts.get(scope, contexts["agent"])
-        budget.rows += 1
-        budget.words += len(text.split())
-        p_yes = de.predict_yes(text, {"q": check["question"]}, label=f"custom_{scope}")["q"]
-        ok = de._p_pass(check, p_yes) >= check["pass_threshold"]
-        ratings[k] = {"name": item.get("name"), "rating": "PASS" if ok else "FAIL", "score": 100 if ok else 0, "coaching": "", "evidence": []}
+    if is_af:
+        # ponytail: short-circuit model inference when call is auto-failed; final score is 0.0 anyway
+        for k in want_model:
+            ratings[k] = {"name": item_of[k].get("name"), "rating": "FAIL", "coaching": f"Auto-fail triggered: {af_reason}", "evidence": []}
+        for k in custom:
+            item = item_of[k]
+            ratings[k] = {"name": item.get("name"), "rating": "FAIL", "score": 0, "coaching": f"Auto-fail triggered: {af_reason}", "evidence": []}
+    else:
+        inp = build_laya_inputs(_v2_transcript(call), call.customer_name) if (want_model or custom) else None
+        if want_model:
+            ratings.update(_model_ratings(inp, budget, want_model, call, cfg.get("gates", {})))
 
-    is_af, af_reason, af_turn = rules.check_auto_fail(call)
+        contexts = {"agent": (inp.batch_agent_only if inp else ""), "end": (inp.resolved if inp else ""), "full": (inp.batch_full if inp else "")}
+        for k in custom:
+            item = item_of[k]
+            check = de.LAYA_CHECKS[LEGACY_ITEMS[k]] if k in LEGACY_ITEMS else _custom_check(item)
+            scope = "full" if k in LEGACY_ITEMS else item.get("scope", "agent")
+            text = contexts.get(scope, contexts["agent"])
+            budget.rows += 1
+            budget.words += len(text.split())
+            p_yes = de.predict_yes(text, {"q": check["question"]}, label=f"custom_{scope}")["q"]
+            ok = de._p_pass(check, p_yes) >= check["pass_threshold"]
+            ratings[k] = {"name": item.get("name"), "rating": "PASS" if ok else "FAIL", "score": 100 if ok else 0, "coaching": "", "evidence": []}
     for k, item in item_of.items():                                   # tenant-defined auto-fail items (category named "AUTO FAIL ...")
         if "auto fail" in cat_of[k].lower() and ratings.get(k, {}).get("rating") == "FAIL" and not is_af:
             is_af, af_reason = True, f"Auto-Fail Triggered by Scorecard: {item.get('name')}"
@@ -200,9 +209,30 @@ def evaluate_v3(transcript_data, criteria_data: Dict[str, Any], tenant_id: str =
             entry["note"] = r["note"]
         scorecard.append(entry)
 
+    cat_summary_map: Dict[str, Dict[str, int]] = {}
+    for entry in scorecard:
+        c = entry["category"]
+        if c not in cat_summary_map:
+            cat_summary_map[c] = {"passed": 0, "total": 0}
+        cat_summary_map[c]["total"] += 1
+        if entry.get("rating") == "PASS":
+            cat_summary_map[c]["passed"] += 1
+
+    category_summary = [
+        {
+            "category": cat_name,
+            "passed": stats["passed"],
+            "total": stats["total"],
+            "ratio": f"{stats['passed']:02d}/{stats['total']:02d}"
+        }
+        for cat_name, stats in cat_summary_map.items()
+    ]
+
     checkpoint = os.getenv("LAYA_CHECKPOINT")
     return {
         "final_score": final,
+        "auto_failed_count": 1 if is_af else 0,
+        "category_summary": category_summary,
         "scorecard": scorecard,
         "is_auto_fail": is_af,
         "auto_fail_reason": af_reason,

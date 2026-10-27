@@ -45,6 +45,7 @@ graphify-out/
 .gitattributes
 
 # Logs
+*.log
 logs/*.log*
 
 # Run logs next to probe results (the .json beside each log is the record)
