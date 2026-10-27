@@ -1,5 +1,7 @@
-version: '3.8'
-
+# QA service (pipeline v3): one container. Guide: DEPLOYMENT_PLAN.md
+#   1. put the weights in ./models/final-softce-3   (download link and check: models/README.md)
+#   2. docker compose up -d --build
+#   3. curl http://localhost:8006/ready             ("status":"ready" after about 10 s)
 services:
   qa-service:
     build:
@@ -11,15 +13,25 @@ services:
       - "8006:8006"
     networks:
       - ciap-qa-network
+    # Optional settings (DB_*, QA_API_KEY, CORS_ORIGINS ...) go in a .env file next to this one; see .env.example. It is not required.
     env_file:
       - path: .env
         required: false
+    # These win over .env, so a leftover old .env cannot switch the flow or send the model to the network.
+    # LAYA_CHECKPOINT can still be changed from .env; an empty value means the default below.
     environment:
       - LAYA_FLOW=v3
-      - LAYA_CHECKPOINT=
+      - LAYA_CHECKPOINT=${LAYA_CHECKPOINT:-models/final-softce-3}
+      - HF_HOME=/tmp/hf_home
+      - HF_HUB_OFFLINE=1
+    # The weights are not in git or in the image; they are mounted read-only from ./models
     volumes:
-      - ./models:/app/models
+      - ./models:/app/models:ro
       - ./logs:/app/logs
+    # A PostgreSQL on the Docker host is reachable as host.docker.internal (needed on Linux; Docker Desktop has it already)
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    mem_limit: 4g              # measured: about 2.1 GB with the model loaded
     restart: unless-stopped
 
 networks:

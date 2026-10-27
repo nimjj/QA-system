@@ -1,5 +1,7 @@
 # Flow diagrams: how a call becomes a score (as of 2026-10-22)
 
+> **Status on `main` (27 Oct 2026):** this page describes the earlier `app-v3` branch. On `main` the job queue (`/api/jobs`, `src/v3/jobs.py`) and `docker-compose.v3.yml` were removed: `/api/evaluate` is synchronous, tenant scorecards come from PostgreSQL with the built-in 11 items as fallback, and the Docker setup is `docker-compose.yml` with the fine-tuned weights mounted from `models/`. The current deployment guide is [`DEPLOYMENT_PLAN.md`](../DEPLOYMENT_PLAN.md).
+
 Nine diagrams, from the big picture down to one model call, plus how the model and the new checks were built. They draw what the code does today on branch `app-v3`. Under each diagram a table names the file and function behind every box, so a statement on a slide can be checked in the code in a minute. Read [`CODEBASE_GUIDE.md`](CODEBASE_GUIDE.md) first if the words "v2", "v3", "flow", "gate" or "cutoff" are new.
 
 > **Every accuracy figure in this repo is measured against AI-written answer keys, not human-labelled ones.** Diagrams 8 and 9 mention results; read them with that in mind.

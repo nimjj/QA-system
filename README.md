@@ -6,28 +6,28 @@ Built with **FastAPI**, a deterministic **Python rule engine** and **Laya**, a l
 
 > **Version 10 (branches `version-10-laya`, and `version-10.1-laya` with the test round fixes):** Ollama / Llama 3.1 and the `nomic-embed-text` embeddings have been **removed** and replaced by Laya. See [Status & known limitations](#status--known-limitations) before relying on the scores.
 
-> **App v3 (branch `app-v3`, opt-in with `LAYA_FLOW=v3`):** a new pipeline in `src/v3/` with fixed rule checks, input validation, one built-in criteria set (no database), a single-worker job queue (`/api/evaluate` waits, `/api/jobs` submit and poll), a readiness endpoint and unit tests. The v2 flow is untouched and stays the default. See [`Docs/V3.md`](Docs/V3.md). **New to the codebase? Start with [`Docs/CODEBASE_GUIDE.md`](Docs/CODEBASE_GUIDE.md) and [`Docs/FLOW_DIAGRAMS.md`](Docs/FLOW_DIAGRAMS.md).** Run the tests with `python -m unittest discover -s tests/unit -t .`.
+> **Production setup (branch `main`, pipeline v3, `LAYA_FLOW=v3`):** a new pipeline in `src/v3/` with fixed rule checks, input validation, per-tenant scorecards from PostgreSQL with a built-in 11-item fallback, a synchronous `POST /api/evaluate` (the scorecard comes back in the same response; no job queue, no polling), readiness and health endpoints, and unit tests. It runs in one Docker container with the fine-tuned weights mounted from `models/`: **deploy it with [`DEPLOYMENT_PLAN.md`](DEPLOYMENT_PLAN.md)**. The v2 flow is untouched (run it locally with `LAYA_FLOW` unset). See [`Docs/V3.md`](Docs/V3.md) for how v3 was built (that page describes the earlier `app-v3` branch, which also had a job queue). **New to the codebase? Start with [`Docs/CODEBASE_GUIDE.md`](Docs/CODEBASE_GUIDE.md) and [`Docs/FLOW_DIAGRAMS.md`](Docs/FLOW_DIAGRAMS.md).** Run the tests with `python -m unittest discover -s tests/unit -t .`.
 
 ---
 
 ## Quick start (pipeline v3)
 
-Everything here uses pipeline v3: no database, one model, one worker. **All scores are measured against AI-written answer keys, not human-labelled ones, and real call transcripts have not been tried yet.**
+Everything here uses pipeline v3: one container, one model, one worker; PostgreSQL optional. **All scores are measured against AI-written answer keys, not human-labelled ones, and real call transcripts have not been tried yet.**
 
 **1. Get the code**
 ```bash
-git clone -b app-v3 https://github.com/nimjj/QA-system.git
+git clone https://github.com/nimjj/QA-system.git
 cd QA-system
 ```
 
-**2. Get the model weights (separately, once per machine).** The weights (808 MB) are **not in git**, so a fresh clone cannot grade anything until they are in `models/final-softce-3/`. Ask the project owner for the zip, unzip it there and check it: `python Scripts/verify_weights.py` must end with `ALL FILES MATCH`. How sharing works and why: [`models/README.md`](models/README.md).
+**2. Get the model weights (separately, once per machine).** The weights (808 MB) are **not in git or in the Docker image**, so a fresh clone cannot grade anything until they are in `models/final-softce-3/`. Download the Google Drive folder `final-softce-3` ([link in `models/README.md`](models/README.md), company Google account only), unzip it there and check it: `docker compose run --rm --no-deps qa-service python Scripts/verify_weights.py` (or `python Scripts/verify_weights.py`) must end with `ALL FILES MATCH`. Without the weights the service starts but answers 503 and says why.
 
-**3a. Run it in Docker** (needs Docker with at least 4 GB of memory; the first build downloads about 1 GB)
+**3a. Run it in Docker** (needs Docker with at least 4 GB of memory; the first build downloads about 1 GB; no `.env` file is needed)
 ```bash
-docker compose -f docker-compose.v3.yml up -d --build
-curl http://localhost:8006/ready        # "status":"ready" after about 10 s
+docker compose up -d --build
+curl http://localhost:8006/ready        # "status":"ready" after about 10 to 15 s
 ```
-Step-by-step guide, optional settings (API key, queue size) and troubleshooting: [`Docs/DOCKER.md`](Docs/DOCKER.md). Note: the files are prepared, but the image has not been built and tried by us yet, so tell the owner if the first build hits a problem.
+Step-by-step guide, acceptance test, optional settings (database, API key) and troubleshooting: [`DEPLOYMENT_PLAN.md`](DEPLOYMENT_PLAN.md). Built and tested from a fresh clone on 27 Oct 2026: the four bundled calls score 100.0 / 88.3 / 50.0 / 30.0.
 
 **3b. Or run it without Docker** (Python 3.10+, developed on 3.14)
 ```bash
@@ -51,22 +51,22 @@ The same endpoint works from any tool: `POST http://localhost:8006/api/evaluate`
 |---|---|
 | Master overview: architecture, Flow v2 lifecycle, criteria, and two-repo guide | [`Docs/SYSTEM_AND_FLOW_V2_GUIDE.md`](Docs/SYSTEM_AND_FLOW_V2_GUIDE.md) |
 | Autonomous AI handover guide (for Claude Code, Antigravity, LLM agents) | [`Docs/AI_HANDOVER.md`](Docs/AI_HANDOVER.md) (also `CLAUDE.md`) |
-| Set up and run the Docker container | [`Docs/DOCKER.md`](Docs/DOCKER.md) |
+| Set up and run the Docker container (step by step, with checks and troubleshooting) | [`DEPLOYMENT_PLAN.md`](DEPLOYMENT_PLAN.md); what each Docker file does: [`Docs/DOCKER.md`](Docs/DOCKER.md) |
 | Get the weights, verify them, share them with a colleague | [`models/README.md`](models/README.md) |
 | Understand what everything is and how the code fits together (plain language) | [`Docs/CODEBASE_GUIDE.md`](Docs/CODEBASE_GUIDE.md), then [`Docs/FLOW_DIAGRAMS.md`](Docs/FLOW_DIAGRAMS.md) (11 diagrams) |
 | Understand v3: what it does, settings (`src/v3/config/v3.json`), results, what is not done | [`Docs/V3.md`](Docs/V3.md) |
 | Detailed index and catalog of all documents | [`Docs/README.md`](Docs/README.md) (index) |
 
 ### Testing it
-* **Unit tests (no model, seconds):** `python -m unittest discover -s tests/unit -t .` (106 tests; they must all pass before any change is merged).
-* **Real model, whole service:** start it as above, then `Scripts/send_folder.py` or `Scripts/try_call.py`, and compare with the saved replies in `inputs/Test (results)/`. Scripts for comparing result folders: `Scripts/compare_results.py` (see [Testing](#testing)).
+* **Unit tests (no model, seconds):** `python -m unittest discover -s tests/unit -t .` (96 tests; they must all pass before any change is merged).
+* **Real model, whole service:** start it as above, then `Scripts/send_folder.py` or `Scripts/try_call.py`, and compare with the saved replies in `inputs/Test (results)/`. The acceptance check for a deployment is in `DEPLOYMENT_PLAN.md` section 7 (see also [Testing](#testing)).
 * **Heavier checks** (v3 against v2 on all test sets, load and memory test of the server) live in the separate Laya repo `nimjj/laya-finetuning`, cloned next to this one as `../laya-finetuning`: `eval/v3_compare.py`, `eval/v3_service_test.py`, `eval/golden.py`. Run them with this repo's Python. Not needed just to run or try the service.
 
 ### Making changes
 * Read [`Docs/CODEBASE_GUIDE.md`](Docs/CODEBASE_GUIDE.md) first: section 4 is the runtime architecture and settings, section 5 the map of every folder and file, section 9 how to run and test. v3 lives in `src/v3/` and its switches are in `src/v3/config/v3.json`; the API is `src/api/web_app.py`.
 * **Four files are frozen and must not be edited casually:** `src/services/laya_inputs.py`, `rule_engine.py`, `laya_windows.py` and the question wording in `dynamic_evaluator.py`. The model was trained on exactly those questions, so a change silently breaks it. If you must change one, re-freeze with the Laya repo: `python ../laya-finetuning/tools/export_checks.py --check` (details in [`Docs/AI_HANDOVER.md`](Docs/AI_HANDOVER.md) section 4).
 * Never commit `.env` or any weights. Production uses customer-side sentiment only. A change counts as better only if it improves results on the test calls without hurting the others, and say that results are against AI-written keys.
-* Code changes to the container: edit `src/`, then `docker compose -f docker-compose.v3.yml up -d --build`.
+* Code changes to the container: edit `src/`, then `docker compose up -d --build` (the weights in `models/` are not touched).
 
 ---
 
@@ -115,7 +115,7 @@ The app does not need the Laya folder to run. The Laya folder reads the app's co
 
 ## Setup
 
-Windows: run `setup.bat`. Linux/macOS: run `./setup.sh`. Or do it by hand:
+For local development without Docker (the `setup.bat` / `setup.sh` helpers were removed; do it by hand):
 ```bash
 python -m venv .venv
 .venv\Scripts\activate            # Windows
@@ -146,7 +146,7 @@ cd frontend && npm install && npm run dev   # optional: React dashboard
 * The first evaluation loads Laya, which takes about a minute on CPU. After that each Laya check takes about 1 s on CPU.
 * Evaluations run one at a time.
 
-> **Docker:** for pipeline v3 (no database) use `docker-compose.v3.yml` and follow [`Docs/DOCKER.md`](Docs/DOCKER.md); the files are prepared but the image has not been built yet. The older `docker-compose.yml` is the v2 stack (Postgres, gateway, frontend) and its QA-service image does **not** include Laya; run v2 locally as above and use that compose file only for Postgres if needed (`docker compose up -d postgres`).
+> **Docker:** `docker-compose.yml` runs the QA service (pipeline v3, fine-tuned weights mounted from `./models`) as one container; follow [`DEPLOYMENT_PLAN.md`](DEPLOYMENT_PLAN.md). It no longer contains Postgres, the gateway or the dashboard (those were the old v2 stack): bring your own PostgreSQL via the `DB_*` settings, or run without one and get the built-in scorecard.
 
 ---
 
@@ -249,15 +249,14 @@ The fine-tuning work lives in this repo, in `../laya-finetuning/` (`../laya-fine
 ## Testing
 
 ```bash
-python Scripts/check_prompt_sizes.py          # no model, no server: input caps, scorecards, unit checks
-python Scripts/check_prompt_sizes.py --live   # real Laya over all sample calls: verdicts and timing
-python Scripts/batch_test.py --label laya     # posts inputs/Main tests to a running service
-python Scripts/batch_test.py bulk --label laya  # posts inputs/Bulk tests
-python Scripts/compare_results.py ollama laya laya-v2  # result folders vs expected grades and the b_* filename defects
+python -m unittest discover -s tests/unit -t .                  # 96 unit tests, no model, seconds
+python Scripts/try_call.py "inputs/Main tests/gold_01_excellent_22min.json"   # one call against the running service
+python Scripts/send_folder.py "inputs/Main tests"               # every call in a folder -> outputs/ (git-ignored) + outputs/_summary.csv
+python Scripts/verify_weights.py                                # the weights are the production ones (ALL FILES MATCH)
 python ../laya-finetuning/eval/probe_laya.py out.json           # in-process: every Laya probability per call (no server)
 python ../laya-finetuning/eval/laya_cutoffs.py out.json         # best cutoff per check from the b_* filename defects
 ```
-* `batch_test.py` sends the criteria from `resources/criteria_config.json` with every call (`criteria_data`), so it needs no database; `--use-db` turns that off. Results go to `inputs/Test (results)/<suite> (<label>)/`.
+* `Scripts/batch_test.py`, `compare_results.py`, `check_prompt_sizes.py` and `dump_laya_inputs.py` were removed from `main` (they are in the git history, e.g. branch `app-v3`); `send_folder.py` and `try_call.py` replace them for running calls against the service.
 * `inputs/Main tests/` holds four hand-graded 16–22 minute calls; their expected scorecards are in `expected/` (see the README there).
 * `inputs/Bulk tests/` holds the older samples: `b_*` calls with planted defects named in the filename, `v8_*` and `real_*`. `../laya-finetuning/inputs/Tough checks/` holds three 28-minute trap calls.
 * `inputs/Test (results)/` holds the Ollama, Laya and Laya-v2 runs of both suites and the raw Laya probabilities (`Laya probes/`). Older Ollama-era inputs and results were removed in `version-10.1-laya` and remain in git history.
@@ -274,15 +273,14 @@ QA-system/                       # THIS repo: the QA application
 ├── run_gateway.py               # API gateway launcher (:8005)
 ├── requirements.txt             # FastAPI stack + psycopg2-binary + Laya (pinned GitHub commit)
 ├── .env.example                 # every setting, documented (copy to .env, which is git-ignored)
-├── setup.bat / setup.sh         # venv + install + .env
-├── docker-compose.yml           # Postgres, QA service, gateway, frontend (v2 stack)
-├── Dockerfile / Dockerfile.base / Dockerfile.gateway
-├── docker-compose.v3.yml / Dockerfile.v3 / requirements-docker.txt / .dockerignore   # v3 container, see Docs/DOCKER.md
+├── DEPLOYMENT_PLAN.md           # step-by-step Docker deployment guide (weights, compose, checks, troubleshooting)
+├── docker-compose.yml           # the QA service container (pipeline v3, weights mounted from ./models)
+├── Dockerfile / requirements-docker.txt / .dockerignore   # the image; see Docs/DOCKER.md
 ├── requests.http                # REST-client requests
 ├── CLAUDE.md                    # rules for AI assistants working in the repo
 ├── resources/criteria_config.json   # reference criteria for tenant-abc
 ├── src/
-│   ├── api/                     # web_app.py (endpoints, middleware, v3 queue wiring), logger.py (structured JSON logs)
+│   ├── api/                     # web_app.py (endpoints, middleware, readiness), logger.py (structured JSON logs)
 │   ├── gateway/gateway_app.py   # gateway proxy + direct DB criteria routes
 │   ├── db/database.py           # PostgreSQL access (pipeline v2 and the dashboard)
 │   ├── services/                # PIPELINE V2 and model access
@@ -291,14 +289,14 @@ QA-system/                       # THIS repo: the QA application
 │   │   ├── laya_windows.py      # flow v2 window builders (frozen)
 │   │   ├── rule_engine.py       # the 4 rules and snippet extractors (frozen)
 │   │   └── laya_adapter.py      # Laya Router singleton: predict_yes()
-│   └── v3/                      # PIPELINE V3 (LAYA_FLOW=v3): pipeline, normaliser, rules, scoring, job queue
+│   └── v3/                      # PIPELINE V3 (LAYA_FLOW=v3): pipeline, normaliser, rules, scoring
 │       ├── candidates/          # alternative windows per check (Resolved, Ownership on; Paraphrasing, Empathy tried, off)
 │       └── config/              # v3.json (limits, rule settings, gate switches), criteria.json (built-in criteria)
 ├── models/final-softce-3/       # the PRODUCTION Laya weights (git-ignored; models/README.md)
 ├── tests/
-│   ├── unit/                    # 106 automated tests, no model needed
+│   ├── unit/                    # 96 automated tests, no model needed
 │   └── scoring_test/            # small raw-string test calls
-├── Scripts/                     # the app's own tools: batch_test, compare_results, check_prompt_sizes, dump_laya_inputs
+├── Scripts/                     # the app's own tools: try_call, send_folder, verify_weights
 ├── inputs/                      # the app's sample calls: Main tests, Bulk tests, and their result folders
 ├── frontend/                    # Vite + React dashboard
 ├── Docs/                        # the app's docs, index in Docs/README.md

@@ -1,5 +1,7 @@
 # Codebase guide: what this system is, how it is built, and where everything lives
 
+> **Status on `main` (27 Oct 2026):** this page describes the earlier `app-v3` branch. On `main` the job queue (`/api/jobs`, `src/v3/jobs.py`) and `docker-compose.v3.yml` were removed: `/api/evaluate` is synchronous, tenant scorecards come from PostgreSQL with the built-in 11 items as fallback, and the Docker setup is `docker-compose.yml` with the fine-tuned weights mounted from `models/`. The current deployment guide is [`DEPLOYMENT_PLAN.md`](../DEPLOYMENT_PLAN.md).
+
 Written 2026-10-22 for the team, on branch `app-v3`. Pair it with [`FLOW_DIAGRAMS.md`](FLOW_DIAGRAMS.md), which draws the same system as flow charts. Every file named here exists in the repo; every number comes from code or from a result file named next to it.
 
 > **Read this first.** Every accuracy figure in this repo is measured against answer keys written by an AI (Claude or Antigravity). No human has checked them, and we have no real call recordings with human grades. So the numbers say "how closely the system agrees with an AI's grading of AI-written calls", not "how accurate it is on real calls".

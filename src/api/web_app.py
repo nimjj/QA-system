@@ -463,6 +463,13 @@ def evaluate_tenant_transcript(req: EvaluateRequest):
     call_id = req.get_call_id()
 
     if _v3_enabled():
+        if not _model_ready:
+            if _model_load_error:
+                detail = (f"model failed to load: {_model_load_error}. Check that the weights are in "
+                          "models/final-softce-3 (python Scripts/verify_weights.py) and restart the service.")
+            else:
+                detail = "model is still loading; try again in a few seconds (GET /ready says when it is done)."
+            raise HTTPException(status_code=503, headers={"Retry-After": "30"}, detail=detail)
         from src.v3.pipeline import evaluate_v3
         from src.v3.normalise import normalise
         from src.v3 import load_criteria

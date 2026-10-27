@@ -18,8 +18,9 @@ ENV PATH="/opt/venv/bin:$PATH" \
     PYTHONUNBUFFERED=1 \
     PYTHONDONTWRITEBYTECODE=1 \
     LAYA_FLOW=v3 \
-    LAYA_CHECKPOINT="" \
-    HF_HOME=/app/models
+    LAYA_CHECKPOINT=models/final-softce-3 \
+    HF_HOME=/tmp/hf_home \
+    HF_HUB_OFFLINE=1
 
 RUN useradd --create-home --uid 1000 qa
 WORKDIR /app
@@ -28,6 +29,7 @@ COPY src/ src/
 COPY resources/ resources/
 COPY inputs/ inputs/
 COPY Scripts/ Scripts/
+# The weights are NOT in the image: mount them at /app/models (docker-compose.yml does, read-only). See models/README.md
 RUN mkdir -p logs models && chown -R qa:qa /app
 USER qa
 
