@@ -1,4 +1,6 @@
 # AI Handover & Autonomous Engineering Guide
+
+> **Status on `main` (27 Oct 2026):** this page describes the earlier `app-v3` branch. On `main` the job queue (`/api/jobs`, `src/v3/jobs.py`) and `docker-compose.v3.yml` were removed: `/api/evaluate` is synchronous, tenant scorecards come from PostgreSQL with the built-in 11 items as fallback, and the Docker setup is `docker-compose.yml` with the fine-tuned weights mounted from `models/`. The current deployment guide is [`DEPLOYMENT_PLAN.md`](../DEPLOYMENT_PLAN.md).
 **Target Audience:** AI Coding Assistants (Claude Code, Antigravity, LLM Pair Programmers)  
 **Repository:** `QA-system` (`nimjj/QA-system`, branch `app-v3`)  
 **Workspace Root:** `d:\CIAP\QA\QA-system`  
@@ -263,8 +265,7 @@ D:\CIAP\QA\
 │   │   ├── V3.md                           # Pipeline v3 technical specification
 │   │   └── FLOW_V2.md                      # Flow v2 rationale & metrics
 │   │
-│   ├── tests/unit/                         # 106 automated offline unit tests
-│   └── frontend/                           # React + Vite dashboard UI
+│   └── tests/unit/                         # 96 automated offline unit tests
 │
 └── laya-finetuning/                        # SIBLING REPO: RESEARCH & MODEL TRAINING
     ├── checkpoints/                        # Experimental checkpoints (ft5, ft6)

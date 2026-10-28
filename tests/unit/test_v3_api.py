@@ -77,6 +77,21 @@ class EvaluateEndpoint(unittest.TestCase):
             self.assertEqual(r.status_code, 503)
             self.assertEqual(r.json()["status"], "model loading")
 
+    def test_evaluate_answers_503_while_the_model_is_not_ready(self):
+        with mock.patch.object(web_app, "_model_ready", False), mock.patch.object(web_app, "_model_load_error", None):
+            r = self.post(CALL)
+            self.assertEqual(r.status_code, 503)
+            self.assertIn("still loading", r.json()["detail"])
+            self.assertEqual(r.headers.get("retry-after"), "30")
+
+    def test_evaluate_names_the_weights_when_loading_failed(self):
+        with mock.patch.object(web_app, "_model_ready", False), \
+                mock.patch.object(web_app, "_model_load_error", "FileNotFoundError: LAYA_CHECKPOINT is not a folder: /app/models/final-softce-3"):
+            r = self.post(CALL)
+            self.assertEqual(r.status_code, 503)
+            self.assertIn("verify_weights.py", r.json()["detail"])
+            self.assertIn("is not a folder", r.json()["detail"])
+
 
 if __name__ == "__main__":
     unittest.main()
