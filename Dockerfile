@@ -26,7 +26,6 @@ RUN useradd --create-home --uid 1000 qa
 WORKDIR /app
 COPY main.py ./
 COPY src/ src/
-COPY resources/ resources/
 COPY inputs/ inputs/
 COPY Scripts/ Scripts/
 # The weights are NOT in the image: mount them at /app/models (docker-compose.yml does, read-only). See models/README.md
