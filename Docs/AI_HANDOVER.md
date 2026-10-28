@@ -265,8 +265,7 @@ D:\CIAP\QA\
 │   │   ├── V3.md                           # Pipeline v3 technical specification
 │   │   └── FLOW_V2.md                      # Flow v2 rationale & metrics
 │   │
-│   ├── tests/unit/                         # 106 automated offline unit tests
-│   └── frontend/                           # React + Vite dashboard UI
+│   └── tests/unit/                         # 96 automated offline unit tests
 │
 └── laya-finetuning/                        # SIBLING REPO: RESEARCH & MODEL TRAINING
     ├── checkpoints/                        # Experimental checkpoints (ft5, ft6)

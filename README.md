@@ -73,7 +73,7 @@ The same endpoint works from any tool: `POST http://localhost:8006/api/evaluate`
 ## How it works
 
 ```
-Client / Frontend / Postman
+Client / Postman
         │  POST /api/evaluate
         ▼
 FastAPI QA service (src/api/web_app.py :8006)       ◄── API Gateway (run_gateway.py :8005)
@@ -105,7 +105,7 @@ FastAPI QA service (src/api/web_app.py :8006)       ◄── API Gateway (run_g
 Folder layout (two folders, two separate git repos):
 ```
 D:\CIAP\QA\
-├── QA-system\          this repo (GitHub nimjj/QA-system): the QA APPLICATION: src/, frontend/, tests/, Docs/, Scripts/, inputs/ (sample calls) ...
+├── QA-system\          this repo (GitHub nimjj/QA-system): the QA APPLICATION: src/, tests/, Docs/, Scripts/, inputs/ (sample calls) ...
 │   └── models\final-softce-3   the production Laya weights (git-ignored; see models/README.md)
 └── laya-finetuning\    the Laya repo (GitHub nimjj/laya-finetuning): training, fine-tuning, testing, evaluation, test sets, benchmarks, experiment weights
 ```
@@ -130,7 +130,7 @@ copy .env.example .env            # Windows  (cp on Linux/macOS)
 | `LAYA_MODEL` | `english` | Laya checkpoint for every check (the English one tested best) |
 | `LAYA_HF_HOME` | empty → `../laya-test/hf_home` if it exists, else Hugging Face's default cache | Folder holding the stock Laya weights |
 | `LAYA_DEVICE` | empty (automatic) | `cpu` or `cuda` |
-| `SERVER_HOST` / `SERVER_PORT` | `0.0.0.0` / `8006` | QA service (the gateway and frontend expect 8006) |
+| `SERVER_HOST` / `SERVER_PORT` | `0.0.0.0` / `8006` | QA service (the gateway expects 8006) |
 | `DB_HOST` `DB_PORT` `DB_NAME` `DB_USER` `DB_PASSWORD` | see `.env.example` | PostgreSQL |
 | `GATEWAY_HOST` / `GATEWAY_PORT` / `APP_URL` | `0.0.0.0` / `8005` / `http://localhost:8006` | API gateway |
 
@@ -141,12 +141,11 @@ copy .env.example .env            # Windows  (cp on Linux/macOS)
 ```bash
 python main.py          # QA service on http://localhost:8006  (docs at /docs)
 python run_gateway.py   # optional: API gateway on http://localhost:8005
-cd frontend && npm install && npm run dev   # optional: React dashboard
 ```
 * The first evaluation loads Laya, which takes about a minute on CPU. After that each Laya check takes about 1 s on CPU.
 * Evaluations run one at a time.
 
-> **Docker:** `docker-compose.yml` runs the QA service (pipeline v3, fine-tuned weights mounted from `./models`) as one container; follow [`DEPLOYMENT_PLAN.md`](DEPLOYMENT_PLAN.md). It no longer contains Postgres, the gateway or the dashboard (those were the old v2 stack): bring your own PostgreSQL via the `DB_*` settings, or run without one and get the built-in scorecard.
+> **Docker:** `docker-compose.yml` runs the QA service (pipeline v3, fine-tuned weights mounted from `./models`) as one container; follow [`DEPLOYMENT_PLAN.md`](DEPLOYMENT_PLAN.md). It does not contain Postgres or the gateway (those were part of the old v2 stack): bring your own PostgreSQL via the `DB_*` settings, or run without one and get the built-in scorecard.
 
 ---
 
@@ -200,7 +199,7 @@ Response:
 
 ---
 
-## The 11 default criteria (`resources/criteria_config.json`)
+## The 11 default criteria (`src/v3/config/criteria.json`)
 
 | # | Criterion | How it's judged |
 |---|---|---|
@@ -278,11 +277,10 @@ QA-system/                       # THIS repo: the QA application
 ├── Dockerfile / requirements-docker.txt / .dockerignore   # the image; see Docs/DOCKER.md
 ├── requests.http                # REST-client requests
 ├── CLAUDE.md                    # rules for AI assistants working in the repo
-├── resources/criteria_config.json   # reference criteria for tenant-abc
 ├── src/
 │   ├── api/                     # web_app.py (endpoints, middleware, readiness), logger.py (structured JSON logs)
 │   ├── gateway/gateway_app.py   # gateway proxy + direct DB criteria routes
-│   ├── db/database.py           # PostgreSQL access (pipeline v2 and the dashboard)
+│   ├── db/database.py           # PostgreSQL access (tenant scorecards and on/off toggles)
 │   ├── services/                # PIPELINE V2 and model access
 │   │   ├── dynamic_evaluator.py # orchestration, Laya questions and cutoffs, scoring, static coaching
 │   │   ├── laya_inputs.py       # transcript parsing and the window for every check (frozen)
@@ -298,7 +296,6 @@ QA-system/                       # THIS repo: the QA application
 │   └── scoring_test/            # small raw-string test calls
 ├── Scripts/                     # the app's own tools: try_call, send_folder, verify_weights
 ├── inputs/                      # the app's sample calls: Main tests, Bulk tests, and their result folders
-├── frontend/                    # Vite + React dashboard
 ├── Docs/                        # the app's docs, index in Docs/README.md
 │   ├── CODEBASE_GUIDE.md        # architecture and codebase, in plain language
 │   ├── FLOW_DIAGRAMS.md         # Mermaid diagrams of the flow

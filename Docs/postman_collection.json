@@ -67,7 +67,7 @@
                 "evaluate"
               ]
             },
-            "description": "Evaluates a call transcript against default tenant criteria defined in criteria_config.json. Fallback loads all 11 standard criteria."
+            "description": "Evaluates a call transcript against tenant criteria configured in PostgreSQL database."
           }
         },
         {
