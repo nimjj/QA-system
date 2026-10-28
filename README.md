@@ -73,7 +73,7 @@ The same endpoint works from any tool: `POST http://localhost:8006/api/evaluate`
 ## How it works
 
 ```
-Client / Frontend / Postman
+Client / Postman
         │  POST /api/evaluate
         ▼
 FastAPI QA service (src/api/web_app.py :8006)       ◄── API Gateway (run_gateway.py :8005)
@@ -145,7 +145,7 @@ python run_gateway.py   # optional: API gateway on http://localhost:8005
 * The first evaluation loads Laya, which takes about a minute on CPU. After that each Laya check takes about 1 s on CPU.
 * Evaluations run one at a time.
 
-> **Docker:** `docker-compose.yml` runs the QA service (pipeline v3, fine-tuned weights mounted from `./models`) as one container; follow [`DEPLOYMENT_PLAN.md`](DEPLOYMENT_PLAN.md). It no longer contains Postgres, the gateway or the dashboard (those were the old v2 stack): bring your own PostgreSQL via the `DB_*` settings, or run without one and get the built-in scorecard.
+> **Docker:** `docker-compose.yml` runs the QA service (pipeline v3, fine-tuned weights mounted from `./models`) as one container; follow [`DEPLOYMENT_PLAN.md`](DEPLOYMENT_PLAN.md). It does not contain Postgres or the gateway (those were part of the old v2 stack): bring your own PostgreSQL via the `DB_*` settings, or run without one and get the built-in scorecard.
 
 ---
 

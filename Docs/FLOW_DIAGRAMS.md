@@ -19,16 +19,13 @@ Who talks to whom when the whole stack is running. In v3 mode the database box i
 ```mermaid
 flowchart LR
     subgraph clients["Callers"]
-        FE["Dashboard frontend<br/>React + Vite, port 5173"]
         PM["Postman, REST client,<br/>or another system"]
     end
     GW["API gateway<br/>run_gateway.py, port 8005"]
     APP["QA service, FastAPI<br/>main.py, port 8006"]
-    DB[("PostgreSQL, port 5432<br/>tenants, categories, criteria<br/>used by pipeline v2 and the criteria screens")]
+    DB[("PostgreSQL, port 5432<br/>tenants, categories, criteria<br/>used by pipeline v2 and the tenant criteria endpoints")]
     MODEL["Laya model, one copy in memory<br/>checkpoint final-softce-3, about 1.95 GB"]
 
-    FE -->|"UI lets you pick port 8005 or 8006"| GW
-    FE -->|"or straight to the app"| APP
     PM --> APP
     PM --> GW
     GW -->|"proxies every other /api/ call"| APP
@@ -39,10 +36,9 @@ flowchart LR
 
 | Box | Where it is in the code | Note |
 |---|---|---|
-| Frontend | `frontend/src/App.jsx` (`apiBase` is `http://<host>:<port>/api`, port chosen in a drop-down) | Manages tenants and criteria, sends sample calls to `/api/evaluate` |
 | Gateway | `run_gateway.py` starts `src/gateway/gateway_app.py` | Two routes talk to the DB itself; everything else is forwarded to `APP_URL` (default `http://localhost:8006`) |
 | QA service | `main.py` starts `src/api/web_app.py` | All endpoints, the evaluators, the v3 queue |
-| Database | `src/db/database.py` (`DB_HOST`, `DB_PORT`, `DB_NAME`, `DB_USER`, `DB_PASSWORD`) | Needed by v2 and by the tenant and criteria screens. v3 grades against `src/v3/config/criteria.json` and never opens a connection |
+| Database | `src/db/database.py` (`DB_HOST`, `DB_PORT`, `DB_NAME`, `DB_USER`, `DB_PASSWORD`) | Needed by v2 and by the tenant criteria endpoints. v3 grades against `src/v3/config/criteria.json` and never opens a connection |
 | Model | `src/services/laya_adapter.py` | One copy, guarded by a lock: it answers one question at a time |
 
 ---

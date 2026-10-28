@@ -26,7 +26,7 @@ It calculates points lost through failed deductions (starting at 100 per categor
 
 ### The Two-Repository Architecture
 As of October 2026, the codebase is cleanly decoupled into **two independent sibling repositories**:
-1. **`QA-system/`** (`nimjj/QA-system`, branch `app-v3`): **The QA Application.** Houses the serving runtime (FastAPI), deterministic rule engine, Flow v2 windows, Pipeline v3 engine, Docker container setup, REST test harness, dashboard frontend, and production model weights in `models/final-softce-3`.
+1. **`QA-system/`** (`nimjj/QA-system`, branch `app-v3`): **The QA Application.** Houses the serving runtime (FastAPI), deterministic rule engine, Flow v2 windows, Pipeline v3 engine, Docker container setup, REST test harness, and production model weights in `models/final-softce-3`.
 2. **`laya-finetuning/`** (`nimjj/laya-finetuning`, branch `separated-from-qa-system`): **The ML & Research Sibling.** Houses synthetic training data generation, Colab GPU training notebooks (`01`–`04`), evaluation benchmarks (`laya_eval`), candidate gate labs, answer keys, and experimental checkpoints.
 
 ---
@@ -51,7 +51,6 @@ The following diagram illustrates how callers, containers, the database, and the
 ```mermaid
 flowchart TD
     subgraph Callers["Callers & Test Clients"]
-        FE["Dashboard Frontend<br/>(React + Vite, Port 5173)"]
         CLIENT["REST Clients / Postman / External Systems"]
         CLI["CLI Test Tools<br/>Scripts/try_call.py & send_folder.py"]
     end
@@ -101,8 +100,6 @@ flowchart TD
         LABS["Gate Labs & Evals<br/>eval/v3_compare.py, v3_service_test.py"]
     end
 
-    FE -->|"Configures criteria or triggers evaluation"| GW
-    FE -->|"Direct evaluation requests"| APP
     CLIENT -->|"POST /api/evaluate or /api/jobs"| GW
     CLIENT -->|"Direct requests"| APP
     CLI -->|"Evaluates single call or entire folder"| APP

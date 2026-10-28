@@ -1,6 +1,6 @@
 # Instructions for AI assistants (Claude Code)
 
-This repo is the **QA application**: the S-Net call-grading service (Python rules plus the Laya model), its dashboard, its tests, and the production weights in `models/final-softce-3`. Everything about *training, fine-tuning, testing and evaluating* the Laya model lives in a **separate repo and folder next to this one**: `../laya-finetuning` (GitHub `nimjj/laya-finetuning`). The two are independent since 2026-10-22: this app does not need that folder to run; that folder needs this app's code (it imports `src/...` and hashes the frozen files) and finds it at `../QA-system`.
+This repo is the **QA application**: the S-Net call-grading service (Python rules plus the Laya model), its tests, and the production weights in `models/final-softce-3`. Everything about *training, fine-tuning, testing and evaluating* the Laya model lives in a **separate repo and folder next to this one**: `../laya-finetuning` (GitHub `nimjj/laya-finetuning`). The two are independent since 2026-10-22: this app does not need that folder to run; that folder needs this app's code (it imports `src/...` and hashes the frozen files) and finds it at `../QA-system`.
 **Read `Docs/AI_HANDOVER.md` first**: current status, how to run the fine-tuned model, rules, test sets, next steps.
 
 Hard rules (details in the handover, section 4):

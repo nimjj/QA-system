@@ -66,7 +66,7 @@ So the production setup today is: **pipeline v2, using flow v2 snippets, answere
 
 ## 3. The 11 criteria
 
-Deductions and weights are in `resources/criteria_config.json` (v2 reference set) and `src/v3/config/criteria.json` (v3), which hold the same values. A FAIL subtracts its deduction from its category; see [diagram 7](FLOW_DIAGRAMS.md#7-how-the-score-is-built).
+Deductions and weights are in `src/v3/config/criteria.json` (the built-in set; a tenant's own set comes from PostgreSQL when it is configured). A FAIL subtracts its deduction from its category; see [diagram 7](FLOW_DIAGRAMS.md#7-how-the-score-is-built).
 
 | # | Criterion | Category | Deduction | Decided by | What the model sees in v2 | What changed in v3 |
 |---|---|---|---|---|---|---|
@@ -96,8 +96,7 @@ Category weights: Soft Skills 0.333, Technical Knowledge 0.667 (rescaled to add 
 |---|---|---|---|
 | QA service (FastAPI) | 8006 | `python main.py` | All endpoints, both pipelines, the model |
 | API gateway | 8005 | `python run_gateway.py` | Forwards `/api/*` to the QA service; serves the criteria list and toggle straight from the DB |
-| Dashboard frontend (React + Vite) | 5173 | `cd frontend && npm run dev` | Manage tenants and criteria, send sample calls |
-| PostgreSQL | 5432 | your DB or `docker-compose` | Tenants, categories, criteria. Needed by pipeline v2 and the dashboard; **not needed by v3** |
+| PostgreSQL | 5432 | your DB | Tenants, categories, criteria. Needed by pipeline v2 and the tenant criteria endpoints; v3 falls back to its built-in criteria without it |
 | Laya model | in the QA service process | loaded on first use (v2) or at startup (v3) | About 1.95 GB of RAM once loaded |
 
 ### Endpoints of the QA service (`src/api/web_app.py`)
@@ -108,8 +107,8 @@ Category weights: Soft Skills 0.333, Technical Knowledge 0.667 (rescaled to add 
 | `POST /api/jobs`, `GET /api/jobs/{id}` | Submit a call without waiting; poll for the result | v3 only |
 | `GET /health` | Alive? | both |
 | `GET /ready` | v3: the model has loaded. Otherwise: the database answers | both |
-| `GET/POST /api/tenants`, `/api/categories`, `/api/criteria`, `.../criteria/{id}/toggle`, `PUT/DELETE /api/criteria/{id}` | Manage tenants and criteria in PostgreSQL | v2 and the dashboard |
-| `GET /api/samples` | Sample calls from `inputs/` for the dashboard | dev tool |
+| `GET/POST /api/tenants`, `/api/categories`, `/api/criteria`, `.../criteria/{id}/toggle`, `PUT/DELETE /api/criteria/{id}` | Manage tenants and criteria in PostgreSQL | v2 and v3 |
+| `GET /api/samples` | Sample calls from `inputs/` | dev tool |
 
 Request body (both pipelines): `transcript` (a list of turns `{speaker, text, start_time_sec, sentiment_score}` or one text block), `customer_name`, `tenant_id`, `call_id`, optional `criteria_data` (ignored by v3). Response: `{call_id, tenant_id, status, result: {final_score, scorecard[], is_auto_fail, auto_fail_reason}}`; v3 adds `meta` and per-item `evidence_turns`.
 
@@ -183,8 +182,6 @@ QA-system/                     THIS repo (GitHub nimjj/QA-system, working branch
 │   └── scoring_test/          a few small raw-text calls used by Scripts/check_prompt_sizes.py
 ├── Scripts/                   the app's own command-line tools (table below)
 ├── inputs/                    the app's sample calls: Main tests/ (4), Bulk tests/ (64) and the Main/Bulk result folders in Test (results)/
-├── resources/criteria_config.json   reference criteria for the demo tenant
-├── frontend/                  the React dashboard
 ├── Docs/                      the app's documentation, index in Docs/README.md
 ├── logs/                      runtime logs (git-ignored)
 ```
@@ -229,7 +226,7 @@ Run them with this app's Python (`QA-system\.venv`), from either folder, for exa
 | `choose_cutoffs.py`, `cutoff_eval.py`, `laya_cutoffs.py` | Pick and score per-check cutoffs from probe files | no |
 | `compare_eval.py` | Compare saved result folders of a suite (AG50, Eval50) with the expected scorecards | no |
 | `window_lab.py`, `empathy_lab.py`, `al_reach_lab.py` | The labs that designed flow v2 (kept as evidence) | mostly no |
-| `ag50_analysis.py`, `build_ag50_dashboard.py` | Statistics and dashboard page for the AG50 set | no |
+| `ag50_analysis.py`, `build_ag50_dashboard.py` | Statistics and charts page for the AG50 set | no |
 
 ### The test calls
 
@@ -237,8 +234,8 @@ All are AI-written; none has been reviewed by a human.
 
 | Folder | Calls | What it is | Role |
 |---|---|---|---|
-| `inputs/Main tests/` (app) | 4 | Long calls (16 to 22 min) of tiers excellent, good, okay, bad, with expected scorecards | Dashboard samples and the smoke test: production should score 42 of 44 items |
-| `inputs/Bulk tests/` (app) | 64 | Calls whose file names say the defect (`b_*`); no keys | Dashboard samples and regression checks |
+| `inputs/Main tests/` (app) | 4 | Long calls (16 to 22 min) of tiers excellent, good, okay, bad, with expected scorecards | Sample calls and the smoke test: production should score 42 of 44 items |
+| `inputs/Bulk tests/` (app) | 64 | Calls whose file names say the defect (`b_*`); no keys | Sample calls and regression checks |
 | `inputs/Test (results)/` (app) | | Result folders of the Main and Bulk runs, by engine label (`Main tests (ollama)`, ...) | History of the smoke tests |
 | `../laya-finetuning/inputs/Eval50/` | 50 | Short calls (1 to 5 min), keys written by Claude | First Laya vs Ollama rounds |
 | `../laya-finetuning/inputs/Tough checks/` | 3 | Long raw call transcripts (28 min) | Early stress samples |
@@ -344,7 +341,6 @@ Windows PowerShell, from the repo root, after `setup.bat` and filling in `.env`:
 python main.py                                  # pipeline v2 (the default)
 $env:LAYA_FLOW = "v3"; python main.py           # pipeline v3
 python run_gateway.py                           # optional gateway on 8005
-cd frontend; npm install; npm run dev           # optional dashboard on 5173
 
 python -m unittest discover -s tests/unit -t .  # 106 tests, no model, about 1 second
 python ../laya-finetuning/tools/export_checks.py --check          # the frozen files still match
@@ -376,11 +372,11 @@ Audited and tidied on 2026-10-22.
 * Deleted generated or empty leftovers: the root `__pycache__/` and an empty `tests/golden/`.
 * Moved the side folders that sat next to the repo (`_incoming`, `_quarantine`, the earlier clean-up archive) under one `D:\CIAP\QA\_archive\`. The quarantined paste is untouched.
 * Refreshed the README folder map, `.env.example` (v3 settings), the stale paths in `../laya-finetuning/README.md`, added a banner to `Docs/ARCHITECTURE.md`, and indexed the new documents.
-* Removed thirteen finished-task or regenerable documents from `Docs/` in two steps: ten first, then the author rulebook, key format and worked examples (the four AI-author task briefs for AG-T, AG-B, AG-B2 and AG-C; the AG50 dashboard, stats and results table; the Eval50 and Round 4 result tables; the Ollama-era flowchart). The index in `Docs/README.md` lists each one with the command that regenerates it and `git show 8a6842b:Docs/<name>` to read the original.
+* Removed thirteen finished-task or regenerable documents from `Docs/` in two steps: ten first, then the author rulebook, key format and worked examples (the four AI-author task briefs for AG-T, AG-B, AG-B2 and AG-C; the AG50 charts page, stats and results table; the Eval50 and Round 4 result tables; the Ollama-era flowchart). The index in `Docs/README.md` lists each one with the command that regenerates it and `git show 8a6842b:Docs/<name>` to read the original.
 * **Split into two separate repos, two folders.** Everything about the Laya model moved out to `D:\CIAP\QA\laya-finetuning` (its own git repo, GitHub `nimjj/laya-finetuning`): the 15 testing and evaluation scripts, the test sets AG50, AG-T, AG-B, AG-B2, AG-C, Eval50 and Tough checks with their results and probes, the first benchmark, the test log, the AG50 report, the training tools and notebooks, and the experiment weights. This repo kept the app, its own tools in `Scripts/` (batch_test, compare_results, check_prompt_sizes, dump_laya_inputs), its sample calls in `inputs/`, and gained `models/final-softce-3/` for the production weights. The Laya repo's history was split out with `git subtree split`, so it continues the original `nimjj/laya-finetuning` history; this repo's older history still contains the Laya files (it was not rewritten, so nothing needed a force-push).
 * Earlier the same day: 56 loose helper scripts and 29 run logs were moved out of the repo root into the archive, and the repo was pushed to a new branch `app-v3`.
 
-**Left as they are on purpose:** `inputs/Test (results)/` (history; scripts and docs point into it), `../laya-finetuning/laya_eval/` (evidence behind the starting cutoffs), the experiment labs in `Scripts/`, the v2 database code and tenant endpoints (v2 and the dashboard still use them), the v2 Docker files (the v3 container has its own files), and ft5 / ft6 weights (the docs and probe commands use those paths).
+**Left as they are on purpose:** `inputs/Test (results)/` (history; scripts and docs point into it), `../laya-finetuning/laya_eval/` (evidence behind the starting cutoffs), the experiment labs in `Scripts/`, the v2 database code and tenant endpoints (v2 and the tenant criteria endpoints still use them), the v2 Docker files (the v3 container has its own files), and ft5 / ft6 weights (the docs and probe commands use those paths).
 
 **Known loose ends:** `../laya-finetuning/docs/DATA_PLAN.md` mentions files that no longer exist; it is a partly superseded plan and was not rewritten. `Docs/ARCHITECTURE.md` predates flow v2 and v3.
 

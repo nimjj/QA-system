@@ -11,6 +11,6 @@ The step-by-step guide is **[`DEPLOYMENT_PLAN.md`](../DEPLOYMENT_PLAN.md)** (rep
 
 The weights come from Google Drive and are checked with `Scripts/verify_weights.py`: see [`models/README.md`](../models/README.md).
 
-The Docker setup is the **v3 pipeline** only (no database required). The old v2 stack (Postgres, gateway, React dashboard) is not part of `docker-compose.yml` any more; v2 is run locally with `python main.py` and `LAYA_FLOW` unset (see the README).
+The Docker setup is the **v3 pipeline** only (no database required). The old v2 stack (Postgres, gateway) is not part of `docker-compose.yml` any more; v2 is run locally with `python main.py` and `LAYA_FLOW` unset (see the README).
 
 Troubleshooting table: section 11 of `DEPLOYMENT_PLAN.md`.
