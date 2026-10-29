@@ -43,7 +43,7 @@ python main.py                                          # http://localhost:8006 
 python Scripts/try_call.py "inputs/Main tests/gold_01_excellent_22min.json"   # one call, plain-language scorecard (expect 100.0)
 python Scripts/send_folder.py "inputs/Main tests"        # every call in a folder; one JSON reply per call in outputs/ (git-ignored) + outputs/_summary.csv
 ```
-The same endpoint works from any tool: `POST http://localhost:8006/api/evaluate` (examples in [API](#api), `requests.http` and `Docs/postman_collection.json`). The four golden calls should score 100.0, 88.3, 50.0 and 30.0; saved replies to compare with are in `inputs/Test (results)/Main tests (app-v3)/`. Around 380 more AI-written test calls are in `inputs/` (AG50, AG-T, AG-B, AG-B2, AG-C, Eval50, Tough checks, Bulk tests); their answer keys are in the Laya repo.
+The same endpoint works from any tool: `POST http://localhost:8006/api/evaluate` (examples in [API](#api), `requests.http` and `Docs/postman_collection.json`). The four golden calls should score 100.0, 88.3, 50.0 and 30.0. Around 380 more AI-written test calls are in `inputs/` (AG50, AG-T, AG-B, AG-B2, AG-C, Eval50, Tough checks, Bulk tests); their answer keys are in the Laya repo.
 
 ### Where the documentation is
 
@@ -130,9 +130,8 @@ copy .env.example .env            # Windows  (cp on Linux/macOS)
 | `LAYA_MODEL` | `english` | Laya checkpoint for every check (the English one tested best) |
 | `LAYA_HF_HOME` | empty → `../laya-test/hf_home` if it exists, else Hugging Face's default cache | Folder holding the stock Laya weights |
 | `LAYA_DEVICE` | empty (automatic) | `cpu` or `cuda` |
-| `SERVER_HOST` / `SERVER_PORT` | `0.0.0.0` / `8006` | QA service (the gateway expects 8006) |
+| `SERVER_HOST` / `SERVER_PORT` | `0.0.0.0` / `8006` | QA service |
 | `DB_HOST` `DB_PORT` `DB_NAME` `DB_USER` `DB_PASSWORD` | see `.env.example` | PostgreSQL |
-| `GATEWAY_HOST` / `GATEWAY_PORT` / `APP_URL` | `0.0.0.0` / `8005` / `http://localhost:8006` | API gateway |
 
 ---
 
@@ -140,7 +139,6 @@ copy .env.example .env            # Windows  (cp on Linux/macOS)
 
 ```bash
 python main.py          # QA service on http://localhost:8006  (docs at /docs)
-python run_gateway.py   # optional: API gateway on http://localhost:8005
 ```
 * The first evaluation loads Laya, which takes about a minute on CPU. After that each Laya check takes about 1 s on CPU.
 * Evaluations run one at a time.
@@ -258,7 +256,6 @@ python ../laya-finetuning/eval/laya_cutoffs.py out.json         # best cutoff pe
 * `Scripts/batch_test.py`, `compare_results.py`, `check_prompt_sizes.py` and `dump_laya_inputs.py` were removed from `main` (they are in the git history, e.g. branch `app-v3`); `send_folder.py` and `try_call.py` replace them for running calls against the service.
 * `inputs/Main tests/` holds four hand-graded 16–22 minute calls; their expected scorecards are in `expected/` (see the README there).
 * `inputs/Bulk tests/` holds the older samples: `b_*` calls with planted defects named in the filename, `v8_*` and `real_*`. `../laya-finetuning/inputs/Tough checks/` holds three 28-minute trap calls.
-* `inputs/Test (results)/` holds the Ollama, Laya and Laya-v2 runs of both suites and the raw Laya probabilities (`Laya probes/`). Older Ollama-era inputs and results were removed in `version-10.1-laya` and remain in git history.
 
 ---
 
@@ -269,7 +266,6 @@ New to the codebase? Read [`Docs/CODEBASE_GUIDE.md`](Docs/CODEBASE_GUIDE.md) (wh
 ```
 QA-system/                       # THIS repo: the QA application
 ├── main.py                      # QA service launcher (:8006)
-├── run_gateway.py               # API gateway launcher (:8005)
 ├── requirements.txt             # FastAPI stack + psycopg2-binary + Laya (pinned GitHub commit)
 ├── .env.example                 # every setting, documented (copy to .env, which is git-ignored)
 ├── DEPLOYMENT_PLAN.md           # step-by-step Docker deployment guide (weights, compose, checks, troubleshooting)
@@ -279,7 +275,6 @@ QA-system/                       # THIS repo: the QA application
 ├── CLAUDE.md                    # rules for AI assistants working in the repo
 ├── src/
 │   ├── api/                     # web_app.py (endpoints, middleware, readiness), logger.py (structured JSON logs)
-│   ├── gateway/gateway_app.py   # gateway proxy + direct DB criteria routes
 │   ├── db/database.py           # PostgreSQL access (tenant scorecards and on/off toggles)
 │   ├── services/                # PIPELINE V2 and model access
 │   │   ├── dynamic_evaluator.py # orchestration, Laya questions and cutoffs, scoring, static coaching

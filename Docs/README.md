@@ -24,9 +24,8 @@ Welcome to the documentation suite for the **Automated QA Analysis System** (`QA
 | [`DOCKER.md`](DOCKER.md) | **DevOps & Infrastructure** | **What each Docker file does.** Short pointer to `DEPLOYMENT_PLAN.md` for `docker-compose.yml` (fine-tuned weights mounted read-only from `models/`), the `Dockerfile` and `requirements-docker.txt`. |
 | [`V3.md`](V3.md) | **Developers & Reviewers** | **Pipeline v3 Technical Specification.** Implementation details of `src/v3/` (job queue, input normalizer, question mark restoration, schema-driven scoring), plus accuracy findings on Candidate Gates (Resolved and Ownership). |
 | [`FLOW_V2.md`](FLOW_V2.md) | **ML Engineers & QA** | **Flow v2 Window Selection Rationale.** Documents why call-structure snippet windowing replaced fixed line counts, the owner's decision on strict per-outburst Empathy, and benchmark accuracy lifts on `AG50`. |
-| [`FLOW_V2_LAB.md`](FLOW_V2_LAB.md) & [`FLOW_V2_REGRESSION.md`](FLOW_V2_REGRESSION.md) | **ML Engineers** | **Laboratory Findings & Regression Safety.** Detailed logs of candidate window experiments and regression safety checks on bulk calls ensuring Flow v2 caused no regressions. |
 | [`ARCHITECTURE.md`](ARCHITECTURE.md) | **Database & Legacy Specs** | **Historical Version-10 Specification.** Original system architecture document; the sole location containing the PostgreSQL database schema and tenant table layout. |
-| [`postman_collection.json`](postman_collection.json) | **API Testers** | **Postman Collection.** Ready-to-import REST requests for `POST /api/evaluate`, `POST /api/jobs`, `GET /api/jobs/{id}`, `/health`, and `/ready`. |
+| [`postman_collection.json`](postman_collection.json) | **API Testers** | **Postman Collection.** Ready-to-import REST requests for `POST /api/evaluate`, `/health`, and `/ready`. |
 
 ---
 
