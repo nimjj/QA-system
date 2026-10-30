@@ -1,0 +1,942 @@
+{
+  "tenant_id": "tenant-abc",
+  "customer_name": "Renee",
+  "transcript": [
+    {
+      "speaker": "Agent",
+      "start_time": "[00:00]",
+      "end_time": "[00:06]",
+      "start_time_sec": 0,
+      "text": "Thank you for calling S-Net technical support, this is Kyle. How can I help you today?",
+      "sentiment_score": 10.0
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[00:08]",
+      "end_time": "[00:25]",
+      "start_time_sec": 8,
+      "text": "Hi. Okay, so, I moved into a new place on Saturday and the internet still isn't working. The modem's been blinking orange for four days. I set it up myself with the kit you sent and it just won't connect.",
+      "sentiment_score": -18.0
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[00:26]",
+      "end_time": "[00:28]",
+      "start_time_sec": 26,
+      "text": "Okay. Which light is blinking orange?",
+      "sentiment_score": 8.0
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[00:30]",
+      "end_time": "[00:35]",
+      "start_time_sec": 30,
+      "text": "The one with the little globe on it. The power light is fine.",
+      "sentiment_score": -12.0
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[00:36]",
+      "end_time": "[00:41]",
+      "start_time_sec": 36,
+      "text": "Okay. Is the cable from the wall screwed into the back of the modem?",
+      "sentiment_score": 8.0
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[00:43]",
+      "end_time": "[00:46]",
+      "start_time_sec": 43,
+      "text": "Yes. That was the first thing I checked.",
+      "sentiment_score": -10.0
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[00:47]",
+      "end_time": "[00:53]",
+      "start_time_sec": 47,
+      "text": "And is it going into the wall socket marked TV or the one marked data?",
+      "sentiment_score": 8.0
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[00:55]",
+      "end_time": "[01:02]",
+      "start_time_sec": 55,
+      "text": "There's only one socket in the living room. I don't think it says anything on it.",
+      "sentiment_score": -12.0
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[01:03]",
+      "end_time": "[01:10]",
+      "start_time_sec": 63,
+      "text": "Okay. Can you unplug the power from the modem, wait thirty seconds, and plug it back in?",
+      "sentiment_score": 8.0
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[01:13]",
+      "end_time": "[01:31]",
+      "start_time_sec": 73,
+      "text": "I've done that probably ten times. Look, this is the third time I've called this week. The first person told me to restart it, and the second one told me to wait twenty-four hours because the activation takes time. It's been four days.",
+      "sentiment_score": -34.0
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[01:32]",
+      "end_time": "[01:40]",
+      "start_time_sec": 92,
+      "text": "Okay. Can you do it one more time for me? Just so I can see it come up on my side.",
+      "sentiment_score": 6.0
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[01:42]",
+      "end_time": "[01:44]",
+      "start_time_sec": 102,
+      "text": "Fine. Okay, it's unplugged.",
+      "sentiment_score": -22.0
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[02:14]",
+      "end_time": "[02:16]",
+      "start_time_sec": 134,
+      "text": "Okay, it's back in.",
+      "sentiment_score": -20.0
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[02:17]",
+      "end_time": "[02:20]",
+      "start_time_sec": 137,
+      "text": "What is the globe light doing now?",
+      "sentiment_score": 8.0
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[03:00]",
+      "end_time": "[03:02]",
+      "start_time_sec": 180,
+      "text": "Same thing. Blinking orange.",
+      "sentiment_score": -22.0
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[03:03]",
+      "end_time": "[03:10]",
+      "start_time_sec": 183,
+      "text": "Okay. And is there any other cable on the socket, like a splitter or a second box?",
+      "sentiment_score": 8.0
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[03:12]",
+      "end_time": "[03:17]",
+      "start_time_sec": 192,
+      "text": "No. It's just the one cable from the wall to the modem.",
+      "sentiment_score": -16.0
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[03:18]",
+      "end_time": "[03:20]",
+      "start_time_sec": 198,
+      "text": "Okay, give me a sec.",
+      "sentiment_score": 8.0
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[04:05]",
+      "end_time": "[04:07]",
+      "start_time_sec": 245,
+      "text": "Hello? Are you still there?",
+      "sentiment_score": -16.0
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[04:08]",
+      "end_time": "[04:16]",
+      "start_time_sec": 248,
+      "text": "Yeah, I'm here. Is the modem in the same room as the socket, or are you using an extension cable?",
+      "sentiment_score": 8.0
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[04:18]",
+      "end_time": "[04:26]",
+      "start_time_sec": 258,
+      "text": "Same room. It's right next to the socket. The cable is the one that came in the box.",
+      "sentiment_score": -14.0
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[04:27]",
+      "end_time": "[04:32]",
+      "start_time_sec": 267,
+      "text": "Okay. Has it ever been solid white since you moved, even for a minute?",
+      "sentiment_score": 8.0
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[04:34]",
+      "end_time": "[04:36]",
+      "start_time_sec": 274,
+      "text": "No. Never. Not once.",
+      "sentiment_score": -18.0
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[04:37]",
+      "end_time": "[04:46]",
+      "start_time_sec": 277,
+      "text": "Okay. And at your old place, was it the same modem, or did we send you a new one for the new address?",
+      "sentiment_score": 8.0
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[04:48]",
+      "end_time": "[04:56]",
+      "start_time_sec": 288,
+      "text": "Same modem. I brought it with me. When I booked the move online it said to bring the equipment.",
+      "sentiment_score": -10.0
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[04:57]",
+      "end_time": "[05:05]",
+      "start_time_sec": 297,
+      "text": "Okay, that's useful. Oh, I should have pulled up your account first. Can I get the account number and the PIN?",
+      "sentiment_score": 10.0
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[05:07]",
+      "end_time": "[05:09]",
+      "start_time_sec": 307,
+      "text": "It's 7720-064-913. PIN is 4471.",
+      "sentiment_score": -14.0
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[05:10]",
+      "end_time": "[05:13]",
+      "start_time_sec": 310,
+      "text": "And can you confirm the new address for me?",
+      "sentiment_score": 10.0
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[05:15]",
+      "end_time": "[05:17]",
+      "start_time_sec": 315,
+      "text": "42 Fenwick Road, flat 3.",
+      "sentiment_score": -12.0
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[05:18]",
+      "end_time": "[05:23]",
+      "start_time_sec": 318,
+      "text": "Thanks, Renee, that matches. Okay, let me take a look at the account.",
+      "sentiment_score": 10.0
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[05:27]",
+      "end_time": "[05:47]",
+      "start_time_sec": 327,
+      "text": "Honestly this whole thing has been a nightmare. I work from home, I've been using my phone's data for four days and it's run out, and I've had to go and sit in a coffee shop to do my job. And this stupid modem just keeps blinking at me.",
+      "sentiment_score": -38.0
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[05:48]",
+      "end_time": "[05:51]",
+      "start_time_sec": 348,
+      "text": "Okay. I'm looking at the move order now.",
+      "sentiment_score": 6.0
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[05:56]",
+      "end_time": "[05:58]",
+      "start_time_sec": 356,
+      "text": "Right.",
+      "sentiment_score": -30.0
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[06:18]",
+      "end_time": "[06:38]",
+      "start_time_sec": 378,
+      "text": "Okay, so I can see the problem. The move order was created, but the activation for the new address is still showing as pending, and the modem is still registered to your old address. So the network at the new address doesn't recognise it, which is why the light keeps blinking.",
+      "sentiment_score": 10.0
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[06:40]",
+      "end_time": "[06:47]",
+      "start_time_sec": 400,
+      "text": "So it's nothing to do with the modem? I've been unplugging it for four days for nothing?",
+      "sentiment_score": -20.0
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[06:48]",
+      "end_time": "[06:52]",
+      "start_time_sec": 408,
+      "text": "The modem looks fine. It's the activation that didn't go through.",
+      "sentiment_score": 8.0
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[06:54]",
+      "end_time": "[06:59]",
+      "start_time_sec": 414,
+      "text": "Why did nobody see that the first two times I called?",
+      "sentiment_score": -26.0
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[07:00]",
+      "end_time": "[07:09]",
+      "start_time_sec": 420,
+      "text": "I can't see what they checked. It's showing as pending, which normally clears by itself, so they might have thought it just needed time.",
+      "sentiment_score": 8.0
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[07:11]",
+      "end_time": "[07:13]",
+      "start_time_sec": 431,
+      "text": "It's been four days.",
+      "sentiment_score": -24.0
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[07:14]",
+      "end_time": "[07:28]",
+      "start_time_sec": 434,
+      "text": "Yeah. It usually goes through within a few hours. Normally the provisioning team picks these up, but I can push it through from here, so I'm going to do that now rather than wait for them.",
+      "sentiment_score": 10.0
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[07:30]",
+      "end_time": "[07:32]",
+      "start_time_sec": 450,
+      "text": "Okay. Thank you. Please do.",
+      "sentiment_score": -12.0
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[07:33]",
+      "end_time": "[07:41]",
+      "start_time_sec": 453,
+      "text": "I'm moving the modem's registration over to the new address and resending the activation. It might take a couple of minutes.",
+      "sentiment_score": 10.0
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[07:43]",
+      "end_time": "[07:45]",
+      "start_time_sec": 463,
+      "text": "Okay.",
+      "sentiment_score": -12.0
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[08:10]",
+      "end_time": "[08:20]",
+      "start_time_sec": 490,
+      "text": "Okay, I've sent it. Can you watch the globe light and tell me what it does? It should go through a few colours and then settle.",
+      "sentiment_score": 10.0
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[08:40]",
+      "end_time": "[08:42]",
+      "start_time_sec": 520,
+      "text": "It's still blinking orange.",
+      "sentiment_score": -14.0
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[08:43]",
+      "end_time": "[08:55]",
+      "start_time_sec": 523,
+      "text": "Okay. Sometimes it needs a restart to pick up the new activation. Can you unplug it again and plug it back in? It takes about a minute to come back up.",
+      "sentiment_score": 8.0
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[08:58]",
+      "end_time": "[09:00]",
+      "start_time_sec": 538,
+      "text": "Okay. Unplugging it. Again.",
+      "sentiment_score": -24.0
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[09:20]",
+      "end_time": "[09:22]",
+      "start_time_sec": 560,
+      "text": "Okay, it's back in.",
+      "sentiment_score": -20.0
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[09:23]",
+      "end_time": "[09:26]",
+      "start_time_sec": 563,
+      "text": "It'll take a minute to come up.",
+      "sentiment_score": 8.0
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[09:54]",
+      "end_time": "[09:56]",
+      "start_time_sec": 594,
+      "text": "Still orange.",
+      "sentiment_score": -20.0
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[09:57]",
+      "end_time": "[10:10]",
+      "start_time_sec": 597,
+      "text": "Okay. Let me check the order. It looks like the activation failed because the old address was still attached to the modem. I need to remove the old address first and then send it again.",
+      "sentiment_score": 8.0
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[10:12]",
+      "end_time": "[10:14]",
+      "start_time_sec": 612,
+      "text": "Okay.",
+      "sentiment_score": -22.0
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[10:15]",
+      "end_time": "[10:17]",
+      "start_time_sec": 615,
+      "text": "Removing the old address now.",
+      "sentiment_score": 8.0
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[10:39]",
+      "end_time": "[10:42]",
+      "start_time_sec": 639,
+      "text": "Okay, that's removed. Sending the activation again now.",
+      "sentiment_score": 10.0
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[10:45]",
+      "end_time": "[10:47]",
+      "start_time_sec": 645,
+      "text": "Okay.",
+      "sentiment_score": -14.0
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[11:07]",
+      "end_time": "[11:13]",
+      "start_time_sec": 667,
+      "text": "Okay, it's gone through this time, it says active on my side. What's the light doing?",
+      "sentiment_score": 10.0
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[11:21]",
+      "end_time": "[11:23]",
+      "start_time_sec": 681,
+      "text": "It's blinking white now. That's new.",
+      "sentiment_score": -10.0
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[11:24]",
+      "end_time": "[11:29]",
+      "start_time_sec": 684,
+      "text": "That's good, that means it's found the network and it's setting up.",
+      "sentiment_score": 10.0
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[11:39]",
+      "end_time": "[11:44]",
+      "start_time_sec": 699,
+      "text": "Okay. Now it's... it's solid white. Oh my god, it's solid white.",
+      "sentiment_score": -8.0
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[11:45]",
+      "end_time": "[11:49]",
+      "start_time_sec": 705,
+      "text": "Okay, great. I can see the modem online on my side.",
+      "sentiment_score": 12.0
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[11:51]",
+      "end_time": "[11:53]",
+      "start_time_sec": 711,
+      "text": "Finally. Can I test it?",
+      "sentiment_score": 4.0
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[11:54]",
+      "end_time": "[11:59]",
+      "start_time_sec": 714,
+      "text": "Yes. Can you connect your laptop to the WiFi and open a web page?",
+      "sentiment_score": 10.0
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[12:11]",
+      "end_time": "[12:20]",
+      "start_time_sec": 731,
+      "text": "Yes, it's loading. The WiFi name is the same as at my old place, so the laptop just connected by itself.",
+      "sentiment_score": 6.0
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[12:21]",
+      "end_time": "[12:30]",
+      "start_time_sec": 741,
+      "text": "Yes, the modem keeps the same WiFi name and password. What plan were you expecting at the new address, the 200 or the 500?",
+      "sentiment_score": 10.0
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[12:32]",
+      "end_time": "[12:37]",
+      "start_time_sec": 752,
+      "text": "The 200, I think. I didn't change the plan when I moved.",
+      "sentiment_score": 4.0
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[12:38]",
+      "end_time": "[12:42]",
+      "start_time_sec": 758,
+      "text": "Okay, yes, it's the 200. Can you run a speed test?",
+      "sentiment_score": 10.0
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[12:56]",
+      "end_time": "[12:59]",
+      "start_time_sec": 776,
+      "text": "It says 208 down and 19 up.",
+      "sentiment_score": 6.0
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[13:00]",
+      "end_time": "[13:04]",
+      "start_time_sec": 780,
+      "text": "That's right for your plan. The speed test is good.",
+      "sentiment_score": 12.0
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[13:06]",
+      "end_time": "[13:13]",
+      "start_time_sec": 786,
+      "text": "Okay. Good. Is it going to stay working, or is it going to drop off again?",
+      "sentiment_score": 8.0
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[13:14]",
+      "end_time": "[13:22]",
+      "start_time_sec": 794,
+      "text": "It should stay working now. The problem was the activation, and that's done. The modem is registered to the new address now.",
+      "sentiment_score": 10.0
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[13:24]",
+      "end_time": "[13:30]",
+      "start_time_sec": 804,
+      "text": "Okay. What about the four days I couldn't use it? I'm paying for this.",
+      "sentiment_score": 0.0
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[13:31]",
+      "end_time": "[13:43]",
+      "start_time_sec": 811,
+      "text": "I can put a credit on the account for the days it wasn't working. That would be four days at your plan price, so it'll come off your next bill.",
+      "sentiment_score": 10.0
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[13:45]",
+      "end_time": "[13:47]",
+      "start_time_sec": 825,
+      "text": "Okay. That's fair. Thank you.",
+      "sentiment_score": 6.0
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[13:48]",
+      "end_time": "[13:50]",
+      "start_time_sec": 828,
+      "text": "I'm adding that now.",
+      "sentiment_score": 10.0
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[14:32]",
+      "end_time": "[14:34]",
+      "start_time_sec": 872,
+      "text": "Hello?",
+      "sentiment_score": 0.0
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[14:35]",
+      "end_time": "[14:41]",
+      "start_time_sec": 875,
+      "text": "Yeah, sorry, still here. That's done. It'll show on your next bill as a service credit.",
+      "sentiment_score": 10.0
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[14:43]",
+      "end_time": "[14:45]",
+      "start_time_sec": 883,
+      "text": "Okay.",
+      "sentiment_score": 8.0
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[14:46]",
+      "end_time": "[14:58]",
+      "start_time_sec": 886,
+      "text": "While I have you, there's one more thing I want to check. When the move order was made, did you want to keep the landline number from your old address?",
+      "sentiment_score": 10.0
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[15:00]",
+      "end_time": "[15:06]",
+      "start_time_sec": 900,
+      "text": "No, I don't use the landline, I never did. I've only got the internet.",
+      "sentiment_score": 4.0
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[15:07]",
+      "end_time": "[15:17]",
+      "start_time_sec": 907,
+      "text": "Okay, then that's fine. I can see the landline was removed from the account when the move was booked, so you won't be charged for it.",
+      "sentiment_score": 10.0
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[15:19]",
+      "end_time": "[15:21]",
+      "start_time_sec": 919,
+      "text": "Good.",
+      "sentiment_score": 6.0
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[15:22]",
+      "end_time": "[15:27]",
+      "start_time_sec": 922,
+      "text": "Okay. And are all your devices connecting, your phone and anything else?",
+      "sentiment_score": 10.0
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[15:35]",
+      "end_time": "[15:37]",
+      "start_time_sec": 935,
+      "text": "Yes, my phone just connected too.",
+      "sentiment_score": 6.0
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[15:38]",
+      "end_time": "[15:45]",
+      "start_time_sec": 938,
+      "text": "Okay. Can you try something that uses more data, like a video, just to make sure it's stable?",
+      "sentiment_score": 10.0
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[16:00]",
+      "end_time": "[16:02]",
+      "start_time_sec": 960,
+      "text": "Yes, a video's playing fine.",
+      "sentiment_score": 8.0
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[16:04]",
+      "end_time": "[16:21]",
+      "start_time_sec": 964,
+      "text": "Actually, while I've got you, the WiFi in the bedroom is really weak. It's at the other end of the flat. Out here in the living room it's fine, but in there it's one bar and things load really slowly.",
+      "sentiment_score": 0.0
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[16:22]",
+      "end_time": "[16:26]",
+      "start_time_sec": 982,
+      "text": "Okay. How far is the bedroom from the modem, roughly?",
+      "sentiment_score": 10.0
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[16:28]",
+      "end_time": "[16:35]",
+      "start_time_sec": 988,
+      "text": "Maybe ten metres? It's down the hallway, through two doors. And there's a bathroom in between.",
+      "sentiment_score": 0.0
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[16:36]",
+      "end_time": "[16:45]",
+      "start_time_sec": 996,
+      "text": "Okay. Bathrooms are usually bad for WiFi because of the tiles and the pipes. Where exactly is the modem sitting at the moment?",
+      "sentiment_score": 10.0
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[16:47]",
+      "end_time": "[16:51]",
+      "start_time_sec": 1007,
+      "text": "On the floor next to the socket, behind the sofa.",
+      "sentiment_score": 2.0
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[16:52]",
+      "end_time": "[17:05]",
+      "start_time_sec": 1012,
+      "text": "Okay. Being on the floor behind the sofa will cut down the signal quite a bit. Is there any way to get it up higher, like on a shelf or a table near the socket?",
+      "sentiment_score": 10.0
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[17:07]",
+      "end_time": "[17:12]",
+      "start_time_sec": 1027,
+      "text": "There's a sideboard right next to it. I could put it on that.",
+      "sentiment_score": 4.0
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[17:13]",
+      "end_time": "[17:23]",
+      "start_time_sec": 1033,
+      "text": "Okay. Try that, it should help a bit. Can you go into the bedroom and do a speed test, so we know what it's like now?",
+      "sentiment_score": 10.0
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[17:48]",
+      "end_time": "[17:52]",
+      "start_time_sec": 1068,
+      "text": "Okay, I'm in the bedroom. It says 38 down.",
+      "sentiment_score": 2.0
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[17:53]",
+      "end_time": "[18:06]",
+      "start_time_sec": 1073,
+      "text": "Okay. And now can you go put the modem on the sideboard and test again in the bedroom? It doesn't need to restart, you can just move it, as long as the cables reach.",
+      "sentiment_score": 10.0
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[18:46]",
+      "end_time": "[18:52]",
+      "start_time_sec": 1126,
+      "text": "Okay, it's on the sideboard. Back in the bedroom now. It says 64 down.",
+      "sentiment_score": 2.0
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[18:53]",
+      "end_time": "[19:06]",
+      "start_time_sec": 1133,
+      "text": "Okay, so that's better. For full speed in the bedroom you'd probably need a mesh satellite. We have one that sits halfway down the hallway. It's five a month, or you can buy it outright.",
+      "sentiment_score": 10.0
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[19:08]",
+      "end_time": "[19:10]",
+      "start_time_sec": 1148,
+      "text": "How much is it to buy?",
+      "sentiment_score": 0.0
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[19:11]",
+      "end_time": "[19:13]",
+      "start_time_sec": 1151,
+      "text": "It's seventy-nine to buy outright.",
+      "sentiment_score": 10.0
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[19:15]",
+      "end_time": "[19:24]",
+      "start_time_sec": 1155,
+      "text": "I'll think about it. I've spent enough on this move already. Sixty is okay for now, I mostly just sleep in there.",
+      "sentiment_score": 0.0
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[19:25]",
+      "end_time": "[19:30]",
+      "start_time_sec": 1165,
+      "text": "Okay. If you change your mind you can order it in the app.",
+      "sentiment_score": 10.0
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[19:32]",
+      "end_time": "[19:34]",
+      "start_time_sec": 1172,
+      "text": "Okay.",
+      "sentiment_score": 4.0
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[19:35]",
+      "end_time": "[19:44]",
+      "start_time_sec": 1175,
+      "text": "Good. I'll leave a note on the account explaining that the activation got stuck, in case anything else comes up with the move.",
+      "sentiment_score": 10.0
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[19:46]",
+      "end_time": "[19:51]",
+      "start_time_sec": 1186,
+      "text": "Okay. And if it does go off again, what do I do?",
+      "sentiment_score": 6.0
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[19:52]",
+      "end_time": "[20:02]",
+      "start_time_sec": 1192,
+      "text": "If the globe light starts blinking orange again, call us and quote the note on the account, and they'll be able to see what we did today.",
+      "sentiment_score": 10.0
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[20:04]",
+      "end_time": "[20:06]",
+      "start_time_sec": 1204,
+      "text": "Okay.",
+      "sentiment_score": 6.0
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[20:07]",
+      "end_time": "[20:10]",
+      "start_time_sec": 1207,
+      "text": "Is there anything else you need help with?",
+      "sentiment_score": 10.0
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[20:12]",
+      "end_time": "[20:22]",
+      "start_time_sec": 1212,
+      "text": "Actually, yes. Is there a way to get a static IP address on my plan? I need it for my work VPN sometimes.",
+      "sentiment_score": 4.0
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[20:23]",
+      "end_time": "[20:35]",
+      "start_time_sec": 1223,
+      "text": "A static IP is only on the business plans, I'm afraid. On a home plan the address can change, but it doesn't change very often, usually only when the modem restarts.",
+      "sentiment_score": 10.0
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[20:37]",
+      "end_time": "[20:43]",
+      "start_time_sec": 1237,
+      "text": "Okay. My work might need it. Can I upgrade later if I have to?",
+      "sentiment_score": 0.0
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[20:44]",
+      "end_time": "[20:56]",
+      "start_time_sec": 1244,
+      "text": "Yes, you can switch to a business plan at any time. The business team can go through the options with you. I can transfer you to them now if you want.",
+      "sentiment_score": 10.0
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[20:58]",
+      "end_time": "[21:03]",
+      "start_time_sec": 1258,
+      "text": "Not right now. I need to check with my office first.",
+      "sentiment_score": 2.0
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[21:04]",
+      "end_time": "[21:11]",
+      "start_time_sec": 1264,
+      "text": "Okay. You can call the same number and choose the business option. So everything's working now with the internet?",
+      "sentiment_score": 10.0
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[21:13]",
+      "end_time": "[21:15]",
+      "start_time_sec": 1273,
+      "text": "Yes, it's working.",
+      "sentiment_score": 10.0
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[21:16]",
+      "end_time": "[21:25]",
+      "start_time_sec": 1276,
+      "text": "Okay, great, so that's resolved. The modem is active at the new address, the speed is right, and the credit is on the account.",
+      "sentiment_score": 12.0
+    },
+    {
+      "speaker": "Customer",
+      "start_time": "[21:27]",
+      "end_time": "[21:29]",
+      "start_time_sec": 1287,
+      "text": "Thank you.",
+      "sentiment_score": 10.0
+    },
+    {
+      "speaker": "Agent",
+      "start_time": "[21:30]",
+      "end_time": "[21:39]",
+      "start_time_sec": 1290,
+      "text": "Thank you, Renee. Please stay on the line after the call for a short survey. Thank you for choosing S-Net, have a good day.",
+      "sentiment_score": 12.0
+    }
+  ]
+}

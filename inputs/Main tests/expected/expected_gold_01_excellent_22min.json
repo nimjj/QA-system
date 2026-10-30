@@ -1,0 +1,176 @@
+{
+  "call_id": "gold_01_excellent_22min",
+  "tenant_id": "tenant-abc",
+  "status": "completed",
+  "result": {
+    "final_score": 100.0,
+    "is_auto_fail": false,
+    "auto_fail_reason": null,
+    "scorecard": [
+      {
+        "category": "Soft Skills",
+        "name": "Branding and Survey Check",
+        "rating": "PASS",
+        "coaching": "Agent successfully used required opening and closing branding scripts."
+      },
+      {
+        "category": "Soft Skills",
+        "name": "Hold time and Dead Air",
+        "rating": "PASS",
+        "coaching": "Agent maintained active communication without excessive dead air (>30s)."
+      },
+      {
+        "category": "Technical Knowledge",
+        "name": "Verified customer",
+        "rating": "PASS",
+        "coaching": "Agent verified customer identity within the required time window."
+      },
+      {
+        "category": "Soft Skills",
+        "name": "Personalized the call/ticket appropriately",
+        "rating": "PASS",
+        "coaching": "Agent addressed customer by their verified name during the interaction."
+      },
+      {
+        "category": "Soft Skills",
+        "name": "Empathy & Acknowledgment Statement",
+        "rating": "PASS",
+        "coaching": "Agent demonstrated appropriate empathy and acknowledgment of the customer's situation."
+      },
+      {
+        "category": "Technical Knowledge",
+        "name": "Paraphrasing",
+        "rating": "PASS",
+        "coaching": "Agent accurately acknowledged and mirrored the customer's reported issue."
+      },
+      {
+        "category": "Technical Knowledge",
+        "name": "Active listening",
+        "rating": "PASS",
+        "coaching": "Agent practiced active listening without repetitive or redundant questions."
+      },
+      {
+        "category": "Technical Knowledge",
+        "name": "Took ownership of the problem",
+        "rating": "PASS",
+        "coaching": "Agent demonstrated clear ownership without deflecting or blaming other departments."
+      },
+      {
+        "category": "Soft Skills",
+        "name": "Build rapport and observed professionalism",
+        "rating": "PASS",
+        "coaching": "Agent maintained a professional, courteous, and respectful demeanor throughout."
+      },
+      {
+        "category": "Technical Knowledge",
+        "name": "Probing",
+        "rating": "PASS",
+        "coaching": "Agent asked effective diagnostic questions to investigate the root cause."
+      },
+      {
+        "category": "Technical Knowledge",
+        "name": "Confirmed the issue is resolved",
+        "rating": "PASS",
+        "coaching": "Agent explicitly confirmed that the issue was resolved before closing."
+      }
+    ]
+  },
+  "grader": {
+    "graded_by": "Claude (manual review; app not executed)",
+    "graded_on": "2026-10-12",
+    "transcript_file": "gold_01_excellent_22min.json",
+    "agent": "Leon",
+    "customer_name": "Grace",
+    "tier": "Excellent",
+    "call_summary": "Mesh satellite hidden behind a bookcase plus stale firmware caused upstairs dropouts; evening TV buffering came from the crowded 2.4 GHz band. Firmware pushed, satellite moved, band steering and a quieter channel set, results verified live, follow-up arranged.",
+    "criteria_source": "resources/criteria_config.json (tenant-abc): 11 items, weights Soft Skills 0.333 / Technical Knowledge 0.667",
+    "category_scores": {
+      "Soft Skills": 100.0,
+      "Technical Knowledge": 100.0
+    },
+    "score_math": "100 x 0.333 + 100 x 0.667 = 100.0",
+    "app_traps": [
+      "Probing question budget consumed by non-diagnostic questions",
+      "Empathy and Resolved cutoffs are known to be too strict"
+    ],
+    "items": [
+      {
+        "name": "Branding and Survey Check",
+        "rating": "PASS",
+        "deduction_if_fail": 15,
+        "evidence": "[00:00] 'Thank you for calling S-Net technical support'; [21:53] survey invitation and 'Thank you for choosing S-Net'.",
+        "expected_app_behaviour": "Rule: PASS (both phrases present)."
+      },
+      {
+        "name": "Hold time and Dead Air",
+        "rating": "PASS",
+        "deduction_if_fail": 15,
+        "evidence": "No hold and no silence over 30 s; firmware and reboot waits are filled with explanation and questions (longest pause ~22 s).",
+        "expected_app_behaviour": "Rule: PASS (0 gaps over 30 s)."
+      },
+      {
+        "name": "Verified customer",
+        "rating": "PASS",
+        "deduction_if_fail": 25,
+        "evidence": "[00:13] asks for account number and PIN, [00:32] confirms service address, [00:43] 'you're verified'.",
+        "expected_app_behaviour": "Rule: PASS ('PIN' at 00:13)."
+      },
+      {
+        "name": "Personalized the call/ticket appropriately",
+        "rating": "PASS",
+        "deduction_if_fail": 15,
+        "evidence": "Uses 'Grace' at [00:43], [21:36], [21:53].",
+        "expected_app_behaviour": "Rule: PASS."
+      },
+      {
+        "name": "Empathy & Acknowledgment Statement",
+        "rating": "PASS",
+        "deduction_if_fail": 35,
+        "evidence": "[01:24] 'I'm sorry, that sounds exhausting...'; [04:57] client-pitch freeze acknowledged ('that's a horrible position to be put in... I'll stay with this'); [15:30] 'I can see why that'd make your heart sink after the week you've had'.",
+        "expected_app_behaviour": "Laya decides. Pre-filter sends the 04:42 and 15:22 customer turns (agent replies use no apology keywords). Both are good empathy, but README notes the 0.78 cutoff failed every time it ran, so a false FAIL is likely."
+      },
+      {
+        "name": "Paraphrasing",
+        "rating": "PASS",
+        "deduction_if_fail": 15,
+        "evidence": "[01:24] 'Your office upstairs is getting short dropouts, around ten to twenty seconds at a time... Is that right?'",
+        "expected_app_behaviour": "Laya decides. Customer window (first 50 words) starts with name, account number, PIN and address before the problem, which may weaken the match."
+      },
+      {
+        "name": "Active listening",
+        "rating": "PASS",
+        "deduction_if_fail": 10,
+        "evidence": "No repeated or redundant questions; each question builds on the previous answer.",
+        "expected_app_behaviour": "Rule: PASS (no agent-question pair above 0.70 similarity, Laya not called)."
+      },
+      {
+        "name": "Took ownership of the problem",
+        "rating": "PASS",
+        "deduction_if_fail": 25,
+        "evidence": "[04:57] 'I'll stay with this until the connection upstairs is solid'; [18:24] 'The update failing quietly is on us, not you'; [20:51] commits to checking the log tomorrow and calling her.",
+        "expected_app_behaviour": "Rule: PASS (no deflection phrases, Laya not called)."
+      },
+      {
+        "name": "Build rapport and observed professionalism",
+        "rating": "PASS",
+        "deduction_if_fail": 20,
+        "evidence": "Warm and professional throughout; brief, natural small talk at [08:56]-[09:16].",
+        "expected_app_behaviour": "Rule: PASS (no trigger phrases, Laya not called)."
+      },
+      {
+        "name": "Probing",
+        "rating": "PASS",
+        "deduction_if_fail": 25,
+        "evidence": "[02:22] laptop vs phone, [02:42] WiFi vs cable, [02:54] setup layout, [03:17] when it started / what changed, [03:46] satellite location, [07:56] TV app and time pattern.",
+        "expected_app_behaviour": "Laya decides, but on the wrong text: the 100-word question budget is used up by the greeting, address-check and 'Do you mind if I ask a few questions' lines, so none of the diagnostic questions reach Laya."
+      },
+      {
+        "name": "Confirmed the issue is resolved",
+        "rating": "PASS",
+        "deduction_if_fail": 15,
+        "evidence": "[21:15] 'Would you say the issue is resolved on your end?' -> 'Yes, completely' -> [21:36] 'I'll mark this as resolved'.",
+        "expected_app_behaviour": "Laya decides. The confirmation is inside the last 10 lines. README notes this check fails almost every real call at the 0.80 cutoff."
+      }
+    ]
+  }
+}

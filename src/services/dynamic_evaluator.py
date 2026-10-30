@@ -1,11 +1,14 @@
 import os
-import json
 import re
-import math
 from typing import Dict, Any, List, Optional, Union
-from src.services.llm_adapter import query_llm, query_llm_with_state, get_embedding
+from src.services.laya_adapter import predict_yes
 
 RATING_SCORES = {"PASS": 100, "FAIL": 0, "YES": 100, "NO": 0}
+
+from src.services.laya_inputs import (  # noqa: F401  (re-exported: other scripts read them from here)
+    EMPATHY_MAX_SNIPPETS, PROBING_PROBLEM_MAX_WORDS, PROBING_QUESTIONS_MAX_WORDS, RESOLVED_TAIL_LINES,
+    PARAPHRASE_CUSTOMER_MAX_WORDS, PARAPHRASE_AGENT_MAX_WORDS, al_source2_enabled, build_laya_inputs,
+)
 
 RULE_BASED_PASS_DESCRIPTIONS = {
     "branding and survey check": "Agent successfully used required opening and closing branding scripts.",
@@ -23,73 +26,113 @@ RULE_BASED_PASS_DESCRIPTIONS = {
     "hostility": "No hostile, abusive, or unprofessional language detected from the agent."
 }
 
-def cosine_similarity(v1: List[float], v2: List[float]) -> float:
-    if not v1 or not v2:
-        return 0.0
-    dot = sum(a * b for a, b in zip(v1, v2))
-    norm_a = math.sqrt(sum(a * a for a in v1))
-    norm_b = math.sqrt(sum(b * b for b in v2))
-    if norm_a == 0 or norm_b == 0:
-        return 0.0
-    return dot / (norm_a * norm_b)
+# Static coaching for failed items that have no rule-specific message (Laya cannot generate text)
+RULE_BASED_FAIL_COACHING = {
+    "confirmed the issue is resolved": "Before closing, ask the customer to confirm the issue is fixed and state clearly that it is resolved.",
+    "escalation": "When a customer asks for a supervisor or escalation, transfer or schedule it promptly instead of refusing or discouraging it.",
+    "hostility": "Stay calm and respectful at all times; never insult, mock, threaten or hang up on a customer."
+}
 
-def preview_evaluation_prompt(
-    transcript_text: str,
-    criteria_data: Dict[str, Any],
-    tenant_id: str,
-    channel: str = "Call"
-) -> Dict[str, Any]:
-    turns = []
-    clean_lines = []
-    normalized_text = re.sub(r'(\s*)([\[\(]\s*\d{1,2}:\d{2}(?::\d{2})?\s*[\]\)])', r'\n\2', transcript_text.strip())
-    for line in normalized_text.splitlines():
-        line = line.strip()
-        if not line:
-            continue
-        line = re.sub(r"^[\[\(]\s*\d{1,2}:\d{2}(?::\d{2})?\s*[\]\)]\s*", "", line)
-        clean_lines.append(line)
-        if ":" in line:
-            spk, txt = line.split(":", 1)
-            turns.append((spk.strip(), txt.strip()))
+def _noul(instructions: str, true_text: str, false_text: str, neutral_labels: bool = False) -> Dict[str, Any]:
+    question = {"type": "noul", "instructions": instructions, "criteria": {"true": true_text, "false": false_text}}
+    if neutral_labels:
+        # on the English checkpoint the default "true"/"false" option labels can outweigh the text itself
+        question["labels"] = {"true": "A", "false": "B"}
+    return question
 
-    clean_transcript = "\n".join(clean_lines)
-    if not turns:
-        clean_transcript = transcript_text
+# One Laya question per check. pass_threshold applies to P(pass): P(yes) when yes means PASS, else 1 - P(yes).
+# Wording and thresholds come from the out-of-the-box test in laya_eval/ (synthetic data, so they are
+# starting values to re-tune on human-reviewed calls).
+LAYA_CHECKS = {
+    "empathy": {"yes_means": "PASS", "pass_threshold": 0.78, "question": _noul(
+        "Does the agent acknowledge the customer's frustration with empathy?",
+        "the agent acknowledges the customer's frustration or feelings and responds with care",
+        "the agent ignores, brushes off or is rude about the customer's frustration", neutral_labels=True)},
+    "active_listening": {"yes_means": "FAIL", "pass_threshold": 0.19, "question": _noul(
+        "Does the second agent question ask again for information the customer already gave in their answer?",
+        "the second question asks again for information the customer already gave in their answer",
+        "the second question asks for something new, or re-checks something that may have changed")},
+    "ownership": {"yes_means": "FAIL", "pass_threshold": 0.52, "question": _noul(
+        "Does the agent deflect responsibility, blame another team, or refuse to help?",
+        "the agent deflects, blames another team or department, refuses to help, or tells the customer to contact someone else",
+        "the agent takes ownership and keeps working on the customer's problem", neutral_labels=True)},
+    # judged on every agent line in chunks (rule_engine.extract_rapport_chunks); one rude chunk fails the item.
+    # INTERIM cutoff 0.50: the untrained model gives every chunk of every probed call (polite or rude) P(rude) of only
+    # 0.19-0.22, so no cutoff separates them. 0.81 (P(rude) > 0.19) sat on that floor and failed 29 of 33 polite
+    # bulk calls. At 0.50 the check never fails until the model is fine-tuned, then re-tune at call level.
+    "rapport": {"yes_means": "FAIL", "pass_threshold": 0.50, "question": _noul(
+        "Is any agent line rude, condescending, dismissive, sarcastic or unprofessional toward the customer?",
+        "at least one agent line is rude, condescending, dismissive, sarcastic or unprofessional toward the customer, "
+        "for example blaming the customer, talking down to them or brushing them off",
+        "every agent line is polite, respectful and professional")},
+    "probing": {"yes_means": "PASS", "pass_threshold": 0.70, "question": _noul(
+        "Did the agent ask at least one genuine diagnostic question about the customer's problem?",
+        "the agent asked at least one question that investigates the cause or specifics of the problem, such as when it started, which device, what error or lights, or what was already tried",
+        "the agent only asked greetings, identity verification, confirmations, upsell, scheduling or closing questions", neutral_labels=True)},
+    # 0.73: best balanced accuracy (0.68) on the b_* bulk calls, whose filenames name the missing confirmation.
+    # The scores barely separate (no-confirmation endings 0.66-0.75, confirmed 0.47-0.79), so this needs training.
+    "resolved": {"yes_means": "PASS", "pass_threshold": 0.73, "question": _noul(
+        "Did the agent explicitly confirm that the customer's issue was resolved?",
+        "the agent explicitly confirms the issue is resolved or fixed, usually after checking with the customer",
+        "the agent never confirms resolution: the call just ends, the agent assumes it is fixed, the customer says it still fails, or it is handed off", neutral_labels=True)},
+    "escalation": {"yes_means": "FAIL", "pass_threshold": 0.47, "question": _noul(
+        "Did the customer ask for a supervisor, manager or escalation that the agent refused, ignored or discouraged?",
+        "the customer asked for a supervisor, manager or escalation and the agent refused, ignored, discouraged or faked it",
+        "the customer did not ask to escalate, or the agent handled the request properly")},
+    "hostility": {"yes_means": "FAIL", "pass_threshold": 0.79, "question": _noul(
+        "Is the agent hostile, abusive, insulting, threatening, mocking, or hangs up on the customer?",
+        "the agent insults, mocks, threatens, is abusive toward the customer, or abruptly hangs up",
+        "the agent stays professional and respectful, even if the customer is angry")},
+    # not covered by the test yet: threshold is a neutral default
+    "paraphrasing": {"yes_means": "PASS", "pass_threshold": 0.50, "question": _noul(
+        "Does the agent restate or paraphrase the customer's problem back to them?",
+        "the agent restates the customer's problem in their own words to confirm they understood it",
+        "the agent never restates the customer's problem")},
+}
 
-    matched_policies = []
-    categories = criteria_data.get("categories", [])
-    auto_fail_rules = criteria_data.get("auto_fail_rules", [])
+# Cutoffs for the FINE-TUNED checkpoint (applied only when LAYA_CHECKPOINT is set; the stock model keeps the values above).
+# Tuned on Claude-written dev data (empathy, paraphrasing, active_listening, resolved: laya-training run ft2-20261017-0354,
+# softce). Rapport is a call-level cutoff: the call fails if any chunk's P(pass) is below it. The tuned model is very
+# confident (P near 0.05 or 0.95), 0.20 sits between the 5 rude Main/bulk calls (max 0.09) and the polite natural call
+# gold_02 (0.37). It was chosen ON those calls, so they are no longer an independent check. probing, ownership,
+# escalation and hostility keep their values (regression checks, no change needed).
+FINETUNED_CUTOFFS = {"empathy": 0.49, "paraphrasing": 0.47, "active_listening": 0.50, "resolved": 0.42, "rapport": 0.20}
+if os.getenv("LAYA_CHECKPOINT"):
+    for _name, _cut in FINETUNED_CUTOFFS.items():
+        LAYA_CHECKS[_name]["pass_threshold"] = _cut
 
-    if not categories:
-        categories = [
-            {
-                "name": "General Handling",
-                "weight_percentage": 100.0,
-                "line_items": [
-                    {"name": "Professionalism & Tone", "description": "Polite, respectful, no discourtesy."},
-                    {"name": "Accuracy & Knowledge", "description": "Provided correct solution according to policy."},
-                    {"name": "Ownership & Resolution", "description": "Took ownership and resolved the issue."}
-                ]
-            }
-        ]
+def _p_pass(check: Dict[str, Any], p_yes: float) -> float:
+    return p_yes if check["yes_means"] == "PASS" else 1.0 - p_yes
 
-    prefix, suffix = build_dynamic_prompt(
-        transcript_text=clean_transcript,
-        categories=categories,
-        auto_fail_rules=auto_fail_rules,
-        matched_policies=matched_policies,
-        channel=channel
-    )
-    scorecard_prompt = prefix + suffix
+def _laya_verdict(check_key: str, text: str, label: str) -> str:
+    check = LAYA_CHECKS[check_key]
+    p_yes = predict_yes(text, {"q": check["question"]}, label=label)["q"]
+    return "PASS" if _p_pass(check, p_yes) >= check["pass_threshold"] else "FAIL"
 
-    return {
-        "prompt": scorecard_prompt,
-        "matched_policies": matched_policies,
-        "categories_count": len(categories),
-        "line_items_count": sum(len(c.get("line_items", [])) for c in categories),
-        "channel": channel,
-        "tenant_id": tenant_id
-    }
+def _batch_check(item: Dict[str, Any]) -> Dict[str, Any]:
+    """Laya check for a batch-rated line item: a tested question for known names, otherwise one built from the item text."""
+    lname = item.get("name", "").lower()
+    if "resolved" in lname or "resolution" in lname:
+        return LAYA_CHECKS["resolved"]
+    if "escalation" in lname:
+        return LAYA_CHECKS["escalation"]
+    if "hostility" in lname:
+        return LAYA_CHECKS["hostility"]
+
+    name = re.sub(r"\s+", " ", re.sub(r"<\s*br\s*/?\s*>", " ", item.get("name", "Item"), flags=re.IGNORECASE)).strip()
+    desc = re.sub(r"<\s*br\s*/?\s*>", " ", item.get("description", ""), flags=re.IGNORECASE)
+    desc = re.sub(r"\boutput\s+(yes\s+or\s+no|pass\s+or\s+fail)\b\.?", "", desc, flags=re.IGNORECASE)
+    desc = re.sub(r"\s+", " ", desc).strip()
+    if desc.upper().startswith("VIOLATION-BASED"):
+        rule = re.sub(r"^VIOLATION-BASED:?\s*", "", desc, flags=re.IGNORECASE)
+        return {"yes_means": "FAIL", "pass_threshold": 0.50, "question": _noul(
+            f"Does the agent violate this rule: {name}?",
+            f"an agent line clearly violates it: {rule}",
+            "no agent line violates it")}
+    return {"yes_means": "PASS", "pass_threshold": 0.50, "question": _noul(
+        f"Did the agent do this: {name}?",
+        f"the agent clearly did it: {desc or name}",
+        "the agent did not do it")}
 
 def evaluate_interaction(
     transcript_data: Union[str, List[Dict[str, Any]]],
@@ -97,77 +140,15 @@ def evaluate_interaction(
     tenant_id: str,
     channel: str = "Call",
     times: Optional[List[Optional[int]]] = None,
-    custom_prompt: Optional[str] = None,
     caller: Optional[str] = None
 ) -> Dict[str, Any]:
     from src.services.rule_engine import (
         evaluate_branding, evaluate_hold_and_dead_air,
         evaluate_verified_customer, evaluate_personalized_call,
-        extract_active_listening_snippets, extract_empathy_snippets,
-        extract_ownership_snippets, extract_rapport_snippets
     )
-    
-    turns = []
-    parsed_times = []
-    clean_lines = []
-    agent_lines = []
-    customer_lines = []
-    customer_name = caller or ""
-    sentiment_scores = [t.get('sentiment_score', 0.0) for t in transcript_data] if isinstance(transcript_data, list) else []
-    
-    if isinstance(transcript_data, list):
-        for turn in transcript_data:
-            spk = turn.get("speaker", "Unknown")
-            txt = turn.get("text", "")
-            st_sec = turn.get("start_time_sec", 0)
-            turns.append((spk, txt))
-            parsed_times.append((st_sec, st_sec))  # end_time fixed up below
-            clean_lines.append(f"{spk}: {txt}")
-            if spk.lower() == "agent":
-                agent_lines.append(txt)
-            elif spk.lower() == "customer":
-                customer_lines.append(txt)
-        # Fix end times: use each next turn's start_time as the current turn's end_time.
-        # This makes inter-turn gap = next_start - current_start (correct for JSON transcripts).
-        for i in range(len(parsed_times) - 1):
-            parsed_times[i] = (parsed_times[i][0], parsed_times[i + 1][0])
-    else:
-     
-        normalized_text = re.sub(r'(\s*)([\[\(]\s*\d{1,2}:\d{2}(?::\d{2})?\s*[\]\)])', r'\n\2', transcript_data.strip())
-        for line in normalized_text.splitlines():
-            line = line.strip()
-            if not line:
-                continue
-            time_match = re.match(r'^[\[\(]\s*(\d{1,2}):(\d{2})(?::(\d{2}))?\s*[\]\)]\s*', line)
-            if time_match:
-                if time_match.group(3) is not None:
-                    # HH:MM:SS format
-                    t_sec = int(time_match.group(1)) * 3600 + int(time_match.group(2)) * 60 + int(time_match.group(3))
-                else:
-                    # MM:SS format
-                    t_sec = int(time_match.group(1)) * 60 + int(time_match.group(2))
-            else:
-                t_sec = 0
 
-            line = re.sub(r"^[\[\(]\s*\d{1,2}:\d{2}(?::\d{2})?\s*[\]\)]\s*", "", line)
-            clean_lines.append(line)
-            if ":" in line:
-                spk, txt = line.split(":", 1)
-                spk_clean = spk.strip()
-                txt_clean = txt.strip()
-                turns.append((spk_clean, txt_clean))
-                parsed_times.append((t_sec, t_sec + 10))
-
-                spk_lower = spk_clean.lower()
-                if spk_lower in ["agent", "rep", "representative", "specialist"]:
-                    agent_lines.append(txt_clean)
-                elif spk_lower in ["customer", "client", "caller", "user"]:
-                    customer_lines.append(txt_clean)
-
-    clean_transcript = "\n".join(clean_lines)
-    agent_only_transcript = "\n".join([f"Agent: {x}" for x in agent_lines])
-    first_10_cust = " ".join(customer_lines[:10])
-    first_10_agent = " ".join(agent_lines[:10])
+    inp = build_laya_inputs(transcript_data, caller)
+    turns, parsed_times, customer_name = inp.turns, inp.times, inp.customer_name
 
     categories = criteria_data.get("categories", [])
     category_weights = criteria_data.get("category_weights", {})
@@ -183,13 +164,7 @@ def evaluate_interaction(
     rule_ratings = []
 
     if "branding and survey check" in selected_criteria:
-        # Extract verbatim spiels configured for this tenant so the check is not hardcoded to "s-net".
-        branding_spiels = []
-        for _cat in categories:
-            for _item in _cat.get("line_items", []):
-                if _item.get("name", "").strip().lower() == "branding and survey check":
-                    branding_spiels = _item.get("verbatim_spiels", [])
-        rule_ratings.append(evaluate_branding(turns, verbatim_spiels=branding_spiels))
+        rule_ratings.append(evaluate_branding(turns))
 
     if "hold time and dead air" in selected_criteria:
         rule_ratings.append(evaluate_hold_and_dead_air(turns, parsed_times))
@@ -201,7 +176,7 @@ def evaluate_interaction(
         rule_ratings.append(evaluate_personalized_call(turns, customer_name))
 
     if "empathy & acknowledgment statement" in selected_criteria:
-        empathy_snippet = extract_empathy_snippets(turns, sentiment_scores)
+        empathy_snippets = inp.empathy
         emp_rating = {
             "category": "Soft Skills",
             "name": "Empathy & Acknowledgment Statement",
@@ -210,19 +185,17 @@ def evaluate_interaction(
             "deduction_value": 35,
             "coaching": ""
         }
-        if empathy_snippet:
-            emp_rating["rating"] = "FAIL"
-            emp_rating["coaching"] = "Failed to show empathy to customer's frustration."
-            p_emp = f"<SNIPPET>\n{empathy_snippet}\n</SNIPPET>\nRead this snippet. Was the agent empathetic to the customer's frustration, or were they rude/dismissive? CRITICAL INSTRUCTION: Output EXACTLY ONE WORD. Do not explain. Reply ONLY with PASS (if empathetic) or FAIL (if rude)."
-            r_emp = query_llm(p_emp, label="verify_empathy", format=None)
-            if "PASS" in r_emp.upper():
-                emp_rating["rating"] = "PASS"
-                emp_rating["coaching"] = ""
+        # each snippet is judged on its own; one FAIL fails the item
+        for empathy_snippet in empathy_snippets:
+            if _laya_verdict("empathy", empathy_snippet, "verify_empathy") == "FAIL":
+                emp_rating["rating"] = "FAIL"
+                emp_rating["coaching"] = "Failed to show empathy to customer's frustration."
+                break
         rule_ratings.append(emp_rating)
 
     if "paraphrasing" in selected_criteria:
-        sim = cosine_similarity(get_embedding(first_10_cust), get_embedding(first_10_agent))
-        para_rating = "PASS" if sim >= 0.50 else "FAIL"
+        # flow v2: no restatement cue in the first minutes -> FAIL without asking the model (inp.paraphrasing is None)
+        para_rating = "FAIL" if inp.paraphrasing is None else _laya_verdict("paraphrasing", inp.paraphrasing, "verify_paraphrasing")
         rule_ratings.append({
             "category": "Technical Knowledge",
             "name": "Paraphrasing",
@@ -233,12 +206,12 @@ def evaluate_interaction(
         })
 
     if "active listening" in selected_criteria:
-        al_snippet = extract_active_listening_snippets(turns)
+        al_snippet = inp.active_listening
         al_rating = "PASS"
         if al_snippet:
-            p_al = f"<SNIPPET>\n{al_snippet}\n</SNIPPET>\nDid the agent unnecessarily repeat themselves because they weren't listening? CRITICAL INSTRUCTION: Output EXACTLY ONE WORD. Do not explain. Reply ONLY with PASS (no) or FAIL (yes)."
-            r_al = query_llm(p_al, label="verify_al", format=None)
-            if "FAIL" in r_al.upper():
+            # LAYA_AL_SOURCE2 on: one model call per pair, so a real repeat is not diluted by harmless ones
+            al_blocks = al_snippet.split("\n\n") if al_source2_enabled() else [al_snippet]
+            if any(_laya_verdict("active_listening", b, "verify_al") == "FAIL" for b in al_blocks):
                 al_rating = "FAIL"
         rule_ratings.append({
             "category": "Technical Knowledge",
@@ -250,7 +223,7 @@ def evaluate_interaction(
         })
 
     if "took ownership of the problem" in selected_criteria:
-        own_snip = extract_ownership_snippets(turns)
+        own_snip = inp.ownership
         own_rating = {
             "category": "Technical Knowledge",
             "name": "Took ownership of the problem",
@@ -260,20 +233,12 @@ def evaluate_interaction(
             "coaching": ""
         }
         if own_snip:
-            p_own = (
-                f"<AGENT LINES>\n{own_snip}\n</AGENT LINES>\n"
-                "Do any of these agent lines blame another team/department, deflect responsibility, "
-                "refuse to help, or tell the customer to contact someone else? "
-                "Output EXACTLY ONE WORD: FAIL if any line clearly does, otherwise PASS."
-            )
-            r_own = query_llm(p_own, label="verify_ownership", format=None)
-            if "FAIL" in r_own.upper():
+            if _laya_verdict("ownership", own_snip, "verify_ownership") == "FAIL":
                 own_rating["rating"] = "FAIL"
                 own_rating["coaching"] = "Agent deflected responsibility or blamed another team instead of owning the issue."
         rule_ratings.append(own_rating)
 
     if "build rapport and observed professionalism" in selected_criteria:
-        rap_snip = extract_rapport_snippets(turns)
         rap_rating = {
             "category": "Soft Skills",
             "name": "Build rapport and observed professionalism",
@@ -282,20 +247,15 @@ def evaluate_interaction(
             "deduction_value": 20,
             "coaching": ""
         }
-        if rap_snip:
-            p_rap = (
-                f"<AGENT LINES>\n{rap_snip}\n</AGENT LINES>\n"
-                "Are any of these agent lines rude, condescending, dismissive, sarcastic, or unprofessional? "
-                "Output EXACTLY ONE WORD: FAIL if any line clearly is, otherwise PASS."
-            )
-            r_rap = query_llm(p_rap, label="verify_rapport", format=None)
-            if "FAIL" in r_rap.upper():
+        # each snippet is judged on its own; one FAIL fails the item
+        for rap_snip in inp.rapport:
+            if _laya_verdict("rapport", rap_snip, "verify_rapport") == "FAIL":
                 rap_rating["rating"] = "FAIL"
                 rap_rating["coaching"] = "Agent used rude or condescending language."
+                break
         rule_ratings.append(rap_rating)
 
     if "probing" in selected_criteria:
-        agent_questions = [txt for spk, txt in turns if spk.lower() == "agent" and "?" in txt]
         prob_rating = {
             "category": "Technical Knowledge",
             "name": "Probing",
@@ -304,20 +264,8 @@ def evaluate_interaction(
             "deduction_value": 25,
             "coaching": "Agent did not ask diagnostic questions to investigate the problem."
         }
-        if agent_questions:
-            q_txt = "\n".join(f"- {q}" for q in agent_questions)
-            p_prob = (
-                f"CUSTOMER PROBLEM: {first_10_cust}\n\nThe agent asked these questions during the call:\n{q_txt}\n\n"
-                "A DIAGNOSTIC question investigates the CAUSE or specifics of the technical problem "
-                "(for example: when it started, what changed recently, which device/model/settings, what error or lights appear, what the customer already tried). "
-                "Do NOT count any of these as diagnostic: greetings like 'how can I help you', "
-                "identity verification (PIN, account number, name), confirmations like 'is that right', "
-                "or questions about whether the fix worked at the end. "
-                "Did the agent ask AT LEAST ONE genuine diagnostic question that investigates the problem? "
-                "Output EXACTLY ONE WORD: PASS if yes, FAIL if no."
-            )
-            r_prob = query_llm(p_prob, label="verify_probing", format=None)
-            if "PASS" in r_prob.upper():
+        if inp.probing is not None:
+            if _laya_verdict("probing", inp.probing, "verify_probing") == "PASS":
                 prob_rating["rating"] = "PASS"
                 prob_rating["score"] = 100
                 prob_rating["coaching"] = ""
@@ -341,34 +289,33 @@ def evaluate_interaction(
         else:
             b1_agent.append((cat, item))
         
-    def run_batch(items, tx, ctx=""):
+    def run_batch(items, tx, label):
+        """All items of one batch become noul questions answered in a single Laya call over the same text."""
         if not items:
             return []
-        chunk = []
-        cat_map = {}
-        for c, i in items:
-            if c not in cat_map:
-                cat_map[c] = {"name": c, "line_items": []}
-                chunk.append(cat_map[c])
-            cat_map[c]["line_items"].append(i)
-        prefix, suffix = build_dynamic_prompt(tx, chunk, [], [], channel, [], ctx)
-        parsed = []
-        for _attempt in range(3):
-            reply = query_llm_with_state(prefix, suffix, label="batch", format="json", num_predict=768)
-            parsed = parse_dynamic_ratings(reply, chunk)
-            if all(p.get("rating") != "NOT_RATED" for p in parsed):
-                break
-        return parsed
+        checks = [(cat, item, _batch_check(item)) for cat, item in items]
+        questions = {f"item_{n}": check["question"] for n, (_, _, check) in enumerate(checks)}
+        p_yes = predict_yes(tx, questions, label=label)
+        batch = []
+        for n, (cat, item, check) in enumerate(checks):
+            rating = "PASS" if _p_pass(check, p_yes[f"item_{n}"]) >= check["pass_threshold"] else "FAIL"
+            batch.append({
+                "category": cat,
+                "name": item.get("name", "Item"),
+                "description": item.get("description", ""),
+                "rating": rating,
+                "score": RATING_SCORES[rating],
+                "deduction_value": item.get("deduction_value", 10),
+                "coaching": ""
+            })
+        return batch
 
-    llm_ratings = []
-    prob_ctx = f"\nCUSTOMER PROBLEM CONTEXT:\n{first_10_cust}\n"
-    llm_ratings.extend(run_batch(b1_agent, agent_only_transcript, prob_ctx))
-    
-    end_tx = "\n".join(clean_lines[int(len(clean_lines) * 0.7):])
-    llm_ratings.extend(run_batch(b2_end, end_tx))
-    llm_ratings.extend(run_batch(b3_full, clean_transcript, prob_ctx))
-    
-    ratings = rule_ratings + llm_ratings
+    batch_ratings = []
+    batch_ratings.extend(run_batch(b1_agent, inp.batch_agent_only, "batch_agent_only"))
+    batch_ratings.extend(run_batch(b2_end, inp.resolved, "batch_end"))
+    batch_ratings.extend(run_batch(b3_full, inp.batch_full, "batch_full"))
+
+    ratings = rule_ratings + batch_ratings
 
     ded_map = {}
     for cat in categories:
@@ -383,31 +330,9 @@ def evaluate_interaction(
             if not r.get("coaching"):
                 r["coaching"] = "Could not be verified from the transcript."
 
-    is_auto_fail, reason = check_auto_fail(agent_only_transcript, [], auto_fail_rules, ratings)
-    
-    failed_items = [
-        r for r in ratings
-        if r["rating"] in ["FAIL", "NO"]
-        and "dead air" not in r["name"].lower()
-        and "branding" not in r["name"].lower()
-    ]
-    if failed_items:
-        desc = "\n".join([f"- {r['name']}: {r.get('description', '')}" for r in failed_items])
-        try:
-            c_prompt = (
-                f"<INSTRUCTIONS>\nYou are an expert QA Coach.\n"
-                f"The agent FAILED the following criteria:\n{desc}\n"
-                f"Write a brief coaching tip (1 sentence MAX) on how they can improve on EACH criterion.\n"
-                f"CRITICAL: Output ONLY a valid JSON object mapping the exact criterion name to its tip.\n"
-                f"</INSTRUCTIONS>"
-            )
-            c_reply = query_llm(c_prompt, label="coaching_batched", format="json")
-            cj = json.loads(c_reply.strip())
-            for r in failed_items:
-                r["coaching"] = cj.get(r["name"], r.get("coaching") or "Review transcript.")
-        except Exception:
-            pass
-            
+    # profanity is checked on agent lines only; the customer's language never fails the agent
+    is_auto_fail, reason = check_auto_fail(inp.agent_text, [], auto_fail_rules, ratings)
+
     cat_scores, b_score = calculate_category_scores(
         ratings,
         category_weights,
@@ -428,7 +353,11 @@ def evaluate_interaction(
                 f"Standard compliant performance observed for '{item_name}'."
             )
         else:
-            coaching_text = r.get("coaching") or f"Criteria standard for '{item_name}' was not met."
+            coaching_text = (
+                r.get("coaching")
+                or RULE_BASED_FAIL_COACHING.get(name_key)
+                or f"Criteria standard for '{item_name}' was not met."
+            )
 
         clean_scorecard.append({
             "category": r.get("category", "General Handling"),
@@ -437,166 +366,33 @@ def evaluate_interaction(
             "coaching": coaching_text
         })
 
-    cat_summary = {}
-    auto_fail_items_failed = 0
-    for item in clean_scorecard:
-        cat = item["category"]
-        if "AUTO FAIL" in cat.upper():
-            if item["rating"] in ["FAIL", "NO"]:
-                auto_fail_items_failed += 1
-            continue
-        entry = cat_summary.setdefault(cat, {"passed": 0, "total": 0})
-        entry["total"] += 1
-        if item["rating"] == "PASS":
-            entry["passed"] += 1
+    cat_summary_map: Dict[str, Dict[str, int]] = {}
+    for entry in clean_scorecard:
+        c = entry["category"]
+        if c not in cat_summary_map:
+            cat_summary_map[c] = {"passed": 0, "total": 0}
+        cat_summary_map[c]["total"] += 1
+        if entry.get("rating") == "PASS":
+            cat_summary_map[c]["passed"] += 1
 
-    summary_list = [
+    category_summary = [
         {
-            "category": cat,
-            "passed": data["passed"],
-            "total": data["total"],
-            "ratio": f"{data['passed']:02d}/{data['total']:02d}"
+            "category": cat_name,
+            "passed": stats["passed"],
+            "total": stats["total"],
+            "ratio": f"{stats['passed']:02d}/{stats['total']:02d}"
         }
-        for cat, data in cat_summary.items()
+        for cat_name, stats in cat_summary_map.items()
     ]
-
-    auto_failed_count = auto_fail_items_failed if auto_fail_items_failed > 0 else (1 if is_auto_fail else 0)
 
     return {
         "final_score": b_score,
-        "auto_failed_count": auto_failed_count,
-        "category_summary": summary_list,
+        "auto_failed_count": 1 if is_auto_fail else 0,
+        "category_summary": category_summary,
         "scorecard": clean_scorecard,
         "is_auto_fail": is_auto_fail,
         "auto_fail_reason": reason
     }
-
-def build_dynamic_prompt(
-    transcript_text: str,
-    categories: List[Dict[str, Any]],
-    auto_fail_rules: List[Dict[str, Any]],
-    matched_policies: List[Dict[str, Any]],
-    channel: str,
-    harsh_lines: List[Dict[str, Any]] = None,
-    summary_str: str = ""
-) -> (str, str):
-    if harsh_lines is None:
-        harsh_lines = []
-        
-    items_list = []
-    for cat in categories:
-        cat_name = re.sub(r"<\s*br\s*/?\s*>", " ", cat.get("name", "Category"), flags=re.IGNORECASE).strip()
-        for item in cat.get("line_items", []):
-            name = re.sub(r"<\s*br\s*/?\s*>", " ", item.get("name", "Item"), flags=re.IGNORECASE).strip()
-            name = re.sub(r"\s+", " ", name)
-            desc = re.sub(r"<\s*br\s*/?\s*>", " ", item.get("description", ""), flags=re.IGNORECASE).strip()
-            desc = re.sub(r"\s+", " ", desc)
-            spiels = item.get("verbatim_spiels", [])
-            clean_spiels = [re.sub(r"<\s*br\s*/?\s*>", " ", s, flags=re.IGNORECASE).strip() for s in spiels]
-            spiel_txt = f" [Required Spiels: {', '.join(clean_spiels)}]" if clean_spiels else ""
-            items_list.append(f"- [{cat_name}] {name}: {desc}{spiel_txt}")
-
-    criteria_str = "\n".join(items_list)
-    
-    auto_fail_list = []
-    for r in auto_fail_rules:
-        r_name = re.sub(r"<\s*br\s*/?\s*>", " ", r.get("name", "Auto-Fail"), flags=re.IGNORECASE).strip()
-        r_desc = re.sub(r"<\s*br\s*/?\s*>", " ", r.get("description", r.get("trigger", "Immediate 0 score")), flags=re.IGNORECASE).strip()
-        auto_fail_list.append(f"- {r_name}: {r_desc}")
-    auto_fail_str = "\n".join(auto_fail_list) if auto_fail_list else "- Discourtesy / Rudeness: Immediate 0 score on profanity or policy abandonment."
-
-    clean_title = lambda p: re.sub(r'<\s*br\s*/?\s*>', ' ', p['title'], flags=re.IGNORECASE)
-    clean_content = lambda p: re.sub(r'<\s*br\s*/?\s*>', ' ', p['content'][:300], flags=re.IGNORECASE)
-    policies_str = "\n".join(
-        f"- {clean_title(p)}: {clean_content(p)}" 
-        for p in matched_policies
-    ) or "- No specific policy override found."
-    
-    harsh_lines_str = "\n".join(
-        f"Agent: \"{h['text']}\"" for h in harsh_lines
-    ) if harsh_lines else "None detected."
-    
-    summary_injection = f"\nCALL SUMMARY:\n{summary_str}\n" if summary_str else ""
-
-    _ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
-    prompt_path = os.getenv("PROMPT_DYNAMIC_EVALUATION_PATH", "resources/prompts/dynamic_evaluation_prompt.txt")
-    full_path = os.path.join(_ROOT, prompt_path)
-    with open(full_path, "r", encoding="utf-8") as f:
-        template = f.read()
-        
-    # Use .replace() instead of .format() so user-controlled transcript content
-    # containing braces (e.g. JSON snippets) cannot crash or inject format fields.
-    full_prompt = (
-        template
-        .replace("{transcript_text}", transcript_text)
-        .replace("{channel}", channel)
-        .replace("{summary_str}", summary_injection)
-        .replace("{criteria_str}", criteria_str)
-        .replace("{auto_fail_str}", auto_fail_str)
-        .replace("{policies_str}", policies_str)
-        .replace("{harsh_lines_str}", harsh_lines_str)
-        # Convert escaped braces left from str.format() syntax to literal braces.
-        .replace("{{", "{")
-        .replace("}}", "}")
-    )
-    
-    split_str = "EVALUATION LINE ITEMS TO RATE (Evaluate ONLY these items):"
-    parts = full_prompt.split(split_str)
-    prefix = parts[0]
-    suffix = split_str + parts[1]
-    
-    return prefix, suffix
-
-def parse_dynamic_ratings(reply: str, categories: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
-    reply = re.sub(r'<thinking>.*?</thinking>', '', reply, flags=re.DOTALL)
-    extracted_ratings = []
-    
-    items = re.finditer(r'"item_name"\s*:\s*"([^"]+)"\s*,\s*"rating"\s*:\s*"([^"]+)"', reply, re.IGNORECASE)
-    for match in items:
-        extracted_ratings.append({
-            "raw_name": match.group(1).lower(),
-            "rating": match.group(2).upper()
-        })
-        
-    lines = reply.splitlines()
-    ratings = []
-    for cat in categories:
-        cat_name = cat.get("name", "Category")
-        for item in cat.get("line_items", []):
-            name = item.get("name", "Item")
-            deduction_value = item.get("deduction_value", 10)
-            rating = "NOT_RATED"
-            name_words = set(re.findall(r'\w+', name.lower()))
-            
-            for ext in extracted_ratings:
-                ext_words = set(re.findall(r'\w+', ext["raw_name"]))
-                if name.lower() in ext["raw_name"] or len(name_words.intersection(ext_words)) >= min(2, len(name_words)):
-                    rating = ext["rating"]
-                    break
-                    
-            if rating == "NOT_RATED":
-                for line in lines:
-                    line_lower = line.lower()
-                    ext_words = set(re.findall(r'\w+', line_lower))
-                    if name.lower() in line_lower or len(name_words.intersection(ext_words)) >= min(2, len(name_words)):
-                        if re.search(r'\b(pass|passed|yes)\b', line_lower):
-                            rating = "PASS"
-                            break
-                        elif re.search(r'\b(fail|failed|no)\b', line_lower):
-                            rating = "FAIL"
-                            break
-                        
-            score = RATING_SCORES.get(rating, 0)
-            ratings.append({
-                "category": cat_name,
-                "name": name,
-                "description": item.get("description", ""),
-                "rating": rating,
-                "score": score,
-                "deduction_value": deduction_value,
-                "coaching": ""
-            })
-    return ratings
 
 def check_auto_fail(
     transcript: str,

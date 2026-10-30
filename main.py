@@ -23,7 +23,7 @@ if __name__ == "__main__":
     from api.logger import logger
     logger.info({
         "log_type": "APP",
-        "message": f"Starting LLM QA Analysis Web Server on http://{host}:{port}..."
+        "message": "Starting LLM QA Analysis Service..."
     })
     from api.web_app import app
     uvicorn.run(app, host=host, port=port)

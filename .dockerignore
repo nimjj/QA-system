@@ -1,0 +1,18 @@
+# Keep the build small and keep secrets and weights out of the image
+.git
+.gitignore
+.claude
+.venv
+venv
+.env
+.env.*
+!.env.example
+models
+outputs
+logs
+**/__pycache__
+**/*.pyc
+.pytest_cache
+Docs
+tests
+inputs/Test (results)

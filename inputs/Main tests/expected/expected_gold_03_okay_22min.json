@@ -1,0 +1,175 @@
+{
+  "call_id": "gold_03_okay_22min",
+  "tenant_id": "tenant-abc",
+  "status": "completed",
+  "result": {
+    "final_score": 56.7,
+    "is_auto_fail": false,
+    "auto_fail_reason": null,
+    "scorecard": [
+      {
+        "category": "Soft Skills",
+        "name": "Branding and Survey Check",
+        "rating": "PASS",
+        "coaching": "Agent successfully used required opening and closing branding scripts."
+      },
+      {
+        "category": "Soft Skills",
+        "name": "Hold time and Dead Air",
+        "rating": "FAIL",
+        "coaching": "Dead Air Breach: Agent had 2 occurrences of >30s dead air (max gap 45s)."
+      },
+      {
+        "category": "Technical Knowledge",
+        "name": "Verified customer",
+        "rating": "FAIL",
+        "coaching": "Agent failed to ask for a PIN, address, or security question within the first 4 minutes of the call."
+      },
+      {
+        "category": "Soft Skills",
+        "name": "Personalized the call/ticket appropriately",
+        "rating": "PASS",
+        "coaching": "Agent addressed customer by their verified name during the interaction."
+      },
+      {
+        "category": "Soft Skills",
+        "name": "Empathy & Acknowledgment Statement",
+        "rating": "FAIL",
+        "coaching": "Failed to show empathy to customer's frustration."
+      },
+      {
+        "category": "Technical Knowledge",
+        "name": "Paraphrasing",
+        "rating": "FAIL",
+        "coaching": "Failed to paraphrase core issue."
+      },
+      {
+        "category": "Technical Knowledge",
+        "name": "Active listening",
+        "rating": "PASS",
+        "coaching": "Agent practiced active listening without repetitive or redundant questions."
+      },
+      {
+        "category": "Technical Knowledge",
+        "name": "Took ownership of the problem",
+        "rating": "PASS",
+        "coaching": "Agent demonstrated clear ownership without deflecting or blaming other departments."
+      },
+      {
+        "category": "Soft Skills",
+        "name": "Build rapport and observed professionalism",
+        "rating": "PASS",
+        "coaching": "Agent maintained a professional, courteous, and respectful demeanor throughout."
+      },
+      {
+        "category": "Technical Knowledge",
+        "name": "Probing",
+        "rating": "PASS",
+        "coaching": "Agent asked effective diagnostic questions to investigate the root cause."
+      },
+      {
+        "category": "Technical Knowledge",
+        "name": "Confirmed the issue is resolved",
+        "rating": "PASS",
+        "coaching": "Agent explicitly confirmed that the issue was resolved before closing."
+      }
+    ]
+  },
+  "grader": {
+    "graded_by": "Claude (manual review; app not executed)",
+    "graded_on": "2026-10-12",
+    "transcript_file": "gold_03_okay_22min.json",
+    "agent": "Kyle",
+    "customer_name": "Renee",
+    "tier": "Okay",
+    "call_summary": "Third call about a modem that never activated after a house move. Kyle troubleshoots blind for five minutes before verifying, never restates the problem, answers two clearly upset moments coldly and leaves the line silent twice. He does find the stuck activation himself, fixes it, credits four days and confirms it works.",
+    "criteria_source": "resources/criteria_config.json (tenant-abc): 11 items, weights Soft Skills 0.333 / Technical Knowledge 0.667",
+    "category_scores": {
+      "Soft Skills": 50.0,
+      "Technical Knowledge": 60.0
+    },
+    "score_math": "50 x 0.333 + 60 x 0.667 = 56.7",
+    "app_traps": [
+      "Customer says 'stupid' at 05:27. With the agent-only profanity check this must NOT auto-fail; an app score of 0 here means the fix is missing on that engine."
+    ],
+    "items": [
+      {
+        "name": "Branding and Survey Check",
+        "rating": "PASS",
+        "deduction_if_fail": 15,
+        "evidence": "[00:00] 'Thank you for calling S-Net technical support'; [21:30] survey invitation and 'Thank you for choosing S-Net'.",
+        "expected_app_behaviour": "Rule: PASS."
+      },
+      {
+        "name": "Hold time and Dead Air",
+        "rating": "FAIL",
+        "deduction_if_fail": 15,
+        "evidence": "Two unexplained silences where the customer has to check he is still there: [03:20]-[04:05] after 'give me a sec' (~45 s, 'Hello? Are you still there?'), and [13:50]-[14:32] while adding the credit (~42 s, 'Hello?').",
+        "expected_app_behaviour": "Rule: FAIL (4 gaps counted; it also counts two customer-side waits that are not agent dead air, but the verdict matches)."
+      },
+      {
+        "name": "Verified customer",
+        "rating": "FAIL",
+        "deduction_if_fail": 25,
+        "evidence": "Troubleshoots from [00:26] and only asks for account number and PIN at [04:57], after the 4-minute window ('Oh, I should have pulled up your account first').",
+        "expected_app_behaviour": "Rule: FAIL (first PIN/address mention is at 04:57, after 240 s)."
+      },
+      {
+        "name": "Personalized the call/ticket appropriately",
+        "rating": "PASS",
+        "deduction_if_fail": 15,
+        "evidence": "Uses 'Renee' at [05:18] and [21:30].",
+        "expected_app_behaviour": "Rule: PASS."
+      },
+      {
+        "name": "Empathy & Acknowledgment Statement",
+        "rating": "FAIL",
+        "deduction_if_fail": 35,
+        "evidence": "[01:13] 'this is the third time I've called this week... It's been four days' -> [01:32] 'Okay. Can you do it one more time for me?'; [05:27] 'this whole thing has been a nightmare... this stupid modem just keeps blinking at me' -> [05:48] 'Okay. I'm looking at the move order now.' No acknowledgment either time. The credit at [13:31] is good service, not empathy.",
+        "expected_app_behaviour": "Laya decides. The pre-filter sends exactly these two moments (01:13, 05:27), so an app FAIL here would be correct."
+      },
+      {
+        "name": "Paraphrasing",
+        "rating": "FAIL",
+        "deduction_if_fail": 15,
+        "evidence": "Never restates the customer's problem; he goes straight from her description to 'Okay. Which light is blinking orange?' [00:26].",
+        "expected_app_behaviour": "Laya decides."
+      },
+      {
+        "name": "Active listening",
+        "rating": "PASS",
+        "deduction_if_fail": 10,
+        "evidence": "No redundant questions. The repeat restart at [01:32] is asked for a stated reason (to watch it register), not because he missed her answer.",
+        "expected_app_behaviour": "Rule: PASS (no similar question pairs)."
+      },
+      {
+        "name": "Took ownership of the problem",
+        "rating": "PASS",
+        "deduction_if_fail": 25,
+        "evidence": "[07:14] 'Normally the provisioning team picks these up, but I can push it through from here, so I'm going to do that now'; retries when the first push fails; adds the credit himself. The business-team transfer offer at [20:44] is correct routing for a sales request.",
+        "expected_app_behaviour": "Laya decides. 'provisioning team' trips the deflection phrase list, so Laya reads that line on its own; it is ownership, not deflection."
+      },
+      {
+        "name": "Build rapport and observed professionalism",
+        "rating": "PASS",
+        "deduction_if_fail": 20,
+        "evidence": "Flat and terse ('Okay.' repeatedly) but never rude, sarcastic or condescending; this is a violation-based item and no line qualifies.",
+        "expected_app_behaviour": "Rule: PASS (no trigger phrases)."
+      },
+      {
+        "name": "Probing",
+        "rating": "PASS",
+        "deduction_if_fail": 25,
+        "evidence": "[00:26] which light, [00:36] cable seated, [00:47] which wall socket, [03:03] splitter or second box, [04:08] same room or extension, [04:27] ever solid white, [04:37] same modem as the old address.",
+        "expected_app_behaviour": "Laya decides; diagnostic questions do reach it."
+      },
+      {
+        "name": "Confirmed the issue is resolved",
+        "rating": "PASS",
+        "deduction_if_fail": 15,
+        "evidence": "[21:04] 'So everything's working now with the internet?' -> 'Yes, it's working' -> [21:16] 'so that's resolved'.",
+        "expected_app_behaviour": "Laya decides (inside the last 10 lines)."
+      }
+    ]
+  }
+}

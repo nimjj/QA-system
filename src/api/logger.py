@@ -43,18 +43,18 @@ class JsonLineFormatter(logging.Formatter):
             "log_type": raw_data.get("log_type", "APP")
         }
 
-        
+        # Include standard audit fields in structured order
         for field in ["correlation_id", "actor", "request", "response"]:
             if field in raw_data:
                 ordered[field] = raw_data[field]
 
-      
+        # Add remaining fields, explicitly skipping service, environment, and level
         ignored_keys = {"service", "environment", "level"}
         for k, v in raw_data.items():
             if k not in ordered and k not in ignored_keys:
                 ordered[k] = v
 
-        
+        # Strictly output one line without unescaped newlines
         return json.dumps(ordered, ensure_ascii=False)
 
 
@@ -65,17 +65,21 @@ def get_logger(name: str = "qa_service") -> logging.Logger:
     if not logger.handlers:
         formatter = JsonLineFormatter()
 
-        file_handler = TimedRotatingFileHandler(
-            filename=LOG_FILE,
-            when="midnight",
-            interval=1,
-            backupCount=30,
-            encoding="utf-8"
-        )
-        file_handler.suffix = "%Y-%m-%d"
-        file_handler.namer = log_namer
-        file_handler.setFormatter(formatter)
-        logger.addHandler(file_handler)
+        try:
+            file_handler = TimedRotatingFileHandler(
+                filename=LOG_FILE,
+                when="midnight",
+                interval=1,
+                backupCount=30,
+                encoding="utf-8"
+            )
+            file_handler.suffix = "%Y-%m-%d"
+            file_handler.namer = log_namer
+            file_handler.setFormatter(formatter)
+            logger.addHandler(file_handler)
+        except OSError as exc:
+            # e.g. a ./logs folder that Docker created as root on Linux: keep serving and log to the console (docker logs) only
+            print(f"WARNING: cannot write {LOG_FILE} ({exc}); logging to the console only", flush=True)
 
         console_handler = logging.StreamHandler()
         console_handler.setFormatter(formatter)

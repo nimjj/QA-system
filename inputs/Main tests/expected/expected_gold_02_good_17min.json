@@ -1,0 +1,176 @@
+{
+  "call_id": "gold_02_good_17min",
+  "tenant_id": "tenant-abc",
+  "status": "completed",
+  "result": {
+    "final_score": 88.3,
+    "is_auto_fail": false,
+    "auto_fail_reason": null,
+    "scorecard": [
+      {
+        "category": "Soft Skills",
+        "name": "Branding and Survey Check",
+        "rating": "FAIL",
+        "coaching": "Agent missed verbatim scripts for: Closing"
+      },
+      {
+        "category": "Soft Skills",
+        "name": "Hold time and Dead Air",
+        "rating": "PASS",
+        "coaching": "Agent maintained active communication without excessive dead air (>30s)."
+      },
+      {
+        "category": "Technical Knowledge",
+        "name": "Verified customer",
+        "rating": "PASS",
+        "coaching": "Agent verified customer identity within the required time window."
+      },
+      {
+        "category": "Soft Skills",
+        "name": "Personalized the call/ticket appropriately",
+        "rating": "PASS",
+        "coaching": "Agent addressed customer by their verified name during the interaction."
+      },
+      {
+        "category": "Soft Skills",
+        "name": "Empathy & Acknowledgment Statement",
+        "rating": "PASS",
+        "coaching": "Agent demonstrated appropriate empathy and acknowledgment of the customer's situation."
+      },
+      {
+        "category": "Technical Knowledge",
+        "name": "Paraphrasing",
+        "rating": "PASS",
+        "coaching": "Agent accurately acknowledged and mirrored the customer's reported issue."
+      },
+      {
+        "category": "Technical Knowledge",
+        "name": "Active listening",
+        "rating": "FAIL",
+        "coaching": "Repeated questions unnecessarily."
+      },
+      {
+        "category": "Technical Knowledge",
+        "name": "Took ownership of the problem",
+        "rating": "PASS",
+        "coaching": "Agent demonstrated clear ownership without deflecting or blaming other departments."
+      },
+      {
+        "category": "Soft Skills",
+        "name": "Build rapport and observed professionalism",
+        "rating": "PASS",
+        "coaching": "Agent maintained a professional, courteous, and respectful demeanor throughout."
+      },
+      {
+        "category": "Technical Knowledge",
+        "name": "Probing",
+        "rating": "PASS",
+        "coaching": "Agent asked effective diagnostic questions to investigate the root cause."
+      },
+      {
+        "category": "Technical Knowledge",
+        "name": "Confirmed the issue is resolved",
+        "rating": "PASS",
+        "coaching": "Agent explicitly confirmed that the issue was resolved before closing."
+      }
+    ]
+  },
+  "grader": {
+    "graded_by": "Claude (manual review; app not executed)",
+    "graded_on": "2026-10-12",
+    "transcript_file": "gold_02_good_17min.json",
+    "agent": "Marisol",
+    "customer_name": "Daniel",
+    "tier": "Good",
+    "call_summary": "Nightly full outages traced to a loose, uncapped splitter knocked by painters. Splitter removed, signal verified, speed test on wired PC, 48-hour line monitor set. Solid call with two misses: two repeated questions and a casual close without the S-Net closing script or survey.",
+    "criteria_source": "resources/criteria_config.json (tenant-abc): 11 items, weights Soft Skills 0.333 / Technical Knowledge 0.667",
+    "category_scores": {
+      "Soft Skills": 85.0,
+      "Technical Knowledge": 90.0
+    },
+    "score_math": "85 x 0.333 + 90 x 0.667 = 88.3",
+    "app_traps": [
+      "Announced hold with check-ins counted as dead air",
+      "Reworded repeat questions slip under the 0.70 similarity pre-filter"
+    ],
+    "items": [
+      {
+        "name": "Branding and Survey Check",
+        "rating": "FAIL",
+        "deduction_if_fail": 15,
+        "evidence": "Opening is correct at [00:00], but the close at [17:25] is 'Thanks for calling S-Net, have a great night' with no 'Thank you for choosing S-Net' and no survey invitation.",
+        "expected_app_behaviour": "Rule: FAIL (closing phrase missing)."
+      },
+      {
+        "name": "Hold time and Dead Air",
+        "rating": "PASS",
+        "deduction_if_fail": 15,
+        "evidence": "Hold done by the book: [03:23] asks permission and states the duration, [04:52] checks back after ~50 s, [05:56] thanks the customer for waiting. Announced holds with check-ins are not dead air.",
+        "expected_app_behaviour": "Rule: FAIL (likely false). The rule treats each turn as 10 s long and counts both hold segments (47 s, 40 s) as dead air; it cannot see that the hold was announced."
+      },
+      {
+        "name": "Verified customer",
+        "rating": "PASS",
+        "deduction_if_fail": 25,
+        "evidence": "[00:18] account number and PIN, [00:34] name on the account, [00:42] 'you're verified'.",
+        "expected_app_behaviour": "Rule: PASS."
+      },
+      {
+        "name": "Personalized the call/ticket appropriately",
+        "rating": "PASS",
+        "deduction_if_fail": 15,
+        "evidence": "Uses 'Daniel' at [00:42], [04:52], [17:15].",
+        "expected_app_behaviour": "Rule: PASS."
+      },
+      {
+        "name": "Empathy & Acknowledgment Statement",
+        "rating": "PASS",
+        "deduction_if_fail": 35,
+        "evidence": "[00:18] 'I'm sorry to hear that'; [12:21] 'I understand, that's really frustrating, especially when you were told to just wait it out' in reply to the late-shift complaint.",
+        "expected_app_behaviour": "Laya decides. The real frustration moment is skipped by the keyword filter (agent said 'understand'/'frustrating'), so Laya is shown two neutral problem-description turns (00:48, 01:47) that were picked only because of sentiment drops. Outcome uncertain."
+      },
+      {
+        "name": "Paraphrasing",
+        "rating": "PASS",
+        "deduction_if_fail": 15,
+        "evidence": "[01:09] 'So just to make sure I've got it: most evenings the whole connection drops out, for anywhere from two to five minutes, three or four times a night...'",
+        "expected_app_behaviour": "Laya decides."
+      },
+      {
+        "name": "Active listening",
+        "rating": "FAIL",
+        "deduction_if_fail": 10,
+        "evidence": "Re-asks two things already answered: [06:27] 'how long has this been happening for, roughly?' (answered at [01:36]) -> customer: 'Like I said, about three weeks'; [13:31] 'Does it happen on your wired devices as well?' (answered at [01:47]) -> 'Yeah, I mentioned the gaming PC drops too.'",
+        "expected_app_behaviour": "Rule: PASS (likely false). Both repeats are reworded, so no question pair reaches the 0.70 similarity needed to send them to Laya."
+      },
+      {
+        "name": "Took ownership of the problem",
+        "rating": "PASS",
+        "deduction_if_fail": 25,
+        "evidence": "Finds the cause herself, sets a 48-hour monitor at [14:51] ('we'll contact you, so you won't need to call in again'), explains the free technician fallback.",
+        "expected_app_behaviour": "Rule: PASS (no deflection phrases)."
+      },
+      {
+        "name": "Build rapport and observed professionalism",
+        "rating": "PASS",
+        "deduction_if_fail": 20,
+        "evidence": "Courteous and patient throughout.",
+        "expected_app_behaviour": "Rule: PASS (no trigger phrases)."
+      },
+      {
+        "name": "Probing",
+        "rating": "PASS",
+        "deduction_if_fail": 25,
+        "evidence": "[01:31] duration, [01:39] wired vs WiFi, [01:58] modem lights, [02:41] time-of-day pattern, [03:00] recent changes, [08:15] whether painters moved the cabinet.",
+        "expected_app_behaviour": "Laya decides; real diagnostic questions do reach it here."
+      },
+      {
+        "name": "Confirmed the issue is resolved",
+        "rating": "PASS",
+        "deduction_if_fail": 15,
+        "evidence": "[16:41] 'can you confirm everything is working for you now?' -> 'Yeah, it's been solid' -> [16:55] 'I'm happy we've resolved it tonight'.",
+        "expected_app_behaviour": "Laya decides (inside the last 10 lines)."
+      }
+    ]
+  }
+}

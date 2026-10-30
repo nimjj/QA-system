@@ -13,38 +13,148 @@ for _path in [_ROOT, _SRC]:
     if _path not in sys.path:
         sys.path.insert(0, _path)
 
+import hmac
+import threading
+
+from dotenv import load_dotenv
+
+# Before the imports below: dynamic_evaluator reads LAYA_CHECKPOINT (and its cutoffs) at import time,
+# so loading .env later (e.g. under `uvicorn src.api.web_app:app`) would grade with the stock cutoffs.
+load_dotenv()
+
 from fastapi import FastAPI, HTTPException, Request, Response
 from fastapi.middleware.cors import CORSMiddleware
-from pydantic import BaseModel
+from fastapi.responses import JSONResponse
+from pydantic import BaseModel, field_validator
 
 from src.api.logger import logger
-from src.services.dynamic_evaluator import preview_evaluation_prompt, evaluate_interaction
+from src.services.dynamic_evaluator import evaluate_interaction
 
 app = FastAPI(title="Stateless QA Service API")
 
+# CORS_ORIGINS="https://a.example,https://b.example" restricts browsers to those sites; unset keeps the old "any origin" behaviour (no cookies)
+_ORIGINS = [o.strip() for o in os.getenv("CORS_ORIGINS", "*").split(",") if o.strip()] or ["*"]
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
-    allow_credentials=True,
+    allow_origins=_ORIGINS,
+    allow_credentials=_ORIGINS != ["*"],
     allow_methods=["*"],
     allow_headers=["*"],
 )
 
+MAX_REQUEST_BYTES = int(os.getenv("MAX_REQUEST_BYTES", str(2_000_000)))
+LOG_REQUEST_BODIES = os.getenv("LOG_REQUEST_BODIES", "").strip().lower() in ("1", "true", "yes", "on")
+
+
+def _api_key_ok(request: Request) -> bool:
+    """With QA_API_KEY set, every /api/ call must send it in the x-api-key header. Unset keeps the service open, as before."""
+    key = os.getenv("QA_API_KEY", "")
+    if not key or not request.url.path.startswith("/api/"):
+        return True
+    return hmac.compare_digest(request.headers.get("x-api-key", "").encode(), key.encode())
+
+
+def _safe_body(body: Any) -> Any:
+    """What the request log may keep. Transcripts and customer names are personal data: log their size, not their words
+    (LOG_REQUEST_BODIES=1 restores full bodies for debugging on a machine that holds no real calls)."""
+    if LOG_REQUEST_BODIES:
+        return body
+    if not isinstance(body, dict):
+        return {"omitted_chars": len(str(body))} if body else body
+    out = dict(body)
+    tx = out.get("transcript")
+    if isinstance(tx, list):
+        out["transcript"] = {"turns": len(tx), "chars": sum(len(str((t or {}).get("text", ""))) if isinstance(t, dict) else len(str(t)) for t in tx)}
+    elif isinstance(tx, str):
+        out["transcript"] = {"chars": len(tx)}
+    for k in ("customer_name", "customerName", "agent_name"):
+        if out.get(k):
+            out[k] = "[redacted]"
+    return out
+
+
+def _safe_response(path: str, status: int, body: Any) -> Any:
+    """What the response log may keep. A scorecard's coaching can quote the customer's name, and a 422 echoes
+    the request back (FastAPI puts each failing value, often the whole transcript, in "input")."""
+    if LOG_REQUEST_BODIES:
+        return body
+    if status == 422 and isinstance(body, dict) and isinstance(body.get("detail"), list):
+        return {"detail": [{k: v for k, v in d.items() if k != "input"} if isinstance(d, dict) else d
+                           for d in body["detail"]]}
+    if path == "/api/evaluate" and isinstance(body, dict) and isinstance(body.get("result"), dict):
+        result = body["result"]
+        return {**{k: v for k, v in body.items() if k != "result"},
+                "result": {"final_score": result.get("final_score"), "is_auto_fail": result.get("is_auto_fail"),
+                           "items": len(result.get("scorecard") or [])}}
+    return body
+
 
 @app.get("/health")
 def health_check():
+    """Liveness only: the process is up. Use /ready to know whether it can grade."""
     return {
         "status": "healthy",
         "service": "qa-service"
     }
 
 
+_model_ready = False
+_model_load_error: Optional[str] = None
+
+
+@app.get("/ready")
+def readiness_check():
+    """Readiness. Flow v3: the model has loaded. Other flows: the criteria database answers."""
+    out = {"status": "ready", "flow": os.getenv("LAYA_FLOW", "").strip().lower() or "default"}
+    if not _v3_enabled():
+        try:
+            get_all_tenants()
+        except Exception as e:
+            logger.error({"log_type": "APP", "message": f"readiness: database not reachable: {type(e).__name__}"})
+            return JSONResponse(status_code=503, content={"status": "not ready", "database": "unreachable"})
+        out["database"] = "ok"
+    else:
+        if not _model_ready:
+            out["status"] = "model failed to load" if _model_load_error else "model loading"
+            if _model_load_error:
+                out["load_error"] = _model_load_error
+            return JSONResponse(status_code=503, content=out)
+        out["model_ready"] = True
+    return out
+
+
 @app.on_event("startup")
 def on_startup():
-    try:
-        init_db()
-    except Exception as e:
-        logger.error({"log_type": "APP", "message": f"Failed to initialize database: {e}"})
+    global _model_ready, _model_load_error
+    if _v3_enabled():
+        logger.info({
+            "log_type": "APP",
+            "message": "Initializing model weights and warming up..."
+        })
+        try:
+            _warm_model()
+            _model_ready = True
+            logger.info({
+                "log_type": "APP",
+                "message": "Model loaded successfully. Service ready."
+            })
+        except Exception as e:
+            _model_load_error = f"{type(e).__name__}: {e}"
+            logger.error({
+                "log_type": "APP",
+                "message": f"Model failed to load during startup: {_model_load_error}"
+            })
+    else:
+        try:
+            init_db()
+        except Exception as e:
+            logger.error({"log_type": "APP", "message": f"Failed to initialize database: {e}"})
+        try:
+            _warm_model()
+            _model_ready = True
+        except Exception as e:
+            logger.warning({"log_type": "APP", "message": f"Model warmup skipped: {e}"})
+
     logger.info({
         "log_type": "APP",
         "message": "Stateless QA Service started. Logging live to logs/app.log."
@@ -69,24 +179,18 @@ async def log_requests_middleware(request: Request, call_next):
     path = request.url.path
     query_params = dict(request.query_params)
 
+    if not _api_key_ok(request):
+        return JSONResponse(status_code=401, content={"detail": "missing or wrong x-api-key"})
+    declared = request.headers.get("content-length", "")
+    if declared.isdigit() and int(declared) > MAX_REQUEST_BYTES:
+        return JSONResponse(status_code=413, content={"detail": f"request larger than {MAX_REQUEST_BYTES} bytes"})
     req_body_bytes = await request.body()
+    if len(req_body_bytes) > MAX_REQUEST_BYTES:
+        return JSONResponse(status_code=413, content={"detail": f"request larger than {MAX_REQUEST_BYTES} bytes"})
     try:
-        req_body = json.loads(req_body_bytes)
+        req_body = _safe_body(json.loads(req_body_bytes))
     except Exception:
-        req_body = req_body_bytes.decode("utf-8", errors="replace") if req_body_bytes else {}
-
-    # Redact transcript from request logs to avoid storing PII.
-    log_req_body = req_body
-    if path == "/api/evaluate" and isinstance(req_body, dict) and "transcript" in req_body:
-        import copy
-        log_req_body = copy.copy(req_body)
-        raw_tx = log_req_body["transcript"]
-        if isinstance(raw_tx, list):
-            char_count = sum(len(t.get("text", "") if isinstance(t, dict) else str(t)) for t in raw_tx)
-            tx_desc = f"[REDACTED: transcript, {len(raw_tx)} turns, {char_count} chars]"
-        else:
-            tx_desc = f"[REDACTED: transcript, {len(str(raw_tx))} chars]"
-        log_req_body["transcript"] = tx_desc
+        req_body = _safe_body(req_body_bytes.decode("utf-8", errors="replace") if req_body_bytes else {})
 
     logger.info({
         "timestamp": datetime.now(timezone.utc).isoformat(),
@@ -100,7 +204,7 @@ async def log_requests_middleware(request: Request, call_next):
             "method": method,
             "path": path,
             "query_params": query_params,
-            "body": log_req_body
+            "body": req_body
         }
     })
 
@@ -115,18 +219,13 @@ async def log_requests_middleware(request: Request, call_next):
             res_body = json.loads(res_body_bytes)
         except Exception:
             res_body = res_body_bytes.decode("utf-8", errors="replace") if res_body_bytes else {}
+        if not LOG_REQUEST_BODIES and len(res_body_bytes) > 20_000:       # e.g. /api/samples returns whole transcripts
+            res_body = {"omitted_bytes": len(res_body_bytes)}
+        else:
+            res_body = _safe_response(path, response.status_code, res_body)
 
         latency_ms = round((time.time() - start_time) * 1000, 2)
         outcome = "SUCCESS" if 200 <= response.status_code < 400 else "FAILURE"
-
-        # Redact potentially PII-containing fields from evaluate response logs.
-        log_res_body = res_body
-        if path == "/api/evaluate" and isinstance(res_body, dict):
-            import copy
-            log_res_body = copy.deepcopy(res_body)
-            result_obj = log_res_body.get("result", {})
-            if isinstance(result_obj, dict) and "summary" in result_obj:
-                result_obj["summary"] = "[REDACTED: summary]"
 
         logger.info({
             "timestamp": datetime.now(timezone.utc).isoformat(),
@@ -145,7 +244,7 @@ async def log_requests_middleware(request: Request, call_next):
                 "status_code": response.status_code,
                 "outcome": outcome,
                 "latency_ms": latency_ms,
-                "body": log_res_body
+                "body": res_body
             }
         })
 
@@ -188,6 +287,7 @@ async def log_requests_middleware(request: Request, call_next):
 from src.db.database import (
     init_db,
     get_all_tenants,
+    UnknownTenant,
     create_tenant as db_create_tenant,
     create_category as db_create_category,
     get_categories as db_get_categories,
@@ -202,10 +302,31 @@ from src.db.database import (
 
 
 class Turn(BaseModel):
+    # seconds may arrive as 12.5, "1:12" or null; sentiment may be null. v3 reads them as sent, v2 gets the old int / float defaults below.
     speaker: str
-    text: str
-    start_time_sec: Optional[int] = 0
+    text: Optional[str] = ""
+    start_time_sec: Optional[Union[float, str]] = 0
+    end_time: Optional[Union[float, str]] = None
+    end_time_sec: Optional[Union[float, str]] = None
     sentiment_score: Optional[float] = 0.0
+
+    @field_validator("sentiment_score", mode="before")
+    @classmethod
+    def _blank_sentiment_is_none(cls, v: Any) -> Any:
+        # ciap-api sends "" for a turn that wasn't scored; that is "no score", not a bad request.
+        return None if isinstance(v, str) and not v.strip() else v
+
+
+def _v2_turn(t: "Turn") -> Dict[str, Any]:
+    """The turn as v2 has always received it (int start second, 0.0 for a missing score)."""
+    d = t.model_dump()
+    try:
+        d["start_time_sec"] = int(float(d["start_time_sec"] or 0))
+    except (TypeError, ValueError):
+        d["start_time_sec"] = 0
+    d["text"] = d["text"] or ""
+    d["sentiment_score"] = d["sentiment_score"] if d["sentiment_score"] is not None else 0.0
+    return d
 
 
 class EvaluateRequest(BaseModel):
@@ -217,7 +338,6 @@ class EvaluateRequest(BaseModel):
     callId: Optional[str] = None
     channel: Optional[str] = "Call"
     agent_name: Optional[str] = "Agent"
-    custom_prompt: Optional[str] = None
     customer_name: Optional[str] = None
     customerName: Optional[str] = None
 
@@ -289,7 +409,10 @@ def get_criteria_for_tenant(tenant_id: str):
 @app.patch("/api/tenants/{tenant_id}/criteria/{line_item_id}/toggle")
 @app.post("/api/tenants/{tenant_id}/criteria/{line_item_id}/toggle")
 def toggle_criterion(tenant_id: str, line_item_id: str, req: ToggleCriterionRequest):
-    return toggle_tenant_criterion(tenant_id, line_item_id, req.is_active)
+    try:
+        return toggle_tenant_criterion(tenant_id, line_item_id, req.is_active)
+    except UnknownTenant:
+        raise HTTPException(status_code=404, detail=f"Unknown tenant {tenant_id!r}")
 
 
 @app.get("/api/criteria")
@@ -318,40 +441,106 @@ def delete_existing_criterion(line_item_id: str):
     return {"status": "deleted", "line_item_id": line_item_id}
 
 
+SAMPLE_DIRS = ["Main tests", "Bulk tests"]
+
+
 @app.get("/api/samples")
 def list_sample_inputs():
+    """Sample call payloads from inputs/Main tests and inputs/Bulk tests (expected/ grades are skipped)."""
     inputs_dir = os.path.join(_ROOT, "inputs")
     samples = []
-    if os.path.exists(inputs_dir):
-        for fname in sorted(os.listdir(inputs_dir)):
-            if fname.endswith(".json"):
-                fpath = os.path.join(inputs_dir, fname)
+    for sub in SAMPLE_DIRS:
+        sample_dir = os.path.join(inputs_dir, sub)
+        for dirpath, dirnames, filenames in os.walk(sample_dir):
+            dirnames[:] = sorted(d for d in dirnames if d.lower() != "expected")
+            for fname in sorted(filenames):
+                if not fname.endswith(".json"):
+                    continue
+                fpath = os.path.join(dirpath, fname)
                 try:
                     with open(fpath, "r", encoding="utf-8") as f:
                         data = json.load(f)
-                        data["filename"] = fname
-                        samples.append(data)
                 except Exception as e:
                     logger.error({"message": f"Error loading sample {fname}: {e}"})
+                    continue
+                if isinstance(data, dict) and data.get("transcript"):
+                    data["filename"] = os.path.relpath(fpath, inputs_dir).replace(os.sep, "/")
+                    samples.append(data)
     return samples
+
+
+def _v3_enabled() -> bool:
+    return os.getenv("LAYA_FLOW", "").strip().lower() == "v3"
+
+
+def _error_status(exc: BaseException) -> Optional[int]:
+    """HTTP status for the input problems v3 knows about; None for anything else (reported as a generic 500)."""
+    from src.v3.normalise import InvalidTranscript, TranscriptTooLarge
+    from src.v3.scoring import NoCriteria
+    if isinstance(exc, (InvalidTranscript, NoCriteria)):
+        return 422
+    if isinstance(exc, TranscriptTooLarge):
+        return 413
+    return None
+
+
+def _warm_model() -> None:
+    """Load the weights and answer one real question, so a bad checkpoint path or a broken install fails at startup, not on the first call."""
+    from src.services import dynamic_evaluator as de
+    de._laya_verdict("probing", "Agent: Can you tell me when the problem first started?\nCustomer: Yesterday evening.", "warmup")
 
 
 @app.post("/api/evaluate")
 def evaluate_tenant_transcript(req: EvaluateRequest):
-    """Synchronous evaluation endpoint using PostgreSQL tenant criteria."""
+    """Synchronous evaluation endpoint for call interactions."""
     tenant_id = req.get_tenant_id()
     call_id = req.get_call_id()
+
+    if _v3_enabled():
+        if not _model_ready:
+            if _model_load_error:
+                detail = (f"model failed to load: {_model_load_error}. Check that the weights are in "
+                          "models/final-softce-3 (python Scripts/verify_weights.py) and restart the service.")
+            else:
+                detail = "model is still loading; try again in a few seconds (GET /ready says when it is done)."
+            raise HTTPException(status_code=503, headers={"Retry-After": "30"}, detail=detail)
+        from src.v3.pipeline import evaluate_v3
+        from src.v3.normalise import normalise
+        from src.v3 import load_criteria
+
+        criteria_data = None
+        if tenant_id:
+            try:
+                criteria_data = get_active_criteria_for_evaluation(tenant_id)
+            except Exception:
+                criteria_data = None
+        if not criteria_data:
+            criteria_data = load_criteria()
+
+        payload = [t.model_dump() for t in req.transcript] if isinstance(req.transcript, list) else req.transcript
+        try:
+            normalise(payload, req.get_customer_name())
+            result = evaluate_v3(payload, criteria_data, tenant_id, req.channel or "Call", req.get_customer_name())
+        except Exception as e:
+            code = _error_status(e)
+            if code is None:
+                raise
+            raise HTTPException(status_code=code, detail=str(e))
+        return {
+            "call_id": call_id,
+            "tenant_id": tenant_id,
+            "status": "completed",
+            "result": result
+        }
+
     criteria_data = req.criteria_data or get_active_criteria_for_evaluation(tenant_id)
-    if not req.criteria_data and not criteria_data.get("categories"):
-        raise HTTPException(status_code=400, detail=f"No criteria configured for tenant {tenant_id}")
-    transcript_payload = [t.dict() for t in req.transcript] if isinstance(req.transcript, list) else req.transcript
+    transcript_payload = [_v2_turn(t) for t in req.transcript] if isinstance(req.transcript, list) else req.transcript
 
     result = evaluate_interaction(
         transcript_data=transcript_payload,
         criteria_data=criteria_data,
         tenant_id=tenant_id,
         channel=req.channel or "Call",
-        custom_prompt=req.custom_prompt,
         caller=req.get_customer_name()
     )
 
@@ -363,23 +552,8 @@ def evaluate_tenant_transcript(req: EvaluateRequest):
     }
 
 
-@app.post("/api/preview-prompt")
-def preview_tenant_prompt(req: EvaluateRequest):
-    tenant_id = req.get_tenant_id()
-    criteria_data = req.criteria_data or get_active_criteria_for_evaluation(tenant_id)
-    preview = preview_evaluation_prompt(
-        transcript_text=req.transcript,
-        criteria_data=criteria_data,
-        tenant_id=tenant_id,
-        channel=req.channel or "Call"
-    )
-    return preview
-
-
 if __name__ == "__main__":
     import uvicorn
-    from dotenv import load_dotenv
-    load_dotenv()
 
     host = os.getenv("SERVER_HOST", "0.0.0.0")
     port = int(os.getenv("SERVER_PORT", "8006"))
