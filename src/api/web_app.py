@@ -16,10 +16,16 @@ for _path in [_ROOT, _SRC]:
 import hmac
 import threading
 
+from dotenv import load_dotenv
+
+# Before the imports below: dynamic_evaluator reads LAYA_CHECKPOINT (and its cutoffs) at import time,
+# so loading .env later (e.g. under `uvicorn src.api.web_app:app`) would grade with the stock cutoffs.
+load_dotenv()
+
 from fastapi import FastAPI, HTTPException, Request, Response
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
-from pydantic import BaseModel
+from pydantic import BaseModel, field_validator
 
 from src.api.logger import logger
 from src.services.dynamic_evaluator import evaluate_interaction
@@ -65,6 +71,22 @@ def _safe_body(body: Any) -> Any:
         if out.get(k):
             out[k] = "[redacted]"
     return out
+
+
+def _safe_response(path: str, status: int, body: Any) -> Any:
+    """What the response log may keep. A scorecard's coaching can quote the customer's name, and a 422 echoes
+    the request back (FastAPI puts each failing value, often the whole transcript, in "input")."""
+    if LOG_REQUEST_BODIES:
+        return body
+    if status == 422 and isinstance(body, dict) and isinstance(body.get("detail"), list):
+        return {"detail": [{k: v for k, v in d.items() if k != "input"} if isinstance(d, dict) else d
+                           for d in body["detail"]]}
+    if path == "/api/evaluate" and isinstance(body, dict) and isinstance(body.get("result"), dict):
+        result = body["result"]
+        return {**{k: v for k, v in body.items() if k != "result"},
+                "result": {"final_score": result.get("final_score"), "is_auto_fail": result.get("is_auto_fail"),
+                           "items": len(result.get("scorecard") or [])}}
+    return body
 
 
 @app.get("/health")
@@ -199,6 +221,8 @@ async def log_requests_middleware(request: Request, call_next):
             res_body = res_body_bytes.decode("utf-8", errors="replace") if res_body_bytes else {}
         if not LOG_REQUEST_BODIES and len(res_body_bytes) > 20_000:       # e.g. /api/samples returns whole transcripts
             res_body = {"omitted_bytes": len(res_body_bytes)}
+        else:
+            res_body = _safe_response(path, response.status_code, res_body)
 
         latency_ms = round((time.time() - start_time) * 1000, 2)
         outcome = "SUCCESS" if 200 <= response.status_code < 400 else "FAILURE"
@@ -263,6 +287,7 @@ async def log_requests_middleware(request: Request, call_next):
 from src.db.database import (
     init_db,
     get_all_tenants,
+    UnknownTenant,
     create_tenant as db_create_tenant,
     create_category as db_create_category,
     get_categories as db_get_categories,
@@ -284,6 +309,12 @@ class Turn(BaseModel):
     end_time: Optional[Union[float, str]] = None
     end_time_sec: Optional[Union[float, str]] = None
     sentiment_score: Optional[float] = 0.0
+
+    @field_validator("sentiment_score", mode="before")
+    @classmethod
+    def _blank_sentiment_is_none(cls, v: Any) -> Any:
+        # ciap-api sends "" for a turn that wasn't scored; that is "no score", not a bad request.
+        return None if isinstance(v, str) and not v.strip() else v
 
 
 def _v2_turn(t: "Turn") -> Dict[str, Any]:
@@ -378,7 +409,10 @@ def get_criteria_for_tenant(tenant_id: str):
 @app.patch("/api/tenants/{tenant_id}/criteria/{line_item_id}/toggle")
 @app.post("/api/tenants/{tenant_id}/criteria/{line_item_id}/toggle")
 def toggle_criterion(tenant_id: str, line_item_id: str, req: ToggleCriterionRequest):
-    return toggle_tenant_criterion(tenant_id, line_item_id, req.is_active)
+    try:
+        return toggle_tenant_criterion(tenant_id, line_item_id, req.is_active)
+    except UnknownTenant:
+        raise HTTPException(status_code=404, detail=f"Unknown tenant {tenant_id!r}")
 
 
 @app.get("/api/criteria")
@@ -486,13 +520,12 @@ def evaluate_tenant_transcript(req: EvaluateRequest):
         payload = [t.model_dump() for t in req.transcript] if isinstance(req.transcript, list) else req.transcript
         try:
             normalise(payload, req.get_customer_name())
+            result = evaluate_v3(payload, criteria_data, tenant_id, req.channel or "Call", req.get_customer_name())
         except Exception as e:
             code = _error_status(e)
             if code is None:
                 raise
             raise HTTPException(status_code=code, detail=str(e))
-
-        result = evaluate_v3(payload, criteria_data, tenant_id, req.channel or "Call", req.get_customer_name())
         return {
             "call_id": call_id,
             "tenant_id": tenant_id,
@@ -521,8 +554,6 @@ def evaluate_tenant_transcript(req: EvaluateRequest):
 
 if __name__ == "__main__":
     import uvicorn
-    from dotenv import load_dotenv
-    load_dotenv()
 
     host = os.getenv("SERVER_HOST", "0.0.0.0")
     port = int(os.getenv("SERVER_PORT", "8006"))

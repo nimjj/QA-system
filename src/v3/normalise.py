@@ -171,7 +171,8 @@ def normalise(transcript: Union[str, List[Any]], customer_name: Optional[str] = 
     if not turns:
         raise InvalidTranscript("the transcript has no text")
     if not any(t.role == "agent" for t in turns):
-        warnings.append("no agent turns were recognised; check the speaker labels")
+        # Grading would pass every agent-behaviour item on no evidence and return a believable score.
+        raise InvalidTranscript("no agent turns were recognised; check the speaker labels")
     cust = [t.sentiment for t in turns if t.role == "customer"]
     available = sum(s is not None for s in cust) >= max(3, len(cust) // 2) and any(abs(s) > 1e-9 for s in cust if s is not None)
     if not available:

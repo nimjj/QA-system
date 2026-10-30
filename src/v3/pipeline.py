@@ -45,14 +45,16 @@ def _v2_transcript(call: NCall) -> List[Dict[str, Any]]:
     return out
 
 
-def _custom_check(item: Dict[str, Any]) -> Dict[str, Any]:
-    """A tenant-defined criterion: one yes/no question built from its own name and description (no name-substring routing)."""
+def _custom_check(item: Dict[str, Any], auto_fail: bool = False) -> Dict[str, Any]:
+    """A tenant-defined criterion: one yes/no question built from its own name and description (no name-substring routing).
+    Items in an AUTO FAIL category name what must not happen ("Rude or abusive language"), so they are asked as violations:
+    asking "did the agent do this?" with yes = PASS would fail, and zero, every clean call."""
     name = re.sub(r"\s+", " ", re.sub(r"<\s*br\s*/?\s*>", " ", item.get("name") or "Item", flags=re.I)).strip()
     desc = re.sub(r"<\s*br\s*/?\s*>", " ", item.get("description") or "", flags=re.I)
     desc = re.sub(r"\boutput\s+(yes\s+or\s+no|pass\s+or\s+fail)\b\.?", "", desc, flags=re.I)
     desc = re.sub(r"\s+", " ", desc).strip()
-    if desc.upper().startswith("VIOLATION-BASED"):
-        rule = re.sub(r"^VIOLATION-BASED:?\s*", "", desc, flags=re.I)
+    if desc.upper().startswith("VIOLATION-BASED") or auto_fail:
+        rule = re.sub(r"^VIOLATION-BASED:?\s*", "", desc, flags=re.I) or name
         return {"yes_means": "FAIL", "pass_threshold": 0.50, "question": de._noul(
             f"Does the agent violate this rule: {name}?", f"an agent line clearly violates it: {rule}", "no agent line violates it")}
     return {"yes_means": "PASS", "pass_threshold": 0.50, "question": de._noul(
@@ -181,7 +183,7 @@ def evaluate_v3(transcript_data, criteria_data: Dict[str, Any], tenant_id: str =
         contexts = {"agent": (inp.batch_agent_only if inp else ""), "end": (inp.resolved if inp else ""), "full": (inp.batch_full if inp else "")}
         for k in custom:
             item = item_of[k]
-            check = de.LAYA_CHECKS[LEGACY_ITEMS[k]] if k in LEGACY_ITEMS else _custom_check(item)
+            check = de.LAYA_CHECKS[LEGACY_ITEMS[k]] if k in LEGACY_ITEMS else _custom_check(item, "auto fail" in cat_of[k].lower())
             scope = "full" if k in LEGACY_ITEMS else item.get("scope", "agent")
             text = contexts.get(scope, contexts["agent"])
             budget.rows += 1
