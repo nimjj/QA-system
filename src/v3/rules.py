@@ -165,10 +165,15 @@ def evaluate_personalized(call: NCall) -> Dict:
 
 
 # ---------------------------------------------------------------- auto-fail
-_INSULT_FRAME = re.compile(r"(?:don'?t|do not|stop|quit)\s+(?:be|being)\s+(?:an?\s+|so\s+|such\s+an?\s+|that\s+)?$", re.I)
+# A negation before the word normally clears it ("that's not a stupid question"), except when the line still insults
+# ("don't be so stupid", "why don't you just shut up", "this isn't hard, you idiot").
+_INSULT_FRAME = re.compile(r"(?:(?:don'?t|do not|stop|quit)\s+(?:be|being)\s+(?:an?\s+|so\s+|such\s+an?\s+|that\s+)?"
+                           r"|\bwhy\s+(?:don'?t|do not)\s+you\s+(?:just\s+)?"
+                           r"|\byou\s+(?:an?\s+)?(?:absolute\s+|complete\s+|total\s+|bloody\s+)?)$", re.I)
 _NEG_LOOKBACK = re.compile(r"\b(?:not|never|no|don'?t|do not|won'?t|isn'?t|wasn'?t|aren'?t|nothing|without|n't)\b[^.?!]{0,20}$", re.I)
 _AUTOFAIL = [
-    ("fuck", re.compile(r"\bf+u+c+k\w*|\bf[\*@#]{1,3}(?:c|u)?k\w*|\bf\*+ing\b", re.I), True),
+    # never cleared by a negation: "I don't give a fuck" is still profanity
+    ("fuck", re.compile(r"\bf+u+c+k\w*|\bf[\*@#]{1,3}(?:c|u)?k\w*|\bf\*+ing\b", re.I), False),
     ("shut up", re.compile(r"\bshut[\s\-]*up\b", re.I), True),
     ("idiot", re.compile(r"\bidiots?\b(?!\s*-?\s*proof)", re.I), True),
     ("stupid", re.compile(r"\bstupid(?:ly)?\b", re.I), True),

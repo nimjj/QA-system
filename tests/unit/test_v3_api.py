@@ -48,6 +48,25 @@ class EvaluateEndpoint(unittest.TestCase):
         odd[5]["start_time_sec"] = None
         self.assertEqual(self.post(odd).status_code, 200)
 
+    def test_blank_sentiment_is_no_score(self):
+        # ciap-api sends sentiment_score "" for every turn it didn't score.
+        odd = [dict(t) for t in CALL]
+        odd[3]["sentiment_score"] = ""
+        odd[4]["sentiment_score"] = "  "
+        r = self.post(odd)
+        self.assertEqual(r.status_code, 200, r.text)
+
+    def test_logs_keep_no_scorecard_text_or_echoed_transcript(self):
+        with self.assertLogs(web_app.logger.name, level="INFO") as logs:
+            self.assertEqual(self.post(CALL).status_code, 200)
+            bad = [dict(t) for t in CALL]
+            bad[0]["sentiment_score"] = "not a number"
+            self.assertEqual(self.post(bad).status_code, 422)
+        text = "\n".join(logs.output)
+        self.assertNotIn("Alex", text)
+        self.assertNotIn(CALL[0]["text"], text)
+        self.assertNotIn("coaching", text)
+
     def test_bad_input_is_refused(self):
         self.assertEqual(self.post([]).status_code, 422)
         big = [{"speaker": "Agent", "text": "x", "start_time_sec": i} for i in range(1600)]

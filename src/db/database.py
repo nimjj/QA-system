@@ -7,6 +7,7 @@ to built-in criteria.json when database is unavailable.
 import os
 import json
 import uuid
+from contextlib import contextmanager
 from typing import Dict, Any, List, Optional
 import psycopg2
 from psycopg2.extras import RealDictCursor
@@ -24,14 +25,28 @@ _ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
 _CRITERIA_JSON_PATH = os.path.join(_ROOT, "src", "v3", "config", "criteria.json")
 
 
+# Grading reads the criteria on every call, so an unreachable database must fail fast
+# (and fall back to criteria.json) rather than hold the request for the OS connect timeout.
+DB_CONNECT_TIMEOUT = int(os.getenv("DB_CONNECT_TIMEOUT", "5"))
+
+
+@contextmanager
 def get_connection():
-    return psycopg2.connect(
+    """A connection for one `with` block: committed (or rolled back) and then closed.
+    psycopg2's own `with conn:` only ends the transaction and leaves the connection open."""
+    conn = psycopg2.connect(
         host=DB_HOST,
         port=DB_PORT,
         dbname=DB_NAME,
         user=DB_USER,
-        password=DB_PASSWORD
+        password=DB_PASSWORD,
+        connect_timeout=DB_CONNECT_TIMEOUT,
     )
+    try:
+        with conn:
+            yield conn
+    finally:
+        conn.close()
 
 
 def _default_criteria_json(tenant_id: str = "S-NET") -> Dict[str, Any]:
@@ -275,13 +290,18 @@ def get_active_criteria_for_evaluation(tenant_id: str) -> Dict[str, Any]:
     }
 
 
+class UnknownTenant(LookupError):
+    """The tenant id matches no tenant in connect_first.tenants."""
+
+
 def toggle_tenant_criterion(tenant_id: str, line_item_id: str, is_active: bool) -> Dict[str, Any]:
     """Toggles a criterion ON or OFF for a specific tenant by code in app.qa_tenant_criteria."""
     with get_connection() as conn:
         with conn.cursor(cursor_factory=RealDictCursor) as cur:
             code = _resolve_tenant_code(cur, tenant_id)
             if code is None:
-                code = int(tenant_id) if str(tenant_id).isdigit() else 208
+                # Never guess: a fallback code would switch items on or off for some other tenant.
+                raise UnknownTenant(tenant_id)
             cur.execute(
                 """
                 INSERT INTO app.qa_tenant_criteria (tenant_id, line_item_id, is_active)

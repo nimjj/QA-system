@@ -29,7 +29,9 @@ COPY src/ src/
 COPY inputs/ inputs/
 COPY Scripts/ Scripts/
 # The weights are NOT in the image: mount them at /app/models (docker-compose.yml does, read-only). See models/README.md
-RUN mkdir -p logs models && chown -R qa:qa /app
+# Runs as uid 1000 (qa) by default; any uid works with group 0 (docker run --user <uid>:0), e.g. the host user
+# that owns the mounted folders: /app is owned by qa and group 0, writable by both.
+RUN mkdir -p logs models && chown -R qa:0 /app && chmod -R g=u /app
 USER qa
 
 EXPOSE 8006

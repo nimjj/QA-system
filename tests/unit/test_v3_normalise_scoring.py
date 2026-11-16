@@ -49,7 +49,8 @@ class Normalise(unittest.TestCase):
         self.assertTrue(c.sentiment_available)
 
     def test_all_zero_sentiment_is_reported_as_unavailable(self):
-        c = normalise([{"speaker": "Customer", "text": "hi", "start_time_sec": i * 5, "sentiment_score": 0.0} for i in range(6)])
+        c = normalise([{"speaker": "Agent", "text": "hello", "start_time_sec": 0}]
+                      + [{"speaker": "Customer", "text": "hi", "start_time_sec": i * 5, "sentiment_score": 0.0} for i in range(1, 7)])
         self.assertFalse(c.sentiment_available)
 
     def test_string_transcript(self):
@@ -70,10 +71,11 @@ class Normalise(unittest.TestCase):
         with self.assertRaises(InvalidTranscript):
             normalise({"speaker": "Agent"})
 
-    def test_unknown_speaker_is_other_and_flagged_when_no_agent(self):
-        c = normalise([{"speaker": "Speaker 1", "text": "hello", "start_time_sec": 0}])
-        self.assertEqual(c.turns[0].role, "other")
-        self.assertTrue(any("no agent" in w for w in c.warnings))
+    def test_unknown_speaker_is_other_and_refused_when_no_agent(self):
+        c = normalise([{"speaker": "Agent", "text": "hi", "start_time_sec": 0}, {"speaker": "Speaker 1", "text": "hello", "start_time_sec": 3}])
+        self.assertEqual(c.turns[1].role, "other")
+        with self.assertRaisesRegex(InvalidTranscript, "no agent"):
+            normalise([{"speaker": "Speaker 1", "text": "hello", "start_time_sec": 0}])
 
 
 CRITERIA = {"category_weights": {"Customer Experience": 0.4, "Compliance": 0.6},

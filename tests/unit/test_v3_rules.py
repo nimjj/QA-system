@@ -182,3 +182,24 @@ class Personalized(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class ReviewFixes(unittest.TestCase):
+    """Auto-fail negation loopholes and agent-less transcripts."""
+
+    def af(self, line):
+        return rules.check_auto_fail(call(("Agent", line, 0), ("Customer", "ok", 5)))[0]
+
+    def test_negation_does_not_clear_abuse(self):
+        for line in ["I don't give a fuck", "No fucking way am I doing that",
+                     "Why don't you just shut up", "This isn't hard, you idiot"]:
+            self.assertTrue(self.af(line), line)
+
+    def test_negation_still_clears_benign_lines(self):
+        for line in ["That's not a stupid question at all", "Please don't hang up while I transfer you"]:
+            self.assertFalse(self.af(line), line)
+
+    def test_no_agent_turns_is_refused(self):
+        from src.v3.normalise import InvalidTranscript
+        with self.assertRaises(InvalidTranscript):
+            call(("Speaker 1", "hello", 0), ("Speaker 2", "hi", 5))
