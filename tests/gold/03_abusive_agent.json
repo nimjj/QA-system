@@ -1,0 +1,24 @@
+{
+  "name": "abusive_agent",
+  "note": "Agent is abusive to the customer. The call must auto-fail and score 0; every check fails.",
+  "expected_auto_fail": true,
+  "expected": {
+    "Branding and Survey Check": "FAIL",
+    "Empathy & Acknowledgment Statement": "FAIL",
+    "Build rapport and observed professionalism": "FAIL",
+    "Verified customer": "FAIL",
+    "Probing": "FAIL",
+    "Confirmed the issue is resolved": "FAIL"
+  },
+  "payload": {
+    "tenant_id": "tenant-abc",
+    "customer_name": "Dan",
+    "transcript": [
+      {"speaker": "Agent", "text": "Thank you for calling S-Net, this is Alex.", "start_time_sec": 0, "sentiment_score": 5.0},
+      {"speaker": "Customer", "text": "My bill is wrong again and I'm fed up with this.", "start_time_sec": 6, "sentiment_score": -40.0},
+      {"speaker": "Agent", "text": "Shut up and stop wasting my time, you idiot.", "start_time_sec": 12, "sentiment_score": -50.0},
+      {"speaker": "Customer", "text": "Excuse me? That is completely unacceptable.", "start_time_sec": 18, "sentiment_score": -60.0},
+      {"speaker": "Agent", "text": "Whatever. Figure it out yourself.", "start_time_sec": 23, "sentiment_score": -45.0}
+    ]
+  }
+}

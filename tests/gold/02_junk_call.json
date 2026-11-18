@@ -1,0 +1,28 @@
+{
+  "name": "junk_call",
+  "note": "Non-call: the agent says almost nothing. Nothing can be demonstrated, so every check should fail (CIP-577).",
+  "expected_auto_fail": false,
+  "expected": {
+    "Branding and Survey Check": "FAIL",
+    "Hold time and Dead Air": "FAIL",
+    "Verified customer": "FAIL",
+    "Personalized the call/ticket appropriately": "FAIL",
+    "Empathy & Acknowledgment Statement": "FAIL",
+    "Paraphrasing": "FAIL",
+    "Active listening": "FAIL",
+    "Took ownership of the problem": "FAIL",
+    "Build rapport and observed professionalism": "FAIL",
+    "Probing": "FAIL",
+    "Confirmed the issue is resolved": "FAIL"
+  },
+  "payload": {
+    "tenant_id": "tenant-abc",
+    "transcript": [
+      {"speaker": "Agent", "text": "Thank you.", "start_time_sec": 0, "sentiment_score": 0.0},
+      {"speaker": "Customer", "text": "Hello?", "start_time_sec": 3, "sentiment_score": 0.0},
+      {"speaker": "Agent", "text": "Hello. Hello.", "start_time_sec": 6, "sentiment_score": 0.0},
+      {"speaker": "Customer", "text": "Are you there?", "start_time_sec": 9, "sentiment_score": 0.0},
+      {"speaker": "Agent", "text": "Oh.", "start_time_sec": 12, "sentiment_score": 0.0}
+    ]
+  }
+}

@@ -1,0 +1,42 @@
+{
+  "name": "good_full_call",
+  "note": "Textbook good call: greeting, empathy, verification, restatement with a cue, probing, resolution. Every check should pass.",
+  "expected_auto_fail": false,
+  "expected": {
+    "Branding and Survey Check": "PASS",
+    "Hold time and Dead Air": "PASS",
+    "Verified customer": "PASS",
+    "Personalized the call/ticket appropriately": "PASS",
+    "Empathy & Acknowledgment Statement": "PASS",
+    "Paraphrasing": "PASS",
+    "Active listening": "PASS",
+    "Took ownership of the problem": "PASS",
+    "Build rapport and observed professionalism": "PASS",
+    "Probing": "PASS",
+    "Confirmed the issue is resolved": "PASS"
+  },
+  "payload": {
+    "tenant_id": "tenant-abc",
+    "customer_name": "Maria",
+    "transcript": [
+      {"speaker": "Agent", "text": "Thank you for calling S-Net technical support, my name is Alex. How can I help you today?", "start_time_sec": 0, "sentiment_score": 12.0},
+      {"speaker": "Customer", "text": "Hi, I'm really frustrated. My internet has been dropping every ten minutes for the last two days and I work from home.", "start_time_sec": 9, "sentiment_score": -35.0},
+      {"speaker": "Agent", "text": "I'm really sorry to hear that, Maria, that sounds incredibly disruptive when you rely on it for work. I'll take ownership of this and get it sorted for you today.", "start_time_sec": 20, "sentiment_score": 10.0},
+      {"speaker": "Customer", "text": "Thank you, I appreciate that.", "start_time_sec": 32, "sentiment_score": 5.0},
+      {"speaker": "Agent", "text": "To protect your account, could you please confirm the PIN on the account and the billing address?", "start_time_sec": 38, "sentiment_score": 8.0},
+      {"speaker": "Customer", "text": "Sure, the PIN is 5521 and the address is 42 Main Street.", "start_time_sec": 47, "sentiment_score": 6.0},
+      {"speaker": "Agent", "text": "Thank you, that all matches, you're verified. So just to make sure I understand: your connection drops roughly every ten minutes and it's been happening for about two days. Is that right?", "start_time_sec": 56, "sentiment_score": 10.0},
+      {"speaker": "Customer", "text": "Yes, exactly.", "start_time_sec": 70, "sentiment_score": 8.0},
+      {"speaker": "Agent", "text": "When the drops happen, does it affect every device at once, or just the computer you work on?", "start_time_sec": 76, "sentiment_score": 9.0},
+      {"speaker": "Customer", "text": "Every device, actually. Phone, TV, all of it.", "start_time_sec": 85, "sentiment_score": 6.0},
+      {"speaker": "Agent", "text": "That's helpful, thank you. Have you noticed if it happens more at a particular time of day?", "start_time_sec": 92, "sentiment_score": 10.0},
+      {"speaker": "Customer", "text": "Mostly in the evenings now that you mention it.", "start_time_sec": 101, "sentiment_score": 7.0},
+      {"speaker": "Agent", "text": "Understood. I can see your line profile is on an older channel that gets congested in the evenings. I'm going to reset it to a cleaner channel now. One moment while I apply that.", "start_time_sec": 108, "sentiment_score": 12.0},
+      {"speaker": "Agent", "text": "That's done. Your line has re-synced on the new channel. Can you check if your connection looks stable now?", "start_time_sec": 140, "sentiment_score": 13.0},
+      {"speaker": "Customer", "text": "Give me a second... yes, everything reconnected and it looks solid.", "start_time_sec": 150, "sentiment_score": 20.0},
+      {"speaker": "Agent", "text": "Wonderful. So to confirm, the dropouts should be resolved now that you're on the new channel. Is there anything else I can help you with today, Maria?", "start_time_sec": 160, "sentiment_score": 18.0},
+      {"speaker": "Customer", "text": "No, that's everything. Thank you so much for your help!", "start_time_sec": 171, "sentiment_score": 30.0},
+      {"speaker": "Agent", "text": "My pleasure. Thank you for choosing S-Net, and have a great rest of your day!", "start_time_sec": 179, "sentiment_score": 20.0}
+    ]
+  }
+}
