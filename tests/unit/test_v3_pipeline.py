@@ -132,6 +132,30 @@ class Pipeline(unittest.TestCase):
         self.assertTrue(r["is_auto_fail"])
         self.assertEqual(r["final_score"], 0.0)
 
+    def test_too_short_a_call_cannot_pass_checks_by_absence(self):
+        junk = [
+            {"speaker": "Agent", "text": "Thank you.", "start_time_sec": 0},
+            {"speaker": "Customer", "text": "Hello?", "start_time_sec": 3},
+            {"speaker": "Agent", "text": "Hello. Hello.", "start_time_sec": 6},
+            {"speaker": "Customer", "text": "Are you there?", "start_time_sec": 9},
+            {"speaker": "Agent", "text": "Oh.", "start_time_sec": 12},
+        ]
+        r = self.run_call(junk, caller=None)                               # no name given; the stand-in model answers PASS to everything
+        self.assertFalse(r["meta"]["gradeable"])
+        self.assertEqual(r["meta"]["agent_words"], 5)
+        flipped = {e["name"] for e in r["scorecard"]
+                   if scoring.name_key(e["name"]) in pipeline.ABSENCE_PASS_ITEMS}
+        self.assertEqual(len(flipped), 6)                                  # all six absence-pass checks are present
+        for e in r["scorecard"]:
+            if scoring.name_key(e["name"]) in pipeline.ABSENCE_PASS_ITEMS:
+                self.assertEqual(e["rating"], "FAIL", e["name"])
+                self.assertIn("too short", e["coaching"].lower())
+
+    def test_a_normal_length_call_stays_gradeable(self):
+        m = self.run_call()["meta"]                                        # CALL has well over the word floor
+        self.assertTrue(m["gradeable"])
+        self.assertGreaterEqual(m["agent_words"], 25)
+
     def test_unknown_item_names_become_a_custom_question_not_a_substring_guess(self):
         crit = criteria(["Branding and Survey Check", "Offered a callback"], soft=("Branding and Survey Check",))
         with mock.patch.object(pipeline.de, "predict_yes", return_value={"q": 0.9}) as py:
