@@ -13,6 +13,10 @@
     "other": ["ivr", "bot", "system", "automated", "recording", "voicemail", "hold", "music", "announcer", "assistant"]
   },
   "speech_seconds_per_word": 0.4,
+  "gradeable": {
+    "_note": "CIP-577: a call where the agent speaks fewer than min_agent_words real words is too empty to grade; checks that pass by the absence of a problem are failed instead of passing by default.",
+    "min_agent_words": 25
+  },
   "dead_air": {
     "gap_seconds": 30,
     "breaches_to_fail": 2,

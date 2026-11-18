@@ -30,6 +30,16 @@ RULE_ITEMS = {
 MODEL_ITEMS = {"empathy & acknowledgment statement", "paraphrasing", "active listening", "took ownership of the problem",
                "build rapport and observed professionalism", "probing", "confirmed the issue is resolved"}
 LEGACY_ITEMS = {"escalation": "escalation", "hostility": "hostility"}          # exact names only (v2 matched any name containing them)
+# CIP-577: these pass by the absence of a detected problem, not by positive evidence. On a call too short to grade,
+# "no problem detected" proves nothing, so they must fail instead of passing by default (see gradeable gate below).
+ABSENCE_PASS_ITEMS = {"empathy & acknowledgment statement", "active listening", "took ownership of the problem",
+                      "build rapport and observed professionalism", "personalized the call/ticket appropriately", "hold time and dead air"}
+_NOT_GRADEABLE_COACHING = "Call too short to assess: the agent spoke too little to demonstrate this, so a default pass is not earned."
+
+
+def _agent_words(call: NCall) -> int:
+    """Real word tokens the agent spoke across all agent turns (the gradeability signal for CIP-577)."""
+    return sum(len(re.findall(r"\w+", t.text)) for t in call.turns if t.role == "agent")
 
 
 def _v2_transcript(call: NCall) -> List[Dict[str, Any]]:
@@ -152,6 +162,9 @@ def evaluate_v3(transcript_data, criteria_data: Dict[str, Any], tenant_id: str =
     t0 = time.perf_counter()
     cfg = load_config()
     call = normalise(transcript_data, caller, cfg)
+    grade_min = cfg.get("gradeable", {}).get("min_agent_words", 25)
+    agent_words = _agent_words(call)
+    gradeable = agent_words >= grade_min
     items = scoring.tenant_items(criteria_data)                       # NoCriteria when the tenant has none
     cat_of = {scoring.name_key(i.get("name")): cat for cat, i in items}
     item_of = {scoring.name_key(i.get("name")): i for _, i in items}
@@ -191,6 +204,12 @@ def evaluate_v3(transcript_data, criteria_data: Dict[str, Any], tenant_id: str =
             p_yes = de.predict_yes(text, {"q": check["question"]}, label=f"custom_{scope}")["q"]
             ok = de._p_pass(check, p_yes) >= check["pass_threshold"]
             ratings[k] = {"name": item.get("name"), "rating": "PASS" if ok else "FAIL", "score": 100 if ok else 0, "coaching": "", "evidence": []}
+    if not is_af and not gradeable:                                   # CIP-577: too little was said to pass a check by the absence of a problem
+        for k in ABSENCE_PASS_ITEMS & wanted:
+            if ratings.get(k, {}).get("rating") == "PASS":
+                ratings[k].update(rating="FAIL", coaching=_NOT_GRADEABLE_COACHING,
+                                  note=f"not gradeable: agent spoke {agent_words} words (min {grade_min})")
+
     for k, item in item_of.items():                                   # tenant-defined auto-fail items (category named "AUTO FAIL ...")
         if "auto fail" in cat_of[k].lower() and ratings.get(k, {}).get("rating") == "FAIL" and not is_af:
             is_af, af_reason = True, f"Auto-Fail Triggered by Scorecard: {item.get('name')}"
@@ -239,6 +258,7 @@ def evaluate_v3(transcript_data, criteria_data: Dict[str, Any], tenant_id: str =
         "is_auto_fail": is_af,
         "auto_fail_reason": af_reason,
         "meta": {"flow": "v3", "config_version": cfg["version"], "model": os.path.basename(checkpoint.rstrip("/\\")) if checkpoint else "stock",
+                 "gradeable": gradeable, "agent_words": agent_words,
                  "al_second_source": al_source2_enabled(), "sentiment_available": call.sentiment_available, "warnings": call.warnings,
                  "gates": {k: v.get("mode") for k, v in cfg.get("gates", {}).items() if isinstance(v, dict)}, "model_rows": budget.rows, "model_words": budget.words, "rows_by_check": budget.by_check,
                  "seconds": round(time.perf_counter() - t0, 2)},
