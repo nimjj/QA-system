@@ -55,7 +55,12 @@ def _overlaps_problem(agent_text: str, problem_text: str, need: int = 2) -> bool
 
 def cue_aff(call: NCall) -> List[str]:
     """cue_any, plus an agent line that the customer answers with a plain agreement ("yes", "exactly") and that reuses the customer's own
-    words. Customers agree after a restatement far more often than after other agent lines."""
+    words. Customers agree after a restatement far more often than after other agent lines.
+
+    Known limitation: a correct restatement in the agent's own words that the customer does NOT verbally confirm
+    (they simply carry on) opens no window here and is scored FAIL. A future variant should also detect a
+    restatement by content-overlap with the customer's problem, without needing an explicit agreement, and let
+    the model judge it. Tune against the full gate-lab set before enabling."""
     problem = _problem_statement(call)
     if problem is None:
         return []
